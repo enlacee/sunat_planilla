@@ -1,0 +1,45 @@
+http://192.168.1.254/prosic_erp/index.php
+
+acopitan@laromana.com
+123456
+
+//sistemas
+user:pedro
+pass:pacherres2010
+
+//phpadmin
+root
+dbc4mu2010
+
+directorio
+//Planilla
+
+//SERVIDOR//
+$mysql_host = "mysql5.000webhost.com";
+$mysql_database = "a8939712_sunat";
+$mysql_user = "a8939712_sunat";
+$mysql_password = "hack#123";
+
+//-------------------------------
+//-------------------------------
+CAMUENTE S.A.	
+20100338611	
+USUARIO	KHM9SR4H
+CLAVE	iqRJQYHc5
+
+//personas
+09678603
+//--
+45678078
+03/02/1989
+
+//-------------------------------
+//-------------------------------
+EL GOL MARINO S.A.C.	
+20469663681	
+USUARIO	PCLKLVB3
+CLAVE	gEezhUsXi
+
+
+//pacherres
+20506115826

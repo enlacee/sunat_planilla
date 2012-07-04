@@ -1,0 +1,3 @@
+empleadores 	Browse 	Structure 	Search 	Insert 	Empty 	Drop 	3 	InnoDB 	latin1_swedish_ci 	96.0 KiB 	-
+	establecimientos 	Browse 	Structure 	Search 	Insert 	Empty 	Drop 	3 	InnoDB 	latin1_swedish_ci 	48.0 KiB 	-
+	establecimientos_direcciones

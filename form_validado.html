@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script src="view/js/jquery-1.7_min.js"></script>
+<script src="view/js/jquery.form.js"></script>
+<script src="view/js/jquery.validate.1.5.2.js"></script>
+
+<script>
+
+ $(document).ready(function(){
+//alert("dd");
+/*
+$("#form1").validate({
+    invalidHandler: function(form, validator) {
+      var errors = validator.numberOfInvalids();
+      if (errors) {
+        var message = errors == 1
+          ? 'You missed 1 field. It has been highlighted'
+          : 'You missed ' + errors + ' fields. They have been highlighted';
+        $("div.error span").html(message);
+        $("div.error").show();
+      } else {
+        $("div.error").hide();
+      }
+    }
+ })
+ */
+ //-------------------
+/*
+$("#form1").validate({
+   ignore: ".ignore"
+})
+*/
+
+//------------
+//--------------------------------------
+$("#form1").validate({
+   rules: {
+     nombre: {
+       required: true,
+       sexo: {
+         depends: function(element) {
+           return $("#chk:checked")
+         }
+       }
+     }
+   }
+})
+
+
+
+
+
+
+
+
+ });
+</script>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="hola.php" novalidate="novalidate" >
+  <label for="nombre"></label>
+  nombre
+  <input type="text" name="nombre" id="nombre" class="required" />
+  <br />
+  apellido
+  <label for="apellido"></label>
+  <input type="text" name="apellido" id="apellido" class="ignore"/>
+  <br />
+  fecha nac
+  <label for="fecha_nacimiento"></label>
+  <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" />
+  <br />
+  Sexo
+  <input type="radio" name="sexo" id="sexo1" value="sexo" />
+  M
+  <label for="sexo"></label>
+  <input type="radio" name="sexo" id="sexo2" value="sexo" />
+  F
+  <label for="sexo2"></label>
+  <br />
+  cursos:
+  <br />
+  <input type="checkbox" name="visual" id="visual" class="chk" />
+  <label for="visual"></label>
+  visual<br />
+  <input type="checkbox" name="java" id="java"  class="chk"/>
+  <label for="java"></label>
+  java<br />
+  <input type="checkbox" name="c" id="c" />
+  <label for="c"></label>
+  c#
+  <br />
+  <input type="submit" name="btn_enviar" id="btn_enviar" value="Submit" />
+<br />
+</form>
+<span>
+<div class="error" id="anb">e<span></span></div>ç
+
+
+</span>
+</body>
+</html>

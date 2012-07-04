@@ -1,0 +1,169 @@
+<?php
+
+function printr($mix) {
+    echo "<pre>";
+    print_r($mix);
+    echo "<pre>";
+    // echo "<hr>";
+}
+
+/**
+ * 
+ */
+
+/**
+ *
+ * @param string $fecha_es_us Formato fecha ISO o por default
+ * @param string $patron_date Patron date(Y-m-d)
+ * @return string fecha
+ */
+function getFechaPatron($fecha_es_us, $patron_date) {
+    if (!isset($fecha_es_us) || $fecha_es_us =="0000-00-00" ) {
+        return null;
+    }
+
+
+    $fecha_es_us = eregi_replace("/", "-", $fecha_es_us);
+
+    $fecha = date("Y-m-d", strtotime($fecha_es_us));
+
+    if (isset($patron_date) && !empty($fecha_es_us)) {
+        $fecha = date($patron_date, strtotime($fecha));
+    } else {
+        return null;
+    }
+
+    return $fecha;
+}
+
+/**
+ *
+ * @param array $arreglo 
+ * @return array devuelve un arreglo unico y ordenado 
+ */
+function array_unique_ordenado($arreglo) {
+
+    $array_unico = array_unique($arreglo);
+
+    $array = array();
+
+    foreach ($array_unico as $key) {
+
+        $array[] = $key;
+    }
+
+    return $array;
+}
+
+/**
+ *
+ * @param integer $num Numero del mes Espaniol
+ * @return string Nombre del mes
+ */
+function mes($num) {
+    $mes = array("Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Novienbre",
+        "Diciembre"
+    );
+
+    return $mes[$num - 1];
+}
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// ---------- FUNCIONES LOGICAS DEL SISTEMA
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+/**
+ *
+ * @param float $m_max_ventas
+ * @param float $m_max_ventas_tasa
+ * @param float $m_max_tx
+ * @param float $m_max_tx_tasa
+ * @return float  Numero Redondeado con 2 decimales
+ */
+function calcularGarantiaFR($m_max_ventas, $m_max_ventas_tasa, $m_max_tx, $m_max_tx_tasa) {
+
+    $a1 = (float) $m_max_ventas;
+    $a2 = (float) ($m_max_ventas_tasa / 100);
+
+    $b1 = (float) $m_max_tx;
+    $b2 = (float) ($m_max_tx_tasa / 100);
+
+    $rr = ($a1 * $a2) + ($b1 * $b2);
+
+    round($rr, 2);
+
+    return $rr;
+}
+
+//echo calcularGarantiaFR(1100, 10, 10, 0.5);
+//------------------------------------------------------------------------------
+
+
+function getRangoFechaSemana($fecha_ISO) {
+//  $fecha = "14/01/2012";
+//  $fecha = "31/12/2011"; //año  ERROR
+
+    $fecha = explode("/", $fecha_ISO);
+
+    $diax = $fecha[0];
+    $mesx = $fecha[1];
+    $aniox = $fecha[2];
+
+    $format_fecha = "$aniox-$mesx-$diax";
+    $fff = strtotime($format_fecha);
+    $fecha_string = date("l d F Y", $fff);
+
+//Sabado Inicia //CONDICIONAR SABADOOOOOOOOOOO !!!!
+//-----------------------------
+    $fecha_inicio = "";
+    $fecha_final = "";
+//-----------------------------
+    $dia_nombre = date("l", $fff);
+    if ($dia_nombre == "Saturday") {
+        $inicia = strtotime($fecha_string . "Saturday");
+        $fecha_inicio2 = date("Y-m-d", $inicia);
+        $fecha_inicio = $fecha_string;
+    } else {
+        $inicia = strtotime($fecha_string . " last Saturday"); //last Monday  +1 day
+        $fecha_inicio2 = date("l d F Y", $inicia);
+        $fecha_inicio = date("Y-m-d", $inicia);
+    }
+
+//Viernes Cierra
+    $cierra = strtotime($fecha_string . " Friday");
+    $fecha_final2 = date("l d F Y", $cierra);
+    $fecha_final = date("Y-m-d", $cierra);
+
+//Miercoles Siguiente Pago( "next WEDNESDAY" ) Cierra
+    $pago = strtotime($fecha_string . " next Wednesday");
+    $fecha_pago2 = date("l d F Y", $pago);
+    $fecha_pago = date("Y-m-d", $pago);
+
+
+
+
+//return
+    $rpta = array("fecha" => $fecha_string,
+        "inicio" => $fecha_inicio,
+        "inicio2" => $fecha_inicio2,
+        "final" => $fecha_final,
+        "final2" => $fecha_final2,
+        "pago" => $fecha_pago
+    );
+
+    return $rpta;
+}
+
+?>

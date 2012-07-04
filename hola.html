@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<script src="view/js/jquery-1.7_min.js"></script>
+<script type="text/javascript">
+
+function limpiarCodigoServicio(e,obj) {// alert('sss2');
+//tecla=(document.all) ? e.keyCode : e.which;
+
+console.dir(e);
+if (tecla!=13) {
+//var cod = document.getElementById(+codser).value;
+
+}
+
+
+}//----------
+
+//$("#sexo option[value=0]").attr("selected",true); 
+
+//-------
+
+function buscarCodigoServicio(e,valor,codser) {
+tecla=(document.all) ? e.keyCode : e.which;
+if (tecla==13) {
+select=document.getElementById('selDesSer' + codser);
+var hallado=false;
+for (i=0;i<select.length;i++) {
+if (select.options[i].value==valor) {
+select.selectedIndex=i;
+hallado=true;
+document.getElementById("desSer"+codser).value=select.value;
+}
+}
+if (!hallado) {
+alert("El código ingresado es incorrecto. Verifique el código ingresado e inténtelo nuevamente.");
+select.selectedIndex=0;
+actualizarCodigoServicioSeleccionado(codser,"");
+document.getElementById("desSer"+codser).value="-";
+}
+}
+}
+
+</script>
+</head>
+
+<body>
+<form action="hola.php" method="post" >
+
+<div id="crear">
+
+<div id="patron">
+
+<input  type="text" value="" name="nota[]" 
+onkeyup="limpiarCodigoServicio(event, this)"
+onkeypress="return buscarCodigoServicio(event,this.value)"
+
+
+ />
+
+<select name="cbo_servicio_recibido[]" style="width:150px">
+  <option value="0" selected="selected">-</option>
+<option value="1">uno</option>
+<option value="2">dos</option>
+<option value="3">tres</option>
+</select>
+
+<input name="txt_fecha_inicio[]" type="text" />
+<input name="txt_fecha_fin[]" type="text" />
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div id="dinamico">
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Botón" onclick="encontrar()" />
+<!--<form action="hola.php" name="form" id="form" method="post">
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Botón" onclick="nuevo()" />
+
+
+
+<input  type="text" value="s" name="nota[]"/>
+<input  type="text" value="d" name="nota[]"/>
+<input  type="text" value="s" name="nota[]"/>
+<input  type="text" value="nsull" name="nota[]"/>
+<input  type="text" value="naaull" name="nota[]"/>
+
+
+<input name="name[]" type="checkbox" value="UNO" />S
+<input name="name[]" type="checkbox" value="DOS" />S
+<input name="name[]" type="checkbox" value="DD" />S
+<input name="name[]" type="checkbox" value="DD" />S
+
+<br />
+
+<input name="" type="submit" />
+</form>
+--></div>
+</div>
+<input type="submit" name="button" id="button" value="Enviar" />
+</form>
+</body>
+</html>

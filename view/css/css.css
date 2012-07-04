@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin: 0;
+	padding: 0;
+	/*border:0;*/
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+
+}
+body {
+	   background: url("../css/skin/site_bg.jpg") repeat-x scroll left top #AAAFB5;
+/*    background: none repeat scroll 0 0 #FFF;
+*/    height: 100%;
+    word-wrap: break-word;
+	text-align:left;
+	font-size:12px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-size: 20px;
+	
+}
+h2 {
+    font-size: 16px;
+}
+h3 {
+    font-size: 13px;
+}
+h4, h5 {
+    font-size: 12px;
+}
+p {
+    margin: 1em 0;
+}
+a {
+    color: #3B5998;
+    cursor: pointer;
+    text-decoration: none;	
+}
+a:hover {
+	text-decoration: none;
+}
+
+img {
+    border: 0 none;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li{
+	list-style:none;
+}
+hr {
+    background: none repeat scroll 0 0 #D9D9D9;
+    border-width: 0;
+    color: #D9D9D9;
+    height: 1px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+	background-color:transparent;
+	border-color:transparent;
+	/*border:1px solid #CCC;*/
+	
+}
+
+table th,td{
+	/*border:1px	 solid #AEAEAE;*/
+	padding:5px;
+	border-color:transparent;
+	}
+	
+	
+caption{
+	font-size:18px;
+}
+
+
+
+
+
+/*::::::::::::::::::: ESPECIALES :::::::::::::::::::*/
+.clear{
+	clear:both;
+}
+
+
+/**
+*	--- COLORES ---
+*
+*/
+
+.red{
+	color:#F00;
+}
+

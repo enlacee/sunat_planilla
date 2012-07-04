@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<script type="text/javascript">
+
+function nuevo(){
+	
+	//Capa Contenedora
+	capa = document.getElementById('crear');
+	
+	//crear elemento
+	input = document.createElement('input');
+	
+	//
+	input.setAttribute('name','nota[]');
+	input.setAttribute('type','text');
+	
+	//
+	capa.appendChild(input);	
+	
+
+}
+
+
+//----
+
+function nuevo2(){
+	
+	//Capa Contenedora
+	capa = document.getElementById('crear');
+	
+	//crear elemento
+	clon = document.getElementById('patron');
+	//clon.('id',id); 
+	clonado = clon.cloneNode(true);
+	capa.appendChild(clonado);
+	
+
+}
+
+//----
+
+function nuevo3(){
+	
+	//Capa Contenedora
+	capa = document.getElementById('crear');
+	
+	//crear elemento
+	patron = document.getElementById('patron');
+	//ubicar hijo
+//	patron.setAttribute('id',' ');	
+	
+	//console.dir(hijo_patron);
+	//console.dir(hijo_patron);
+	clonado = patron.cloneNode(true);	
+	clonado.removeAttribute('id');
+	
+	capa.appendChild(clonado);
+	
+	
+
+}
+
+
+
+</script>
+</head>
+
+<body>
+<form action="hola.php" method="post" >
+
+<div id="crear">
+
+<div id="patron">
+
+<input  type="text" value="txt_codigo" name="nota[]" />
+
+<select name="cbo_servicio_recibido[]" style="width:150px">
+<option value="0">cero</option>
+<option value="1">uno</option>
+<option value="2">dos</option>
+</select>
+
+<input name="txt_fecha_inicio[]" type="text" />
+<input name="txt_fecha_fin[]" type="text" />
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div id="dinamico">
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Botón" onclick="nuevo3()" />
+<!--<form action="hola.php" name="form" id="form" method="post">
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Botón" onclick="nuevo()" />
+
+
+
+<input  type="text" value="s" name="nota[]"/>
+<input  type="text" value="d" name="nota[]"/>
+<input  type="text" value="s" name="nota[]"/>
+<input  type="text" value="nsull" name="nota[]"/>
+<input  type="text" value="naaull" name="nota[]"/>
+
+
+<input name="name[]" type="checkbox" value="UNO" />S
+<input name="name[]" type="checkbox" value="DOS" />S
+<input name="name[]" type="checkbox" value="DD" />S
+<input name="name[]" type="checkbox" value="DD" />S
+
+<br />
+
+<input name="" type="submit" />
+</form>
+--></div>
+</div>
+<input type="submit" name="button" id="button" value="Enviar" />
+</form>
+</body>
+</html>

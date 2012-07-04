@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<script type="text/javascript">
+
+
+function validar(){	
+
+//----
+var frm = document.form_boleteria;
+//console.log("demo ini");
+//console.dir(frm);
+//console.log("demo end");
+for(var i=0; i<frm.elements.length;i++){	
+//console.log("entro");
+	if(frm.elements[i].tagName == 'INPUT'){
+		if(frm.elements[i].value==''){
+			alert("INPUT esta vacio");
+			return false;
+		}
+
+	}else if(frm.elements[i].tagName == 'SELECT'){
+		if(frm.elements[i].value==''){
+			alert("SELECT esta vacio");
+			return false;
+		}
+	}else{
+		alert ("no hay nombre");
+		return false;	
+	}
+
+
+}//end for
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+function vercombo(ref){
+	console.dir(ref);
+	
+	
+	console.log("nombre_combo ="+ref.name);
+	
+	cadena = ref.name;
+	
+	partes = cadena.split('[]')
+	
+	
+}
+
+
+
+function verCodigo(ref){
+	ref.style.borderColor='silver';
+	console.log("mi nombre input ="+ref.name);
+	console.dir(ref);
+	alert(ref.value);
+	padre = ref.parentNode;
+	padre.style.color ='red';
+	
+	
+	console.log("-........................");
+	console.log("-........................");
+	console.log("-........................");
+	console.dir(ref.nextSibling);
+	
+	padre =ref.parentNode; // hereDIV PADRE all form
+	
+	hijos = padre.children;
+	
+	for(i=0; i< hijos.length; i++){
+		
+		if(hijos[i].nodeName =='SELECT'){
+			alert("Encontre selec "+hijos[i].name);
+			var indice = hijos[i].selectedIndex
+			alert ("index value "+indice);
+			
+			var valor = hijos[i].options[indice].value;
+			alert ("valor es "+valor);
+				
+			
+		}
+	
+	
+	}
+	
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script><style> .{} </style>
+</head>
+
+<body>
+<form name="form_boleteria" action="hola.php" method="post" >
+
+<div id="crear">
+  <div id="patron">
+    <input  type="text" value="txt_codigo" name="nota[]" title="nota" required="true" onblur="verCodigo(this)"  />
+    f
+    <select name="cbo_servicio_recibido[]" style="width:150px" title="numeros de boletos">
+      <option>nada</option>
+      <option value="0">cero</option>
+      <option value="1">uno</option>
+      <option value="2">dos</option>
+    </select>
+    <input name="txt_fecha_inicio[]" type="text" title="fecha"/>
+    <input name="txt_fecha_fin[]" type="text" title="fecha fin" />
+  f</div>
+  <div id="patron2">
+    <input  type="text" value="txt_codigo" name="nota[]" title="nota" />
+    <select name="cbo_servicio_recibido[]" style="width:150px" title="numeros de boletos" 
+    onchange="vercombo(this);">
+      <option value="0">cero</option>
+      <option value="1">uno</option>
+      <option value="2">dos</option>
+    </select>
+    <input name="txt_fecha_inicio[]" type="text" title="fecha"/>
+    <input name="txt_fecha_fin[]" type="text" />
+  </div>
+  <div id="patron3">
+    <input  type="text" value="txt_codigo" name="nota[]3" title="nota" />
+    <select name="cbo_servicio_recibido[]" style="width:150px" title="numeros de boletos" 
+    onchange="vercombo(this);" class="requerido" >
+      <option value="0">cero</option>
+      <option value="1">uno</option>
+      <option value="2">dos</option>
+    </select>
+    <input name="txt_fecha_inicio[]" type="text" title="fecha"/>
+    <input name="txt_fecha_fin[]" type="text" />
+  </div>
+</div>
+
+
+
+
+
+<div id="dinamico">
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Botón" onclick="validar()" />
+<!--<form action="hola.php" name="form" id="form" method="post">
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Botón" onclick="nuevo()" />
+
+
+
+<input  type="text" value="s" name="nota[]"/>
+<input  type="text" value="d" name="nota[]"/>
+<input  type="text" value="s" name="nota[]"/>
+<input  type="text" value="nsull" name="nota[]"/>
+<input  type="text" value="naaull" name="nota[]"/>
+
+
+<input name="name[]" type="checkbox" value="UNO" />S
+<input name="name[]" type="checkbox" value="DOS" />S
+<input name="name[]" type="checkbox" value="DD" />S
+<input name="name[]" type="checkbox" value="DD" />S
+
+<br />
+
+<input name="" type="submit" />
+</form>
+--></div>
+</div>
+<input type="submit" name="button" id="button" value="Enviar" />
+</form>
+</body>
+</html>

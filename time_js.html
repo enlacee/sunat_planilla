@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+<script  type="text/javascript">
+//alert("holaa");
+function verTiempo(){ alert("dd");
+			var f_inicio = new Date();
+			f_inicio.setDate(01);
+			f_inicio.setMonth(01);
+			f_inicio.setYear(2012);
+			f_inicio.setHours(00);
+			f_inicio.setMinutes(00);
+			f_inicio.setSeconds(00);
+						
+			//Fecha Fin			
+			var f_fin = new Date();
+			f_fin.setDate(02);
+			f_fin.setMonth(01);
+			f_fin.setYear(2012);
+			f_fin.setHours(00);
+			f_fin.setMinutes(00);
+			f_fin.setSeconds(00);
+			
+			
+			var total = f_fin.getTime() - f_inicio.getTime();
+			alert("resta segundos  = "+total);
+			var nueva_fecha =new Date();			 
+			nueva_fecha.setTime(total);
+			
+			
+			alert("DIA TRANSCURRIDO ES "+nueva_fecha.getDate());
+			alert("rest dias?? horas ="+nueva_fecha.getDate()+"-"+nueva_fecha.getMonth()+"-"+nueva_fecha.getYear());
+			//alert()
+}
+
+verTiempo();
+
+</script>
+</head>
+
+<body>ss
+
+ss
+sa
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+/*background: url("skin/site_wrapper.jpg") no-repeat scroll center top #AAAFB5;*/
+}
+.fondo{
+
+}
+
+#contenedor {
+/*	background: url("skin/site_wrapper.jpg") no-repeat scroll center top transparent;
+	border:2px solid #F00;*/
+	margin:0 auto;
+	min-height:500px;
+	width: 930px;
+}
+#cabecera {
+ /*   height:120px;*/
+    padding:10px 0;
+}
+#cabecera #logo {
+ /*   float: left;*/
+    width: 300px;
+}
+#cabecera #logo-web {
+	display:block;
+    float: left;
+    width: 630px;
+	padding:50px 0 0 0;
+}
+#cuerpo{
+	background-color:#fff;
+	min-height:750px;
+}
+
+
+#pie{
+	/*background-color: #666666;*/
+	height:auto;
+	text-align:center;
+
+	padding: 10px 0 10px 0;
+	border-top:2px solid #2D2D2D;
+	margin-top:5px;
+
+}
+#pie a{
+color:#fff;
+
+}
+#isquierda{
+	width:180px;
+	min-height:500px;
+	float:left;
+/*	background-color: #CF6;*/
+/*background-color:#ACACAC;*/
+}
+.navegador{
+	font-size:14px;
+	font-weight:bold;
+}
+#derecha{
+	float:left;
+	width:750px;
+	min-height:500px;
+	/*background-color: #FF0;*/
+}
+
+
+/*------------------------------------ MAS ------------------------------------*/
+
+#isquierda li{
+	display:block;
+	margin:15px 10px;
+	padding:0 0 0 0px;
+	text-transform:capitalize;
+/*	background-color:#E1E1E1;*/
+	font-weight:lighter;	
+	color:#03C;
+	border-bottom:1px solid #C0C0C0;
+}
+
+/*##### menu ####*/
+.menu{
+	  background-color:#FFD34F;
+	  /*text-align: left;*/
+	  /*padding:5px;*/
+}
+.menu ul li{
+display:inline;
+}
+.menu li{ 
+/*	  background-color:#FC0;
+	  width:90px;
+	  float:right;
+	  margin:2px 2px;
+	  text-transform:capitalize;
+	  font-weight:800;
+	  font-size-adjust: 0.64;
+*/
+	border-right:1PX #666 solid;
+
+}
+.menu li a {
+	padding:0px 15px 0 20px;
+	text-decoration: none;
+	font-size: 13px;
+	color: #000;	
+	text-indent: 25px;
+/*	height: 38px;*/
+	line-height: 38px;
+}
+.menu a:hover {
+	text-decoration:underline;
+}
+
+
+
+.menu-principal{
+/*	background-color:#FFFFFF;
+	border-bottom:2px solid #2D2D2D;
+	margin-bottom:5px;
+*/
+}
+
+.menu-principal li{
+	  float:right;
+	  display: inline;
+	  background-color:#333333;
+	  margin:2px 7px 2px 0px;
+	  padding:4px 10px;
+	  text-transform:capitalize;
+	  font-weight:800;
+	  font-size-adjust: 0.64;
+	  
+}
+
+.menu-principal li a{
+	color:#fff;
+
+}
+.menu-principal2{
+	  max-width:700px;
+	  
+	  margin:0 auto;
+	  padding:4px 10px;
+	  text-transform:capitalize;
+}
+
+
+#WORK {
+	background-color: #FFF;
+	height:auto;
+	margin:7px;
+/*	padding:10px*/
+}
+#MENU_OPCIONAL {
+	background-color: #FFF;
+	
+}
+#MENU_OPCIONAL a{
+	
+	background-color: #FFF;
+	padding:5px;
+}
+
+#MENU_OPCIONAL a.active {
+	background-color: #000;
+	color: #fff;
+}
+#BUSCADOR {
+	/*background-color: #9FF;*/
+}
+
+/*----------------------------------------*/
+
+#MENSAJE_FORMULARIO{
+	background-color:#FCFA94;
+	color:#F00;
+	
+}
+
+#MENSAJE_ERROR{
+	background-color:#FFF;
+	color:#F00;
+	font-size:16px;
+	font-weight:bold
+	
+}
+
+#MENSAJE_EXITO{
+	background-color:#FFF;
+	color:#060;
+	font-size:16px;
+	font-weight:bold
+	
+}
+
+/***********************************/
+#divEliminar_Editar {
+	width: 30px;
+	height: 17px;
+}
+
+#divEliminar {
+	width: 16px;
+	background-image: url(../img/b_drop.png);
+	height: 17px;
+	cursor: pointer;
+	float:right;
+	margin:0 15px
+}
+
+#divEditar {
+	width: 16px;
+	background-image: url(../img/b_edit.png);
+	height: 17px;
+	cursor: pointer;
+	margin:0 15px
+}
+
+.frmgrid_cabecera{
+	text-align:center;
+	border:1px dashed #FC0;
+}
+
+/*==============================ESTILOS AGREGADOS=========================================*/
+
+	div#google_map{
+		width:500px;
+		margin:0 auto 0 auto;
+	}	
+    div#map_canvas { 
+		/*height: 100%;*/
+		width:500px;
+		height:350px;
+	}
+
+
+#loading{
+	border:1px solid #F00;
+	text-align:center;
+	
+}

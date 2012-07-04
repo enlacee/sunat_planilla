@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<script type="text/javascript">
+
+
+function seleccionarTipoDeServicio(obj){
+	/*
+	* Posicion Fija:
+	* Esta funcion buscar en el combo el valor que se ingresa en 
+	* el INPUT
+	*/
+	var cadena = obj.id; //alert(cadena);
+	var aguja = obj.value;
+	//Posicion Fija
+	var id = cadena.charAt(11,-1);
+	
+	var eCombo = document.getElementById('cbo_tipo_servicio_prestado-'+id);
+	var counteo = eCombo.options.length;	
+	
+	var bandera= false;
+	for(i=0;i<counteo;i++){
+		if(aguja == eCombo.options[i].value){
+			//alert("uno")
+			eCombo.options[i].selected = true;
+			bandera=true;
+			break;
+		}else{				
+			//obj_combo.options[0].selected = true;
+			//alert("No se encontro este codigo");
+		}		
+	}//end for
+	//alert(bandera);
+	if(bandera==false){
+		alert("Codigo No existe");
+	}
+	
+}//ENDFN
+
+// 
+
+function crearElementoTipoDeServicio(){
+	//
+	var id = counteoElementoTipoDeServicio();	
+	alert("id counteo"+id);	
+	// Creando Elementos
+	
+	crearInputTipoDeServicio(id);	
+	
+	
+	
+}//ENDFN
+
+function llenarComboTipoServicio(objCombo){
+	var test = new Array(
+	{id:'01',descripcion:'uno'},
+	{id:'02',descripcion:'dos'},
+	{id:'03',descripcion:'tres'},
+	{id:'04',descripcion:'cuatro'}
+	);
+
+	var counteo = 	test.length;		
+	//objCombo.options[0] = new Option('-', '');
+	for(var i=0;i<counteo;i++){
+		objCombo.options[i] = new Option(test[i].descripcion, test[i].id);
+	}
+
+}//ENDFN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function counteoElementoTipoDeServicio(){
+	var form = document.formx;
+	console.dir(form);
+	var counteo = form.length;	
+	
+	var counteoSelect = 0;
+	for(var i=0;i<counteo;i++){
+		if(form.elements[i].nodeName=='SELECT'){
+			counteoSelect++;	
+		}	
+	}//ENDFOR
+	return counteoSelect;
+}//ENDFN
+
+
+function crearInputTipoDeServicio(id){
+	var id = id + 1;
+	
+	//INICIO div
+	var div =document.createElement('div');
+	var div_input_id_servicio =document.createElement('div');	 
+	var div_input_codigo = document.createElement('div');
+	var div_select_tservicio = document.createElement('div');	
+	var div_input_finicio = document.createElement('div');	
+	var div_input_ffin = document.createElement('div');	
+
+
+	div_input_id_servicio.setAttribute('class','celda eliminar');
+	div_input_codigo.setAttribute('class','celda producto');
+	div_select_tservicio.setAttribute('class','celda cantidad');
+	div_input_finicio.setAttribute('class','celda precio');
+	div_input_ffin.setAttribute('class','celda sub-total');
+
+
+	
+	// INICIO input
+	var input_id_servicio =document.createElement('input');	 
+	var input_codigo = document.createElement('input');
+	var select_tservicio = document.createElement('select');	
+	var input_finicio = document.createElement('input');	
+	var input_ffin = document.createElement('input');	
+
+
+	input_id_servicio.setAttribute('name','id_detalle_servicio_prestado2[]');
+	input_id_servicio.setAttribute('id','id_detalle_servicio_prestado2-'+id);
+	input_id_servicio.setAttribute('type','text');
+	input_id_servicio.setAttribute('size','5');
+	//
+	input_codigo.setAttribute('name','txt_codigo[]');
+	input_codigo.setAttribute('id','txt_codigo-'+id);
+	input_codigo.setAttribute('type','text');
+	input_codigo.setAttribute('size','6');
+	//
+	select_tservicio.setAttribute('name','cbo_tipo_servicio_prestado[]');
+	select_tservicio.setAttribute('id','cbo_tipo_servicio_prestado-'+id);
+	// llenar Combo
+	//llenarCombo(select_tservicio);
+	//select_tservicio.setAttribute('type','select');
+	//
+	input_finicio.setAttribute('name','txt_fecha_inicio[]');
+	input_finicio.setAttribute('id','txt_fecha_inicio-'+id);
+	input_finicio.setAttribute('type','text');
+	input_finicio.setAttribute('size','12');
+	//
+	input_ffin.setAttribute('name','txt_fecha_inicio[]');
+	input_ffin.setAttribute('id','txt_fecha_inicio-'+id);
+	input_ffin.setAttribute('type','text');
+	input_ffin.setAttribute('size','12');
+	
+	
+	
+	//Capa Contenedora
+	capa = document.getElementById('crear');	
+	//
+	capa.appendChild(div); //PRINCIPAL		
+	//-------
+	div.appendChild(div_input_id_servicio);
+	div_input_id_servicio.appendChild(input_id_servicio);
+	//-------
+	div.appendChild(div_input_codigo);
+	div_input_codigo.appendChild(input_codigo);
+	//-------
+	div.appendChild(div_select_tservicio);
+	div_select_tservicio.appendChild(select_tservicio);
+	llenarComboTipoServicio(select_tservicio);
+	//-------
+	div.appendChild(div_input_finicio);
+	div_input_finicio.appendChild(input_finicio);
+	//-------
+	div.appendChild(div_input_ffin);
+	div_input_ffin.appendChild(input_ffin);
+	
+	/*
+	capa.appendChild(input_id_servicio);	
+	capa.appendChild(input_codigo);	
+	capa.appendChild(select_tservicio);	
+	llenarComboTipoServicio(select_tservicio);
+	capa.appendChild(input_finicio);	
+	capa.appendChild(input_ffin);	
+*/
+	
+}//ENDFN
+
+
+</script>
+
+
+</head>
+
+<body>
+<form action="hola.php" method="post" name="formx" id="formx" >
+
+<div id="crear">
+
+<div style="display:block; border:3px solid red;" id="producto_base">
+  <div class="celda producto">
+    	<input type="text" size="9" name="txt_codigo[]" id="txt_codigo-1"
+        onblur="seleccionarTipoDeServicio(this)">
+<span class="celda cantidad">
+<select title="combo-js" style="width:250px;" name="cbo_tipo_servicio_prestado[]" 
+id="cbo_tipo_servicio_prestado-1">
+  <option value="">-</option>
+  <option value="10100">EXTRAC. Y  AGLOMERAC. CARBON DE PIEDRA.</option>
+  <option value="10200">EXTRAC. Y AGLOMERAC. LIGNITO.</option>
+  <option value="10301">EXTRAC. Y AGLOMERAC. DE TURBA.</option>
+  <option value="1110">CULTIVOS DE CEREALES.</option>
+  <option value="11106">EXT. PETROLEO CRUDO Y GAS NATURAL.</option>
+  <option value="11207">SERV. PETROLEROS Y DE GAS..</option>
+  <option value="1123">CULTIVO DE HORTALIZAS Y LEGUMBRES.</option>
+  <option value="1136">CULTIVO DE FRUTAS.</option>
+  <option value="12001">EXT. DE MIN. URANIO Y TORIO</option>
+  <option value="1211">CRIA DE GANADO.</option>
+  <option value="1224">CRIA DE ANIMALES DOMESTICOS.</option>
+  <option value="1300">EXPLOTACION MIXTA.</option>
+  <option value="13109">EXT. DE MIN. DE HIERRO</option>
+  <option value="13200">EXT. DE MIN. METALIFEROS NO FERROSOS.</option>
+  <option value="1400">SERVICIOS AGRICOLAS, GANADERAS.</option>
+  <option value="14105">EXT. DE PIEDRA, ARENA Y ARCILLA.</option>
+  <option value="14219">EXT. MIN FABRIC. ABONO Y PROD. QUIMIC.</option>
+  <option value="14221">EXTRACCION DE SAL.</option>
+  <option value="14290">EXP. OTRAS MINAS Y CANTERAS NIA.</option>
+  <option value="1501">CAZA ORDINARIA Y SERVICIOS CONEXOS.</option>
+  <option value="15114">PRODUC. CARNE Y PROD. CARNICOS.</option>
+  <option value="15127">ELAB. Y CONS DE PESCADO.</option>
+  <option value="15130">ELAB. FRUTAS, LEG. Y HORTALIZAS.</option>
+  <option value="15142">ELAB. DE ACEITE Y GRASAS.</option>
+  <option value="15202">ELAB DE PRODUCTOS LACTEOS.</option>
+  <option value="15316">ELAB. DE PRODUCTOS DE MOLINERIA.</option>
+  <option value="15329">ELAB DE ALMIDONES Y DERIVADOS.</option>
+  <option value="15331">ELAB. DE PIENSOS PREPARADOS.</option>
+  <option value="15417">ELAB. PROD. DE PANADERIA.</option>
+  <option value="15420">ELAB. DE AZUCAR.</option>
+  <option value="15432">ELAB. CACAO, CHOCOLATE Y CONFIT.</option>
+  <option value="15445">ELAB. MACARRONES, FIDEOS Y OTROS.</option>
+  <option value="15499">ELAB DE OTROS PROD. ALIMENTICIOS.</option>
+  <option value="15518">MEZCLA DE BEBIDAS ALCOHOLICAS.</option>
+  <option value="15520">ELAB. DE VINOS.</option>
+  <option value="15533">ELAB. DE BEBIDAS MALTEADAS.</option>
+  <option value="15546">ELAB. DE BEBIDAS NO ALCOHOLICAS.</option>
+  <option value="16007">ELAB. DE PRODUCTOS DE TABACO.</option>
+  <option value="17117">PREP Y TEJ DE FIBRAS TEXTILES.</option>
+  <option value="17120">ACABADO DE PROD. TEXTILES.</option>
+  <option value="17218">FAB. ART. CONFECCIONADOS.</option>
+  <option value="17220">FAB. DE TAPICES Y ALFOMBRAS.</option>
+  <option value="17233">FAB. CUERDAS, CORDELES Y REDES.</option>
+  <option value="17290">FAB. OTROS PROD. TEXTILES NEOP.</option>
+  <option value="17306">FAB. TEJIDOS Y ART DE PUNTO.</option>
+  <option value="18100">FAB. DE PRENDAS DE VESTIR.</option>
+  <option value="18201">FAB. DE ARTICULOS DE PIEL.</option>
+  <option value="19110">CURTIDO Y ADOBO DE CUEROS.</option>
+  <option value="19122">FAB. DE MALETAS Y OTROS.</option>
+  <option value="19208">FAB. DE CALZADO.</option>
+  <option value="2003">SILVICULTURA Y EXT. DE MADERA.</option>
+  <option value="20108">ASERRADO Y ACEPILLADURA MADERA.</option>
+  <option value="20211">FAB. DE HOJAS DE MADERA.</option>
+  <option value="20224">FAB. PARTES Y PIEZAS CARPINTERIA.</option>
+  <option value="20237">FAB. RECIPIENTES DE MADERA.</option>
+  <option value="20293">FAB. OTROS PRODUCTOS DE MADERA.</option>
+  <option value="21016">FAB. DE PAPEL Y CARTON.</option>
+  <option value="21029">FAB.  ENVASES DE PAPEL Y CARTON.</option>
+  <option value="21098">FAB. DE OTROS ARTICULOS.</option>
+  <option value="22113">ED. LIBROS, FOLLETOS Y OTROS.</option>
+  <option value="22126">ED. DE PERIODICOS Y REVISTAS.</option>
+  <option value="22139">ED. DE MATERIALES GRABADOS.</option>
+  <option value="22195">OTROS TRABAJOS DE EDICION.</option>
+  <option value="22214">ACTIVIDADES DE IMPRESION.</option>
+  <option value="22227">SERVICIOS RDOS CON IMPRESION.</option>
+  <option value="22302">REPRODUCCION MATERIALES GRAB.</option>
+  <option value="23107">FAB. PROD. DE HORNOS DE COQUE.</option>
+  <option value="23208">FAB. PROD.  REFINACION DEL PETROLEO.</option>
+  <option value="23309">ELAB. DE COMBUSTIBLES NUCLEAR.</option>
+  <option value="24116">FAB. DE SUSTANCIAS QUIMICAS BASICAS.</option>
+  <option value="24129">FAB. ABONO  Y COMP. DE NITROGENO.</option>
+  <option value="24131">FAB. DE PLASTICOS Y DE CAUCHO.</option>
+  <option value="24217">FAB. DE PLAGUICIDAS Y OTROS PROD. QUIM.</option>
+  <option value="24220">FAB. DE PINTURAS Y BARNICES.</option>
+  <option value="24232">FAB. DE PROD. FARMACEUTICOS.</option>
+  <option value="24245">FAB. JABONES Y DETERGENTES.</option>
+  <option value="24299">FAB. DE OTROS PROD. QUIMICOS NEOP.</option>
+  <option value="24305">FAB. DE FIBRAS SINTETICAS O ARTIFIC.</option>
+  <option value="25112">FAB. DE CUBIERTOS DE CAUCHO.</option>
+  <option value="25194">FAB. OTROS PRODUCTOS DE CAUCHO.</option>
+  <option value="25200">FAB. DE PRODUCTOS DE PLASTICOS.</option>
+  <option value="26106">FAB. VIDRIO Y PROD. DE VIDRIO</option>
+  <option value="26916">FAB. PROD. CERAMICA NO REFRACT. N. EST.</option>
+  <option value="26929">FAB. PROD. CERAMICA REFACTARIA.</option>
+  <option value="26931">FAB. PROD. CERAMICA NO REFRACT. EST.</option>
+  <option value="26944">FAB. DE CEMENTO, CAL Y YESO.</option>
+  <option value="26957">FAB.  ART. DE HORMIGON, CEMENTO Y YESO.</option>
+  <option value="26960">CORTE, TALLADO Y ACABADO DE PIEDRA.</option>
+  <option value="26998">FAB. OTROS PROD. MIN. NO METALIC. NCP.</option>
+  <option value="27102">FAB. PRODUCTOS DE HIERRO Y ACERO.</option>
+  <option value="27203">FAB. PRODUCTOS DE MET. PRECIOSOS.</option>
+  <option value="27317">FUNDICION DE HIERRO Y DE ACERO.</option>
+  <option value="27320">FUNDICION DE METALES NO FERROSOS.</option>
+  <option value="28111">FAB. PROD. METAL. USO ESTRUCTURAL.</option>
+  <option value="28124">FAB. TANQUES, DEPOSITOS Y RECIP. METAL.</option>
+  <option value="28137">FAB.  DE GENERADORES DE VAPOR.</option>
+  <option value="28919">FAB. PROD. MET. ACABADOS O SEMIACABAD.</option>
+  <option value="28921">OBRAS DE INGENIERIA MECANICA.</option>
+  <option value="28934">FAB.  ART. CUCHILLERIA, FERRETERIA.</option>
+  <option value="28990">FAB. OTROS PROD. DE METAL NCP.</option>
+  <option value="29118">FAB. DE MOTORES Y TURBINAS.</option>
+  <option value="29120">FAB. DE BOMBAS,  COMPRESORAS, GRIFOS.</option>
+  <option value="29133">FAB.  COJINETES Y ENGRANAJES.</option>
+  <option value="29146">FAB. HORNOS, HOGUERAS, QUEMADORES.</option>
+  <option value="29159">FAB. EQUIP.  ELEVACION Y MANIPULACION.</option>
+  <option value="29190">FAB. OTRO TIPO MAQUINARIA USO GRAL.</option>
+  <option value="29219">FAB. DE MAQUINARIA  AGROPECUARIA.</option>
+  <option value="29221">FAB. DE MAQUINAS HERRAMIENTA.</option>
+  <option value="29234">FAB. DE MAQUINARIA  METALURGICA.</option>
+  <option value="29247">FAB. MAQUIN MINERA Y OBRAS DE CONST.</option>
+  <option value="29250">FAB. MAQUIN. ELAB. ALIMENTOS, BEBIDAS.</option>
+  <option value="29262">FAB. MAQUINARIA ELAB. TEXTILES.</option>
+  <option value="29275">FAB. DE ARMAS Y MUNICIONES.</option>
+  <option value="29290">FAB. OTRO TIPO MAQUIN. USO ESPECIAL.</option>
+  <option value="29307">FAB.  APARATOS DE USO DOMESTICO NCP.</option>
+  <option value="30005">FAB.  MAQUINARIA DE OFICINA.</option>
+  <option value="31102">FAB.  MOTORES,  GENERADORES ELECTRICOS.</option>
+  <option value="31203">FAB. DE APARATOS DE DISTRIBUCION.</option>
+  <option value="31304">FAB. DE HILOS Y CABLES AISLADOS.</option>
+  <option value="31405">FAB. DE ACUMULADORES Y BATERIAS.</option>
+  <option value="31506">FAB. DE LAMPARAS ELECTRICAS.</option>
+  <option value="31900">FAB. OTRO TIPO EQUIPO ELECTRICO NCP.</option>
+  <option value="32109">FAB. TUBOS Y VALVULAS ELECTRONICOS.</option>
+  <option value="32200">FAB. TRANSMISORES DE RADIO Y TV.</option>
+  <option value="32300">FAB. RECEPTORES DE RADIO Y TV.</option>
+  <option value="33118">FAB. EQUIPO MEDICO Y QUIRURGICO.</option>
+  <option value="33120">FAB. INSTRUMENTOS DE MEDICION.</option>
+  <option value="33133">FAB. EQUIPO CONTROL DE PROCESOS IND.</option>
+  <option value="33206">FAB. INSTRUMENTOS OPTICOS.</option>
+  <option value="33307">FAB. DE RELOJES.</option>
+  <option value="34101">FAB. VEHICULOS AUTOMOTORES.</option>
+  <option value="34202">FAB. CARROCERIAS PARA VEHICULOS.</option>
+  <option value="34303">FAB. PARTES, PIEZAS Y ACCESORIOS.</option>
+  <option value="35110">CONSTRUCCION Y REPARACION  DE BUQUES.</option>
+  <option value="35123">CONSTRUC. Y REPARAC. DE EMBARCACIONES.</option>
+  <option value="35209">FAB. LOCOMOTORAS Y MATERIAL RODANTE.</option>
+  <option value="35300">FAB. AERONAVES Y NAVES ESPACIALES.</option>
+  <option value="35918">FAB. DE MOTOCICLETAS.</option>
+  <option value="35920">FAB. BICICLETAS Y SILLONES DE RUEDAS.</option>
+  <option value="35990">FAB. OTROS EQUIPOS DE  TRANSPORTE NCP.</option>
+  <option value="36104">FAB. DE MUEBLES.</option>
+  <option value="36914">FAB. JOYAS Y ARTICULOS CONEXOS.</option>
+  <option value="36927">FAB. INSTRUMENTOS MUSICALES.</option>
+  <option value="36930">FAB. ARTICULOS DEPORTIVOS.</option>
+  <option value="36942">FAB. DE JUEGOS Y JUGUETES.</option>
+  <option value="36996">OTRAS INDUSTRIAS  MANUFACTURERAS NCP.</option>
+  <option value="37100">RECICLAMIENTO DESPERDICIOS METALIC.</option>
+  <option value="37201">RECICLAMIENTO DESPERDICIOS NO METAL.</option>
+  <option value="40104">GENERACION  Y DIST. ENERGIA ELECTRICA.</option>
+  <option value="40205">FAB. DE GAS, DISTRIBUCION COMBUSTIBLE.</option>
+  <option value="40306">SUMINISTRO DE VAPOR Y AGUA CALIENTE.</option>
+  <option value="41000">CAPTACION ,  DEPURACION  Y DIST. DE AGUA</option>
+  <option value="45106">PREPARACION DEL TERRENO.</option>
+  <option value="45207">CONSTRUCCION EDIFICIOS COMPLETOS.</option>
+  <option value="45308">ACONDICIONAMINTO DE EDIFICIOS.</option>
+  <option value="45409">TERMINACION DE EDIFICIOS.</option>
+  <option value="45500">ALQUILER DE CONSTRUCCION.</option>
+  <option value="5002">PESCA, EXPLOT. CRIADEROS DE PECES.</option>
+  <option value="50102">VENTA DE VEHICULOS AUTOMOTORES.</option>
+  <option value="50203">MANTENIMIENTO Y REPARAC. VEHICULOS.</option>
+  <option value="50304">VENTA PARTES, PIEZAS, ACCESORIOS.</option>
+  <option value="50405">VENTA, MANTEN. Y REPARAC. MOTOCICLETAS.</option>
+  <option value="50506">VENTA AL POR MENOR COMBUSTIBLES.</option>
+  <option value="51109">VTA.  MAY. A CAMBIO DE UNA RETRIBUCION.</option>
+  <option value="51212">VTA.  MAY. DE MATERIAS PRIMAS AGROPEC.</option>
+  <option value="51225">VTA. MAY. ALIMENTOS, BEBIDAS Y TABACO.</option>
+  <option value="51313">VTA. MAY. PRODUCTOS TEXTILES.</option>
+  <option value="51395">VTA. MAY. OTROS ENSERES DOMESTICOS.</option>
+  <option value="51414">VTA. AL POR MAYOR DE COMBUSTIBLES.</option>
+  <option value="51427">VTA. MAY. DE METALES Y MINERALES MET.</option>
+  <option value="51430">VTA. MAY. MATERIALES DE CONSTRUCCION.</option>
+  <option value="51496">VTA. MAY. OTROS PRODUCTOS INTERMEDIOS.</option>
+  <option value="51502">VTA. MAY. MAQUINARIA, EQUIPO Y MATER.</option>
+  <option value="51906">VTA. MAY. DE OTROS PRODUCTOS.</option>
+  <option value="52118">VTA. MIN. EN ALMACENES NO ESPECIALIZ.</option>
+  <option value="52190">VTA.  MIN. OTROS PRODUCTOS EN ALMACEN.</option>
+  <option value="52206">VTA.  MIN. ALIMENTOS, BEBIDAS, TABACO.</option>
+  <option value="52310">VTA.  MIN. PROD. FARMAC. Y ART. TOCADOR.</option>
+  <option value="52322">VTA. MIN. PRODUCTOS TEXTILES, CALZADO.</option>
+  <option value="52335">VTA. MIN. EQUIPO DE USO DOMESTICO.</option>
+  <option value="52348">VTA. MIN. ARTICULOS DE FERRETERIA.</option>
+  <option value="52391">OTROS TIPOS DE VENTA AL POR MENOR.</option>
+  <option value="52408">VTA. MIN. DE ALMACENES DE ART. USADOS.</option>
+  <option value="52511">VTA. MIN. DE CASAS DE VENTA POR CORREO.</option>
+  <option value="52524">VTA. MIN. EN PUESTOS DE VENTA.</option>
+  <option value="52593">OTROS TIPOS DE VENTA POR MENOR.</option>
+  <option value="52600">REPARACION DE EFECTOS PERSONALES.</option>
+  <option value="55104">HOTELES, CAMPAMENTOS Y OTROS.</option>
+  <option value="55205">RESTAURANTES, BARES Y CANTINAS.</option>
+  <option value="60100">TRANSPORTE POR VIA FERREA.</option>
+  <option value="60214">OTROS TIPOS TRANSPORTE REG. VIA TER.</option>
+  <option value="60227">OTROS TIPOS  TRANSPORTE NO REG. VIA TER.</option>
+  <option value="60230">TRANSPORTE  DE CARGA POR CARRETERA.</option>
+  <option value="60302">TRANSPORTE POR TUBERIAS.</option>
+  <option value="61107">TRANSPORTE MARITIMO Y DE CABOTAJE.</option>
+  <option value="61208">TRANSPORTE VIAS NAVEGACION INTERIOR.</option>
+  <option value="62103">TRANSPORTE  REGULAR VIA AEREA.</option>
+  <option value="62204">TRANSPORTE  NO REGULAR  POR VIA AEREA.</option>
+  <option value="63011">MANIPULACION DE LA CARGA</option>
+  <option value="63024">ALMACENAMIENTO Y DEPOSITO</option>
+  <option value="63037">OTRAS ACTIVIDADES DE TRANSPORTES.</option>
+  <option value="63040">AGENCIAS DE VIAJES Y GUIAS TURISTIC.</option>
+  <option value="63093">ORGANIZACION DEL TRANSPORTE</option>
+  <option value="64119">ACTIVIDADES POSTALES NACIONALES</option>
+  <option value="64121">ACTIVIDADES DE CORREO DISTINTAS</option>
+  <option value="64207">TELECOMUNICACIONES</option>
+  <option value="65115">BANCA CENTRAL</option>
+  <option value="65197">OTROS TIPOS INTERMEDIACION MONETARIA.</option>
+  <option value="65912">ARRENDAMIENTO CON OPCION DE COMPRA</option>
+  <option value="65925">OTROS TIPOS DE CREDITO</option>
+  <option value="65994">OTROS TIPOS DE INTERMEDIACION  FINANC.</option>
+  <option value="66010">PLANES DE SEGUROS DE VIDA</option>
+  <option value="66023">PLANES DE PENSIONES</option>
+  <option value="66036">PLANES DE SEGUROS GENERALES</option>
+  <option value="67118">ADMINISTRACION MERCADOS FINANCIEROS.</option>
+  <option value="67120">ACTIVIDADES BURSATILES</option>
+  <option value="67190">ACTIV. AUXIL ARES DE INTERM. FINANC.</option>
+  <option value="67206">ACTIV. FINANC. PLANES SEGUROS Y PENS.</option>
+  <option value="70109">ACTIVIDADES INMOBILIARIAS</option>
+  <option value="70200">ACTIV. INMOBILIARIAS POR RETRIBUCION.</option>
+  <option value="71118">ALQUILER EQUIPO TRANSPORTE V. TERRES.</option>
+  <option value="71120">ALQUILER EQUIPO TRANSPORTE V.ACUAT.</option>
+  <option value="71133">ALQUILER EQUIPO TRANSPORTE V.AEREA.</option>
+  <option value="71219">ALQUILER MAQUI. Y EQUIP.AGROPECUARIO.</option>
+  <option value="71221">ALQUILER MAQUI. Y EQUIP.CONSTRUCCION.</option>
+  <option value="71234">ALQUILER MAQUI.Y EQUIP.DE OFICINA.</option>
+  <option value="71290">ALQUILER OTROS TIPOS MAQ.Y EQUI. NCP.</option>
+  <option value="71307">ALQUILER ENSERES DOMESTICOS NCP.</option>
+  <option value="72101">CONSULTORES EN EQUIPO INFORMATICA.</option>
+  <option value="72202">CONSULTORES  PROG. Y SUMIN. INFORMATIC.</option>
+  <option value="72303">PROCESAMIENTO DE DATOS.</option>
+  <option value="72404">ACTIV.RELACIONADAS.CON BASE DE DATO.</option>
+  <option value="72505">MANTEN.Y REPAR.MAQUIN. DE OFICINA.</option>
+  <option value="72909">OTRAS ACTIVIDADES DE INFORMATICA.</option>
+  <option value="73108">INVESTIGACION DE CIENCIAS NATURALES.</option>
+  <option value="73209">INVESTIGACION DE CIENCIAS SOCIALES.</option>
+  <option value="74117">ACTIVIDADES JURIDICAS</option>
+  <option value="74120">ACTIVIDADES DE CONTABILIDAD</option>
+  <option value="74132">INVESTIGACION DE MERCADOS</option>
+  <option value="74145">ACTIV.DE ASESORAMIENTO EMPRESARIAL</option>
+  <option value="74218">ACTIV.DE ARQUITECTURA E INGENIERIA</option>
+  <option value="74220">ENSAYOS Y ANALISIS TECNICOS</option>
+  <option value="74306">PUBLICIDAD</option>
+  <option value="74914">OBTENCION Y DOTACION PERSONAL</option>
+  <option value="74927">ACTIV. DE INVESTIGACION Y SEGURIDAD.</option>
+  <option value="74930">ACTIVIDADES LIMPIEZA DE EDIFICIOS</option>
+  <option value="74942">ACTIVIDADES DE FOTOGRAFIA</option>
+  <option value="74955">ACTIVIDADES DE ENVASE Y EMPAQUE</option>
+  <option value="74996">OTRAS ACTIVIDADES EMPRESARIALES NCP.</option>
+  <option value="75113">ACTIV. ADMINIST. PUBLICA EN GENERAL</option>
+  <option value="75126">REGULACION DE ACTIVID.ORGANISMOS</option>
+  <option value="75139">REGULAC. Y FACILITAC. ACTIV.ECONOMIC.</option>
+  <option value="75141">SERVIC. AUXIL.PARA ADMINIST.PUBLICA.</option>
+  <option value="75214">RELACIONES EXTERIORES</option>
+  <option value="75227">ACTIVIDADES DE DEFENSA</option>
+  <option value="75230">MANTENIMIENTO DEL ORDEN PUBLICO</option>
+  <option value="75302">SERVICIOS PUBLICOS SEGURIDAD SOCIAL</option>
+  <option value="80107">ENSE?ANZA PRIMARIA</option>
+  <option value="80210">ENSE?ANZA SECUNDARIA  FORMACION GRAL.</option>
+  <option value="80223">ENSE?ANZA SECUNDARIA FORMAC. TECNICA.</option>
+  <option value="80309">ENSE?ANZA SUPERIOR</option>
+  <option value="80904">EDUCACION DE ADULTOS Y OTROS</option>
+  <option value="85111">ACTIVIDADES DE HOSPITALES</option>
+  <option value="85124">ACTIVIDADES DE MEDICOS Y ODONTOLOGO</option>
+  <option value="85193">OTRAS ACTIV.RELAC. CON SALUD HUMANA</option>
+  <option value="85200">ACTIVIDADES VETERINARIAS</option>
+  <option value="85313">SERVICIOS SOCIALES CON ALOJAMIENTO</option>
+  <option value="85326">SERVICIOS SOCIALES SIN ALOJAMIENTO</option>
+  <option value="90004">ELIMINACION DE DESPERDICIOS</option>
+  <option value="91114">ACTIV.ORGANIZACIONES EMPRESARIALES</option>
+  <option value="91127">ACTIV.ORGANIZACIONES PROFESIONALES.</option>
+  <option value="91202">ACTIVIDADES DE SINDICATOS</option>
+  <option value="91911">ACTIV.ORGANIZACIONES RELIGIOSAS</option>
+  <option value="91924">ACTIV.ORGANIZACIONES POLITICAS</option>
+  <option value="91993">ACTIVIDADES OTRAS ASOCIACIONES NCP.</option>
+  <option value="92110">PRODUCCION Y DIST.FILMES Y VIDEOS</option>
+  <option value="92123">EXHIBICION FILMES Y VIDEOS</option>
+  <option value="92136">ACTIVIDADES DE RADIO Y TELEVISION.</option>
+  <option value="92149">ACTIV.TEATRALES,  MUSICALES Y OTRAS.</option>
+  <option value="92192">OTRAS ACTIVID.ENTRETENIMIENTO NCP.</option>
+  <option value="92209">ACTIVIDADES DE AGENCIAS DE NOTICIAS</option>
+  <option value="92312">ACTIVIDADES BIBLIOTECAS Y ARCHIVOS</option>
+  <option value="92325">ACTIV.MUSEOS Y LUGARES HISTORICOS.</option>
+  <option value="92338">ACTIV.JARDINES BOTANICOS Y ZOOLOGIC.</option>
+  <option value="92413">ACTIVIDADES DEPORTIVAS</option>
+  <option value="92495">OTRAS ACTIVIDADES DE ESPARCIMIENTO</option>
+  <option value="93016">LAVADO, LIMPIEZA Y TE?IDO TELA</option>
+  <option value="93029">PELUQUERIA Y OTROS</option>
+  <option value="93031">POMPAS FUNEBRES Y ACTIVID.CONEXAS</option>
+  <option value="93098">OTRAS ACTIVID.DE TIPO SERVICIO NCP</option>
+  <option value="95006">HOGARES PRIVADOS C. SERV.DOMESTICO</option>
+  <option value="99001">ORGANIZACIONES INTERNACIONALES</option>
+</select>
+</span><span class="precio celda">
+<input type="text" size="12" class="required error" name="txt_fecha_inicio[]"
+id="txt_fecha_inicio-1" />
+</span><span class="celda sub-total">
+<input type="text" size="12" name="txt_fecha_fin[]"
+id="txt_fecha_fin-1" />
+</span><br />
+<br />
+<br />
+<br />
+  </div>
+<div class="celda cantidad"></div>
+<div class="precio celda"></div>
+<div class="celda sub-total"></div>
+<div class="clear"></div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div id="dinamico">
+<br />
+</div>
+<br />
+<br />
+</div>
+<input type="submit" name="button" id="button" value="Enviar" />
+<input type="button" name="btn_nuevo" id="btn_nuevo" value="Nuevo Elemento" 
+onclick="crearElementoTipoDeServicio()" />
+</form>
+</body>
+</html>

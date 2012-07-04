@@ -844,7 +844,7 @@ foreach ($lista_empleador_destaque as $indice) {
                 <input name="txt_id_establecimiento" type="hidden" id="txt_id_establecimiento" size="15"
                 value="<?php echo $objTRADetalle_3->getId_establecimiento(); ?>"
                  /></td>
-              <td><input name="txt_codigo_local" type="hidden" id="txt_codigo_local" size="6" value="<?php echo $COD_LOCAL; ?>" ></td>
+              <td><input name="txt_codigo_local" type="text" id="txt_codigo_local" size="6" value="<?php echo $COD_LOCAL; ?>" ></td>
               <td>
                 <select name="cbo_establecimiento_local" id="cbo_establecimiento_local" style="width:100px"
               onchange="seleccionarLocalDinamico(this)">

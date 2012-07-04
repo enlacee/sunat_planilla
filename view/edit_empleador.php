@@ -279,7 +279,7 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
               <input name="oper" type="hidden" value="edit">
             <fieldset>
               <legend>Datos de Identificacion </legend>
-              <div style="clear:both">
+              <div class="ocular">
               <label>Estado Empleador</label>:
               <label for="txt_estado_empleador"></label>
               <input name="txt_estado_empleador" type="text" id="txt_estado_empleador" 

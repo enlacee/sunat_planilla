@@ -119,7 +119,7 @@ $ID_EMPLEADOR = $_REQUEST['id_empleador'];
 			
         </ul>
         <div id="tabs-1">
-          <input type="text" name="id_empleador" id="id_empleador"  value="<?php echo $ID_EMPLEADOR;?>"/>
+          <input type="hidden" name="id_empleador" id="id_empleador"  value="<?php echo $ID_EMPLEADOR;?>"/>
           <br />
           <input type ="button" 
             onclick="javascript:cargar_pagina('sunat_planilla/view/new_establecimiento.php?id_empleador=<?php echo $ID_EMPLEADOR; ?>','#CapaContenedorFormulario')"

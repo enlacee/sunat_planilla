@@ -47,7 +47,7 @@ function comboTipoDocumento() {
     $arreglo = $dao_persona->comboTipoDocumento();
 
     //ID A ELIMINAR
-    $id = array('11');
+    $id = array('11','06');
     $counteo = count($id);
     for ($i = 0; $i < $counteo; $i++) {
         //------------------------------------------

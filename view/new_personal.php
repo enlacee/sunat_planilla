@@ -355,10 +355,8 @@ function validarFechaNacimiento(fecha){// alert("hola"+fecha);
 
         </ul>
         <div id="tabs-1">
-
-            <input type="button" name="Button" value="griddd" onclick="cargarTablaPersonalDireccion()" />
-            <div class="bloke1">
-              <form action="" method="get" name="form_new_personal" id="form_new_personal" novalidate="novalidate">
+          <div class="bloke1">
+            <form action="" method="get" name="form_new_personal" id="form_new_personal" novalidate="novalidate">
                 
                 <input name="oper" type="hidden" value="add">
                 <fieldset>
@@ -525,8 +523,11 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
                 
                 <!-- DIRECCION 2-->
                 <input name="btn_grabar" type="button" id="btn_grabar" value="Grabar" onclick="validarFormNewPersonalPrincipal(this)">
-                
-                </form>
+                <span >
+                <input type="submit" name="btnRetornar" id="btnRetornar" value="Retornar"
+  onclick="javascript:cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')" />
+                </span>
+            </form>
             </div>
 
 
@@ -536,7 +537,7 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 <div style="display:block; " id="DIV_GRID_DIRECCION">
 		
     <table id="list"><tr><td/></tr></table>
-            <div id="pager"></div>
+    <div id="pager"></div>
 			
 </div>
 
@@ -553,10 +554,7 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 
 
 
-<div id="rpta">  ... 
-  <input type="submit" name="btnRetornar" id="btnRetornar" value="Retornar"
-  onclick="javascript:cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')" />
-</div>
+<div id="rpta">  ...</div>
 
 
 

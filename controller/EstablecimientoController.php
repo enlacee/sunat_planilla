@@ -28,8 +28,8 @@ if ($op == "cargar_tabla") {
 } elseif ($op == "edit") {
     $responce = editar();
 } elseif ($op == "del") {
-	$id = $_REQUEST['id_establecimiento'];
-	$responce = isset($id)? eliminar($id) : "ERROR SCRIPT";
+    $id = $_REQUEST['id_establecimiento'];
+    $responce = isset($id) ? eliminar($id) : "ERROR SCRIPT";
 } elseif ($op == "04") {
     $responce = existeRucDuplicado($_REQUEST['txt_ruc']);
 } elseif ($op == "validar_codigo") {
@@ -44,7 +44,6 @@ echo json_encode($responce);
 
 function nuevo() {
 
-
     $emp = new Establecimiento();
     $emp->setId_empleador($_REQUEST['id_empleador']);
     $emp->setId_tipo_establecimiento($_REQUEST['cbo_tipo_establecimiento']);
@@ -55,7 +54,7 @@ function nuevo() {
     $dao = new EstablecimientoDao();
     $id_establecimiento = $dao->registrarEstablecimiento($emp);
 
-
+    $rpta = $dao->numeroDeCodigoEstablecimientoPorIdEmpleador($emp->getId_empleador(), $em->getCod_establecimiento());
 //echo $id_establecimiento;
 //OTRO
     $est_d = new EstablecimientoDireccion();
@@ -77,6 +76,8 @@ function nuevo() {
     $est_d->setReferencia($_REQUEST['txt_referencia']);
 
 
+
+
     if (isset($id_establecimiento)) {
         $dao_est_d = new EstablecimientoDireccionDao();
         return $dao_est_d->registrarEstablecimientoDireccion($est_d);
@@ -91,7 +92,7 @@ function editar() {
     $emp = new Establecimiento();
 
     $emp->setId_empleador($_REQUEST['id_empleador']);
-	$emp->setId_establecimiento($_REQUEST['id_establecimiento']);
+    $emp->setId_establecimiento($_REQUEST['id_establecimiento']);
     $emp->setCod_establecimiento($_REQUEST['txt_cod_establecimiento']);
     $emp->setId_tipo_establecimiento($_REQUEST['cbo_tipo_establecimiento']);
     $emp->setFecha_creacion(date('Y-m-d'));
@@ -103,7 +104,7 @@ function editar() {
     //----------
 
     $obj = new EstablecimientoDireccion();
-    
+
     $obj->getId_establecimiento();
     $obj->setCod_ubigeo_reinec($_REQUEST['cbo_distrito']);
     $obj->setCod_via($_REQUEST['cbo_tipo_via']);
@@ -118,9 +119,9 @@ function editar() {
     $obj->setEstapa($_REQUEST['txt_etapa']);
     $obj->setCod_zona($_REQUEST['cbo_tipo_zona']);
     $obj->setNombre_zona($_REQUEST['txt_zona']);
-    $obj->setReferencia($_REQUEST['txt_referencia']);    
+    $obj->setReferencia($_REQUEST['txt_referencia']);
     $obj->setId_establecimiento($_REQUEST['id_establecimiento']); // ES = $obj->getId_establecimiento_direccion();
-    
+
 
     $dao = new EstablecimientoDireccionDao();
     $rpta = $dao->actualizarEstablecimientoDireccion($obj);
@@ -211,33 +212,33 @@ function cargar_tabla() {
         $_05 = $rec['fecha_creacion'];
         //new
 
-        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_establecimiento.php?id_empleador=".$_01."&id_establecimiento=".$param."','#CapaContenedorFormulario')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_establecimiento.php?id_empleador=" . $_01 . "&id_establecimiento=" . $param . "','#CapaContenedorFormulario')";
 
         $js2 = "javascript:eliminarEstablecimiento('" . $param . "')";
-		
+
         $js3 = "javascript:BajaEstablecimiento('" . $param . "')";
-		
+
         $opciones = '<div id="divEliminar_Editar">				
 				<span  title="Editar" >
 				<a href="' . $js . '"><img src="images/edit.png"/></a>
 				</span>				
 				&nbsp;
 		</div>';
-		
-/*        $opciones = '<div id="divEliminar_Editar">				
-				<span  title="Editar" >
-				<a href="' . $js . '"><img src="images/edit.png"/></a>
-				</span>				
-				&nbsp;
-				<span  title="Cancelar" >
-				<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
-				</span>
-				&nbsp;
-				<span  title="Dar Baja" >
-				<a href="'.$js3.'"><img src="images/baja.png"/>baja</a>
-				</span>	
-		</div>';		
-*/
+
+        /*        $opciones = '<div id="divEliminar_Editar">				
+          <span  title="Editar" >
+          <a href="' . $js . '"><img src="images/edit.png"/></a>
+          </span>
+          &nbsp;
+          <span  title="Cancelar" >
+          <a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
+          </span>
+          &nbsp;
+          <span  title="Dar Baja" >
+          <a href="'.$js3.'"><img src="images/baja.png"/>baja</a>
+          </span>
+          </div>';
+         */
 
         $responce->rows[$i]['id'] = $param;
         $responce->rows[$i]['cell'] = array(
@@ -318,16 +319,12 @@ function existeCodigoEstablecimiento() {
 
     $dao = new EstablecimientoDao();
     $rpta = $dao->numeroDeCodigoEstablecimientoPorIdEmpleador($_01, $_02);
-
-    $r = '';
-    if ($rpta == 1) {
+    
+    if ($rpta >= 1) {
         $r = true;
     } else if ($rpta == 0) {
         $r = false;
-    } else {
-        $r = null;
     }
-
     return $r;
 }
 
@@ -352,8 +349,6 @@ function buscarEstablecimientoPorId($id) {
     //print_r($obj);
     return $obj;
 }
-
-
 
 //-------------------------------------------------
 function cargar_tabla2() {
@@ -427,30 +422,30 @@ function cargar_tabla2() {
         $param = $rec["id_establecimiento"];
         $_01 = $rec["id_empleador"];
         $_02 = $rec["cod_establecimiento"];
-		$_03 = ($rec['realizaran_actividad_riesgo']) ? 'Si' : 'No';
+        $_03 = ($rec['realizaran_actividad_riesgo']) ? 'Si' : 'No';
 
         //new
-		//here
+        //here
         $ubigeo_nombre_via = $rec["ubigeo_nombre_via"];
-		$nombre_via = $rec['nombre_via'];
-		$numero_via = $rec['numero_via'];
-		
-		$ubigeo_nombre_zona = $rec['ubigeo_nombre_zona'];
-		$nombre_zona = $rec['nombre_zona'];
-		$etapa = $rec['etapa'];
-		$manzana = $rec['manzana'];
-		$blok = $rec['blok'];
-		$lote = $rec['lote'];
-		
-		$departamento = $rec['departamento'];
-		$interior = $rec['interior'];
-		
-		$kilometro = $rec['kilometro'];	
-		
-		$ubigeo_departamento = $rec['ubigeo_departamento'];
-		$ubigeo_provincia = $rec['ubigeo_provincia'];		
-		$ubigeo_distrito = $rec['ubigeo_distrito'];
-		
+        $nombre_via = $rec['nombre_via'];
+        $numero_via = $rec['numero_via'];
+
+        $ubigeo_nombre_zona = $rec['ubigeo_nombre_zona'];
+        $nombre_zona = $rec['nombre_zona'];
+        $etapa = $rec['etapa'];
+        $manzana = $rec['manzana'];
+        $blok = $rec['blok'];
+        $lote = $rec['lote'];
+
+        $departamento = $rec['departamento'];
+        $interior = $rec['interior'];
+
+        $kilometro = $rec['kilometro'];
+
+        $ubigeo_departamento = $rec['ubigeo_departamento'];
+        $ubigeo_provincia = $rec['ubigeo_provincia'];
+        $ubigeo_distrito = $rec['ubigeo_distrito'];
+
 
         $js = "javascript:cargar_pagina('sunat_planilla/view/edit_establecimiento.php?id_establecimiento=" . $param . "','#CapaContenedorFormulario')";
 
@@ -465,43 +460,41 @@ function cargar_tabla2() {
 				<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
 				</span>	
 		</div>';
-		//---------------Inicio Cadena String----------//
-		$cadena = '';
-		
-		$cadena .= (isset($ubigeo_nombre_via))? ''.$ubigeo_nombre_via.' ' : '';		
-		$cadena .= (isset($nombre_via))? ''.$nombre_via.' ' : '';
-		$cadena .= (isset($numero_via))? ''.$numero_via.' ' : '';
-		
-		$cadena .= (isset($ubigeo_nombre_zona))? ''.$ubigeo_nombre_zona.' ' : '';
-		$cadena .= (isset($nombre_zona))? ''.$nombre_zona.' ' : '';
-		$cadena .= (isset($etapa))? ''.$etapa.' ' : '';
-		
-		$cadena .= (isset($manzana))? 'MZA. '.$manzana.' ' : '';
-		$cadena .= (isset($blok))? ''.$blok.' ' : '';
-		$cadena .= (isset($etapa))? ''.$etapa.' ' : '';
-		$cadena .= (isset($lote))? 'LOTE. '.$lote.' ' : '';
-		
-		$cadena .= (isset($departamento))? ''.$departamento.' ' : '';
-		$cadena .= (isset($interior))? ''.$interior.' ' : '';
-		$cadena .= (isset($kilometro))? ''.$kilometro.' ' : '';
-		
-		$cadena .= (isset($ubigeo_departamento))? ''.$ubigeo_departamento.'-' : '';
-		$cadena .= (isset($ubigeo_provincia))? ''.$ubigeo_provincia.'-' : '';
-		$cadena .= (isset($ubigeo_distrito))? ''.$ubigeo_distrito.' ' : '';
-		
-		$cadena = strtoupper($cadena);
+        //---------------Inicio Cadena String----------//
+        $cadena = '';
 
-		//---------------Inicio Cadena String----------//
+        $cadena .= (isset($ubigeo_nombre_via)) ? '' . $ubigeo_nombre_via . ' ' : '';
+        $cadena .= (isset($nombre_via)) ? '' . $nombre_via . ' ' : '';
+        $cadena .= (isset($numero_via)) ? '' . $numero_via . ' ' : '';
 
+        $cadena .= (isset($ubigeo_nombre_zona)) ? '' . $ubigeo_nombre_zona . ' ' : '';
+        $cadena .= (isset($nombre_zona)) ? '' . $nombre_zona . ' ' : '';
+        $cadena .= (isset($etapa)) ? '' . $etapa . ' ' : '';
 
-//
+        $cadena .= (isset($manzana)) ? 'MZA. ' . $manzana . ' ' : '';
+        $cadena .= (isset($blok)) ? '' . $blok . ' ' : '';
+        $cadena .= (isset($etapa)) ? '' . $etapa . ' ' : '';
+        $cadena .= (isset($lote)) ? 'LOTE. ' . $lote . ' ' : '';
+
+        $cadena .= (isset($departamento)) ? '' . $departamento . ' ' : '';
+        $cadena .= (isset($interior)) ? '' . $interior . ' ' : '';
+        $cadena .= (isset($kilometro)) ? '' . $kilometro . ' ' : '';
+
+        $cadena .= (isset($ubigeo_departamento)) ? '' . $ubigeo_departamento . '-' : '';
+        $cadena .= (isset($ubigeo_provincia)) ? '' . $ubigeo_provincia . '-' : '';
+        $cadena .= (isset($ubigeo_distrito)) ? '' . $ubigeo_distrito . ' ' : '';
+
+        $cadena = strtoupper($cadena);
+
+        //---------------Inicio Cadena String----------//
+        //
         $responce->rows[$i]['id'] = $param;
         $responce->rows[$i]['cell'] = array(
             $param,
             $_01,
             $_02,
-			$cadena,
-			$_03,
+            $cadena,
+            $_03,
             utf8_encode($opciones)
         );
 
@@ -510,7 +503,5 @@ function cargar_tabla2() {
 
     return $responce;
 }
-
-
 
 ?>

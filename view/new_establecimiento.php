@@ -60,35 +60,37 @@ $cboZonas = comboZonas();
 				var from_data =  $("#form_new_establecimiento").serialize();
 				$.getJSON('sunat_planilla/controller/EstablecimientoController.php?'+from_data,
 					function(data){
-					//funcion.js index.php
-					disableForm('form_new_establecimiento');	
-						if(data){						//document.getElementById('id_persona').value = data.id_persona;
-
+					//funcion.js index.php							
+						if(data == true){
 						//ID = data.id_persona;
-						alert("Se Guardaron los datos correctamente "+data);
-						
+						disableForm('form_new_establecimiento');
+						alert("Se Guardaron los datos correctamente.");
 						cargar_pagina('sunat_planilla/view/view_establecimiento.php?id_empleador=<?php echo $ID_EMPLEADOR?>','#CapaContenedorFormulario')					
 
+						}else if(data == 'codigo-est-duplicado'){
+							alert("Codigo de Establecimiento\nYa esta registrado, registre otro.");
 						}else{
-							alert("Ocurrio un error, intente nuevamente no hay datos JSON");
+							alert ("Error\nNo se pudo Guardar.");
 						}
+						
 					}); 
 			//-----------------------------------------------------------------------			
 			//alert("final");			   		
 			}	
 		
         });//ENDVALIDATION
-		
+	
 	//-----------------------------------------
 	$('#txt_cod_establecimiento').blur(function(){
-			$(this).css("color","#ff00ff");
-			
-			var codigo = $(this).attr('value');
-			var id_empleador = document.form_new_establecimiento.id_empleador.value;
-			var from_data =  $("#form_new_establecimiento").serialize();
-			
-			
-			
+		$(this).css("color","#ff00ff");			
+		var codigo = $(this).attr('value');
+		var id_empleador = document.form_new_establecimiento.id_empleador.value;
+		var from_data =  $("#form_new_establecimiento").serialize();
+
+var c = $("#txt_cod_establecimiento").val();
+var num = c.length
+if( num == 4){	
+	
 		$.ajax({
            async:true,
            type: "POST",
@@ -104,35 +106,44 @@ $cboZonas = comboZonas();
            //timeout:4000,
            //error:problemas
          });//ENDAJAX 
-		 			
-		
+		 
+}else{
+	alert ("Solo se Admiten  codigo de 4 digitos");
+	$("#txt_cod_establecimiento").val("");
+}		 
+		 
 	})//END_txt
-
     //-------------------------------------------------------------
-    });
+	
+    });//END BLUR
+
+//}else{
+//	alert ("El Codigo del Establecimiento\n solo puede ser de 4 digitos");
+//}
+
 
     //******************************************************************************
 	// SCRIPT DETALLE_DIRECCION.PHP	 INICIO
    //******************************************************************************
 function llegadaDatos(data){
-	var error="";
+	//var error="";
 	if(data){//TRUE si Existe codigo Registrado en DB
-		error = "Codigo ya esta registrado ingrese otro.";
+		alert("Codigo ya esta registrado ingrese otro.");
 				$('txt_cod_establecimiento').empty();		
 	}else if (data ==  null){
-		error = "Error bd hay mas de 2 duplicados.";
+		alert("Error bd hay mas de 2 duplicados.");
 		$('txt_cod_establecimiento').empty();	
 	}else if(data == false){
-		error = "El Codigo esta disponible";	
+		alert("El Codigo esta disponible");	
 	}	
-	$("#txt_cod_establecimiento_error").text(error);
+	//$("#txt_cod_establecimiento_error").text(error);
 }   
    
    
    
 
 function LimpiarCombo(combo){ 
-console.log("INICIO LIMPIAR hay otrooo");
+//console.log("INICIO LIMPIAR hay otrooo");
 
 $('#MiSelect').find('option').remove().end();
 	//console.log(combo.options[1].text);
@@ -448,16 +459,8 @@ foreach ($cboZonas as  $indice) {
                   </table>
                 </div>
                 </fieldset>
-				
-				
-				
-<p></p>
 
-				
-				
-				
-				
-				<!-- DIRECCION 2-->
+                <!-- DIRECCION 2-->
 				<input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar">
 
             </form>

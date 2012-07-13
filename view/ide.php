@@ -20,8 +20,8 @@ if (!empty($ruc_login)) {
     $_SESSION['sunat_empleador'] = $DATA_EMPLEADOR;
 
 //    echo "<pre>";
-    //print_r($_SESSION);
-//    echo "Empleador Identificado = " . $DATA_EMPLEADOR['ruc'];
+//		print_r($_SESSION);
+//   echo "Empleador Identificado = " . $DATA_EMPLEADOR['ruc'];
 //    echo "</pre>";
 } else {
     ?>

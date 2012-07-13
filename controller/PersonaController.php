@@ -101,11 +101,11 @@ if ($op == "cargar_tabla") {
 
     $responce = comboUbigeoReniec($_REQUEST['id_provincia']);
 } else {
-   // echo "oper INCORRECTO";
+    // echo "oper INCORRECTO";
 }
 
 
-echo (!empty ($responce)) ? json_encode($responce): '';
+echo (!empty($responce)) ? json_encode($responce) : '';
 /* * **********categoria*************** */
 
 function nuevaPersona() {
@@ -161,7 +161,9 @@ function nuevaPersona() {
             $obj_per_direccion->setCod_via(0);
             $obj_per_direccion->setCod_zona(0);
             $obj_per_direccion->setEstado_direccion(1);
-
+            
+            //DEFAUL ESTABLECIDO DIRECCION PARA ESALUD
+            $obj_per_direccion->setReferente_essalud(1);
             //DAO
             $dao_persona_d->registrarPersonaDireccion($obj_per_direccion);
         }
@@ -185,7 +187,7 @@ function nuevaPersona() {
 
     $obj = new Trabajador();
     $obj->setId_persona($ID_PERSONA);
-    $obj->setEstado('INACTIVO');
+    // $obj->setEstado('INACTIVO');
     $obj->setCod_convenio(0);
     $obj->setCod_situacion(1);
 
@@ -340,7 +342,7 @@ function editarPersona() {
     $obj_persona->setId_persona($_REQUEST['id_persona']);
     $obj_persona->setCod_tipo_documento($_REQUEST['cbo_tipo_documento']);
     $obj_persona->setNum_documento($_REQUEST['txt_num_documento']);
-    $obj_persona->setFecha_nacimiento($_REQUEST['txt_fecha_nacimiento']);
+    $obj_persona->setFecha_nacimiento(getFechaPatron($_REQUEST['txt_fecha_nacimiento'], "Y-m-d"));
     $obj_persona->setCod_pais_emisor_documentos($_REQUEST['cbo_pais_emisor_documento']);
 
     $obj_persona->setApellido_paterno($_REQUEST['txt_apellido_paterno']);
@@ -365,7 +367,6 @@ function editarPersona() {
 function eliminarPersona($id) {
 
     $dao_persona = new PersonaDao();
-
     $rpta = $dao_persona->eliminarPersona($id);
 
     return $rpta;
@@ -484,23 +485,28 @@ function cargar_tabla() {
         $_08 = $rec["sexo"];
         $_09 = $rec["estado"];
 
+        $_10 = $rec['cod_situacion'];
+
         $js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "','#CapaContenedorFormulario')";
         $js2 = "javascript:eliminarPersona('" . $param . "')";
 
-
-        $opciones_1 = '<a href="' . $js . '">Modificar</a>';
-        $opciones_2 = '<a href="' . $js2 . '">Eliminar</a>';
-
-        $opciones = '<div id="divEliminar_Editar">				
+        if ($_10 == 1) {
+            $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar" >
 		<a href="' . $js . '"><img src="images/edit.png"/></a>
 		</span>				
 		&nbsp;
-		<span  title="Cancelar" >
+		<!-- <span  title="Cancelar" >
 		<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
-		</span>	
+		</span>	-->
 		</div>';
-
+        } else {
+            $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar" >
+		<a href="' . $js . '"><img src="images/edit.png"/></a>
+		</span>
+                </div>';
+        }
 
         //hereee
 

@@ -20,9 +20,6 @@ $DATA_EME = buscarIdEmpleadorMaestroPorIDEMPLEADOR($id_empleador_maestro);
             <script>
                 //INICIO HISTORIAL
                 $(document).ready(function(){						   
-                    //demoApp = new Historial();
-					//alert ("hola anb");
-                    //cargarTablaEmpleador();
 					cargarTablaEmpleador_dd1();
 				 	$( "#tabs" ).tabs();
 

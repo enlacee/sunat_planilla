@@ -47,7 +47,7 @@ function validarvfMesConcepcion(obj){
 	//bandera = (parseInt(dia) >= 1 && parseInt(dia) <= 31 )? true :false;
 	//bandera = (parseInt(mes) >= 1 && parseInt(mes) <= 12)? true : false;
 	
-	expresion_regular_vf_mes =/^\d{2}\/\d{2}$/;
+	expresion_regular_vf_mes =/^\d{2}\/\d{4}$/;
 	var bandera = expresion_regular_vf_mes.test(valor_txt);
 	
 	if(bandera==false){
@@ -177,9 +177,6 @@ function validarvfMesConcepcion(obj){
 	}//end for
 */	
 	//END
-	console.log("estado del boootn");
-	console.dir(nacionalidad_esclavo.disabled);	
-	console.log("enddddd");
 	
 }
 
@@ -334,4 +331,18 @@ var tecla=(document.all) ? e.keyCode : e.which;
 	}//ENDIF
 }
 
+//---------------------------------------------------------------
+// USADNDO EMPLEADOR
+function seleccionarTipoActividadInputPorCombo(obj){
+	var objCombo = obj.value;
+	var input = document.getElementById('txt_cod_tipo_actividad');
+	input.value=null;
+	input.value = obj.value;
+}
 
+///-------------------------------------------
+function eliminarElemento(obj){
+	var parrafo = obj; //document.getElementById("dos");
+	parrafo.parentNode.removeChild(parrafo);
+
+}

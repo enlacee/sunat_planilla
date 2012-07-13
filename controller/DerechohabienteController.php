@@ -6,7 +6,7 @@
 $op = $_REQUEST["oper"];
 
 if ($op) {
-    session_start();    
+    session_start();
 
     require_once '../util/funciones.php';
     require_once '../dao/AbstractDao.php';
@@ -19,7 +19,6 @@ if ($op) {
 
 //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
-    
 }
 
 $responce = NULL;
@@ -43,11 +42,9 @@ if ($op == "cargar_tabla") {
     $num_documento = $_REQUEST['num_documento'];
     $id_empleador_maestro = ID_EMPLEADOR_MAESTRO;
 
-  $responce =  buscarDerechoHabienteNumDocumento($tipodoc, $id_empleador_maestro, $num_documento );
-
-
+    $responce = buscarDerechoHabienteNumDocumento($tipodoc, $id_empleador_maestro, $num_documento);
 } elseif ($op == "baja") {
-    $id = $_REQUEST['id'];
+    //$id = $_REQUEST['id'];
     $responce = baja($id);
 } elseif ($op == "04") {
     $codigo = $_REQUEST["codigo"];
@@ -55,11 +52,11 @@ if ($op == "cargar_tabla") {
 } elseif ($op == "select_codigo") {
     echo cargarSelectCodigo();
 } else {
-   // echo "<p>variable OPER no esta definido</p>";
+    // echo "<p>variable OPER no esta definido</p>";
 }
 
 
-echo (!empty ($responce)) ? json_encode($responce) : '';
+echo (!empty($responce)) ? json_encode($responce) : '';
 /* * **********categoria*************** */
 
 function nuevoDerechohabiente() {
@@ -81,7 +78,7 @@ function nuevoDerechohabiente() {
     $obj_dh->setCod_vinculo_familiar($_REQUEST['cbo_vinculo_familiar']);
     $obj_dh->setCod_documento_vinculo_familiar($_REQUEST['cbo_documento_vinculo_familiar']);
     $obj_dh->setVf_num_documento($_REQUEST['txt_vf_num_documento']);
-    $obj_dh->setVf_mes_concepcion($_REQUEST['txt_vf_mes_concepcion']);
+    $obj_dh->setVf_mes_concepcion(getFechaPatron("00/" . $_REQUEST['txt_vf_mes_concepcion'], "Y-m-d"));
 
     $cod_telefono_nac = ( empty($_REQUEST['cbo_telefono_codigo_nacional']) ) ? 0 : $_REQUEST['cbo_telefono_codigo_nacional'];
     $obj_dh->setCod_telefono_codigo_nacional($cod_telefono_nac);
@@ -153,7 +150,8 @@ function editar() {
     $obj->setCod_vinculo_familiar($_REQUEST['cbo_vinculo_familiar']);
     $obj->setCod_documento_vinculo_familiar($_REQUEST['cbo_documento_vinculo_familiar']);
     $obj->setVf_num_documento($_REQUEST['txt_vf_num_documento']);
-    $obj->setVf_mes_concepcion($_REQUEST['txt_vf_mes_concepcion']);
+
+    $obj->setVf_mes_concepcion(getFechaPatron("00/" . $_REQUEST['txt_vf_mes_concepcion'], "Y-m-d"));
 
     $obj->setCod_telefono_codigo_nacional($_REQUEST['cbo_telefono_codigo_nacional']);
     $obj->setTelefono($_REQUEST['txt_telefono']);
@@ -248,6 +246,7 @@ function cargar_tabla($id_persona) {
         $_07 = $rec["fecha_nacimiento"];
         $_08 = $rec['nombre_vinculo_familiar'];
         $_09 = $rec['nombre_situacion'];
+        $_10 = $rec['cod_situacion'];
 
         //new
 
@@ -255,8 +254,9 @@ function cargar_tabla($id_persona) {
 
         $js2 = "javascript:eliminarDerechohabiente('" . $param . "')";
 
-        $js3 = "javascript:bajaDerechohabiente('" . $param . "')";
+       // $js3 = "javascript:bajaDerechohabiente('" . $param . "')";
 
+        if($_10 == 1){
         $opciones = '<div id="divEliminar_Editar">				
 				<span  title="Editar" >
 				<a href="' . $js . '"><img src="images/edit.png"/></a>
@@ -266,6 +266,13 @@ function cargar_tabla($id_persona) {
 				<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
 				</span>
 		</div>';
+        }else{
+        $opciones = '<div id="divEliminar_Editar">				
+				<span  title="Editar" >
+				<a href="' . $js . '"><img src="images/edit.png"/></a>
+				</span>
+		</div>';
+        }
         //hereee
         /*
           &nbsp;
@@ -323,6 +330,7 @@ function buscarDerechohabientePorId($id_dh) {
     $obj_persona->setTelefono($data['telefono']);
     $obj_persona->setCorreo($data['correo']);
     $obj_persona->setCod_motivo_baja_derechohabiente($data['cod_motivo_baja_derechohabiente']);
+	
     $obj_persona->setCod_situacion($data['cod_situacion']);
     $obj_persona->setEstado($data['estado']);
     $obj_persona->setFecha_baja($data['fecha_baja']);
@@ -346,9 +354,19 @@ function eliminar($id) {//OK
 }
 
 function baja($id) {//OK
+    $data = $_REQUEST['ids'];
+    $ids = array();
+    for ($i = 0; $i < count($data); $i++) {
+        $ids[$i]['id_derechohabiente'] = $data[$i];
+    }
+
+
     $dao = new DerechohabienteDao();
-    $resp = $dao->bajaDH($id);
-    return $resp;
+    for ($i = 0; $i < count($ids); $i++) {
+        $dao->bajaDH($ids[$i]['id_derechohabiente']);
+    }
+
+    return true;
 }
 
 //-----------------------------------------
@@ -358,15 +376,12 @@ function autocomplete($id_empleador, $term) {
     return $resp;
 }
 
+function buscarDerechoHabienteNumDocumento($tipodoc, $id_empleador_maestro, $num_documento) {
 
-
-
-function buscarDerechoHabienteNumDocumento($tipodoc, $id_empleador_maestro, $num_documento ){
-    
     $dao = new DerechohabienteDao();
-    $data =  $dao->buscarDerechoHabienteNumDocumento($tipodoc, $id_empleador_maestro, $num_documento);       
-    
+    $data = $dao->buscarDerechoHabienteNumDocumento($tipodoc, $id_empleador_maestro, $num_documento);
+
     return $data['id_persona'];
-    
 }
+
 ?>

@@ -315,11 +315,8 @@ $('#contenedor_producto').load(url);
   <legend><strong>Servicios Recibidos</strong></legend>
 <p>
   <input name="btn_agregar" type="button" id="btn_agregar" value="Agregar" onclick="nuevoElemento()" />
-
-  <input type="button" name="load" value="ver load" onclick="verLoad()"/>
   <br />
-  
-  <p>&nbsp;</p>
+
   
 <!--  
   <div id="cesta-productos_ANTES">
@@ -341,8 +338,6 @@ $('#contenedor_producto').load(url);
 -->  
         
 <p>Fecha de periodo a perido max 1 mes</p>
-
-
 <!-- INI AJAX cesta de productos -->
 <div id="cesta-productos">
     <div class="negrita" >

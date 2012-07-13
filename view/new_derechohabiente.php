@@ -127,9 +127,9 @@ $cbo_situaciones =comboSituacion();
 						cargarTablaDerechohabienteDireccion(data.id_derechohabiente);
 						//ID = data.id_persona;
 						
-						alert("Se guardo Correctamente JSON \n"+ data.id_derechohabiente);	
+						alert("Se guardo Correctamente. \n");	
 						}else{
-							alert("Ocurrio un error, intente nuevamente no hay datos JSON");
+							alert("Ocurrio un error");
 						}
 					}); 
 
@@ -144,86 +144,11 @@ $cbo_situaciones =comboSituacion();
 //-------------------------------------------------------------------
                 }); //End Ready
 				
-				
-				
-				
-/*****************************************************/
-/***************** Terrenos ***************************/
-/*****************************************************/
-
-//FUNNCION CARGAR_TABLA PASARELAS 10/12/2011		
-	function cargarTablaDerechohabienteDireccion(id){  console.log('id_derechohabiente = '+id);			
-			//OBTENER ID PERSONA
-			//$("#list").jqGrid('GridUnload');+	
-			$("#list").jqGrid({
-				url:'sunat_planilla/controller/DerechohabienteDireccionController.php?oper=cargar_tabla&id_derechohabiente='+id,
-				datatype: 'json',
-				colNames:['id_derechohabiente_direccion','id_derechohabiente','nombre_ubigeo_reniec','Direccion','Opciones'],
-				colModel :[
-					{
-						name:'id_derechohabiente_direccion', 
-						editable:false, 
-						index:'id_derechohabiente_direccion',
-						search:false,
-						hidden:false,
-						width:15,
-						align:'center'
-					},
-					{
-						name:'id_derechohabiente', 
-						editable:false, 
-						index:'id_persona_direccion',
-						search:false,
-						width:15,
-						align:'center'
-					},		
-					{
-						name:'nombre_ubigeo_reniec',
-						index:'nombre_ubigeo_reniec', 
-						editable:false,
-						width:280, 
-						align:'center', 
-					},
-					{
-						name:'estado_direccion',
-						index:'estado_direccion', 
-						editable:false,
-						width:30, 
-						align:'left', 
-					},
-					{
-						name:'opciones',
-						index:'opciones', 
-						editable:false,
-						width:20,
-						align:'center'
-					},	
-						
-
-				],
-				pager: '#pager',
-				autowidth: true,
-				rowNum:10,
-				rowList:[10,20,30],
-				sortname: 'estado_direccion',
-				sortorder: 'asc',
-				viewrecords: true,
-				gridview: true,
-				caption: 'Lista de Derechohabiente Direcciones',
-				onSelectRow: function(ids) {},
-				height:100,
-				width:'100%' 
-			});
-			myGrid.jqGrid('navGrid','#mypager',{edit:false,add:false,del:false,search:true});	
-		}		
-//-----------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------
-		
 
 
 //-------------------------------------------------------------
 ///--------- Inico select dependiente----------//
-    function LlenarCombo(json, combo){ //console.log(json);
+    function llenarComboVF(json, combo){ //console.log(json);
         combo.options[0] = new Option('-', '');
         for(var i=0;i<(json.length);i++){
 			console.dir(json);
@@ -231,7 +156,7 @@ $cbo_situaciones =comboSituacion();
         }
     }
 
-    function SeleccionandoCombo_1(cbo_depa, cbo_provin){
+    function SeleccionandoCombo_VF(cbo_depa, cbo_provin){
         cbo_provin = document.getElementById(cbo_provin);
 	
         if(cbo_depa.options[cbo_depa.selectedIndex].value >=1){
@@ -243,7 +168,7 @@ $cbo_situaciones =comboSituacion();
                 data: {id: cbo_depa.options[cbo_depa.selectedIndex].value, oper: 'listar_doc_vinculosf'},
                 success: function(json){
 					$('#cbo_documento_vinculo_familiar').find('option').remove().end();
-                    LlenarCombo(json, cbo_provin);
+                    llenarComboVF(json, cbo_provin);
 								
                 }
             });
@@ -387,7 +312,7 @@ foreach ($cbo_estado_civil as $indice) {
 
 <div class="fila_input">
 <label>Vínculo Familiar:</label>
-<select name="cbo_vinculo_familiar" onchange="SeleccionandoCombo_1(this, 'cbo_documento_vinculo_familiar')" 
+<select name="cbo_vinculo_familiar" onchange="SeleccionandoCombo_VF(this, 'cbo_documento_vinculo_familiar')" 
 style="width:180px;" >
 <option value="">-</option>
 <?php
@@ -478,7 +403,7 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 	echo $html;
 }
 ?>
-                          </select>
+                      </select>
                           <input name="txt_telefono" type="text" id="txt_telefono" />
                     
                     </div>
@@ -502,22 +427,18 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 				
 				<!-- DIRECCION 2-->
 				<input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar Derechohabiente">
-
-
-                <input type="submit" name="Submit" 
-				value="Retornar" 
-				onclick="cargar_pagina('sunat_planilla/view/view_derechohabiente2.php?id_persona=<?php echo $_REQUEST['id_persona']; ?>','#CapaContenedorFormulario')" />
     </form>
-  
-  
-<div   style="border:2px solid blue; display:block; " id="DIV_GRID_DIRECCION">
-
-		<table id="list"></table>
+    <div   style=" display:block; " id="DIV_GRID_DIRECCION">
+      
+    <table id="list"></table>
             <div id="pager"></div>
 			
       	
 			
 </div>
+    <input type="submit" name="Submit" 
+				value="Retornar" 
+				onclick="cargar_pagina('sunat_planilla/view/view_derechohabiente2.php?id_persona=<?php echo $_REQUEST['id_persona']; ?>','#CapaContenedorFormulario')" />
 </div>
 <!-- FINAL TAB1 -->	
 

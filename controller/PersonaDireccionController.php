@@ -1,4 +1,5 @@
 <?php
+
 //session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
@@ -40,7 +41,7 @@ if ($op == "cargar_tabla") {
 
     $responce = comboUbigeoReniec($_REQUEST['id_provincia']);
 } else {
-   // echo "oper INCORRECTO";
+    // echo "oper INCORRECTO";
 }
 
 //echo count($responce);
@@ -132,29 +133,29 @@ function editarPersonaDireccion() {
     $obj->setCod_zona($_REQUEST['cbo_tipo_zona']);
     $obj->setNombre_zona($_REQUEST['txt_zona']);
     $obj->setReferencia($_REQUEST['txt_referencia']);
-    
-    
+
+
     $obj->setReferente_essalud($_REQUEST['rbtn_ref_essalud']); //boolean    
     $obj->setEstado_direccion($_REQUEST['txt_estado_direccion']);
 
     //obj direccion estasdo = 1
-    
+
     $dao = new PersonaDireccionDao();
     $rpta = $dao->actualizarPersonaDireccion($obj);
-    
-    if($obj->getEstado_direccion()=='2'){        
-        if($obj->getReferente_essalud() =='0'){
+
+    if ($obj->getEstado_direccion() == '2') {
+        if ($obj->getReferente_essalud() == '0') {
             //DIRECCION 1 ES = Referente para Centro Asistencia EsSalud:
             // direccion 1
             // direccion 2            
             $dao->actualizarEstadoReferenteEsalud($obj->getId_persona(), 1, 1);
-            
-        }else{
+        } else {
             $dao->actualizarEstadoReferenteEsalud($obj->getId_persona(), 1, 0);
         }
-    } 
-    
-    return $rpta;;
+    }
+
+    return $rpta;
+    ;
 }
 
 /* * *
@@ -226,7 +227,6 @@ function cargar_tabla($id_persona) {
     if ($lista == null || count($lista) == 0) {
         return $responce;  /* break; */
     }
-//print_r($lista);
 
     foreach ($lista as $rec) { /* dato retorna estos datos */
 
@@ -272,26 +272,26 @@ function cargar_tabla($id_persona) {
         //---------------Inicio Cadena String----------//
         $cadena = '';
 
-        $cadena .= (!empty($ubigeo_nombre_via)) ? '' . $ubigeo_nombre_via . ' ' : '';
-        $cadena .= (!empty($nombre_via)) ? '' . $nombre_via . ' ' : '';
-        $cadena .= (!empty($numero_via)) ? '' . $numero_via . ' ' : '';
+        $cadena .= ($ubigeo_nombre_via != "-") ? $ubigeo_nombre_via : '';
+        $cadena .= (!empty($nombre_via)) ? $nombre_via : '';
+        $cadena .= (!empty($numero_via)) ? $numero_via : '';
 
-        $cadena .= (!empty($ubigeo_nombre_zona)) ? '' . $ubigeo_nombre_zona . ' ' : '';
-        $cadena .= (!empty($nombre_zona)) ? '' . $nombre_zona . ' ' : '';
-        $cadena .= (!empty($etapa)) ? '' . $etapa . ' ' : '';
+        $cadena .= ($ubigeo_nombre_zona != "-") ? $ubigeo_nombre_zona : '';
+        $cadena .= (!empty($nombre_zona)) ? $nombre_zona : '';
+        $cadena .= (!empty($etapa)) ? $etapa : '';
 
-        $cadena .= (!empty($manzana)) ? 'MZA. ' . $manzana . ' ' : '';
-        $cadena .= (!empty($blok)) ? '' . $blok . ' ' : '';
-        $cadena .= (!empty($etapa)) ? '' . $etapa . ' ' : '';
-        $cadena .= (!empty($lote)) ? 'LOTE. ' . $lote . ' ' : '';
+        $cadena .= (!empty($manzana)) ? 'MZA. ' . $manzana : '';
+        $cadena .= (!empty($blok)) ? $blok : '';
+        $cadena .= (!empty($etapa)) ? $etapa : '';
+        $cadena .= (!empty($lote)) ? 'LOTE. ' . $lote : '';
 
-        $cadena .= (!empty($departamento)) ? '' . $departamento . ' ' : '';
-        $cadena .= (!empty($interior)) ? '' . $interior . ' ' : '';
-        $cadena .= (!empty($kilometro)) ? '' . $kilometro . ' ' : '';
+        $cadena .= (!empty($departamento)) ? $departamento : '';
+        $cadena .= (!empty($interior)) ? $interior : '';
+        $cadena .= (!empty($kilometro)) ? $kilometro : '';
 
-        $cadena .= (!empty($ubigeo_departamento)) ? '' . $ubigeo_departamento . '-' : '';
-        $cadena .= (!empty($ubigeo_provincia)) ? '' . $ubigeo_provincia . '-' : '';
-        $cadena .= (!empty($ubigeo_distrito)) ? '' . $ubigeo_distrito . ' ' : '';
+        $cadena .= ($ubigeo_departamento != "-") ? $ubigeo_departamento."-" : '';
+        $cadena .= ($ubigeo_provincia != "-") ? $ubigeo_provincia."-" : '';
+        $cadena .= ($ubigeo_distrito != "-") ? $ubigeo_distrito : '';
 
         $cadena = strtoupper($cadena);
 

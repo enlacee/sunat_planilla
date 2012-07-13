@@ -25,6 +25,15 @@ if ($op) {
 
     //Buscar Empleador Seleccionado con Establecimiento
     require_once '../controller/DetalleEstablecimientoController.php';
+    
+    
+    
+    
+    
+    
+    
+        //IDE_EMPLEADOR_MAESTRO
+    require_once '../controller/ideController.php';
 }
 //DetalleServicioPrestado1Dao
 $responce = NULL;
@@ -131,7 +140,18 @@ function nuevoEmpleadorDestaque() {
             return false;
         }//EndIF
     }//ENDFOR
-//- - - - - - - - - - --   -- - - - - -- -- - - - -- - - - - - - - -  -- - - - - - - - - - - - -  - -- -  //	
+//- - - - - - - - - - --   -- - - - - -- -- - - - -- - - - - - - - -  -- - - - - - - - - - - - -  - -- -  //
+    
+    
+    
+    //Actualizar EMPLEADOR AHORA SI DESPLAZA PERSONAL
+    $dao_e = new EmpleadorDao();
+    $dao_e->empleadorDesplazaPersonal(ID_EMPLEADOR, 1);
+    
+    
+    
+    
+    
 
     return true;
 }

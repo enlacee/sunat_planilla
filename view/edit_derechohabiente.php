@@ -1,5 +1,7 @@
 <?php
 //COMBO FILE
+require_once('../util/funciones.php');
+
 require_once('../dao/AbstractDao.php');
 require_once('../dao/ComboDao.php');
 require_once('../controller/ComboController.php');
@@ -8,8 +10,8 @@ require_once '../dao/ComboCategoriaDao.php';
 require_once '../controller/ComboCategoriaController.php';
 
 //--
-//require_once('../dao/DerechohabienteDao.php');
-//require_once('../model/Derechohabiente.php');
+require_once('../dao/DerechohabienteDao.php');
+require_once('../model/Derechohabiente.php');
 require_once('../controller/DerechohabienteController.php');
 
 // COMBO 01
@@ -57,23 +59,27 @@ $cbo_vinculos_familiares = comboVinculoFamiliar();
 $cbo_documentos_vinculos_familiares = comboDocumentoVinculoFamiliar($obj_dh->getCod_vinculo_familiar());
 //cod_documento_vinculo_familiar
 // COMBO 03 cod_situacion
+//combo 10
+$estado = ($obj_dh->getCod_situacion()==2) ? 0 : $obj_dh->getCod_situacion();
+$combo_situacion = comboSituacion($estado);
 
-$cbo_situaciones = comboSituacion();
 
 echo "<pre>";
-//print_r($cbo_documentos_vinculos_familiares);
+echo "estado ".$obj_dh->getCod_situacion()."<br>";
+print_r($cbo_situaciones);
 echo "</pre>";
 ?>
 
-<script>
-			
+<script>	
                 
     //INICIO HISTORIAL
     $(document).ready(function(){
         //demoApp = new Historial();                  
         $( "#tabs").tabs();
 		crearDialogoDerechohabienteDireccion();
-        //new
+		var id_persona = document.form_edit_derechohabiente.id_derechohabiente.value;        
+        cargarTablaDerechohabienteDireccion(id_persona);
+
         //-------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------
         //$('#form_new_personal').ajaxForm( { beforeSubmit: validate } ); 
@@ -129,7 +135,8 @@ echo "</pre>";
                 function(data){
                     if(data){
                         disableForm('form_edit_derechohabiente');
-                        alert("Se guardo Correctamente JSON");					
+                        alert("Se guardo Correctamente.");
+										
 						
                     }else{
                         alert("Ocurrio un error, intente nuevamente no hay datos JSON");
@@ -139,103 +146,10 @@ echo "</pre>";
 
             }//ENDsubmitHandler			
 			
-        });
- 
-        
-        
-        
-        
-        
-        
-                    
-        //$( "#tabs_2").tabs();
-        id_persona = document.form_edit_derechohabiente.id_derechohabiente.value;
-        
-        cargarTablaDerechohabienteDireccion(id_persona);					
-        //---------------------------------------------
-
+        });        
 
         //-------------------------------------------------------------------
     }); //End Ready
-				
-				
-			
-				
-    /*****************************************************/
-    /***************** Terrenos ***************************/
-    /*****************************************************/
-    
-    //FUNNCION CARGAR_TABLA PASARELAS 10/12/2011		
-    function cargarTablaDerechohabienteDireccion(id){  //console.log('id_derechohabiente = '+id);			
-        //OBTENER ID PERSONA
-        //$("#list").jqGrid('GridUnload');+	
-        $("#list").jqGrid({
-            url:'sunat_planilla/controller/DerechohabienteDireccionController.php?oper=cargar_tabla&id_derechohabiente='+id,
-            datatype: 'json',
-            colNames:['Id','id_derechohabiente','nombre_ubigeo_reniec','Direccion','Opciones'],
-            colModel :[
-                {
-                    name:'id_derechohabiente_direccion', 
-                    editable:false, 
-                    index:'id_derechohabiente_direccion',
-                    search:false,
-                    hidden:false,
-                    width:15,
-                    align:'center'
-                },
-                {
-                    name:'id_derechohabiente', 
-                    editable:false, 
-                    index:'id_persona_direccion',
-					search:false,
-					hidden:true,
-
-                    width:15,
-                    align:'center'
-                },		
-                {
-                    name:'nombre_ubigeo_reniec',
-                    index:'nombre_ubigeo_reniec', 
-                    editable:false,
-                    width:280, 
-                    align:'center' 
-                },
-                {
-                    name:'estado_direccion',
-                    index:'estado_direccion', 
-                    editable:false,
-                    width:30, 
-                    align:'left', 
-                },
-                {
-                    name:'opciones',
-                    index:'opciones', 
-                    editable:false,
-                    width:20,
-                    align:'center'
-                },	
-						
-
-            ],
-            pager: '#pager',
-            autowidth: true,
-            rowNum:10,
-            rowList:[10,20,30],
-            sortname: 'estado_direccion',
-            sortorder: 'asc',
-            viewrecords: true,
-            gridview: true,
-            caption: 'Lista de Derechohabiente Direcciones',
-            onSelectRow: function(ids) {},
-            height:100,
-            width:'100%' 
-        });
-		
-        	
-    }		
-    //-----------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------
-
 </script>
 
 
@@ -256,14 +170,14 @@ echo "</pre>";
                     <legend>Datos de Identificacion </legend>
 
 
-<div class="fila_input">
-                    <label><label>id_derechohabiente</label></label>
+<div class="ocultar fila_input" >
+                    id_derechohabiente
                     <input type="text" name="id_derechohabiente" id="id_derechohabiente" 
                            value="<?php echo $obj_dh->getId_Derechohabiente(); ?>" >
 </div>					   
 
-					<div class="fila_input">
-                    <label>id_persona</label>
+					<div class="ocultar fila_input">
+                    id_persona
                     <input name="id_persona" type="text" id="id_persona" value="<?php echo $obj_dh->getId_persona(); ?>" />
 					</div>
 
@@ -414,16 +328,16 @@ echo "</pre>";
                     <div class="fila_input">
                         <label>Mes de Concepci&oacute;n:</label>
                         <input name="txt_vf_mes_concepcion" type="text"  id="txt_vf_mes_concepcion" 
-                         value="<?php echo $obj_dh->getVf_mes_concepcion(); ?>" 
+                         value="<?php echo getFechaPatron($obj_dh->getVf_mes_concepcion(),"m/Y"); ?>" 
                          onblur="validarvfMesConcepcion(this)"/> 
-                        (mm/aaaa) VALIDA!!
+                        (mm/aaaa)
                     </div>
 
                     <div class="fila_input ocultar" style="">
                         situaci&oacute;n: <select name="cbo_situacion" 
                         <?php //echo ($obj_dh->getCod_situacion()=='1')? ' disabled="disabled"' : '' ?> >
                             <?php
-                            foreach ($cbo_situaciones as $indice) {
+                            foreach ($combo_situacion as $indice) {
 
                                 if ($indice['cod_situacion'] == $obj_dh->getCod_situacion()) {
                                     $html = '<option value="' . $indice['cod_situacion'] . '" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
@@ -484,9 +398,8 @@ echo "</pre>";
 
 
                 <div style=" display:block; " id="DIV_GRID_DIRECCION">
-
-
-                        <table id="list"></table>
+                  <table id="list">
+                  </table>
                         <div id="pager"></div>
 
 

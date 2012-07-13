@@ -29,7 +29,7 @@ require_once('../ide2.php');
         $("#list-1").jqGrid({
             url:'sunat_planilla/controller/CategoriaTrabajadorController.php?oper=cargar_tabla_trabajador&estado=1',
             datatype: 'json',
-            colNames:['Id','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
+            colNames:['ID','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
                 'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
                 ,'Reportado'],
             colModel :[
@@ -38,7 +38,7 @@ require_once('../ide2.php');
                     editable:false, 
                     index:'id_trabajador',
                     search:false,
-                    width:30,
+                    width:20,
                     align:'center'
                 },		
                 {
@@ -54,35 +54,35 @@ require_once('../ide2.php');
                     index:'nombre_tipo_documento',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:100,
                     align:'center'
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:60,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
-                    width:80,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
-                    width:80,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:true,
-                    width:80,
+                    width:100,
                     align:'center'
                 },
                 {
@@ -113,14 +113,16 @@ require_once('../ide2.php');
                     index:'reporte',
                     search:false,
                     editable:false,
-                    width:50,
+                    width:60,
                     align:'center'
                 }							
 
 
             ],
             pager: '#pager-1',
-            autowidth: true,
+			height:'200px',
+            //width:'800px',
+            //autowidth: true,
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_trabajador',
@@ -176,8 +178,7 @@ require_once('../ide2.php');
                 }//ENFIF
                 
             },		
-            height:250,
-            width:'800px'
+
         });
         //--- PIE GRID
   jQuery("#list-1").jqGrid('navGrid','#pager-1',{add:false,edit:false,del:false});
@@ -283,7 +284,7 @@ if(news.length > 0){
         $("#list-2").jqGrid({
             url:'sunat_planilla/controller/CategoriaTrabajadorController.php?oper=cargar_tabla_trabajador&estado=0',
             datatype: 'json',
-            colNames:['Id','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
+            colNames:['ID','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
                 'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
                 ,'Opciones'],
             colModel :[
@@ -292,7 +293,7 @@ if(news.length > 0){
                     editable:false, 
                     index:'id_trabajador',
                     search:false,
-                    width:30,
+                    width:20,
                     align:'center'
                 },		
                 {
@@ -308,42 +309,42 @@ if(news.length > 0){
                     index:'nombre_tipo_documento',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:60,
+                    width:80,
                     align:'center'
                 },
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
-                    width:80,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
-                    width:80,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:true,
-                    width:80,
+                    width:90,
                     align:'center'
                 },
                 {
                     name:'fecha_nacimiento',
                     index:'fecha_nacimiento',
                     editable:true,
-                    width: 100, 
+                    width: 90, 
                     align:'center'
                 },
                 {
@@ -367,14 +368,16 @@ if(news.length > 0){
                     index:'opciones',
                     search:false,
                     editable:false,
-                    width:50,
+                    width:60,
                     align:'center'
                 }							
 
 
             ],
             pager: '#pager-2',
-            autowidth: true,
+            //autowidth: true,
+			//width: '',
+			heigth:'200px',
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_trabajador',
@@ -429,9 +432,8 @@ if(news.length > 0){
                     ids_trabajadores_2 = array;
                 }//ENFIF
                 
-            },		
-            height:250,
-            width:'800px'
+            },	
+			
         });
 		
 		

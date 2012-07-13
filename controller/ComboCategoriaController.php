@@ -412,13 +412,6 @@ function comboRegimenAseguramientoSalud($id_tipo_empleador, $remype, $id_tipo_tr
     }//ENDIF
 
 
-
-
-
-
-
-
-
     return $arreglo;
 }
 

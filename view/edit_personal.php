@@ -148,12 +148,9 @@ $obj_persona = buscarPersonaPorId($ID_PERSONA);
 				//-----------------------------------------------------------------------	
 				$.getJSON('sunat_planilla/controller/PersonaController.php?'+from_data,
 					function(data){
-					//funcion.js index.php
-					//disableForm('form_new_personal');	
+
 						if(data){
-						//document.getElementById('id_persona').value = data.id_persona;
-						//cargarTablaPersonalDireccion(data.id_persona);
-						//ID = data.id_persona;
+							
 						disableForm('form_edit_personal');
 						alert("Se guardo Correctamente JSON");					
 						
@@ -472,7 +469,7 @@ foreach ($cbo_pais_emisor_documento as $indice) {
 ?>
 
                         </select>
-                        cbo</div>
+                    </div>
                     <div class="fila_input">
                         <label>Apellido Paterno:</label>
                         <input name="txt_apellido_paterno" type="text" id="txt_apellido_paterno" 

@@ -123,13 +123,13 @@ function llenarComboDetalle_1(objCombo){
     <div id="plaboral-row-1">
             <div class="celda eliminar"> 
                 <input type="text" id="id_detalle_plaboral-1" size="2" name="id_detalle_plaboral[]"
-                value="" >
+                value="0" >
             </div>	
             <div class="celda producto">
-                <input type="text" size="16" id="txt_plaboral_fecha_inicio-1" name="txt_plaboral_fecha_inicio[]" >
+                <input type="text" size="14" id="txt_plaboral_fecha_inicio-1" name="txt_plaboral_fecha_inicio[]" >
             </div>	
             <div class="celda precio">
-              <input  type="text" id="txt_plaboral_fecha_fin-1"  name="txt_plaboral_fecha_fin[]"size="16" />      
+              <input  type="text" id="txt_plaboral_fecha_fin-1"  name="txt_plaboral_fecha_fin[]"size="14" />      
             </div>	
             <div class="celda cantidad">
                 <select onchange="" style="width:250px;" id="cbo_motivo_baja-1" name="cbo_motivo_baja[]">

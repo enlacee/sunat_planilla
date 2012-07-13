@@ -173,7 +173,42 @@ class EmpleadorDao extends AbstractDao {
         return true;
     }
 
-//
+    public function empleadorDesplazaPersonal($id_empleador, $boleano) {
+        $query = "
+        UPDATE empleadores
+        SET
+          desplaza_personal = ?
+
+        WHERE id_empleador = ?;            
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$boleano);
+        $stm->bindValue(2,$id_empleador);
+        $stm->execute();
+        $stm = null;
+        
+        return true;
+    }
+    
+    
+    public function empleadorTercerosDesplazaPersonal($id_empleador, $boleano) {
+        $query = "
+        UPDATE empleadores
+        SET
+          terceros_desplaza_usted = ?
+        WHERE id_empleador = ?;            
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$boleano);
+        $stm->bindValue(2,$id_empleador);
+        $stm->execute();
+        $stm = null;
+        
+        return true;
+    }
+
     public function cantidadEmpleadores() {//OK
         $query = "
             SELECT COUNT(*) AS numfilas

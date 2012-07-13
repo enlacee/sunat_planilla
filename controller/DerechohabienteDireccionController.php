@@ -155,35 +155,33 @@ function cargar_tabla($id_derechohabiente) {
 				&nbsp;
 				</div>';
         //hereee
-		//---------------Inicio Cadena String----------//
-		$cadena = '';
-		
-		$cadena .= (!empty($ubigeo_nombre_via))? ''.$ubigeo_nombre_via.' ' : '';		
-		$cadena .= (!empty($nombre_via))? ''.$nombre_via.' ' : '';
-		$cadena .= (!empty($numero_via))? ''.$numero_via.' ' : '';
-		
-		$cadena .= (!empty($ubigeo_nombre_zona))? ''.$ubigeo_nombre_zona.' ' : '';
-		$cadena .= (!empty($nombre_zona))? ''.$nombre_zona.' ' : '';
-		$cadena .= (!empty($etapa))? ''.$etapa.' ' : '';
-		
-		$cadena .= (!empty($manzana))? 'MZA. '.$manzana.' ' : '';
-		$cadena .= (!empty($blok))? ''.$blok.' ' : '';
-		$cadena .= (!empty($etapa))? ''.$etapa.' ' : '';
-		$cadena .= (!empty($lote))? 'LOTE. '.$lote.' ' : '';
-		
-		$cadena .= (!empty($departamento))? ''.$departamento.' ' : '';
-		$cadena .= (!empty($interior))? ''.$interior.' ' : '';
-		$cadena .= (!empty($kilometro))? ''.$kilometro.' ' : '';
-		$cadena .= (!empty($referencia))? ''.$referencia.' ' : '';
-		
-		
-		$cadena .= (!empty($ubigeo_departamento))? ''.$ubigeo_departamento.'-' : '';
-		$cadena .= (!empty($ubigeo_provincia))? ''.$ubigeo_provincia.'-' : '';
-		$cadena .= (!empty($ubigeo_distrito))? ''.$ubigeo_distrito.' ' : '';
-		
-		$cadena = strtoupper($cadena);
+        //---------------Inicio Cadena String----------//
+        $cadena = '';
 
-		//---------------Inicio Cadena String----------//
+        $cadena .= ($ubigeo_nombre_via != "-") ? $ubigeo_nombre_via : '';
+        $cadena .= (!empty($nombre_via)) ? $nombre_via : '';
+        $cadena .= (!empty($numero_via)) ? $numero_via : '';
+
+        $cadena .= ($ubigeo_nombre_zona != "-") ? $ubigeo_nombre_zona : '';
+        $cadena .= (!empty($nombre_zona)) ? $nombre_zona : '';
+        $cadena .= (!empty($etapa)) ? $etapa : '';
+
+        $cadena .= (!empty($manzana)) ? 'MZA. ' . $manzana : '';
+        $cadena .= (!empty($blok)) ? $blok : '';
+        $cadena .= (!empty($etapa)) ? $etapa : '';
+        $cadena .= (!empty($lote)) ? 'LOTE. ' . $lote : '';
+
+        $cadena .= (!empty($departamento)) ? $departamento : '';
+        $cadena .= (!empty($interior)) ? $interior : '';
+        $cadena .= (!empty($kilometro)) ? $kilometro : '';
+
+        $cadena .= ($ubigeo_departamento != "-") ? $ubigeo_departamento."-" : '';
+        $cadena .= ($ubigeo_provincia != "-") ? $ubigeo_provincia."-" : '';
+        $cadena .= ($ubigeo_distrito != "-") ? $ubigeo_distrito : '';
+
+        $cadena = strtoupper($cadena);
+
+        //---------------Inicio Cadena String----------//
         $responce->rows[$i]['id'] = $param;
         $responce->rows[$i]['cell'] = array(
             $param,

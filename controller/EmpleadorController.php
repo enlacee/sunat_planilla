@@ -1,5 +1,4 @@
 <?php
-
 //session_start();
 //header("Content-Type: text/html; charset=utf-8");
 require_once ('../dao/AbstractDao.php');
@@ -31,7 +30,7 @@ if ($op == "cargar_tabla") {
     echo cargarSelectCodigo();
 } elseif ($op == "buscar_empleador") {
     $responce = buscaEmpleadorPorRuc($_REQUEST['txt_ruc']);
-} else if ($op = "existe-empleador") {
+} else if ($op == "existe-empleador") {
     $responce = existeEmpleadorBD($_REQUEST['ruc']);
 } else {
     echo "<p>variable OPER no esta definido</p>";
@@ -59,11 +58,12 @@ function nuevoEmpleador() {
         $emp->setActividad_riesgo_sctr($_REQUEST['rbtn_actividad_riesgo']);
 //----------------
         $emp->setSenati($_REQUEST['rbtn_senati']);
-
-        $emp->setRemype($_REQUEST['rbtn_remype']);
+        
+        $rmype = ($_REQUEST['rbtn_remype']) ? $_REQUEST['rbtn_remype'] : 0;
+        $emp->setRemype($rmype);
 
         //S i Remype es TRUE guarda datos de tipo de remipe.
-        if ($emp->setRemype() == 1) {
+        if ($emp->getRemype() == 1) {
             $emp->setRemype_tipo_empresa($_REQUEST['rbtn_remype_tipo_empresa']);
         }
         $emp->setTrabajador_sin_rp($_REQUEST['rbtn_sin_rp']);
@@ -73,7 +73,7 @@ function nuevoEmpleador() {
         $emp->setAgencia_empleo($_REQUEST['rbtn_agencia_empleo']);
         $emp->setDesplaza_personal($_REQUEST['rbtn_desplaza_personal']); // 01 Desplaza Personal
         $emp->setTerceros_desplaza_usted($_REQUEST['rbtn_terceros_desplaza_personal']); //02 Terceros desplaza Usted
-        $emp->setEstado_empleador('INACTIVO');
+        $emp->setEstado_empleador('ACTIVO');
 
 //----------------
         //$emp->setEstado_empleador('no-titular');
@@ -282,7 +282,7 @@ function buscaEmpleadorPorRuc($ruc) {
     $data = $dao_empleador->buscaEmpleadorPorRuc($ruc);
 
     return $data;
-    //var_dump($lista);
+    //var_dump($data);
 }
 
 //*******************************

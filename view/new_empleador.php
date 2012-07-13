@@ -159,6 +159,7 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
     //-------------------------------------------------------------
 
 
+
 </script>
 
 
@@ -206,7 +207,7 @@ foreach ($cbo_tipo_empleador as $indice) {
                       </select>
             </div>
               <div  class="fila_input"><label>RUC:</label>
-<input name="txt_ruc" type="text" class="required error"  id="txt_ruc" size="11" maxlength="11">
+<input name="txt_ruc" type="text"  id="txt_ruc" size="11" maxlength="11">
               </div>
                     <div class="fila_input"><label>Razon Social:</label>
                       <input name="txt_razon_social" type="text"  id="txt_razon_social">
@@ -239,7 +240,7 @@ foreach ($cbo_tipo_sociedad_comercial as $indice) {
                       <label for="cbo_tipo_actividad"></label>
                       <label for="txt_cod_tipo_actividad"></label>
                         <input name="txt_cod_tipo_actividad" type="text" id="txt_cod_tipo_actividad" size="12" />
-                        <select name="cbo_tipo_actividad" id="cbo_tipo_actividad">
+                        <select name="cbo_tipo_actividad" id="cbo_tipo_actividad" onchange="seleccionarTipoActividadInputPorCombo(this)">
 <?php
 foreach ($cbo_tipo_actividad as $indice) {
 	

@@ -532,7 +532,7 @@ function cargarEmpleadoresBase(){
 		success: function(data){
 			//console.log(data);
 			var cbo_base = document.getElementById('cbo_establecimiento');
-			LlenarComboGlobal(data,cbo_base);	
+			llenarComboGlobal(data,cbo_base);	
 		}
 	});	
 
@@ -554,7 +554,7 @@ function cargarEstablecimientosBase(){
 		success: function(data){
 			console.log(data);
 			var cbo_base = document.getElementById('cbo_establecimiento_local');
-			LlenarComboGlobal(data,cbo_base);	
+			llenarComboGlobal(data,cbo_base);	
 		}
 	});	
 	
@@ -579,6 +579,7 @@ function cargarEstablecimientoLocales(idComboPadre){
 		//limpiarComboGlobal(objCombo);
 		//objCombo.disabled = false;
 	//-----
+
 	$.ajax({
 		type: 'get',
 		dataType: 'json',
@@ -590,7 +591,14 @@ function cargarEstablecimientoLocales(idComboPadre){
         },
 		success: function(json){
 			//console.log(json);
-			llenarComboDinamico(json,objCombo);	
+			if(json == null || json.length<1 ){
+				var mensaje = "No Existen Establecimientos Registrados\n";
+				mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
+				mensaje += "O el problema es aun Mayor"; 
+				alert(mensaje);	
+			}else{				
+				llenarComboDinamico(json,objCombo);
+			}
 		}
 	});
 	//-----		
@@ -638,11 +646,11 @@ function cargarEstablecimientoLocalesYourself(idComboPadre){
 //-----------------------
 function llenarComboDinamico(test,objCombo){
 
-	var counteo = objCombo.length; console.log("limpiar   "+objCombo.length);
+	var counteo = objCombo.length;
 	for(var i=0;i<counteo;i++){
 		objCombo.options[i] = null;
 	}
-	console.log("fin limpiado");	
+	//console.log("fin limpiado");	
 	
 	var counteo = 	test.length;		
 	objCombo.options[0] = new Option('-', '0');
@@ -707,22 +715,23 @@ function buscarCodigoDeCombo(codigo,idCombo){
 //--------------------------------------------------
 
 
-function editarDialogoDetalle_1(){  alert (".");
+function editarDialogoDetalle_1(){  alert ("...");
 	crearDialogoDetalle_1();
 	$('#dialog_detalle_1').dialog('open');
-
 	var form = document.form_trabajador;
 	var f_inicio = form.txt_plaboral_fecha_inicio_base.value;
 	var f_fin = form.txt_plaboral_fecha_fin_base.value;
 	var cbo_motivo_baja = form.cbo_plaboral_motivo_baja_base.value;
-	alert(cbo_motivo_baja);
+	alert("hola 2..."+cbo_motivo_baja);
 	
 	if(contarDetalle_1()==1){
 	//POP UP -- pasar datos
 	document.getElementById('txt_plaboral_fecha_inicio-1').value= f_inicio;
 	document.getElementById('txt_plaboral_fecha_fin-1').value = f_fin
 	//function para cagar combo con ID
+
 	buscarCodigoDeCombo(cbo_motivo_baja,'cbo_motivo_baja-1');
+
 //	document.getElementById('cbo_motivo_baja-1').value = "hola cbo";
 	}
 
@@ -743,7 +752,11 @@ function guardarDialogoDetalle_1(){
 	
 	buscarCodigoDeCombo(popup_cbo_motivo,'cbo_plaboral_motivo_baja_base');
 	
-	if(id>=2){//validado field llenos
+	if(id == 1){
+		form.txt_plaboral_fecha_inicio_base.disabled=false;
+		form.txt_plaboral_fecha_fin_base.disabled=false;
+		form.cbo_plaboral_motivo_baja_base.disabled=false;
+	}else if(id>=2){//validado field llenos
 		form.txt_plaboral_fecha_inicio_base.disabled=true;
 		form.txt_plaboral_fecha_fin_base.disabled=true;
 		form.cbo_plaboral_motivo_baja_base.disabled=true;
@@ -758,7 +771,7 @@ alert('crearDialogoDetalle_1');
 			autoOpen: false,
 			height: 310,
 			width: 720,
-			modal: true,                        
+			modal: false,                        
 			buttons: {
                    'Cancelar': function() {
 					$(this).dialog('close');
@@ -821,7 +834,7 @@ html += cerrarDiv;
 
 
 html +='	<div class="celda sub-total">';
-html +='    <a href="javascript:eliminarFilaTabPlaboral('+id+')" id="eliminar_plaboral-'+id+'" >delete</a>';
+html +='    <a href="javascript:eliminarElemento( document.getElementById( \'plaboral-row-'+id+'\' ) )" > delete </a>';
 html += cerrarDiv;   
 
 div.innerHTML=html;
@@ -906,7 +919,7 @@ alert('crearDialogoDetalle_2');
 			autoOpen: false,
 			height: 310,
 			width: 720,
-			modal: true,                        
+			modal: false,                        
 			buttons: {
                    'Cancelar': function() {
 					$(this).dialog('close');
@@ -947,7 +960,7 @@ var html ='';
 var cerrarDiv = '<\/div>';
 
 html +='	<div class="celda eliminar">';
-html +='	<input type="hidden" name="id_ttrabajador[]" id="id_ttrabajador-1" />'	
+html +='	<input type="hidden" name="id_ttrabajador[]" id="id_ttrabajador-'+id+'" />'	
 html +='    <input id="txt_ttcodigo-1" name="txt_ttcodigo[]" type="text" value="0" size="5" readonly="readonly"';
 html +='    id="id_detalle_plaboral-'+id+'" />';
 html += cerrarDiv;
@@ -969,7 +982,7 @@ html += cerrarDiv;
 
 
 html +='	<div class="celda sub-total">';
-html +='    <a href="javascript:eliminarFilattrabajador('+id+')" id="eliminar_ttrabajador-'+id+'" >delete</a>';
+html +='    <a href="javascript:eliminarElemento(document.getElementById( \'ttrabajador-row-'+id+'\' ) )" >delete</a>';
 html += cerrarDiv;   
 
 div.innerHTML=html;
@@ -1113,31 +1126,29 @@ function seleccionarComboCodigoAinput(objCombo,objInput){
 // PersonaDireccion { modal : detalle_persona_direccion}
 //----- 
 function validarFormDireccion(){
-	var estado = null;
+	var estado = false;
 	var form = document.form_direccion;
 
     if(form.cbo_departamento.value=="" || form.cbo_departamento.value==0){
-		alert("Debe seleccionar Departamento");
+		estado =("Debe seleccionar Departamento");
 	}else if(form.cbo_provincia.value=="" || form.cbo_provincia.value==0){
-		alert("Debe seleccionar Provincia");		
+		estado = ("Debe seleccionar Provincia");		
 	}else if(form.cbo_distrito.value=="" || form.cbo_distrito.value==0){
-		alert("Debe Seleccionar Distrito");
+		estado = ("Debe Seleccionar Distrito");
 	}else if ( form.cbo_tipo_via.value==0 && form.cbo_tipo_zona.value==0 ){		
-		alert ("Debe seleccionar Tipo de Via  O Zona");	
+		estado  = ("Debe seleccionar Tipo de Via  O Zona");	
 
 	}else if((form.cbo_tipo_via.value > 0) &&  (form.txt_nombre_via.value=="") ){
-		alert("Debe Ingresar un Nombre de via");
+		estado = ("Debe Ingresar un Nombre de via");
 		
 	}else if( (form.cbo_tipo_zona.value > 0) && (form.txt_zona.value=="") ){
-		alert("Debe Ingresar un Nombre de Zona");
+		estado = ("Debe Ingresar un Nombre de Zona");
 		
 	}else if(  validarRadioMarcado(form.rbtn_ref_essalud ) == false ){
-		alert("Debe seleccionar Si o No.\nReferente para Centro Asistencia EsSalud: ");
-		
+		estado = ("Debe seleccionar Si o No.\nReferente para Centro Asistencia EsSalud: ");		
 					
 	}else{	
 		estado = true;
-		//alert("true");
 	}	
 	return estado;
 	
@@ -1145,50 +1156,32 @@ function validarFormDireccion(){
 
 
 
-function validarFormDireccionPricipal(){
-	
-	
-
-}
-
-
-
 function crearDialogoPersonaDireccion(){
-//alert('crearDialogoPersonaDireccion');
+
 	$("#dialog-form-editarDireccion").dialog({ 
            
 			autoOpen: false,
 			height: 310,
 			width: 860,
-			modal: true,
-                        
+			modal: true,                        
 			buttons: {
                    'Cancelar': function() {
 					$(this).dialog('close');
 				},
-				'Guardar': function() {	
-				
-					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php						
-									
-					//var estado_form = $("#form_direccion").valid();
+				'Guardar': function() {					
+					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php
+					//estado_form = validarFormDireccion();	
+					estado_form = true;
+					//console.log("holaaa ="+estado_form);
 					
-					estado_form = validarFormDireccion();	
-					/*if(estado_form ==true){
-						alert(estado_form);
-					}else{
-					console.log(estado_form);
-					}*/	
-					
-					if(estado_form){
+					if(estado_form==true){
 						var from_data =  $("#form_direccion").serialize();
-						//alert ("from_data = "+from_data);
 						//---------------------------
 						$.getJSON(
 							'sunat_planilla/controller/PersonaDireccionController.php?oper=edit&'+from_data,
 							function(data){
 								if(data){
 									jQuery("#list").trigger("reloadGrid");
-									//alert("Registro Se guardo correctamente "+estado_form);	
 									$("#dialog-form-editarDireccion").dialog('close');				
 								}else{
 									alert("Ocurrio un error, intente nuevamente");						

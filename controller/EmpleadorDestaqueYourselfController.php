@@ -20,6 +20,15 @@ if ($op) {
     //tabla 03 	
     require_once '../dao/ServicioPrestadoYourselfDao.php';
     require_once '../model/ServicioPrestadoYourself.php';
+    
+    
+    
+    
+    
+    
+    
+            //IDE_EMPLEADOR_MAESTRO
+    require_once '../controller/ideController.php';
     //
 }
 
@@ -97,7 +106,14 @@ function nuevoEmpleadorDestaqueYourself() {
             return false;
         }//EndIF
     }//ENDFOR
-
+//-------------------------------------------------------------------
+    
+    
+        //Actualizar EMPLEADOR AHORA SI terceros le DESPLAZA PERSONAL
+    $dao_e = new EmpleadorDao();
+    $dao_e->empleadorTercerosDesplazaPersonal(ID_EMPLEADOR, 1);
+    
+    
     return true;
 }
 

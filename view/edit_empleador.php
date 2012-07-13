@@ -50,7 +50,7 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
 
 //var_dump($cbo_telefono_codigo_nacional);
 //echo "<pre>";
-//print_r($cbo_telefono_codigo_nacional);
+//print_r($obj_empleador);
 //echo "</pre>";
 
 /**
@@ -70,6 +70,10 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
     $(document).ready(function(){
                   
         $( "#tabs").tabs();
+		
+		validarDesplazaPersonal();
+		validarTercerosDesplazaPersonal();
+		
 //-------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------
 //$('#form_new_personal').ajaxForm( { beforeSubmit: validate } ); 
@@ -265,6 +269,55 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
 
 	
 	}
+	
+	
+	//---------------------------------
+	//---------------------------------
+	function validarDesplazaPersonal(obj){
+	var form_radio = document.form_edit_empleador.rbtn_desplaza_personal;
+		var remype_true = document.getElementById('registro_empleadores_1');	
+	
+	var counteo = form_radio.length
+	var bandera = false;
+	for(var i =0; i<counteo; i++){
+		if(form_radio[i].checked && form_radio[i].value == 1){
+			bandera = true;
+		}
+	}	
+	
+
+		if(bandera==true){
+			remype_true.style.display='block';			
+		}else{
+			remype_true.style.display='none';
+		}
+	}
+	
+	//---------------------------------
+	//---------------------------------
+	function validarTercerosDesplazaPersonal(){
+	
+	var form_radio = document.form_edit_empleador.rbtn_terceros_desplaza_personal;
+	var remype_true = document.getElementById('registro_empleadores_2');
+		
+	var counteo = form_radio.length
+	var bandera = false;
+	for(var i =0; i<counteo; i++){
+		if(form_radio[i].checked && form_radio[i].value == 1){
+			bandera = true;
+		}
+	}			
+				
+		
+		if(bandera==true){
+			remype_true.style.display='block';
+				console.log("ver");
+		}else{
+			remype_true.style.display='none';
+			console.log("ocultar");
+		}
+	}	
+	
 </script>
 
 <div class="demo" align="left">
@@ -279,14 +332,14 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
               <input name="oper" type="hidden" value="edit">
             <fieldset>
               <legend>Datos de Identificacion </legend>
-              <div style="clear:both">
+              <div class="ocultar" style="clear:both">
               <label>Estado Empleador</label>:
               <label for="txt_estado_empleador"></label>
               <input name="txt_estado_empleador" type="text" id="txt_estado_empleador" 
 			  value="<?php  echo $obj_empleador->getEstado_empleador(); ?>" disabled="disabled" />
             </div>
               
-              <div style="clear:both">                
+              <div style="clear:both" class="oocultar">                
                 <label>id e<span >mplead</span>or:</label>
                 <input type="text" name="id_empleador" id="id_empleador" value="<?php  echo $obj_empleador->getId_empleador(); ?>" readonly="" />
               </div>
@@ -347,9 +400,12 @@ foreach ($cbo_tipo_sociedad_comercial as $indice) {
 </div>
                     <div style="clear:both">
                         <label>Tipo de Actividad:</label>
-                        <label for="cbo_tipo_actividad"></label>
-                        <select name="cbo_tipo_actividad" id="cbo_tipo_actividad">
-<?php
+                        
+                        <input name="txt_cod_tipo_actividad" type="text" id="txt_cod_tipo_actividad" size="12"  
+                        value="<?php  echo $obj_empleador->getCod_tipo_actividad(); ?>"/>
+                        
+                      <select name="cbo_tipo_actividad" id="cbo_tipo_actividad" onchange="seleccionarTipoActividadInputPorCombo(this)">
+  <?php
 foreach ($cbo_tipo_actividad as $indice) {
 	
 	if ($indice['cod_tipo_actividad'] == $obj_empleador->getCod_tipo_actividad() ) {
@@ -361,8 +417,8 @@ foreach ($cbo_tipo_actividad as $indice) {
 	echo $html;
 }
 ?>
-                        
-                        
+                          
+                          
                         </select>
               </div>
 			  
@@ -526,14 +582,16 @@ No</div>
             <div style="clear:both">
               <label>Desplaza Pesonal:</label>
               <input name="rbtn_desplaza_personal" type="radio" value="1"
+              onclick="validarDesplazaPersonal()"
 <?php if($obj_empleador->getDesplaza_personal() == 1){?>checked="checked" <?php } ?>
 			   />
 Si
 <input name="rbtn_desplaza_personal" type="radio" value="0"
 <?php if($obj_empleador->getDesplaza_personal() == 0){?>checked="checked" <?php } ?>
+onclick="validarDesplazaPersonal()"
  />
 No</div>
-<div class="fila_input" id="registro_empleadores_1" >
+<div class="fila_input" id="registro_empleadores_1"  >
 
 <input name="chk_empleador_dd1" type="checkbox" value="" />
 <a href="javascript:cargar_pagina('sunat_planilla/view/view_empleador_dd1.php','#CapaContenedorFormulario');">
@@ -550,16 +608,18 @@ detalle SI Registro de Empleadores</a></div>
             <div >
               <label>Terceros desplaza Personal a Usted:</label>
               <input name="rbtn_terceros_desplaza_personal" type="radio" value="1" 
+               onclick="validarTercerosDesplazaPersonal()"
 <?php if($obj_empleador->getTerceros_desplaza_usted() == 1){?>checked="checked" <?php } ?>
 
 			  />
               Si
   <input name="rbtn_terceros_desplaza_personal" type="radio" value="0"
+  onclick="validarTercerosDesplazaPersonal()"
  <?php if($obj_empleador->getTerceros_desplaza_usted() == 0){?>checked="checked" <?php } ?>
   />
               No</div>
 <div class="fila_input" id="registro_empleadores_2" >
-<input name="chk_empleador_dd2" type="checkbox" value="" />
+<input name="chk_empleador_dd2" type="checkbox" value=""  />
 <a href="javascript:cargar_pagina('sunat_planilla/view/view_empleador_dd2.php','#CapaContenedorFormulario');">
 detalle Registro Empleadores me Destacan SI</a></div>
               

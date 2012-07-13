@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<script type="text/javascript">
+function eliminarElemento(){
+var parrafo = document.getElementById("dos");
+parrafo.parentNode.removeChild(parrafo);
+
+}
+
+</script>
+</head>
+
+<body>
+
+<input name="" type="button" onclick="eliminarElemento()" />
+<ul>
+<li id="uno">000</li>
+<li id ="dos">111</li>
+<li id ="tres">222</li>
+</ul>
+</body>
+</html>

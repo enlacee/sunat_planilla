@@ -54,7 +54,7 @@ function nuevo() {
     $dao = new EstablecimientoDao();
     $id_establecimiento = $dao->registrarEstablecimiento($emp);
 
-    $rpta = $dao->numeroDeCodigoEstablecimientoPorIdEmpleador($emp->getId_empleador(), $em->getCod_establecimiento());
+    $rpta = $dao->numeroDeCodigoEstablecimientoPorIdEmpleador($emp->getId_empleador(), $emp->getCod_establecimiento());
 //echo $id_establecimiento;
 //OTRO
     $est_d = new EstablecimientoDireccion();
@@ -214,15 +214,29 @@ function cargar_tabla() {
 
         $js = "javascript:cargar_pagina('sunat_planilla/view/edit_establecimiento.php?id_empleador=" . $_01 . "&id_establecimiento=" . $param . "','#CapaContenedorFormulario')";
 
-        $js2 = "javascript:eliminarEstablecimiento('" . $param . "')";
+        $js2 = "javascript:editarEmpresaCentroCosto('" . $param . "')";
 
-        $js3 = "javascript:BajaEstablecimiento('" . $param . "')";
+        $js3 = "javascript:newEmpresaCentroCosto('" . $param . "')";
 
         $opciones = '<div id="divEliminar_Editar">				
 				<span  title="Editar" >
 				<a href="' . $js . '"><img src="images/edit.png"/></a>
 				</span>				
 				&nbsp;
+		</div>';
+        
+        
+        $opciones2 = '<div id="divEliminar_Editar">				
+
+                    <span  title="Centro de Costo" >
+                            <a href="' . $js2 . '"><img src="images/cost_center.png"/></a>
+                            </span>
+                            &nbsp; 
+                    <span  title="Agregar Centro de Costo" >
+                            <a href="' . $js3 . '"><img src="images/new_reg.gif"/></a>
+                            </span>
+                            &nbsp;
+
 		</div>';
 
         /*        $opciones = '<div id="divEliminar_Editar">				
@@ -248,7 +262,8 @@ function cargar_tabla() {
             $_03,
             $_04,
             $_05,
-            utf8_encode($opciones)
+            utf8_encode($opciones),
+            utf8_encode($opciones2)
         );
 
         $i++;

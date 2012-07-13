@@ -787,22 +787,33 @@ function grabar(){
   <input name="id_empleador" type="text" class=""  id="id_empleador" readonly="readonly"
                   value="<?php echo $DATA_EMP_SUBORDINADO['id_empleador']; ?>" />
   <br />
-  
-  RUC_subordinado:
-  <input name="txt_ruc_buscar" type="text" class="required error"  id="txt_ruc_buscar" size="15" maxlength="11"
-                value="<?php echo $DATA_EMP_SUBORDINADO['ruc']; ?>" />
-  <br />
-  
-  
-  Nombre / Razón Social:
-  <input name="txt_razon_social" type="text" class="required error"  id="txt_razon_social" readonly="readonly"
-                  value="<?php echo $DATA_EMP_SUBORDINADO['razon_social_concatenado']; ?>" />
+  id_empleador_sistema 
+  <label for="id_empleador_sistema"></label>
+  <input type="text" name="id_empleador_sistema" id="id_empleador_sistema" />
   <br />
   
   
   oper
   <input type="text" name="oper" id="oper" value="add"/>
 </div>
+
+
+
+<div class="fila_input" style="text-align:left">RUC:
+<input name="txt_ruc_buscar" type="text" class=""  id="txt_ruc_buscar" size="15" maxlength="11"
+                value="<?php echo $DATA_EMP_SUBORDINADO['ruc']; ?>" />
+  </div>              
+<br />
+<div class="fila_input">
+Nombre / Razón Social:
+<input name="txt_razon_social" type="text" class=""  id="txt_razon_social" readonly="readonly"
+                  value="<?php echo $DATA_EMP_SUBORDINADO['razon_social_concatenado']; ?>" />
+ </div> 
+ 
+ 
+ 
+                 
+
 <div id="datos-empleador2-ajax" style="max-width:750px;" >
   <fieldset id="fieldset-1">
   <legend><strong>Servicios Recibidos</strong></legend>

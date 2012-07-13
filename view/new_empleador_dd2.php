@@ -577,7 +577,7 @@ function obtenerDiasTranscurridos(fecha_incio, fecha_fin){
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Registro del Empleador </a>DD2</li>			
+            <li><a href="#tabs-1">Registro del Empleador </a></li>			
 
         </ul>
         <div id="tabs-1">
@@ -591,7 +591,7 @@ function obtenerDiasTranscurridos(fecha_incio, fecha_fin){
 
   <legend><strong>Empleador que me destaca o desplaza personal  </strong></legend>
   <div class="ocultar">
-    <div style="border:1px solid #F00;">
+    <div style="">
       <label>id_empleador_maestro</label>
       <label for="textfield"></label>
       <input type="text" name="id_empleador_maestro" id="id_empleador_maestro" readonly="readonly"
@@ -607,8 +607,8 @@ function obtenerDiasTranscurridos(fecha_incio, fecha_fin){
   </div>
   <div class="">
 
-                   RUC_subordinado:
-      <input name="txt_ruc_buscar" type="text"  id="txt_ruc_buscar" size="15" maxlength="11"
+                   RUC:
+                     <input name="txt_ruc_buscar" type="text"  id="txt_ruc_buscar" size="15" maxlength="11"
                 value="<?php  echo $DATA_EMP_SUBORDINADO['ruc']; ?>" />
 
   </div>

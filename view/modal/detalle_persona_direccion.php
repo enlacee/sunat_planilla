@@ -223,9 +223,9 @@ echo "</pre>";*/
 <table width="500" height="218" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="160"> Departamento 
-      <input name="id_persona_direccion" type="text" id="id_persona_direccion"  value="<?php echo $_REQUEST['id_persona_direccion'];?>"/>
-      <input name="id_persona" id="id_persona" type="text" value=" <?php echo $obj_persona_direccion->getId_persona(); ?>" />
-      <input type="text" name="txt_estado_direccion" id="txt_estado_direccion"  
+      <input name="id_persona_direccion" type="hidden" id="id_persona_direccion"  value="<?php echo $_REQUEST['id_persona_direccion'];?>"/>
+      <input name="id_persona" id="id_persona" type="hidden" value=" <?php echo $obj_persona_direccion->getId_persona(); ?>" />
+      <input type="hidden" name="txt_estado_direccion" id="txt_estado_direccion"  
       value="<?php  echo $obj_persona_direccion->getEstado_direccion(); ?>"/></td>
     <td width="150"> Provincia </td>
     <td width="54"> Distrito </td>

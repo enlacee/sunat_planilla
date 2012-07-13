@@ -72,8 +72,9 @@ function validarFormNewPersonalPrincipal(obj){
 
 					//alert(data);
 					console.log(data);
-					cargarTablaPersonalDireccion(data);
+					cargarTablaPersonalDireccion(data);					
 					disableForm('form_new_personal');
+					$("#DIV_GRID_DIRECCION").show();
 					alert ('Se Guardo Correctamente.\nAhora registre su Direccion');
 
 					}else{
@@ -82,7 +83,7 @@ function validarFormNewPersonalPrincipal(obj){
 					}
 				}); 
 		//-----------------------------------------------------------------------
-		$("#DIV_GRID_DIRECCION").show();	
+			
 				
 }
 	
@@ -166,93 +167,6 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
     //******************************************************************************
 	// SCRIPT DETALLE_DIRECCION.PHP	 FINAL
    //******************************************************************************
-
-
-		
-/*****************************************************/
-/***************** Terrenos ***************************/
-/*****************************************************/
-
-//FUNNCION CARGAR_TABLA PASARELAS 10/12/2011
-		
-	function cargarTablaPersonalDireccion(id_persona){  //alert ("..");
-			
-			//OBTENER ID PERSONA
-			//$("#list").jqGrid('GridUnload');+	
-			$("#list").jqGrid({
-				url:'sunat_planilla/controller/PersonaDireccionController.php?oper=cargar_tabla&id_persona='+id_persona,
-				datatype: 'json',
-				colNames:['Id','id','nombre_ubigeoreniec','Direccion','Opciones'],
-				colModel :[
-					{
-						name:'id_persona', 
-						editable:false, 
-						index:'id_persona',
-						search:false,
-						hidden:true,
-						width:15,
-						align:'center'
-					},
-					{
-						name:'id_persona_direccion', 
-						editable:false, 
-						index:'id_persona_direccion',
-						search:false,
-						width:15,
-						align:'center'
-					},		
-					{
-						name:'nombre_ubigeo_reniec',
-						index:'nombre_ubigeo_reniec', 
-						editable:false,
-						width:280, 
-						align:'left', 
-					},
-					{
-						name:'estado_direccion',
-						index:'estado_direccion', 
-						editable:false,
-						width:30, 
-						align:'left', 
-					},					
-					{
-						name:'opciones', 
-						index:'opciones',
-						editable:false,
-						width:40,
-						align:'center'
-					}									
-					
-						
-
-				],
-				pager: '#pager',
-				autowidth: true,
-				rowNum:10,
-				rowList:[10,20,30],
-				sortname: 'id_persona',
-				sortorder: 'asc',
-				viewrecords: true,
-				gridview: true,
-				caption: 'Lista de Direcciones',
-				onSelectRow: function(ids) {},
-				height:100,
-				/*width:915*/ 
-			});
-
-			//myGrid.jqGrid('navGrid','#mypager',{edit:true,add:true,del:true,search:true});
-						
-		}
-		
-		
-
-//---------------------------------
-//----------------------------------
-//COMBOS ESCLAVOS
-
-
-
-
 
 
 function validarTipoDocumentoYNumero(){
@@ -523,10 +437,6 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
                 
                 <!-- DIRECCION 2-->
                 <input name="btn_grabar" type="button" id="btn_grabar" value="Grabar" onclick="validarFormNewPersonalPrincipal(this)">
-                <span >
-                <input type="submit" name="btnRetornar" id="btnRetornar" value="Retornar"
-  onclick="javascript:cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')" />
-                </span>
             </form>
             </div>
 
@@ -537,9 +447,13 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 <div style="display:block; " id="DIV_GRID_DIRECCION">
 		
     <table id="list"><tr><td/></tr></table>
-    <div id="pager"></div>
+    
+<div id="pager"></div>
 			
 </div>
+
+<input type="submit" name="btnRetornar" id="btnRetornar" value="Retornar"
+  onclick="javascript:cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')" />
 
 
 

@@ -239,7 +239,7 @@ class TrabajadorDao extends AbstractDao {
         ON p.id_empleador = em.id_empleador
 
         WHERE em.id_empleador_maestro = ?
-        AND t.estado = ?        
+        AND t.cod_situacion  = ?        
         -- $WHERE
             ;";
         
@@ -354,8 +354,8 @@ class TrabajadorDao extends AbstractDao {
         p.apellido_materno,
         p.nombres,
         p.sexo,
-        p.id_estado_civil,
-        p.cod_telefono_codigo_nacional,
+        p.id_estado_civil,        
+        IF(p.cod_telefono_codigo_nacional=0,'',p.cod_telefono_codigo_nacional) AS cod_telefono_codigo_nacional,
         p.telefono,
         p.correo,
         p.estado,

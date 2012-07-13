@@ -194,7 +194,7 @@ class PersonaDao extends AbstractDao {
 		p.nombres,
 		p.fecha_nacimiento,
 		p.sexo,
-		-- t.cod_situacion,
+		t.cod_situacion,
 		s.descripcion_abreviada AS estado,
 		
 		IF (p.tabla_trabajador = 1,'TRA','0') AS categoria_1,
@@ -241,17 +241,14 @@ class PersonaDao extends AbstractDao {
 
     public function eliminarPersona($id) {
 
-        $estado = 'INACTIVO';
-
         $query = "
-        UPDATE personas
-        SET estado = ?
-        WHERE id_persona = ?
+        DELETE
+        FROM personas
+        WHERE id_persona = ?;
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $estado);
-        $stm->bindValue(2, $id);
+        $stm->bindValue(1, $id);
         $stm->execute();
 
         return true;

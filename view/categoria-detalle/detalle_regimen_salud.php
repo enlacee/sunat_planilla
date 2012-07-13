@@ -94,7 +94,7 @@ function llenarComboDetalle_2(objCombo){
           <input type="hidden" name="id_ttrabajador[]" id="id_ttrabajador-1" />
           
             <input type="text" id="txt_ttcodigo-1" name="txt_ttcodigo[]"
-                value="0" size="5" readonly="readonly" />
+                value="0" size="1" readonly="readonly" />
             
           </div>
           <div class="celda cantidad">
@@ -114,10 +114,10 @@ foreach ($cbo_tipo_trabajador as $indice) {
             </select>
           </div>
           <div class="celda producto">
-            <input type="text" size="16" id="txt_ttrabajador_fecha_inicio-1" name="txt_ttrabajador_fecha_inicio[]" />
+            <input type="text" size="14" id="txt_ttrabajador_fecha_inicio-1" name="txt_ttrabajador_fecha_inicio[]" />
           </div>
           <div class="celda precio">
-            <input  type="text" id="txt_ttrabajador_fecha_fin-1"  name="txt_ttrabajador_fecha_fin[]"size="16" />
+            <input  type="text" id="txt_ttrabajador_fecha_fin-1"  name="txt_ttrabajador_fecha_fin[]"size="14" />
           </div>
           <div class="celda sub-total"> <a href="#">editar</a></div>
         </div>

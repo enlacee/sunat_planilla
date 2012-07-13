@@ -202,6 +202,7 @@ VALUES (
 		d.nombres,
 		d.fecha_nacimiento,
 		vf.descripcion_abreviada AS nombre_vinculo_familiar,
+		s.cod_situacion,
 		s.descripcion_abreviada AS nombre_situacion
 		
 		FROM derechohabientes AS d
@@ -214,7 +215,7 @@ VALUES (
 		INNER JOIN situaciones AS s
 		ON d.cod_situacion = s.cod_situacion		
 		
-		WHERE d.id_persona = ? 
+		WHERE d.id_persona = ?
 				
 		 $WHERE  
 		
@@ -289,7 +290,7 @@ VALUES (
 	public function bajaDH($id) {
         $query = "
 		UPDATE derechohabientes
-		SET estado = 'INACTIVO'		
+		SET cod_situacion = 0		
 		WHERE id_derechohabiente = ?";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id);

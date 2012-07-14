@@ -30,9 +30,6 @@ $data_detalle_concepto = listarDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MA
 ?>
 <script type="text/javascript"> 
 
-var id_concepto = document.getElementById('cod_concepto').value;
-cargarTablaDetalleConcepto(id_concepto);
-
 
 //--------------------------------------------
 function validarPlameDetalleConcepto(){

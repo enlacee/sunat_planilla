@@ -27,11 +27,7 @@ class PlameConceptoDao extends AbstractDao{
         $lista = $stm->fetchAll();
         return $lista;
     }
-    
-    
-    //public function listarSector
-    
-    
+
     // No utilizado PERO Podria LLegar a Usarlo
     public function buscarID($cod_concepto){        
         $query = "
@@ -45,7 +41,7 @@ class PlameConceptoDao extends AbstractDao{
         return $lista;
     }
     
-    
+
 
 }
 

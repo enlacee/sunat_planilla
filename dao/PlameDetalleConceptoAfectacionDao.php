@@ -24,23 +24,24 @@ class PlameDetalleConceptoAfectacionDao extends AbstractDao {
         return true;
     }
     
-    public function actualizar($id){
+    public function actualizar($id_detalle_concepto_afectacion,$estado){
         
         $query = "
         UPDATE detalle_conceptos_afectaciones
         SET 
-        afecto = afecto
+        afecto = ?
         WHERE id_detalle_concepto_afectacion = ?;      
         ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id);
-        //$stm->bindValue(2, $cod_afectacion);
+        $stm->bindValue(1, $estado);
+        $stm->bindValue(2, $id_detalle_concepto_afectacion);
         $stm->execute();
         $stm = null;
         return true;
         
     }
     
+
     
 
     
@@ -61,7 +62,7 @@ class PlameDetalleConceptoAfectacionDao extends AbstractDao {
         INNER JOIN afectaciones AS af
         ON dca.cod_afectacion = af.cod_afectacion
 
-        WHERE cod_detalle_concepto = ?
+        WHERE dca.cod_detalle_concepto = ?
         ";
 
         $stm = $this->pdo->prepare($query);

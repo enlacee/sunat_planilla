@@ -7,9 +7,10 @@ require_once '../controller/ideController.php';
 
 //--- Inicio Carga de Conceptos
 require_once '../dao/PlameDetalleConceptoEmpleadorMaestroDao.php';
-require_once '../dao/PlameDetalleConceptoDao.php';
+
 
 require_once('../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
+
 registrarDetalleConceptoEM(ID_EMPLEADOR_MAESTRO);
 
 //Table_detalle_conceptos_afectaciones();

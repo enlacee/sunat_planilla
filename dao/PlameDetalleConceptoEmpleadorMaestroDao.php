@@ -3,7 +3,7 @@
 class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
     //put your code here
-    function registrar($id_empleador_maestro, $cod_detalle_concepto) {
+    public function registrar($id_empleador_maestro, $cod_detalle_concepto) {
 
         $query = "
         INSERT INTO detalles_conceptos_empleadores_maestros
@@ -17,16 +17,40 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
                 );         
         ";
 
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador_maestro);
-        $stm->bindValue(2, $cod_detalle_concepto);
-        $stm->execute();
-        $stm = null;
+        //--------------
+        try {
+            //Inicia transaccion
+            $this->pdo->beginTransaction();
+            $stm = $this->pdo->prepare($query);
+            $stm->bindValue(1, $id_empleador_maestro);
+            $stm->bindValue(2, $cod_detalle_concepto);
+            $stm->execute();
+
+            // id Persona
+            $query2 = "select last_insert_id() as id";
+            $stm = $this->pdo->prepare($query2);
+            $stm->execute();
+            $lista = $stm->fetchAll();
+
+            $this->pdo->commit();
+            //finaliza transaccion
+            //return true;
+            $stm = null;
+            return $lista[0]['id'];
+            
+        } catch (Exception $e) {
+            //  Util::rigistrarLog( $e, $query );
+            $this->pdo->rollBack();
+            throw $e;
+        }
+        //-------------
+
+
 
         return true;
     }
 
-    function buscarID($id_empleador_maestro) {
+    public function buscarID_EmpleadorRegistrado($id_empleador_maestro) {
 
         $query = "
         SELECT 
@@ -44,6 +68,8 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
         return $lista[0];
     }
+
+    //public function buscar
 
     /*
       function actualizar(){
@@ -69,7 +95,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
 
-    function listar($cod_concepto, $id_empleador_maestro) {
+    public function listar($cod_concepto, $id_empleador_maestro) {
 
         $query = "
         SELECT 
@@ -100,7 +126,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         return $lista;
     }
 
-    function cantidad($cod_concepto, $id_empleador_maestro) {
+    public function cantidad($cod_concepto, $id_empleador_maestro) {
         $query = "
         SELECT 
         COUNT(*) AS numfilas
@@ -124,20 +150,37 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         return $lista[0]["numfilas"];
     }
 
-    
     // Marcando = TRUE
-    function actualizar($id_detalle_conceptoEM){
+    public function actualizar($id_detalle_conceptoEM, $estado) {
 
         $query = "
         UPDATE detalles_conceptos_empleadores_maestros
         SET 
-        seleccionado = 1
+        seleccionado = ?
         WHERE id_detalle_concepto_empleador_maestro = ? ;        
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_detalle_conceptoEM );
-        //$stm->bindValue(2, $id_detalle_conceptoEM );
+        $stm->bindValue(1, $estado);
+        $stm->bindValue(2, $id_detalle_conceptoEM);
+        $stm->execute();
+        $stm = null;
+
+        return true;
+    }
+
+    public function estado($id_detalle_conceptoEM, $estado) {
+
+        $query = "
+        UPDATE detalles_conceptos_empleadores_maestros
+        SET 
+        seleccionado = ?
+        WHERE id_detalle_concepto_empleador_maestro = ? ;        
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $estado);
+        $stm->bindValue(2, $id_detalle_conceptoEM);
         $stm->execute();
         $stm = null;
 

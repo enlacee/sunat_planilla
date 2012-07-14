@@ -56,51 +56,6 @@ $arreglo = listarEmpresaCentroConsto();
 		
 	});
 	
-	
-	
-	function estadoCheck(obj,IDFORM){
-		//console.dir(obj);
-		//alert(obj.checked);		
-		//var estado = obj.checked;
-		
-		if(obj.checked){
-			marcarTodoscheckTRUE(IDFORM );
-		}else{
-			marcarTodoscheckFALSE(IDFORM );
-		}
-
-		
-	
-	}
-	
-	
-	function marcarTodoscheckTRUE( IDFORM ){
-		
-		var form = document.getElementById(IDFORM);
-		
-		for (i=0;i<form.elements.length;i++){
-			if(form.elements[i].type == "checkbox"){
-				form.elements[i].checked=1;
-			}
-		}
-	
-	}
-	
-	function marcarTodoscheckFALSE(IDFORM){
-		
-		var form = document.getElementById(IDFORM);
-		
-		for (i=0;i<form.elements.length;i++){
-			if(form.elements[i].type == "checkbox"){
-				form.elements[i].checked=0;
-			}
-		}
-	
-	}	
-	
-	
-	
-	
 </script>
 
 <div>

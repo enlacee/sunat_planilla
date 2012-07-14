@@ -7,16 +7,27 @@ require_once('../../dao/AbstractDao.php');
 require_once('../../dao/PlameDetalleConceptoAfectacionDao.php');
 require_once('../../controller/PlameDetalleConceptoAfectacionController.php');
 
+// Buscar Nombre Detalle Concepto: FULL
+require_once('../../dao/PlameDetalleConceptoDao.php');
+require_once('../../controller/PlameDetalleConceptoController.php');
+
 
 $cod_detalle_concepto = $_REQUEST['id_detalle_concepto'];
+
+
+$data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 
 //$data_cantidad = cantidadDetalleConceptoAfectacion($cod_detalle_concepto);
 
 $data_dca = listarDetalleConceptoAfectacion($cod_detalle_concepto);
 
+
+
+
 //echo $data_cantidad ;
 //echo "<pre>";
 //print_r($data_dca);
+//echo "AFECTACION";
 //echo "</pre>";
 
 ?>
@@ -42,7 +53,10 @@ function validarRadioMarcadoAfectacion(form_radio, id){
 </script>
 <div style="border:1px solid blue; width:400px">
 
-  <p>C&oacute;digo:</p>
+  <p>C&oacute;digo:
+  <b><?php echo $data_detalle_concepto['cod_detalle_concepto'] ." - ". $data_detalle_concepto['descripcion'] ?></b>
+  
+  </p>
   
 <form action="hola.php" method="get" id="formAfectacion" name="formAfectacion" >
   <table width="400" border="1" cellpadding="0" cellspacing="0"  class="ftablas" >
@@ -63,7 +77,7 @@ function validarRadioMarcadoAfectacion(form_radio, id){
       <td><?php echo $data_dca[$i]['descripcion']; ?>
       <input name="seleccionado[]" 
       id="seleccionado_<?php echo $data_dca[$i]['id_detalle_concepto_afectacion']; ?>" 
-      type="text" 
+      type="hidden" 
       value="<?php echo $data_dca[$i]['afecto']; ?>" size="4" /></td>
       <td width="43"><input type="radio" 
       

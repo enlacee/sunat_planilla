@@ -7,8 +7,9 @@ $op = $_REQUEST["oper"];
 
 if ($op) {
     session_start();
-    
+
     require_once '../dao/AbstractDao.php';
+    // Identidicando Caracteristicas del Empleador    
     require_once ('../dao/EmpleadorDao.php');
 
     require_once '../dao/PlameConceptoDao.php';
@@ -18,30 +19,21 @@ if ($op) {
 
     // require_once '../controller/EmpleadorController.php';
 
-
     $daoe = new EmpleadorDao();
     $empleador = array();
     $empleador = $daoe->buscaEmpleadorPorRuc(RUC);
-
-//    echo "<br>ruc camuente = " . RUC;
-//    echo "<pre>";
-//    echo print_r($empleador);
-//    echo "</pre>";
 }
 
 $responce = NULL;
 
 if ($op == "cargar_tabla") {
     $config = $_REQUEST['config'];
-    $responce = cargar_tabla_plame_concepto($empleador,$config);
+    $responce = cargar_tabla_plame_concepto($empleador, $config);
 }
 
-//echo count($responce);
 echo (!empty($responce)) ? json_encode($responce) : '';
 
-
-
-function cargar_tabla_plame_concepto($empleador,$config) {
+function cargar_tabla_plame_concepto($empleador, $config) {
 
     $dao = new PlameConceptoDao();
 
@@ -73,28 +65,34 @@ function cargar_tabla_plame_concepto($empleador,$config) {
     if ($start < 0)
         $start = 0;
 
-    //llena en al array
-    $lista = array();
-
-    //$dao->actualizarStock();
-    //--------------------------------------------------------------------------
-    // Con los datos del empleador = segun estos devolvera determinados conceptos
-
-  //  if ($empleador['senati'] == 1) {
-  //      $num = "";
-  //  } else {
-  //      $num = "0800";
-  //  }
-
-    //--------------------------------------------------------------------------
-
-
     $lista = $dao->listar($start, $limit, $sidx, $sord);
 
 
     //--------------------------------------------------------------------------
-    //ID A ELIMINAR
-    $id = array('0600', $num, '2000');
+    /**
+     * lOGICA para Mostrar Conceptos     * 
+     * No se maneja la logica de Tipo de Empresa u !! 
+     */
+    $id = array();
+
+    // Si es = 1  = SECTOR PRIVADO
+    if ($empleador['id_tipo_empleador'] == '1') {//SECTOR PRIVADO =2 , U OTROS=3
+        $id[] = '2000';
+    }
+    // Con los datos del empleador = segun estos devolvera determinados conceptos
+
+    if ($empleador['senati'] == 1) { //SI APORTA
+        //$num = "";
+    } else { // NO APORTA
+        $id[] = "0800";
+    }
+
+    //AFP
+    $id[] = "0600";
+
+
+    //ID A ELIMINAR 
+    //$id = array('0600', $num, '2000');
     $counteo = count($id);
     for ($i = 0; $i < $counteo; $i++) {
         //------------------------------------------
@@ -109,8 +107,6 @@ function cargar_tabla_plame_concepto($empleador,$config) {
             }
         }
     }
-
-    //-------------------ORDENAR------------------------//
     //-------------------------------------------------------------------------
 // CONTRUYENDO un JSON
     $responce->page = $page;
@@ -133,11 +129,10 @@ function cargar_tabla_plame_concepto($empleador,$config) {
         $_01 = $rec["descripcion"];
 
         //new
-        
         // JS-CONFIG
-        if($config == 'config'){
-            $js ="javascript:cargar_pagina('sunat_planilla/view-plame/configuracion/view_detalle_concepto.php?id_concepto=" . $param . "','#detalle_concepto')";
-        }else{ 
+        if ($config == 'config') {
+            $js = "javascript:cargar_pagina('sunat_planilla/view-plame/configuracion/view_detalle_concepto.php?id_concepto=" . $param . "','#detalle_concepto')";
+        } else {
             $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle/view_detalle_concepto.php?id_concepto=" . $param . "','#detalle_concepto')";
         }
         $opciones = '<div id="divEliminar_Editar">				
@@ -157,6 +152,13 @@ function cargar_tabla_plame_concepto($empleador,$config) {
     }
 
     return $responce;
+}
+
+function buscar_concepto_por_id($cod_concepto) {
+
+    $dao = new PlameConceptoDao();
+    return $dao->buscarID($cod_concepto);
+    
 }
 
 ?>

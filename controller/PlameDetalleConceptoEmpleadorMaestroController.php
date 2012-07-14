@@ -102,7 +102,11 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
     if (is_null($data)) { // NO Existe Empleador null
         // Paso 01 = listar Detalle Conceptos         
         $dao_1 = new PlameDetalleConceptoDao();
-        $d_detalle_concepto = $dao_1->listarXXX();
+        /*
+         * PARA QUE TENGA TODOS LOS conceptos sin tener encuenta Tipo de empleador
+         *  $dao->listarConceptos();
+         */
+        $d_detalle_concepto = $dao_1->listarXXX();//SOLO PARA EMPRESAS :::$dao_1->listarXXX()
 
         //paso 2.01
         $dao_2 = new PlameAfectacionDao();
@@ -124,32 +128,32 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
             // ------- SEGUNDO FOR
             for ($x = 0; $x < count($data_afectacion_13); $x++) {
                 //registrar tabla inexistente
-                $dao2x->registrar($ID_DCEM, $data_afectacion_13[$x]['cod_afectacion']);
+               // $dao2x->registrar($ID_DCEM, $data_afectacion_13[$x]['cod_afectacion']);
             }//EFOR 02
         }//ENDFOR 01
     }
 }
 
 
-/*
+
   //-----------------------------------------------------------------------------
   // ALGORITMO PARA CREAR LA TABLA   ==  Table: detalle_conceptos_afectaciones
   //-----------------------------------------------------------------------------
-
+function Table_detalle_conceptos_afectaciones() {
   //DEMO PRUEBA PARA  EMPLEADOR 0
   require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
   require_once '../dao/PlameDetalleConceptoDao.php';
   require_once '../dao/PlameAfectacionDao.php';
-
-  function Table_detalle_conceptos_afectaciones() {
-
+      
+      
+      
   $dao = new PlameDetalleConceptoAfectacionDao();
   //  $data = $dao->buscarID($id_empleador_maestro);
 
   if (true){
   //-------
   $dao_0 = new PlameDetalleConceptoDao();
-  $cod_detalle_concepto = $dao_0->listarXXX();
+  $cod_detalle_concepto = $dao_0->listarXXXSinAfeccion();
 
   // ------
   $dao_1 = new PlameAfectacionDao();
@@ -167,5 +171,5 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
 
   $dao = null;
   }
- */
+
 ?>

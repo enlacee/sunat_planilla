@@ -44,9 +44,6 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
             throw $e;
         }
         //-------------
-
-
-
         return true;
     }
 
@@ -58,6 +55,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         id_empleador_maestro 
         FROM detalles_conceptos_empleadores_maestros
         WHERE id_empleador_maestro = ?
+        LIMIT 1
         ";
 
         $stm = $this->pdo->prepare($query);

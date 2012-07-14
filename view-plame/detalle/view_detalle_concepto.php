@@ -14,17 +14,23 @@ require_once('../../controller/ideController2.php');
 require_once('../../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
 require_once('../../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
 
+//CONCEPTO
+require_once('../../dao/PlameConceptoDao.php');
+require_once('../../controller/PlameConceptoController.php');
+
 //require_once('../../');
 
 
 $cod_concepto = $_REQUEST['id_concepto'];
 
-$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
+$data_concepto = buscar_concepto_por_id($cod_concepto);
+
+//$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
 $data_detalle_concepto = listarDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO);
 
 
 //echo "<pre>";
-//print_r($data_cantidad);
+//print_r($data_concepto);
 //echo "</pre>";
 
 ?>
@@ -35,23 +41,29 @@ $data_detalle_concepto = listarDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MA
 function validarPlameDetalleConcepto(){
 	
 var from_data =  $("#formDetalleConcepto").serialize();
+alert(".... __ ---");
 
-//-------	
-	$.ajax({
-	type: 'get',
-	dataType: 'json',
-	url: 'sunat_planilla/controller/PlameDetalleConceptoEmpleadorMaestroController.php?'+from_data,
-	//data: {id_empleador: valor, oper: 'lista_establecimiento'},
-	success: function(json){
-	//console.log(json);
-		alert("guardado "+json);
-		
-		
-		}
-	});
 //-------
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/PlameDetalleConceptoEmpleadorMaestroController.php?'+from_data,
+		//data: {oper: 'lista_emp_dest'},
+		beforeSend: function(objeto){ /*alert("Adiós, me voy a ejecutar");*/ },
+        complete: function(objeto, exito){ /*alert("Me acabo de completar");
+			if(exito=="success"){alert("Y con éxito");}*/
+        },
+		success: function(data){
+			//console.log(data);
+			alert(data);
+		}
+	});	
 
-	
+
+
+
+
+
 
 
 }
@@ -66,7 +78,7 @@ var from_data =  $("#formDetalleConcepto").serialize();
   </tr>
   <tr>
     <td><label><?php echo $cod_concepto; ?></label></td>
-    <td><label><?php //echo utf8_decode($_REQUEST['concepto']); ?></label></td>
+    <td><label><?php echo $data_concepto[0]['descripcion']; ?></label></td>
   </tr>
 </table>
   <input type="hidden" name="cod_concepto" id="cod_concepto"  
@@ -88,26 +100,51 @@ value="<?php echo $cod_concepto; ?>"/>
 
 <form action="HOLA.PHP" method="get" name="formDetalleConcepto" id="formDetalleConcepto">
 <input name="oper" type="text" value="edit" />
+
+<input type="text" name="cod_concepto" value="<?php echo $cod_concepto; ?>" />
+
 <table width="670" border="1">
   <tr>
     <td width="45">Codigo</td>
     <td width="320">Descripcion</td>
     <td width="125">Afectacion</td>
-    <td width="157"> <input type="checkbox" name="checkbox" id="checkbox" />
+    <td width="157"> <input type="checkbox" name="checkbox" id="checkbox" 
+    onclick="estadoCheck(this,'formDetalleConcepto')" />
       Seleccionar Todos</td>
   </tr>
   
   
-<?php for($i=0; $i<$data_cantidad; $i++): ?>  
+<?php for($i=0; $i< count($data_detalle_concepto); $i++): ?>  
   <tr>  
-    <td><?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?></td>
+    <td>
+    <!-- 
+	<input name="id_detalle_concepto_em[]" type="text"  
+    value="<?php //echo $data_detalle_concepto[$i]['id_detalle_concepto_empleador_maestro']; ?>"
+     size="5"/>
+     -->
+	
+	<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?></td>
     <td><?php echo $data_detalle_concepto[$i]['descripcion']; //-?></td>
     <td>
-                <div id="divEliminar_Editar">				
+    
+    <?php 
+	
+	/*
+	* Logic Para Mostrar Afectaciones ( segun cod_concepto );
+	*
+	*/
+	$estado = false;
+	$estado =( ($cod_concepto == '0700') ||  ($cod_concepto == '0600') || ($cod_concepto == '0800') ) ? false : true;
+	
+	
+	if ( $estado ): ?>    
+                <div id="divEliminar_Editar" >				
 				<span title="Detalle Concepto">
 				<a href="javascript:editarAfectacion('<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>')"><img src="images/search2.png" width="18" height="18"></a>
 				</span>	
-                </div>    
+                </div>   
+	<?php endif; ?>                
+                 
     </td>
     <td>
     <input type="checkbox" name="chk_detalle_concepto[]" id="chk_detalle_concepto_<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>" 
@@ -127,5 +164,22 @@ value="<?php echo $cod_concepto; ?>"/>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
-<!-- -->
+
+

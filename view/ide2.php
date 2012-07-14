@@ -6,6 +6,7 @@ session_start();
 $ruc_login = $_SESSION['gRucEmpresa'];
 //$nombrEmpresa_login = $_SESSION['gNombreEmpresa'];
 
+$SCRIPT = true;
 
 if (!empty($ruc_login)) {
 
@@ -18,15 +19,30 @@ if (!empty($ruc_login)) {
     $dao_empleador = new EmpleadorDao();
     $DATA_EMPLEADOR = $dao_empleador->buscaEmpleadorPorRuc($ruc_login);
 
-    $_SESSION['sunat_empleador'] = $DATA_EMPLEADOR;
+	if( is_null($DATA_EMPLEADOR) ){
+		session_destroy();
+		$SCRIPT = true;
+		//unset($_SESSION);
+		
+	}else{
+    	$_SESSION['sunat_empleador'] = $DATA_EMPLEADOR;
+		$SCRIPT = false;
+	}	
+	
+}
 
-    //echo "<pre>";
-    //print_r($_SESSION);
-    //echo "Empleador Identificado = " . $DATA_EMPLEADOR['ruc'];
-    //echo "</pre>";
-} else {
-    ?>
+//echo "<pre>";
+//print_r($_SESSION);
+//echo "Empleador Identificado = " . $DATA_EMPLEADOR['ruc'];
+//echo "</pre>";
+//
+//echo "<h1>".var_dump($ESTADO)."</h1>"
 
+?>
+
+
+
+<?php if($SCRIPT): ?>
     <script type="text/javascript">
         var pagina = 'index.php';
         var segundos = 3;
@@ -37,6 +53,4 @@ if (!empty($ruc_login)) {
         setTimeout("redireccion()",segundos);
     </script>
 
-<?php } ?>
-
-
+<?php endif; ?>

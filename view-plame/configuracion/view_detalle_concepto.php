@@ -108,7 +108,7 @@ value="<?php echo $cod_concepto; ?>"/>
     <td width="45">Codigo</td>
     <td width="320">Descripcion</td>
     <td width="125">Afectacion</td>
-    <td width="157"> <input type="checkbox" name="checkbox" id="checkbox" 
+    <td width="157" class="red ocultar"> <input type="checkbox" name="checkbox" id="checkbox" 
     onclick="estadoCheck(this,'formDetalleConcepto')" />
       Seleccionar Todos</td>
   </tr>
@@ -146,7 +146,7 @@ value="<?php echo $cod_concepto; ?>"/>
 	<?php endif; ?>                
                  
     </td>
-    <td>
+    <td class="red ocultar">
     <input type="checkbox" name="chk_detalle_concepto[]" id="chk_detalle_concepto_<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>" 
     value="<?php echo $data_detalle_concepto[$i]['id_detalle_concepto_empleador_maestro']; ?>"
     <?php echo ($data_detalle_concepto[$i]['seleccionado'] == 1) ? ' checked="checked"' : ''; ?>
@@ -157,7 +157,7 @@ value="<?php echo $cod_concepto; ?>"/>
 <?php endfor; ?>   
 </table>
 
-<input name="btnGrabar" type="button" value="Grabar" onclick="validarPlameDetalleConcepto()" />
+<input name="btnGrabar" type="hidden" value="Grabar" onclick="validarPlameDetalleConcepto()" />
 
 </form>
 

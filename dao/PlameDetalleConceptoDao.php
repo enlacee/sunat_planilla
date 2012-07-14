@@ -14,8 +14,7 @@ class PlameDetalleConceptoDao extends AbstractDao {
 
         return $lista;
     }
-    
-    
+
     public function cantidad($cod_concepto) {
         $query = "
             SELECT COUNT(*) AS numfilas
@@ -32,21 +31,20 @@ class PlameDetalleConceptoDao extends AbstractDao {
     }
 
     //USANDO
-    public function buscarID($cod_detalle_concepto){
-        
+    public function buscarID($cod_detalle_concepto) {
+
         $query = "
         SELECT *FROM detalles_conceptos
         WHERE cod_detalle_concepto = ?";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $cod_detalle_concepto);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0];
-        
     }
-    
+
     //-------------------------------------------------------------------------
 
 
@@ -87,11 +85,27 @@ class PlameDetalleConceptoDao extends AbstractDao {
     }
 
     //  para tabla detalle_concepto_afectaciones
-    
     // RE IMPORTANTEEEEEEEEEEEEEEEEE!!!!
     //utilizadoooo
     //Para registrar empleadores con sus propios conceptos
     public function listarXXX() { //los que no TIENEN SI Y NO  okkkK Funcionando
+        $query = "
+        SELECT *FROM detalles_conceptos
+        WHERE (cod_concepto != '2000'
+        )
+        ORDER BY cod_detalle_concepto ASC;
+        ;
+        ";
+        // -- ok 135 la cantidad SI NO
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
+    }
+
+    public function listarXXXSinAfeccion() { //los que no TIENEN SI Y NO  okkkK Funcionando
         $query = "
         SELECT *FROM detalles_conceptos
         WHERE (cod_concepto != '0600' 

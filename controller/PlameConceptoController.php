@@ -128,13 +128,23 @@ function cargar_tabla_plame_concepto($empleador, $config) {
         $param = $rec["cod_concepto"];
         $_01 = $rec["descripcion"];
 
+        /**
+         * Condicion para Concepto 1000
+         */
         //new
         // JS-CONFIG
         if ($config == 'config') {
             $js = "javascript:cargar_pagina('sunat_planilla/view-plame/configuracion/view_detalle_concepto.php?id_concepto=" . $param . "','#detalle_concepto')";
         } else {
-            $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle/view_detalle_concepto.php?id_concepto=" . $param . "','#detalle_concepto')";
+            if ($param == '1000') {
+                $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle/view_detalle_concepto_1000.php?id_concepto=" . $param . "','#detalle_concepto')";
+            } else {
+
+                $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle/view_detalle_concepto.php?id_concepto=" . $param . "','#detalle_concepto')";
+            }
         }
+
+
         $opciones = '<div id="divEliminar_Editar">				
 				<span  title="Detalle Concepto" >
 				<a href="' . $js . '"><img src="images/search2.png"/></a>
@@ -158,7 +168,6 @@ function buscar_concepto_por_id($cod_concepto) {
 
     $dao = new PlameConceptoDao();
     return $dao->buscarID($cod_concepto);
-    
 }
 
 ?>

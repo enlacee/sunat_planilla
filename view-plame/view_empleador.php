@@ -5,13 +5,6 @@ require_once('../view/ide.php');
 
 require_once '../controller/ideController.php';
 
-echo "<pre>";
-echo "ID_EMPLEADOR=".ID_EMPLEADOR."<BR>";
-echo "RUC=".RUC."<BR>";
-echo "ID_EMPLEADOR_MAESTRO=".ID_EMPLEADOR_MAESTRO."<BR>";
-
-echo "</pre>";
-
 //--- Inicio Carga de Conceptos
 require_once '../dao/PlameDetalleConceptoEmpleadorMaestroDao.php';
 

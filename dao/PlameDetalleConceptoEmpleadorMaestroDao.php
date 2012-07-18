@@ -100,6 +100,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         dcem.id_detalle_concepto_empleador_maestro,
         dcem.id_empleador_maestro,
         dcem.seleccionado,
+        dcem.descripcion_1000,
         dc.cod_concepto,
         dc.cod_detalle_concepto,
         dc.descripcion
@@ -184,7 +185,60 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
         return true;
     }
+    
+    
+    public function actualizarConceptoDescripcion1000($id_detalle_concepto_empleador_maestro,$descripcion){
+        
+        $query = "
+        UPDATE detalles_conceptos_empleadores_maestros
+        SET 
+          descripcion_1000 = ?
+        WHERE id_detalle_concepto_empleador_maestro = ?;        
+        ";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $descripcion);
+        $stm->bindValue(2, $id_detalle_concepto_empleador_maestro);
+        $stm->execute();
+        $stm = null;
+        return true;
+        
+        
+        
+        
+        
+        
+    }
 
+    
+    
+    
+    /*
+     * Utilizando EN concepto 1000 JAVASCRIPT 
+     * /view-plame/detalle/view_detalle_concepto_1000.php
+     * Function busca ID PARA CHECK Segun empleador Maestro
+     */
+    public function buscarID_CheckConcepto1000_EM($id_empleador_maestro,$cod_detalle_concepto){
+        
+        $query = "
+        SELECT 
+            id_detalle_concepto_empleador_maestro 
+        FROM detalles_conceptos_empleadores_maestros
+        WHERE id_empleador_maestro = ?
+        AND cod_detalle_concepto = ?   
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$id_empleador_maestro);
+        $stm->bindValue(2,$cod_detalle_concepto);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm=null;
+        
+        return $lista[0]['id_detalle_concepto_empleador_maestro'];
+        
+    }
+    
+    
 }
 
 ?>

@@ -102,32 +102,32 @@ value="<?php echo $cod_concepto; ?>"/>
 <input name="oper" type="text" value="edit" />
 
 <input type="text" name="cod_concepto" value="<?php echo $cod_concepto; ?>" />
-
-<table width="670" border="1">
-  <tr>
-    <td width="45">Codigo</td>
-    <td width="320">Descripcion</td>
-    <td width="125">Afectacion</td>
-    <td width="157"> <input type="checkbox" name="checkbox" id="checkbox" 
+<div id="view_detalle_concepto" style="height:200px; overflow:scroll;">
+  <table width="670" border="1">
+    <tr>
+      <td width="45">Codigo</td>
+      <td width="320">Descripcion</td>
+      <td width="125">Afectacion</td>
+      <td width="157"> <input type="checkbox" name="checkbox" id="checkbox" 
     onclick="estadoCheck(this,'formDetalleConcepto')" />
-      Seleccionar Todos</td>
-  </tr>
-  
-  
-<?php for($i=0; $i< count($data_detalle_concepto); $i++): ?>  
-  <tr>  
-    <td>
-    <!-- 
+        Seleccionar Todos</td>
+      </tr>
+    
+    
+    <?php for($i=0; $i< count($data_detalle_concepto); $i++): ?>  
+    <tr>  
+      <td>
+        <!-- 
 	<input name="id_detalle_concepto_em[]" type="text"  
     value="<?php //echo $data_detalle_concepto[$i]['id_detalle_concepto_empleador_maestro']; ?>"
      size="5"/>
      -->
-	
-	<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?></td>
-    <td><?php echo $data_detalle_concepto[$i]['descripcion']; //-?></td>
-    <td>
-    
-    <?php 
+        
+        <?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?></td>
+      <td><?php echo $data_detalle_concepto[$i]['descripcion']; //-?></td>
+      <td>
+        
+        <?php 
 	
 	/*
 	* Logic Para Mostrar Afectaciones ( segun cod_concepto );
@@ -138,24 +138,25 @@ value="<?php echo $cod_concepto; ?>"/>
 	
 	
 	if ( $estado ): ?>    
-                <div id="divEliminar_Editar" >				
-				<span title="Detalle Concepto">
-				<a href="javascript:editarAfectacion('<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>')"><img src="images/search2.png" width="18" height="18"></a>
-				</span>	
-                </div>   
-	<?php endif; ?>                
-                 
-    </td>
-    <td>
-    <input type="checkbox" name="chk_detalle_concepto[]" id="chk_detalle_concepto_<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>" 
+        <div id="divEliminar_Editar" >				
+          <span title="Detalle Concepto">
+            <a href="javascript:editarAfectacion('<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>')"><img src="images/search2.png" width="18" height="18"></a>
+            </span>	
+          </div>   
+        <?php endif; ?>                
+        
+        </td>
+      <td>
+        <input type="checkbox" name="chk_detalle_concepto[]" id="chk_detalle_concepto_<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>" 
     value="<?php echo $data_detalle_concepto[$i]['id_detalle_concepto_empleador_maestro']; ?>"
     <?php echo ($data_detalle_concepto[$i]['seleccionado'] == 1) ? ' checked="checked"' : ''; ?>
      />
-     
-     </td>
-  </tr>
-<?php endfor; ?>   
-</table>
+        
+        </td>
+      </tr>
+    <?php endfor; ?>   
+  </table>
+</div>
 
 <input name="btnGrabar" type="button" value="Grabar" onclick="validarPlameDetalleConcepto()" />
 

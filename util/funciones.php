@@ -18,7 +18,7 @@ function printr($mix) {
  * @return string fecha
  */
 function getFechaPatron($fecha_es_us, $patron_date) {
-    if (!isset($fecha_es_us) || $fecha_es_us =="0000-00-00" ) {
+    if (!isset($fecha_es_us) || $fecha_es_us == "0000-00-00") {
         return null;
     }
 
@@ -165,5 +165,56 @@ function getRangoFechaSemana($fecha_ISO) {
 
     return $rpta;
 }
+
+function getMesInicioYfin($fecha) {
+    /*
+      $fecha = explode("/", $fecha_ISO);
+      $diax = $fecha[0];
+      $mesx = $fecha[1];
+      $aniox = $fecha[2];
+      $format_fecha = "$aniox-$mesx-$diax";
+     */
+    $format_fecha = getFechaPatron($fecha, "Y-m-d");
+
+    $fff = strtotime($format_fecha);
+    $fecha_string = date("l d F Y", $fff);
+
+    // data 1
+    $mes_inicio_seg = strtotime($fecha_string . "first day");
+    $mes_inicio = date("Y-m-d", $mes_inicio_seg);
+
+    $mes_fin_seg = strtotime($fecha_string . "last day");
+    $mes_fin = date("Y-m-d", $mes_fin_seg);
+
+    //echo  date("Y-m-d", $f);
+    //return
+    $rpta = array("fecha" => $fecha_string,
+        "mes_inicio" => $mes_inicio,
+        "mes_fin" => $mes_fin
+    );
+
+    return $rpta;
+}
+
+
+
+
+function getMonthDays($Month, $Year)
+{
+   //Si la extensión que mencioné está instalada, usamos esa.
+   if( is_callable("cal_days_in_month"))
+   {
+      return cal_days_in_month(CAL_GREGORIAN, $Month, $Year);
+   }
+   else
+   {
+      //Lo hacemos a mi manera.
+      return date("d",mktime(0,0,0,$Month+1,0,$Year));
+   }
+}
+
+
+
+
 
 ?>

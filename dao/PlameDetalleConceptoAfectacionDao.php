@@ -41,16 +41,6 @@ class PlameDetalleConceptoAfectacionDao extends AbstractDao {
         
     }
     
-
-    
-
-    
-    /**
-     *
-     * @param type $cod_detalle_concepto
-     * @return type 
-     * <br>Usado para listar para CONFIGURACION
-     */
     public function listar($cod_detalle_concepto) { //listar  = configuracion
 
         $query = "
@@ -76,6 +66,12 @@ class PlameDetalleConceptoAfectacionDao extends AbstractDao {
     }
     
 
+    
+    //------------------------------------------------------------------------
+    //      Funciones Externas
+    //------------------------------------------------------------------------
+    
+    
 
 }
 

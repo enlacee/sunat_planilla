@@ -1,8 +1,4 @@
 <?php
-
-//session_start();
-//header("Content-Type: text/html; charset=utf-8");
-
 $op = $_REQUEST["oper"];
 
 if ($op) {
@@ -12,21 +8,17 @@ if ($op) {
 
     require_once '../dao/PlameDetalleConceptoEmpleadorMaestroDao.php';
 
-    //---
     //marcar check
     require_once('../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
-    // require_once('../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
 }
+
 $responce = NULL;
 
-if ($op == "cargar_tabla") {
-
-    //$responce = cargar_tabla($_REQUEST['id_concepto']);
-} else if ($op == "edit") {
-
+if ($op == "edit") {
     $responce = actualizarDetalleConceptoEM();
+    
 } else if ($op == 'id_check') {
 
     $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
@@ -34,7 +26,7 @@ if ($op == "cargar_tabla") {
     $responce = buscarID_CheckConcepto1000_EM(ID_EMPLEADOR_MAESTRO, $cod_detalle_concepto);
 } else if ($op == 'actualizar-concepto-1000') {
 
-   $responce =  actualizarDetalleConceptoEM1000();
+    $responce = actualizarDetalleConceptoEM1000();
 }
 
 //return
@@ -98,10 +90,13 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
     //PlameDetalleConceptoAfectacionEMDao
     //-------------------------------------------------------------------------
 
-
     $dao = new PlameDetalleConceptoEmpleadorMaestroDao();
     $data = $dao->buscarID_EmpleadorRegistrado($id_empleador_maestro);
 
+    /**
+     * Array Seleccionados por Defaul 
+     */
+    $arreglo = array('0105', '0106', '0107', '0118', '0121', '0122', '0201', '0306', '0701', '0702', '0706');
 
 
     if (is_null($data)) { // NO Existe Empleador null
@@ -125,8 +120,11 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
 
         for ($i = 0; $i < $counteo; $i++) {
             //Registra ALL concepto para este Empleador
-            $ID_DCEM = $dao->registrar($id_empleador_maestro, $d_detalle_concepto[$i]['cod_detalle_concepto']);
-
+            if (in_array($d_detalle_concepto[$i]['cod_detalle_concepto'], $arreglo)) {
+                $ID_DCEM = $dao->registrar($id_empleador_maestro, $d_detalle_concepto[$i]['cod_detalle_concepto'],'1');
+            }else{
+                $dao->registrar($id_empleador_maestro, $d_detalle_concepto[$i]['cod_detalle_concepto'],'0');
+            }
 
             //-------------------------------------------------------------------
             // ------- SEGUNDO FOR
@@ -153,8 +151,8 @@ function buscarID_CheckConcepto1000_EM($id_empleador_maestro, $cod_detalle_conce
 function actualizarDetalleConceptoEM1000() {
 
     $cod_concepto = $_REQUEST['cod_concepto'];
-    
-    
+
+
     $descripcion_1000 = $_REQUEST['concepto_descripcion_1000'];
     $estado = $_REQUEST['estado'];
     $id = $_REQUEST['id'];
@@ -162,26 +160,21 @@ function actualizarDetalleConceptoEM1000() {
 
     $chek_box = $_REQUEST['chk_detalle_concepto']; //ids marcados
     //ACTUALIZAR DESCRIPCION 1000
-    
-    
-    
-     // PASO 01
+    // PASO 01
     $daoem = new PlameDetalleConceptoEmpleadorMaestroDao();
     $dataEM = $daoem->listar($cod_concepto, ID_EMPLEADOR_MAESTRO);
-    
+
     for ($i = 0; $i < count($id); $i++) {
         //if($estado[$i] == 0){
         $daoem->actualizarConceptoDescripcion1000($id[$i], $descripcion_1000[$i]);
         //}
     }
-    
-    
-    
+
+
     //LIMPIAR CHECKBOX 0
     for ($i = 0; $i < count($dataEM); $i++) {
         $daoem->estado($dataEM[$i]['id_detalle_concepto_empleador_maestro'], "0");
     }
-
 
     for ($j = 0; $j < count($chek_box); $j++) {
 
@@ -191,13 +184,8 @@ function actualizarDetalleConceptoEM1000() {
             }
         }//EFOR 2
     }//EFOR 1
-    
-    
-    
+
     return 1;
-    
-    
-    
 }
 
 //-----------------------------------------------------------------------------
@@ -235,5 +223,14 @@ function Table_detalle_conceptos_afectaciones() {
 
     $dao = null;
 }
+
+
+
+
+
+
+
+
+
 
 ?>

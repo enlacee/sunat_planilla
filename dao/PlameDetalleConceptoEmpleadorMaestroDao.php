@@ -3,15 +3,17 @@
 class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
     //put your code here
-    public function registrar($id_empleador_maestro, $cod_detalle_concepto) {
+    public function registrar($id_empleador_maestro, $cod_detalle_concepto,$seleccionado) {
 
         $query = "
         INSERT INTO detalles_conceptos_empleadores_maestros
                     (
                     id_empleador_maestro,
-                    cod_detalle_concepto
+                    cod_detalle_concepto,
+                    seleccionado
                     )
         VALUES (
+                ?,
                 ?,
                 ?
                 );         
@@ -24,6 +26,8 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1, $id_empleador_maestro);
             $stm->bindValue(2, $cod_detalle_concepto);
+            $stm->bindValue(3, $seleccionado);
+            
             $stm->execute();
 
             // id Persona
@@ -237,6 +241,97 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         return $lista[0]['id_detalle_concepto_empleador_maestro'];
         
     }
+    
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //  LISTAR datos para tablas
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    
+    public function listar_dcem_pingresos($id_empleador_maestro){
+        $query = "
+        SELECT 
+        dcem.id_detalle_concepto_empleador_maestro,
+        dcem.id_empleador_maestro,
+        dcem.cod_detalle_concepto
+
+        FROM detalles_conceptos AS dc
+        INNER JOIN detalles_conceptos_empleadores_maestros AS dcem
+        ON dc.cod_detalle_concepto = dcem.cod_detalle_concepto
+
+        WHERE (dc.cod_concepto ='0100' 
+        OR dc.cod_concepto ='0200'
+        OR dc.cod_concepto ='0300'
+        OR dc.cod_concepto ='1000')
+        AND dcem.id_empleador_maestro = ?
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
+        
+    }
+    
+    
+    public function listar_dcem_pdescuentos($id_empleador_maestro){
+        $query = "
+        SELECT 
+        dcem.id_detalle_concepto_empleador_maestro,
+        dcem.id_empleador_maestro,
+        dcem.cod_detalle_concepto
+
+        FROM detalles_conceptos AS dc
+        INNER JOIN detalles_conceptos_empleadores_maestros AS dcem
+        ON dc.cod_detalle_concepto = dcem.cod_detalle_concepto
+
+        WHERE (dc.cod_concepto ='0700')
+        AND dcem.id_empleador_maestro = ?
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;  
+        
+    }
+    
+    
+   public function listar_dcem_ptributos_aportes($id_empleador_maestro){
+        
+        $query = "
+        SELECT 
+        dcem.id_detalle_concepto_empleador_maestro,
+        dcem.id_empleador_maestro,
+        dcem.cod_detalle_concepto
+
+        FROM detalles_conceptos AS dc
+        INNER JOIN detalles_conceptos_empleadores_maestros AS dcem
+        ON dc.cod_detalle_concepto = dcem.cod_detalle_concepto
+
+        WHERE (dc.cod_concepto ='0600'
+        OR dc.cod_concepto ='0800')
+        AND dcem.id_empleador_maestro = ?
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;  
+    }
+    
+    
+
+    
     
     
 }

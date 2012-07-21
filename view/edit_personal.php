@@ -58,6 +58,8 @@ $cbo_estado_civil = comboEstadosCiviles();
 //---------------------------- EDITAR PERSONA--------------------------------- //
 
 $ID_PERSONA = $_REQUEST['id_persona'];
+//-------------------------ESTADO
+$COD_ESTADO = $_REQUEST['cod_situacion'];
 
 $obj_persona = new Persona();
 // funcion del Controlador
@@ -167,8 +169,9 @@ $obj_persona = buscarPersonaPorId($ID_PERSONA);
 	//-------------------------------------------------------------------
 }); //End Ready
 	//-------------------------------------------------------------------
-	var id = $("#id_persona").val();	
-	cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_persona='+id,'#tabs-2');
+	var id = $("#id_persona").val();
+	var cod_situacion =<?php echo $COD_ESTADO; ?>;	
+	cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_persona='+id+'&cod_situacion='+cod_situacion,'#tabs-2');
 	
 //	cargar_pagina('sunat_planilla/view/categoria/pensionista.php?id_persona='+id,'#tabs-3');
 

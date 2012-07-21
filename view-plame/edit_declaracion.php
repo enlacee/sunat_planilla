@@ -64,16 +64,17 @@ $data = $_SESSION['sunat_empleador'];
           
 		RUC:		
       <label for="ruc"></label>
-            <input type="text" name="ruc" id="ruc" 
+            <input type="text" name="ruc" id="ruc"  readonly="readonly"
             value="<?php  echo $data['ruc']; ?>" />
             <br />
           Nombre/Razon Social:	
           <label for="razon_social"></label>
-          <input type="text" name="razon_social" id="razon_social"  
+          <input type="text" name="razon_social" id="razon_social"   readonly="readonly"
           value="<?php echo $data['razon_social_concatenado']; ?>" />
           <br />
           Periodo Tributario (mm/aaaa)          
-      <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario" />
+      <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  readonly="readonly"
+      value="<?php echo $_REQUEST['periodo']; ?>" />
 
           
           </form>

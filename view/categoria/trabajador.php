@@ -192,6 +192,10 @@ $combo_convenio = comboConvenio();
 $estado = ($objTRA->getCod_situacion()==2) ? 0 : $objTRA->getCod_situacion();
 $combo_situacion = comboSituacion($estado);
 
+//-------------------------ESTADO
+$COD_ESTADO = $_REQUEST['cod_situacion'];
+
+
   ?>
 
 	<script>
@@ -314,6 +318,15 @@ $combo_situacion = comboSituacion($estado);
 
 
  <script type="text/javascript">
+ 
+ //VARIABLES GLOBALES
+ 
+ var cod_situacion = <?php echo $COD_ESTADO; ?>
+ 
+ 
+ 
+ 
+ 
  $(document).ready(function(){ 
 	$( "#accordion" ).accordion({
 		autoHeight: false,
@@ -323,7 +336,12 @@ $combo_situacion = comboSituacion($estado);
 	
 	havilitarConvenio();
 	
-
+	
+	//-------------------------------------
+	//Desabilita Formulario si cod_situacion = 0
+	if(cod_situacion == '0'){
+		disableForm('form_trabajador');
+	}
 //----------------------------
         $("#form_trabajador").validate({
             rules: {

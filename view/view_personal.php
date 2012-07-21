@@ -10,10 +10,12 @@ require_once('ide.php');
     $(document).ready(function(){					   
         //demoApp = new Historial();
         $( "#tabs").tabs();				 
-        cargarTablaPersonalServicio();  
+        cargarTablaPersonalServicio(1);  
 
     });
             
+	
+	estadoCheckGlobal();
 				
     //----------------------------------------------------------								
     function eliminarPersona(id){
@@ -34,6 +36,23 @@ require_once('ide.php');
     }
 
 
+//funcion chekkk
+function estadoCheckEstado(){
+	var obj = document.getElementById('chk_historial_empleadores');
+	//console.dir(obj);
+	//alert(obj.checked);		
+	//var estado = obj.checked;		
+	//alert(obj.checked);
+	
+	if(obj.checked == true){ //alert("entro true");
+		cargarTablaPersonalServicio(0)
+	}else{
+		//alert("entro false");
+		cargarTablaPersonalServicio(1)
+	}
+
+}
+
 </script>
 
 <div class="demo" align="left">
@@ -43,8 +62,8 @@ require_once('ide.php');
 	
         </ul>
         <div id="tabs-1">
-          <div class="ocultar">
-            <input type="checkbox" name="chk_historial_empleadores" id="chk_historial_empleadores" />
+          <div class="ocultarr">
+            <input type="checkbox" name="chk_historial_empleadores" id="chk_historial_empleadores"  onclick="estadoCheckEstado()"/>
             Mostrar Histórico de Prestadores
           </div>
           <br />

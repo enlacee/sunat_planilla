@@ -379,3 +379,13 @@ function eliminarElemento(obj){
 	parrafo.parentNode.removeChild(parrafo);
 
 }
+
+
+//funcion chekkk
+function estadoCheckGlobal(obj,IDFORM){
+	//console.dir(obj);
+	//alert(obj.checked);		
+	//var estado = obj.checked;		
+	alert(obj.checked);
+
+}

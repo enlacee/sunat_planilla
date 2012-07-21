@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2012 at 09:31 
+-- Generation Time: Jul 19, 2012 at 09:06 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -12737,6 +12737,64 @@ INSERT INTO `c_ocupaciones_ocupaciones_p` (`id_c_ocupacion_ocupacion_p`, `cod_ca
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dcem_pdescuentos`
+--
+
+CREATE TABLE IF NOT EXISTS `dcem_pdescuentos` (
+  `id_pdcem_pdescuento` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_ptrabajador` int(10) unsigned NOT NULL,
+  `id_detalle_concepto_empleador_maestro` int(10) unsigned NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_pdcem_pdescuento`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS =0700\r\ninsert all 0700 marcados\r\n\r\ntotal = calcul' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `dcem_pdescuentos`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcem_pingresos`
+--
+
+CREATE TABLE IF NOT EXISTS `dcem_pingresos` (
+  `id_dcem_pingreso` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_ptrabajador` int(10) unsigned NOT NULL,
+  `id_detalle_concepto_empleador_maestro` int(10) unsigned NOT NULL,
+  `devengado` decimal(10,2) DEFAULT NULL,
+  `pagado` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id_dcem_pingreso`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='INGRESOS\r\nCONCETPOS = 0100, 0200, 0300, 1000\r\nTOTAL = suma c' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `dcem_pingresos`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dcem_ptributos_aportes`
+--
+
+CREATE TABLE IF NOT EXISTS `dcem_ptributos_aportes` (
+  `id_dcem_ptributo_aporte` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_detalle_concepto_empleador_maestro` int(10) unsigned NOT NULL,
+  `id_ptrabajador` int(10) unsigned NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_dcem_ptributo_aporte`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='tributos y aportes 0600 y 0800' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `dcem_ptributos_aportes`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `derechohabientes`
 --
 
@@ -13071,135 +13129,135 @@ CREATE TABLE IF NOT EXISTS `detalles_conceptos_empleadores_maestros` (
 --
 
 INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`, `id_empleador_maestro`, `cod_detalle_concepto`, `seleccionado`, `descripcion_1000`) VALUES
-(1, 1, '0101', NULL, NULL),
-(2, 1, '0102', NULL, NULL),
-(3, 1, '0103', NULL, NULL),
-(4, 1, '0104', NULL, NULL),
-(5, 1, '0105', NULL, NULL),
-(6, 1, '0106', NULL, NULL),
-(7, 1, '0107', NULL, NULL),
-(8, 1, '0108', NULL, NULL),
-(9, 1, '0109', NULL, NULL),
-(10, 1, '0110', NULL, NULL),
-(11, 1, '0111', NULL, NULL),
-(12, 1, '0112', NULL, NULL),
-(13, 1, '0113', NULL, NULL),
-(14, 1, '0114', NULL, NULL),
-(15, 1, '0115', NULL, NULL),
-(16, 1, '0116', NULL, NULL),
-(17, 1, '0117', NULL, NULL),
-(18, 1, '0118', NULL, NULL),
-(19, 1, '0119', NULL, NULL),
-(20, 1, '0120', NULL, NULL),
-(21, 1, '0121', NULL, NULL),
-(22, 1, '0122', NULL, NULL),
-(23, 1, '0123', NULL, NULL),
-(24, 1, '0124', NULL, NULL),
-(25, 1, '0125', NULL, NULL),
-(26, 1, '0126', NULL, NULL),
-(27, 1, '0127', NULL, NULL),
-(28, 1, '0201', NULL, NULL),
-(29, 1, '0202', NULL, NULL),
-(30, 1, '0203', NULL, NULL),
-(31, 1, '0204', NULL, NULL),
-(32, 1, '0205', NULL, NULL),
-(33, 1, '0206', NULL, NULL),
-(34, 1, '0207', NULL, NULL),
-(35, 1, '0208', NULL, NULL),
-(36, 1, '0209', NULL, NULL),
-(37, 1, '0210', NULL, NULL),
-(38, 1, '0211', NULL, NULL),
-(39, 1, '0212', NULL, NULL),
-(40, 1, '0213', NULL, NULL),
-(41, 1, '0214', NULL, NULL),
-(42, 1, '0301', NULL, NULL),
-(43, 1, '0302', NULL, NULL),
-(44, 1, '0303', NULL, NULL),
-(45, 1, '0304', NULL, NULL),
-(46, 1, '0305', NULL, NULL),
-(47, 1, '0306', NULL, NULL),
-(48, 1, '0307', NULL, NULL),
-(49, 1, '0308', NULL, NULL),
-(50, 1, '0309', NULL, NULL),
-(51, 1, '0310', NULL, NULL),
-(52, 1, '0311', NULL, NULL),
-(53, 1, '0312', NULL, NULL),
-(54, 1, '0313', NULL, NULL),
-(55, 1, '0401', 1, NULL),
-(56, 1, '0402', 1, NULL),
-(57, 1, '0403', 1, NULL),
-(58, 1, '0404', 1, NULL),
-(59, 1, '0405', 1, NULL),
-(60, 1, '0406', 1, NULL),
+(1, 1, '0101', 0, NULL),
+(2, 1, '0102', 0, NULL),
+(3, 1, '0103', 0, NULL),
+(4, 1, '0104', 0, NULL),
+(5, 1, '0105', 1, NULL),
+(6, 1, '0106', 1, NULL),
+(7, 1, '0107', 1, NULL),
+(8, 1, '0108', 0, NULL),
+(9, 1, '0109', 0, NULL),
+(10, 1, '0110', 0, NULL),
+(11, 1, '0111', 0, NULL),
+(12, 1, '0112', 0, NULL),
+(13, 1, '0113', 0, NULL),
+(14, 1, '0114', 0, NULL),
+(15, 1, '0115', 0, NULL),
+(16, 1, '0116', 0, NULL),
+(17, 1, '0117', 0, NULL),
+(18, 1, '0118', 1, NULL),
+(19, 1, '0119', 0, NULL),
+(20, 1, '0120', 0, NULL),
+(21, 1, '0121', 1, NULL),
+(22, 1, '0122', 1, NULL),
+(23, 1, '0123', 0, NULL),
+(24, 1, '0124', 0, NULL),
+(25, 1, '0125', 0, NULL),
+(26, 1, '0126', 0, NULL),
+(27, 1, '0127', 0, NULL),
+(28, 1, '0201', 1, NULL),
+(29, 1, '0202', 0, NULL),
+(30, 1, '0203', 0, NULL),
+(31, 1, '0204', 0, NULL),
+(32, 1, '0205', 0, NULL),
+(33, 1, '0206', 0, NULL),
+(34, 1, '0207', 0, NULL),
+(35, 1, '0208', 0, NULL),
+(36, 1, '0209', 0, NULL),
+(37, 1, '0210', 0, NULL),
+(38, 1, '0211', 0, NULL),
+(39, 1, '0212', 0, NULL),
+(40, 1, '0213', 0, NULL),
+(41, 1, '0214', 0, NULL),
+(42, 1, '0301', 0, NULL),
+(43, 1, '0302', 0, NULL),
+(44, 1, '0303', 0, NULL),
+(45, 1, '0304', 0, NULL),
+(46, 1, '0305', 0, NULL),
+(47, 1, '0306', 1, NULL),
+(48, 1, '0307', 0, NULL),
+(49, 1, '0308', 0, NULL),
+(50, 1, '0309', 0, NULL),
+(51, 1, '0310', 0, NULL),
+(52, 1, '0311', 0, NULL),
+(53, 1, '0312', 0, NULL),
+(54, 1, '0313', 0, NULL),
+(55, 1, '0401', 0, NULL),
+(56, 1, '0402', 0, NULL),
+(57, 1, '0403', 0, NULL),
+(58, 1, '0404', 0, NULL),
+(59, 1, '0405', 0, NULL),
+(60, 1, '0406', 0, NULL),
 (61, 1, '0407', 0, NULL),
-(62, 1, '0501', NULL, NULL),
-(63, 1, '0502', NULL, NULL),
-(64, 1, '0503', NULL, NULL),
-(65, 1, '0504', NULL, NULL),
-(66, 1, '0505', NULL, NULL),
-(67, 1, '0506', NULL, NULL),
-(68, 1, '0507', NULL, NULL),
-(69, 1, '0601', NULL, NULL),
-(70, 1, '0602', NULL, NULL),
-(71, 1, '0603', NULL, NULL),
-(72, 1, '0604', NULL, NULL),
-(73, 1, '0605', NULL, NULL),
-(74, 1, '0606', NULL, NULL),
-(75, 1, '0607', NULL, NULL),
-(76, 1, '0608', NULL, NULL),
-(77, 1, '0609', NULL, NULL),
-(78, 1, '0610', NULL, NULL),
-(79, 1, '0611', NULL, NULL),
-(80, 1, '0612', NULL, NULL),
-(81, 1, '0613', NULL, NULL),
-(82, 1, '0614', NULL, NULL),
-(83, 1, '0615', NULL, NULL),
-(84, 1, '0616', NULL, NULL),
-(85, 1, '0701', NULL, NULL),
-(86, 1, '0702', NULL, NULL),
-(87, 1, '0703', NULL, NULL),
-(88, 1, '0704', NULL, NULL),
-(89, 1, '0705', NULL, NULL),
-(90, 1, '0706', NULL, NULL),
-(91, 1, '0707', NULL, NULL),
-(92, 1, '0801', NULL, NULL),
-(93, 1, '0802', NULL, NULL),
-(94, 1, '0803', NULL, NULL),
-(95, 1, '0804', NULL, NULL),
-(96, 1, '0805', NULL, NULL),
-(97, 1, '0806', NULL, NULL),
-(98, 1, '0807', NULL, NULL),
-(99, 1, '0808', NULL, NULL),
-(100, 1, '0809', NULL, NULL),
-(101, 1, '0810', NULL, NULL),
-(102, 1, '0811', NULL, NULL),
-(103, 1, '0901', NULL, NULL),
-(104, 1, '0902', NULL, NULL),
-(105, 1, '0903', NULL, NULL),
-(106, 1, '0904', NULL, NULL),
-(107, 1, '0905', NULL, NULL),
-(108, 1, '0906', NULL, NULL),
-(109, 1, '0907', NULL, NULL),
-(110, 1, '0908', NULL, NULL),
-(111, 1, '0909', NULL, NULL),
-(112, 1, '0910', NULL, NULL),
-(113, 1, '0911', NULL, NULL),
-(114, 1, '0912', NULL, NULL),
-(115, 1, '0913', NULL, NULL),
-(116, 1, '0914', NULL, NULL),
-(117, 1, '0915', NULL, NULL),
-(118, 1, '0916', NULL, NULL),
-(119, 1, '0917', NULL, NULL),
-(120, 1, '0918', NULL, NULL),
-(121, 1, '0919', NULL, NULL),
-(122, 1, '0920', NULL, NULL),
-(123, 1, '0921', NULL, NULL),
-(124, 1, '0922', NULL, NULL),
-(125, 1, '0923', NULL, NULL),
-(126, 1, '0924', NULL, NULL),
-(127, 1, '0925', NULL, NULL),
-(128, 1, '1001', 1, 'nuevo romana'),
-(129, 1, '1002', 1, 'nuevo 2 romana'),
+(62, 1, '0501', 0, NULL),
+(63, 1, '0502', 0, NULL),
+(64, 1, '0503', 0, NULL),
+(65, 1, '0504', 0, NULL),
+(66, 1, '0505', 0, NULL),
+(67, 1, '0506', 0, NULL),
+(68, 1, '0507', 0, NULL),
+(69, 1, '0601', 0, NULL),
+(70, 1, '0602', 0, NULL),
+(71, 1, '0603', 0, NULL),
+(72, 1, '0604', 0, NULL),
+(73, 1, '0605', 0, NULL),
+(74, 1, '0606', 0, NULL),
+(75, 1, '0607', 0, NULL),
+(76, 1, '0608', 0, NULL),
+(77, 1, '0609', 0, NULL),
+(78, 1, '0610', 0, NULL),
+(79, 1, '0611', 0, NULL),
+(80, 1, '0612', 0, NULL),
+(81, 1, '0613', 0, NULL),
+(82, 1, '0614', 0, NULL),
+(83, 1, '0615', 0, NULL),
+(84, 1, '0616', 0, NULL),
+(85, 1, '0701', 1, NULL),
+(86, 1, '0702', 1, NULL),
+(87, 1, '0703', 0, NULL),
+(88, 1, '0704', 0, NULL),
+(89, 1, '0705', 0, NULL),
+(90, 1, '0706', 1, NULL),
+(91, 1, '0707', 0, NULL),
+(92, 1, '0801', 0, NULL),
+(93, 1, '0802', 0, NULL),
+(94, 1, '0803', 0, NULL),
+(95, 1, '0804', 0, NULL),
+(96, 1, '0805', 0, NULL),
+(97, 1, '0806', 0, NULL),
+(98, 1, '0807', 0, NULL),
+(99, 1, '0808', 0, NULL),
+(100, 1, '0809', 0, NULL),
+(101, 1, '0810', 0, NULL),
+(102, 1, '0811', 0, NULL),
+(103, 1, '0901', 0, NULL),
+(104, 1, '0902', 0, NULL),
+(105, 1, '0903', 0, NULL),
+(106, 1, '0904', 0, NULL),
+(107, 1, '0905', 0, NULL),
+(108, 1, '0906', 0, NULL),
+(109, 1, '0907', 0, NULL),
+(110, 1, '0908', 0, NULL),
+(111, 1, '0909', 0, NULL),
+(112, 1, '0910', 0, NULL),
+(113, 1, '0911', 0, NULL),
+(114, 1, '0912', 0, NULL),
+(115, 1, '0913', 0, NULL),
+(116, 1, '0914', 0, NULL),
+(117, 1, '0915', 0, NULL),
+(118, 1, '0916', 0, NULL),
+(119, 1, '0917', 0, NULL),
+(120, 1, '0918', 0, NULL),
+(121, 1, '0919', 0, NULL),
+(122, 1, '0920', 0, NULL),
+(123, 1, '0921', 0, NULL),
+(124, 1, '0922', 0, NULL),
+(125, 1, '0923', 0, NULL),
+(126, 1, '0924', 0, NULL),
+(127, 1, '0925', 0, NULL),
+(128, 1, '1001', 0, NULL),
+(129, 1, '1002', 0, NULL),
 (130, 1, '1003', 0, NULL),
 (131, 1, '1004', 0, NULL),
 (132, 1, '1005', 0, NULL),
@@ -13235,119 +13293,119 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (162, 2, '0115', 0, NULL),
 (163, 2, '0116', 0, NULL),
 (164, 2, '0117', 0, NULL),
-(165, 2, '0118', 0, NULL),
+(165, 2, '0118', 1, NULL),
 (166, 2, '0119', 0, NULL),
 (167, 2, '0120', 0, NULL),
-(168, 2, '0121', 0, NULL),
-(169, 2, '0122', 0, NULL),
+(168, 2, '0121', 1, NULL),
+(169, 2, '0122', 1, NULL),
 (170, 2, '0123', 0, NULL),
 (171, 2, '0124', 0, NULL),
 (172, 2, '0125', 0, NULL),
 (173, 2, '0126', 0, NULL),
 (174, 2, '0127', 0, NULL),
-(175, 2, '0201', NULL, NULL),
-(176, 2, '0202', NULL, NULL),
-(177, 2, '0203', NULL, NULL),
-(178, 2, '0204', NULL, NULL),
-(179, 2, '0205', NULL, NULL),
-(180, 2, '0206', NULL, NULL),
-(181, 2, '0207', NULL, NULL),
-(182, 2, '0208', NULL, NULL),
-(183, 2, '0209', NULL, NULL),
-(184, 2, '0210', NULL, NULL),
-(185, 2, '0211', NULL, NULL),
-(186, 2, '0212', NULL, NULL),
-(187, 2, '0213', NULL, NULL),
-(188, 2, '0214', NULL, NULL),
-(189, 2, '0301', NULL, NULL),
-(190, 2, '0302', NULL, NULL),
-(191, 2, '0303', NULL, NULL),
-(192, 2, '0304', NULL, NULL),
-(193, 2, '0305', NULL, NULL),
-(194, 2, '0306', NULL, NULL),
-(195, 2, '0307', NULL, NULL),
-(196, 2, '0308', NULL, NULL),
-(197, 2, '0309', NULL, NULL),
-(198, 2, '0310', NULL, NULL),
-(199, 2, '0311', NULL, NULL),
-(200, 2, '0312', NULL, NULL),
-(201, 2, '0313', NULL, NULL),
+(175, 2, '0201', 1, NULL),
+(176, 2, '0202', 0, NULL),
+(177, 2, '0203', 0, NULL),
+(178, 2, '0204', 0, NULL),
+(179, 2, '0205', 0, NULL),
+(180, 2, '0206', 0, NULL),
+(181, 2, '0207', 0, NULL),
+(182, 2, '0208', 0, NULL),
+(183, 2, '0209', 0, NULL),
+(184, 2, '0210', 0, NULL),
+(185, 2, '0211', 0, NULL),
+(186, 2, '0212', 0, NULL),
+(187, 2, '0213', 0, NULL),
+(188, 2, '0214', 0, NULL),
+(189, 2, '0301', 0, NULL),
+(190, 2, '0302', 0, NULL),
+(191, 2, '0303', 0, NULL),
+(192, 2, '0304', 0, NULL),
+(193, 2, '0305', 0, NULL),
+(194, 2, '0306', 1, NULL),
+(195, 2, '0307', 0, NULL),
+(196, 2, '0308', 0, NULL),
+(197, 2, '0309', 0, NULL),
+(198, 2, '0310', 0, NULL),
+(199, 2, '0311', 0, NULL),
+(200, 2, '0312', 0, NULL),
+(201, 2, '0313', 0, NULL),
 (202, 2, '0401', 0, NULL),
 (203, 2, '0402', 0, NULL),
 (204, 2, '0403', 0, NULL),
 (205, 2, '0404', 0, NULL),
-(206, 2, '0405', 1, NULL),
-(207, 2, '0406', 1, NULL),
-(208, 2, '0407', 1, NULL),
-(209, 2, '0501', NULL, NULL),
-(210, 2, '0502', NULL, NULL),
-(211, 2, '0503', NULL, NULL),
-(212, 2, '0504', NULL, NULL),
-(213, 2, '0505', NULL, NULL),
-(214, 2, '0506', NULL, NULL),
-(215, 2, '0507', NULL, NULL),
-(216, 2, '0601', NULL, NULL),
-(217, 2, '0602', NULL, NULL),
-(218, 2, '0603', NULL, NULL),
-(219, 2, '0604', NULL, NULL),
-(220, 2, '0605', NULL, NULL),
-(221, 2, '0606', NULL, NULL),
-(222, 2, '0607', NULL, NULL),
-(223, 2, '0608', NULL, NULL),
-(224, 2, '0609', NULL, NULL),
-(225, 2, '0610', NULL, NULL),
-(226, 2, '0611', NULL, NULL),
-(227, 2, '0612', NULL, NULL),
-(228, 2, '0613', NULL, NULL),
-(229, 2, '0614', NULL, NULL),
-(230, 2, '0615', NULL, NULL),
-(231, 2, '0616', NULL, NULL),
+(206, 2, '0405', 0, NULL),
+(207, 2, '0406', 0, NULL),
+(208, 2, '0407', 0, NULL),
+(209, 2, '0501', 0, NULL),
+(210, 2, '0502', 0, NULL),
+(211, 2, '0503', 0, NULL),
+(212, 2, '0504', 0, NULL),
+(213, 2, '0505', 0, NULL),
+(214, 2, '0506', 0, NULL),
+(215, 2, '0507', 0, NULL),
+(216, 2, '0601', 0, NULL),
+(217, 2, '0602', 0, NULL),
+(218, 2, '0603', 0, NULL),
+(219, 2, '0604', 0, NULL),
+(220, 2, '0605', 0, NULL),
+(221, 2, '0606', 0, NULL),
+(222, 2, '0607', 0, NULL),
+(223, 2, '0608', 0, NULL),
+(224, 2, '0609', 0, NULL),
+(225, 2, '0610', 0, NULL),
+(226, 2, '0611', 0, NULL),
+(227, 2, '0612', 0, NULL),
+(228, 2, '0613', 0, NULL),
+(229, 2, '0614', 0, NULL),
+(230, 2, '0615', 0, NULL),
+(231, 2, '0616', 0, NULL),
 (232, 2, '0701', 1, NULL),
 (233, 2, '0702', 1, NULL),
-(234, 2, '0703', 1, NULL),
-(235, 2, '0704', 1, NULL),
-(236, 2, '0705', 1, NULL),
+(234, 2, '0703', 0, NULL),
+(235, 2, '0704', 0, NULL),
+(236, 2, '0705', 0, NULL),
 (237, 2, '0706', 1, NULL),
-(238, 2, '0707', 1, NULL),
-(239, 2, '0801', NULL, NULL),
-(240, 2, '0802', NULL, NULL),
-(241, 2, '0803', NULL, NULL),
-(242, 2, '0804', NULL, NULL),
-(243, 2, '0805', NULL, NULL),
-(244, 2, '0806', NULL, NULL),
-(245, 2, '0807', NULL, NULL),
-(246, 2, '0808', NULL, NULL),
-(247, 2, '0809', NULL, NULL),
-(248, 2, '0810', NULL, NULL),
-(249, 2, '0811', NULL, NULL),
-(250, 2, '0901', NULL, NULL),
-(251, 2, '0902', NULL, NULL),
-(252, 2, '0903', NULL, NULL),
-(253, 2, '0904', NULL, NULL),
-(254, 2, '0905', NULL, NULL),
-(255, 2, '0906', NULL, NULL),
-(256, 2, '0907', NULL, NULL),
-(257, 2, '0908', NULL, NULL),
-(258, 2, '0909', NULL, NULL),
-(259, 2, '0910', NULL, NULL),
-(260, 2, '0911', NULL, NULL),
-(261, 2, '0912', NULL, NULL),
-(262, 2, '0913', NULL, NULL),
-(263, 2, '0914', NULL, NULL),
-(264, 2, '0915', NULL, NULL),
-(265, 2, '0916', NULL, NULL),
-(266, 2, '0917', NULL, NULL),
-(267, 2, '0918', NULL, NULL),
-(268, 2, '0919', NULL, NULL),
-(269, 2, '0920', NULL, NULL),
-(270, 2, '0921', NULL, NULL),
-(271, 2, '0922', NULL, NULL),
-(272, 2, '0923', NULL, NULL),
-(273, 2, '0924', NULL, NULL),
-(274, 2, '0925', NULL, NULL),
-(275, 2, '1001', 0, '554'),
-(276, 2, '1002', 0, 'jhh'),
-(277, 2, '1003', 0, 'pepeplucho'),
+(238, 2, '0707', 0, NULL),
+(239, 2, '0801', 0, NULL),
+(240, 2, '0802', 0, NULL),
+(241, 2, '0803', 0, NULL),
+(242, 2, '0804', 0, NULL),
+(243, 2, '0805', 0, NULL),
+(244, 2, '0806', 0, NULL),
+(245, 2, '0807', 0, NULL),
+(246, 2, '0808', 0, NULL),
+(247, 2, '0809', 0, NULL),
+(248, 2, '0810', 0, NULL),
+(249, 2, '0811', 0, NULL),
+(250, 2, '0901', 0, NULL),
+(251, 2, '0902', 0, NULL),
+(252, 2, '0903', 0, NULL),
+(253, 2, '0904', 0, NULL),
+(254, 2, '0905', 0, NULL),
+(255, 2, '0906', 0, NULL),
+(256, 2, '0907', 0, NULL),
+(257, 2, '0908', 0, NULL),
+(258, 2, '0909', 0, NULL),
+(259, 2, '0910', 0, NULL),
+(260, 2, '0911', 0, NULL),
+(261, 2, '0912', 0, NULL),
+(262, 2, '0913', 0, NULL),
+(263, 2, '0914', 0, NULL),
+(264, 2, '0915', 0, NULL),
+(265, 2, '0916', 0, NULL),
+(266, 2, '0917', 0, NULL),
+(267, 2, '0918', 0, NULL),
+(268, 2, '0919', 0, NULL),
+(269, 2, '0920', 0, NULL),
+(270, 2, '0921', 0, NULL),
+(271, 2, '0922', 0, NULL),
+(272, 2, '0923', 0, NULL),
+(273, 2, '0924', 0, NULL),
+(274, 2, '0925', 0, NULL),
+(275, 2, '1001', 0, NULL),
+(276, 2, '1002', 0, NULL),
+(277, 2, '1003', 0, NULL),
 (278, 2, '1004', 0, NULL),
 (279, 2, '1005', 0, NULL),
 (280, 2, '1006', 0, NULL),
@@ -15498,8 +15556,8 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales` (
 --
 
 INSERT INTO `detalle_periodos_laborales` (`id_detalle_periodo_laboral`, `id_trabajador`, `cod_motivo_baja_registro`, `fecha_inicio`, `fecha_fin`) VALUES
-(41, 2, '0', '2011-01-01', NULL),
-(42, 3, '0', NULL, NULL),
+(41, 2, '0', '2011-11-01', NULL),
+(42, 3, '0', '0000-00-00', NULL),
 (44, 5, '0', '2012-07-10', NULL);
 
 -- --------------------------------------------------------
@@ -26114,6 +26172,27 @@ INSERT INTO `paises_emisores_documentos` (`cod_pais_emisor_documento`, `descripc
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pdeclaraciones`
+--
+
+CREATE TABLE IF NOT EXISTS `pdeclaraciones` (
+  `id_pdeclaracion` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_empleador_maestro` int(11) NOT NULL,
+  `periodo` date DEFAULT NULL,
+  PRIMARY KEY (`id_pdeclaracion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `pdeclaraciones`
+--
+
+INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `periodo`) VALUES
+(1, 1, '2012-01-01'),
+(2, 1, '2012-02-01');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pensionistas`
 --
 
@@ -26345,6 +26424,110 @@ INSERT INTO `personas_direcciones` (`id_persona_direccion`, `id_persona`, `cod_u
 (4, 2, '030403', '02', 'asd', '4545', '', '', '', '', '', '', '', '0', '', '', 0, 2),
 (7, 4, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', 1, 1),
 (8, 4, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pjornadas_laborales`
+--
+
+CREATE TABLE IF NOT EXISTS `pjornadas_laborales` (
+  `id_pjornada_laboral` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_ptrabajador` int(10) unsigned NOT NULL,
+  `dia_laborado` int(11) DEFAULT NULL,
+  `dia_subsidiado` int(11) DEFAULT NULL,
+  `dia_nolaborado_nosubsidiado` int(11) DEFAULT NULL COMMENT 'DIA no laborado y \r\nNo subsidiado',
+  `dia_total` int(11) DEFAULT NULL,
+  `hora_ordinaria_hh` int(11) DEFAULT NULL,
+  `hora_ordinaria_mm` int(11) DEFAULT NULL,
+  `hora_sobretiempo_hh` int(11) DEFAULT NULL,
+  `hora_sobretiempo_mm` int(11) DEFAULT NULL,
+  `total_hora_hh` int(11) DEFAULT NULL,
+  `total_hora_mm` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_pjornada_laboral`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `pjornadas_laborales`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pps_4tacategorias`
+--
+
+CREATE TABLE IF NOT EXISTS `pps_4tacategorias` (
+  `id_ps_4tacategoria` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_pdeclaracion` int(10) unsigned NOT NULL,
+  `cod_tipo_documento` char(2) NOT NULL,
+  `num_documento` varchar(15) DEFAULT NULL,
+  `apellido_paterno` varchar(40) DEFAULT NULL,
+  `apellido_materno` varchar(40) DEFAULT NULL,
+  `nombres` varchar(40) DEFAULT NULL,
+  `domiciliado` tinyint(1) DEFAULT NULL,
+  `convenio` tinyint(1) DEFAULT NULL,
+  `cod_convenio` int(11) NOT NULL,
+  PRIMARY KEY (`id_ps_4tacategoria`),
+  KEY `id_pdeclaracion` (`id_pdeclaracion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `pps_4tacategorias`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pps_detalles_4tacategorias`
+--
+
+CREATE TABLE IF NOT EXISTS `pps_detalles_4tacategorias` (
+  `id_pps_detalle_4tacategoria` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cod_tipo_comprobante_pago` char(1) NOT NULL,
+  `id_ps_4tacategoria` int(10) unsigned NOT NULL,
+  `serie` char(3) DEFAULT NULL,
+  `nro_comprobante` char(7) DEFAULT NULL,
+  `fecha_emision` date DEFAULT NULL,
+  `fecha_pago` date DEFAULT NULL,
+  `monto` decimal(10,2) DEFAULT NULL,
+  `aplica_retencion` tinyint(1) DEFAULT NULL,
+  `porcentaje_retenido` decimal(10,2) DEFAULT NULL,
+  `monto_retenido` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id_pps_detalle_4tacategoria`),
+  KEY `id_ps_4tacategoria` (`id_ps_4tacategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `pps_detalles_4tacategorias`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ptrabajadores`
+--
+
+CREATE TABLE IF NOT EXISTS `ptrabajadores` (
+  `id_ptrabajador` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_pdeclaracion` int(10) unsigned NOT NULL,
+  `id_trabajador` int(10) unsigned NOT NULL,
+  `aporta_essalud_vida` tinyint(1) DEFAULT NULL,
+  `aporta_asegura_tu_pension` tinyint(1) DEFAULT NULL,
+  `domiciliado` tinyint(1) DEFAULT NULL,
+  `ingreso_5ta_categoria` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id_ptrabajador`),
+  KEY `id_trabajador` (`id_trabajador`),
+  KEY `id_pdeclaracion` (`id_pdeclaracion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Categoria Trabajador,... \r\nVolcado de IDS de trabajadores' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `ptrabajadores`
+--
+
 
 -- --------------------------------------------------------
 
@@ -26914,7 +27097,7 @@ CREATE TABLE IF NOT EXISTS `tipos_comprobantes_pagos` (
 
 INSERT INTO `tipos_comprobantes_pagos` (`cod_tipo_comprobante_pago`, `descripcion`) VALUES
 ('R', 'RECIBO POR HONORARIOS'),
-('N', 'NOTA DE CR?DITO'),
+('N', 'NOTA DE CRÉDITO'),
 ('D', 'DIETA'),
 ('O', 'OTRO COMPROBANTE');
 
@@ -29763,8 +29946,8 @@ ALTER TABLE `detalles_conceptos`
 -- Constraints for table `detalles_conceptos_afectaciones_em`
 --
 ALTER TABLE `detalles_conceptos_afectaciones_em`
-  ADD CONSTRAINT `detalles_conceptos_afectaciones_em_ibfk_2` FOREIGN KEY (`cod_afectacion`) REFERENCES `afectaciones` (`cod_afectacion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalles_conceptos_afectaciones_em_ibfk_1` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalles_conceptos_afectaciones_em_ibfk_1` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_conceptos_afectaciones_em_ibfk_2` FOREIGN KEY (`cod_afectacion`) REFERENCES `afectaciones` (`cod_afectacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detalles_conceptos_empleadores_maestros`
@@ -29876,8 +30059,8 @@ ALTER TABLE `establecimientos`
 -- Constraints for table `establecimientos_centros_costos`
 --
 ALTER TABLE `establecimientos_centros_costos`
-  ADD CONSTRAINT `establecimientos_centros_costos_ibfk_2` FOREIGN KEY (`id_empresa_centro_costo`) REFERENCES `empresa_centro_costo` (`id_empresa_centro_costo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `establecimientos_centros_costos_ibfk_1` FOREIGN KEY (`id_establecimiento`) REFERENCES `establecimientos` (`id_establecimiento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `establecimientos_centros_costos_ibfk_1` FOREIGN KEY (`id_establecimiento`) REFERENCES `establecimientos` (`id_establecimiento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `establecimientos_centros_costos_ibfk_2` FOREIGN KEY (`id_empresa_centro_costo`) REFERENCES `empresa_centro_costo` (`id_empresa_centro_costo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `establecimientos_direcciones`
@@ -29955,6 +30138,25 @@ ALTER TABLE `personas_direcciones`
   ADD CONSTRAINT `personas_direcciones_ibfk_2` FOREIGN KEY (`cod_zona`) REFERENCES `zonas` (`cod_zona`),
   ADD CONSTRAINT `personas_direcciones_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `personas_direcciones_ibfk_4` FOREIGN KEY (`cod_ubigeo_reniec`) REFERENCES `ubigeo_reniec` (`cod_ubigeo_reniec`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pps_4tacategorias`
+--
+ALTER TABLE `pps_4tacategorias`
+  ADD CONSTRAINT `pps_4tacategorias_ibfk_1` FOREIGN KEY (`id_pdeclaracion`) REFERENCES `pdeclaraciones` (`id_pdeclaracion`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pps_detalles_4tacategorias`
+--
+ALTER TABLE `pps_detalles_4tacategorias`
+  ADD CONSTRAINT `pps_detalles_4tacategorias_ibfk_1` FOREIGN KEY (`id_ps_4tacategoria`) REFERENCES `pps_4tacategorias` (`id_ps_4tacategoria`);
+
+--
+-- Constraints for table `ptrabajadores`
+--
+ALTER TABLE `ptrabajadores`
+  ADD CONSTRAINT `ptrabajadores_ibfk_1` FOREIGN KEY (`id_pdeclaracion`) REFERENCES `pdeclaraciones` (`id_pdeclaracion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ptrabajadores_ibfk_2` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `servicios_prestados`

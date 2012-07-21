@@ -444,11 +444,12 @@ function bajaEstablecimiento(id){
 
     //FUNNCION CARGAR_TABLA PASARELAS 10/12/2011
 				
-    function cargarTablaPersonalServicio(){
-
-        //$("#list").jqGrid('GridUnload');
+    function cargarTablaPersonalServicio(cod_estado){
+		var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
+	
+        $("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PersonaController.php?oper=cargar_tabla',
+            url:'sunat_planilla/controller/PersonaController.php?oper=cargar_tabla&estado='+arg,
             datatype: 'json',
             colNames:['Id','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
                 'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'

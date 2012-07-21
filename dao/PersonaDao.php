@@ -155,20 +155,32 @@ class PersonaDao extends AbstractDao {
         return true;
     }
 
-    public function cantidadPesonas($ID_EMPLEADOR_MAESTRO, $WHERE) {//OK
+    public function cantidadPesonas($estado, $ID_EMPLEADOR_MAESTRO, $WHERE) {//OK
         $query = "
-            SELECT COUNT(*) AS numfilas
-            FROM personas AS p
-            INNER JOIN empleadores_maestros AS em
-            ON p.id_empleador = em.id_empleador
-        
-            WHERE em.id_empleador_maestro = ?
+        SELECT 
+                COUNT(*) AS numfilas
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        INNER JOIN situaciones AS s
+        ON t.cod_situacion = s.cod_situacion
+
+        WHERE em.id_empleador_maestro = ?
+        AND t.cod_situacion = ?
             -- $WHERE ";
 
         try {
 
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
+            $stm->bindValue(2,$estado);
 
             $stm->execute();
 
@@ -183,7 +195,7 @@ class PersonaDao extends AbstractDao {
         }
     }
 
-    public function listarPersonas($ID_EMPLEADOR_MAESTRO, $WHERE, $start, $limit, $sidx, $sord) {
+    public function listarPersonas($estado, $ID_EMPLEADOR_MAESTRO, $WHERE, $start, $limit, $sidx, $sord) {
         $query = "
 	SELECT 
 		p.id_persona,
@@ -216,6 +228,8 @@ class PersonaDao extends AbstractDao {
         ON t.cod_situacion = s.cod_situacion
         
         WHERE em.id_empleador_maestro = ?
+        AND t.cod_situacion = ?
+        
        -- WHERE p.estado='ACTIVO'
         
         $WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit
@@ -225,6 +239,7 @@ class PersonaDao extends AbstractDao {
 
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
+            $stm->bindValue(2,$estado);
             $stm->execute();
             $lista = $stm->fetchAll();
 

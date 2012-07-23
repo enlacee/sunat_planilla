@@ -71,7 +71,6 @@ if ($op == "cargar_tabla_trabajador") {
 echo (!empty($responce)) ? json_encode($responce) : '';
 /* * **********categoria*************** */
 
-
 function listarEstablecimientoLocalesPorEmpleadorSunat($id_empleador_sunat) {
 
     //->EmpleadorDAO
@@ -243,8 +242,7 @@ function editarTrabajador() {
     $ID_PER = $_REQUEST['id_persona_categoria'];
     $ID_TRA = $_REQUEST['id_trabajador_categoria'];
 
-   // echo "\ncbo_tipo_pago = " . $_REQUEST['cbo_tipo_pago'];
-
+    // echo "\ncbo_tipo_pago = " . $_REQUEST['cbo_tipo_pago'];
     // datos ORDEN FORM
     // Detalle 1 #Periodo Laboral
     $detalle_1 = new DetallePeriodoLaboral();
@@ -290,18 +288,18 @@ function editarTrabajador() {
     $tra->setSituacion_especial($_REQUEST['rbtn_situacion_especial']);
     $tra->setDiscapacitado($_REQUEST['rbtn_discapacitado']);
     $tra->setSindicalizado($_REQUEST['rbtn_sindicalizado']);
-    $tra->setCod_convenio(empty ($_REQUEST['cbo_convenio']) ? 0 : $_REQUEST['cbo_convenio'] );
-   
+    $tra->setCod_convenio(empty($_REQUEST['cbo_convenio']) ? 0 : $_REQUEST['cbo_convenio'] );
+
 
     //--------------------------------------------------------------------------
 
     $valor = $detalle_1->getFecha_fin();
-    
-    if( ($valor) && ($_REQUEST['cbo_situacion']!= 0) ){ //THIS ESTABLECIDO
+
+    if (($valor) && ($_REQUEST['cbo_situacion'] != 0)) { //THIS ESTABLECIDO
         $tra->setCod_situacion(0); // 0 = BAJA O 2 = Conceptos pendientes
         //$tra->setEstado('INACTIVO');
         //echo "CODIGO SITUACION 00000000000000000000000000";
-    }else{
+    } else {
         $tra->setCod_situacion(1);
     }
 
@@ -368,7 +366,6 @@ function editarTrabajador() {
 
 
     return true;
-
 }
 
 function buscarTrabajadorPorIdPersona($id_persona) {
@@ -464,7 +461,7 @@ function cargar_tabla_trabajador($ESTADO) {
 
     //$dao_trabajador->actualizarStock();
 
-    $lista = $dao_trabajador->listarTrabajador(ID_EMPLEADOR_MAESTRO,$ESTADO, $WHERE, $start, $limit, $sidx, $sord);
+    $lista = $dao_trabajador->listarTrabajador(ID_EMPLEADOR_MAESTRO, $ESTADO, $WHERE, $start, $limit, $sidx, $sord);
 
 // CONTRUYENDO un JSON
     $responce->page = $page;
@@ -518,11 +515,9 @@ function cargar_tabla_trabajador($ESTADO) {
 
         //$js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "','#CapaContenedorFormulario')";
         //$js2 = "javascript:eliminarPersona('" . $param . "')";
-
-
         //$opciones_1 = '<a href="' . $js . '">Modificar</a>';
         //$opciones_2 = '<a href="' . $js2 . '">Eliminar</a>';
-        
+
         $opciones = $rec['reporte'];
         /*        $opciones = '<div id="divEliminar_Editar">				
           <span  title="Editar" >
@@ -556,6 +551,38 @@ function cargar_tabla_trabajador($ESTADO) {
     }
 
     return $responce;  //RETORNO A intranet.js
+}
+
+// ----- VIEW-plame
+function buscar_IDTrabajador($id_trabajador) {
+
+    $dao = new TrabajadorDao();
+    $data = $dao->buscar_IDTrabajador($id_trabajador);
+
+    $model = new Trabajador();
+    $model->setId_trabajador($data['id_trabajador']);
+    $model->setId_persona($data['id_persona']);
+    $model->setCod_regimen_laboral($data['cod_regimen_laboral']);
+    $model->setCod_nivel_educativo($data['cod_nivel_educativo']);
+    $model->setCod_categorias_ocupacionales($data['cod_categorias_ocupacionales']);
+    $model->setCod_ocupacion($data['cod_ocupacion_p']);
+    $model->setCod_tipo_contrato($data['cod_tipo_contrato']);
+    
+    
+    $model->setMonto_remuneracion($data['monto_remuneracion']);
+    $model->setCod_convenio($data['cod_convenio']);
+    $model->setCod_situacion($data['cod_situacion']);
+    
+
+   // $model->setCod_tipo_pago($data['cod_tipo_pago']);
+   // $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
+    
+    // Falta setear!
+    
+    return $model;
+    
+    
+    
 }
 
 ?>

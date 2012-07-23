@@ -30,7 +30,7 @@ $data_detalle_concepto = listarDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MA
 
 
 //echo "<pre>";
-//print_r($data_concepto);
+//print_r($data_detalle_concepto);
 //echo "</pre>";
 
 ?>

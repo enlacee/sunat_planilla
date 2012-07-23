@@ -1,10 +1,7 @@
 <?php
 
 class PTrabajador {
-
     //put your code here
-
-
     private $id_ptrabajador;
     private $id_trabajador;
     private $id_pdeclaracion;

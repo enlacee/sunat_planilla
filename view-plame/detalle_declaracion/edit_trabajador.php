@@ -5,6 +5,7 @@ require_once('../../view/ide2.php');
 require_once '../../controller/ideController2.php';
 //$data = $_SESSION['sunat_empleador'];
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
+$ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
 
 echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
 echo "<br>";
@@ -12,14 +13,14 @@ echo "DDDDDDDDDD".$PERIODO;
 ?>
 <style type="text/css">
 
-section{
-	background-color:#FFDFEF;
-	
+.section{
+	background-color:#FFDFEF;	
 	overflow:hidden;
 }
-article{
-	float:right;
-	width: 30%;
+.article{
+	float:left;
+	width: 48%;
+	padding: 1%;
 }
 
 </style>
@@ -28,7 +29,7 @@ article{
 <script type="text/javascript">
 //VARIABLES GLOBALES
 //var PERIODOX = '<?php echo $PERIODO;?>';
-
+var ID_PTRABAJADOR = '<?php echo $ID_PTRABAJADOR;?>';
     $(document).ready(function(){
                   
         $( "#tabs3").tabs();
@@ -36,12 +37,11 @@ article{
 	});
 	
 	
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/01_edit_dtrabajador.php' ,'#tabs-3-1');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/02_edit_jlaboral.php' ,'#tabs-3-2');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/03_edit_ingresos.php' ,'#tabs-3-3');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php' ,'#tabs-3-4');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/05_edit_taportes.php' ,'#tabs-3-5');
-	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_p4ta_catecoria.php?periodo='+$PERIODO ,'#tabs-3-3');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/01_edit_dtrabajador.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-1');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/02_edit_jlaboral.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-2');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/03_edit_ingresos.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-3');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-4');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/05_edit_taportes.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-5');
 	
 	//cargarTablaPTrabajadores(PERIODO);
 	
@@ -59,8 +59,8 @@ article{
             <li><a href="#tabs-3-1">Datos del Trabajador</a></li>
             <li><a href="#tabs-3-2">Jornada Laboral</a></li>	
             <li><a href="#tabs-3-3">Ingresos</a></li>	
-            <li><a href="#tabs-3-3">Descuentos</a></li>
-            <li><a href="#tabs-3-3">Tributos Y Aportes</a></li>	            	
+            <li><a href="#tabs-3-4">Descuentos</a></li>
+            <li><a href="#tabs-3-5">Tributos Y Aportes</a></li>	            	
 
         </ul>
         <div id="tabs-3-1">
@@ -115,9 +115,8 @@ article{
   <input type="submit" name="button" id="button" value="Grabar" />
 </form>
 <div>
-  
-  <p>&nbsp;</p>
-<table width="627" border="1">
+
+  <table width="627" border="1">
   <tr>
     <th width="69" scope="col">Tip-Num-Doc</th>
     <th width="78" scope="col">Apellidos y Nombres</th>

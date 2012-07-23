@@ -297,7 +297,6 @@ class TrabajadorDao extends AbstractDao {
         -- AND t.cod_situacion = 1                    
         ";
 
-
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_persona);
         $stm->execute();
@@ -307,7 +306,45 @@ class TrabajadorDao extends AbstractDao {
         return $lista[0];
 
     }
+    
+    // utilizando PLAME
+    public function buscar_IDTrabajador($id_trabajador){
+        $query = "
+        SELECT
+        id_trabajador,
+        id_persona,
+        cod_regimen_laboral,
+        cod_nivel_educativo,
+        cod_categorias_ocupacionales,
+        id_ocupacion_2,
+        cod_ocupacion_p,
+        cod_tipo_contrato,
+        cod_tipo_pago,
+        cod_periodo_remuneracion,
+        monto_remuneracion,
+        id_monto_remuneracion,
+        id_establecimiento,
+        jornada_laboral,
+        situacion_especial,
+        discapacitado,
+        sindicalizado,
+        percibe_renta_5ta_exonerada,
+        aplicar_convenio_doble_inposicion,
+        cod_convenio,
+        cod_situacion
 
+        FROM db.trabajadores
+        WHERE(id_trabajador = ?)
+                  
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;        
+        return $lista[0];
+        
+    }
     //-----------------------------E4---------------------------------------
     public function listarTrabajadoresSoloID_E4($ID_EMPLEADOR_MAESTRO) {
         $query = "

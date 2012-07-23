@@ -563,7 +563,6 @@ function buscarPersonaPorId($ID_PERSONA) {
     $obj_persona->setFecha_baja($data['fecha_baja']);
     return $obj_persona;
 }
-
 /**
  *   -----------------------------------------------------------------------------------------
  * 	FUNCIONES COMBO_BOX

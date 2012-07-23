@@ -335,7 +335,8 @@ $COD_ESTADO = $_REQUEST['cod_situacion'];
 	);
 	
 	havilitarConvenio();
-	
+	havilitarEps(document.getElementById('cbo_regimen_salud_base'));
+	havilitarCUSPP(document.getElementById('cbo_regimen_pensionario_base'));
 	
 	//-------------------------------------
 	//Desabilita Formulario si cod_situacion = 0
@@ -1117,7 +1118,7 @@ foreach ($combo_eps as $indice) {
               value="<?php echo $objTRADetalle_5->getId_detalle_regimen_pensionario(); ?>"
                /></td>
             <td colspan="2">
-              <select name="cbo_regimen_pensionario_base" style="width:180px" onchange="havilitarCUSPP(this)">
+              <select name="cbo_regimen_pensionario_base" id="cbo_regimen_pensionario_base" style="width:180px" onchange="havilitarCUSPP(this)">
                 <!--<option value="">-</option>-->
                 <?php 
 foreach ($combo_regimen_pensionario  as $indice) {

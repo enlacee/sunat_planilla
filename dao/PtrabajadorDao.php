@@ -144,28 +144,40 @@ class PtrabajadorDao extends AbstractDao {
     }
     
     public function buscar_ID($id_ptrabajador){
-        $obj = new PTrabajador();
-        $obj = $objeto;
 
         $query = "
-        UPDATE ptrabajadores
-        SET
-            aporta_essalud_vida = ?,
-            aporta_asegura_tu_pension = ?,
-            domiciliado = ?,
-            ingreso_5ta_categoria = ?
-        WHERE id_ptrabajador = ?;
+        SELECT 
+        pt.id_pdeclaracion,
+        -- ptrabajador
+        pt.id_ptrabajador,
+        pt.aporta_essalud_vida,
+        pt.aporta_asegura_tu_pension,
+        pt.domiciliado,
+        pt.ingreso_5ta_categoria,
+        -- trabajador
+        t.id_trabajador,
+        -- personal
+        p.cod_tipo_documento,
+        p.num_documento,
+        p.apellido_paterno,
+        p.apellido_materno,
+        p.nombres
+
+        FROM ptrabajadores AS pt
+        INNER JOIN trabajadores AS t
+        ON pt.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+
+        WHERE (pt.id_ptrabajador = ?);
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $obj->getAporta_essalud_vida());
-        $stm->bindValue(2, $obj->getAporta_asegura_tu_pension());
-        $stm->bindValue(3, $obj->getDomiciliado());
-        $stm->bindValue(4, $obj->getIngreso_5ta_categoria());
-        $stm->bindValue(5, $obj->getId_ptrabajador());
+        $stm->bindValue(1, $id_ptrabajador);
         $stm->execute();
-        //$data = $stm->fetchAll();
-        return true;
+        $data = $stm->fetchAll();
+        return $data[0];
     }
     
     

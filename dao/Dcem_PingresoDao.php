@@ -53,9 +53,42 @@ class Dcem_PingresoDao extends AbstractDao {
 
         $stm->execute();
         //$lista = $stm->fetchAll();
-        return $lista;
+        return true;
     }
 
+    //view
+    public function listar_ID_Ptrabajador($id_ptrabajador, $seleccionado){
+        $query = "
+        SELECT 
+        dcem_pi.id_dcem_pingreso,
+        dcem_pi.id_ptrabajador,
+        dcem_pi.devengado,
+        dcem_pi.pagado,
+
+        -- detalle concepto empleador maestro
+        dcem.id_detalle_concepto_empleador_maestro,
+        dcem.cod_detalle_concepto,
+        dcem.seleccionado
+
+        FROM dcem_pingresos AS dcem_pi
+        INNER JOIN detalles_conceptos_empleadores_maestros AS dcem
+        ON dcem_pi.id_detalle_concepto_empleador_maestro = dcem.id_detalle_concepto_empleador_maestro
+
+        WHERE (dcem_pi.id_ptrabajador = ? AND dcem.seleccionado = ?)
+        
+         ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_ptrabajador);
+        $stm->bindValue(2, $seleccionado);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
+        
+    }
+    
 }
 
 ?>

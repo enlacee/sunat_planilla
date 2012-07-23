@@ -40,7 +40,7 @@ function listarPtrabajadores($id_empleador_maestro, $periodo) {
     $lista = array();
     
     $dao = new PtrabajadorDao();
-    $lista = $dao->listar(ID_EMPLEADOR_MAESTRO, $periodo);
+    $lista = $dao->listar($id_empleador_maestro, $periodo);
     $count = count($lista);
 
 
@@ -114,13 +114,25 @@ function listarPtrabajadores($id_empleador_maestro, $periodo) {
 }
 
 
-//------------------
-
-function buscar_IDPtrabajador(){
+//------------------ FN_VIEW
+function buscar_IDPtrabajador($id_ptrabajador){
     /*
     $dao = new PtrabajadorDao();
     $dao->
-    */
+    */        
+    $dao = new PtrabajadorDao();
+    $data = $dao->buscar_ID($id_ptrabajador);
+    
+    $model = new PTrabajador();
+    $model->setId_ptrabajador($data['id_ptrabajador']);
+    $model->setId_pdeclaracion($data['id_pdeclaracion']);
+    $model->setId_trabajador($data['id_trabajador']);
+    $model->setAporta_essalud_vida($data['aporta_essalud_vida']);    
+    $model->setAporta_asegura_tu_pension($data['aporta_asegura_tu_pension']);
+    $model->setDomiciliado($data['domiciliado']);
+    $model->setIngreso_5ta_categoria($data['ingreso_5ta_categoria']);    
+    
+    return $model;
     
     
 }

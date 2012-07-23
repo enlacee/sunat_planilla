@@ -1,22 +1,53 @@
 
+<div class="ptrabajador">
 
-<section>
-		<article class="fila1">
-			<h2>fila2 columna1</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</article>
-		<article class="fila2">
-			<h2>fila2 columna2</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		</article>
-	</section>
+<div class="section">
+	<div class="article fila1">
+	  <h3>Dias de Jornada</h3>
+        <hr />
+	  <p>
+	    <label for="dias_laborados">Laborados</label>
+	    <input name="dias_laborados" type="text" id="dias_laborados" size="4" />
+	  </p>
+	  <p>
+	    <label for="dias_subsidiados">Subsidiados</label>
+	    <input name="dias_subsidiados" type="text" id="dias_subsidiados" size="4" />
+	  </p>
+	  <p>
+	    <label for="dia_nolabora_nosubsidiado">No laborados y no subsidiados:</label>
+	    <input name="dia_nolabora_nosubsidiado" type="text" id="dia_nolabora_nosubsidiado" size="4" />
+	  </p>
+      <h3>TOTAL: 
+        <label for="dia_total"></label>
+        <input name="dia_total" type="text" id="dia_total" size="4" />
+        </h3>
+      <p>&nbsp;</p>
+	</div>
+	<div class="article fila2">
+			<h3>Horas Laboradas</h3>
+              <hr />
+		<p>        
+          <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
+          <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh" size="5" />
+          :
+          <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm" size="5" />
+		</p>
+	  <p>
+	    <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
+		  <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" />
+	    :
+	    <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" />
+		</p>
+			<h3>TOTAL HORAS:
+			  <label for="total_hora_hh"></label>
+			  <input name="total_hora_hh" type="text" id="total_hora_hh" size="5" />
+			:
+			<label for="total_hora_mm"></label>
+			<input name="total_hora_mm" type="text" id="total_hora_mm" size="5" />
+			</h3>
+	  <p>&nbsp;</p>
+	  </div>
+	</div>
+    
+    
+</div>    

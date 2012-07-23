@@ -40,7 +40,7 @@ class PlameDao extends AbstractDao {
         INNER JOIN detalle_periodos_laborales AS dpl
         ON t.id_trabajador = dpl.id_trabajador
 
-        WHERE (t.cod_situacion = 1 AND p.id_empleador = ? )
+        WHERE (t.cod_situacion = 1 AND em.id_empleador_maestro = ? )
 
         AND dpl.fecha_inicio >= ?  -- fecha inicio SUNAT PLANILLA
 
@@ -78,7 +78,7 @@ class PlameDao extends AbstractDao {
         INNER JOIN detalle_periodos_laborales AS dpl
         ON t.id_trabajador = dpl.id_trabajador
 
-        WHERE (t.cod_situacion = 1 AND p.id_empleador = ? )
+        WHERE (t.cod_situacion = 1 AND em.id_empleador_maestro = ? )
 
         AND dpl.fecha_inicio >= ?  -- fecha inicio SUNAT PLANILLA
 

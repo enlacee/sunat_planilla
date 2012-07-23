@@ -110,8 +110,8 @@ echo (!empty($responce)) ? json_encode($responce) : '';
 
 function nuevaPersona() {
 
-    if (existePersonaBD($_REQUEST['txt_num_documento'])) {
-        return false;
+    if (existePersonaBD($_REQUEST['txt_num_documento']) >= 1) {
+        return 'false';
     }
     //$dao_persona = new PersonaDao();
     //$val=validarCodigoProducto($codigo);
@@ -161,7 +161,7 @@ function nuevaPersona() {
             $obj_per_direccion->setCod_via(0);
             $obj_per_direccion->setCod_zona(0);
             $obj_per_direccion->setEstado_direccion(1);
-            
+
             //DEFAUL ESTABLECIDO DIRECCION PARA ESALUD
             $obj_per_direccion->setReferente_essalud(1);
             //DAO
@@ -326,10 +326,7 @@ function nuevaPersona() {
     $daoc->registrar($objc);
 
 
-
-
-
-    //RETURN
+    //RETURN ->array construido
     return $rpta['id_persona'] = $ID_PERSONA;
 }
 
@@ -374,7 +371,7 @@ function eliminarPersona($id) {
 
 function cargar_tabla() {
     $ESTADO = ($_REQUEST['estado']) ? $_REQUEST['estado'] : 0;
-    
+
     $dao_persona = new PersonaDao();
 
     $page = $_GET['page'];
@@ -383,11 +380,11 @@ function cargar_tabla() {
     $sord = $_GET['sord']; // get the direction
 
 
-/*    if ($_REQUEST['estado']) {
-        // $estado = "WHERE p.estado = '" . $_REQUEST['estado'] . "' ";
-        $WHERE = $estado;
-    }
-*/
+    /*    if ($_REQUEST['estado']) {
+      // $estado = "WHERE p.estado = '" . $_REQUEST['estado'] . "' ";
+      $WHERE = $estado;
+      }
+     */
 
     $WHERE = "";
 
@@ -434,7 +431,7 @@ function cargar_tabla() {
 
     //$dao_persona->actualizarStock();
 
-    $lista = $dao_persona->listarPersonas($ESTADO,ID_EMPLEADOR_MAESTRO, $WHERE, $start, $limit, $sidx, $sord);
+    $lista = $dao_persona->listarPersonas($ESTADO, ID_EMPLEADOR_MAESTRO, $WHERE, $start, $limit, $sidx, $sord);
 
 // CONTRUYENDO un JSON
     $responce->page = $page;
@@ -488,10 +485,10 @@ function cargar_tabla() {
 
         $_10 = $rec['cod_situacion'];
 
-        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "&cod_situacion=".$_10."','#CapaContenedorFormulario')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "&cod_situacion=" . $_10 . "','#CapaContenedorFormulario')";
         $js2 = "javascript:eliminarPersona('" . $param . "')";
 
-        if ($_10 == 1) {            
+        if ($_10 == 1) {
             $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar" >
 		<a href="' . $js . '"><img src="images/edit.png"/></a>

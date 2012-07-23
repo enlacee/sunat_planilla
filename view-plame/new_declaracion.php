@@ -57,7 +57,7 @@ function validarNewDeclaracion(){ //Registrar Periodo
 				if(input_estado.value == 'true'){
 					cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
 				}else if(input_estado.value == 'false'){
-					alert("FALSE Periodo Ya se encuentra Registrado!.");
+					alert("FALSE Periodo Ya se encuentra Registrado!\n O no existe ningun trabajador en el periodo: ."+input_inicio.value);
 				}
 				
 				

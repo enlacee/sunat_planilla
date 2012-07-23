@@ -37,7 +37,8 @@ require_once('ide.php');
              <br />
 <table id="list">
 </table>
-<div id="pager"></div>
+<div id="pager">
+</div>
 
 		
 

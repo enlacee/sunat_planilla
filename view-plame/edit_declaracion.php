@@ -4,7 +4,7 @@ require_once('../view/ide.php');
 //*******************************************************************//
 require_once '../controller/ideController.php';
 
-
+echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
 // -- Carga de COMBOS
 require_once('../dao/ComboCategoriaDao.php');
 require_once('../controller/ComboCategoriaController.php');
@@ -13,6 +13,9 @@ require_once('../controller/ComboCategoriaController.php');
 $cbo_tipo_empleador = comboTipoEmpleador();
 
 $data = $_SESSION['sunat_empleador'];
+
+$PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
+
 
 //echo "<pre>";
 //print_r($data);
@@ -24,6 +27,11 @@ $data = $_SESSION['sunat_empleador'];
 ?>
 
 <script type="text/javascript">
+//VARIABLES GLOBALES:
+
+var PERIODO = '<?php echo $PERIODO; ?>';
+
+
     $(document).ready(function(){
                   
         $( "#tabs").tabs();
@@ -33,9 +41,14 @@ $data = $_SESSION['sunat_empleador'];
 	});
 //---------------------------------
 
-	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab2.php','#tabs-2');
-	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab3.php','#tabs-3');
+	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab2.php?periodo='+PERIODO ,'#tabs-2');
+	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab3.php?periodo='+PERIODO ,'#tabs-3');
 
+
+
+//functiones GRID
+
+//	cargarTablaPTrabajadores(PERIODO);
 
 	
 </script>
@@ -74,7 +87,7 @@ $data = $_SESSION['sunat_empleador'];
           <br />
           Periodo Tributario (mm/aaaa)          
       <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  readonly="readonly"
-      value="<?php echo $_REQUEST['periodo']; ?>" />
+      value="<?php echo $PERIODO; ?>" />
 
           
           </form>

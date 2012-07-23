@@ -294,18 +294,23 @@ class PersonaDao extends AbstractDao {
 
     public function existePersonaBD($num_doc) {
         $query = "
-            SELECT num_documento FROM personas 
-            WHERE num_documento = ?";
+        SELECT 
+                COUNT(p.num_documento ) AS numfilas
+        FROM personas AS p
+        INNER JOIN empleadores AS emp
+        ON p.id_empleador = emp.id_empleador
+        INNER JOIN empleadores_maestros AS em
+        ON emp.id_empleador = em.id_empleador
+
+        WHERE (em.id_empleador = 2 AND num_documento = ?)";
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $num_doc);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        if (count($lista) >= 1) {
-            return true;
-        }
-        return false;
+        
+        return $lista[0]['numfilas'];
     }
 
     // OJO USADO EN REPORTES

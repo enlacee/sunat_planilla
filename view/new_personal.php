@@ -59,8 +59,8 @@ $cbo_estado_civil = comboEstadosCiviles();
     //-------------------------------------------------------------
 		
 function validarFormNewPersonalPrincipal(obj){
-	
-	if( validarFormNewPersonal()) { //alert(validarFormNewPersonal());
+	//alert(validarFormNewPersonal());
+	if( validarFormNewPersonal()) { 
 		
 		//-----------------------------------------------------------------------				
 			var from_data =  $("#form_new_personal").serialize();

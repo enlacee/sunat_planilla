@@ -1,9 +1,5 @@
 <?php
-
 //session_start();
-//$empleador = buscaEmpleadorPorRuc(RUC);
-// Paso 01 = buscar si existe en id_empleador_maestro registrado
-// Paso 02 = Si Existe ADD detalles_conceptos_empleadores
 
 $op = $_REQUEST["oper"];
 if ($op) {

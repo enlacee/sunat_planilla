@@ -288,3 +288,48 @@
 
 	
     }
+
+
+///------------------------------------------------------------
+
+
+function crearDialogoPTperiodoLaboral(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog-pt-periodo-laboral").dialog({ 
+           
+			autoOpen: false,
+			height: 170,
+			width: 250,
+			modal: false,
+                        
+			/*buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				}
+                                
+			},*/
+			
+			open: function() {},
+			close: function() {}
+	});
+}
+
+
+//----------
+function editarPTperiodoLaboral(id){  //alert (".");
+	crearDialogoPTperiodoLaboral();
+
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-plame/modal/periodo_laboral.php",
+   data: "id_trabajador="+id,
+   async:true,
+   success: function(datos){
+    $('#editarPTperiodoLaboral').html(datos);
+    
+    $('#dialog-pt-periodo-laboral').dialog('open');
+   }
+   }); 
+}

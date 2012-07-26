@@ -76,6 +76,7 @@ function listarPtrabajadores($id_empleador_maestro, $periodo) {
 
     foreach ($lista as $rec) {
         $param = $rec["id_ptrabajador"];
+        $_00 = $rec["id_trabajador"];
         $_01 = $rec["cod_tipo_documento"];
         $_02 = $rec["num_documento"];
         $_03 = $rec["apellido_paterno"];
@@ -85,7 +86,7 @@ function listarPtrabajadores($id_empleador_maestro, $periodo) {
 
         $estado = "A";
 
-        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_ptrabajador=" . $param . "','#detalle_declaracion_trabajador')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_ptrabajador=" . $param . "&id_trabajador=".$_00."','#detalle_declaracion_trabajador')";
 
         $opciones = '<div id="divEliminar_Editar">
           <span  title="Editar" >
@@ -127,10 +128,16 @@ function buscar_IDPtrabajador($id_ptrabajador){
     $model->setId_ptrabajador($data['id_ptrabajador']);
     $model->setId_pdeclaracion($data['id_pdeclaracion']);
     $model->setId_trabajador($data['id_trabajador']);
+    $model->setAporta_essalud_sctr($data['aporta_essalud_sctr']);
     $model->setAporta_essalud_vida($data['aporta_essalud_vida']);    
     $model->setAporta_asegura_tu_pension($data['aporta_asegura_tu_pension']);
     $model->setDomiciliado($data['domiciliado']);
-    $model->setIngreso_5ta_categoria($data['ingreso_5ta_categoria']);    
+    $model->setIngreso_5ta_categoria($data['ingreso_5ta_categoria']);   
+    
+    $model->setCod_tipo_trabajador($data['cod_tipo_trabajador']);
+    $model->setCod_situacion($data['cod_situacion']);
+    $model->setCod_regimen_aseguramiento_salud($data['cod_regimen_aseguramiento_salud']);
+    $model->setCod_regimen_pensionario($data['cod_regimen_pensionario']);
     
     return $model;
     

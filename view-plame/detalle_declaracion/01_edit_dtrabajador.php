@@ -9,6 +9,10 @@ require_once('../../util/funciones.php');
 require_once('../../dao/ComboCategoriaDao.php');
 require_once('../../controller/ComboCategoriaController.php');
 
+//COMBO BASICO
+require_once('../../dao/ComboDao.php');
+require_once('../../controller/ComboController.php');
+
 require_once('../../util/funciones.php');
 require_once('../../dao/ComboCategoriaDao.php');
 require_once('../../controller/ComboCategoriaController.php');
@@ -64,31 +68,31 @@ echo"</pre>";
 $ptrabajador = new PTrabajador();
 $ptrabajador = buscar_IDPtrabajador($ID_PTRABAJADOR);
 
-//data - trabajador
+//echo "<pre>";
+//print_r($ptrabajador);
+//echo "</pre>";
+
 $trabajador = new Trabajador();
 $trabajador = buscar_IDTrabajador($ptrabajador->getId_trabajador());
+
 
 //data - persona
 $persona = new Persona();
 $persona = buscarPersonaPorId($trabajador->getId_persona()); 
 
-/*
-echo "<pre>";
-print_r($ptrabajador);
-echo "<hr>";
-print_r($trabajador);
-echo "<hr>";
-print_r($persona);
 
+//echo "<pre>";
+//print_r($ptrabajador);
+//echo "</pre>";
 
-echo "</pre>";
-*/
 //----------------------------------------------------------------
 // IMPORTANT  id_tipo_empleador = 01->privado 02->publico 03->otros
 $id_tipo_empleador = $_SESSION['sunat_empleador']['id_tipo_empleador'];
 
 //$remype = $_SESSION['sunat_empleador']['remype'];
 
+// COMBO 01
+$cbo_tipo_documento = comboTipoDocumento(); //var_dump($cbo_tipo_documento);
 
 //combo 03x
 $cbo_tipo_trabajador = comboTipoTrabajadorPorIdTipoEmpleador($id_tipo_empleador); 
@@ -101,7 +105,6 @@ $combo_regimen_salud = comboRegimenSalud();
 $combo_regimen_pensionario = comboRegimenPensionario();
 
 //combo 10
-$estado = ($trabajador->getCod_situacion()==2) ? 0 : $trabajador->getCod_situacion();
 $combo_situacion = comboSituacion($estado);
 
 
@@ -113,34 +116,50 @@ $combo_situacion = comboSituacion($estado);
 $objTRADetalle_1 = new DetallePeriodoLaboral();
 $objTRADetalle_1 = buscarDetallePeriodoLaboral( $ptrabajador->getId_trabajador() );
 
-//--- sub 2 Tipo Trabajador
-$objTRADetalle_2 = new DetalleTipoTrabajador();
-$objTRADetalle_2 = buscarDetalleTipoTrabajador( $ptrabajador->getId_trabajador() );
-
-//--- sub 4 Regimen Salud
-$objTRADetalle_4 = new DetalleRegimenSalud();
-$objTRADetalle_4 = buscarDetalleRegimenSalud( $trabajador->getId_trabajador());
-
-//--- sub 5 Regimen Pensionario
-$objTRADetalle_5 = new DetalleRegimenPensionario();
-$objTRADetalle_5 = buscarDetalleRegimenPensionario ( $trabajador->getId_trabajador() );
 
 
 ?>
 <div class="ptrabajador">
 
-<label for="pt_apaterno">Apellido Paterno</label>
-<input type="text" name="pt_apaterno" id="pt_apaterno"
+<label for="pt_tipo_documento">Tipo documento: 
+  <select name="pt_tipo_documento" id="pt_tipo_documento" 
+					  style="width:70px">
+						<option value="">-</option>
+<?php
+foreach ($cbo_tipo_documento as $indice) {
+	
+	if ( $indice['cod_tipo_documento'] == $persona->getCod_tipo_documento() ) {
+		
+		$html = '<option value="'. $indice['cod_tipo_documento'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';		
+	} else {
+		$html = '<option value="'. $indice['cod_tipo_documento'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
+	}
+	echo $html;
+}
+?>
+
+
+</select>
+                      
+                      
+  Nro. documento:</label>
+<label for="pt_num_documento"></label>
+<input name="pt_num_documento" type="text" disabled="disabled" class="input_0" id="pt_num_documento"
+value="<?php echo $persona->getNum_documento(); ?>" />
+<label for="pt_tipo_documento"><br />
+  <br />
+  Apellido Paterno</label>
+<input name="pt_apaterno" type="text" disabled="disabled" class="input_0" id="pt_apaterno"
  value="<?php echo $persona->getApellido_paterno(); ?>"
  />
 
 <label for="pt_apaterno">Apellido Materno</label>
-<input type="text" name="pt_materno" id="pt_materno" 
+<input name="pt_materno" type="text" disabled="disabled" class="input_0" id="pt_materno" 
   value="<?php echo $persona->getApellido_materno(); ?>"
 />
 
 <label for="pt_nombres">Nombres</label>
-<input type="text" name="pt_nombres" id="pt_nombres" 
+<input name="pt_nombres" type="text" disabled="disabled" class="input_0" id="pt_nombres"
  value="<?php echo $persona->getNombres(); ?>"
 />
 
@@ -153,26 +172,26 @@ $objTRADetalle_5 = buscarDetalleRegimenPensionario ( $trabajador->getId_trabajad
 
   <p>
     <label for="pt_fecha_inicio">Fecha de inicio</label>
-    <input type="text" name="pt_fecha_inicio" id="pt_fecha_inicio"
+    <input name="pt_fecha_inicio" type="text" disabled="disabled" id="pt_fecha_inicio"
     value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_inicio(), "d/m/Y");?>" />
     
     
     <label for="pt_fecha_fin">Fecha de fin</label>
-    <input type="text" name="pt_fecha_fin" id="pt_fecha_fin" ç
-    value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_fin(), "d/m/Y");?>" />
+    <input name="pt_fecha_fin" type="text" disabled="disabled" id="pt_fecha_fin"
+    value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_fin(), "d/m/Y");?>" ç />
     
-    <a href="#">ver detalle</a></p>
+    <a href="javascript:editarPTperiodoLaboral('<?php echo $ptrabajador->getId_trabajador();?>')">ver detalle</a></p>
   
 <p>
   <label for="pt_tipo_trabajador">Tipo de trabajador</label>
-  <select name="cbo_ttrabajador_base" id="cbo_ttrabajador_base" style="width:180px;" onchange="comboVinculadosTipoTrabajadorConCategoriaOcupacional(this)" >
+  <select name="pt_ttrabajador" id="pt_ttrabajador" style="width:180px;" disabled="disabled" >
     <!--<option value="0" >-</option>-->
 <?php
 foreach ($cbo_tipo_trabajador as $indice) {
 	//----
 	if($indice['cod_tipo_trabajador'] =="0" ){		
 		$html = '<option value="0"  >-</option>';	
-	}else if( $indice['cod_tipo_trabajador'] ==  $objTRADetalle_2->getCod_tipo_trabajador()){
+	}else if( $indice['cod_tipo_trabajador'] ==  $ptrabajador->getCod_tipo_trabajador()){
 		$html = '<option value="' . $indice['cod_tipo_trabajador'] .'" selected="selected" >'.$indice['cod_tipo_trabajador'].'-'.$indice['descripcion'].'</option>';
 	}else {
 		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';
@@ -182,15 +201,15 @@ foreach ($cbo_tipo_trabajador as $indice) {
 ?>
 </select>  
   
-  <label for="pt_situacion">Situaci&oacute;n</label>
-              <select name="cbo_situacion" id="cbo_situacion" style="width:160px" 
-              <?php //echo ($trabajador->getCod_situacion()== '1') ? ' disabled="disabled"' : ''; ?>
+<label for="pt_situacion">Situaci&oacute;n</label>
+              <select name="pt_situacion" id="pt_situacion" style="width:160px"  disabled="disabled"
+              
                >
             <!--<option value="" >-</option>-->
             <?php              
             foreach ($combo_situacion as $indice) {
             
-            if($indice['cod_situacion']=== $trabajador->getCod_situacion()){
+            if($indice['cod_situacion']=== $ptrabajador->getCod_situacion() ){
             
             $html = '<option value="'.$indice['cod_situacion'].'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';	
             
@@ -208,11 +227,11 @@ foreach ($cbo_tipo_trabajador as $indice) {
 <p>
   <label for="pt_regimen_salud">R&eacute;gimen de salud</label>
   
-<select name="cbo_regimen_salud_base" id="cbo_regimen_salud_base" style="width:210px;">
+<select name="pt_regimen_salud" id="pt_regimen_salud" style="width:210px;" disabled="disabled">
                 <!--<option value="" >-</option>-->
 <?php              
 foreach ($combo_regimen_salud as $indice) {	
-	if($indice['cod_regimen_aseguramiento_salud']=== $objTRADetalle_4->getCod_regimen_aseguramiento_salud()){		
+	if($indice['cod_regimen_aseguramiento_salud']=== $ptrabajador->getCod_regimen_aseguramiento_salud()){		
 		$html = '<option value="'.$indice['cod_regimen_aseguramiento_salud'].'" selected="selected" >' . $indice['descripcion'] . '</option>';			
 	} else {
 		$html = '<option value="'. $indice['cod_regimen_aseguramiento_salud'] .'" >' . $indice['descripcion'] . '</option>';
@@ -225,7 +244,8 @@ foreach ($combo_regimen_salud as $indice) {
 </p>
 <p>
   <label for="pt_regimen_pensionario">R&eacute;gimen de pensionario</label>
-          <select name="cbo_regimen_pensionario_base" id="cbo_regimen_pensionario_base" style="width:180px" onchange="havilitarCUSPP(this)">
+          <select name="pt_regimen_pensionario" id="pt_regimen_pensionario" style="width:180px" 
+          disabled="disabled">
                 <!--<option value="">-</option>-->
 <?php 
 foreach ($combo_regimen_pensionario  as $indice) {
@@ -233,7 +253,7 @@ foreach ($combo_regimen_pensionario  as $indice) {
 	if ($indice['cod_regimen_pensionario']==0 ) {		
 		$html = '<option value="0" >-</option>';
 		
-	}else if($indice['cod_regimen_pensionario'] == $objTRADetalle_5->getCod_regimen_pensionario() ){
+	}else if($indice['cod_regimen_pensionario'] == $ptrabajador->getCod_regimen_pensionario() ){
 		
 		$html = '<option value="'. $indice['cod_regimen_pensionario'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
 
@@ -255,23 +275,23 @@ foreach ($combo_regimen_pensionario  as $indice) {
 
 <p>
   <label for="rbtn_pt_sctr">Aporta a Es Salud - SCTR</label>
-  <input name="rbtn_pt_sctr" type="radio" value="1"  />SI
+  <input name="rbtn_pt_sctr" type="radio" value="1" disabled="disabled" />SI
   
-  <input name="rbtn_pt_sctr" type="radio" value="0" checked="checked"/>NO
+  <input name="rbtn_pt_sctr" type="radio" value="0" checked="checked"  disabled="disabled" />NO
 </p>
 <p>
-  <label for="rbtn_pt_evida">Aporta a Es Salud + Vida</label>
+  <label for="rbtn_pt_pension">Aporta a Es Salud + Vida</label>
   <input name="rbtn_pt_evida" type="radio" value="1"  
   <?php echo ($ptrabajador->getAporta_essalud_vida() == '1') ? ' checked="checked"' : ''; ?>/>SI
 <input name="rbtn_pt_evida" type="radio" value="0" 
   <?php echo ($ptrabajador->getAporta_essalud_vida() == '0') ? ' checked="checked"' : ''; ?>
 />NO</p>
 <p>
-  <label for="rbtn_pt_evida">Aporta a Asegura tu Pensi&oacute;n</label>
-  <input name="rbtn_pt_evida" type="radio" value="1" 
+  <label for="rbtn_pt_pension">Aporta a Asegura tu Pensi&oacute;n</label>
+  <input name="rbtn_pt_pension" type="radio" value="1" 
     <?php echo ($ptrabajador->getAporta_asegura_tu_pension() == '1') ? ' checked="checked"' : ''; ?>
    />SI
-<input name="rbtn_pt_evida" type="radio" value="0" 
+<input name="rbtn_pt_pension" type="radio" value="0" 
 <?php echo ($ptrabajador->getAporta_asegura_tu_pension() == '0') ? ' checked="checked"' : ''; ?>
 />NO</p>
 <p> <b>DATOS TRIBUTARIOS</b></p>
@@ -279,14 +299,32 @@ foreach ($combo_regimen_pensionario  as $indice) {
   
   
   
-  <label for="rbtn_pt_docimiliado">Condici&oacute;n de domicilio seg&uacute;n impuesto a la renta</label>
-  <input name="rbtn_pt_docimiliado" type="radio" value="1" 
+  <label for="rbtn_pt_dociliado">Condici&oacute;n de domicilio seg&uacute;n impuesto a la renta</label>
+  <input name="rbtn_pt_dociliado" type="radio" value="1"  
 <?php echo ($ptrabajador->getDomiciliado() == '1') ? ' checked="checked"' : ''; ?>  
-  />SI
-  <input name="rbtn_pt_docimiliado" type="radio" value="0" 
+  />
+  Domiciliado
+  <input name="rbtn_pt_dociliado" type="radio" value="0" 
  <?php echo ($ptrabajador->getDomiciliado() == '0') ? ' checked="checked"' : ''; ?> 
-  />NO
+  />
+  No Domiciliado</p>
+<p>¿Tiene otros ingresos de 5ta Categoria? 
+  <input type="radio" name="radio" id="rbtn_pt_ingreso5ta_categoria" value="rbtn_pt_ingreso5ta_categoria" />
+  SI
+  <input name="radio" type="radio" id="rbtn_pt_ingreso5ta_categoria2" value="rbtn_pt_ingreso5ta_categoria" checked="checked" />
+  NO
+  <label for="rbtn_pt_ingreso5ta_categoria"></label>
 </p>
 <p>&nbsp;</p>
 
 </div>
+
+
+
+<!---  DIALOG -->
+<div id="dialog-pt-periodo-laboral">
+
+<div id="editarPTperiodoLaboral"> </div>
+
+</div>
+

@@ -1,24 +1,38 @@
 <?php
 
 class PTrabajador {
+
     //put your code here
     private $id_ptrabajador;
     private $id_trabajador;
     private $id_pdeclaracion;
+    private $aporta_essalud_sctr;
     private $aporta_essalud_vida;
     private $aporta_asegura_tu_pension;
     private $domiciliado;
     private $ingreso_5ta_categoria;
+    //
+    private $cod_tipo_trabajador;
+    private $cod_situacion;
+    private $cod_regimen_aseguramiento_salud;
+    private $cod_regimen_pensionario;
 
     public function __construct() {
         $this->id_ptrabajador = null;
         $this->id_trabajador = null;
         $this->id_pdeclaracion = null;
+        $this->aporta_essalud_sctr = null;
         $this->aporta_essalud_vida = null;
         $this->aporta_asegura_tu_pension = null;
         $this->domiciliado = null;
         $this->ingreso_5ta_categoria = null;
+        //
+        $this->cod_tipo_trabajador=null;
+        $this->cod_situacion=null;
+        $this->cod_regimen_aseguramiento_salud=null;
+        $this->cod_regimen_pensionario=null;
     }
+
     
     public function getId_ptrabajador() {
         return $this->id_ptrabajador;
@@ -42,6 +56,14 @@ class PTrabajador {
 
     public function setId_pdeclaracion($id_pdeclaracion) {
         $this->id_pdeclaracion = $id_pdeclaracion;
+    }
+
+    public function getAporta_essalud_sctr() {
+        return $this->aporta_essalud_sctr;
+    }
+
+    public function setAporta_essalud_sctr($aporta_essalud_sctr) {
+        $this->aporta_essalud_sctr = $aporta_essalud_sctr;
     }
 
     public function getAporta_essalud_vida() {
@@ -76,9 +98,45 @@ class PTrabajador {
         $this->ingreso_5ta_categoria = $ingreso_5ta_categoria;
     }
 
+    public function getCod_tipo_trabajador() {
+        return $this->cod_tipo_trabajador;
+    }
+
+    public function setCod_tipo_trabajador($cod_tipo_trabajador) {
+        $this->cod_tipo_trabajador = $cod_tipo_trabajador;
+    }
+
+    public function getCod_situacion() {
+        return $this->cod_situacion;
+    }
+
+    public function setCod_situacion($cod_situacion) {
+        $this->cod_situacion = $cod_situacion;
+    }
+
+    public function getCod_regimen_aseguramiento_salud() {
+        return $this->cod_regimen_aseguramiento_salud;
+    }
+
+    public function setCod_regimen_aseguramiento_salud($cod_regimen_aseguramiento_salud) {
+        $this->cod_regimen_aseguramiento_salud = $cod_regimen_aseguramiento_salud;
+    }
+
+    public function getCod_regimen_pensionario() {
+        return $this->cod_regimen_pensionario;
+    }
+
+    public function setCod_regimen_pensionario($cod_regimen_pensionario) {
+        $this->cod_regimen_pensionario = $cod_regimen_pensionario;
+    }
+
 
     
-
+    
+    
+    
+    
+    
 }
 
 ?>

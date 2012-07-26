@@ -107,7 +107,7 @@ function nuevoFilaConcepto1000(){
 	//var id_check = idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
 
 	//INICIO div
-	var div =document.createElement('tr');
+	var div = document.createElement('tr');
 	//div.setAttribute('id','establecimiento-'+id);
 	//
 	tabla.appendChild(div); //PRINCIPAL	

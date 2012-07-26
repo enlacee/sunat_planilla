@@ -77,7 +77,7 @@ $data = $_SESSION['sunat_empleador'];
           </p>
           <hr />
           Tipo de Empleador:
-        <select name="select" id="select" style="width:150px;">
+        <select name="select" id="select" style="width:150px;" disabled="disabled" >
                           <option value="" >-</option>
 <?php
 foreach ($cbo_tipo_empleador as $indice) {
@@ -95,10 +95,10 @@ foreach ($cbo_tipo_empleador as $indice) {
           <br />
           Es una Microempresa
         inscrita en la REMYPE? 
-        <input type="radio" name="rbtn_remype"   value="1" 
+        <input type="radio" name="rbtn_remype"   value="1"  disabled="disabled"
           <?php echo ($data['remype'] == 1) ? ' checked="checked"' : ''; ?> />
           SI
-        <input type="radio" name="rbtn_remype"  value="0" 
+        <input type="radio" name="rbtn_remype"  value="0" disabled="disabled"
           <?php echo ($data['remype'] == 0) ? ' checked="checked"' : ''; ?> />
           NO<br />
         Realiza actividad por las que aporta al SENATI?

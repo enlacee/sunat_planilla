@@ -614,16 +614,18 @@ function comboOcupacionALLPformacion() {
 
 
 // SITUACION
-function comboSituacion($estado = 1) {
+function comboSituacion($estado) {
 
     $dao_persona = new ComboCategoriaDao();
     $arreglo = $dao_persona->comboSituacion();
     //ID A ELIMINAR
     if($estado == 1){
         $id = array('0', '2', '3');
+    }elseif($estado == null){
+        $id = array();
     }else{
-        $id = array('1','3');
-    }
+		$id = array('1','3');
+	}
     $counteo = count($id);
     for ($i = 0; $i < $counteo; $i++) {
         //------------------------------------------

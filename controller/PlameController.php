@@ -10,7 +10,6 @@ if ($op) {
     //CONTROLLER
     // IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
-
     require_once '../util/funciones.php';
 }
 

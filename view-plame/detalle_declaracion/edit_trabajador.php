@@ -6,6 +6,7 @@ require_once '../../controller/ideController2.php';
 //$data = $_SESSION['sunat_empleador'];
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 $ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
+$ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 
 echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
 echo "<br>";
@@ -29,7 +30,9 @@ echo "DDDDDDDDDD".$PERIODO;
 <script type="text/javascript">
 //VARIABLES GLOBALES
 //var PERIODOX = '<?php echo $PERIODO;?>';
-var ID_PTRABAJADOR = '<?php echo $ID_PTRABAJADOR;?>';
+var id1 = '<?php echo $ID_PTRABAJADOR;?>';
+var id2 = '<?php echo $ID_TRABAJADOR;?>';
+
     $(document).ready(function(){
                   
         $( "#tabs3").tabs();
@@ -37,11 +40,11 @@ var ID_PTRABAJADOR = '<?php echo $ID_PTRABAJADOR;?>';
 	});
 	
 	
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/01_edit_dtrabajador.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-1');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/02_edit_jlaboral.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-2');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/03_edit_ingresos.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-3');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-4');
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/05_edit_taportes.php?id_ptrabajador='+ID_PTRABAJADOR ,'#tabs-3-5');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/01_edit_dtrabajador.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-1');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/02_edit_jlaboral.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-2');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/03_edit_ingresos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-3');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-4');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/05_edit_taportes.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-5');
 	
 	//cargarTablaPTrabajadores(PERIODO);
 	

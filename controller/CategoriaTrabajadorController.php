@@ -46,7 +46,7 @@ if ($op == "cargar_tabla_trabajador") {
     //echo $ESTADO;
     $responce = cargar_tabla_trabajador($ESTADO); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
 } elseif ($op == "add") {
-    $responce = nuevoTrabajador();
+    //$responce = nuevoTrabajador();
 } elseif ($op == "edit") {
 
     $responce = editarTrabajador();

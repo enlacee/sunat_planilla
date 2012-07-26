@@ -96,8 +96,12 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
     /**
      * Array Seleccionados por Defaul 
      */
-    $arreglo = array('0105', '0106', '0107', '0118', '0121', '0122', '0201', '0306', '0701', '0702', '0706');
-
+    $arreglo1 = array('0105', '0106', '0107', '0118', '0121', '0122', '0201', '0306', '0701', '0702', '0706');
+    
+    //tributos y aportes. ONP Y AFP    
+    $arreglo2 = array('0601', '0602','0604' , '0605', '0606', '0607','0608', '0609', '0611','0612', '0801', '0803','0804','0809');
+    
+    $arreglo = array_merge($arreglo1, $arreglo2);
 
     if (is_null($data)) { // NO Existe Empleador null
         // Paso 01 = listar Detalle Conceptos         

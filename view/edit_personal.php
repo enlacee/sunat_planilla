@@ -594,9 +594,7 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 
   </form>
   
-  <!--  
-  	------------------------------------------- CATEGORIAS --------------------------------------------
-  -->
+  <!-- CATEGORIAS -->
   
     <fieldset><legend>Categoria</legend>
       <div class="ocultar">id_persona_categoria
@@ -604,7 +602,7 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
       </div>
       <br />
   <ul>
-            <!--<li><a href="#tabs-1">Resumen de Prestadores</a></li>-->
+            
             <li ><a href="#tabs-2">Trabajador</a></li>			
             <li ><a href="#tabs-3">Pensionistas</a></li>
             <li><a href="#tabs-4">Personal en Formaci&oacute;n Laboral</a></li>			

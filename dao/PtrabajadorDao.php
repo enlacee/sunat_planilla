@@ -12,30 +12,46 @@ class PtrabajadorDao extends AbstractDao {
         $query = "
         INSERT INTO ptrabajadores
                     (
-                    id_pdeclaracion,
                     id_trabajador,
+                    id_pdeclaracion,
+                    aporta_essalud_sctr,
                     aporta_essalud_vida,
                     aporta_asegura_tu_pension,
                     domiciliado,
-                    ingreso_5ta_categoria)
+                    ingreso_5ta_categoria,
+                    cod_tipo_trabajador,
+                    cod_situacion,
+                    cod_regimen_aseguramiento_salud,
+                    cod_regimen_pensionario)
         VALUES (
                 ?,
                 ?,
                 ?,
                 ?,
                 ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
                 ?);
-        ";
+                ";
         try {
             $this->pdo->beginTransaction();
             
             $stm = $this->pdo->prepare($query);
-            $stm->bindValue(1, $model->getId_pdeclaracion());
-            $stm->bindValue(2, $model->getId_trabajador());
-            $stm->bindValue(3, $model->getAporta_essalud_vida());
-            $stm->bindValue(4, $model->getAporta_asegura_tu_pension());
-            $stm->bindValue(5, $model->getDomiciliado());
-            $stm->bindValue(6, $model->getIngreso_5ta_categoria());
+            $stm->bindValue(1, $model->getId_trabajador());
+            $stm->bindValue(2, $model->getId_pdeclaracion());
+            $stm->bindValue(3, $model->getAporta_essalud_sctr());
+            $stm->bindValue(4, $model->getAporta_essalud_vida());
+            $stm->bindValue(5, $model->getAporta_asegura_tu_pension());
+            $stm->bindValue(6, $model->getDomiciliado());
+            
+            $stm->bindValue(7, $model->getIngreso_5ta_categoria());
+            $stm->bindValue(8, $model->getCod_tipo_trabajador());
+            $stm->bindValue(9, $model->getCod_situacion());
+            $stm->bindValue(10, $model->getCod_regimen_aseguramiento_salud());
+            $stm->bindValue(11, $model->getCod_regimen_pensionario());
             $stm->execute();
 
             $query2 = "select last_insert_id() as id";
@@ -112,7 +128,10 @@ class PtrabajadorDao extends AbstractDao {
         p.nombres,
 
         -- jornada laboral
-        pjl.dia_laborado
+        pjl.dia_laborado,
+        
+        -- trabajador
+        tra.id_trabajador
 
         FROM pdeclaraciones AS pd
         INNER JOIN empleadores_maestros AS em
@@ -151,9 +170,16 @@ class PtrabajadorDao extends AbstractDao {
         -- ptrabajador
         pt.id_ptrabajador,
         pt.aporta_essalud_vida,
+        pt.aporta_essalud_sctr,
         pt.aporta_asegura_tu_pension,
         pt.domiciliado,
         pt.ingreso_5ta_categoria,
+        
+        pt.cod_tipo_trabajador,
+        pt.cod_situacion,
+        pt.cod_regimen_aseguramiento_salud,
+        pt.cod_regimen_pensionario,
+        
         -- trabajador
         t.id_trabajador,
         -- personal

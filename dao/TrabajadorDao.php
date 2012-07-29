@@ -131,8 +131,7 @@ class TrabajadorDao extends AbstractDao {
           sindicalizado = ?,
           percibe_renta_5ta_exonerada = ?,
           aplicar_convenio_doble_inposicion = ?,
-          cod_convenio = ?,
-          cod_situacion = ?,
+          cod_convenio = ?,          
           estado = ?
         WHERE id_trabajador = ?;
 	";
@@ -160,9 +159,9 @@ class TrabajadorDao extends AbstractDao {
         $stm->bindValue(16, $com->getPercibe_renta_5ta_exonerada());
         $stm->bindValue(17, $com->getAplicar_convenio_doble_inposicion());
         $stm->bindValue(18, $com->getCod_convenio());
-        $stm->bindValue(19, $com->getCod_situacion());
-        $stm->bindValue(20, $com->getEstado());
-        $stm->bindValue(21, $com->getId_trabajador());
+       // $stm->bindValue(19, $com->getCod_situacion());
+        $stm->bindValue(19, $com->getEstado());
+        $stm->bindValue(20, $com->getId_trabajador());
         $stm->execute();
         $stm = null;
         return true;
@@ -252,6 +251,21 @@ class TrabajadorDao extends AbstractDao {
         $stm = null;
     }
 
+    public function actualizarCodigoSituacion($id_trabajador,$cod_situacion){
+        $query = "
+        UPDATE trabajadores 
+        SET cod_situacion = ?
+        WHERE id_trabajador = ?            
+        ";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$cod_situacion);
+        $stm->bindValue(2,$id_trabajador);
+        $stm->execute();
+        $stm = null;
+        return true;
+    }
+    
     public function Baja($id) {
         //DELETE FROM empleadores WHERE id_empleador = ?
 

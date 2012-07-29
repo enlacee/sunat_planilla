@@ -179,11 +179,6 @@ idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
 
 
 
-function contarTablaFila(obj){
-	return (obj.rows.length);
-}
-
-
 
 function idCheckConcepto1000EM(cod_detalle_concepto){
 

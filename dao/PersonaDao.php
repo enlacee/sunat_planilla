@@ -199,6 +199,7 @@ class PersonaDao extends AbstractDao {
         $query = "
 	SELECT 
 		p.id_persona,
+                t.id_trabajador,
 		td.descripcion_abreviada AS nombre_tipo_documento,
 		p.num_documento,
 		p.apellido_paterno,
@@ -292,26 +293,61 @@ class PersonaDao extends AbstractDao {
         return $lista;
     }
 
-    public function existePersonaBD($num_doc) {
+    public function existePersonaRegistrada($id_empleador_maestro,$num_doc,$cod_tipo_documento) {
         $query = "
         SELECT 
-                COUNT(p.num_documento ) AS numfilas
+        id_persona,
+        cod_tipo_documento,
+        num_documento
+        
+        
         FROM personas AS p
-        INNER JOIN empleadores AS emp
-        ON p.id_empleador = emp.id_empleador
-        INNER JOIN empleadores_maestros AS em
-        ON emp.id_empleador = em.id_empleador
-
-        WHERE (em.id_empleador = 2 AND num_documento = ?)";
+        INNER JOIN empleadores AS e
+        ON p.id_empleador = e.id_empleador
+        
+	INNER JOIN empleadores_maestros AS em
+	ON e.id_empleador = em.id_empleador
+	
+	WHERE (em.id_empleador_maestro = ? 
+	AND p.num_documento = ? 
+	AND p.cod_tipo_documento = ? )
+        
+        ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $num_doc);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $num_doc);
+        $stm->bindValue(3, $cod_tipo_documento);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         
-        return $lista[0]['numfilas'];
+        return $lista[0]['id_persona'];
     }
+    
+    public function listarTrabajadoresPor_ID_Persona($id_persona){
+        
+        $query ="
+        SELECT 
+        t.id_trabajador,
+        t.cod_situacion
+        
+        FROM personas AS p	
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        WHERE p.id_persona = ?          
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_persona);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        
+        return $lista;
+        
+    }
+    
 
     // OJO USADO EN REPORTES
     public function buscarPersonaPorId($id_persona) {

@@ -21,8 +21,10 @@ class DetallePeriodoLaboralDao extends AbstractDao {
             id_trabajador,
             cod_motivo_baja_registro,
             fecha_inicio,
-            fecha_fin)
+            fecha_fin,
+            id_persona)
         VALUES (
+            ?,
             ?,
             ?,
             ?,
@@ -37,6 +39,7 @@ class DetallePeriodoLaboralDao extends AbstractDao {
         $stm->bindValue(2, $model->getCod_motivo_baja_registro());
         $stm->bindValue(3, $model->getFecha_inicio());
         $stm->bindValue(4, $model->getFecha_fin());
+        $stm->bindValue(5, $model->getId_persona());
         $stm->execute();
         //$data = $stm->fetchAll();
         return true;
@@ -58,6 +61,8 @@ class DetallePeriodoLaboralDao extends AbstractDao {
         $stm->bindValue(2, $model->getFecha_inicio());
         $stm->bindValue(3, $model->getFecha_fin());
         $stm->bindValue(4, $model->getId_detalle_periodo_laboral());
+        
+        
         $stm->execute();
         return true;
     }
@@ -84,10 +89,21 @@ class DetallePeriodoLaboralDao extends AbstractDao {
     //------- buscador
 
     function buscarDetallePeriodoLaboral($id_TRA) {
-        $query = "SELECT *FROM detalle_periodos_laborales WHERE id_trabajador = ?";
-
+       // $query = "SELECT *FROM detalle_periodos_laborales WHERE id_trabajador = ?";
+        $query ="
+        SELECT 
+            id_detalle_periodo_laboral,
+            id_trabajador,
+            fecha_inicio,
+            fecha_fin,
+            cod_motivo_baja_registro
+        FROM detalle_periodos_laborales 
+        WHERE (id_trabajador = ?)
+        ORDER BY id_detalle_periodo_laboral DESC            
+    ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_TRA);
+        //$stm->bindValue(2, $id_persona);
         $stm->execute();
         $data = $stm->fetchAll();
         return $data[0];

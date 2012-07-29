@@ -11,9 +11,11 @@ class DetallePeriodoLaboralPensionista extends DetallePeriodoLaboral {
         $this->cod_motivo_baja_registro = null;
         $this->id_pensionista = null;
         $this->fecha_inicio = null;
-        $this->fecha_fin = null;
+        $this->fecha_fin = null;        
     }
 
+
+    
     public function getId_detalle_periodo_laboral_pensionista() {
         return $this->id_detalle_periodo_laboral_pensionista;
     }
@@ -29,6 +31,8 @@ class DetallePeriodoLaboralPensionista extends DetallePeriodoLaboral {
     public function setId_pensionista($id_pensionista) {
         $this->id_pensionista = $id_pensionista;
     }
+
+
 
 }
 

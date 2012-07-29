@@ -58,12 +58,15 @@ $cbo_estado_civil = comboEstadosCiviles();
 //---------------------------- EDITAR PERSONA--------------------------------- //
 
 $ID_PERSONA = $_REQUEST['id_persona'];
+$ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 //-------------------------ESTADO
 $COD_ESTADO = $_REQUEST['cod_situacion'];
 
 $obj_persona = new Persona();
 // funcion del Controlador
 $obj_persona = buscarPersonaPorId($ID_PERSONA);
+
+
 
 
 
@@ -170,8 +173,9 @@ $obj_persona = buscarPersonaPorId($ID_PERSONA);
 }); //End Ready
 	//-------------------------------------------------------------------
 	var id = $("#id_persona").val();
+	var id2 = $("#id_trabajador").val();
 	var cod_situacion =<?php echo $COD_ESTADO; ?>;	
-	cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_persona='+id+'&cod_situacion='+cod_situacion,'#tabs-2');
+	cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_persona='+id+'&id_trabajador='+id2+'&cod_situacion='+cod_situacion,'#tabs-2');
 	
 //	cargar_pagina('sunat_planilla/view/categoria/pensionista.php?id_persona='+id,'#tabs-3');
 
@@ -394,11 +398,11 @@ function seleccionarOcupacionInputPorCombo(obj){
 	
 	</style>		
 
-            <style type="text/css">
-<!--
+ <style type="text/css">
+
 .style1 { background-color:#999999;}
 .style2 {color: #FF0000}
--->
+
             </style>
 <div class="demo" align="left">
 
@@ -419,6 +423,11 @@ function seleccionarOcupacionInputPorCombo(obj){
                     <div class="ocultar">
                       id_persona
                       <input type="text" name="id_persona" id="id_persona" value="<?php echo $obj_persona->getId_persona() ?>" >
+                      <br />
+                      id_trabajador
+                      <label for="id_trabajador"></label>
+                      <input type="text" name="id_trabajador" id="id_trabajador" 
+                      value="<?php echo $ID_TRABAJADOR; ?>"/>
                     </div>
 <div>
 <label>Tipo de Documento: </label>
@@ -597,9 +606,6 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
   <!-- CATEGORIAS -->
   
     <fieldset><legend>Categoria</legend>
-      <div class="ocultar">id_persona_categoria
-  <input name="id_persona_categoria" type="text" id="id_persona_categoria" value="<?php echo $obj_persona->getId_persona() ?>" readonly="readonly" >
-      </div>
       <br />
   <ul>
             
@@ -636,22 +642,7 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 </div>
 
 
-<DIV>
 
-<div id="tabs_2">
-        <div id="tabs_2-1">
-            <input type ="button" onclick='' value="Nuevo "/>
-
-            <table id="list"><tr><td/></tr></table>
-            <div id="pager"></div>
-
-        </div>
-
-        <div id="detalle_reporte_gerencia">
-        </div>
-    </div>
-
-</DIV>
 <!-- -->
 
 <!-- -->

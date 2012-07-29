@@ -10,6 +10,7 @@ class DetalleRegimenSalud {
     private $fecha_inicio;
     private $fecha_fin;
     private $cod_eps;
+    private $id_persona;
 
     function __construct() {
         $this->id_detalle_regimen_salud=null;
@@ -18,7 +19,9 @@ class DetalleRegimenSalud {
         $this->fecha_inicio=null;
         $this->fecha_fin=null;
         $this->cod_eps=null;
+        $this->id_persona=null;
     }
+   
     public function getId_detalle_regimen_salud() {
         return $this->id_detalle_regimen_salud;
     }
@@ -65,6 +68,14 @@ class DetalleRegimenSalud {
 
     public function setCod_eps($cod_eps) {
         $this->cod_eps = $cod_eps;
+    }
+
+    public function getId_persona() {
+        return $this->id_persona;
+    }
+
+    public function setId_persona($id_persona) {
+        $this->id_persona = $id_persona;
     }
 
 

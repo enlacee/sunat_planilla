@@ -8,6 +8,7 @@ class DetalleRegimenPensionario {
     private $CUSPP;
     private $fecha_inicio;
     private $fecha_fin;
+    private $id_persona;
 
     function __construct() {
         $this->id_detalle_regimen_pensionario=null;
@@ -16,10 +17,10 @@ class DetalleRegimenPensionario {
         $this->CUSPP=null;
         $this->fecha_inicio=null;
         $this->fecha_fin=null;
+        $this->id_persona=null;
     }
     
     
-
 
     public function getId_detalle_regimen_pensionario() {
         return $this->id_detalle_regimen_pensionario;
@@ -69,7 +70,16 @@ class DetalleRegimenPensionario {
         $this->fecha_fin = $fecha_fin;
     }
 
+    public function getId_persona() {
+        return $this->id_persona;
+    }
 
+    public function setId_persona($id_persona) {
+        $this->id_persona = $id_persona;
+    }
+
+
+    
     
     
 

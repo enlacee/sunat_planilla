@@ -103,18 +103,7 @@ class DetalleEstablecimientoDao extends AbstractDao {
  * @param type $id_trabajador Buscar ID  ok
  * @return type 
  */
-    public function buscar_iDDetalleEstablecimiento($id_trabajador){
-        $query = "
-        SELECT id_detalle_establecimiento FROM detalle_establecimiento
-        WHERE id_trabajador = ?            
-        ";        
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1,$id_trabajador);
-        $stm->execute();
-        $data = $stm->fetchAll();
-        return $data[0]['id_detalle_establecimiento'];   
-        
-    }
+
     
 }
 

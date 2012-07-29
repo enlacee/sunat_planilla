@@ -54,14 +54,16 @@ require_once('../../controller/DetalleRegimenPensionarioController.php');
 ********* BUSQUEDA 01 EDIT = TRA-bajador por ID importante
 */
 $ID_PERSONA = $_REQUEST['id_persona'];
+$ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 // ---- Busqueda Trabajador
 $objTRA = new Trabajador();
 //-- funcion Controlador Trabajador
 $objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA);
+$objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
 
 //--- sub 1 Periodo Laboral
 $objTRADetalle_1 = new DetallePeriodoLaboral();
-$objTRADetalle_1 = buscarDetallePeriodoLaboral( $objTRA->getId_trabajador() );
+$objTRADetalle_1 = buscarDetallePeriodoLaboral( $objTRA->getId_trabajador());
 
 //--- sub 2 Tipo Trabajador
 $objTRADetalle_2 = new DetalleTipoTrabajador();
@@ -133,10 +135,13 @@ foreach ($lista_establecimientos as $indice) {
 //print_r($objTRA);
 //echo "</pre>";
 
+
+
 //$comboEmpleadores_EstableTrabajo = ListaEmpleadores_EstablecimientosLaborales($_SESSION['sunat_empleador']['id_empleador']);
  ?>
-   <!--  CATEGORIAS  -->
-   
+   <!--  
+  	------------------------------------------- CATEGORIAS --------------------------------------------
+    -->
 <?php  
   
 //---------------------------- EDITAR PERSONA CATEGORIA --------------------------------- //
@@ -368,8 +373,7 @@ $COD_ESTADO = $_REQUEST['cod_situacion'];
 						}
 					}); 
 			//-----------------------------------------------------------------------
-				//return false;
-			//alert("final");	
+
 			   		
 			}			
 			
@@ -380,8 +384,7 @@ $COD_ESTADO = $_REQUEST['cod_situacion'];
 	
 	
  });
- //-----------------------------
- //-----------------------------
+
  /*
  * Carga Principal de Empleadores
  **/
@@ -440,86 +443,7 @@ var cbo = document.getElementById('cbo_convenio');
 
 // -----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-function nuevoFilaConcepto1000(){
-	
-	//Capa Contenedora
-	var tabla = document.getElementById("tb_periodolaboral");	
-	
-	var num_fila_tabla = contarTablaFila(tabla);
-	
-	
-	//var id_check = idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
 
-	//INICIO div
-	var div = document.createElement('tr');
-	//div.setAttribute('id','establecimiento-'+id);
-	//
-	tabla.appendChild(div); //PRINCIPAL	
-	
-
-//-------------------------------------------------------------
-//---- CODIGO
-var id = '<input type="text" size="4" id="id_'+ COD_DETALLE_CONCEPTO +'" name="id[]" value ="" >';
-
-var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
-
-//-----input Descripcion
-var input_des;
-input_des = '<input type="text" id="concepto_descripcion_'+ COD_DETALLE_CONCEPTO +'" name="concepto_descripcion_1000[]">';
-
-///----LUPA
-var lupa = '';
-lupa +='	<div id="divEliminar_Editar">';
-lupa +='	<span title="Detalle Concepto" >';
-
-lupa +='	<a href="javascript:validarDescripcionLupa(\''+ COD_DETALLE_CONCEPTO +'\')">';
-lupa +='	<img width="18" height="18" src="images/search2.png"></a>';
-
-lupa +='	</span>';	
-lupa +='    </div>';
-
-//----CHECK
-var check ='';
-check = '<input type="checkbox" value="" id="chk_detalle_concepto_'+ COD_DETALLE_CONCEPTO +'" name="chk_detalle_concepto[]">';
-//-------------------------------------------------------------	
-
-
-	//inicio html	
-var html ='';
-var cerrarTD = '<\/td>';
-
-
-html +='<td>';
-html += id;
-html += codigo;
-html += cerrarTD;
-
-html +='<td>';	
-html += input_des;
-html += cerrarTD;
-
-html +='<td>';	
-html += lupa;
-html += cerrarTD;
-
-html +='<td>';	
-html += check;
-html += cerrarTD;
-
-html +='<td>';	
-html += check;
-html += cerrarTD;
-
-////---
-div.innerHTML=html;
-
-idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
-//	console.dir(tabla);
-//	console.log("-----------------");
-//	console.dir(tabla.rows[0]);
-//	console.log("-----------------");
-
-}
 
  </script>
  <style type="text/css">
@@ -597,7 +521,7 @@ value="<?php echo $objTRA->getId_persona(); ?>" />
 oper
   <input type="text" name="oper" value="edit" />
 </div>
-<table id="tb_periodolaboral" width="auto" border="1" CELLPADDING=0 cellspacing="0">
+<table width="auto" border="1" CELLPADDING=0 cellspacing="0">
   <tr>
     <td class="style2"><div class="ocultar">detalle_periodos_laborales</div></td>
     <td><em>Fecha de Inicio</em> </td>
@@ -621,7 +545,7 @@ oper
      value ="<?php echo getFechaPatron( $objTRADetalle_1->getFecha_fin() ,"d/m/Y");?>"
      ></td>
     <td><select name="cbo_plaboral_motivo_baja_base" id="cbo_plaboral_motivo_baja_base" style="width:180px;"  >
-    
+    <!--<option value="">-</option>-->
       <?php 
 
 foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
@@ -639,12 +563,8 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
 	echo $html;
 } 
 ?>
-    </select>
-    </td>
-    <td><div class="ocultar">
-    <a href="javascript:editarDialogoDetalle_1()">detalle</a>
-    <a href="#">add</a><br />
-      <a href="#">view</a> </div></td>
+    </select></td>
+    <td><div class="ocultar"><a href="javascript:editarDialogoDetalle_1()">detalle</a></div></td>
   </tr>
 </table>
 <br />
@@ -795,7 +715,7 @@ foreach ($combo_nivel_educativo as $indice) {
             <td><select name="cboOcupacion" id="cboOcupacion" style="width:200px " onchange="seleccionarOcupacionInputPorCombo(this)">
 			<option value="0"></option>
 		<option value="<?php echo $objTRA->getCod_ocupacion(); ?>" selected="selected">-</option>
-<!--  Combo dependiente JOJOJOJO foreach temporal -->
+<!--  Combo dependiente JOJOJOJO foreach temporal --->
 <?php 
 foreach ($cbo_ocupaciones as $indice) {
 	
@@ -876,7 +796,7 @@ foreach ($cbo_periodo_remuneracion as $indice) {
 			</select>&nbsp;</td>
           </tr>
           <tr>
-            <td> Monto de remuneraci&oacute;n b&aacute;sica inicial:</td>
+            <td> Monto de remuneración básica inicial: </td>
             <td>&nbsp;
               <input name="txt_monto_remuneracion_basica_inicial" type="text" size="15"
               value="<?php echo $objTRA->getMonto_remuneracion(); ?>" /></td>
@@ -908,10 +828,9 @@ foreach ($cbo_monto_remuneracion as $indice) {
 <table width="305" border="1" cellpadding="0" cellspacing="0">
             <tr>
               <td width="98"> Establecimiento donde labora: 
-                <label for="id_detalle_establecimiento"></label>
-                <input name="id_detalle_establecimiento" type="hidden" id="id_detalle_establecimiento" value="0" size="3" /></td>
+                <label for="id_detalle_establecimiento"></label></td>
               <td width="101">
-              <select name="cbo_establecimiento" id="cbo_establecimiento" style="width:100px"
+              <select name="cbo_establecimiento[]" id="cbo_establecimiento" style="width:100px"
               onchange="cargarEstablecimientoLocales(this)">
                <option value="0">-</option>
                
@@ -940,14 +859,16 @@ foreach ($lista_empleador_destaque as $indice) {
             </tr>
             <tr>
               <td>
-                <input name="txt_id_establecimiento" type="hidden" id="txt_id_establecimiento" size="15"
+                <input name="id_detalle_establecimiento" type="text" id="id_detalle_establecimiento"
+                value="<?php echo $objTRADetalle_3->getId_detalle_establecimiento();?>" size="3" />
+                <input name="txt_id_establecimiento" type="text" id="txt_id_establecimiento" size="3"
                 value="<?php echo $objTRADetalle_3->getId_establecimiento(); ?>"
                  /></td>
               <td><input name="txt_codigo_local" type="text" id="txt_codigo_local" size="6" value="<?php echo $COD_LOCAL; ?>" ></td>
               <td>
                 <select name="cbo_establecimiento_local" id="cbo_establecimiento_local" style="width:100px"
               onchange="seleccionarLocalDinamico(this)">
-                    <!--<option value="">-</option>-->
+                   
                     <?php
 //$COD_LOCAL = 0;                    
 							  
@@ -968,7 +889,7 @@ foreach ($lista_establecimientos as $indice) {
 ?>
                   </select>
                   <label for="tipo_establecimiento"></label>
-                  <input type="hidden" name="tipo_establecimiento" id="tipo_establecimiento" />
+                  <input name="tipo_establecimiento" type="text" id="tipo_establecimiento" size="4" />
                 </p>
               </td>
             </tr>
@@ -1223,10 +1144,13 @@ foreach ($combo_regimen_pensionario  as $indice) {
                <div class="ocultar">detalle_regimenes_pensionarios</div>
               <div id="cuspp"  class="ocultar" 
               style=" <?php echo ($objTRADetalle_5->getCod_regimen_pensionario()=='02' ) ? ' display:none' : ''; ?>">
-              <em>Obtenga el CUSPP accediendo a la página <a href="http://www.sbs.gob.pe/0/modulos/JER/JER_Interna.aspx?ARE=0&amp;PFL=1&amp;JER=281">SBS</a></em><br />
+              <em>
+              Obtenga el CUSPP accediendo a la página 
+              <a href="http://www.sbs.gob.pe/0/modulos/JER/JER_Interna.aspx?ARE=0&amp;PFL=1&amp;JER=281">SBS</a>
+              </em><br />
                 <input name="txt_CUSPP" type="text" id="txt_CUSPP"
             value="<?php echo $objTRADetalle_5->getCUSPP(); ?>" />
-              cadena (12)</div>
+              </div>
               <br /></td>
             <td width="58">&nbsp;</td>
           </tr>
@@ -1315,7 +1239,7 @@ foreach ($combo_convenio  as $indice) {
 
 
 
-        <p><!--validarFormularioTrabajador()-->
+        <p>
           <input name="btn_aceptar" type="button" id="btn_aceptar" value="Aceptar(Validar)" 
           onclick="validarFormtrabajadorPrincipal()" />
       </p>   
@@ -1328,10 +1252,10 @@ foreach ($combo_convenio  as $indice) {
 
 
 
-<?php require_once('../categoria-detalle/detalle_periodo_laboral.php'); ?>
+<?php //require_once('../categoria-detalle/detalle_periodo_laboral.php'); ?>
 
 
-<?php require_once('../categoria-detalle/detalle_tipo_trabajador.php'); ?>
+<?php //require_once('../categoria-detalle/detalle_tipo_trabajador.php'); ?>
 </div>
 
 

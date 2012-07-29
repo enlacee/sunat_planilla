@@ -1,10 +1,11 @@
 <?php
 
-session_start();
+//session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
 $op = $_REQUEST["oper"];
 if ($op) {
+    session_start();
     //Empleador
     //require_once '../model/Empleador.php';
     require_once '../util/funciones.php';
@@ -35,6 +36,45 @@ if ($op) {
     require_once '../model/DetalleRegimenPensionario.php';
     require_once '../dao/DetalleRegimenPensionarioDao.php';
 
+    /*
+      //neww//Categoria Pensionista ----------------------------------------------------
+      require_once '../model/Pensionista.php';
+      require_once '../dao/PensionistaDao.php';
+      // require_once '../controller/CategoriaPensionistaControlller.php';
+      //dub 01
+      require_once '../model/DetallePeriodoLaboral.php';
+      require_once '../model/DetallePeriodoLaboralPensionista.php';
+      require_once '../dao/DetallePeriodoLaboralPensionistaDao.php';
+
+      //Categoria Personal en  Formacion Laboral --------------------------------------
+      require_once '../model/PersonaFormacionLaboral.php';
+      require_once '../dao/PersonaFormacionLaboralDao.php';
+      //require_once '../controller/CategoriaPFormacionController.php';
+      //establecimiento de formacion
+      require_once '../model/DetalleEstablecimientoFormacion.php';
+      require_once '../dao/DetalleEstablecimientoFormacionDao.php';
+      //periodo laboral
+      require_once '../model/DetallePeriodoFormativo.php';
+      require_once '../dao/DetallePeriodoFormativoDao.php';
+
+      //---- Categoria Persona de Terceros --------------------------------------
+      require_once '../model/personaTercero.php';
+      require_once '../dao/PersonaTerceroDao.php';
+
+      //sub 01
+      require_once '../model/PeriodoDestaque.php';
+      require_once '../dao/PeriodoDestaqueDao.php';
+
+      //sub 02
+      require_once '../model/LugarDestaque.php';
+      require_once '../dao/LugarDestaqueDao.php';
+
+      //sub 03
+      require_once '../model/CoberturaSalud.php';
+      require_once '../dao/CoberturaSaludDao.php';
+
+     */
+
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
 }
@@ -46,7 +86,8 @@ if ($op == "cargar_tabla_trabajador") {
     //echo $ESTADO;
     $responce = cargar_tabla_trabajador($ESTADO); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
 } elseif ($op == "add") {
-    //$responce = nuevoTrabajador();
+    //UTILIZA personaController errorr
+    //$responce = nuevoTrabajador($ID_PERSONA);
 } elseif ($op == "edit") {
 
     $responce = editarTrabajador();
@@ -235,25 +276,107 @@ function listarEstablecimientoLocalesPorEmpleadorVinculado($id_empleador) {
 
 //-----------------------------------------------------------------------------------------------------
 
-
 function editarTrabajador() {
 
     // datos primarios principales
     $ID_PER = $_REQUEST['id_persona_categoria'];
     $ID_TRA = $_REQUEST['id_trabajador_categoria'];
-    
-    //DAO
+
+    //DAOS
     $dao_tra = new TrabajadorDao();
+
+
 
     // echo "\ncbo_tipo_pago = " . $_REQUEST['cbo_tipo_pago'];
     // datos ORDEN FORM
     // Detalle 1 #Periodo Laboral
-    $detalle_1 = new DetallePeriodoLaboral();
-    $detalle_1->setId_detalle_periodo_laboral($_REQUEST['id_detalle_periodo_laboral']);
-    //$detalle_1->setId_trabajador($ID_TRA);
-    $detalle_1->setFecha_inicio(getFechaPatron($_REQUEST['txt_plaboral_fecha_inicio_base'], "Y-m-d"));
-    $detalle_1->setFecha_fin(getFechaPatron($_REQUEST['txt_plaboral_fecha_fin_base'], "Y-m-d"));
-    $detalle_1->setCod_motivo_baja_registro($_REQUEST['cbo_plaboral_motivo_baja_base']);
+
+
+    $id_plaboral = $_REQUEST['id_detalle_plaboral'];
+    $plaboral_estado = $_REQUEST['plaboral_estado'];
+    $FInicio = $_REQUEST['plaboral_finicio'];
+    $Ffin = $_REQUEST['plaboral_ffin'];
+    $MotivoBaja = $_REQUEST['cbo_plaboral_motivo_baja'];
+
+    $d_detalle_1 = array();
+
+
+    //echo "id_periodo laboral"
+    for ($i = 0; $i < count($plaboral_estado); $i++) {
+        $detalle_1 = new DetallePeriodoLaboral();
+        $detalle_1->setId_trabajador($ID_TRA);
+        $detalle_1->setId_persona($ID_PER);
+
+        $detalle_1->setId_detalle_periodo_laboral($id_plaboral[$i]);
+        //$detalle_1->setId_trabajador($ID_TRA);
+        $detalle_1->setFecha_inicio(getFechaPatron($FInicio[$i], "Y-m-d"));
+        $detalle_1->setFecha_fin(getFechaPatron($Ffin[$i], "Y-m-d"));
+        $detalle_1->setCod_motivo_baja_registro($MotivoBaja[$i]);
+
+        echo "agregar objeto $i";
+        echo "<pre>";
+        print_r($detalle_1);
+        echo "</pre>";
+
+        $d_detalle_1[] = $detalle_1;
+        echo "endddd";
+    }
+
+    //GUARDAR
+    echo "all";
+    echo "<pre>";
+    print_r($_REQUEST);
+    echo "</pre>";
+
+    $dao1 = new DetallePeriodoLaboralDao();
+    echo "num obj = " . count($d_detalle_1);
+
+    //echo "<pre>  d_detalle_1   ";
+    //print_r($d_detalle_1);
+    //echo "</pre>";
+
+    for ($i = 0; $i < count($d_detalle_1); $i++) {
+
+        if ($plaboral_estado[$i] == '1') { //ACTUALIZAR
+            $dao1->actualizarDetallePeriodoLaboral($d_detalle_1[$i]);
+            echo "ACTUALIZAR plaboral_estado[$i]" . $plaboral_estado[$i];
+            echo "<pre>";
+            print_r($d_detalle_1[$i]);
+            echo "</pre>";
+        } else if ($plaboral_estado[$i] == '0') { //Registrar
+            $dao1->registrarDetallePeriodoLaboral($d_detalle_1[$i]);
+            echo "REGISTRAR plaboral_estado[$i] " . $plaboral_estado[$i];
+            echo "<pre>";
+            print_r($d_detalle_1[$i]);
+            echo "</pre>";
+            echo "-------------------------";
+        }
+    }
+
+
+
+    //CAMBIAR CODIGO SITUACION
+    $contador = 0;
+    for ($i = 0; $i < count($d_detalle_1); $i++) {
+        if ($d_detalle_1[$i]->getFecha_inicio() != "") {
+            if ($d_detalle_1[$i]->getFecha_fin() != "") {
+                if ($d_detalle_1[$i]->getCod_motivo_baja_registro() != '0') {
+                    $contador++;
+                }
+            }
+        }
+    }   //END FOR
+
+    echo "contador = " . $contador;
+    echo "array plaborales" . count($d_detalle_1);
+
+    if ($contador == count($d_detalle_1)) {
+        $dao_tra->actualizarCodigoSituacion($ID_TRA, 0);
+    }
+
+
+
+
 
     // Detalle 2 #Detalle Tipo Trabajador
     $detalle_2 = new DetalleTipoTrabajador();
@@ -295,28 +418,9 @@ function editarTrabajador() {
 
 
     //--------------------------------------------------------------------------
-    //CAMBIAR CODIGO SITUACION
-    $contador = false;
-    if(isset($detalle_1)){
-        if ($detalle_1->getFecha_inicio() != "") {
-            if ($detalle_1->getFecha_fin() != "") {
-                if ($detalle_1->getCod_motivo_baja_registro() != '0') {
-                    $detalle_2->setFecha_fin($detalle_1->getFecha_fin());
-                    $detalle_4->setFecha_fin($detalle_1->getFecha_fin());
-                    $detalle_5->setFecha_fin($detalle_1->getFecha_fin());
-                    $contador = true;
-                }
-            }
-        }
-    }   //END FOR
 
-    if ($contador) {
-        $dao_tra->actualizarCodigoSituacion($ID_TRA, 0);
-    }
-
-
-
-    /*  $valor = $detalle_1->getFecha_fin();
+    /*
+      $valor = $detalle_1->getFecha_fin();
 
       if (($valor) && ($_REQUEST['cbo_situacion'] != 0)) { //THIS ESTABLECIDO
       $tra->setCod_situacion(0); // 0 = BAJA O 2 = Conceptos pendientes
@@ -330,7 +434,6 @@ function editarTrabajador() {
     // Detalle 3 #Detalle Establecimientos
     //???
     $detalle_3 = new DetalleEstablecimiento();
-    $detalle_3->setId_detalle_establecimiento($_REQUEST['id_detalle_establecimiento']);
     $detalle_3->setId_trabajador($ID_TRA);
     $detalle_3->setId_establecimiento($_REQUEST['txt_id_establecimiento']);
     //$detalle_3->setId_detalle_establecimiento( $_REQUEST['id_detalle_establecimiento'] );
@@ -358,25 +461,24 @@ function editarTrabajador() {
     $tra->setAplicar_convenio_doble_inposicion($_REQUEST['rbtn_aplica_convenio_doble_inposicion']);
 
     //-----------------------------------------	
-    
+    //$dao_tra = new TrabajadorDao();
     $dao_tra->actualizarTrabajador($tra);
 
     //-----------------------------------------
-    $dao1 = new DetallePeriodoLaboralDao();
-    $dao1->actualizarDetallePeriodoLaboral($detalle_1);
-
+    //   $dao1 = new DetallePeriodoLaboralDao();
+    //   $dao1->actualizarDetallePeriodoLaboral($detalle_1);
     //-----------------------------------------
     $dao2 = new DetalleTipoTrabajadorDao();
     $dao2->actualizarDetalleTipoTrabajador($detalle_2);
 
     //-----------------------------------------   INICIO
     //Busqueda SIMPRE DEBE HACERLO ELSE ERROR CRITICO!
-/*    if ($detalle_3->getId_detalle_establecimiento() == 0) { //valor por default
+    if ($detalle_3->getId_detalle_establecimiento() == 0) { //valor por default
         $dao = new DetalleEstablecimientoDao();
         $id_detalle_establecimiento = $dao->buscar_iDDetalleEstablecimiento($ID_TRA);
     }
     // Setear ID principal de la tabla...
-    $detalle_3->setId_detalle_establecimiento($id_detalle_establecimiento);*/
+    $detalle_3->setId_detalle_establecimiento($id_detalle_establecimiento);
     $dao3 = new DetalleEstablecimientoDao();
     $dao3->actualizarDetalleEstablecimiento($detalle_3);
 
@@ -591,18 +693,12 @@ function buscar_IDTrabajador($id_trabajador) {
     $model->setCod_categorias_ocupacionales($data['cod_categorias_ocupacionales']);
     $model->setCod_ocupacion($data['cod_ocupacion_p']);
     $model->setCod_tipo_contrato($data['cod_tipo_contrato']);
-    $model->setCod_tipo_pago($data['cod_tipo_pago']);
-    $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
+
+
     $model->setMonto_remuneracion($data['monto_remuneracion']);
-    $model->setId_establecimiento($data['id_establecimiento']);
-    $model->setJornada_laboral($data['jornada_laboral']);
-    $model->setSituacion_especial($data['situacion_especial']);
-    $model->setDiscapacitado($data['discapacitado']);
-    $model->setSindicalizado($data['sindicalizado']);
-    $model->setPercibe_renta_5ta_exonerada($data['percibe_renta_5ta_exonerada']);
-    $model->setAplicar_convenio_doble_inposicion($data['aplicar_convenio_doble_inposicion']);
     $model->setCod_convenio($data['cod_convenio']);
     $model->setCod_situacion($data['cod_situacion']);
+
 
     // $model->setCod_tipo_pago($data['cod_tipo_pago']);
     // $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
@@ -639,12 +735,11 @@ function nuevoTrabajador($ID_PERSONA) {
     $obj2 = new DetalleTipoTrabajador();
     $obj2->setCod_tipo_trabajador(0);
     $obj2->setId_trabajador($ID_TRA);
-    $obj2->setId_persona($ID_PERSONA);
 
     $dao2 = new DetalleTipoTrabajadorDao();
     $dao2->registrarDetalleTipoTrabajador($obj2);
 
-    //--- sub (3) Tipo Establecimiento
+    //--- sub (3) Tipo trabajador
     $obj3 = new DetalleEstablecimiento();
     $obj3->setId_trabajador($ID_TRA);
     $obj3->setId_establecimiento(0);
@@ -657,7 +752,6 @@ function nuevoTrabajador($ID_PERSONA) {
     $obj4->setId_trabajador($ID_TRA);
     $obj4->setCod_regimen_aseguramiento_salud(0);
     $obj4->setCod_eps(0);
-    $obj4->setId_persona($ID_PERSONA);
 
     $dao4 = new DetalleRegimenSaludDao();
     $dao4->registrarDetalleRegimenSalud($obj4);
@@ -666,7 +760,6 @@ function nuevoTrabajador($ID_PERSONA) {
     $obj5 = new DetalleRegimenPensionario();
     $obj5->setId_trabajador($ID_TRA);
     $obj5->setCod_regimen_pensionario(0);
-    $obj5->setId_persona($ID_PERSONA);
 
     $dao5 = new DetalleRegimenPensionarioDao();
     $dao5->registrarDetalleRegimenPensionario($obj5);
@@ -765,7 +858,7 @@ function nuevoTrabajador($ID_PERSONA) {
 //---------------------------------------------------------------------------------
 //------------------ FINAL Registrar TRABAJADOR  ---------------------------------
 
-    return $ID_TRA;
+    return true;
 }
 
 ?>

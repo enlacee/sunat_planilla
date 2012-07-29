@@ -1,5 +1,9 @@
 // JavaScript Document
-	function estadoCheck(obj,IDFORM){
+function contarTablaFila(obj){
+	return (obj.rows.length);
+}
+
+function estadoCheck(obj,IDFORM){
 		//console.dir(obj);
 		//alert(obj.checked);		
 		//var estado = obj.checked;		

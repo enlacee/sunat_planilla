@@ -15,7 +15,6 @@ require_once('ide.php');
     });
             
 	
-	estadoCheckGlobal();
 				
     //----------------------------------------------------------								
     function eliminarPersona(id){
@@ -68,7 +67,7 @@ function estadoCheckEstado(){
           </div>
           <br />
             <input type ="button" 
-                   onclick="javascript:cargar_pagina('sunat_planilla/view/new_personal.php','#CapaContenedorFormulario')" 
+                   onclick="javascript:cargar_pagina('sunat_planilla/view/new_personal0.php','#CapaContenedorFormulario')" 
                    value="Nuevo"/>
         <br />
 

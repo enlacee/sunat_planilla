@@ -21,8 +21,10 @@ final class DetalleRegimenPensionarioDao extends AbstractDao {
                 cod_regimen_pensionario,
                 CUSPP,
                 fecha_inicio,
-                fecha_fin)
+                fecha_fin,
+                id_persona)
     VALUES (
+            ?,
             ?,
             ?,
             ?,
@@ -39,6 +41,7 @@ final class DetalleRegimenPensionarioDao extends AbstractDao {
         $stm->bindValue(3, $em->getCUSPP());
         $stm->bindValue(4, $em->getFecha_inicio());
         $stm->bindValue(5, $em->getFecha_fin());
+        $stm->bindValue(6, $em->getId_persona());
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;

@@ -20,8 +20,10 @@ final class DetalleRegimenSaludDao extends AbstractDao {
                     cod_regimen_aseguramiento_salud,
                     fecha_inicio,
                     fecha_fin,
-                    cod_eps)
+                    cod_eps,
+                    id_persona)
         VALUES (
+                ?,
                 ?,
                 ?,
                 ?,
@@ -38,6 +40,8 @@ final class DetalleRegimenSaludDao extends AbstractDao {
         $stm->bindValue(3, $em->getFecha_inicio());
         $stm->bindValue(4, $em->getFecha_fin());
         $stm->bindValue(5, $em->getCod_eps());
+        $stm->bindValue(6, $em->getId_persona());
+        
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;

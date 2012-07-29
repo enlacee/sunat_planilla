@@ -8,8 +8,10 @@ class DetalleTipoTrabajadorDao extends AbstractDao{
                      id_trabajador,
                      cod_tipo_trabajador,
                      fecha_inicio,
-                     fecha_fin)
+                     fecha_fin,
+                     id_persona)
         VALUES (
+                ?,
                 ?,
                 ?,
                 ?,
@@ -24,6 +26,7 @@ class DetalleTipoTrabajadorDao extends AbstractDao{
         $stm->bindValue(2, $model->getCod_tipo_trabajador());
         $stm->bindValue(3, $model->getFecha_inicio());
         $stm->bindValue(4, $model->getFecha_fin());
+        $stm->bindValue(5, $model->getId_persona());
         $stm->execute();
         //$data = $stm->fetchAll();
         return true;

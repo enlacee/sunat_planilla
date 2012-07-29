@@ -9,6 +9,7 @@ class DetallePeriodoLaboral {
     protected $cod_motivo_baja_registro;
     protected $fecha_inicio;
     protected $fecha_fin;
+    protected $id_persona;
 
     function __construct() {
         $this->id_detalle_periodo_laboral=null;
@@ -16,6 +17,7 @@ class DetallePeriodoLaboral {
         $this->cod_motivo_baja_registro=null;
         $this->fecha_inicio=null;
         $this->fecha_fin=null;
+        $this->id_persona=null;
     }
     
     public function getId_detalle_periodo_laboral() {
@@ -57,6 +59,15 @@ class DetallePeriodoLaboral {
     public function setFecha_fin($fecha_fin) {
         $this->fecha_fin = $fecha_fin;
     }
+
+    public function getId_persona() {
+        return $this->id_persona;
+    }
+
+    public function setId_persona($id_persona) {
+        $this->id_persona = $id_persona;
+    }
+
 
 
 

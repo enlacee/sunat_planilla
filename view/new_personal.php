@@ -59,7 +59,8 @@ $cbo_estado_civil = comboEstadosCiviles();
     //-------------------------------------------------------------
 		
 function validarFormNewPersonalPrincipal(obj){
-	//alert(validarFormNewPersonal());
+	alert(validarFormNewPersonal());
+	
 	if( validarFormNewPersonal()) { 
 		
 		//-----------------------------------------------------------------------				
@@ -68,7 +69,7 @@ function validarFormNewPersonalPrincipal(obj){
 				function(data){
 				//funcion.js index.php
 				
-					if(data){
+					if(data=='true'){
 
 					//alert(data);
 					console.log(data);
@@ -258,7 +259,106 @@ function validarFechaNacimiento(fecha){// alert("hola"+fecha);
 	
 }
 
+//-----------------------------------------------------
 
+function existePersonaRegistrada(){
+
+	//get data
+	var cbo_tipo_documento = document.getElementById('cbo_tipo_documento').value;
+	var num_documento = document.getElementById('txt_num_documento').value;
+	
+	
+$.getJSON(
+'sunat_planilla/controller/PersonaController.php?oper=existe_persona&tipo_documento='+cbo_tipo_documento+"&num_documento="+num_documento,
+function(ID){
+	
+	//console.log(dataa);
+	//console.dir(dataa);
+	//Existe persona pero se registrara como NUEVO TRABAJADOR
+	if(ID){	
+		alert("Persona Encontrada id_persona = "+ ID);		
+		document.getElementById('id_persona_existe').value = ID;
+//-----------------------		
+		//ENVIA A OTR VISTA SI EXISTE ID_PERSONA registrada.
+		
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/PersonaController.php',
+		data: {oper: 'add_persona_newtrabajador', id_persona_existe : ID },
+		success: function(data){
+			console.log("SE REGISTRO NUEVO TRABAJADOR  = "+data);
+			//var cbo_base = document.getElementById('cbo_establecimiento');
+		//	cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&cod_situacion=1','#CapaContenedorFormulario')
+			
+			
+			
+		}
+	});	
+//--------------------
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+});
+
+
+
+/*
+var id = document.getElementById('id_persona_existe').value;
+
+alert("no pasa id ttx "+ id);
+if(id.length>=1){ alert("a pasar a ajax "+ id);
+//ENVIA A OTR VISTA SI EXISTE ID_PERSONA registrada.
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/PersonaController.php',
+		data: {oper: 'add_persona_newtrabajador', id_persona_existe : id }
+        },
+		success: function(data){
+			console.log(data);
+			//var cbo_base = document.getElementById('cbo_establecimiento');
+			cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&cod_situacion=1','#CapaContenedorFormulario')
+			
+			
+			
+		}
+	});
+
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+}
 
 
 </script>
@@ -289,9 +389,9 @@ function validarFechaNacimiento(fecha){// alert("hola"+fecha);
   <?php
 foreach ($cbo_tipo_documento as $indice) {
 	
-	if ($indice['cod_tipo_documento'] == '0'/*$obj_banco_liqui->getId_banco()*/ ) {
+	if ($indice['cod_tipo_documento'] ==  $_REQUEST['tipo_documento']/*'0'$obj_banco_liqui->getId_banco()*/ ) {
 		
-		//$html = '<option value="'. $indice['cod_tipo_documento'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
+		$html = '<option value="'. $indice['cod_tipo_documento'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
 	} else {
 		$html = '<option value="'. $indice['cod_tipo_documento'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
 	}
@@ -301,11 +401,15 @@ foreach ($cbo_tipo_documento as $indice) {
                       
                       
                       </select>
-                    </div>
+                  </div>
                   <div class="fila_input" >
                     <label>Numero Documento </label>
-                    <input name="txt_num_documento" type="text" id="txt_num_documento">
-                    </div>
+                    <input name="txt_num_documento" type="text" id="txt_num_documento" value="<?php echo $_REQUEST['num_documento']; ?>">
+                    <input type="button" name="btn_existePersona" id="btn_existePersona" value="existe persona"
+                    onclick="existePersonaRegistrada()" />
+                    <label for="id_persona_existe"></label>
+                    <input name="id_persona_existe" type="text" id="id_persona_existe" size="4" />
+                  </div>
                   <div class="fila_input">
                     <label>Fecha Nacimiento</label>
                     <input name="txt_fecha_nacimiento" type="text"  id="txt_fecha_nacimiento">

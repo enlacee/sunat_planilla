@@ -64,10 +64,6 @@ $estado = ($obj_dh->getCod_situacion()==2) ? 0 : $obj_dh->getCod_situacion();
 $combo_situacion = comboSituacion($estado);
 
 
-echo "<pre>";
-echo "estado ".$obj_dh->getCod_situacion()."<br>";
-print_r($cbo_situaciones);
-echo "</pre>";
 ?>
 
 <script>	
@@ -203,7 +199,7 @@ echo "</pre>";
                         </select>
 
 
-                        cbo</div>
+                        </div>
                     <div>
                         <label>Numero Documento </label>
                         <input name="txt_num_documento" type="text" class="required "  id="txt_num_documento" 
@@ -440,7 +436,7 @@ echo "</pre>";
 
 <!-- -->
 
-<div id="dialog-form-editarDireccion-Derechohabiente" title="Editar Direccion">X
-    <div id="editarDerechohabienteDireccion" align="left">Y</div>
+<div id="dialog-form-editarDireccion-Derechohabiente" title="Editar Direccion">
+    <div id="editarDerechohabienteDireccion" align="left"></div>
 </div>
 

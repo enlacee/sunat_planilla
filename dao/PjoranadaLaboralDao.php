@@ -40,6 +40,7 @@ class PjoranadaLaboralDao extends AbstractDao{
         $stm->bindValue(8, $model->getHora_sobretiempo_mm());
 
         $stm->execute();
+        $stm = null;
         // $lista = $stm->fetchAll();
         return true;
     }
@@ -75,6 +76,7 @@ class PjoranadaLaboralDao extends AbstractDao{
         $stm->bindValue(9, $model->getId_pjornada_laboral());
         
         $stm->execute();
+        $stm = null;
         //$lista = $stm->fetchAll();
         return true;
     }

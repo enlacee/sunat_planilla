@@ -191,8 +191,6 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
 		//$("#cbo_distrito").removeAttr('disabled');
 	}
 }
-
-
     //******************************************************************************
 	// SCRIPT DETALLE_DIRECCION.PHP	 FINAL
    //******************************************************************************

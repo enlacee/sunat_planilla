@@ -614,7 +614,7 @@ function comboOcupacionALLPformacion() {
 
 
 // SITUACION
-function comboSituacion($estado) {
+function comboSituacion($estado=1) {
 
     $dao_persona = new ComboCategoriaDao();
     $arreglo = $dao_persona->comboSituacion();

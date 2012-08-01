@@ -1,6 +1,5 @@
 <?php
 //session_start();
-
 require_once('../../util/funciones.php');
 require_once('../../dao/AbstractDao.php');
 //require_once('../../dao/PersonaDao.php');
@@ -45,23 +44,12 @@ $cbo_distrito = comboUbigeoReniec($data_ubigeo['cod_provincia']);/*$data_ubigeo[
 
 
 //var_dump($cbo_telefono_codigo_nacional);
-
-/**
- * Cargando Combo Box
- */
 ?>
 <script>
-
-                
     //INICIO HISTORIAL
     $(document).ready(function(){
-						   
-        //demoApp = new Historial();
                   
         $( "#tabs").tabs();
-        //$( "#accordion_trabajador" ).accordion();
-
-//$("#form_direccion").validate();
 	$("#form_direccion").validate({
             rules: {
                 cbo_departamento: {
@@ -85,11 +73,6 @@ $cbo_distrito = comboUbigeoReniec($data_ubigeo['cod_provincia']);/*$data_ubigeo[
 
     //-------------------------------------------------------------
     });
-				
-    //-------------------------------------------------------------
-
-    //------------------------------------------------------------------
-
 
     //******************************************************************************
 	// SCRIPT DETALLE_DIRECCION.PHP	 INICIO
@@ -114,7 +97,7 @@ $('#MiSelect').find('option').remove().end();
 	console.log("FIN LIMPIAR");
 }
 
-function LlenarCombo(json, combo){ //console.log(json);
+function LlenarCombo(json, combo){
 	combo.options[0] = new Option('-', '0');
 	for(var i=0;i<(json.length);i++){
 		combo.options[i+1] = new Option(json[i].descripcion, json[i].cod_provincia);
@@ -122,9 +105,7 @@ function LlenarCombo(json, combo){ //console.log(json);
 }
 
 function SeleccionandoCombo_1(cbo_depa, cbo_provin){
-	cbo_provin = document.getElementById(cbo_provin); //con jquery: $("#"+cbo_provin)[0];
-	
-	
+	cbo_provin = document.getElementById(cbo_provin);	
 	if(cbo_depa.options[cbo_depa.selectedIndex].value >=1){
 	
 	//alert('entro a funcion LimpiarCombo');
@@ -155,21 +136,17 @@ function SeleccionandoCombo_1(cbo_depa, cbo_provin){
 
 
 //--------------[2]
-function LlenarCombo_2(json, combo){ //console.log(json);
-	//combo.options[0] = new Option('Selecciona un item', '');
+function LlenarCombo_2(json, combo){ 
 	for(var i=0;i<json.length;i++){
 		combo.options[i] = new Option(json[i].descripcion, json[i].cod_ubigeo_reniec);
 	}
 }
 function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
-	cbo_distrito = document.getElementById(cbo_distrito); //con jquery: $("#"+cbo_distrito)[0];
-	
-	//LimpiarCombo(cbo_distrito); 
+	cbo_distrito = document.getElementById(cbo_distrito); 
 	
 	if(cbo_depa.options[cbo_depa.selectedIndex].value >=1){
 	$('#cbo_distrito').find('option').remove().end();
-		//cbo_depa.disabled = true;
-		//cbo_distrito.disabled = true;
+
 		$.ajax({
 			type: 'get',
 			dataType: 'json',
@@ -182,14 +159,12 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
 		});
 	}else if (cbo_depa.options[cbo_depa.selectedIndex].value==''){
 		$("#cbo_distrito").attr('disabled',true);
-		//$("#cbo_distrito").removeAttr('disabled');
 	}
 }
 
-
-    //******************************************************************************
-	// SCRIPT DETALLE_DIRECCION.PHP	 FINAL
-   //******************************************************************************
+//******************************************************************************
+// SCRIPT DETALLE_DIRECCION.PHP	 FINAL
+//******************************************************************************
 function actualizarRadioCentroEssalud(obj){
 	document.getElementById("txt_radio_essalud").value=obj.value;
 } 
@@ -198,17 +173,7 @@ function actualizarRadioCentroEssalud(obj){
 
 <div style=" border:2px solid #009; background-color:#FF9; display:block; " id="direccion_1">
 <?php
-	
-		//require_once('dao/AbstractDao.php');
-		//require_once('dao/PersonaDao.php');
-		//require_once('controller/PersonaController.php');
-				
-		// combo 01
 		$cboDepartamentos = comboUbigeoDepartamentos(); 
-		//require_once 'modal/detalle_direccion.php';
-		
-		
-		//combo 02 cod_via
 		
 		$cboVias = comboVias(); 
 		
@@ -237,11 +202,9 @@ echo "</pre>";*/
     <td width="40">&nbsp;</td>
     <td width="101">&nbsp;</td>
   </tr>
-  <tr>
-  <?php //echo "<pre>".print_r($cboDepartamentos)."</pre"?>
+  <tr>  
     <td><select name="cbo_departamento" id="cbo_departamento" onchange="SeleccionandoCombo_1(this, 'cbo_provincia')" 
-	style="width:140px;" class="required">
-    <!--<option value="">-</option>-->
+	style="width:140px;" class="required">    
 <?php
 foreach ($cbo_departamento as $indice) { 
 	if ($indice['cod_departamento'] == $data_ubigeo['cod_departamento']  ) {
@@ -281,7 +244,7 @@ foreach ($cbo_distrito as $indice) {
 }
 ?>
 
-		  </select></td>
+	</select></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

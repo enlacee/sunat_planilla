@@ -215,7 +215,7 @@ function editarPersonaDireccion(id_persona_direccion){  //alert (".");
 //-------------------------------------------------------------
 //-----------------DERECHOHABIENTES DIRECCIONES ---------------
 //  intranet intranet intranet intranet intranet intranet 
-
+/*
     function crearDialogoDerechohabienteDireccion(){
         $("#dialog-form-editarDireccion-Derechohabiente").dialog({           
             autoOpen: false,
@@ -270,7 +270,7 @@ function editarPersonaDireccion(id_persona_direccion){  //alert (".");
             }
         }); 
     }
-	
+	*/
 //-------------------------------------------------------------
 //-------------------DERECHOHABIENTES--------------------------
 //  intranet intranet intranet intranet intranet intranet 
@@ -1354,3 +1354,67 @@ function crearDialogoNewEmpresaCentroCosto(){
 	});
 }
 
+//---------------------------------------------------------
+//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+//  intranet intranet intranet intranet intranet intranet intranet intranet
+function crearDialogoPersonaDireccion(){
+
+	$("#dialog-form-editarDireccion").dialog({ 
+           
+			autoOpen: false,
+			height: 310,
+			width: 860,
+			modal: true,                        
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {					
+					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php
+					//estado_form = validarFormDireccion();	
+					estado_form = true;
+					//console.log("holaaa ="+estado_form);
+					
+					if(estado_form==true){
+						var from_data =  $("#form_direccion").serialize();
+						//---------------------------
+						$.getJSON(
+							'sunat_planilla/controller/PersonaDireccionController.php?oper=edit&'+from_data,
+							function(data){
+								if(data){
+									jQuery("#list").trigger("reloadGrid");
+									$("#dialog-form-editarDireccion").dialog('close');				
+								}else{
+									alert("Ocurrio un error, intente nuevamente");						
+								}
+							}
+						);	
+						//---------------------------			
+						
+					}//ENDIF
+				
+									
+				}
+                                
+			},
+			open: function() {},
+			close: function() {}
+	});
+}
+
+
+
+function editarPersonaDireccion(id_persona_direccion){  //alert (".");
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view/modal/detalle_persona_direccion.php",
+   data: "id_persona_direccion="+id_persona_direccion,//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(datos){
+    $('#editarPersonaDireccion').html(datos);
+    
+    $('#dialog-form-editarDireccion').dialog('open');
+   }
+   }); 
+}

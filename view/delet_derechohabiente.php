@@ -230,48 +230,7 @@ echo "</pre>";
 			});
 			myGrid.jqGrid('navGrid','#mypager',{edit:true,add:true,del:true,search:true});	
 		}		
-//-----------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------
-//  intranet intranet intranet intranet intranet intranet intranet intranet
 
-function crearDialogoPersonaDireccion(){
-
-	$("#dialog-form-editarDireccion").dialog({
-           
-			autoOpen: false,
-			height: 470,
-			width: 950,
-			modal: true,
-                        
-			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
-				'Guardar': function() {
-					
-				}
-                                
-			},
-			open: function() {},
-			close: function() {}
-	});
-}
-
-
-
-function editarPersonaDireccion(id_persona_direccion){  //alert (".");
-    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/view/modal/detalle_persona_direccion.php",
-   data: "id_persona_direccion="+id_persona_direccion,//Enviando a ediatarProducto.php vareiable=id_producto
-   async:true,
-   success: function(datos){
-    $('#editarPersonaDireccion').html(datos);
-    
-    $('#dialog-form-editarDireccion').dialog('open');
-   }
-   }); 
-}
 
 //-------------------------------------------------------------
 </script>

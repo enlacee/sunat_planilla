@@ -52,7 +52,7 @@ $cbo_tipo_documento = comboTipoDocumento();
 			var id2 = data.id_trabajador;
 			
 			if(rpta == false){
-				alert("Prestador de Servicio fue encontrado");
+				alert("Prestador de Servicio ya fue registrado.\n");
 				//cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&id_trabajador='+id2+'&cod_situacion=1','#CapaContenedorFormulario')
 					
 			}else if(rpta == true){//True Reg new Trabajador
@@ -112,7 +112,7 @@ foreach ($cbo_tipo_documento as $indice) {
             <input type="button" name="btn_existePersona" id="btn_existePersona" value="Buscar Persona"
                     onclick="existePersonaRegistrada()" />
             <label for="id_persona_existe"></label>
-            <input name="id_persona_existe" type="text" id="id_persona_existe" size="4" />
+            <input name="id_persona_existe" type="hidden" id="id_persona_existe" size="4" />
           </div>
         </div>
 </div>

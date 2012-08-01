@@ -139,9 +139,7 @@ foreach ($lista_establecimientos as $indice) {
 
 //$comboEmpleadores_EstableTrabajo = ListaEmpleadores_EstablecimientosLaborales($_SESSION['sunat_empleador']['id_empleador']);
  ?>
-   <!--  
-  	------------------------------------------- CATEGORIAS --------------------------------------------
-    -->
+
 <?php  
   
 //---------------------------- EDITAR PERSONA CATEGORIA --------------------------------- //
@@ -310,6 +308,9 @@ $COD_ESTADO = $_REQUEST['cod_situacion'];
 
 	$(function() {
 		$( "#cboOcupacion" ).combobox();
+		
+		$( "#cboOcupacion" ).show();
+		
 		$( "#toggle" ).click(function() {
 			$( "#cboOcupacion" ).toggle();
 		});

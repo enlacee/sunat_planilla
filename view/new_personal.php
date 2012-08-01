@@ -59,7 +59,7 @@ $cbo_estado_civil = comboEstadosCiviles();
     //-------------------------------------------------------------
 		
 function validarFormNewPersonalPrincipal(obj){
-	alert(validarFormNewPersonal());
+	//alert(validarFormNewPersonal());
 	
 	if( validarFormNewPersonal()) { 
 		
@@ -73,8 +73,8 @@ function validarFormNewPersonalPrincipal(obj){
 					if(data){
 
 					//alert(data);
-					console.log(data);
-					cargarTablaPersonalDireccion(data);					
+					//console.log(data);
+					//cargarTablaPersonalDireccion(data);					
 					disableForm('form_new_personal');
 					$("#DIV_GRID_DIRECCION").show();
 					alert ('Se Guardo Correctamente.\nAhora registre su Direccion');
@@ -390,7 +390,7 @@ if(id.length>=1){ alert("a pasar a ajax "+ id);
   <?php
 foreach ($cbo_tipo_documento as $indice) {
 	
-	if ($indice['cod_tipo_documento'] ==  $_REQUEST['tipo_documento']/*'0'$obj_banco_liqui->getId_banco()*/ ) {
+	if ($indice['cod_tipo_documento'] == '0' /*$_REQUEST['tipo_documento']*/ /*'0'$obj_banco_liqui->getId_banco()*/ ) {
 		
 		$html = '<option value="'. $indice['cod_tipo_documento'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
 	} else {
@@ -406,10 +406,7 @@ foreach ($cbo_tipo_documento as $indice) {
                   <div class="fila_input" >
                     <label>Numero Documento </label>
                     <input name="txt_num_documento" type="text" id="txt_num_documento" value="<?php echo $_REQUEST['num_documento']; ?>">
-                    <input type="button" name="btn_existePersona" id="btn_existePersona" value="existe persona"
-                    onclick="existePersonaRegistrada()" />
                     <label for="id_persona_existe"></label>
-                    <input name="id_persona_existe" type="text" id="id_persona_existe" size="4" />
                   </div>
                   <div class="fila_input">
                     <label>Fecha Nacimiento</label>

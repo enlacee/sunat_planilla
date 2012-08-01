@@ -9,7 +9,8 @@
             url:'sunat_planilla/controller/PlameController.php?oper=trabajador_por_periodo&periodo='+periodo,
             datatype: 'json',
             colNames:['ID','Tipo_doc','Numero Doc','APaterno',
-                'AMaterno', 'Nombres','Opciones'],
+                'AMaterno', 'Nombres',
+				'F inicio','F fin','Opciones'],
             colModel :[
                 {
                     name:'id_trabajador', 
@@ -52,6 +53,20 @@
                 {
                     name:'nombres', 
                     index:'nombres',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+				{
+                    name:'fecha_inicio', 
+                    index:'fecha_inicio',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+				 {
+                    name:'fecha_fin', 
+                    index:'fecha_fin',
                     editable:false,
                     width:90,
                     align:'center'

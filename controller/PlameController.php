@@ -1,4 +1,5 @@
 <?php
+
 //session_start();
 
 $op = $_REQUEST["oper"];
@@ -20,8 +21,6 @@ if ($op == "trabajador_por_periodo") {
 }
 
 echo (!empty($responce)) ? json_encode($responce) : '';
-
-
 //------------------
 function listarTrabajadoresPorPeriodo() {
 
@@ -62,9 +61,12 @@ function listarTrabajadoresPorPeriodo() {
     if (!$sidx)
         $sidx = 1;
 
-    $count = $dao_plame->cantidadTrabajadoresPorPeriodo(ID_EMPLEADOR_MAESTRO, $FECHA['mes_fin']);
+    //llena en al array
+    $lista = array();
+    $lista = $dao_plame->listarTrabajadoresPorPeriodo(ID_EMPLEADOR_MAESTRO, $FECHA['mes_inicio'], $FECHA['mes_fin']);
 
-    
+    $count = count($lista);
+    //$count = $dao_plame->cantidadTrabajadoresPorPeriodo(ID_EMPLEADOR_MAESTRO, $FECHA['mes_inicio'],$FECHA['mes_fin']);
     // $count = $count['numfilas'];
     if ($count > 0) {
         $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
@@ -81,14 +83,9 @@ function listarTrabajadoresPorPeriodo() {
     if ($start < 0)
         $start = 0;
 
-    //llena en al array
-    $lista = array();
+
 
     //$dao_plame->actualizarStock();
-
-    $lista = $dao_plame->listarTrabajadoresPorPeriodo(ID_EMPLEADOR_MAESTRO, $FECHA['mes_fin']);
-
-
 // CONTRUYENDO un JSON
     $responce->page = $page;
     $responce->total = $total_pages;
@@ -110,6 +107,8 @@ function listarTrabajadoresPorPeriodo() {
         $_03 = $rec["apellido_paterno"];
         $_04 = $rec["apellido_materno"];
         $_05 = $rec["nombres"];
+        $_06 = $rec["fecha_inicio"];
+        $_07 = $rec["fecha_fin"];
         // $_06 = $rec['tipo'];
         /*        //new
           $onclickEditar = 'onclick="editarProducto(' . $param . ')"';
@@ -161,7 +160,9 @@ function listarTrabajadoresPorPeriodo() {
             $_02,
             $_03,
             $_04,
-            $_05
+            $_05,
+            $_06,
+            $_07
                 //utf8_encode($opciones),
                 //$_06
         );

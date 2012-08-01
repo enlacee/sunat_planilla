@@ -10,6 +10,7 @@ $RUC = $_SESSION['sunat_empleador']['ruc'];
 
 // id empleador maestro
 $data_empMaestro = buscarIdEmpleadorMaestroPorIDEMPLEADOR($ID_EMPLEADOR);
+
 $ID_EMPLEADOR_MAESTRO = $data_empMaestro['id_empleador_maestro']; //++
 // DEFINE
 if (is_null($ID_EMPLEADOR) || is_null($RUC) || is_null($ID_EMPLEADOR_MAESTRO)) {
@@ -34,5 +35,6 @@ if (is_null($ID_EMPLEADOR) || is_null($RUC) || is_null($ID_EMPLEADOR_MAESTRO)) {
   print_r(ID_EMPLEADOR_MAESTRO);
   echo "</pre>";
   echo "<hr>";
- */
+  */
+ 
 ?>

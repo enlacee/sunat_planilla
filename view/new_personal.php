@@ -68,8 +68,9 @@ function validarFormNewPersonalPrincipal(obj){
 			$.getJSON('sunat_planilla/controller/PersonaController.php?'+from_data,
 				function(data){
 				//funcion.js index.php
-				
-					if(data=='true'){
+					alert(data);
+					
+					if(data){
 
 					//alert(data);
 					console.log(data);

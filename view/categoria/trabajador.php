@@ -859,9 +859,9 @@ foreach ($lista_empleador_destaque as $indice) {
             </tr>
             <tr>
               <td>
-                <input name="id_detalle_establecimiento" type="text" id="id_detalle_establecimiento"
+                <input name="id_detalle_establecimiento" type="hidden" id="id_detalle_establecimiento"
                 value="<?php echo $objTRADetalle_3->getId_detalle_establecimiento();?>" size="3" />
-                <input name="txt_id_establecimiento" type="text" id="txt_id_establecimiento" size="3"
+                <input name="txt_id_establecimiento" type="hidden" id="txt_id_establecimiento" size="3"
                 value="<?php echo $objTRADetalle_3->getId_establecimiento(); ?>"
                  /></td>
               <td><input name="txt_codigo_local" type="text" id="txt_codigo_local" size="6" value="<?php echo $COD_LOCAL; ?>" ></td>
@@ -889,7 +889,7 @@ foreach ($lista_establecimientos as $indice) {
 ?>
                   </select>
                   <label for="tipo_establecimiento"></label>
-                  <input name="tipo_establecimiento" type="text" id="tipo_establecimiento" size="4" />
+                  <input name="tipo_establecimiento" type="hidden" id="tipo_establecimiento" size="4" />
                 </p>
               </td>
             </tr>

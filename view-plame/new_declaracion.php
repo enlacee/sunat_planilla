@@ -164,8 +164,25 @@ function validarPeriodo(periodo){
       <input type="button" name="ver periodo" id="ver periodo" value="Ver lista de Trabajadores del  periodo"
       onclick="verPeriodo()" />
 		    </p>
+            <span class="ocultar">
+		    <p>Declaracion Sustitutoria o Rectificadora
+              <input type="radio" name="rbtn_declaracionRectificadora" id="rbtn_declaracionRectificadora" value="1" />
+              Si
+              <input type="radio" name="rbtn_declaracionRectificadora" id="rbtn_declaracionRectificadora" value="0" />
+No  </p>
+Limpia datos Edit</span>
+
+            <p>Sincronizar datos: Actualizar Prestadores de Servicios:
+              <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />
+              <input type="button" name="btnEjecutar" id="btnEjecutar" value="Ejecutar" />
+            </p>
+            
+            
+            
+            
+            
 		    <p>            
-		    <table id="list">
+	        <table id="list">
             </table>
         <div id="pager"></div>
               

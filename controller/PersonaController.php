@@ -270,7 +270,8 @@ function nuevaPersona() {
         //CONTROLLER categoriaTrabajadorController
         //echo "IDDDDDDDDDDDDDDDDDDD_id_persona  ".$ID_PERSONA;
 
-        $resgistro_trabajajor = nuevoTrabajador($ID_PERSONA);
+        // Funcion Util
+        $ID_TRABAJADOR = nuevoTrabajador($ID_PERSONA);
 
 
 
@@ -424,9 +425,9 @@ function nuevaPersona() {
           //---------------------------------------------------------------------------------
           //------------------ FINAL Registrar TRABAJADOR  ---------------------------------
          */
-        //echo "reg trabjador " . $resgistro_trabajajor;
-        if ($resgistro_trabajajor) {
-            //RETURN ->array construido
+
+        
+        if ($ID_TRABAJADOR) {
             return $rpta['id_persona'] = $ID_PERSONA;
         } else {
             return false;

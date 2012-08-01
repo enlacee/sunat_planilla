@@ -8,7 +8,7 @@
 	  <p>
 	    <label for="dias_laborados">Laborados</label>
 	    <input name="dias_laborados" type="text" id="dias_laborados" size="4" />
-        <span ><a href="javascript:XXX()"><img src="images/edit.png"></a></span>
+       
         
         
 	  </p>
@@ -20,6 +20,7 @@
 	  <p>
 	    <label for="dia_nolabora_nosubsidiado">No laborados y no subsidiados:</label>
 	    <input name="dia_nolabora_nosubsidiado" type="text" id="dia_nolabora_nosubsidiado" size="4" />
+         <span ><a href="javascript:XXX()"><img src="images/edit.png"></a></span>
 	  </p>
       <h3>TOTAL: 
         <label for="dia_total"></label>

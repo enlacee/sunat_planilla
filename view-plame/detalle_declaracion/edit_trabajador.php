@@ -115,7 +115,7 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
   <!-- Inicio-->
 </p>
 
-  <input type="submit" name="button" id="button" value="Grabar" />
+  <input type="button" name="button" id="button" value="Grabar" />
 </form>
 <div>
 

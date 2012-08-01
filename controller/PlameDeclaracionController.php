@@ -65,15 +65,16 @@ if ($op == "cargar_tabla") {
     $periodo = getFechaPatron($post_fecha, "Y-m-d");
 
     // Se Registra el Periodo mes/anio 
-    $BANDERA = nuevaDeclaracion(ID_EMPLEADOR_MAESTRO, $periodo);
+    /* $BANDERA = */ nuevaDeclaracion(ID_EMPLEADOR_MAESTRO, $periodo);
+    /*
+      if ($BANDERA) {
+      $response->rows[0]['estado'] = "true";
+      } else {
+      $response->rows[0]['estado'] = "false";
+      }
 
-    if ($BANDERA) {
-        $response->rows[0]['estado'] = "true";
-    } else {
-        $response->rows[0]['estado'] = "false";
-    }
-
-    $response->rows[0]['data_mes'] = getMesInicioYfin($periodo);
+      $response->rows[0]['data_mes'] = getMesInicioYfin($periodo);
+     */
 } else if ($op == "cargar_tabla_ptrabajador") {
     //CARGAR JQGRID ptrabajadores
     cargar_tabla_ptrabajador();
@@ -93,13 +94,16 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo) {
     $estado = false;
     $FECHA = getMesInicioYfin($periodo);
 
-    //PASO 01   existe periodo?
+    //PASO 01   existe periodo?    
     $dao = new PlameDeclaracionDao();
     $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
 
-    //paso 02 Num Trabajadores > 1 ?    
-    $dao_plame = new PlameDao();
-    $num_trabajadores = $dao_plame->cantidadTrabajadoresPorPeriodo($id_empleador_maestro, $FECHA['mes_fin']);
+    //paso 02 Num Trabajadores > 1 ?
+    $Daoo = new PlameDao();
+
+    $data_tra = $Daoo->listarTrabajadoresPorPeriodo($id_empleador_maestro, $FECHA['mes_inicio'], $FECHA['mes_fin']);
+
+    $num_trabajadores = count($data_tra);
     //$num_trabajadores = $dao->contarTrabajadoresEnPeriodo($id_empleador_maestro, $periodo);
 
 
@@ -113,40 +117,199 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo) {
 
 
 
-    if ($rpta == true) { //EVALUA SI ES NECESARIO UN TRY CATH!!!!!!!!!!!!!
+    if (/* $rpta == true */true) {
+        ////EVALUA SI ES NECESARIO UN TRY CATH!!!!!!!!!!!!!
+        //------INICIO    
         //PASO 01   existe periodo?
-        $id_pdeclaracion = $dao->registrar($id_empleador_maestro, $periodo);
+        //### $id_pdeclaracion =  $dao->registrar($id_empleador_maestro, $periodo);
+        //--- ini algorit
+//        echo "01 = " . $FECHA['mes_inicio'];
+//        echo "<br>";
+//        echo "02 =" . $FECHA['mes_fin'];
+//        echo "<br>";
 
-        //--------
-        //Listar los trabajadores y registrarlos
-        //listar y registrar tablas muchos a muchos
-        //--------
-        // echo "<<<<------>>>><br> ".$id_pdeclaracion; 
-        //LISTAR TRABAJADORES 
+        $datafor = array();
 
-        $Daoo = new PlameDao();
+        for ($i = 0; $i < count($data_tra); $i++) {// PRIMERO 
+            $z=0;
+            for ($j = 0; $j < count($data_tra); $j++) {// SEGUNDO
+                    
+                if ($data_tra[$i]['id_persona'] == $data_tra[$j]['id_persona']) { //$i = x AHI ENCUNETRA TODO
+                    
+                    // if($data_tra[$i]['id_trabajador'] != $data_tra[$j]['id_trabajador']){
+                    // echo "<<<<< i = $i || j = $j >>>>>";
+                    //unset($data_tra[$i]);
+                    //$datafor[$i][$j]['id_persona'] = $data_tra[$j]['id_persona'];
+                    // echo "....".$data_tra[$j]['id_persona'];                    
+                    $datafor[$i]['id_persona'] = $data_tra[$j]['id_persona'];
 
-        $FECHA = getMesInicioYfin($periodo);
-        $id_trabajador = $Daoo->listarTrabajadoresPorPeriodo($id_empleador_maestro, $FECHA['mes_fin']);
+                    //$datafor[$i][$j]['id_persona'] = $data_tra[$j]['id_persona'];
+                    //$datafor[$i][$j]['id_trabajador'] = $data_tra[$j]['id_trabajador'];
 
+                    $datafor[$i][$z]['fecha_inicio'] = $data_tra[$j]['fecha_inicio'];
+                    $datafor[$i][$z]['fecha_fin'] = $data_tra[$j]['fecha_fin'];
 
-        for ($i = 0; $i < count($id_trabajador); $i++) {
-
-            registrarPTrabajadores($FECHA['mes_fin'], $id_pdeclaracion, $id_trabajador[$i]['id_trabajador'], $id_empleador_maestro);
+                    $z++;
+                    if ((count($data_tra) - 1) == $j) {
+                        //echo " i = $i :::::: j= $j  BREAKKK";
+                        break;
+                    }
+                    // }//EIF2
+                }//EIF1
+            }
         }
+        //----------------------------------------------------------------------
+        //-- Variables globales
+        $p_fi = $FECHA['mes_inicio'];        
+        $p_fi_time = strtotime($p_fi);
+        
+        $p_ff = $FECHA['mes_fin']; 
+        $p_ff_time = strtotime($p_ff);
+        
+        $tra_unico = retornan_Id_Persona_Unico($data_tra);
+        //$min_periodo = array();
+        
+        $min_periodo = array();
+        echo "trabajador UNICO".count($tra_unico);
+        
+        for ($i = 0; $i < count($tra_unico); $i++) {
+
+            
+            for ($j = 0; $j < count($datafor); $j++) { //FOR 1x
+                echo "ENTRO J == ".$j."       ";
+                
+                if ($tra_unico[$i]['id_persona'] == $datafor[$j]['id_persona']) { //ok unico
+                    
+                    echo "encontro id_persona";
+                    //echo "ENCONTRO  Y BREAK DE dataFOR BREAK!";
+                    //print_r($datafor[$j]);
+                    
+                    //##########################################################
+                    //$min_periodo[0] =  
+                                        
+                   
+                    $conteo_datafor =count($datafor[$j]) -1; 
+                    
+                    echo "ENTRO J == [".$j."]";
+                    
+                   for($x=0;$x < ($conteo_datafor);$x++){
+                       
+                        //:: VARIABLES ::
+                       
+                        $fi = $datafor[$j][$x]['fecha_inicio'];
+                        $fi_time = strtotime($fi);
+                        
+                        $ff = $datafor[$j][$x]['fecha_fin'];
+                        $ff_time = strtotime($ff); //Return FALSE error
+                    
+                        //print_r("ddd");                        
+                        //echo $fi."||||||||||||||||||||||||".$p_fi;
+                        
+                        
+                        //VAR GLOB
+                        $f1=null;
+                        $f2=null;
+                        
+                        if($fi_time == $p_fi_time){
+                           $f1 =  $fi_time;   
+                           
+                        }else if($fi_time > $p_fi_time){
+                            $f1 = $fi_time;
+                            
+                        }else if($fi_time< $p_fi_time){
+                            $f1 = $p_fi_time;                           
+                        }else{
+                             $f1 = "error critico";
+                        } 
+                        
+                        if($ff_time){ //SI ESTA ESTABLECIDO   rpta bd                        
+                            $f2 = $ff_time;
+                            
+                        }else{ //sino 
+                            $f2 = $p_ff_time;                            
+                        }
+                        
+                        
+                        $dia_f2 = date("j",$f2);
+                        $dia_f1 = date("j",$f1);                       
+                        
+                        //echo "ANIBAL = ".$ff_time."==".$ff."#DIA F2 = ".date("j",$f2);
+
+                        
+                        $RESTA_DIA = ($dia_f2 - $dia_f1) + 1;  //Añade 1 Dia MAS
+                        
+                        
+                        //---
+                        //$min_periodo[$i][$x]['id_persona'] = $tra_unico[$i]['id_persona'];
+                        //$min_periodo[$i][$x]['dia_laborado'] = $RESTA_DIA;
+                        //---
+                        
+                        //---
+                        $min_periodo[$i][$x]['id_persona'] = $tra_unico[$i]['id_persona'];
+                        $min_periodo[$i][$x]['dia_laborado'] = $RESTA_DIA;
+                        //---
+                        
+                        //echo " ---------$x------------";
+                       // print_r($min_periodo);
+                       // echo " ---------$x------------";
+                        
+                        
+
+                        
+                        //break;
+
+                    }
+                    
+                    //##########################################################
+                                        
+                  break; //SI ECONTRO BREAKKKK ok FOR 1X ELIMINADO                      
+                }                
+            }//END FOR
+            
+        }
+        
+        
+       // echo "SALIOOO";
+        echo "<pre>";
+        print_r($min_periodo);
+        echo "</pre>";
+        
+        
+        ?????????????
+    //--------------------------------------------------------------------------
 
 
+
+
+        
+          //echo "<pre>data_tra";
+          //print_r($datafor);
+          //echo "</pre>";
+
+         
+
+
+
+
+
+        //--- fin algorit
+
+
+
+        //------FIN
         $estado = true;
     } else {
         $estado = false;
     }
 
-    return $estado;
+    //return $estado;
 }
+
+
 
 //------
 // ESTA FUNCION CREADA PARA aminorar el codigo en la funcion nuevaDeclaracion
-function registrarPTrabajadores($FECHA_FIN, $id_pdeclaracion, $id_trabajador, $id_empleador_maestro) {
+function registrarPTrabajadores($FECHA_FIN, $id_pdeclaracion, $id_trabajador, $id_empleador_maestro, $dia_laborado) {
 
     /**
      * Datos Personales actuales del Trabajador 
@@ -169,9 +332,6 @@ function registrarPTrabajadores($FECHA_FIN, $id_pdeclaracion, $id_trabajador, $i
     //--- sub 5 Regimen Pensionario
     $objTRADetalle_5 = new DetalleRegimenPensionario();
     $objTRADetalle_5 = buscarDetalleRegimenPensionario($id_trabajador);
-
-
-
 
 
     // Registrar PTrabajadores
@@ -266,7 +426,7 @@ function registrarPTrabajadores($FECHA_FIN, $id_pdeclaracion, $id_trabajador, $i
     $Month = getFechaPatron($FECHA_FIN, "m");
     $Year = getFechaPatron($FECHA_FIN, "Y");
 
-    $dia_laborado = getMonthDays($Month, $Year);
+    //$dia_laborado = getMonthDays($Month, $Year); //#dia del mes
 
     $obj_jl = new PjornadaLaboral();
     $obj_jl->setId_ptrabajador($ID_PTRABAJADOR);
@@ -376,6 +536,40 @@ function cargar_tabla($id_empleador_maestro) { //cargarTablaPDeclaraciones
     }
 
     return $responce;
+}
+
+function retornan_Id_Persona_Unico($data_tra) {
+
+    $arrayid = array();
+    for ($i = 0; $i < count($data_tra); $i++) {
+        $arrayid[] = $data_tra[$i]['id_persona'];
+    }
+
+    $listaSimple = array_unique($arrayid);
+    $arrayidFinal = array_values($listaSimple);
+
+    // Array Unico
+    //$id_unico[$i]['']
+    $unico = array();
+    for ($i = 0; $i < count($arrayidFinal); $i++) {
+        $unico[$i]['id_persona'] = $arrayidFinal[$i];
+        $unico[$i]['contador'] = 0;
+    }
+
+    //----------------------------------------------------------------------
+    for ($i = 0; $i < count($unico); $i++) { //ID
+        for ($j = 0; $j < count($data_tra); $j++) { //TRA
+            if ($unico[$i]['id_persona'] == $data_tra[$j]['id_persona']) {
+                $unico[$i]['contador']++;
+            }
+        }
+    }
+    //----------------------------------------------------------------------        
+    //  echo "<pre>UNICO";
+    //  print_r($unico);
+    //  echo "<pre>";
+
+    return $unico;
 }
 
 ?>

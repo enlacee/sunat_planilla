@@ -75,8 +75,8 @@ var PERIODO = '<?php echo $PERIODO; ?>';
 
           <form id="frmNuevaDeclaracion" name="frmNuevaDeclaracion" method="post" action="">
           
-		RUC:		
-      <label for="ruc"></label>
+		    <p>RUC:
+              <label for="ruc"></label>
             <input type="text" name="ruc" id="ruc"  readonly="readonly"
             value="<?php  echo $data['ruc']; ?>" />
             <br />
@@ -88,8 +88,28 @@ var PERIODO = '<?php echo $PERIODO; ?>';
           Periodo Tributario (mm/aaaa)          
       <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  readonly="readonly"
       value="<?php echo $PERIODO; ?>" />
-
-          
+		    </p>
+            
+              <p>Declaracion Sustitutoria o Rectificadora 
+                <input type="radio" name="rbtn_declaracionRectificadora" id="" value="1" />Si
+                <input type="radio" name="rbtn_declaracionRectificadora" id="" value="0" />
+                No
+                
+             <span class="ocultar"> Limpia datos Edit</span>
+             </p>
+            
+		    <p>Sincronizar datos: Actualizar Prestadores de Servicios: 
+		      <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />		      
+		      <input type="button" name="btnEjecutar" id="btnEjecutar" value="Ejecutar" />
+		    </p>
+		    <p>La declaracion se ebabor&oacute; 
+		      <input type="text" name="dfcreacion" id="dfcreacion" />
+		    </p>
+		    <p>&nbsp;</p>
+		    <p>&nbsp;</p>
+            
+            
+            		    
           </form>
         
       </div><!-- tabs-1 -->

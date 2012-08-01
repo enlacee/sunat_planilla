@@ -241,7 +241,7 @@ function editarTrabajador() {
     // datos primarios principales
     $ID_PER = $_REQUEST['id_persona_categoria'];
     $ID_TRA = $_REQUEST['id_trabajador_categoria'];
-    
+
     //DAO
     $dao_tra = new TrabajadorDao();
 
@@ -295,24 +295,7 @@ function editarTrabajador() {
 
 
     //--------------------------------------------------------------------------
-    //CAMBIAR CODIGO SITUACION
-    $contador = false;
-    if(isset($detalle_1)){
-        if ($detalle_1->getFecha_inicio() != "") {
-            if ($detalle_1->getFecha_fin() != "") {
-                if ($detalle_1->getCod_motivo_baja_registro() != '0') {
-                    $detalle_2->setFecha_fin($detalle_1->getFecha_fin());
-                    $detalle_4->setFecha_fin($detalle_1->getFecha_fin());
-                    $detalle_5->setFecha_fin($detalle_1->getFecha_fin());
-                    $contador = true;
-                }
-            }
-        }
-    }   //END FOR
 
-    if ($contador) {
-        $dao_tra->actualizarCodigoSituacion($ID_TRA, 0);
-    }
 
 
 
@@ -358,7 +341,27 @@ function editarTrabajador() {
     $tra->setAplicar_convenio_doble_inposicion($_REQUEST['rbtn_aplica_convenio_doble_inposicion']);
 
     //-----------------------------------------	
-    
+    //CAMBIAR CODIGO SITUACION
+    $contador = false;
+    if (isset($detalle_1)) {
+        if ($detalle_1->getFecha_inicio() != "") {
+            if ($detalle_1->getFecha_fin() != "") {
+                if ($detalle_1->getCod_motivo_baja_registro() != '0') {
+                    $detalle_2->setFecha_fin($detalle_1->getFecha_fin());
+                    $detalle_4->setFecha_fin($detalle_1->getFecha_fin());
+                    $detalle_5->setFecha_fin($detalle_1->getFecha_fin());
+                    $contador = true;
+                }
+            }
+        }
+    }   //END FOR
+
+    if ($contador) {
+        $dao_tra->actualizarCodigoSituacion($ID_TRA, 0);
+    }
+
+
+
     $dao_tra->actualizarTrabajador($tra);
 
     //-----------------------------------------
@@ -371,12 +374,12 @@ function editarTrabajador() {
 
     //-----------------------------------------   INICIO
     //Busqueda SIMPRE DEBE HACERLO ELSE ERROR CRITICO!
-/*    if ($detalle_3->getId_detalle_establecimiento() == 0) { //valor por default
-        $dao = new DetalleEstablecimientoDao();
-        $id_detalle_establecimiento = $dao->buscar_iDDetalleEstablecimiento($ID_TRA);
-    }
-    // Setear ID principal de la tabla...
-    $detalle_3->setId_detalle_establecimiento($id_detalle_establecimiento);*/
+    /*    if ($detalle_3->getId_detalle_establecimiento() == 0) { //valor por default
+      $dao = new DetalleEstablecimientoDao();
+      $id_detalle_establecimiento = $dao->buscar_iDDetalleEstablecimiento($ID_TRA);
+      }
+      // Setear ID principal de la tabla...
+      $detalle_3->setId_detalle_establecimiento($id_detalle_establecimiento); */
     $dao3 = new DetalleEstablecimientoDao();
     $dao3->actualizarDetalleEstablecimiento($detalle_3);
 

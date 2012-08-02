@@ -1,10 +1,11 @@
 <?php
 
-session_start();
+//session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
 $op = $_REQUEST["oper"];
 if ($op) {
+    session_start();
     //Empleador
     //require_once '../model/Empleador.php';
     require_once '../util/funciones.php';
@@ -35,6 +36,45 @@ if ($op) {
     require_once '../model/DetalleRegimenPensionario.php';
     require_once '../dao/DetalleRegimenPensionarioDao.php';
 
+/*
+    //neww//Categoria Pensionista ----------------------------------------------------
+    require_once '../model/Pensionista.php';
+    require_once '../dao/PensionistaDao.php';
+    // require_once '../controller/CategoriaPensionistaControlller.php';
+    //dub 01
+    require_once '../model/DetallePeriodoLaboral.php';
+    require_once '../model/DetallePeriodoLaboralPensionista.php';
+    require_once '../dao/DetallePeriodoLaboralPensionistaDao.php';
+
+    //Categoria Personal en  Formacion Laboral --------------------------------------
+    require_once '../model/PersonaFormacionLaboral.php';
+    require_once '../dao/PersonaFormacionLaboralDao.php';
+    //require_once '../controller/CategoriaPFormacionController.php';
+    //establecimiento de formacion
+    require_once '../model/DetalleEstablecimientoFormacion.php';
+    require_once '../dao/DetalleEstablecimientoFormacionDao.php';
+    //periodo laboral 
+    require_once '../model/DetallePeriodoFormativo.php';
+    require_once '../dao/DetallePeriodoFormativoDao.php';
+
+    //---- Categoria Persona de Terceros --------------------------------------
+    require_once '../model/personaTercero.php';
+    require_once '../dao/PersonaTerceroDao.php';
+
+    //sub 01 
+    require_once '../model/PeriodoDestaque.php';
+    require_once '../dao/PeriodoDestaqueDao.php';
+
+    //sub 02
+    require_once '../model/LugarDestaque.php';
+    require_once '../dao/LugarDestaqueDao.php';
+
+    //sub 03
+    require_once '../model/CoberturaSalud.php';
+    require_once '../dao/CoberturaSaludDao.php';
+
+*/
+
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
 }
@@ -46,7 +86,8 @@ if ($op == "cargar_tabla_trabajador") {
     //echo $ESTADO;
     $responce = cargar_tabla_trabajador($ESTADO); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
 } elseif ($op == "add") {
-    //$responce = nuevoTrabajador();
+    //UTILIZA personaController errorr
+    //$responce = nuevoTrabajador($ID_PERSONA);
 } elseif ($op == "edit") {
 
     $responce = editarTrabajador();
@@ -234,7 +275,6 @@ function listarEstablecimientoLocalesPorEmpleadorVinculado($id_empleador) {
 }
 
 //-----------------------------------------------------------------------------------------------------
-
 
 function editarTrabajador() {
 
@@ -567,20 +607,171 @@ function buscar_IDTrabajador($id_trabajador) {
     $model->setCod_categorias_ocupacionales($data['cod_categorias_ocupacionales']);
     $model->setCod_ocupacion($data['cod_ocupacion_p']);
     $model->setCod_tipo_contrato($data['cod_tipo_contrato']);
-    
-    
+
+
     $model->setMonto_remuneracion($data['monto_remuneracion']);
     $model->setCod_convenio($data['cod_convenio']);
     $model->setCod_situacion($data['cod_situacion']);
-    
 
-   // $model->setCod_tipo_pago($data['cod_tipo_pago']);
-   // $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
-    
+
+    // $model->setCod_tipo_pago($data['cod_tipo_pago']);
+    // $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
     // Falta setear!
-    
+
     return $model;
+}
+
+// REGISTRAR NUEVO:: utilizado en PersonaController
+function nuevoTrabajador($ID_PERSONA) {
+//---------------------------------------------------------------------------------
+//------------------ INICIO Registrar TRABAJADOR  ---------------------------------   
+
+    $obj = new Trabajador();
+    $obj->setId_persona($ID_PERSONA);
+    // $obj->setEstado('INACTIVO');
+    $obj->setCod_convenio(0);
+    $obj->setCod_situacion(1);
+
+    $dao = new TrabajadorDao();
+    $ID_TRA = $dao->registrarTrabajador($obj);
+
+    //--- sub (1) Periodo Laboral    
+    $obj1 = new DetallePeriodoLaboral();
+    $obj1->setCod_motivo_baja_registro(0);
+    $obj1->setId_trabajador($ID_TRA);
+
+
+    $dao1 = new DetallePeriodoLaboralDao();
+    $dao1->registrarDetallePeriodoLaboral($obj1);
+
+    //--- sub (2) Tipo trabajador
+    $obj2 = new DetalleTipoTrabajador();
+    $obj2->setCod_tipo_trabajador(0);
+    $obj2->setId_trabajador($ID_TRA);
+
+    $dao2 = new DetalleTipoTrabajadorDao();
+    $dao2->registrarDetalleTipoTrabajador($obj2);
+
+    //--- sub (3) Tipo trabajador
+    $obj3 = new DetalleEstablecimiento();
+    $obj3->setId_trabajador($ID_TRA);
+    $obj3->setId_establecimiento(0);
+
+    $dao3 = new DetalleEstablecimientoDao();
+    $dao3->registrarDetalleEstablecimiento($obj3);
+
+    //--- sub(4) Regimen de Salud
+    $obj4 = new DetalleRegimenSalud();
+    $obj4->setId_trabajador($ID_TRA);
+    $obj4->setCod_regimen_aseguramiento_salud(0);
+    $obj4->setCod_eps(0);
+
+    $dao4 = new DetalleRegimenSaludDao();
+    $dao4->registrarDetalleRegimenSalud($obj4);
+
+    //--- sub(5) Regimen Pensionario
+    $obj5 = new DetalleRegimenPensionario();
+    $obj5->setId_trabajador($ID_TRA);
+    $obj5->setCod_regimen_pensionario(0);
+
+    $dao5 = new DetalleRegimenPensionarioDao();
+    $dao5->registrarDetalleRegimenPensionario($obj5);
+
+//------------------------------------------------------------------------------
+//------------------ INICIO Registrar CATEGORIA PENSIONISTA  OK-----------------
+//    
+
+    $obj = new Pensionista();
+    $obj->setId_persona($ID_PERSONA);
+    $obj->setCod_situacion(1); //activo    
+    $obj->setEstado('INACTIVO');
+
+    $dao = new PensionistaDao();
+    $ID_PENSIONISTA = $dao->registrar($obj);
+
+    // ---- sub (periodo) laboral Pensionista
+    $obj = new DetallePeriodoLaboralPensionista();
+    $obj->setId_pensionista($ID_PENSIONISTA);
+    $obj->setCod_motivo_baja_registro(0);
+
+    $dao = new DetallePeriodoLaboralPensionistaDao();
+    $dao->registrar($obj);
+
+    //nuevoPensionista($ID_PERSONA);
+//------------------------------------------------------------------------------
+//------------------ INICIO Registrar CATEGORIA PERSONA FORMACION  NOT ---------
+// 
+    // (01) REGISTRO -----------------------------------------
+    $obj = new PersonaFormacionLaboral();
+    $obj->setId_persona($ID_PERSONA);
+    $obj->setCod_situacion(1);
+    $obj->setEstado('INACTIVO');
+
+    $dao = new PersonaFormacionLaboralDao();
+    $ID_PFORMACION = $dao->registrar($obj);
+    $obj = null;
+
+    // (02) REGISTRO ---------------------------------------------
+    //Establecimiento en formacion   
+    $obj = new DetalleEstablecimientoFormacion();
+    $obj->setId_personal_formacion_laboral($ID_PFORMACION);
+    $obj->setId_establecimiento(0);
+
+    $dao = new DetalleEstablecimientoFormacionDao();
+    $dao->registrar($obj);
+
+    // (03) REGISTRO -------------------------------------------
+    $obj = new DetallePeriodoFormativo();
+    $obj->setId_personal_formacion_laboral($ID_PFORMACION);
+
+    $dao = new DetallePeriodoFormativoDao();
+    $dao->registrar($obj);
+
+
+
+//------------------------------------------------------------------------------
+//------------------ INICIO Registrar CATEGORIA Personal de Teceros  OK---------
+//      
+    // (01) REGISTRO -----------------------------------------
+    $obj = new personaTercero();
+    $obj->setId_persona($ID_PERSONA);
+    $obj->setId_empleador_destaque_yoursef(0); //default 
+    $obj->setCod_situacion(1);
+    $obj->setEstado('INACTIVO');
+
+    $dao = new PersonaTerceroDao();
+    $ID_PERSONA_TERCERO = $dao->registrar($obj);
+    $obj = null;
+
+    // (02) Periodo Destaque 
+    $obj = new PeriodoDestaque();
+    $obj->setId_personal_tercero($ID_PERSONA_TERCERO);
+
+    $dao = new PeriodoDestaqueDao();
+    $dao->registrar($obj);
+    $obj = null;
+
+    // (03) Lugar Destaque
+    $objd = new LugarDestaque();
+    $objd->setId_personal_tercero($ID_PERSONA_TERCERO);
+    $objd->setId_establecimiento(0); //Default
+
+    $dao = new LugarDestaqueDao();
+    $dao->registrar($objd);
+
+    // (04) Cobertura Esalud
+    $objc = new CoberturaSalud();
+    $objc->setId_personal_tercero($ID_PERSONA_TERCERO);
+
+    $daoc = new CoberturaSaludDao();
+    $daoc->registrar($objc);
+
+
+
+//---------------------------------------------------------------------------------
+//------------------ FINAL Registrar TRABAJADOR  ---------------------------------
     
+    return true;
     
     
 }

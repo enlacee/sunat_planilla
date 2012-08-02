@@ -15,7 +15,6 @@ require_once('ide.php');
     });
             
 	
-	estadoCheckGlobal();
 				
     //----------------------------------------------------------								
     function eliminarPersona(id){

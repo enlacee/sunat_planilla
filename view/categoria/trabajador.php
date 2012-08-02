@@ -440,13 +440,85 @@ var cbo = document.getElementById('cbo_convenio');
 
 // -----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-function nuevoFilaConcepto1000(){
+
+
+
+
+
+
+
+
+/*******************************************************************************************************
+** ----------------------------- DETALLE 01 ------------------------------------------------------------
+ [trabajador.php]= Periodos Laborales
+********************************************************************************************************/
+
+	var motivos_baja = new Array(
+	<?php 
+	//echo "<pre>";
+	//print_r($new_motivo_baja);
+	//echo "</pre>";
+	$new_motivo_baja = array();
+	$new_motivo_baja = $cbo_motivo_baja_registro_cat_trabajador;
+	
+	$counteo = count($new_motivo_baja);	
+	for($i=0;$i<$counteo;$i++): ?>	
+	<?php
+		if($i == $counteo-1){ 
+			echo "{id:'".$new_motivo_baja[$i]['cod_motivo_baja_registro']."', descripcion:'".$new_motivo_baja[$i]['descripcion_abreviada']."' }"; 
+		}else{
+			echo "{id:'".$new_motivo_baja[$i]['cod_motivo_baja_registro']."', descripcion:'".$new_motivo_baja[$i]['descripcion_abreviada']."' },"; 
+		}
+	?>
+	<?php endfor; ?>
+	);	
+//----------------------------------
+function llenarComboDetalle_1(objCombo){
+
+	var test = new Array();
+	test = motivos_baja;
+	var counteo = 	test.length;
+	//objCombo.options[0] = new Option('-', '');
+	for(var i=0;i<counteo;i++){
+		objCombo.options[i] = new Option(test[i].descripcion, test[i].id);
+	}
+}//ENDFN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function nuevoFilaPeridoLaboral(){
+	alert("holaaaaa");
 	
 	//Capa Contenedora
 	var tabla = document.getElementById("tb_periodolaboral");	
 	
 	var num_fila_tabla = contarTablaFila(tabla);
 	
+	num_fila_tabla = num_fila_tabla - 2;
+	
+	var COD_DETALLE_CONCEPTO =  num_fila_tabla + 1;
 	
 	//var id_check = idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
 
@@ -457,31 +529,26 @@ function nuevoFilaConcepto1000(){
 	tabla.appendChild(div); //PRINCIPAL	
 	
 
+	
+	
+
 //-------------------------------------------------------------
 //---- CODIGO
-var id = '<input type="text" size="4" id="id_'+ COD_DETALLE_CONCEPTO +'" name="id[]" value ="" >';
-
-var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
+var id = '<input type="text" size="4" id="id-'+ COD_DETALLE_CONCEPTO +'" name="id_detalle_plaboral[]" value ="" >';
+var estado = '<input type="text" size="4" id="plaboral_estado-'+ COD_DETALLE_CONCEPTO +'" name="plaboral_estado[]" value ="0" >';
+//var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
 
 //-----input Descripcion
-var input_des;
-input_des = '<input type="text" id="concepto_descripcion_'+ COD_DETALLE_CONCEPTO +'" name="concepto_descripcion_1000[]">';
+var input_finicio;
+var input_ffin;
+input_finicio = '<input type="text" id="plaboral_finicio-'+ COD_DETALLE_CONCEPTO +'" name="plaboral_finicio[]"  size="12" >';
 
-///----LUPA
-var lupa = '';
-lupa +='	<div id="divEliminar_Editar">';
-lupa +='	<span title="Detalle Concepto" >';
+input_ffin = '<input type="text" id="plaboral_ffin-'+ COD_DETALLE_CONCEPTO +'" name="plaboral_ffin[]"  size="12" >';
 
-lupa +='	<a href="javascript:validarDescripcionLupa(\''+ COD_DETALLE_CONCEPTO +'\')">';
-lupa +='	<img width="18" height="18" src="images/search2.png"></a>';
-
-lupa +='	</span>';	
-lupa +='    </div>';
-
-//----CHECK
-var check ='';
-check = '<input type="checkbox" value="" id="chk_detalle_concepto_'+ COD_DETALLE_CONCEPTO +'" name="chk_detalle_concepto[]">';
-//-------------------------------------------------------------	
+var combo = "";
+combo +='     <select name="cbo_plaboral_motivo_baja[]" id="cbo_plaboral_motivo_baja-'+COD_DETALLE_CONCEPTO+'"  ';
+combo +='	  style="width:150px;"  onchange="" >';
+combo +='     </select>';
 
 
 	//inicio html	
@@ -491,29 +558,33 @@ var cerrarTD = '<\/td>';
 
 html +='<td>';
 html += id;
-html += codigo;
+html += estado;
+//html += codigo;
+html += cerrarTD;
+
+
+html +='<td>';	
+html += input_finicio;
 html += cerrarTD;
 
 html +='<td>';	
-html += input_des;
+html += input_ffin;
 html += cerrarTD;
 
 html +='<td>';	
-html += lupa;
+html += combo;
 html += cerrarTD;
 
-html +='<td>';	
-html += check;
-html += cerrarTD;
-
-html +='<td>';	
-html += check;
-html += cerrarTD;
 
 ////---
 div.innerHTML=html;
 
-idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
+//-------   - - --  -cargar combo
+cbo = document.getElementById('cbo_plaboral_motivo_baja-'+COD_DETALLE_CONCEPTO);
+//alert()
+//console.dir(cbo);
+llenarComboDetalle_1(cbo);	
+	
 //	console.dir(tabla);
 //	console.log("-----------------");
 //	console.dir(tabla.rows[0]);
@@ -599,28 +670,28 @@ oper
 </div>
 <table id="tb_periodolaboral" width="auto" border="1" CELLPADDING=0 cellspacing="0">
   <tr>
-    <td class="style2"><div class="ocultar">detalle_periodos_laborales</div></td>
-    <td><em>Fecha de Inicio</em> </td>
-    <td><em>Fecha de Fin </em></td>
-    <td><em>Motivo de baja del registro</em></td>
-    <td>&nbsp;</td>
+    <td width="162" class="style2"><div class="ocultar">detalle_periodos_laborales</div></td>
+    <td width="85"><em>Fecha de Inicio</em> </td>
+    <td width="79"><em>Fecha de Fin </em></td>
+    <td width="150"><em>Motivo de baja del registro</em></td>
+    <td width="62">&nbsp;</td>
   </tr>
   <tr>
     <td>Periodo Laboral 
       <label for="id_detalle_periodo_laboral"></label>
-      <input name="id_detalle_periodo_laboral" type="hidden" id="id_detalle_periodo_laboral" size="3" 
+      <input name="id_detalle_periodo_laboral[]" type="hidden" id="id_detalle_periodo_laboral" size="3" 
       value="<?php echo $objTRADetalle_1->getId_detalle_periodo_laboral();  ?>"
       /></td>
     <td>
-        <input name="txt_plaboral_fecha_inicio_base" type="text" id="txt_plaboral_fecha_inicio_base"
+        <input name="plaboral_finicio[]" type="text" id="plaboral_finicio"
          
                value="<?php echo getFechaPatron( $objTRADetalle_1->getFecha_inicio() ,"d/m/Y" ); ?>"
          
          size="12" onkeyup="getFechaActualEnter(event,this)" class="required">    </td>
-    <td><input  name="txt_plaboral_fecha_fin_base" type="text" id="txt_plaboral_fecha_fin_base" size="12" onkeyup="getFechaActualEnter(event,this)"
+    <td><input  name="plaboral_ffin[]" type="text" id="plaboral_ffin" size="12" onkeyup="getFechaActualEnter(event,this)"
      value ="<?php echo getFechaPatron( $objTRADetalle_1->getFecha_fin() ,"d/m/Y");?>"
      ></td>
-    <td><select name="cbo_plaboral_motivo_baja_base" id="cbo_plaboral_motivo_baja_base" style="width:180px;"  >
+    <td><select name="cbo_plaboral_motivo_baja[]" id="cbo_plaboral_motivo_baja" style="width:150px;"  >
     
       <?php 
 
@@ -643,18 +714,18 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
     </td>
     <td><div class="ocultar">
     <a href="javascript:editarDialogoDetalle_1()">detalle</a>
-    <a href="#">add</a><br />
+    <a href="javascript:nuevoFilaPeridoLaboral()">add</a><br />
       <a href="#">view</a> </div></td>
   </tr>
 </table>
 <br />
 <table width="auto" border="1" cellpadding="0" cellspacing="0" >
   <tr>
-            <td class="style2"><div class="ocultar">detalle_tipos_trabajadores</div></td>
-            <td>Ocupacion </td>
-            <td><em>Fecha de Inicio</em></td>
-            <td><em>Fecha de Fin</em></td>
-            <td>&nbsp;</td>
+            <td width="160" class="style2"><div class="ocultar">detalle_tipos_trabajadores</div></td>
+            <td width="150">Ocupacion </td>
+            <td width="99"><em>Fecha de Inicio</em></td>
+            <td width="85"><em>Fecha de Fin</em></td>
+            <td width="44">&nbsp;</td>
           </tr>
           <tr>
 		  
@@ -662,7 +733,7 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
               value="<?php  echo $objTRADetalle_2->getId_detalle_tipo_trabajador(); ?>"
                /></td>
             <td>
-                <select name="cbo_ttrabajador_base" id="cbo_ttrabajador_base" style="width:180px;" onchange="comboVinculadosTipoTrabajadorConCategoriaOcupacional(this)" >
+                <select name="cbo_ttrabajador_base" id="cbo_ttrabajador_base" style="width:150px;" onchange="comboVinculadosTipoTrabajadorConCategoriaOcupacional(this)" >
 				
 				<!--<option value="0" >-</option>-->
 <?php 

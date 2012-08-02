@@ -332,7 +332,11 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
               <input name="oper" type="hidden" value="edit">
             <fieldset>
               <legend>Datos de Identificacion </legend>
+<<<<<<< HEAD
               <div class="ocultar" style="clear:both">
+=======
+              <div class="ocular">
+>>>>>>> developer
               <label>Estado Empleador</label>:
               <label for="txt_estado_empleador"></label>
               <input name="txt_estado_empleador" type="text" id="txt_estado_empleador" 

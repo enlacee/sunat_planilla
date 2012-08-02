@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2012 at 02:31 
+-- Generation Time: Aug 02, 2012 at 06:09 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `coberturas_salud` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_cobertura_salud`),
   KEY `id_personal_tercero` (`id_personal_tercero`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='SCTR Salud - Vigencia de cobertura\r\n------ HISTORIAL ------\r' AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='SCTR Salud - Vigencia de cobertura\r\n------ HISTORIAL ------\r' AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `coberturas_salud`
@@ -100,9 +100,14 @@ CREATE TABLE IF NOT EXISTS `coberturas_salud` (
 
 INSERT INTO `coberturas_salud` (`id_cobertura_salud`, `id_personal_tercero`, `nombre_cobertura`, `fecha_inicio`, `fecha_fin`) VALUES
 (12, 1, NULL, NULL, NULL),
-(13, 2, NULL, NULL, NULL),
 (15, 4, NULL, NULL, NULL),
-(16, 5, NULL, NULL, NULL);
+(16, 5, NULL, NULL, NULL),
+(17, 6, NULL, NULL, NULL),
+(23, 12, NULL, NULL, NULL),
+(24, 13, NULL, NULL, NULL),
+(25, 14, NULL, NULL, NULL),
+(26, 15, NULL, NULL, NULL),
+(27, 16, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12751,27 +12756,27 @@ CREATE TABLE IF NOT EXISTS `dcem_pdescuentos` (
   KEY `id_detalle_concepto_empleador_maestro` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_ptrabajador_2` (`id_ptrabajador`),
   KEY `id_detalle_concepto_empleador__2` (`id_detalle_concepto_empleador_maestro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS =0700insert all 0700 marcadostotal = calcul' AUTO_INCREMENT=71 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS =0700insert all 0700 marcadostotal = calcul' AUTO_INCREMENT=169 ;
 
 --
 -- Dumping data for table `dcem_pdescuentos`
 --
 
 INSERT INTO `dcem_pdescuentos` (`id_pdcem_pdescuento`, `id_ptrabajador`, `id_detalle_concepto_empleador_maestro`, `monto`) VALUES
-(57, 9, 85, NULL),
-(58, 9, 86, NULL),
-(59, 9, 87, NULL),
-(60, 9, 88, NULL),
-(61, 9, 89, NULL),
-(62, 9, 90, NULL),
-(63, 9, 91, NULL),
-(64, 10, 85, NULL),
-(65, 10, 86, NULL),
-(66, 10, 87, NULL),
-(67, 10, 88, NULL),
-(68, 10, 89, NULL),
-(69, 10, 90, NULL),
-(70, 10, 91, NULL);
+(155, 1, 232, NULL),
+(156, 1, 233, NULL),
+(157, 1, 234, NULL),
+(158, 1, 235, NULL),
+(159, 1, 236, NULL),
+(160, 1, 237, NULL),
+(161, 1, 238, NULL),
+(162, 2, 232, NULL),
+(163, 2, 233, NULL),
+(164, 2, 234, NULL),
+(165, 2, 235, NULL),
+(166, 2, 236, NULL),
+(167, 2, 237, NULL),
+(168, 2, 238, NULL);
 
 -- --------------------------------------------------------
 
@@ -12790,161 +12795,161 @@ CREATE TABLE IF NOT EXISTS `dcem_pingresos` (
   KEY `id_detalle_concepto_empleador_maestro` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_detalle_concepto_empleador__2` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_ptrabajador_2` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='INGRESOSCONCETPOS = 0100, 0200, 0300, 1000TOTAL = suma c' AUTO_INCREMENT=741 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='INGRESOSCONCETPOS = 0100, 0200, 0300, 1000TOTAL = suma c' AUTO_INCREMENT=667 ;
 
 --
 -- Dumping data for table `dcem_pingresos`
 --
 
 INSERT INTO `dcem_pingresos` (`id_dcem_pingreso`, `id_ptrabajador`, `id_detalle_concepto_empleador_maestro`, `devengado`, `pagado`) VALUES
-(593, 9, 1, NULL, NULL),
-(594, 9, 2, NULL, NULL),
-(595, 9, 3, NULL, NULL),
-(596, 9, 4, NULL, NULL),
-(597, 9, 5, NULL, NULL),
-(598, 9, 6, NULL, NULL),
-(599, 9, 7, NULL, NULL),
-(600, 9, 8, NULL, NULL),
-(601, 9, 9, NULL, NULL),
-(602, 9, 10, NULL, NULL),
-(603, 9, 11, NULL, NULL),
-(604, 9, 12, NULL, NULL),
-(605, 9, 13, NULL, NULL),
-(606, 9, 14, NULL, NULL),
-(607, 9, 15, NULL, NULL),
-(608, 9, 16, NULL, NULL),
-(609, 9, 17, NULL, NULL),
-(610, 9, 18, NULL, NULL),
-(611, 9, 19, NULL, NULL),
-(612, 9, 20, NULL, NULL),
-(613, 9, 21, NULL, NULL),
-(614, 9, 22, NULL, NULL),
-(615, 9, 23, NULL, NULL),
-(616, 9, 24, NULL, NULL),
-(617, 9, 25, NULL, NULL),
-(618, 9, 26, NULL, NULL),
-(619, 9, 27, NULL, NULL),
-(620, 9, 28, NULL, NULL),
-(621, 9, 29, NULL, NULL),
-(622, 9, 30, NULL, NULL),
-(623, 9, 31, NULL, NULL),
-(624, 9, 32, NULL, NULL),
-(625, 9, 33, NULL, NULL),
-(626, 9, 34, NULL, NULL),
-(627, 9, 35, NULL, NULL),
-(628, 9, 36, NULL, NULL),
-(629, 9, 37, NULL, NULL),
-(630, 9, 38, NULL, NULL),
-(631, 9, 39, NULL, NULL),
-(632, 9, 40, NULL, NULL),
-(633, 9, 41, NULL, NULL),
-(634, 9, 42, NULL, NULL),
-(635, 9, 43, NULL, NULL),
-(636, 9, 44, NULL, NULL),
-(637, 9, 45, NULL, NULL),
-(638, 9, 46, NULL, NULL),
-(639, 9, 47, NULL, NULL),
-(640, 9, 48, NULL, NULL),
-(641, 9, 49, NULL, NULL),
-(642, 9, 50, NULL, NULL),
-(643, 9, 51, NULL, NULL),
-(644, 9, 52, NULL, NULL),
-(645, 9, 53, NULL, NULL),
-(646, 9, 54, NULL, NULL),
-(647, 9, 128, NULL, NULL),
-(648, 9, 129, NULL, NULL),
-(649, 9, 130, NULL, NULL),
-(650, 9, 131, NULL, NULL),
-(651, 9, 132, NULL, NULL),
-(652, 9, 133, NULL, NULL),
-(653, 9, 134, NULL, NULL),
-(654, 9, 135, NULL, NULL),
-(655, 9, 136, NULL, NULL),
-(656, 9, 137, NULL, NULL),
-(657, 9, 138, NULL, NULL),
-(658, 9, 139, NULL, NULL),
-(659, 9, 140, NULL, NULL),
-(660, 9, 141, NULL, NULL),
-(661, 9, 142, NULL, NULL),
-(662, 9, 143, NULL, NULL),
-(663, 9, 144, NULL, NULL),
-(664, 9, 145, NULL, NULL),
-(665, 9, 146, NULL, NULL),
-(666, 9, 147, NULL, NULL),
-(667, 10, 1, NULL, NULL),
-(668, 10, 2, NULL, NULL),
-(669, 10, 3, NULL, NULL),
-(670, 10, 4, NULL, NULL),
-(671, 10, 5, NULL, NULL),
-(672, 10, 6, NULL, NULL),
-(673, 10, 7, NULL, NULL),
-(674, 10, 8, NULL, NULL),
-(675, 10, 9, NULL, NULL),
-(676, 10, 10, NULL, NULL),
-(677, 10, 11, NULL, NULL),
-(678, 10, 12, NULL, NULL),
-(679, 10, 13, NULL, NULL),
-(680, 10, 14, NULL, NULL),
-(681, 10, 15, NULL, NULL),
-(682, 10, 16, NULL, NULL),
-(683, 10, 17, NULL, NULL),
-(684, 10, 18, NULL, NULL),
-(685, 10, 19, NULL, NULL),
-(686, 10, 20, NULL, NULL),
-(687, 10, 21, NULL, NULL),
-(688, 10, 22, NULL, NULL),
-(689, 10, 23, NULL, NULL),
-(690, 10, 24, NULL, NULL),
-(691, 10, 25, NULL, NULL),
-(692, 10, 26, NULL, NULL),
-(693, 10, 27, NULL, NULL),
-(694, 10, 28, NULL, NULL),
-(695, 10, 29, NULL, NULL),
-(696, 10, 30, NULL, NULL),
-(697, 10, 31, NULL, NULL),
-(698, 10, 32, NULL, NULL),
-(699, 10, 33, NULL, NULL),
-(700, 10, 34, NULL, NULL),
-(701, 10, 35, NULL, NULL),
-(702, 10, 36, NULL, NULL),
-(703, 10, 37, NULL, NULL),
-(704, 10, 38, NULL, NULL),
-(705, 10, 39, NULL, NULL),
-(706, 10, 40, NULL, NULL),
-(707, 10, 41, NULL, NULL),
-(708, 10, 42, NULL, NULL),
-(709, 10, 43, NULL, NULL),
-(710, 10, 44, NULL, NULL),
-(711, 10, 45, NULL, NULL),
-(712, 10, 46, NULL, NULL),
-(713, 10, 47, NULL, NULL),
-(714, 10, 48, NULL, NULL),
-(715, 10, 49, NULL, NULL),
-(716, 10, 50, NULL, NULL),
-(717, 10, 51, NULL, NULL),
-(718, 10, 52, NULL, NULL),
-(719, 10, 53, NULL, NULL),
-(720, 10, 54, NULL, NULL),
-(721, 10, 128, NULL, NULL),
-(722, 10, 129, NULL, NULL),
-(723, 10, 130, NULL, NULL),
-(724, 10, 131, NULL, NULL),
-(725, 10, 132, NULL, NULL),
-(726, 10, 133, NULL, NULL),
-(727, 10, 134, NULL, NULL),
-(728, 10, 135, NULL, NULL),
-(729, 10, 136, NULL, NULL),
-(730, 10, 137, NULL, NULL),
-(731, 10, 138, NULL, NULL),
-(732, 10, 139, NULL, NULL),
-(733, 10, 140, NULL, NULL),
-(734, 10, 141, NULL, NULL),
-(735, 10, 142, NULL, NULL),
-(736, 10, 143, NULL, NULL),
-(737, 10, 144, NULL, NULL),
-(738, 10, 145, NULL, NULL),
-(739, 10, 146, NULL, NULL),
-(740, 10, 147, NULL, NULL);
+(519, 1, 148, NULL, NULL),
+(520, 1, 149, NULL, NULL),
+(521, 1, 150, NULL, NULL),
+(522, 1, 151, NULL, NULL),
+(523, 1, 152, NULL, NULL),
+(524, 1, 153, NULL, NULL),
+(525, 1, 154, NULL, NULL),
+(526, 1, 155, NULL, NULL),
+(527, 1, 156, NULL, NULL),
+(528, 1, 157, NULL, NULL),
+(529, 1, 158, NULL, NULL),
+(530, 1, 159, NULL, NULL),
+(531, 1, 160, NULL, NULL),
+(532, 1, 161, NULL, NULL),
+(533, 1, 162, NULL, NULL),
+(534, 1, 163, NULL, NULL),
+(535, 1, 164, NULL, NULL),
+(536, 1, 165, NULL, NULL),
+(537, 1, 166, NULL, NULL),
+(538, 1, 167, NULL, NULL),
+(539, 1, 168, NULL, NULL),
+(540, 1, 169, NULL, NULL),
+(541, 1, 170, NULL, NULL),
+(542, 1, 171, NULL, NULL),
+(543, 1, 172, NULL, NULL),
+(544, 1, 173, NULL, NULL),
+(545, 1, 174, NULL, NULL),
+(546, 1, 175, NULL, NULL),
+(547, 1, 176, NULL, NULL),
+(548, 1, 177, NULL, NULL),
+(549, 1, 178, NULL, NULL),
+(550, 1, 179, NULL, NULL),
+(551, 1, 180, NULL, NULL),
+(552, 1, 181, NULL, NULL),
+(553, 1, 182, NULL, NULL),
+(554, 1, 183, NULL, NULL),
+(555, 1, 184, NULL, NULL),
+(556, 1, 185, NULL, NULL),
+(557, 1, 186, NULL, NULL),
+(558, 1, 187, NULL, NULL),
+(559, 1, 188, NULL, NULL),
+(560, 1, 189, NULL, NULL),
+(561, 1, 190, NULL, NULL),
+(562, 1, 191, NULL, NULL),
+(563, 1, 192, NULL, NULL),
+(564, 1, 193, NULL, NULL),
+(565, 1, 194, NULL, NULL),
+(566, 1, 195, NULL, NULL),
+(567, 1, 196, NULL, NULL),
+(568, 1, 197, NULL, NULL),
+(569, 1, 198, NULL, NULL),
+(570, 1, 199, NULL, NULL),
+(571, 1, 200, NULL, NULL),
+(572, 1, 201, NULL, NULL),
+(573, 1, 275, NULL, NULL),
+(574, 1, 276, NULL, NULL),
+(575, 1, 277, NULL, NULL),
+(576, 1, 278, NULL, NULL),
+(577, 1, 279, NULL, NULL),
+(578, 1, 280, NULL, NULL),
+(579, 1, 281, NULL, NULL),
+(580, 1, 282, NULL, NULL),
+(581, 1, 283, NULL, NULL),
+(582, 1, 284, NULL, NULL),
+(583, 1, 285, NULL, NULL),
+(584, 1, 286, NULL, NULL),
+(585, 1, 287, NULL, NULL),
+(586, 1, 288, NULL, NULL),
+(587, 1, 289, NULL, NULL),
+(588, 1, 290, NULL, NULL),
+(589, 1, 291, NULL, NULL),
+(590, 1, 292, NULL, NULL),
+(591, 1, 293, NULL, NULL),
+(592, 1, 294, NULL, NULL),
+(593, 2, 148, NULL, NULL),
+(594, 2, 149, NULL, NULL),
+(595, 2, 150, NULL, NULL),
+(596, 2, 151, NULL, NULL),
+(597, 2, 152, NULL, NULL),
+(598, 2, 153, NULL, NULL),
+(599, 2, 154, NULL, NULL),
+(600, 2, 155, NULL, NULL),
+(601, 2, 156, NULL, NULL),
+(602, 2, 157, NULL, NULL),
+(603, 2, 158, NULL, NULL),
+(604, 2, 159, NULL, NULL),
+(605, 2, 160, NULL, NULL),
+(606, 2, 161, NULL, NULL),
+(607, 2, 162, NULL, NULL),
+(608, 2, 163, NULL, NULL),
+(609, 2, 164, NULL, NULL),
+(610, 2, 165, NULL, NULL),
+(611, 2, 166, NULL, NULL),
+(612, 2, 167, NULL, NULL),
+(613, 2, 168, NULL, NULL),
+(614, 2, 169, NULL, NULL),
+(615, 2, 170, NULL, NULL),
+(616, 2, 171, NULL, NULL),
+(617, 2, 172, NULL, NULL),
+(618, 2, 173, NULL, NULL),
+(619, 2, 174, NULL, NULL),
+(620, 2, 175, NULL, NULL),
+(621, 2, 176, NULL, NULL),
+(622, 2, 177, NULL, NULL),
+(623, 2, 178, NULL, NULL),
+(624, 2, 179, NULL, NULL),
+(625, 2, 180, NULL, NULL),
+(626, 2, 181, NULL, NULL),
+(627, 2, 182, NULL, NULL),
+(628, 2, 183, NULL, NULL),
+(629, 2, 184, NULL, NULL),
+(630, 2, 185, NULL, NULL),
+(631, 2, 186, NULL, NULL),
+(632, 2, 187, NULL, NULL),
+(633, 2, 188, NULL, NULL),
+(634, 2, 189, NULL, NULL),
+(635, 2, 190, NULL, NULL),
+(636, 2, 191, NULL, NULL),
+(637, 2, 192, NULL, NULL),
+(638, 2, 193, NULL, NULL),
+(639, 2, 194, NULL, NULL),
+(640, 2, 195, NULL, NULL),
+(641, 2, 196, NULL, NULL),
+(642, 2, 197, NULL, NULL),
+(643, 2, 198, NULL, NULL),
+(644, 2, 199, NULL, NULL),
+(645, 2, 200, NULL, NULL),
+(646, 2, 201, NULL, NULL),
+(647, 2, 275, NULL, NULL),
+(648, 2, 276, NULL, NULL),
+(649, 2, 277, NULL, NULL),
+(650, 2, 278, NULL, NULL),
+(651, 2, 279, NULL, NULL),
+(652, 2, 280, NULL, NULL),
+(653, 2, 281, NULL, NULL),
+(654, 2, 282, NULL, NULL),
+(655, 2, 283, NULL, NULL),
+(656, 2, 284, NULL, NULL),
+(657, 2, 285, NULL, NULL),
+(658, 2, 286, NULL, NULL),
+(659, 2, 287, NULL, NULL),
+(660, 2, 288, NULL, NULL),
+(661, 2, 289, NULL, NULL),
+(662, 2, 290, NULL, NULL),
+(663, 2, 291, NULL, NULL),
+(664, 2, 292, NULL, NULL),
+(665, 2, 293, NULL, NULL),
+(666, 2, 294, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12960,67 +12965,67 @@ CREATE TABLE IF NOT EXISTS `dcem_ptributos_aportes` (
   PRIMARY KEY (`id_dcem_ptributo_aporte`),
   KEY `id_detalle_concepto_empleador_maestro` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_ptrabajador` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tributos y aportes 0600 y 0800' AUTO_INCREMENT=271 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tributos y aportes 0600 y 0800' AUTO_INCREMENT=244 ;
 
 --
 -- Dumping data for table `dcem_ptributos_aportes`
 --
 
 INSERT INTO `dcem_ptributos_aportes` (`id_dcem_ptributo_aporte`, `id_detalle_concepto_empleador_maestro`, `id_ptrabajador`, `monto`) VALUES
-(217, 69, 9, NULL),
-(218, 70, 9, NULL),
-(219, 71, 9, NULL),
-(220, 72, 9, NULL),
-(221, 73, 9, NULL),
-(222, 74, 9, NULL),
-(223, 75, 9, NULL),
-(224, 76, 9, NULL),
-(225, 77, 9, NULL),
-(226, 78, 9, NULL),
-(227, 79, 9, NULL),
-(228, 80, 9, NULL),
-(229, 81, 9, NULL),
-(230, 82, 9, NULL),
-(231, 83, 9, NULL),
-(232, 84, 9, NULL),
-(233, 92, 9, NULL),
-(234, 93, 9, NULL),
-(235, 94, 9, NULL),
-(236, 95, 9, NULL),
-(237, 96, 9, NULL),
-(238, 97, 9, NULL),
-(239, 98, 9, NULL),
-(240, 99, 9, NULL),
-(241, 100, 9, NULL),
-(242, 101, 9, NULL),
-(243, 102, 9, NULL),
-(244, 69, 10, NULL),
-(245, 70, 10, NULL),
-(246, 71, 10, NULL),
-(247, 72, 10, NULL),
-(248, 73, 10, NULL),
-(249, 74, 10, NULL),
-(250, 75, 10, NULL),
-(251, 76, 10, NULL),
-(252, 77, 10, NULL),
-(253, 78, 10, NULL),
-(254, 79, 10, NULL),
-(255, 80, 10, NULL),
-(256, 81, 10, NULL),
-(257, 82, 10, NULL),
-(258, 83, 10, NULL),
-(259, 84, 10, NULL),
-(260, 92, 10, NULL),
-(261, 93, 10, NULL),
-(262, 94, 10, NULL),
-(263, 95, 10, NULL),
-(264, 96, 10, NULL),
-(265, 97, 10, NULL),
-(266, 98, 10, NULL),
-(267, 99, 10, NULL),
-(268, 100, 10, NULL),
-(269, 101, 10, NULL),
-(270, 102, 10, NULL);
+(190, 216, 1, NULL),
+(191, 217, 1, NULL),
+(192, 218, 1, NULL),
+(193, 219, 1, NULL),
+(194, 220, 1, NULL),
+(195, 221, 1, NULL),
+(196, 222, 1, NULL),
+(197, 223, 1, NULL),
+(198, 224, 1, NULL),
+(199, 225, 1, NULL),
+(200, 226, 1, NULL),
+(201, 227, 1, NULL),
+(202, 228, 1, NULL),
+(203, 229, 1, NULL),
+(204, 230, 1, NULL),
+(205, 231, 1, NULL),
+(206, 239, 1, NULL),
+(207, 240, 1, NULL),
+(208, 241, 1, NULL),
+(209, 242, 1, NULL),
+(210, 243, 1, NULL),
+(211, 244, 1, NULL),
+(212, 245, 1, NULL),
+(213, 246, 1, NULL),
+(214, 247, 1, NULL),
+(215, 248, 1, NULL),
+(216, 249, 1, NULL),
+(217, 216, 2, NULL),
+(218, 217, 2, NULL),
+(219, 218, 2, NULL),
+(220, 219, 2, NULL),
+(221, 220, 2, NULL),
+(222, 221, 2, NULL),
+(223, 222, 2, NULL),
+(224, 223, 2, NULL),
+(225, 224, 2, NULL),
+(226, 225, 2, NULL),
+(227, 226, 2, NULL),
+(228, 227, 2, NULL),
+(229, 228, 2, NULL),
+(230, 229, 2, NULL),
+(231, 230, 2, NULL),
+(232, 231, 2, NULL),
+(233, 239, 2, NULL),
+(234, 240, 2, NULL),
+(235, 241, 2, NULL),
+(236, 242, 2, NULL),
+(237, 243, 2, NULL),
+(238, 244, 2, NULL),
+(239, 245, 2, NULL),
+(240, 246, 2, NULL),
+(241, 247, 2, NULL),
+(242, 248, 2, NULL),
+(243, 249, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -13062,12 +13067,14 @@ CREATE TABLE IF NOT EXISTS `derechohabientes` (
   KEY `cod_situacion` (`cod_situacion`),
   KEY `cod_motivo_baja_derechohabiente` (`cod_motivo_baja_derechohabiente`),
   KEY `id_estado_civil` (`id_estado_civil`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `derechohabientes`
 --
 
+INSERT INTO `derechohabientes` (`id_derechohabiente`, `id_persona`, `cod_tipo_documento`, `num_documento`, `cod_pais_emisor_documento`, `fecha_nacimiento`, `apellido_paterno`, `apellido_materno`, `nombres`, `sexo`, `id_estado_civil`, `cod_vinculo_familiar`, `cod_documento_vinculo_familiar`, `vf_num_documento`, `vf_mes_concepcion`, `cod_telefono_codigo_nacional`, `telefono`, `correo`, `cod_motivo_baja_derechohabiente`, `cod_situacion`, `estado`, `fecha_baja`, `fecha_creacion`) VALUES
+(1, 7, '01', '62625254', '604', '1969-12-31', 'asd', 'sds', 'sd', 'M', 1, '02', '05', '525155', '2011-01-31', '0', '', '', '0', '1', 'INACTIVO', NULL, '2012-08-01');
 
 -- --------------------------------------------------------
 
@@ -13099,12 +13106,15 @@ CREATE TABLE IF NOT EXISTS `derechohabientes_direcciones` (
   KEY `cod_zona` (`cod_zona`),
   KEY `id_derechohabiente` (`id_derechohabiente`),
   KEY `cod_ubigeo_reniec` (`cod_ubigeo_reniec`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `derechohabientes_direcciones`
 --
 
+INSERT INTO `derechohabientes_direcciones` (`id_derechohabiente_direccion`, `id_derechohabiente`, `cod_ubigeo_reniec`, `cod_via`, `nombre_via`, `numero_via`, `departamento`, `interior`, `manzana`, `lote`, `kilometro`, `block`, `etapa`, `cod_zona`, `nombre_zona`, `referencia`, `referente_essalud`, `estado_direccion`) VALUES
+(1, 1, '180101', '01', 'otrooooo', 'sss', '', '', '', '', '', '', '', '01', 'sssssss', '', 0, 1),
+(2, 1, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -13486,7 +13496,7 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (125, 1, '0923', 0, NULL),
 (126, 1, '0924', 0, NULL),
 (127, 1, '0925', 0, NULL),
-(128, 1, '1001', 0, NULL),
+(128, 1, '1001', 1, 'new gol marino'),
 (129, 1, '1002', 0, NULL),
 (130, 1, '1003', 0, NULL),
 (131, 1, '1004', 0, NULL),
@@ -13574,17 +13584,17 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (213, 2, '0505', 0, NULL),
 (214, 2, '0506', 0, NULL),
 (215, 2, '0507', 0, NULL),
-(216, 2, '0601', 0, NULL),
-(217, 2, '0602', 0, NULL),
+(216, 2, '0601', 1, NULL),
+(217, 2, '0602', 1, NULL),
 (218, 2, '0603', 0, NULL),
-(219, 2, '0604', 0, NULL),
-(220, 2, '0605', 0, NULL),
-(221, 2, '0606', 0, NULL),
-(222, 2, '0607', 0, NULL),
-(223, 2, '0608', 0, NULL),
-(224, 2, '0609', 0, NULL),
+(219, 2, '0604', 1, NULL),
+(220, 2, '0605', 1, NULL),
+(221, 2, '0606', 1, NULL),
+(222, 2, '0607', 1, NULL),
+(223, 2, '0608', 1, NULL),
+(224, 2, '0609', 1, NULL),
 (225, 2, '0610', 0, NULL),
-(226, 2, '0611', 0, NULL),
+(226, 2, '0611', 1, NULL),
 (227, 2, '0612', 0, NULL),
 (228, 2, '0613', 0, NULL),
 (229, 2, '0614', 0, NULL),
@@ -13597,15 +13607,15 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (236, 2, '0705', 0, NULL),
 (237, 2, '0706', 1, NULL),
 (238, 2, '0707', 0, NULL),
-(239, 2, '0801', 0, NULL),
+(239, 2, '0801', 1, NULL),
 (240, 2, '0802', 0, NULL),
-(241, 2, '0803', 0, NULL),
-(242, 2, '0804', 0, NULL),
+(241, 2, '0803', 1, NULL),
+(242, 2, '0804', 1, NULL),
 (243, 2, '0805', 0, NULL),
 (244, 2, '0806', 0, NULL),
 (245, 2, '0807', 0, NULL),
 (246, 2, '0808', 0, NULL),
-(247, 2, '0809', 0, NULL),
+(247, 2, '0809', 1, NULL),
 (248, 2, '0810', 0, NULL),
 (249, 2, '0811', 0, NULL),
 (250, 2, '0901', 0, NULL),
@@ -13633,7 +13643,7 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (272, 2, '0923', 0, NULL),
 (273, 2, '0924', 0, NULL),
 (274, 2, '0925', 0, NULL),
-(275, 2, '1001', 0, NULL),
+(275, 2, '1001', 1, 'concepto Camuente'),
 (276, 2, '1002', 0, NULL),
 (277, 2, '1003', 0, NULL),
 (278, 2, '1004', 0, NULL),
@@ -15705,7 +15715,7 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimiento` (
   PRIMARY KEY (`id_detalle_establecimiento`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_establecimiento` (`id_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `detalle_establecimiento`
@@ -15713,9 +15723,13 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimiento` (
 
 INSERT INTO `detalle_establecimiento` (`id_detalle_establecimiento`, `id_trabajador`, `id_establecimiento`) VALUES
 (1, 2, 1),
-(2, 3, 0),
 (4, 5, 2),
-(5, 6, 2);
+(5, 6, 2),
+(6, 7, 4),
+(13, 14, 3),
+(14, 15, 1),
+(15, 16, 2),
+(16, 17, 0);
 
 -- --------------------------------------------------------
 
@@ -15730,7 +15744,7 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimientos_formacion` (
   PRIMARY KEY (`id_detalle_establecimiento_formacion`),
   KEY `id_establecimiento` (`id_establecimiento`),
   KEY `id_personal_formacion_laboral` (`id_personal_formacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `detalle_establecimientos_formacion`
@@ -15738,9 +15752,14 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimientos_formacion` (
 
 INSERT INTO `detalle_establecimientos_formacion` (`id_detalle_establecimiento_formacion`, `id_personal_formacion_laboral`, `id_establecimiento`) VALUES
 (1, 2, 0),
-(2, 3, 0),
 (4, 5, 0),
-(5, 6, 0);
+(5, 6, 0),
+(6, 7, 0),
+(12, 13, 0),
+(13, 14, 0),
+(14, 15, 0),
+(15, 16, 0),
+(16, 17, 0);
 
 -- --------------------------------------------------------
 
@@ -15755,7 +15774,7 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_formativos` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_detalle_periodo_formativo`),
   KEY `id_personal_formacion_laboral` (`id_personal_formacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------ detallle HISTORIAL- ---' AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------ detallle HISTORIAL- ---' AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `detalle_periodos_formativos`
@@ -15763,9 +15782,14 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_formativos` (
 
 INSERT INTO `detalle_periodos_formativos` (`id_detalle_periodo_formativo`, `id_personal_formacion_laboral`, `fecha_inicio`, `fecha_fin`) VALUES
 (19, 2, NULL, NULL),
-(20, 3, NULL, NULL),
 (22, 5, NULL, NULL),
-(23, 6, NULL, NULL);
+(23, 6, NULL, NULL),
+(24, 7, NULL, NULL),
+(30, 13, NULL, NULL),
+(31, 14, NULL, NULL),
+(32, 15, NULL, NULL),
+(33, 16, NULL, NULL),
+(34, 17, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -15779,20 +15803,26 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales` (
   `cod_motivo_baja_registro` char(2) NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
+  `id_persona` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_detalle_periodo_laboral`),
   KEY `id_trabajador` (`id_trabajador`),
-  KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=46 ;
+  KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`),
+  KEY `id_persona` (`id_persona`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=71 ;
 
 --
 -- Dumping data for table `detalle_periodos_laborales`
 --
 
-INSERT INTO `detalle_periodos_laborales` (`id_detalle_periodo_laboral`, `id_trabajador`, `cod_motivo_baja_registro`, `fecha_inicio`, `fecha_fin`) VALUES
-(41, 2, '0', '2011-11-01', NULL),
-(42, 3, '0', '0000-00-00', NULL),
-(44, 5, '0', '2012-07-10', NULL),
-(45, 6, '01', '2012-04-01', '2012-06-30');
+INSERT INTO `detalle_periodos_laborales` (`id_detalle_periodo_laboral`, `id_trabajador`, `cod_motivo_baja_registro`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
+(41, 2, '01', '2011-01-01', '2012-01-20', 1),
+(44, 5, '0', '2012-07-10', NULL, 4),
+(45, 6, '01', '2012-04-01', '2012-06-30', 5),
+(46, 7, '0', '2012-04-01', NULL, 6),
+(67, 14, '01', '2012-01-28', '2012-01-28', 1),
+(68, 15, '0', '2012-01-01', NULL, 7),
+(69, 16, '0', '2012-01-30', NULL, 1),
+(70, 17, '0', NULL, NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -15809,7 +15839,7 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales_pensionistas` (
   PRIMARY KEY (`id_detalle_periodo_laboral_pensionista`),
   KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`),
   KEY `id_pensionista` (`id_pensionista`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='\r\n------ HISTORIAL ------' AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='\r\n------ HISTORIAL ------' AUTO_INCREMENT=51 ;
 
 --
 -- Dumping data for table `detalle_periodos_laborales_pensionistas`
@@ -15817,9 +15847,14 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales_pensionistas` (
 
 INSERT INTO `detalle_periodos_laborales_pensionistas` (`id_detalle_periodo_laboral_pensionista`, `cod_motivo_baja_registro`, `id_pensionista`, `fecha_inicio`, `fecha_fin`) VALUES
 (35, '0', 2, NULL, NULL),
-(36, '0', 3, NULL, NULL),
 (38, '0', 5, NULL, NULL),
-(39, '0', 6, NULL, NULL);
+(39, '0', 6, NULL, NULL),
+(40, '0', 7, NULL, NULL),
+(46, '0', 13, NULL, NULL),
+(47, '0', 14, NULL, NULL),
+(48, '0', 15, NULL, NULL),
+(49, '0', 16, NULL, NULL),
+(50, '0', 17, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -15834,20 +15869,26 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_pensionarios` (
   `cuspp` char(15) DEFAULT NULL COMMENT 'no tiene codigo si es ONP',
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
+  `id_persona` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_detalle_regimen_pensionario`,`id_trabajador`,`cod_regimen_pensionario`),
   KEY `id_trabajador` (`id_trabajador`),
-  KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=6 ;
+  KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`),
+  KEY `id_persona` (`id_persona`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `detalle_regimenes_pensionarios`
 --
 
-INSERT INTO `detalle_regimenes_pensionarios` (`id_detalle_regimen_pensionario`, `id_trabajador`, `cod_regimen_pensionario`, `cuspp`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 2, '02', '', '2011-01-01', NULL),
-(2, 3, '0', NULL, NULL, NULL),
-(4, 5, '21', '623351JGRGA3', '2012-07-10', NULL),
-(5, 6, '02', '', '2012-04-01', '2012-06-30');
+INSERT INTO `detalle_regimenes_pensionarios` (`id_detalle_regimen_pensionario`, `id_trabajador`, `cod_regimen_pensionario`, `cuspp`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
+(1, 2, '02', '', '2011-01-01', '2012-01-20', 1),
+(4, 5, '21', '623351JGRGA3', '2012-07-10', NULL, 4),
+(5, 6, '02', '', '2012-04-01', '2012-06-30', 5),
+(6, 7, '02', '', '2012-04-01', NULL, 6),
+(13, 14, '02', '', '2012-01-28', '2012-01-28', 1),
+(14, 15, '02', '', '2012-01-01', NULL, 7),
+(15, 16, '02', '', '2012-01-30', NULL, 1),
+(16, 17, '0', NULL, NULL, NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -15862,21 +15903,27 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_salud` (
   `fecha_inicio` char(20) DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
   `cod_eps` char(2) NOT NULL,
+  `id_persona` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_detalle_regimen_salud`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_regimen_aseguramiento_salud` (`cod_regimen_aseguramiento_salud`),
-  KEY `cod_eps` (`cod_eps`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+  KEY `cod_eps` (`cod_eps`),
+  KEY `id_persona` (`id_persona`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
 
 --
 -- Dumping data for table `detalle_regimenes_salud`
 --
 
-INSERT INTO `detalle_regimenes_salud` (`id_detalle_regimen_salud`, `id_trabajador`, `cod_regimen_aseguramiento_salud`, `fecha_inicio`, `fecha_fin`, `cod_eps`) VALUES
-(41, 2, '00', '2011-01-01', NULL, '0'),
-(42, 3, '0', NULL, NULL, '0'),
-(44, 5, '00', '2012-07-10', NULL, '0'),
-(45, 6, '00', '2012-04-01', '2012-06-30', '0');
+INSERT INTO `detalle_regimenes_salud` (`id_detalle_regimen_salud`, `id_trabajador`, `cod_regimen_aseguramiento_salud`, `fecha_inicio`, `fecha_fin`, `cod_eps`, `id_persona`) VALUES
+(41, 2, '00', '2011-01-01', '2012-01-20', '0', 1),
+(44, 5, '00', '2012-07-10', NULL, '0', 4),
+(45, 6, '00', '2012-04-01', '2012-06-30', '0', 5),
+(46, 7, '00', '2012-04-01', NULL, '0', 6),
+(53, 14, '00', '2012-01-28', '2012-01-28', '0', 1),
+(54, 15, '00', '2012-01-01', NULL, '0', 7),
+(55, 16, '00', '2012-01-30', NULL, '0', 1),
+(56, 17, '0', NULL, NULL, '0', 8);
 
 -- --------------------------------------------------------
 
@@ -15890,20 +15937,26 @@ CREATE TABLE IF NOT EXISTS `detalle_tipos_trabajadores` (
   `cod_tipo_trabajador` char(2) NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
+  `id_persona` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_detalle_tipo_trabajador`),
   KEY `id_trabajador` (`id_trabajador`),
-  KEY `cod_tipo_trabajador` (`cod_tipo_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=6 ;
+  KEY `cod_tipo_trabajador` (`cod_tipo_trabajador`),
+  KEY `id_persona` (`id_persona`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `detalle_tipos_trabajadores`
 --
 
-INSERT INTO `detalle_tipos_trabajadores` (`id_detalle_tipo_trabajador`, `id_trabajador`, `cod_tipo_trabajador`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 2, '21', '2011-01-01', NULL),
-(2, 3, '0', NULL, NULL),
-(4, 5, '21', '2012-07-10', NULL),
-(5, 6, '21', '2012-04-01', '2012-06-30');
+INSERT INTO `detalle_tipos_trabajadores` (`id_detalle_tipo_trabajador`, `id_trabajador`, `cod_tipo_trabajador`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
+(1, 2, '21', '2011-01-01', '2012-01-20', 1),
+(4, 5, '21', '2012-07-10', NULL, 4),
+(5, 6, '21', '2012-04-01', '2012-06-30', 5),
+(6, 7, '21', '2012-04-01', NULL, 6),
+(13, 14, '21', '2012-01-28', '2012-01-28', 1),
+(14, 15, '21', '2012-01-01', NULL, 7),
+(15, 16, '21', '2012-01-30', NULL, 1),
+(16, 17, '0', NULL, NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -16049,8 +16102,8 @@ CREATE TABLE IF NOT EXISTS `empleadores_maestros` (
 
 INSERT INTO `empleadores_maestros` (`id_empleador_maestro`, `id_empleador`, `fecha_creacion`) VALUES
 (0, 0, '2012-06-24'),
-(1, 1, NULL),
-(2, 2, '2012-07-14');
+(1, 2, NULL),
+(2, 1, '2012-07-14');
 
 -- --------------------------------------------------------
 
@@ -16116,7 +16169,7 @@ CREATE TABLE IF NOT EXISTS `establecimientos` (
   PRIMARY KEY (`id_establecimiento`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_tipo_establecimiento` (`id_tipo_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Relacion_OK_con trabajador\r\nSUNAT  ESTABLECIMIENTOS \r\nform d' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Relacion_OK_con trabajador\r\nSUNAT  ESTABLECIMIENTOS \r\nform d' AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `establecimientos`
@@ -16124,9 +16177,10 @@ CREATE TABLE IF NOT EXISTS `establecimientos` (
 
 INSERT INTO `establecimientos` (`id_establecimiento`, `id_empleador`, `id_tipo_establecimiento`, `cod_establecimiento`, `realizaran_actividad_riesgo`, `fecha_creacion`) VALUES
 (0, 0, 1, '0', 0, '0000-00-00'),
-(1, 1, 1, '0000', NULL, '2012-07-10'),
+(1, 1, 1, '0000', 0, '2012-07-10'),
 (2, 1, 2, '0003', NULL, '2012-07-10'),
-(3, 1, 2, '0001', NULL, '2012-07-10');
+(3, 1, 2, '0001', NULL, '2012-07-10'),
+(4, 2, 1, '0000', NULL, '2012-07-23');
 
 -- --------------------------------------------------------
 
@@ -16185,7 +16239,7 @@ CREATE TABLE IF NOT EXISTS `establecimientos_direcciones` (
   KEY `cod_zona` (`cod_zona`),
   KEY `id_establecimiento` (`id_establecimiento`),
   KEY `cod_ubigeo_reniec` (`cod_ubigeo_reniec`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='direccion UNICA principal ante SUNAT\r\n1 Establecimiento tien' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='direccion UNICA principal ante SUNAT\r\n1 Establecimiento tien' AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `establecimientos_direcciones`
@@ -16194,7 +16248,8 @@ CREATE TABLE IF NOT EXISTS `establecimientos_direcciones` (
 INSERT INTO `establecimientos_direcciones` (`id_establecimiento_direccion`, `id_establecimiento`, `cod_ubigeo_reniec`, `cod_via`, `nombre_via`, `numero_via`, `departamento`, `interior`, `manzana`, `lote`, `kilometro`, `block`, `etapa`, `cod_zona`, `nombre_zona`, `referencia`) VALUES
 (1, 1, '140101', '01', 'Guillermo Presccot', '395', '', '', '', '', '', '', '', '0', '', ''),
 (2, 2, '140117', '03', 'BARTOLOME FIGARI', '193', '', '', '', '', '', '', '', '0', '', ''),
-(3, 3, '140140', '01', 'SAN BORJA SUR', '241', '', '', '', '', '', '', '', '0', '', '');
+(3, 3, '140140', '01', 'SAN BORJA SUR', '241', '', '', '', '', '', '', '', '0', '', ''),
+(4, 4, '140124', '01', 'prescott', '251', '', '', '', '', '', '', '', '0', '', '');
 
 -- --------------------------------------------------------
 
@@ -16251,7 +16306,7 @@ CREATE TABLE IF NOT EXISTS `lugares_destaques` (
   PRIMARY KEY (`id_lugar_destaque`),
   KEY `id_personal_tercero` (`id_personal_tercero`),
   KEY `id_establecimiento` (`id_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `lugares_destaques`
@@ -16259,9 +16314,14 @@ CREATE TABLE IF NOT EXISTS `lugares_destaques` (
 
 INSERT INTO `lugares_destaques` (`id_lugar_destaque`, `id_personal_tercero`, `id_establecimiento`) VALUES
 (12, 1, 0),
-(13, 2, 0),
 (15, 4, 0),
-(16, 5, 0);
+(16, 5, 0),
+(17, 6, 0),
+(23, 12, 0),
+(24, 13, 0),
+(25, 14, 0),
+(26, 15, 0),
+(27, 16, 0);
 
 -- --------------------------------------------------------
 
@@ -26418,6 +26478,8 @@ CREATE TABLE IF NOT EXISTS `pdeclaraciones` (
   `id_pdeclaracion` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_empleador_maestro` int(10) unsigned NOT NULL,
   `periodo` date DEFAULT NULL,
+  `fecha_creacion` date DEFAULT NULL,
+  `fecha_modificacion` date DEFAULT NULL,
   PRIMARY KEY (`id_pdeclaracion`),
   KEY `id_empleador_maestro` (`id_empleador_maestro`),
   KEY `id_empleador_maestro_2` (`id_empleador_maestro`)
@@ -26427,9 +26489,44 @@ CREATE TABLE IF NOT EXISTS `pdeclaraciones` (
 -- Dumping data for table `pdeclaraciones`
 --
 
-INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `periodo`) VALUES
-(1, 1, '2012-01-01'),
-(2, 1, '2012-02-01');
+INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `periodo`, `fecha_creacion`, `fecha_modificacion`) VALUES
+(2, 2, '2012-01-01', '2012-08-02', '2012-08-02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pdias_no_laborados_no_subsidiados`
+--
+
+CREATE TABLE IF NOT EXISTS `pdias_no_laborados_no_subsidiados` (
+  `id_pdia_nl_ns` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_pjornada_laboral` int(10) unsigned NOT NULL,
+  `cantidad_dia` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_pdia_nl_ns`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `pdias_no_laborados_no_subsidiados`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pdias_subsidiados`
+--
+
+CREATE TABLE IF NOT EXISTS `pdias_subsidiados` (
+  `pdia_subsidiado` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_pjornada_laboral` int(10) unsigned NOT NULL,
+  `cantidad_dia` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pdia_subsidiado`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Las midicaciones y demas guardados en  SESSION\r\no USAR jsss' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `pdias_subsidiados`
+--
+
 
 -- --------------------------------------------------------
 
@@ -26452,7 +26549,7 @@ CREATE TABLE IF NOT EXISTS `pensionistas` (
   KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`),
   KEY `id_persona` (`id_persona`),
   KEY `cod_situacion` (`cod_situacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `pensionistas`
@@ -26460,9 +26557,14 @@ CREATE TABLE IF NOT EXISTS `pensionistas` (
 
 INSERT INTO `pensionistas` (`id_pensionista`, `id_persona`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cuspp`, `cod_tipo_pago`, `cod_situacion`, `estado`) VALUES
 (2, 1, '0', '0', NULL, '0', '1', 'INACTIVO'),
-(3, 2, '0', '0', NULL, '0', '1', 'INACTIVO'),
 (5, 4, '0', '0', NULL, '0', '1', 'INACTIVO'),
-(6, 5, '0', '0', NULL, '0', '1', 'INACTIVO');
+(6, 5, '0', '0', NULL, '0', '1', 'INACTIVO'),
+(7, 6, '0', '0', NULL, '0', '1', 'INACTIVO'),
+(13, 1, '0', '0', NULL, '0', '1', 'INACTIVO'),
+(14, 1, '0', '0', NULL, '0', '1', 'INACTIVO'),
+(15, 7, '0', '0', NULL, '0', '1', 'INACTIVO'),
+(16, 1, '0', '0', NULL, '0', '1', 'INACTIVO'),
+(17, 8, '0', '0', NULL, '0', '1', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -26477,7 +26579,7 @@ CREATE TABLE IF NOT EXISTS `periodos_destaques` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_periodo_destaque`),
   KEY `id_personal_tercero` (`id_personal_tercero`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='LINK_DETALLE' AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='LINK_DETALLE' AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `periodos_destaques`
@@ -26485,9 +26587,14 @@ CREATE TABLE IF NOT EXISTS `periodos_destaques` (
 
 INSERT INTO `periodos_destaques` (`id_periodo_destaque`, `id_personal_tercero`, `fecha_inicio`, `fecha_fin`) VALUES
 (13, 1, NULL, NULL),
-(14, 2, NULL, NULL),
 (16, 4, NULL, NULL),
-(17, 5, NULL, NULL);
+(17, 5, NULL, NULL),
+(18, 6, NULL, NULL),
+(24, 12, NULL, NULL),
+(25, 13, NULL, NULL),
+(26, 14, NULL, NULL),
+(27, 15, NULL, NULL),
+(28, 16, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -26537,7 +26644,7 @@ CREATE TABLE IF NOT EXISTS `personales_formaciones_laborales` (
   KEY `id_modalidad_formativa` (`id_modalidad_formativa`),
   KEY `id_ocupacion_2` (`id_ocupacion_2`),
   KEY `cod_situacion` (`cod_situacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `personales_formaciones_laborales`
@@ -26545,9 +26652,14 @@ CREATE TABLE IF NOT EXISTS `personales_formaciones_laborales` (
 
 INSERT INTO `personales_formaciones_laborales` (`id_personal_formacion_laboral`, `id_persona`, `cod_nivel_educativo`, `id_modalidad_formativa`, `id_ocupacion_2`, `centro_formacion`, `seguro_medico`, `presenta_discapacidad`, `horario_nocturno`, `cod_situacion`, `estado`) VALUES
 (2, 1, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
-(3, 2, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
 (5, 4, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
-(6, 5, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO');
+(6, 5, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
+(7, 6, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
+(13, 1, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
+(14, 1, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
+(15, 7, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
+(16, 1, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO'),
+(17, 8, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -26566,7 +26678,7 @@ CREATE TABLE IF NOT EXISTS `personales_terceros` (
   KEY `id_persona` (`id_persona`),
   KEY `id_empleador_destaque_yoursef` (`id_empleador_destaque_yoursef`),
   KEY `cod_situacion` (`cod_situacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='RUC de la empresa que destaca o desplaza' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='RUC de la empresa que destaca o desplaza' AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `personales_terceros`
@@ -26574,9 +26686,14 @@ CREATE TABLE IF NOT EXISTS `personales_terceros` (
 
 INSERT INTO `personales_terceros` (`id_personal_tercero`, `id_persona`, `id_empleador_destaque_yoursef`, `cobertura_pension`, `cod_situacion`, `estado`) VALUES
 (1, 1, 0, NULL, '1', 'INACTIVO'),
-(2, 2, 0, NULL, '1', 'INACTIVO'),
 (4, 4, 0, NULL, '1', 'INACTIVO'),
-(5, 5, 0, NULL, '1', 'INACTIVO');
+(5, 5, 0, NULL, '1', 'INACTIVO'),
+(6, 6, 0, NULL, '1', 'INACTIVO'),
+(12, 1, 0, NULL, '1', 'INACTIVO'),
+(13, 1, 0, NULL, '1', 'INACTIVO'),
+(14, 7, 0, NULL, '1', 'INACTIVO'),
+(15, 1, 0, NULL, '1', 'INACTIVO'),
+(16, 8, 0, NULL, '1', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -26615,7 +26732,7 @@ CREATE TABLE IF NOT EXISTS `personas` (
   KEY `cod_telefono_codigo_nacional` (`cod_telefono_codigo_nacional`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_estado_civil` (`id_estado_civil`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `personas`
@@ -26623,9 +26740,11 @@ CREATE TABLE IF NOT EXISTS `personas` (
 
 INSERT INTO `personas` (`id_persona`, `id_empleador`, `cod_pais_emisor_documento`, `cod_tipo_documento`, `cod_nacionalidad`, `num_documento`, `fecha_nacimiento`, `apellido_paterno`, `apellido_materno`, `nombres`, `sexo`, `id_estado_civil`, `cod_telefono_codigo_nacional`, `telefono`, `correo`, `tabla_trabajador`, `tabla_pensionista`, `tabla_personal_formacion_laboral`, `tabla_personal_terceros`, `estado`, `fecha_creacion`, `fecha_modificacion`, `fecha_baja`) VALUES
 (1, 1, '604', '01', '9589', '45269187', '1988-08-08', 'copitan', 'norabuena', 'victor anibal', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-07-06', '2012-07-10', NULL),
-(2, 1, '604', '01', '9589', '25151549', '1977-02-05', 'lirda', 'luren', 'gina rosa', '1', 1, '1', '45424245', 'gina@hotmail.com', 1, 0, 0, 0, 'ACTIVO', '2012-07-07', NULL, NULL),
 (4, 1, '604', '01', '9589', '45347323', '1988-07-13', 'GARGATE', 'ROSALES', 'JONATHAN', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-07-10', NULL, NULL),
-(5, 1, '604', '01', '9589', '47971205', '1993-09-13', 'TORRES', 'GARCES', 'BRAYAN SLEYTER', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-07-20', NULL, NULL);
+(5, 1, '604', '01', '9589', '47971205', '1993-09-13', 'TORRES', 'GARCES', 'BRAYAN SLEYTER', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-07-20', NULL, NULL),
+(6, 2, '604', '01', '9589', '45269187', '1988-08-08', 'copitan', 'norabuena', 'victor anb', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-07-23', NULL, NULL),
+(7, 1, '604', '01', '9589', '11111111', '1991-01-01', 'new 0', 'new 1', 'name', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-07-30', NULL, NULL),
+(8, 1, '604', '01', '9589', '55555555', '1977-01-01', 'as', 'sasd', 'ddd', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-08-01', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -26657,7 +26776,7 @@ CREATE TABLE IF NOT EXISTS `personas_direcciones` (
   KEY `cod_zona` (`cod_zona`),
   KEY `id_persona` (`id_persona`),
   KEY `cod_ubigeo_reniec` (`cod_ubigeo_reniec`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `personas_direcciones`
@@ -26666,12 +26785,16 @@ CREATE TABLE IF NOT EXISTS `personas_direcciones` (
 INSERT INTO `personas_direcciones` (`id_persona_direccion`, `id_persona`, `cod_ubigeo_reniec`, `cod_via`, `nombre_via`, `numero_via`, `departamento`, `interior`, `manzana`, `lote`, `kilometro`, `block`, `etapa`, `cod_zona`, `nombre_zona`, `referencia`, `referente_essalud`, `estado_direccion`) VALUES
 (1, 1, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', 1, 1),
 (2, 1, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', NULL, 2),
-(3, 2, '020301', '02', 'asd', 'sad', '', '', '', '', '', '', '', '0', '', '', 1, 1),
-(4, 2, '030403', '02', 'asd', '4545', '', '', '', '', '', '', '', '0', '', '', 0, 2),
-(7, 4, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', 1, 1),
-(8, 4, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(7, 4, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', 0, 1),
+(8, 4, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', NULL, 2),
 (9, 5, '140137', '02', 'LOS LINOS', '', '', '', 'C', '21', '', '', '', '99', 'SAN HILARION', '', 1, 1),
-(10, 5, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
+(10, 5, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(11, 6, '0', '0', '', '', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(12, 6, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(13, 7, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, 1, 1),
+(14, 7, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(15, 8, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, 1, 1),
+(16, 8, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -26691,15 +26814,40 @@ CREATE TABLE IF NOT EXISTS `pjornadas_laborales` (
   `hora_sobretiempo_mm` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pjornada_laboral`),
   KEY `id_ptrabajador` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `pjornadas_laborales`
 --
 
 INSERT INTO `pjornadas_laborales` (`id_pjornada_laboral`, `id_ptrabajador`, `dia_laborado`, `dia_subsidiado`, `dia_nolaborado_nosubsidiado`, `hora_ordinaria_hh`, `hora_ordinaria_mm`, `hora_sobretiempo_hh`, `hora_sobretiempo_mm`) VALUES
-(9, 9, 31, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 10, 29, NULL, NULL, NULL, NULL, NULL, NULL);
+(25, 1, 23, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 2, 31, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pperiodos_laborales`
+--
+
+CREATE TABLE IF NOT EXISTS `pperiodos_laborales` (
+  `id_pperiodo_laboral` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_ptrabajador` int(10) unsigned NOT NULL,
+  `fecha_inicio` date DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  PRIMARY KEY (`id_pperiodo_laboral`),
+  KEY `id_ptrabajador` (`id_ptrabajador`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Puede tener barios periodos de trabajando dentro de ese MES' AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `pperiodos_laborales`
+--
+
+INSERT INTO `pperiodos_laborales` (`id_pperiodo_laboral`, `id_ptrabajador`, `fecha_inicio`, `fecha_fin`) VALUES
+(5, 1, '2011-01-01', '2012-01-20'),
+(6, 1, '2012-01-28', '2012-01-28'),
+(7, 1, '2012-01-30', NULL),
+(8, 2, '2012-01-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -26762,24 +26910,29 @@ CREATE TABLE IF NOT EXISTS `pps_detalles_4tacategorias` (
 
 CREATE TABLE IF NOT EXISTS `ptrabajadores` (
   `id_ptrabajador` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_trabajador` int(10) unsigned NOT NULL COMMENT 'Se repite multiples veces x cada periodo OK',
   `id_pdeclaracion` int(10) unsigned NOT NULL,
-  `id_trabajador` int(10) unsigned NOT NULL,
-  `aporta_essalud_vida` tinyint(1) DEFAULT NULL,
-  `aporta_asegura_tu_pension` tinyint(1) DEFAULT NULL,
+  `aporta_essalud_sctr` tinyint(1) DEFAULT '0' COMMENT 'falta implementar',
+  `aporta_essalud_vida` tinyint(1) DEFAULT '0',
+  `aporta_asegura_tu_pension` tinyint(1) DEFAULT '0',
   `domiciliado` tinyint(1) DEFAULT NULL,
-  `ingreso_5ta_categoria` tinyint(1) DEFAULT NULL,
+  `ingreso_5ta_categoria` tinyint(1) DEFAULT '0',
+  `cod_tipo_trabajador` char(2) NOT NULL,
+  `cod_situacion` char(1) NOT NULL,
+  `cod_regimen_aseguramiento_salud` char(2) NOT NULL,
+  `cod_regimen_pensionario` char(2) NOT NULL,
   PRIMARY KEY (`id_ptrabajador`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Categoria Trabajador,... \r\nVolcado de IDS de trabajadores' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Categoria Trabajador,... \r\nVolcado de IDS de trabajadores' AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ptrabajadores`
 --
 
-INSERT INTO `ptrabajadores` (`id_ptrabajador`, `id_pdeclaracion`, `id_trabajador`, `aporta_essalud_vida`, `aporta_asegura_tu_pension`, `domiciliado`, `ingreso_5ta_categoria`) VALUES
-(9, 1, 2, NULL, NULL, NULL, NULL),
-(10, 2, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `ptrabajadores` (`id_ptrabajador`, `id_trabajador`, `id_pdeclaracion`, `aporta_essalud_sctr`, `aporta_essalud_vida`, `aporta_asegura_tu_pension`, `domiciliado`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_situacion`, `cod_regimen_aseguramiento_salud`, `cod_regimen_pensionario`) VALUES
+(1, 16, 2, 0, 0, 0, 1, 0, '21', '1', '00', '02'),
+(2, 15, 2, 0, 0, 0, 1, 0, '21', '1', '00', '02');
 
 -- --------------------------------------------------------
 
@@ -27528,9 +27681,9 @@ CREATE TABLE IF NOT EXISTS `tipos_suspensiones_relaciones_laborales` (
 --
 
 INSERT INTO `tipos_suspensiones_relaciones_laborales` (`cod_tipo_suspen_relacion_laboral`, `descripcion`, `descripcion_abreviada`) VALUES
-('01', 'S.P. SANCI?N DISCIPLINARIA', 'S.P. SANCI?N DISCIPLINARIA'),
+('01', 'S.P. SANCIÓN DISCIPLINARIA', 'S.P. SANCIÓN DISCIPLINARIA'),
 ('02', 'S.P. EJERCICIO DEL DERECHO DE HUELGA', 'S.P. EJERCICIO DERECHO HUELGA'),
-('03', 'S.P. DETENCI?N DEL TRABAJADOR, SALVO EL CASO DE CONDENA PRIVATIVA DE LA LIBERTAD', 'S.P. DETENCI?N DEL TRABAJADOR'),
+('03', 'S.P. DETENCIÓN DEL TRABAJADOR, SALVO EL CASO DE CONDENA PRIVATIVA DE LA LIBERTAD', 'S.P. DETENCÓN DEL TRABAJADOR'),
 ('04', 'S.P. INHABILITACI?N ADMINISTRATIVA O JUDICIAL POR PER?ODO NO SUPERIOR A TRES MESES', 'S.P. INHABILITACI?N ADMINISTRATIVA O JUDICIAL'),
 ('05', 'S.P. PERMISO O LICENCIA CONCEDIDOS POR EL EMPLEADOR SIN GOCE DE HABER', 'S.P. PERMISO O LICENCIA SIN GOCE DE HABER'),
 ('06', 'S.P. CASO FORTUITO O FUERZA MAYOR', 'S.P. CASO FORTUITO O FUERZA MAYOR'),
@@ -27643,17 +27796,21 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   KEY `id_ocupacion_2` (`id_ocupacion_2`),
   KEY `cod_situacion` (`cod_situacion`),
   KEY `id_monto_remuneracion` (`id_monto_remuneracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `trabajadores`
 --
 
 INSERT INTO `trabajadores` (`id_trabajador`, `id_persona`, `cod_regimen_laboral`, `cod_nivel_educativo`, `cod_categorias_ocupacionales`, `id_ocupacion_2`, `cod_ocupacion_p`, `cod_tipo_contrato`, `cod_tipo_pago`, `cod_periodo_remuneracion`, `monto_remuneracion`, `id_monto_remuneracion`, `id_establecimiento`, `jornada_laboral`, `situacion_especial`, `discapacitado`, `sindicalizado`, `percibe_renta_5ta_exonerada`, `aplicar_convenio_doble_inposicion`, `cod_convenio`, `cod_situacion`, `estado`) VALUES
-(2, 1, '01', '09', '03', '0', 319008, '06', '1', 2, '500.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', 'ASI'),
-(3, 2, '0', '0', '0', '0', 0, '0', '0', 0, NULL, 0, 0, '0', '0', 0, 0, 0, 0, 0, '1', 'INACTIVO'),
-(5, 4, '01', '07', '03', '0', 951009, '04', '1', 2, '750.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', 'ASI'),
-(6, 5, '01', '07', '03', '0', 951009, '04', '1', 3, '675.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '0', 'BSI');
+(2, 1, '01', '09', '03', '0', 319008, '06', '1', 3, '500.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '0', NULL),
+(5, 4, '01', '07', '0', '0', 0, '04', '1', 3, '750.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', 'ASI'),
+(6, 5, '01', '07', '03', '0', 951009, '04', '1', 3, '675.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '0', 'BSI'),
+(7, 6, '01', '09', '03', '0', 319007, '02', '1', 2, '500.00', 0, 4, '', '0', 0, 0, 0, 0, 0, '1', NULL),
+(14, 1, '01', '03', '03', '0', 523003, '02', '1', 3, '1600.00', 0, 3, '', '0', 0, 0, 0, 0, 0, '0', NULL),
+(15, 7, '01', '01', '03', '0', 125007, '06', '1', 1, '750.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL),
+(16, 1, '01', '0', '03', '0', 451010, '11', '1', 1, '750.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', NULL),
+(17, 8, '0', '0', '0', '0', 0, '0', '0', 0, NULL, 0, 0, '0', '0', 0, 0, 0, 0, 0, '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -30170,22 +30327,22 @@ ALTER TABLE `c_ocupaciones_ocupaciones_p`
 -- Constraints for table `dcem_pdescuentos`
 --
 ALTER TABLE `dcem_pdescuentos`
-  ADD CONSTRAINT `dcem_pdescuentos_ibfk_2` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dcem_pdescuentos_ibfk_1` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dcem_pdescuentos_ibfk_1` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dcem_pdescuentos_ibfk_2` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dcem_pingresos`
 --
 ALTER TABLE `dcem_pingresos`
-  ADD CONSTRAINT `dcem_pingresos_ibfk_2` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dcem_pingresos_ibfk_1` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dcem_pingresos_ibfk_1` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dcem_pingresos_ibfk_2` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dcem_ptributos_aportes`
 --
 ALTER TABLE `dcem_ptributos_aportes`
-  ADD CONSTRAINT `dcem_ptributos_aportes_ibfk_2` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dcem_ptributos_aportes_ibfk_1` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dcem_ptributos_aportes_ibfk_1` FOREIGN KEY (`id_detalle_concepto_empleador_maestro`) REFERENCES `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dcem_ptributos_aportes_ibfk_2` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `derechohabientes`
@@ -30262,7 +30419,8 @@ ALTER TABLE `detalle_periodos_formativos`
 --
 ALTER TABLE `detalle_periodos_laborales`
   ADD CONSTRAINT `detalle_periodos_laborales_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_periodos_laborales_ibfk_2` FOREIGN KEY (`cod_motivo_baja_registro`) REFERENCES `motivos_bajas_registros` (`cod_motivo_baja_registro`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalle_periodos_laborales_ibfk_2` FOREIGN KEY (`cod_motivo_baja_registro`) REFERENCES `motivos_bajas_registros` (`cod_motivo_baja_registro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_periodos_laborales_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detalle_periodos_laborales_pensionistas`
@@ -30275,6 +30433,7 @@ ALTER TABLE `detalle_periodos_laborales_pensionistas`
 -- Constraints for table `detalle_regimenes_pensionarios`
 --
 ALTER TABLE `detalle_regimenes_pensionarios`
+  ADD CONSTRAINT `detalle_regimenes_pensionarios_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_regimenes_pensionarios_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_regimenes_pensionarios_ibfk_2` FOREIGN KEY (`cod_regimen_pensionario`) REFERENCES `regimenes_pensionarios` (`cod_regimen_pensionario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -30282,6 +30441,7 @@ ALTER TABLE `detalle_regimenes_pensionarios`
 -- Constraints for table `detalle_regimenes_salud`
 --
 ALTER TABLE `detalle_regimenes_salud`
+  ADD CONSTRAINT `detalle_regimenes_salud_ibfk_4` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_regimenes_salud_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_regimenes_salud_ibfk_2` FOREIGN KEY (`cod_regimen_aseguramiento_salud`) REFERENCES `regimenes_aseguramientos_salud` (`cod_regimen_aseguramiento_salud`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_regimenes_salud_ibfk_3` FOREIGN KEY (`cod_eps`) REFERENCES `eps` (`cod_eps`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -30291,7 +30451,8 @@ ALTER TABLE `detalle_regimenes_salud`
 --
 ALTER TABLE `detalle_tipos_trabajadores`
   ADD CONSTRAINT `detalle_tipos_trabajadores_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_tipos_trabajadores_ibfk_2` FOREIGN KEY (`cod_tipo_trabajador`) REFERENCES `tipos_trabajadores` (`cod_tipo_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalle_tipos_trabajadores_ibfk_2` FOREIGN KEY (`cod_tipo_trabajador`) REFERENCES `tipos_trabajadores` (`cod_tipo_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_tipos_trabajadores_ibfk_3` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `empleadores`
@@ -30426,6 +30587,12 @@ ALTER TABLE `pjornadas_laborales`
   ADD CONSTRAINT `pjornadas_laborales_ibfk_1` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `pperiodos_laborales`
+--
+ALTER TABLE `pperiodos_laborales`
+  ADD CONSTRAINT `pperiodos_laborales_ibfk_1` FOREIGN KEY (`id_ptrabajador`) REFERENCES `ptrabajadores` (`id_ptrabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `pps_4tacategorias`
 --
 ALTER TABLE `pps_4tacategorias`
@@ -30509,7 +30676,7 @@ ALTER TABLE `ubigeo_reniec`
 --
 ALTER TABLE `v_familiares_d_v_familiares`
   ADD CONSTRAINT `v_familiares_d_v_familiares_ibfk_1` FOREIGN KEY (`cod_documento_vinculo_familiar`) REFERENCES `documentos_vinculos_familiares` (`cod_documento_vinculo_familiar`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `v_familiares_d_v_familiares_ibfk_2` FOREIGN KEY (`cod_vinculo_familiar`) REFERENCES `vinculos_familiares` (`cod_vinculo_familiar`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `v_familiares_d_v_familiares_ibfk_2` FOREIGN KEY (`cod_vinculo_familiarANBCOPITAN`) REFERENCES `vinculos_familiares` (`cod_vinculo_familiar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

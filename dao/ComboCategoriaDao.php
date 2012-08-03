@@ -452,12 +452,10 @@ class ComboCategoriaDao extends AbstractDao {
         return $lista;
     }
 
-    
- /**
-*	SITUACIONES -> cod_situacion
-**/
-
-public function comboSituacion(){
+    /**
+     * 	SITUACIONES -> cod_situacion
+     * */
+    public function comboSituacion() {
         $query = "
         SELECT 
         cod_situacion,
@@ -470,10 +468,24 @@ public function comboSituacion(){
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista;
+    }
 
-}
-    
-    
+    public function comboSuspencionLaboral() {
+
+        $query = "
+        SELECT 
+            cod_tipo_suspen_relacion_laboral,
+            descripcion_abreviada
+        FROM tipos_suspensiones_relaciones_laborales        
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+
 }
 
 //End Class

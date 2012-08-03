@@ -15,12 +15,12 @@
 	  <p>
 	    <label for="dias_subsidiados">Subsidiados</label>
 	    <input name="dias_subsidiados" type="text" id="dias_subsidiados" size="4" />
-       <span><a href="javascript:XXX()"><img src="images/edit.png"></a></span>
+       <span><a href="javascript:editarDiaSubcidiado()"><img src="images/edit.png"></a></span>
 	  </p>
 	  <p>
 	    <label for="dia_nolabora_nosubsidiado">No laborados y no subsidiados:</label>
 	    <input name="dia_nolabora_nosubsidiado" type="text" id="dia_nolabora_nosubsidiado" size="4" />
-         <span ><a href="javascript:XXX()"><img src="images/edit.png"></a></span>
+         <span ><a href="javascript:editarDiaNoLaborado()"><img src="images/edit.png"></a></span>
 	  </p>
       <h3>TOTAL: 
         <label for="dia_total"></label>
@@ -55,4 +55,21 @@
 	</div>
     
     
-</div>    
+</div>   
+
+
+
+<!---  DIALOG -->
+<div id="dialog-dia-subsidiado">
+
+<div id="editarDiaSubsidiado"> </div>
+
+</div> 
+
+
+<!---  DIALOG -->
+<div id="dialog-dia-noLaborado">
+
+<div id="editarDiaNoLaborado"> </div>
+
+</div> 

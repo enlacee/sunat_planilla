@@ -52,6 +52,11 @@ if ($op) {
     require_once('../model/DetalleRegimenPensionario.php');
     require_once('../dao/DetalleRegimenPensionarioDao.php');
     require_once('../controller/DetalleRegimenPensionarioController.php');
+
+
+    //MODEL PperiodoLaboral
+    require_once ('../model/PperiodoLaboral.php');
+    require_once '../dao/PperiodoLaboralDao.php';
 }
 
 $response = NULL;
@@ -209,51 +214,50 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo) {
         }
 
 
-        //--------------------------------------------------------------------------
+        //----------------------------------------------------------------------
+        
         echo "SALIO";
         echo "<pre>";
-        print_r($tra_unico);
-        echo "<hr> min_periodo";
-        print_r($min_periodo); // Min 1 Periodo :D
-        echo "</pre>";
-        //    
+        echo "<hr>min_periodo";
+        print_r($min_periodo); //Min 1 Periodo :D
+        echo "</pre>";        
         //INICIO NEW CON ID_UNICOS  Y periodos y dias laborados dentro del MES.
         //------INICIO    
         //PASO 01
         $id_pdeclaracion = $dao->registrar($id_empleador_maestro, $periodo);
 
-        for ($i = 0; $i < count($tra_unico); $i++) {
-                echo "i ".$i;
-                //print_r()
-                echo "<br>  ----------- <br>";                
-                echo "id_persona 1= ".$tra_unico[$i]['id_persona'];
-                
-                echo " id_persona 2= ". $min_periodo[0]['id_persona'];                
-                
-              //  ????????????? chekear!!!
-                
-            if ($tra_unico[$i]['id_persona'] == $min_periodo[$i]['id_persona']) {
-                //verificacion x seguridad
-                // primero $periodos
-                $dias_laborados = 0;
-                $data_obj_ppl = array();
+        for ($i = 0; $i < count($tra_unico); $i++) { // UNICO
 
-                $model_ppl = new PperiodoLaboral();
-                $model_ppl->setId_ptrabajador($tra_unico[$i]['id_trabajador']);
+            $dias_laborados = 0;
+            $data_obj_ppl = array();
 
-                for ($j = 0; $j < count($min_periodo); $j++) {
-                    $model_ppl->setFecha_inicio($min_periodo[$j]['fecha_inicio']);
-                    $model_ppl->setFecha_fin($min_periodo[$j]['fecha_fin']);
+            for ($j = 0; $j < count($min_periodo[$i]); $j++) {
+                
+                if ($tra_unico[$i]['id_persona'] == $min_periodo[$i][$j]['id_persona']) {
+
+                    echo "fecha_inicio " . $min_periodo[$i][$j]['fecha_inicio'];
+                    echo " **************************** ";
+                    echo "fecha fin = " . $min_periodo[$i][$j]['fecha_fin'];
+
+                    $model_ppl = new PperiodoLaboral();
+                    //$model_ppl->setId_ptrabajador($tra_unico[$i]['id_trabajador']);
+                    $model_ppl->setFecha_inicio($min_periodo[$i][$j]['fecha_inicio']);
+                    $model_ppl->setFecha_fin($min_periodo[$i][$j]['fecha_fin']);
+
                     $data_obj_ppl[] = $model_ppl;
-
-                    $dias_laborados = + $min_periodo[$j]['dia_laborado'];
+                    $dias_laborados = $dias_laborados + $min_periodo[$i][$j]['dia_laborado'];                                    
                 }
-                
-                echo " registrarPTrabajadores en FOR";
-                
-                registrarPTrabajadores($tra_unico[$i]['id_trabajador'], $id_pdeclaracion, $id_empleador_maestro, $data_obj_ppl, $dias_laborados);
-                
             }
+
+/*            //-----------------------
+            echo "***************************************************";
+            echo "<pre> ULTIMOOOOO";
+            print_r($data_obj_ppl);
+            echo "</pre>";
+            echo "dia laborado = " . $dias_laborados;
+            echo "***************************************************";
+*/
+            registrarPTrabajadores($tra_unico[$i]['id_trabajador'], $id_pdeclaracion, $id_empleador_maestro, $data_obj_ppl, $dias_laborados);
         }
 
 
@@ -275,15 +279,12 @@ function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_
      * Datos Personales actuales del Trabajador 
      */
     //UNO
-    
-    echo "ENTROOOO _registrarPTrabajadores<HR>            ";
-    
-    echo "<pre>";
-    print_r($data_obj_ppl);
-    echo "</pre>";
-    
-    
-/*    
+//    echo "<pre>";
+//    print_r($data_obj_ppl);
+//    echo "</pre>";
+
+
+
     $objTRA = new Trabajador();
     //-- funcion Controlador Trabajador
     $objTRA = buscar_IDTrabajador($id_trabajador);
@@ -373,6 +374,10 @@ function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_
         $dao_dcem_ta->registrar($obj);
     }
 
+
+
+
+
     //--------------------------------------------------------------------------
     //PASO 04.1 -- JORNADAS LABORALES
 
@@ -386,13 +391,11 @@ function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_
 
     //$obj_pl = new PperiodoLaboral();
     $daopl = new PperiodoLaboralDao();
-    
+
     for ($i = 0; $i < count($data_obj_ppl); $i++) {
-
-        $daopl->registrar($data_obj_ppl[$i]);
+        
+        $daopl->registrar($data_obj_ppl[$i],$ID_PTRABAJADOR);
     }
-
- */   
     //--------------------------------------------------------------------------
 }
 

@@ -35,10 +35,10 @@ require_once('../../dao/TrabajadorDao.php');
 require_once('../../controller/CategoriaTrabajadorController.php');
 
 
-//--------------- sub detalle_1
-require_once('../../model/DetallePeriodoLaboral.php');
-require_once('../../dao/DetallePeriodoLaboralDao.php');
-require_once('../../controller/DetallePeriodoLaboralController.php');
+//--------------- PLAME periodoLaboral
+require_once('../../model/PperiodoLaboral.php');
+require_once('../../dao/PperiodoLaboralDao.php');
+require_once('../../controller/PlamePeriodosLaboralesController.php');
 
 //--------------- sub detalle_2
 require_once('../../model/DetalleTipoTrabajador.php');
@@ -111,18 +111,24 @@ $combo_situacion = comboSituacion($estado);
 
 
 //----------------------------------------------------------------
-//--- sub 1 Periodo Laboral
+//--- sub 1 Plame Periodo Laboral
 
-$objTRADetalle_1 = new DetallePeriodoLaboral();
-$objTRADetalle_1 = buscarDetallePeriodoLaboral( $ptrabajador->getId_trabajador() );
+$objTRADetalle_1 = new PperiodoLaboral();
+$dataObj = array();
+$dataObj = buscarPLPorIdPtrabajador( $ID_PTRABAJADOR );
 
+//echo "<pre>ID_PTRABAJADOR";
+//print_r($dataObj);
+//echo "</pre>";
+
+$objTRADetalle_1 = $dataObj[0];
 
 
 ?>
 <div class="ptrabajador">
 
 <label for="pt_tipo_documento">Tipo documento: 
-  <select name="pt_tipo_documento" id="pt_tipo_documento" 
+  <select name="pt_tipo_documento" id="pt_tipo_documento" disabled="disabled" 
 					  style="width:70px">
 						<option value="">-</option>
 <?php
@@ -178,9 +184,9 @@ value="<?php echo $persona->getNum_documento(); ?>" />
     
     <label for="pt_fecha_fin">Fecha de fin</label>
     <input name="pt_fecha_fin" type="text" disabled="disabled" id="pt_fecha_fin"
-    value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_fin(), "d/m/Y");?>" ç />
+           value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_fin(), "d/m/Y");?>" ç />
     
-    <a href="javascript:editarPTperiodoLaboral('<?php echo $ptrabajador->getId_trabajador();?>')">ver detalle</a></p>
+           <a href="javascript:editarPTperiodoLaboral('<?php echo $ptrabajador->getId_ptrabajador();?>')">ver detalle</a></p>
   
 <p>
   <label for="pt_tipo_trabajador">Tipo de trabajador</label>

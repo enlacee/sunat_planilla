@@ -315,8 +315,7 @@ function crearDialogoPTperiodoLaboral(){
 			autoOpen: false,
 			height: 170,
 			width: 250,
-			modal: false,
-                        
+			modal: true,                        
 			/*buttons: {
                    'Cancelar': function() {
 					$(this).dialog('close');
@@ -324,8 +323,7 @@ function crearDialogoPTperiodoLaboral(){
 				'Guardar': function() {	
 				}
                                 
-			},*/
-			
+			},*/			
 			open: function() {},
 			close: function() {}
 	});
@@ -333,13 +331,13 @@ function crearDialogoPTperiodoLaboral(){
 
 
 //----------
-function editarPTperiodoLaboral(id){  //alert (".");
+function editarPTperiodoLaboral(id){ 
 	crearDialogoPTperiodoLaboral();
 
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-plame/modal/periodo_laboral.php",
-   data: "id_trabajador="+id,
+   data: "id_ptrabajador="+id,
    async:true,
    success: function(datos){
     $('#editarPTperiodoLaboral').html(datos);
@@ -348,3 +346,93 @@ function editarPTperiodoLaboral(id){  //alert (".");
    }
    }); 
 }
+
+
+//---------------------------------------------------
+function editarDiaSubcidiado(id){
+	crearDialogoDiaSubsidiado();
+	id = 0;
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-plame/modal/dia_subsidiado.php",
+   data: "id_ptrabajador="+id,
+   async:true,
+   success: function(datos){
+    $('#editarDiaSubsidiado').html(datos);
+    
+    $('#dialog-dia-subsidiado').dialog('open');
+   }
+   }); 
+
+	
+
+}
+
+
+function crearDialogoDiaSubsidiado(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog-dia-subsidiado").dialog({ 
+           
+			autoOpen: false,
+			height: 250,
+			width: 490,
+			modal: true,
+			title: "Dias Subsidiados"
+			/*                      
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				}
+                                
+			},			
+			open: function() {},
+			close: function() {}
+			*/
+	});
+}
+
+
+//---------------------------------------------------
+function editarDiaNoLaborado(){
+	crearDialogoDiaNoLaborado();
+	id = 0;
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-plame/modal/dia_nolaborado.php",
+   data: "id_ptrabajador="+id,
+   async:true,
+   success: function(datos){
+    $('#editarDiaNoLaborado').html(datos);
+    
+    $('#dialog-dia-noLaborado').dialog('open');
+   }
+   }); 
+
+}
+
+function crearDialogoDiaNoLaborado(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog-dia-noLaborado").dialog({ 
+           
+			autoOpen: false,
+			height: 250,
+			width: 490,
+			modal: true,
+			title: "Dias no laborados y no Subsidiados" 
+			/*                      
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				}
+                                
+			},			
+			open: function() {},
+			close: function() {}
+			*/
+	});
+}
+

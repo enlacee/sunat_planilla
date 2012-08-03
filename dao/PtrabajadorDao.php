@@ -119,7 +119,7 @@ class PtrabajadorDao extends AbstractDao {
         pd.id_pdeclaracion,
         pd.periodo,
         pt.id_ptrabajador,
-        -- pt.id_trabajador,
+        pt.id_trabajador,
 
         p.cod_tipo_documento,
         p.num_documento,
@@ -128,10 +128,10 @@ class PtrabajadorDao extends AbstractDao {
         p.nombres,
 
         -- jornada laboral
-        pjl.dia_laborado,
+        pjl.dia_laborado
         
         -- trabajador
-        tra.id_trabajador
+        -- tra.id_trabajador
 
         FROM pdeclaraciones AS pd
         INNER JOIN empleadores_maestros AS em

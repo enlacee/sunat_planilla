@@ -17,7 +17,7 @@ if ($op) {
 $responce = null;
 
 if ($op == "cargar_tabla") {
-
+    
 } elseif ($op == "ocupaciones") { //Ojo Listado de Ocupaciones Segun Anexo 2 SUNAT
     $responce = comboOcupacionPorIdCategoriaOcupacional($_REQUEST['cbo_categoria_ocupacional']);
 } else {
@@ -43,9 +43,9 @@ echo (!empty($responce)) ? json_encode($responce) : '';
  * 2 = sector publico
  * 3 = otros
  */
-function comboeps(){
+function comboeps() {
     $dao = new ComboCategoriaDao();
-    return $dao->comboeps();    
+    return $dao->comboeps();
 }
 
 function comboTipoTrabajadorPorIdTipoEmpleador($id_tipo_empleador) {
@@ -210,8 +210,8 @@ function comboRegimenLaboralPorTipoEmpleador($id_tipo_empleador, $remype) {
     $arreglo = $dao->comboRegimenLaboralPorTipoEmpleador($id_tipo_empleador);
 
     //Filtro si la EMPRESA pertenece a la REMYPE
-	$id = array('16','17');
-	
+    $id = array('16', '17');
+
     if (true) { //SI REMYTE IS TRUE NO VALIDADO PARA REMYPE
         //ID A ELIMINAR
         //$id[] = '16';
@@ -459,7 +459,6 @@ function comboRegimenSalud() {
         }
     }
     return $arreglo;
-    
 }
 
 function comboRegimenPensionario() {
@@ -612,20 +611,19 @@ function comboOcupacionALLPformacion() {
     return $data;
 }
 
-
 // SITUACION
-function comboSituacion($estado=1) {
+function comboSituacion($estado = 1) {
 
     $dao_persona = new ComboCategoriaDao();
     $arreglo = $dao_persona->comboSituacion();
     //ID A ELIMINAR
-    if($estado == 1){
+    if ($estado == 1) {
         $id = array('0', '2', '3');
-    }elseif($estado == null){
+    } elseif ($estado == null) {
         $id = array();
-    }else{
-		$id = array('1','3');
-	}
+    } else {
+        $id = array('1', '3');
+    }
     $counteo = count($id);
     for ($i = 0; $i < $counteo; $i++) {
         //------------------------------------------
@@ -641,13 +639,55 @@ function comboSituacion($estado=1) {
         }
     }
     return $arreglo;
-    
+}
+
+/*******************************************************************************
+// SUSPENCION LABORAL Perfecta e Inperfecta
+ ******************************************************************************/
+function comboSuspensionLaboral_1() {
+
+    $dao = new ComboCategoriaDao();
+    $arreglo = $dao->comboSuspencionLaboral();
+    $id = array('21', '22');
+    $new = array();
+
+    for ($i = 0; $i < count($arreglo); $i++) {
+
+        for ($j = 0; $j < count($id); $j++) {
+
+            if ($arreglo[$i]['cod_tipo_suspen_relacion_laboral'] == $id[$j]) {
+                $new[] = $arreglo[$i];
+            }
+        }
+    }    
+
+    return $new;
 }
 
 
+function comboSuspensionLaboral_2() {
+    $dao = new ComboCategoriaDao();
+    $arreglo = $dao->comboSuspencionLaboral();
+    //ID A ELIMINAR
+    $id = array('21', '22');
 
-
-
-
+    $counteo = count($id);
+    for ($i = 0; $i < $counteo; $i++) {
+        //------------------------------------------
+        foreach ($arreglo as $indice) {
+            if ($id[$i] == $indice['cod_tipo_suspen_relacion_laboral']) {
+                //Encontro elimina ID_BUSQUEDA indice para no seguir buscando
+                unset($id[$i]);
+                //Elimina _arreglo GET indice Primero				
+                $clave = array_search($indice, $arreglo);
+                unset($arreglo[$clave]);
+                break;
+            }
+        }
+    }
+    
+    $listaSimpleFinal = array_values($arreglo);
+    return $listaSimpleFinal;
+}
 
 ?>

@@ -25,6 +25,9 @@ $pingreso = listarDcem_Pingreso($ID_PTRABAJADOR);
 
 
 <div class="ptrabajador">
+  <div class="ocultar">
+  id_dcem_pingreso<input name="id_dcem_pingreso" type="text" readonly="readonly" />
+  </div>
     <h3>Ingresos:  </h3>
     <hr />
     <table width="670" border="1">

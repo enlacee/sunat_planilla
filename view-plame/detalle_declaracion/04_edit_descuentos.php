@@ -23,7 +23,10 @@ $pdescuento = listarDcem_Pdescuento($ID_PTRABAJADOR);
 //echo "</pre>";
 ?>
 <div class="ptrabajador">
-  <h3>Descuentos:  </h3>
+<div class="ocultar">
+id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="readonly"/>
+</div>
+<h3>Descuentos:  </h3>
     <hr />
   <table width="670" border="1">
     <tr>

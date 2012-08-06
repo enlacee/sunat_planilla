@@ -384,6 +384,8 @@ function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_
     $obj_jl = new PjornadaLaboral();
     $obj_jl->setId_ptrabajador($ID_PTRABAJADOR);
     $obj_jl->setDia_laborado($dia_laborado);
+    $obj_jl->setDia_total($dia_laborado);
+   
 
     //DAO
     $dao_jl = new PjoranadaLaboralDao();

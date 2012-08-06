@@ -20,7 +20,7 @@ require_once('../../controller/ComboCategoriaController.php');
 
 //############################################################################
 //------- Ptrabajador
-require_once('../../model/PTrabajador.php');
+require_once('../../model/Ptrabajador.php');
 require_once('../../dao/PtrabajadorDao.php');
 require_once('../../controller/PlameTrabajadorController.php');
 
@@ -65,7 +65,7 @@ print_r($ID_PTRABAJADOR);
 echo"</pre>";
 */
 //data - ptrabajador
-$ptrabajador = new PTrabajador();
+$ptrabajador = new Ptrabajador();
 $ptrabajador = buscar_IDPtrabajador($ID_PTRABAJADOR);
 
 //echo "<pre>";
@@ -126,7 +126,9 @@ $objTRADetalle_1 = $dataObj[0];
 
 ?>
 <div class="ptrabajador">
-
+<div class="ocultar">
+id_ptrabajador<input name="id_ptrabajador" type="text" readonly="readonly" />
+</div>
 <label for="pt_tipo_documento">Tipo documento: 
   <select name="pt_tipo_documento" id="pt_tipo_documento" disabled="disabled" 
 					  style="width:70px">

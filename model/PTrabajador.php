@@ -1,6 +1,6 @@
 <?php
 
-class PTrabajador {
+class Ptrabajador {
 
     //put your code here
     private $id_ptrabajador;

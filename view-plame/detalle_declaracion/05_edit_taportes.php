@@ -71,8 +71,10 @@ echo "</pre>";
 
 <div class="ptrabajador">
 
-
-  <h3>Aportaciones del Trabajadores: </h3>
+<div class="ocultar">
+id_dcem_ptributo_aporte<input name="id_dcem_ptributo_aporte" type="text" readonly="readonly" />
+</div>
+<h3>Aportaciones del Trabajadores: </h3>
   <hr />
   
  <!--FIN  0600 -->

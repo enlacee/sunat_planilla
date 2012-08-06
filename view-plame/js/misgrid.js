@@ -331,13 +331,13 @@ function crearDialogoPTperiodoLaboral(){
 
 
 //----------
-function editarPTperiodoLaboral(id){ 
+function editarPTperiodoLaboral(id_pjoranada_laboral){ 
 	crearDialogoPTperiodoLaboral();
 
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-plame/modal/periodo_laboral.php",
-   data: "id_ptrabajador="+id,
+   data: {id_pjoranada_laboral : id_pjoranada_laboral},
    async:true,
    success: function(datos){
     $('#editarPTperiodoLaboral').html(datos);
@@ -349,13 +349,13 @@ function editarPTperiodoLaboral(id){
 
 
 //---------------------------------------------------
-function editarDiaSubcidiado(id){
+function editarDiaSubcidiado(id_pjoranada_laboral){
 	crearDialogoDiaSubsidiado();
-	id = 0;
+	//id_pjoranada_laboral = 0;
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-plame/modal/dia_subsidiado.php",
-   data: "id_ptrabajador="+id,
+   data: {id_pjoranada_laboral : id_pjoranada_laboral},
    async:true,
    success: function(datos){
     $('#editarDiaSubsidiado').html(datos);
@@ -395,13 +395,13 @@ function crearDialogoDiaSubsidiado(){
 
 
 //---------------------------------------------------
-function editarDiaNoLaborado(){
+function editarDiaNoLaborado(id_pjoranada_laboral){
 	crearDialogoDiaNoLaborado();
-	id = 0;
-    $.ajax({
+	var dia_subsidiado = document.getElementById('dia_subsidiado').value
+   $.ajax({
    type: "POST",
    url: "sunat_planilla/view-plame/modal/dia_nolaborado.php",
-   data: "id_ptrabajador="+id,
+   data: {id_pjoranada_laboral : id_pjoranada_laboral, dia_subsidiado : dia_subsidiado},
    async:true,
    success: function(datos){
     $('#editarDiaNoLaborado').html(datos);

@@ -32,7 +32,7 @@ calcDiaSubsidiado();
         <br />
         id_pjoranada_laboral
         <label for="id_pjoranada_laboral"></label>
-        <input type="text" name="id_pjoranada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
+        <input type="text" name="id_pjornada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
         <table width="450" border="1" id="tb_dsubsidiado">
             <tr>
                 <td width="217">tipo desuspens&oacute;n</td>
@@ -74,9 +74,9 @@ calcDiaSubsidiado();
 
                                 if ($indice['cod_tipo_suspen_relacion_laboral'] == $data[$i]->getCod_tipo_suspen_relacion_laboral()) {                              
                                     $html = '<option value="' . $indice['cod_tipo_suspen_relacion_laboral'] . '" selected="selected" >' . $indice['cod_tipo_suspen_relacion_laboral'] . " - " . $indice['descripcion_abreviada'] . '</option>';
-                                }/* else if($econtro == false ) {
+                                } else {
                                     $html = '<option value="' . $indice['cod_tipo_suspen_relacion_laboral'] . '" >' . $indice['cod_tipo_suspen_relacion_laboral'] . " - " . $indice['descripcion_abreviada'] . '</option>';
-                                }*/
+                                }
                                 
                                 
                                 echo $html;

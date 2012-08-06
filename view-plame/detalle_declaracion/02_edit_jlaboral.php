@@ -412,7 +412,7 @@ function nuevoDiaSubsidiado_2(){
 
 //-------------------------------------------------------------
 //---- CODIGO
-var id = '<input type="hidden" size="4" id="id_pdia_nl_ns-'+ COD_DETALLE_CONCEPTO +'" name="id_pdia_nl_ns[]" value ="" >';
+var id = '<input type="hidden" size="4" id="id_pdia_nosubsidiado-'+ COD_DETALLE_CONCEPTO +'" name="id_pdia_nosubsidiado[]" value ="" >';
 var estado = '<input type="hidden" size="4" id="estado-'+ COD_DETALLE_CONCEPTO +'" name="estado[]" value ="0" >';
 //var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
 
@@ -425,7 +425,7 @@ var span2;
 var finSpan = '</span>';
 
 span1 = '<span title="editar">';
-span1 +="<a href=\"javascript:editar_ds('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
+span1 +="<a href=\"javascript:editar_dns('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
 span1 += finSpan;
 
 
@@ -435,7 +435,7 @@ span2 += finSpan;
 
 
 var combo = "";
-combo +='     <select name="cbo_dn_tipo_suspension[]" id="cbo_dn_tipo_suspension-'+COD_DETALLE_CONCEPTO+'"  ';
+combo +='     <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-'+COD_DETALLE_CONCEPTO+'"  ';
 combo +='	  style="width:150px;"  onchange="" >';
 combo +='     </select>';
 
@@ -469,7 +469,7 @@ html += cerrarTD;
 div.innerHTML=html;
 
 //-------   - - --  -cargar combo
-cbo = document.getElementById('cbo_dn_tipo_suspension-'+COD_DETALLE_CONCEPTO);
+cbo = document.getElementById('cbo_dns_tipo_suspension-'+COD_DETALLE_CONCEPTO);
 
 var ids = getIdsCombos_2();
 cargarSuspension_2(cbo,ids);	

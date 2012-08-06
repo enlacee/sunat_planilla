@@ -40,7 +40,7 @@ oper
         <br />
         id_pjoranada_laboral
         <label for="id_pjoranada_laboral"></label>
-        <input type="text" name="id_pjoranada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
+        <input type="text" name="id_pjornada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
 <table width="450" border="1" id="tb_dnolaborado">
   <tr>
     <td width="217">tipo desuspens&oacute;n</td>

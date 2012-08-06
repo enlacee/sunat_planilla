@@ -26,7 +26,7 @@ echo (!empty($response)) ? json_encode($response) : '';
 
 function dualPdiaSubsidiado() {
     // nuevo o Actualizar
-    $id_pjoranada_laboral = $_REQUEST['id_pjornada_laboral'];
+    $id_pjoranada_laboral = $_REQUEST['id_pjornada_laboral']; //id_pjoranada_laboral
 
     $id_dia_subsidiado = $_REQUEST['pdia_subsidiado'];
     $estado = $_REQUEST['estado'];

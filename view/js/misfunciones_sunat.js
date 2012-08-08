@@ -1,4 +1,32 @@
 // JavaScript Document
+
+function ponerdecimales(numero){
+if(numero.indexOf(".")==-1) {
+	numero += ".00" 
+ } else { 
+   if(numero.indexOf(".") == numero.length - 2) {
+	numero += "0" 
+   }
+}
+return numero;
+} 
+//-------------------------------
+function soloNumeros(event){
+    // 8 -> borrado
+    // 9 -> tabulador
+    // 37-40 -> flechas
+    // 188 -> .
+    // 190 -> ,    
+    if ( event.keyCode == 8 || event.keyCode == 9 || (event.keyCode >= 37 && event.keyCode <= 40)
+            || event.keyCode == 188 || event.keyCode == 190 ) {
+        // permitimos determinadas teclas, no hacemos nada
+    } else {
+        // Nos aseguramos que sea un numero, sino evitamos la accion
+        if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+            event.preventDefault();
+        }   
+    }
+}
 function contarTablaFila(obj){
 	return (obj.rows.length);
 }

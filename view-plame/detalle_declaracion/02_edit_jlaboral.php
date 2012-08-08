@@ -42,8 +42,6 @@ $data_ds = buscarDiaSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_labo
 $data_dns = buscarDiaNoSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
 
 
-echo "PjornadaLaboral->getDia_laborado()  = ".$PjornadaLaboral->getDia_laborado(); 
-
 //Obtener dias Subsidiados
 $dia_laborado = $PjornadaLaboral->getDia_laborado();
 $dia_subsidiado = 0;
@@ -712,6 +710,90 @@ function grabarDiaNoSubsidiado(){
 
 
 
+//-----------------------------------------------------------------------
+// HORAS
+//-----------------------------------------------------------------------
+	var hora_o = document.getElementById('hora_ordinaria_hh');
+	var min_o = document.getElementById('hora_ordinaria_mm');
+	
+	var hora_s = document.getElementById('hora_sobretiempo_hh');
+	var min_s = document.getElementById('hora_sobretiempo_mm');
+	
+	var total_hora = document.getElementById('total_hora_hh');
+	var total_min = document.getElementById('total_hora_mm');
+
+//	var expr_hora =/^\d{3}$/;
+//	var bandera = expresion_regular_vf_mes.test(valor_txt);
+
+function calcHoraLaborada(){ 
+
+	//------------
+	// Hora total
+	var total_hora_local = 0;
+	var hora_o_local = ( parseInt(hora_o.value)>=0 ) ? parseInt(hora_o.value) : 0;
+	var hora_s_local = ( parseInt(hora_s.value)>=0 ) ? parseInt(hora_s.value) : 0;		
+		total_hora_local = hora_o_local + hora_s_local;
+		
+	// Min total
+	var total_min_local = 0;
+	var min_o_local = ( parseInt(min_o.value)>=0 ) ? parseInt(min_o.value) : 0;
+	var min_s_local = ( parseInt(min_s.value)>=0 ) ? parseInt(min_s.value) : 0;
+		total_min_local = min_o_local + min_s_local;
+		
+	console.log("hora_o_local "+hora_o_local);
+	console.log("hora_s_local "+hora_s_local);
+	
+	console.log("min_o_local "+min_o_local);
+	console.log("min_s_local "+min_s_local);	
+	//------------	
+	//------------	
+	
+	var divicion = (total_min_local/60);
+	
+	//alert("total_min_local "+total_min_local);
+	
+	while( (total_min_local/60) >= 1 ){ 			
+		
+		total_min_local = total_min_local - 60;		
+		total_hora_local = total_hora_local + 1;
+	}
+	
+	//------
+	total_hora.value = total_hora_local;
+	total_min.value = total_min_local;
+	//------
+	
+	console.log("total_hora_local "+total_hora_local);
+	console.log("total_min_local "+total_min_local);
+	
+
+}
+
+
+//----------------------------------------------------------
+/*
+function calcHoraLaboradaEvento(event){
+    // 8 -> borrado
+    // 9 -> tabulador
+    // 37-40 -> flechas
+    // 188 -> .
+    // 190 -> ,    
+    if ( event.keyCode == 8 || event.keyCode == 9 || (event.keyCode >= 37 && event.keyCode <= 40)
+            || event.keyCode == 188 || event.keyCode == 190 ) {
+        // permitimos determinadas teclas, no hacemos nada
+		//calcHoraLaborada();
+    } else {
+		//calcHoraLaborada();
+        // Nos aseguramos que sea un numero, sino evitamos la accion
+        if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+            event.preventDefault();
+			//calcHoraLaborada();
+        }   
+    }
+}
+*/
+
+
 
 
 </script>
@@ -762,15 +844,19 @@ function grabarDiaNoSubsidiado(){
             <hr />
             <p>        
                 <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
-                <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh" size="5" />
+                <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh" size="5" maxlength="3"
+                 onkeydown="soloNumeros(event)" />
                 :
-                <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm" size="5" />
+                <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm" size="5" maxlength="2"
+                onkeydown="soloNumeros(event)" />
             </p>
             <p>
                 <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
-                <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" />
+                <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" maxlength="3"
+                onkeydown="soloNumeros(event)" />
                 :
-                <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" />
+                <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" maxlength="2"
+                onkeydown="soloNumeros(event)" onblur="" />
             </p>
             <h3>TOTAL HORAS:
                 <label for="total_hora_hh"></label>
@@ -778,6 +864,7 @@ function grabarDiaNoSubsidiado(){
                 :
                 <label for="total_hora_mm"></label>
                 <input name="total_hora_mm" type="text" id="total_hora_mm" size="5" readonly="readonly" />
+              <input type="button" name="btnCalular" id="btnCalular" value="Calcular" onclick="calcHoraLaborada()" />
             </h3>
             <p>&nbsp;</p>
         </div>

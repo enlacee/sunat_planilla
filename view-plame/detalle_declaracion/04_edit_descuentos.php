@@ -28,7 +28,7 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
 </div>
 <h3>Descuentos:  </h3>
     <hr />
-  <table width="670" border="1">
+  <table width="670" border="1" class="Pdescuento">
     <tr>
       <td width="10">&nbsp;</td>
       <td width="55">C&oacute;digo</td>
@@ -72,7 +72,7 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
   </table>
   <p>&nbsp;</p>
 </div>
-<table width="670" border="1">
+<table width="670" border="1" class="tb">
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

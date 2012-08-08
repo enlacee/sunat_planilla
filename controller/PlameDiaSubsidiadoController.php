@@ -1,5 +1,4 @@
 <?php
-
 //class PlameDiaSubsidiadoController {}
 $op = $_REQUEST["oper"];
 if ($op) {
@@ -67,12 +66,11 @@ function dualPdiaSubsidiado() {
 
 
 
-function buscarPor_IdPjornadaLaboral($id_pjoranada_laboral){
+function buscarDiaSPor_IdPjornadaLaboral($id_pjoranada_laboral){
     $dao = new PdiaSubsidiadoDao();
-    $data = $dao->busacar_IdPjorandaLaboral($id_pjoranada_laboral);
+    $data = $dao->busacar_IdPjorandaLaboral($id_pjoranada_laboral);    
     
-    
-    $arreglo = array();
+    $arreglo = array();    
     
     for($i=0; $i<count($data);$i++){ 
         $model = new PdiaSubsidiado();
@@ -82,14 +80,11 @@ function buscarPor_IdPjornadaLaboral($id_pjoranada_laboral){
         $model->setCod_tipo_suspen_relacion_laboral($data[$i]['cod_tipo_suspen_relacion_laboral']);
                 
         $arreglo[] =$model;         
-    }
-    
+    }    
 //echo "<pre>arreglo";
 //print_r($arreglo);
-//echo "</pre>";
-    
-    return $arreglo;
-    
+//echo "</pre>";    
+    return $arreglo;    
     
 }
 

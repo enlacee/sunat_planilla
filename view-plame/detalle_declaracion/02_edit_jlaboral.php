@@ -13,39 +13,78 @@ $suspencion1 = comboSuspensionLaboral_1();
 
 $suspencion2 = comboSuspensionLaboral_2();
 //fin combos
-
 //ACTUALIZAR
 require_once '../../model/PjornadaLaboral.php';
 require_once '../../dao/PjoranadaLaboralDao.php';
 require_once '../../controller/PlameJornadaLaboralController.php';
+
+//--- Dia subsidiado
+require_once '../../controller/PlameDiaSubsidiadoController.php';
+require_once '../../model/PdiaSubsidiado.php';
+require_once '../../dao/PdiaSubsidiadoDao.php';
+
+//--- Dia no subsidiado
+require_once '../../controller/PlameDiaNoSubsidiadoController.php';
+require_once '../../dao/PdiaNoSubsidiadoDao.php';
+require_once '../../model/PdiaNoSubsidiado.php';
+
 
 $id_ptrabajador = $_REQUEST['id_ptrabajador'];
 
 $PjornadaLaboral = new PjornadaLaboral();
 $PjornadaLaboral = buscarPjornadaLaboral_IdPtrabajdor($id_ptrabajador);
 
-//echo "<pre> $id_ptrabajador";
+//echo "<pre>PjornadaLaboral";
 //echo print_r($PjornadaLaboral);
 //echo "</pre>";
 
+$data_ds = buscarDiaSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
+$data_dns = buscarDiaNoSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
+
+
+echo "PjornadaLaboral->getDia_laborado()  = ".$PjornadaLaboral->getDia_laborado(); 
+
+//Obtener dias Subsidiados
+$dia_laborado = $PjornadaLaboral->getDia_laborado();
+$dia_subsidiado = 0;
+$dia_nosubsidiado = 0;
+
+for ($i = 0; $i < count($data_ds); $i++) {    
+    $dia_subsidiado += $data_ds[$i]->getCantidad_dia();
+}
+
+for ($i = 0; $i < count($data_dns); $i++) {
+    $dia_nosubsidiado = $dia_nosubsidiado + $data_dns[$i]->getCantidad_dia();
+}
+
+// Operacion
+
+$dia_laborado = $dia_laborado - ($dia_subsidiado + $dia_nosubsidiado);
+
+
 ?>
 <script type="text/javascript">
- 
- //----------------------------------------------------------
- // INICIO DIAS SUBSIDIADOS	
- //----------------------------------------------------------
-    //var objCombo = document.getElementById('cbo_tipo_suspension-1');
-	var dia_laborado = <?php echo $PjornadaLaboral->getDia_laborado();?>;
+
+    //----------------------------------------------------------
+    // INICIO DIAS SUBSIDIADOS	
+    //----------------------------------------------------------
+
+    var dia_laborado = parseInt(document.getElementById('dia_laborado').value);
+
+	var dia_total =  parseInt(document.getElementById('dia_total').value);
 	
-    var num_max_dia = document.getElementById('dia_total').value;
-    var num_dia_subsidiado = 0;	
-	var num_dia_nosubsidiado = 0;
-    var num_dia_nosubsidiado = 0;
+	
+    var num_dia_subsidiado = parseInt(document.getElementById('dia_subsidiado').value); 	
+    var num_dia_nosubsidiado = parseInt(document.getElementById('dia_nosubsidiado').value); 
+	
+	var max_dias = (dia_laborado + num_dia_subsidiado + num_dia_nosubsidiado);  // =23
+	
 	
 	
     var subs = new Array(
 <?php $counteo = count($suspencion1);
-for ($i = 0; $i < $counteo; $i++): ?>	
+for ($i = 0; $i < $counteo; $i++):
+    ?>	
     <?php
     if ($i == $counteo - 1) {
         echo "{id:'" . $suspencion1[$i]['cod_tipo_suspen_relacion_laboral'] . "', descripcion:'" . $suspencion1[$i]['cod_tipo_suspen_relacion_laboral'] . "-" . $suspencion1[$i]['descripcion_abreviada'] . "' }";
@@ -92,21 +131,18 @@ for ($i = 0; $i < $counteo; $i++): ?>
     }//ENDFN
 
 
-
+//validarNuevoInput_2
     function validarNuevoInput(){
-
-        if(num_dia_subsidiado == num_max_dia ){
+		
+        if(parseInt(dia_laborado)<=0){
             alert("No hay mas dias para ser subsidiados");
         }else{
 
-            var ids = getIdsCombos();
-            //alert("subs.length "+subs.length);
             if(subs.length == 1){
                 alert("No existe mas Conceptos por agregar");
             }else{
                 nuevoDiaSubsidiado();
             }
-
         }
 
     }
@@ -225,13 +261,13 @@ for ($i = 0; $i < $counteo; $i++): ?>
 
 
     function grabarDiaSubsidiado(){
-        calcDiaSubsidiado();
-        document.getElementById('dia_subsidiado').value = num_dia_subsidiado;
-		document.getElementById('dia_laborado').value = dia_laborado - num_dia_subsidiado;	
+       
 		
-		
-        alert("SESSION = La informacion se Guardo\nCorrectamente.");
-	
+		if(  calcDiaSubsidiado() ==true){
+			
+			document.getElementById('dia_subsidiado').value = num_dia_subsidiado;
+			document.getElementById('dia_laborado').value = dia_laborado;//dia_laborado - num_dia_subsidiado;				
+			alert("SESSION = La informacion se Guardo\nCorrectamente.");	
         //-----
         var data = $("#formDiaSubsidiado").serialize();
         $.ajax({
@@ -243,22 +279,31 @@ for ($i = 0; $i < $counteo; $i++): ?>
 				
             }
         });
+		//----
+		}
 	
 	
 
     }
+	
 
     function calcDiaSubsidiado(){
+		var ESTADO = true;
 
         var tabla = document.getElementById("tb_dsubsidiado");
         var num_fila = parseInt(contarTablaFila(tabla));
-        num_fila = num_fila - 1;	
-	
-        num_dia_subsidiado = 0;
-	
-        var total = document.getElementById('ds_total');
-        var num_max_dia_local = num_max_dia;
-	
+        num_fila = num_fila - 1;		
+        	
+        var total = document.getElementById('ds_total');		
+		
+		//-----------------------------------------
+		var max_dias_main = (max_dias) - num_dia_nosubsidiado;
+		var max_dias_local = (max_dias) - num_dia_nosubsidiado;
+		//-----------------------------------------
+		
+		var num_dia_subsidiado_local=0;		
+		//alert("max_dias_local = "+max_dias_local);
+		
 
         for(var i= 1; i <= num_fila; i++){ console.log("ciclo iiii="+ i);
 	
@@ -268,278 +313,402 @@ for ($i = 0; $i < $counteo; $i++): ?>
             //	
             var diaint = parseInt( (dia.value == '' || dia.value < 0) ? 0 : dia.value );
             //rpta
-            num_dia_subsidiado = num_dia_subsidiado + (diaint);	
+            num_dia_subsidiado_local = num_dia_subsidiado_local + (diaint);	
 		
 		
-            if( i == 1 ){
-                num_max_dia_local = num_max_dia_local - diaint;	
+            if( i == num_fila ){ //ULTIMO NO RESTA
+                //max_dias_local = max_dias_local - diaint;	
             }else {
-                //num_max_dia_local = num_max_dia_local - diaint;
+                max_dias_local = max_dias_local - diaint;
             }		
 		
-            if(num_max_dia_local<0){
-                alert("El maximo numero de dias esS: "+ num_max_dia);
+            if(max_dias_local<0){
+                alert("El maximo numero de dias esS: "+ max_dias_local);
                 dia.value = '';			
                 diaint = 0;
+				ESTADO = false;
                 break;
             }		
-
-            if(num_dia_subsidiado > num_max_dia){
-                alert("El maximo numero de dias es: "+ num_max_dia_local);
+				
+            if(num_dia_subsidiado_local > max_dias_main){
+                alert("El maximo numero de dias es : "+max_dias_local);
                 dia.value = '';
-                num_dia_subsidiado = num_dia_subsidiado - (diaint);
+                //num_dia_subsidiado = num_dia_subsidiado - (diaint);
                 diaint = 0;
+				ESTADO = false;
 			
             }
 		
             //rpta
-            //num_dia_subsidiado = num_dia_subsidiado + (diaint);
+           //num_dia_subsidiado + (diaint);
             dia.value = (diaint == 0) ? '' : diaint;		
 		
         }
-
-	
-        total.value = (num_dia_subsidiado>num_max_dia) ? '' : num_dia_subsidiado;
-        //alert("DIA TOTAL "+ num_dia);	
-    }
-
-	
- //----------------------------------------------------------
- // FINAL DIAS SUBSIDIADOS	
- //----------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
- //----------------------------------------------------------
- // INICIO DIAS NO-SUBSIDIADOS	
- //----------------------------------------------------------
-	//01
-	var nosubs = new Array(
-	<?php $counteo = count($suspencion2); 
-	for($i=0;$i<$counteo;$i++): ?>	
-	<?php
-		if($i == $counteo-1){ 
-			echo "{id:'".$suspencion2[$i]['cod_tipo_suspen_relacion_laboral']."', descripcion:'".$suspencion2[$i]['cod_tipo_suspen_relacion_laboral']." - ".$suspencion2[$i]['descripcion_abreviada']."' }"; 
-		}else{
-			echo "{id:'".$suspencion2[$i]['cod_tipo_suspen_relacion_laboral']."', descripcion:'".$suspencion2[$i]['cod_tipo_suspen_relacion_laboral']." - ".$suspencion2[$i]['descripcion_abreviada']."' },"; 
-		}
-	?>
-	<?php endfor; ?>
-	);//end array
-
-
-
-
-
-
-function cargarSuspension_2(objCombo,ids){
-
-	console.dir(nosubs);
-	var z =0;
-	//variables
-	var arreglo = new Array();
-	var eliminados = new Array();
-	//alert("ids.length = "+ids.length);
-
-for(i=0; i<ids.length;i++){
-	
-	for(var j=0;j<nosubs.length;j++){
 		
-		if( nosubs[j].id == ids[i] ){ //ENCONTRO
-			//continue;				
-			eliminados = nosubs.splice(j,1);
-			console.log(eliminados);
-		}	
-						
-	}//ENDFOR 2
+		//Variables Globales		
+		num_dia_subsidiado = (num_dia_subsidiado_local>max_dias_main)? '' : num_dia_subsidiado_local;
+        total.value = (num_dia_subsidiado_local > max_dias_main) ? '' : num_dia_subsidiado_local;
+
+		if(num_dia_subsidiado == max_dias_main ){
+			dia_laborado = 0;
+		}else if(max_dias_main > num_dia_subsidiado){
+			dia_laborado = max_dias_main - num_dia_subsidiado;
+		}
+		
+		
+        //alert("DIA TOTAL "+ num_dia);	
+		return ESTADO;
+    }
 	
-	
-}//ENDFOR 1
-
-
-//console.log("********************");
-//console.dir(nosubs);
-//console.log("********************");
-
-	for(var i=0;i<nosubs.length;i++){
-		objCombo.options[i] = new Option(nosubs[i].descripcion, nosubs[i].id);
+	function calcDiaSubsidiadoMain(){ alert("calcDiaSubsidiadoMain");	
+		document.getElementById('dia_nosubsidiado').value = num_dia_nosubsidiado;
+		document.getElementById('dia_laborado').value = dia_laborado - num_dia_nosubsidiado;	
 	}
 	
+    //----------------------------------------------------------
+    // FINAL DIAS SUBSIDIADOS	
+    //----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------------------------------------------
+    // INICIO DIAS NO-SUBSIDIADOS	
+    //----------------------------------------------------------
+
+    var nosubs = new Array(
+<?php $counteo = count($suspencion2);
+for ($i = 0; $i < $counteo; $i++):
+    ?>	
+    <?php
+    if ($i == $counteo - 1) {
+        echo "{id:'" . $suspencion2[$i]['cod_tipo_suspen_relacion_laboral'] . "', descripcion:'" . $suspencion2[$i]['cod_tipo_suspen_relacion_laboral'] . " - " . $suspencion2[$i]['descripcion_abreviada'] . "' }";
+    } else {
+        echo "{id:'" . $suspencion2[$i]['cod_tipo_suspen_relacion_laboral'] . "', descripcion:'" . $suspencion2[$i]['cod_tipo_suspen_relacion_laboral'] . " - " . $suspencion2[$i]['descripcion_abreviada'] . "' },";
+    }
+    ?>
+<?php endfor; ?>
+        );//end array
+
+
+
+
+
+
+            function cargarSuspension_2(objCombo,ids){
+
+                console.dir(nosubs);
+                var z =0;
+                //variables
+                var arreglo = new Array();
+                var eliminados = new Array();
+                //alert("ids.length = "+ids.length);
+
+                for(i=0; i<ids.length;i++){
+	
+                    for(var j=0;j<nosubs.length;j++){
+		
+                        if( nosubs[j].id == ids[i] ){ //ENCONTRO
+                            //continue;				
+                            eliminados = nosubs.splice(j,1);
+                            console.log(eliminados);
+                        }	
+						
+                    }//ENDFOR 2
+	
+	
+                }//ENDFOR 1
+
+
+                //console.log("********************");
+                //console.dir(nosubs);
+                //console.log("********************");
+
+                for(var i=0;i<nosubs.length;i++){
+                    objCombo.options[i] = new Option(nosubs[i].descripcion, nosubs[i].id);
+                }
+	
+            }//ENDFN
+
+
+
+       function validarNuevoInput_2(){
+		
+        if(parseInt(dia_laborado)<=0){
+            alert("No hay mas dias para ser subsidiados");
+        }else{
+
+                       
+            if(nosubs.length == 1){
+                alert("No existe mas Conceptos por agregar");
+            }else{
+                nuevoDiaSubsidiado_2();
+            }
+        }	
+
+            }
+            //--------------------------------------------------------------------------------
+
+
+            function nuevoDiaSubsidiado_2(){
+                //alert("holaaaaa");	
+                //Capa Contenedora
+                var tabla = document.getElementById("tb_dnolaborado");
+                var num_fila_tabla = contarTablaFila(tabla);
+                num_fila_tabla = num_fila_tabla - 1;
+                var COD_DETALLE_CONCEPTO =  num_fila_tabla + 1;
+
+                var div = document.createElement('tr');
+                //
+                div.setAttribute('id','dia_nosubsidiado-'+COD_DETALLE_CONCEPTO);	
+                tabla.appendChild(div); //PRINCIPAL	
+	
+
+                //-------------------------------------------------------------
+                //---- CODIGO
+                var id = '<input type="hidden" size="4" id="id_pdia_nosubsidiado-'+ COD_DETALLE_CONCEPTO +'" name="id_pdia_nosubsidiado[]" value ="" >';
+                var estado = '<input type="hidden" size="4" id="estado-'+ COD_DETALLE_CONCEPTO +'" name="estado[]" value ="0" >';
+                //var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
+
+                var input_cdia = '<input name="dns_cantidad_dia[]" type="text" id="dns_cantidad_dia-'+COD_DETALLE_CONCEPTO+'" size="7" onblur="calcDiaNoSubsidiado()" />';
+                //-----input Descripcion
+                var span1;
+                var span2;
+
+
+                var finSpan = '</span>';
+
+                span1 = '<span title="editar">';
+                span1 +="<a href=\"javascript:editar_dns('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
+                span1 += finSpan;
+
+
+                span2 = '<span title="editar">';
+                span2 +="<a href=\"javascript:eliminar_dns('dia_nosubsidiado-"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/cancelar.png\"></a>";
+                span2 += finSpan;
+
+
+                var combo = "";
+                combo +='     <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-'+COD_DETALLE_CONCEPTO+'"  ';
+                combo +='	  style="width:150px;"  onchange="" >';
+                combo +='     </select>';
+
+
+                //inicio html	
+                var html ='';
+                var cerrarTD = '<\/td>';
+
+
+                html +='<td>';
+                html += id;
+                html += estado;
+                html += combo;
+                html += cerrarTD;
+
+
+                html +='<td>';	
+                html += input_cdia;
+                html += cerrarTD;
+
+                html +='<td>';	
+                html += span1;
+                html += cerrarTD;
+
+                html +='<td>';	
+                html += span2;
+                html += cerrarTD;
+
+
+                ////---
+                div.innerHTML=html;
+
+                //-------   - - --  -cargar combo
+                cbo = document.getElementById('cbo_dns_tipo_suspension-'+COD_DETALLE_CONCEPTO);
+
+                var ids = getIdsCombos_2();
+                cargarSuspension_2(cbo,ids);	
+	
+
+            }
+
+
+
+            function eliminar_dns(elementId){ alert (" "+elementId);
+
+                var obj = document.getElementById(elementId)
+                eliminarElemento(obj);
+                /*
+        console.log("master intacto");
+        console.dir(master);
+                 */
+
+            }
+
+
+
+            function getIdsCombos_2(){
+                var ids = new Array();
+	
+                var combos = document.getElementById('formDiaNoSubsidiado');	
+                var numElementos = combos.elements.length;
+	
+                for(var i=0;i<combos.elements.length;i++){
+                    if(combos.elements[i].type == 'select-one'){
+                        var id_combo = combos.elements[i].id;
+                        var value = combos.elements[i].value;			
+                        ids.push(value);
+                    }
+                }
+
+                return ids;
+	
+            }
+
+
+
+
+            function grabarDiaNoLaborado(){
+	
+                //calcDiaSubsidiado();
+                document.getElementById('dia_nosubsidiado').value = num_dia_subsidiado;
+                document.getElementById('dia_laborado').value = dia_laborado - num_dia_subsidiado;	
+		
+		
+                alert("***SESSION = La informacion se Guardo\nCorrectamente.");
+				
+                //-----
+                var data = $("#formDiaNoSubsidiado").serialize();
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: 'sunat_planilla/controller/PlameDiaNoSubsidiadoController.php?'+data,
+                    data: {/*id_pjornada_laboral: id_pjornada_laboral*/},
+                    success: function(json){
+				
+                    }
+                });
+
+	
+            }
+
+
+
+
+//-----------
+    function calcDiaNoSubsidiado(){
+		
+		//-----
+		var ESTADO = true;
+
+        var tabla = document.getElementById("tb_dnolaborado");
+        var num_fila = parseInt(contarTablaFila(tabla));
+        num_fila = num_fila - 1;		
+        	
+        var total = document.getElementById('dns_total');		
+		
+		//-----------------------------------------
+		var max_dias_main = (max_dias) - num_dia_subsidiado;
+		var max_dias_local = (max_dias) - num_dia_subsidiado;
+		//-----------------------------------------
+		
+		var num_dia_nosubsidiado_local=0;
+//------
+		
+        for(var i= 1; i <= num_fila; i++){ console.log("ciclo iiii="+ i);
+	
+            var cbo = document.getElementById('cbo_dns_tipo_suspension-'+i);
+            var dia = document.getElementById('dns_cantidad_dia-'+i);		
+		
+            //	
+            var diaint = parseInt( (dia.value == '' || dia.value < 0) ? 0 : dia.value );
+            //rpta
+            num_dia_nosubsidiado_local = num_dia_nosubsidiado_local + (diaint);	
+		
+		
+            if( i == num_fila ){ //ULTIMO NO RESTA
+                //max_dias_local = max_dias_local - diaint;	
+            }else {
+                max_dias_local = max_dias_local - diaint;
+            }		
+		
+            if(max_dias_local<0){
+                alert("El maximo numero de dias esS: "+ max_dias_local);
+                dia.value = '';			
+                diaint = 0;
+				ESTADO = false;
+                break;
+            }		
+				
+            if(num_dia_nosubsidiado_local > max_dias_main){
+                alert("El maximo numero de dias es : "+max_dias_local);
+                dia.value = '';                
+                diaint = 0;
+				ESTADO = false;
+			
+            }
+		
+            //rpta          
+            dia.value = (diaint == 0) ? '' : diaint;		
+		
+        }
+//-----------
+
+		//Variables Globales		
+		num_dia_nosubsidiado = (num_dia_nosubsidiado_local>max_dias_main)? '' : num_dia_nosubsidiado_local;
+        total.value = (num_dia_nosubsidiado_local > max_dias_main) ? '' : num_dia_nosubsidiado_local;
+
+		if(num_dia_nosubsidiado == max_dias_main ){
+			dia_laborado = 0;
+		}else if(max_dias_main > num_dia_nosubsidiado){
+			dia_laborado = max_dias_main - num_dia_nosubsidiado;
+		}
+		
+		
+        //alert("DIA TOTAL "+ num_dia);	
+		return ESTADO;
+//----------
+
+
+		  
+		
 }//ENDFN
 
+//-----
+function grabarDiaNoSubsidiado(){
 
-
-function validarNuevoInput_2(){
-	
-	if(num_dia_subsidiado == num_max_dia){
-		alert("No hay mas dias para ser No Subsidiados");
-	}else{
-	
-	//if(nosubs.length == 1){
-		//alert("No existe mas Conceptos por agregar");
-	//}else{
-		nuevoDiaSubsidiado_2();
-	//}
-	
-	
-	}
-
-}
-//--------------------------------------------------------------------------------
-
-
-function nuevoDiaSubsidiado_2(){
-	//alert("holaaaaa");	
-	//Capa Contenedora
-	var tabla = document.getElementById("tb_dnolaborado");
-	var num_fila_tabla = contarTablaFila(tabla);
-	num_fila_tabla = num_fila_tabla - 1;
-	var COD_DETALLE_CONCEPTO =  num_fila_tabla + 1;
-
-	var div = document.createElement('tr');
-	//
-	div.setAttribute('id','dia_nosubsidiado-'+COD_DETALLE_CONCEPTO);	
-	tabla.appendChild(div); //PRINCIPAL	
-	
-
-//-------------------------------------------------------------
-//---- CODIGO
-var id = '<input type="hidden" size="4" id="id_pdia_nosubsidiado-'+ COD_DETALLE_CONCEPTO +'" name="id_pdia_nosubsidiado[]" value ="" >';
-var estado = '<input type="hidden" size="4" id="estado-'+ COD_DETALLE_CONCEPTO +'" name="estado[]" value ="0" >';
-//var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
-
-var input_cdia = '<input name="dn_cantidad_dia[]" type="text" id="dn_cantidad_dia-'+COD_DETALLE_CONCEPTO+'" size="7" />';
-//-----input Descripcion
-var span1;
-var span2;
-
-
-var finSpan = '</span>';
-
-span1 = '<span title="editar">';
-span1 +="<a href=\"javascript:editar_dns('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
-span1 += finSpan;
-
-
-span2 = '<span title="editar">';
-span2 +="<a href=\"javascript:eliminar_dns('dia_nosubsidiado-"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/cancelar.png\"></a>";
-span2 += finSpan;
-
-
-var combo = "";
-combo +='     <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-'+COD_DETALLE_CONCEPTO+'"  ';
-combo +='	  style="width:150px;"  onchange="" >';
-combo +='     </select>';
-
-
-	//inicio html	
-var html ='';
-var cerrarTD = '<\/td>';
-
-
-html +='<td>';
-html += id;
-html += estado;
-html += combo;
-html += cerrarTD;
-
-
-html +='<td>';	
-html += input_cdia;
-html += cerrarTD;
-
-html +='<td>';	
-html += span1;
-html += cerrarTD;
-
-html +='<td>';	
-html += span2;
-html += cerrarTD;
-
-
-////---
-div.innerHTML=html;
-
-//-------   - - --  -cargar combo
-cbo = document.getElementById('cbo_dns_tipo_suspension-'+COD_DETALLE_CONCEPTO);
-
-var ids = getIdsCombos_2();
-cargarSuspension_2(cbo,ids);	
-	
-
-}
-
-
-
-function eliminar_dns(elementId){ alert (" "+elementId);
-
-	var obj = document.getElementById(elementId)
-	eliminarElemento(obj);
-/*
-	console.log("master intacto");
-	console.dir(master);
-*/
-
-}
-
-
-
-function getIdsCombos_2(){
-	var ids = new Array();
-	
-	var combos = document.getElementById('formDiaNoSubsidiado');	
-	var numElementos = combos.elements.length;
-	
-	for(var i=0;i<combos.elements.length;i++){
-		if(combos.elements[i].type == 'select-one'){
-			var id_combo = combos.elements[i].id;
-			var value = combos.elements[i].value;			
-			ids.push(value);
+		if(  calcDiaNoSubsidiado() ==true){
+			
+			document.getElementById('dia_nosubsidiado').value = num_dia_nosubsidiado;
+			document.getElementById('dia_laborado').value = dia_laborado;//dia_laborado - num_dia_subsidiado;				
+			alert("SESSION = La informacion se Guardo\nCorrectamente.");	
+        //-----
+        var data = $("#formDiaNoSubsidiado").serialize();
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: 'sunat_planilla/controller/PlameDiaNoSubsidiadoController.php?'+data,
+            data: {/*id_pjornada_laboral: id_pjornada_laboral*/},
+            success: function(json){
+				
+            }
+        });
+		//----
 		}
-	}
 
-	return ids;
-	
 }
 
 
 
-
-function grabarDiaNoLaborado(){
-	
-$.ajax({
-   type: "post",
-   url: "sunat_planilla/view-plame/modal/dia_nolaborado.php",
-   data: "id_ptrabajador="+id,
-   async:true,
-   success: function(datos){
-    $('#editarDiaNoLaborado').html(datos);
-    
-    $('#dialog-dia-noLaborado').dialog('open');
-   }
-});
-
-	
-}
-
- //----------------------------------------------------------
- // FINAL DIAS SUBSIDIADOS	
- //----------------------------------------------------------
-
-
-
-
-
-
-
+            //----------------------------------------------------------
+            // FINAL DIAS NO-SUBSIDIADOS	
+            //----------------------------------------------------------
 
 
 
@@ -549,72 +718,72 @@ $.ajax({
 
 <div class="ptrabajador">
 
-<div class="section">
-	<div class="article fila1">
-    <div class="ocultar">
-    id_pjornada_laboral:<input name="id_pjornada_laboral" id="id_pjornada_laboral" 
-    type="text" readonly="readonly" value="<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>" />
+    <div class="section">
+        <div class="article fila1">
+            <div class="ocultar">
+                id_pjornada_laboral:<input name="id_pjornada_laboral" id="id_pjornada_laboral" 
+                                           type="text" readonly="readonly" value="<?php //echo $PjornadaLaboral->getId_pjornada_laboral(); ?>" />
+            </div>
+            <h3>Dias de Jornada</h3>
+            <hr />
+            <p>
+                <label for="dia_laborado">Laborados</label>
+                <input name="dia_laborado" type="text" id="dia_laborado" size="4" readonly="readonly"
+                       value="<?php echo $dia_laborado; ?>" />
+
+
+
+            </p>
+            <p>
+                <label for="dia_subsidiado">Subsidiados</label>
+                <input name="dia_subsidiado" type="text" id="dia_subsidiado" 
+                       value="<?php echo $dia_subsidiado; ?>" size="4" readonly="readonly" />
+                <span>
+                    <a href="javascript:editarDiaSubcidiado( '<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>')">
+                        <img src="images/edit.png"></a></span>
+            </p>
+            <p>
+                <label for="dia_nosubsidiado">No laborados y no subsidiados:</label>
+                <input name="dia_nosubsidiado" type="text" id="dia_nosubsidiado" 
+                       value="<?php echo $dia_nosubsidiado; ?>" size="4" readonly="readonly" />
+                <span >
+                    <a href='javascript:editarDiaNoLaborado("<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>")'>
+                        <img src="images/edit.png"></a></span>
+            </p>
+            <h3>TOTAL: 
+                <label for="dia_total"></label>
+                <input name="dia_total" type="text" id="dia_total" size="4" readonly="readonly"
+                       value="<?php echo $PjornadaLaboral->getDia_total(); ?>" />
+            </h3>
+            <p>&nbsp;</p>
+        </div>
+        <div class="article fila2">
+            <h3>Horas Laboradas</h3>
+            <hr />
+            <p>        
+                <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
+                <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh" size="5" />
+                :
+                <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm" size="5" />
+            </p>
+            <p>
+                <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
+                <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" />
+                :
+                <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" />
+            </p>
+            <h3>TOTAL HORAS:
+                <label for="total_hora_hh"></label>
+                <input name="total_hora_hh" type="text" id="total_hora_hh" size="5" readonly="readonly" />
+                :
+                <label for="total_hora_mm"></label>
+                <input name="total_hora_mm" type="text" id="total_hora_mm" size="5" readonly="readonly" />
+            </h3>
+            <p>&nbsp;</p>
+        </div>
     </div>
-	  <h3>Dias de Jornada</h3>
-        <hr />
-	  <p>
-	    <label for="dia_laborado">Laborados</label>
-	    <input name="dia_laborado" type="text" id="dia_laborado" size="4" readonly="readonly"
-        value="<?php echo $PjornadaLaboral->getDia_laborado(); ?>" />
-       
-        
-        
-	  </p>
-	  <p>
-	    <label for="dia_subsidiado">Subsidiados</label>
-	    <input name="dia_subsidiado" type="text" id="dia_subsidiado" 
-        value="<?php echo $PjornadaLaboral->getDia_subsidiado();?>" size="4" readonly="readonly" />
-       <span>
-       <a href="javascript:editarDiaSubcidiado( '<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>')">
-       <img src="images/edit.png"></a></span>
-	  </p>
-	  <p>
-	    <label for="dia_nosubsidiado">No laborados y no subsidiados:</label>
-	    <input name="dia_nosubsidiado" type="text" id="dia_nosubsidiado" 
-        value="<?php echo $PjornadaLaboral->getDia_nosubsidiado(); ?>" size="4" readonly="readonly" />
-         <span >
-         <a href='javascript:editarDiaNoLaborado("<?php echo $PjornadaLaboral->getId_pjornada_laboral();?>")'>
-         <img src="images/edit.png"></a></span>
-	  </p>
-      <h3>TOTAL: 
-        <label for="dia_total"></label>
-        <input name="dia_total" type="text" id="dia_total" size="4" readonly="readonly"
-         value="<?php  echo $PjornadaLaboral->getDia_total(); ?>" />
-        </h3>
-      <p>&nbsp;</p>
-	</div>
-	<div class="article fila2">
-			<h3>Horas Laboradas</h3>
-              <hr />
-		<p>        
-          <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
-          <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh" size="5" />
-          :
-          <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm" size="5" />
-		</p>
-	  <p>
-	    <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
-		  <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" />
-	    :
-	    <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" />
-		</p>
-			<h3>TOTAL HORAS:
-			  <label for="total_hora_hh"></label>
-			  <input name="total_hora_hh" type="text" id="total_hora_hh" size="5" readonly="readonly" />
-			:
-			<label for="total_hora_mm"></label>
-			<input name="total_hora_mm" type="text" id="total_hora_mm" size="5" readonly="readonly" />
-			</h3>
-	  <p>&nbsp;</p>
-	  </div>
-	</div>
-    
-    
+
+
 </div>   
 
 
@@ -622,7 +791,7 @@ $.ajax({
 <!---  DIALOG -->
 <div id="dialog-dia-subsidiado">
 
-<div id="editarDiaSubsidiado"> </div>
+    <div id="editarDiaSubsidiado"> </div>
 
 </div> 
 
@@ -630,6 +799,6 @@ $.ajax({
 <!---  DIALOG -->
 <div id="dialog-dia-noLaborado">
 
-<div id="editarDiaNoLaborado"> </div>
+    <div id="editarDiaNoLaborado"> </div>
 
 </div> 

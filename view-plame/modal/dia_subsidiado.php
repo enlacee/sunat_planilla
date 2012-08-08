@@ -12,7 +12,7 @@ $suspencion1 = comboSuspensionLaboral_1();
 $id_pjoranada_laboral = $_REQUEST['id_pjoranada_laboral'];
 
 //DATOS
-$data = buscarPor_IdPjornadaLaboral($id_pjoranada_laboral);
+$data = buscarDiaSPor_IdPjornadaLaboral($id_pjoranada_laboral);
 
 //echo "<pre>";
 //print_r($data);
@@ -117,7 +117,7 @@ calcDiaSubsidiado();
     <br>
     <div style="width:150px; margin:0 0 0 174px;">
         <label for="ds_total">TOTAL</label>
-        <input name="ds_total" type="text" id="ds_total" size="7">
+        <input name="ds_total" type="text" id="ds_total" size="7" readonly="readonly">
     </div>
     <p>
         <input type="button" name="btnGrabar" id="btnGrabar" value="Grabar" onclick="grabarDiaSubsidiado()" />

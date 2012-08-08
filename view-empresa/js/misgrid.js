@@ -1,8 +1,6 @@
 // JavaScript Document
-
-//-----------------------------------------------------------------------------------------
     // GRID 2
-    function cargarTablaModulo_01(){
+    function cargarTablaMod_1(){
 
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({

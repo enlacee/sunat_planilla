@@ -1,10 +1,6 @@
 <?php
-
 //session_start();
 //header("Content-Type: text/html; charset=utf-8");
-
-
-
 $op = $_REQUEST["oper"];
 
 if ($op) {  // ES NEDD XQ SINO SE DUPLICAN LOS REQUIRE!!!
@@ -24,7 +20,7 @@ if ($op == "cargar_tabla") {
     $responce = comboUbigeoProvincias($_REQUEST['id_departamento']);
 } elseif ($op == "listar_distritos") {
     $responce = comboUbigeoReniec($_REQUEST['id_provincia']);
-} elseif ($op = 'listar_doc_vinculosf') {
+} elseif ($op == 'listar_doc_vinculosf') {
     $responce = comboDocumentoVinculoFamiliar($_REQUEST['id']);
 } else {
     //echo "oper INCORRECTO COMBO";

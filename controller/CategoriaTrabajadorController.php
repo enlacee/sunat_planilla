@@ -390,8 +390,9 @@ function editarTrabajador() {
     //-----------------------------------------
     $dao5 = new DetalleRegimenPensionarioDao();
     $dao5->actualizarDetalleRegimenPensionario($detalle_5);
-
-
+    
+    //-----------------------------------------
+    
     return true;
 }
 

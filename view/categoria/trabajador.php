@@ -131,7 +131,7 @@ foreach ($lista_establecimientos as $indice) {
 
 //############################################################################
 
-//echo "<pre>xd"; //$objTRADetalle_5
+//echo "<pre>trabajador"; //$objTRADetalle_5
 //print_r($objTRA);
 //echo "</pre>";
 
@@ -785,7 +785,7 @@ foreach ($cbo_periodo_remuneracion as $indice) {
 	if ($indice['cod_periodo_remuneracion']==0 ) {
 		
 		//$html = '<option value="" selected="selected" >' . $indice['descripcion'] . '</option>';
-	}else if($indice['cod_tipo_pago'] == $objTRA->getCod_periodo_remuneracion() ){
+	}else if($indice['cod_periodo_remuneracion'] == $objTRA->getCod_periodo_remuneracion() ){
 		
 		$html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
 	}else {

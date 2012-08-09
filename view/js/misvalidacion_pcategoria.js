@@ -564,7 +564,7 @@ function cargarEstablecimientosBase(){
 
 
 
-//-----------------------------------------
+//--------------------------- seleccionarLocalDinamico
 function cargarEstablecimientoLocales(idComboPadre){
 	
 	var valor = idComboPadre.value;
@@ -607,6 +607,56 @@ function cargarEstablecimientoLocales(idComboPadre){
 
 }//ENDIF
 //-----------------------
+
+//-----------------------------------------
+function cargarEstablecimientoLocalesCCosto(idComboPadre){ alert(idComboPadre.value);
+	
+	var valor = idComboPadre.value;
+	var fragmento = valor.split("|"); //Array()
+	
+	
+	//alert("id_empleador "+ valor);
+	var objCombo = document.getElementById('cboCentroCosto');
+	//cbo_depa.options[cbo_depa.selectedIndex].value
+	if(valor=='0'){
+		//objCombo.disabled = true;
+		alert("Debe Selecionar Un Local Correcto");
+		limpiarComboGlobal(objCombo);
+	}else{
+		//limpiarComboGlobal(objCombo);
+		//objCombo.disabled = false;
+	//-----
+
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
+		data: {id_establecimiento: fragmento[0], oper: 'lista_centrocosto'},
+		beforeSend: function(objeto){ /*alert("Adiós, me voy a ejecutar");*/ },
+        complete: function(objeto, exito){ /*alert("Me acabo de completar");
+			if(exito=="success"){alert("Y con éxito");}*/
+        },
+		success: function(json){
+			//console.log(json);
+			if(json == null || json.length<1 ){
+				var mensaje = "No Existen Establecimientos Registrados\n";
+				mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
+				mensaje += "O el problema es aun Mayor"; 
+				//limpiarComboGlobal(objCombo);
+				objCombo.disabled =true;
+				alert(mensaje);	
+			}else{
+				objCombo.disabled =false;
+				llenarComboDinamico(json,objCombo);
+			}
+		}
+	});
+	//-----		
+	}
+	
+
+}//ENDIF
+
 //-----------------------------------------
 /*
 function cargarEstablecimientoLocalesYourself(idComboPadre){
@@ -1065,6 +1115,7 @@ function seleccionarLocalDinamico(oCombo){ //alert(oCombo.value);
 	oInput.value = codigo_establecimiento;
 	oInput2.value = id_establecimiento;
 
+	cargarEstablecimientoLocalesCCosto(oCombo);
 	//seleccionarComboCodigoAinput(oCombo,oInput);
 	
 }

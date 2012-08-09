@@ -82,6 +82,9 @@ if ($op == "cargar_tabla") {
 } else if ($op == "cargar_tabla_ptrabajador") {
     //CARGAR JQGRID ptrabajadores
     cargar_tabla_ptrabajador();
+}else if($op == "cargar_tabla_empresa"){
+    $anio = $_REQUEST['anio'];
+    $response = cargar_tabla_empresa(ID_EMPLEADOR_MAESTRO,$anio);
 }
 
 
@@ -500,6 +503,102 @@ function cargar_tabla($id_empleador_maestro) { //cargarTablaPDeclaraciones
 
     return $responce;
 }
+
+
+
+
+//VIEW-EMPRESA
+function cargar_tabla_empresa($id_empleador_maestro,$anio) {
+    $dao = new PlameDeclaracionDao();
+
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
+    $sord = $_GET['sord']; // get the direction
+
+    $WHERE = "";
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $lista = array();
+    $lista = $dao->listar($id_empleador_maestro,$anio);
+
+    $count = count($lista);
+
+    // $count = $count['numfilas'];
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; // do not put $limit*($page - 1)
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+// CONTRUYENDO un JSON
+    
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+    $i = 0;
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return $response;
+    }
+//print_r($lista);
+
+    foreach ($lista as $rec) {
+        
+            $param = $rec["id_pdeclaracion"];
+            $_01 = $rec['periodo'];
+            $_02 = '<a href="javascript::Add()" title = "Agregar UNICO Adelanto 15">add</a>';
+            //$_03 = '<a href="javascript::Edit()"title = "Editar Adelanto">edit</a>';
+            $_04 = "ST-ADD";
+            $_05 = "ST-Edit";
+
+            $periodo = getFechaPatron($_01, "m/Y");
+            
+            //hereee
+            $response->rows[$i]['id'] = $param;
+            $response->rows[$i]['cell'] = array(                
+                $param,
+                $periodo,
+                $_02,
+                $_03,
+                $_04,
+                $_05
+            );
+            $i++;
+        
+    }
+
+    return $response;
+}
+
 
 function retornan_Id_Persona_Unico($data_tra) {
 

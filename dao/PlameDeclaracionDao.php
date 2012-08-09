@@ -65,7 +65,6 @@ class PlameDeclaracionDao extends AbstractDao {
      * Pregunta si existe periodo registrado.
      */
     public function existeDeclaracion($id_empleador_maestro, $periodo) { //paso 01
-
         $query = "
         SELECT
             COUNT(*) as nunfilas
@@ -81,46 +80,47 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista[0]['nunfilas'];
     }
+
     /*
-        public function contarTrabajadoresEnPeriodo($id_empleador_maestro,$periodo){//paso 02
-        
-        $query = "
-        SELECT
-            COUNT(*) AS numfilas
+      public function contarTrabajadoresEnPeriodo($id_empleador_maestro,$periodo){//paso 02
 
-        FROM pdeclaraciones AS pd
-        INNER JOIN empleadores_maestros AS em
-        ON pd.id_empleador_maestro = em.id_empleador_maestro
+      $query = "
+      SELECT
+      COUNT(*) AS numfilas
 
-        INNER JOIN ptrabajadores AS pt
-        ON pd.id_pdeclaracion = pt.id_pdeclaracion
+      FROM pdeclaraciones AS pd
+      INNER JOIN empleadores_maestros AS em
+      ON pd.id_empleador_maestro = em.id_empleador_maestro
 
-        INNER JOIN trabajadores AS tra
-        ON pt.id_trabajador = tra.id_trabajador
+      INNER JOIN ptrabajadores AS pt
+      ON pd.id_pdeclaracion = pt.id_pdeclaracion
 
-        INNER JOIN personas AS p
-        ON tra.id_persona = p.id_persona
+      INNER JOIN trabajadores AS tra
+      ON pt.id_trabajador = tra.id_trabajador
+
+      INNER JOIN personas AS p
+      ON tra.id_persona = p.id_persona
 
 
-        INNER JOIN pjornadas_laborales AS pjl
-        ON pt.id_ptrabajador = pjl.id_ptrabajador
+      INNER JOIN pjornadas_laborales AS pjl
+      ON pt.id_ptrabajador = pjl.id_ptrabajador
 
-        WHERE (em.id_empleador_maestro = ? AND  pd.periodo = ?)
-        ";
+      WHERE (em.id_empleador_maestro = ? AND  pd.periodo = ?)
+      ";
 
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador_maestro);
-        $stm->bindValue(2, $periodo);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0]['numfilas'];
-        
-        
-    }
-    
-    */
+      $stm = $this->pdo->prepare($query);
+      $stm->bindValue(1, $id_empleador_maestro);
+      $stm->bindValue(2, $periodo);
+      $stm->execute();
+      $lista = $stm->fetchAll();
+      $stm = null;
+      return $lista[0]['numfilas'];
 
+
+      }
+
+     */
+/*
     public function listar($id_empleador_maestro) {
         $query = "
         SELECT 
@@ -144,9 +144,31 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+*/
+    public function listar($id_empleador_maestro,$anio) {
+        $query = "
+        SELECT 
+        id_pdeclaracion,
+        periodo,
+        fecha_modificacion
 
+        FROM pdeclaraciones AS pd
+        INNER JOIN empleadores_maestros AS em
+        ON pd.id_empleador_maestro = em.id_empleador_maestro
 
-    
+        WHERE(em.id_empleador_maestro= ?AND YEAR(pd.periodo) = ?)
+        ORDER BY periodo ASC
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+
 }
 
 ?>

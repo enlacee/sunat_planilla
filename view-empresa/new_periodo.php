@@ -42,8 +42,8 @@
   </select>
   <label for="txt_mes"></label>
   <input name="txt_mes" type="text" id="txt_mes" size="5" />
-  <input type="button" name="seleccionar" id="seleccionar" value="Seleccionar">
-</p>
+  <input type="button" name="seleccionar" id="seleccionar" value="Seleccionar"> 
+   </p>
 
         
         </div>

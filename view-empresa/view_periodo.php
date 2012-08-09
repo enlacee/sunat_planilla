@@ -3,6 +3,10 @@
                   
         $( "#tabs").tabs();
 		
+		cargarTablaPdeclaracionEmpresa();
+		
+
+		
 	});
 </script>
 
@@ -16,10 +20,18 @@
         <div id="tabs-1">
             <input type="button" name="button" id="button" value="Nuevo Periodo"
             onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_periodo.php','#CapaContenedorFormulario')" />
-
-          <h2>lista de periodos JQGRID</h2>
-            <h3>01-2011</h3>
-          <h3>02-2011</h3>
+            
+            <h2>lista de periodos JQGRID
+              <label for="anio"></label>
+              <select name="anio" id="anio" onchange="cargarTablaPdeclaracionEmpresa()">
+                <option value="2011">2011</option>
+                <option value="2012" selected="selected">2012</option>
+              </select>
+            </h2>
+          
+            <table id="list">
+            </table>
+            <div id="pager"></div>
 
         
         </div>

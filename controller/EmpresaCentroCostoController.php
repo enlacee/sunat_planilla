@@ -5,6 +5,7 @@
 $op = $_REQUEST["oper"];
 if ($op) {
     require_once ('../dao/AbstractDao.php');
+    require_once '../dao/EmpresaCentroCostoDao.php';
 //
  //   require_once '../model/';
  //   require_once('../dao/EmpresaCentroCostoDao.php');
@@ -18,14 +19,38 @@ if ($op == "cargar_tabla") {
     
     //$response = registrarEmpresaCentroCosto();
 }else if($op =="edit"){
+    //
+}else if($op == "lista_centrocosto"){
     
+    $responce = listarCentroCosto($_REQUEST['id_establecimiento']);
 }
 
 echo (!empty($responce)) ? json_encode($responce) : '';
 
 
 
+function listarCentroCosto($id_establecimiento){
+        
+     // paso 01 ->Identidicaion     
+    $dao = new EmpresaCentroCostoDao();
+    $rec = $dao->listarCCosto_PorIdEstablecimiento($id_establecimiento);
 
+//    echo "<pre>";
+//    var_dump($rec);
+//    echo "</pre>";
+    $lista = array();
+
+    $counteo = count($rec);
+    for ($i = 0; $i < $counteo; $i++) {        
+        $cadena = strtoupper($rec[$i]['descripcion']);
+        //-------------------------------------------------------
+        $lista[$i]['id'] = $rec[$i]['id_empresa_centro_costo'];
+        $lista[$i]['descripcion'] = $cadena;
+    }//EndFOR
+
+    return $lista;
+    
+}
 //------------------------------------------------------------------------------
 // Funciones
 

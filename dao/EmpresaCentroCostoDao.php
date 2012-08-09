@@ -43,6 +43,34 @@ class EmpresaCentroCostoDao extends AbstractDao {
         return $lista;
         
     }
+
+    public function listarCCosto_PorIdEstablecimiento($id_establecimiento){
+        
+        $query = "
+        SELECT 
+        estcc.id_establecimiento,
+        estcc.id_empresa_centro_costo,
+        empcc.descripcion
+        FROM establecimientos_centros_costos AS estcc
+
+        INNER JOIN empresa_centro_costo AS empcc
+        ON estcc.id_empresa_centro_costo = empcc.id_empresa_centro_costo
+        WHERE estcc.id_establecimiento = ?        
+        ";
+        
+        $stm= $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_establecimiento);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        
+        return $lista;
+        
+        
+    }
+    
+    
 }
 
 ?>

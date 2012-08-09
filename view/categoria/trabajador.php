@@ -894,6 +894,14 @@ foreach ($lista_establecimientos as $indice) {
                 </p>
               </td>
             </tr>
+            <tr>
+              <td><strong>Centro de Costo</strong></td>
+              <td><label for="cboCentroCosto"></label>
+                <select name="cboCentroCosto" id="cboCentroCosto" style="width:100px">
+                <option>01</option>
+                </select></td>
+              <td>&nbsp;</td>
+            </tr>
         </table>
 		  <br>
 		  <table width="199" border="1" cellpadding="0" cellspacing="0">

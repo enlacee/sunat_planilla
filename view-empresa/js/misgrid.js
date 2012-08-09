@@ -118,3 +118,103 @@
 
 	
     }
+
+
+//-------------------------------------------------------------------
+
+    function cargarTablaPdeclaracionEmpresa(){ 
+		//var d = new Date();
+		//var n = d.getFullYear(); 
+		var anio = document.getElementById('anio').value;
+
+        $("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_empresa&anio='+anio,
+            datatype: 'json',
+            colNames:['Id','Periodo','Add','Edit','SUNAT','SUNAT'],
+            colModel :[
+                {
+                    name:'id_pdeclaracion', 
+                    editable:false, 
+                    index:'id_pdeclaracion',
+                    search:false,
+                    width:20,
+                    align:'center'
+                },		
+                {
+                    name:'periodo',
+                    index:'periodo',
+                    search:false, 
+                    editable:false,
+                    width:70, 
+                    align:'center' 
+                },
+                {
+                    name:'add', 
+                    index:'add',
+                    search:false,
+                    editable:false,
+                    width:100,
+                    align:'center'
+                },
+                {
+                    name:'edit', 
+                    index:'edit',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'sunatAdd', 
+                    index:'sunatAdd',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'sunatEdit', 
+                    index:'sunatEdit',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                }
+
+            ],
+            pager: '#pager',
+			height:'250px',
+            //width:'800px',
+            //autowidth: true,
+            rowNum:12,
+            rowList:[12,24,36],
+            sortname: 'id_pdeclaracion',
+            sortorder: 'asc',
+            viewrecords: true,
+            gridview: true,
+            caption: 'Lista de Periodos',
+           // toolbar: [true,"top"],
+            //multiselect: true,
+            hiddengrid: false
+	
+
+        });
+        //--- PIE GRID
+  jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+	//add
+	//----
+/*
+var input = '<select name="anio" id="anio" onchange="cargarTablaPdeclaracionEmpresa()">';
+	input+= '<option value="2011">2011</option>';
+	input+= '<option value="2012">2012</option>';
+    input+= '</select>';
+		
+		$("#t_list").append(input);
+		$("input","#t_list").click(function(){
+		
+		});
+*/
+
+
+
+  
+
+}

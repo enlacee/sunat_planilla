@@ -331,13 +331,13 @@ function crearDialogoPTperiodoLaboral(){
 
 
 //----------
-function editarPTperiodoLaboral(id_pjoranada_laboral){ 
+function editarPTperiodoLaboral(id_ptrabajador){ 
 	crearDialogoPTperiodoLaboral();
 
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-plame/modal/periodo_laboral.php",
-   data: {id_pjoranada_laboral : id_pjoranada_laboral},
+   data: {id_ptrabajador : id_ptrabajador},
    async:true,
    success: function(datos){
     $('#editarPTperiodoLaboral').html(datos);

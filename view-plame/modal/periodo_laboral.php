@@ -22,7 +22,7 @@ if($_REQUEST['id_ptrabajador']){
 }
 
 //echo "<pre>";
-//var_dump($objTRADetalle_1);
+//var_dump($dataObj);
 //echo "</pre>";
 
 

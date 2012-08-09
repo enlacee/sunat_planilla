@@ -6,9 +6,7 @@
         
         $dao = new PperiodoLaboralDao();
         $data = $dao->buscarPorIdPtrabajador($id_ptrabajador);
-//        echo "<pre>";
-//        print_r($data);
-//        echo "</pre>";
+
         
         
         $dataObj = array();
@@ -23,7 +21,7 @@
             
             $dataObj[] = $model;
         }
-        
+
         
         return $dataObj;
         

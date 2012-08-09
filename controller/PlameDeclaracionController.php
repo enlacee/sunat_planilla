@@ -7,7 +7,6 @@ if ($op) {
     require_once '../dao/AbstractDao.php';
     require_once '../dao/PlameDeclaracionDao.php';
 
-
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
 

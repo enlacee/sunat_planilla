@@ -804,7 +804,7 @@ function calcHoraLaboradaEvento(event){
         <div class="article fila1">
             <div class="ocultar">
                 id_pjornada_laboral:<input name="id_pjornada_laboral" id="id_pjornada_laboral" 
-                                           type="text" readonly="readonly" value="<?php //echo $PjornadaLaboral->getId_pjornada_laboral(); ?>" />
+                                           type="text" readonly="readonly" value="<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>" />
             </div>
             <h3>Dias de Jornada</h3>
             <hr />

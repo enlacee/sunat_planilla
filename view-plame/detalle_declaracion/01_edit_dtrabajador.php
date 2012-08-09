@@ -127,7 +127,8 @@ $objTRADetalle_1 = $dataObj[0];
 ?>
 <div class="ptrabajador">
 <div class="ocultar">
-id_ptrabajador<input name="id_ptrabajador" type="text" readonly="readonly" />
+id_ptrabajador<input name="id_ptrabajador" type="text" readonly="readonly"
+ value="<?php echo $ID_PTRABAJADOR; ?>" />
 </div>
 <label for="pt_tipo_documento">Tipo documento: 
   <select name="pt_tipo_documento" id="pt_tipo_documento" disabled="disabled" 

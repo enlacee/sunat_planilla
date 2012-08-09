@@ -473,7 +473,7 @@ function eliminarPersona($id) {
 
     return $rpta;
 }
-
+//?????
 function cargar_tabla() {
     $ESTADO = ($_REQUEST['estado']) ? $_REQUEST['estado'] : 0;
 
@@ -688,5 +688,16 @@ function existePersonaRegistrada($id_empleador_maestro, $num_doc, $cod_tipo_docu
 
     return $data['id_persona'];
 }
+
+
+
+
+//--------------------
+// -- VIEW EMPRESA
+
+//function cargar_tabla_
+
+
+
 
 ?>

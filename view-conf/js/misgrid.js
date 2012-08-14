@@ -4,18 +4,18 @@
 function tabla_Remuneracion(){
 	
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PeriodoRemuneracionController.php?oper=cargar_tabla',
+            url:'sunat_planilla/controller/ConfPeriodoRemuneracionController.php?oper=cargar_tabla',
             datatype: 'json',
-            colNames:['','ID','Descripcion','Tasa'],
+            colNames:['','Id','Descripcion','Valor'],
             colModel :[
 				{name: 'myac', width:80, fixed:true, sortable:false, resize:false, formatter:'actions',
 					formatoptions:{keys:true}
 				},
 				{
-				name:'cod_periodo_remuneracion',
+				name:'id_conf_periodo_remuneracion',
 				sortable:true,
 				key : true,
-				index:'cod_periodo_remuneracion',
+				index:'id_conf_periodo_remuneracion',
 				width:55
 				},		
   	
@@ -29,8 +29,8 @@ function tabla_Remuneracion(){
                     align:'center' 
                 },
                 {
-                    name:'tasa_pago', 
-                    index:'tasa_pago',
+                    name:'valor', 
+                    index:'valor',
                     search:true,
 					sortable:false,
                     editable:true,
@@ -45,11 +45,11 @@ function tabla_Remuneracion(){
 			heigth:'200px',
             rowNum:10,
             rowList:[10,20,30],
-            sortname: 'cod_periodo_remuneracion',
+            sortname: 'id_conf_periodo_remuneracion',
             sortorder: 'asc',
             viewrecords: true,
-			editurl: "sunat_planilla/controller/PeriodoRemuneracionController.php", 
-            caption: 'Periodos de Remuneracion',
+			editurl: "sunat_planilla/controller/ConfPeriodoRemuneracionController.php", 
+            caption: 'Configuracion Remuneracion',
             //toolbar: [true,"top"],
             //multiselect: true,
             //hiddengrid: false,

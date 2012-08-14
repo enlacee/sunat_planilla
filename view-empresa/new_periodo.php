@@ -1,52 +1,152 @@
+<?php
+//*******************************************************************//
+require_once('../view/ide.php');
+//*******************************************************************//
+require_once '../controller/ideController.php';
+
+
+// -- Carga de COMBOS
+require_once('../dao/ComboCategoriaDao.php');
+require_once('../controller/ComboCategoriaController.php');
+
+//Combo 01
+$cbo_tipo_empleador = comboTipoEmpleador();
+
+$data = $_SESSION['sunat_empleador'];
+
+//echo "<pre>";
+//print_r($data);
+//echo "</pre>";
+
+//require_once('../controller/ideController.php');
+
+
+?>
+
 <script type="text/javascript">
     $(document).ready(function(){
                   
         $( "#tabs").tabs();
 		
 	});
+	
+//-----------------------------------
+function verPeriodo(){
+	var periodo = document.getElementById('txt_periodo_tributario').value;
+	//alert(periodo);
+	if(validarPeriodo(periodo) == true){
+		cargarTablaTrabajadoresPorPeriodo(periodo);	
+	}
+}
+//----------------------------------
+function validarPeriodo(periodo){
+	var estado = false;
+	//-------------
+	
+	//-------------
+	var expresion =/^\d{2}\/\d{4}$/;
+	var bandera = expresion.test(periodo);
+	
+	if(bandera==false){
+		alert("Formato del Periodo es incorrecto\n Utilize el formato: dia/mes");
+		obj.value="";
+		obj.style.border="thin solid #ff0000";
+	}else{
+		
+	//----------------			
+	//var fecha = new Date();
+	var dia = 01;
+	var mes  =  parseInt(periodo.substring(0,2),10);
+	var anio  =  parseInt(periodo.substring(3,7),10);
+	
+	//alert("mes.."+mes);
+	//alert("anio.."+anio);	
+		
+	var fecha_form = new Date(anio,mes - 1 ,dia/*, 0,0,0*/);
+	var fecha_local = new Date();
+	
+	if(fecha_form > fecha_local){
+		alert("Fecha No puede Ser mayor que la fecha local: \n"+ fecha_local);
+		//cargarTablaTrabajadoresPorPeriodo("01/1970")
+	}else{
+		//cargarTablaTrabajadoresPorPeriodo(periodo);	
+		estado = true;
+	}	
+	//----------------
+		
+	}//ENDELSE
+	
+	return estado;
+
+}
+
+
+	
 </script>
 
 
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Establecer Periodo</a></li>			
+            <li><a href="#tabs-1">Informacion General</a></li>	
+            <!--<li><a href="#tabs-2">Detalle de Declaraci&oacute;n</a></li>
+            <li><a href="#tabs-3">Determinacion de Deuda</a></li>	-->            		
 
         </ul>
         <div id="tabs-1">
-<table width="534" border="1">
-  <tr>
-    <td width="417">&nbsp;</td>
-    <td width="101"><label for="anio"></label>
-      <select name="anio" id="anio">
-        <option value="2011">2011</option>
-        <option value="2012">2012</option>
-    </select></td>
-  </tr>
-</table>
-<p>Seleccione Mes:
-  <label for="mes"></label>
-  <select name="mes" id="mes">
-    <option value="1">ENERO</option>
-    <option value="2">FEBRERO</option>
-    <option value="3">MARZO</option>
-    <option value="4">ABRIL</option>
-    <option value="5">MAYO</option>
-    <option value="6">JUNIO</option>
-    <option value="7">JULIO</option>
-    <option value="8">AGOSTO</option>
-    <option value="9">SEPTIEMBRE</option>
-    <option value="10">OCTUBRE</option>
-    <option value="11">NOVIEMBRE</option>
-    <option value="12">DICIEMBRE</option>
-  </select>
-  <label for="txt_mes"></label>
-  <input name="txt_mes" type="text" id="txt_mes" size="5" />
-  <input type="button" name="seleccionar" id="seleccionar" value="Seleccionar"> 
-   </p>
 
+
+          <h2>Datos Basicos del Periodo Mensual:</h2>
+
+          <form id="formNewDeclaracion" name="formNewDeclaracion" method="post" action="">
+          
+		    <p>RUC:
+              <label for="ruc"></label>
+            <input type="text" name="ruc" id="ruc" 
+            value="<?php  echo $data['ruc']; ?>" />
+            <br />
+          Nombre/Razon Social:	
+          <label for="razon_social"></label>
+          <input type="text" name="razon_social" id="razon_social"  
+          value="<?php echo $data['razon_social_concatenado']; ?>" />
+          <br />
+          Periodo Tributario (mm/aaaa)          
+      <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  />
+      <input type="button" name="ver periodo" id="ver periodo" value="lista de Trabajadores Activos del  periodo"
+      onclick="verPeriodo()" />
+		    </p>
+		    <table id="list">
+	        </table>
+        <div id="pager"></div>
+              
+Lista de Trabajadores que se registraran en el periodo (mes/a&ntilde;o)<sbr />
+<p><br />
+  estado
+  <input type="text" name="estado" id="estado" />
+  <br />
+  periodo inicio
+
+  <input type="text" name="mes_inicio" id="mes_inicio" />
+  <br />
+  periodo fin 
+  <input type="text" name="mes_fin" id="mes_fin" />
+  <br />
+  <br />
+  
+  <input type="button" name="btnValidar"  value="Validar Y Registrar"  onclick="validarNewDeclaracionPeriodo()"/>
+</p>
+</p>
+          </form>
         
-        </div>
-</div>
+      </div><!-- tabs-1 -->
+        
+        
+        <!--<div id="tabs-2">ass</div>-->
+        
+        
+    <!--<div id="tabs-3">ass</div>-->
+        
+        
+</div><!-- tasb-->
 
 </div>

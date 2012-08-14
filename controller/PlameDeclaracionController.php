@@ -1,5 +1,4 @@
 <?php
-
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
@@ -61,13 +60,14 @@ if ($op) {
 $response = NULL;
 
 if ($op == "cargar_tabla") {
-    $response = cargar_tabla(ID_EMPLEADOR_MAESTRO);
+    $response = cargar_tabla_pdeclaracio(ID_EMPLEADOR_MAESTRO);
 } else if ($op == "add") {
-
     $post_fecha = "01/" . $_REQUEST['periodo'];
-
     $periodo = getFechaPatron($post_fecha, "Y-m-d");
-
+    $response = nuevaDeclaracionPeriodo(ID_EMPLEADOR_MAESTRO, $periodo);
+} else if ($op == "addDDxx") {
+    $post_fecha = "01/" . $_REQUEST['periodo'];
+    $periodo = getFechaPatron($post_fecha, "Y-m-d");
     // Se Registra el Periodo mes/anio 
     /* $BANDERA = */ nuevaDeclaracion(ID_EMPLEADOR_MAESTRO, $periodo);
     /*
@@ -82,9 +82,9 @@ if ($op == "cargar_tabla") {
 } else if ($op == "cargar_tabla_ptrabajador") {
     //CARGAR JQGRID ptrabajadores
     cargar_tabla_ptrabajador();
-}else if($op == "cargar_tabla_empresa"){
+} else if ($op == "cargar_tabla_empresa") {
     $anio = $_REQUEST['anio'];
-    $response = cargar_tabla_empresa(ID_EMPLEADOR_MAESTRO,$anio);
+    $response = cargar_tabla_empresa(ID_EMPLEADOR_MAESTRO, $anio);
 }
 
 
@@ -93,6 +93,41 @@ echo (!empty($response)) ? json_encode($response) : '';
 function existeDeclaracion() {
     $dao = new PlameDeclaracionDao();
     $dao->existeDeclaracion();
+}
+
+// New view Empresa
+function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
+    
+    $FECHA = getMesInicioYfin($periodo);
+    //PASO 01   existe periodo?    
+    $dao = new PlameDeclaracionDao();
+    $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
+
+    //paso 02 Num Trabajadores > 1 ?
+    $Daoo = new PlameDao();
+    $data_tra = $Daoo->listarTrabajadoresPorPeriodo($id_empleador_maestro, $FECHA['mes_inicio'], $FECHA['mes_fin']);
+
+    $num_trabajadores = count($data_tra);
+    //$num_trabajadores = $dao->contarTrabajadoresEnPeriodo($id_empleador_maestro, $periodo);
+
+    $rpta = 'false';
+    if ($num_declaracion == 0) {            
+        if ($num_trabajadores <= 0) {
+            //$response->rows[0]['tipo'] = "num_trabajador";
+            //$response->rows[0]['estado'] = "false";
+        } else if ($num_trabajadores > 0) {
+            $rpta = 'true';
+        }
+    }
+    
+    if ($rpta == 'true') {        
+        /*$response =*/  $dao->registrar($id_empleador_maestro, $periodo);
+    }
+    
+   // $response = strval($rpta);
+    
+    return strval($rpta); //SOLO 1 = TRUE
+    
 }
 
 //FUNCION ADCIONAL
@@ -217,24 +252,23 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo) {
 
 
         //----------------------------------------------------------------------
-        
+
         echo "SALIO";
         echo "<pre>";
         echo "<hr>min_periodo";
         print_r($min_periodo); //Min 1 Periodo :D
-        echo "</pre>";        
+        echo "</pre>";
         //INICIO NEW CON ID_UNICOS  Y periodos y dias laborados dentro del MES.
         //------INICIO    
         //PASO 01
         $id_pdeclaracion = $dao->registrar($id_empleador_maestro, $periodo);
 
         for ($i = 0; $i < count($tra_unico); $i++) { // UNICO
-
             $dias_laborados = 0;
             $data_obj_ppl = array();
 
             for ($j = 0; $j < count($min_periodo[$i]); $j++) {
-                
+
                 if ($tra_unico[$i]['id_persona'] == $min_periodo[$i][$j]['id_persona']) {
 
                     echo "fecha_inicio " . $min_periodo[$i][$j]['fecha_inicio'];
@@ -247,18 +281,18 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo) {
                     $model_ppl->setFecha_fin($min_periodo[$i][$j]['fecha_fin']);
 
                     $data_obj_ppl[] = $model_ppl;
-                    $dias_laborados = $dias_laborados + $min_periodo[$i][$j]['dia_laborado'];                                    
+                    $dias_laborados = $dias_laborados + $min_periodo[$i][$j]['dia_laborado'];
                 }
             }
 
-/*            //-----------------------
-            echo "***************************************************";
-            echo "<pre> ULTIMOOOOO";
-            print_r($data_obj_ppl);
-            echo "</pre>";
-            echo "dia laborado = " . $dias_laborados;
-            echo "***************************************************";
-*/
+            /*            //-----------------------
+              echo "***************************************************";
+              echo "<pre> ULTIMOOOOO";
+              print_r($data_obj_ppl);
+              echo "</pre>";
+              echo "dia laborado = " . $dias_laborados;
+              echo "***************************************************";
+             */
             registrarPTrabajadores($tra_unico[$i]['id_trabajador'], $id_pdeclaracion, $id_empleador_maestro, $data_obj_ppl, $dias_laborados);
         }
 
@@ -387,7 +421,7 @@ function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_
     $obj_jl->setId_ptrabajador($ID_PTRABAJADOR);
     $obj_jl->setDia_laborado($dia_laborado);
     $obj_jl->setDia_total($dia_laborado);
-   
+
 
     //DAO
     $dao_jl = new PjoranadaLaboralDao();
@@ -397,13 +431,13 @@ function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_
     $daopl = new PperiodoLaboralDao();
 
     for ($i = 0; $i < count($data_obj_ppl); $i++) {
-        
-        $daopl->registrar($data_obj_ppl[$i],$ID_PTRABAJADOR);
+
+        $daopl->registrar($data_obj_ppl[$i], $ID_PTRABAJADOR);
     }
     //--------------------------------------------------------------------------
 }
 
-function cargar_tabla($id_empleador_maestro) { //cargarTablaPDeclaraciones
+function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclaraciones
     $page = $_GET['page'];
     $limit = $_GET['rows'];
     $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
@@ -416,7 +450,7 @@ function cargar_tabla($id_empleador_maestro) { //cargarTablaPDeclaraciones
     $lista = array();
 
     $dao = new PlameDeclaracionDao();
-    $lista = $dao->listar($id_empleador_maestro);
+    $lista = $dao->listarXDeclaracion($id_empleador_maestro);
     $count = count($lista);
 
 
@@ -504,11 +538,8 @@ function cargar_tabla($id_empleador_maestro) { //cargarTablaPDeclaraciones
     return $responce;
 }
 
-
-
-
 //VIEW-EMPRESA
-function cargar_tabla_empresa($id_empleador_maestro,$anio) {
+function cargar_tabla_empresa($id_empleador_maestro, $anio) {
     $dao = new PlameDeclaracionDao();
 
     $page = $_GET['page'];
@@ -538,7 +569,7 @@ function cargar_tabla_empresa($id_empleador_maestro,$anio) {
         $sidx = 1;
 
     $lista = array();
-    $lista = $dao->listar($id_empleador_maestro,$anio);
+    $lista = $dao->listar($id_empleador_maestro, $anio);
 
     $count = count($lista);
 
@@ -559,7 +590,7 @@ function cargar_tabla_empresa($id_empleador_maestro,$anio) {
         $start = 0;
 
 // CONTRUYENDO un JSON
-    
+
     $response->page = $page;
     $response->total = $total_pages;
     $response->records = $count;
@@ -572,52 +603,49 @@ function cargar_tabla_empresa($id_empleador_maestro,$anio) {
 //print_r($lista);
 
     foreach ($lista as $rec) {
-        
-            $param = $rec["id_pdeclaracion"];
-            $_01 = $rec['periodo'];
-            $_02 = '<a href="javascript::Add()" title = "Agregar UNICO Adelanto 15">add</a>';
-            //$_03 = '<a href="javascript::Edit()"title = "Editar Adelanto">edit</a>';
-            $_04 = "ST-ADD";
-            $_05 = "ST-Edit";
 
-            $periodo = getFechaPatron($_01, "m/Y");
-            
-            //hereee
-            $response->rows[$i]['id'] = $param;
-            $response->rows[$i]['cell'] = array(                
-                $param,
-                $periodo,
-                $_02,
-                $_03,
-                $_04,
-                $_05
-            );
-            $i++;
-        
+        $param = $rec["id_pdeclaracion"];
+        $_01 = $rec['periodo'];
+        //$_02 = '<a href="javascript:add_15('.$param.',\''.$_01.'\')" title = "Agregar UNICO Adelanto 15">1era 15</a>';
+        $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion='.$param.'&periodo='.$_01.'\',\'#CapaContenedorFormulario\')"title = "VER">Ver</a>';
+        $_04 = "ST-ADD";
+        $_05 = "ST-Edit";
+
+        $periodo = getFechaPatron($_01, "m/Y");
+
+        //hereee
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            $periodo,
+            $_02,
+            $_03,
+            $_04,
+            $_05
+        );
+        $i++;
     }
 
     return $response;
 }
 
 
-function retornan_Id_Persona_Unico($data_tra) {
 
+//dos
+function retornan_Id_Persona_Unico($data_tra) {
     $arrayid = array();
     for ($i = 0; $i < count($data_tra); $i++) {
         $arrayid[] = $data_tra[$i]['id_persona'];
     }
-
     $listaSimple = array_unique($arrayid);
     $arrayidFinal = array_values($listaSimple);
-
     // Array Unico
-    //$id_unico[$i]['']
+
     $unico = array();
     for ($i = 0; $i < count($arrayidFinal); $i++) {
         $unico[$i]['id_persona'] = $arrayidFinal[$i];
         $unico[$i]['contador'] = 0;
     }
-
     //----------------------------------------------------------------------
     for ($i = 0; $i < count($unico); $i++) { //ID
         for ($j = 0; $j < count($data_tra); $j++) { //TRA
@@ -629,11 +657,23 @@ function retornan_Id_Persona_Unico($data_tra) {
         }
     }
     //----------------------------------------------------------------------        
-    //  echo "<pre>UNICO";
-    //  print_r($unico);
-    //  echo "<pre>";
-
     return $unico;
+}
+
+// VIEW EMPRESA 
+function buscar_ID_Pdeclaracion($id_pdeclaracion){
+    $dao = new PlameDeclaracionDao();
+    $data = $dao->buscar_ID($id_pdeclaracion);
+    //var_dump($data);
+    $model = new Pdeclaracion();
+    $model->setId_pdeclaracion($data['id_pdeclaracion']);
+    $model->setId_empleador_maestro($data['id_empleador_maestro']);
+    $model->setPeriodo($data['periodo']);
+    $model->setFecha_creacion($data['fecha_creacion']);
+    $model->setFecha_modificacion($data['fecha_modificacion']);
+    $model->setEstado($data['estado']);
+    return $model;
+    
 }
 
 ?>

@@ -19,6 +19,7 @@ $responce = NULL;
 
 if ($op == "trabajador_por_periodo") {
     $responce = listarTrabajadoresPorPeriodo();
+    
 }
 
 echo (!empty($responce)) ? json_encode($responce) : '';
@@ -173,6 +174,8 @@ function listarTrabajadoresPorPeriodo() {
 
     return $responce;
 }
+
+
 
 
 

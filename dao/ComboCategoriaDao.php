@@ -485,6 +485,22 @@ class ComboCategoriaDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+    
+        public function comboCentroCosto() {
+
+        $query = "
+        SELECT 
+        id_empresa_centro_costo,
+        descripcion
+        FROM empresa_centro_costo      
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
 
 }
 

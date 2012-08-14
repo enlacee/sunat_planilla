@@ -690,4 +690,13 @@ function comboSuspensionLaboral_2() {
     return $listaSimpleFinal;
 }
 
+//- new 13/08/2012
+function comboCentroCosto(){
+    $dao = new ComboCategoriaDao();
+    return $dao->comboCentroCosto();
+    
+    
+}
+
+
 ?>

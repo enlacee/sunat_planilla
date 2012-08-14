@@ -1,16 +1,5 @@
 <?php
 
-function printr($mix) {
-    echo "<pre>";
-    print_r($mix);
-    echo "<pre>";
-    // echo "<hr>";
-}
-
-/**
- * 
- */
-
 /**
  *
  * @param string $fecha_es_us Formato fecha ISO o por default
@@ -60,7 +49,7 @@ function array_unique_ordenado($arreglo) {
  * @param integer $num Numero del mes Espaniol
  * @return string Nombre del mes
  */
-function mes($num) {
+function getNameMonth($num) {
     $mes = array("Enero",
         "Febrero",
         "Marzo",
@@ -74,7 +63,7 @@ function mes($num) {
         "Novienbre",
         "Diciembre"
     );
-
+    $num = intval($num);
     return $mes[$num - 1];
 }
 
@@ -216,7 +205,51 @@ function getMonthDays($Month, $Year)
 }
 
 
+//-------------------------
+function getFechasDePago($fecha) {
+  
+    $format_fecha = getFechaPatron($fecha, "Y-m-d");
 
+    $fff = strtotime($format_fecha);
+    $fecha_string = date("l d F Y", $fff);
+
+    // data 1
+    $dos_sem_seg = strtotime($fecha_string . "second weeks");
+    $dos_sem = date("Y-m-d", $dos_sem_seg);
+    //
+    $mes_inicio_seg = strtotime($fecha_string . "first day");
+    $mes_inicio = date("Y-m-d", $mes_inicio_seg);
+    //
+    $mes_fin_seg = strtotime($fecha_string . "last day");
+    $mes_fin = date("Y-m-d", $mes_fin_seg);
+
+    //echo  date("Y-m-d", $f);
+    //return
+    $rpta = array("fecha" => $fecha_string,
+        "second_weeks" => $dos_sem,
+        "first_day" => $mes_inicio,
+        "last_day" => $mes_fin
+    );
+
+    return $rpta;
+}
+
+
+function getTipoMonedaPago($valor) {
+    $tipoVal = array("%", "$");
+    
+    if ($valor) {
+        for ($i = 0; $i < count($tipoVal); $i++) {
+            $dato = stripos($valor, $tipoVal[$i]);
+
+            if ($dato != false) {
+                $encontro = $tipoVal[$i];
+                break;
+            }
+        }
+    }
+    return $encontro;
+}
 
 
 ?>

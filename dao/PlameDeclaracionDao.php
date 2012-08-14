@@ -35,8 +35,6 @@ class PlameDeclaracionDao extends AbstractDao {
         $this->pdo->commit();
         $stm = null;
 
-
-
         return $lista[0]['id'];
         //$lista = $stm->fetchAll();
     }
@@ -120,8 +118,8 @@ class PlameDeclaracionDao extends AbstractDao {
       }
 
      */
-/*
-    public function listar($id_empleador_maestro) {
+
+    public function listarXDeclaracion($id_empleador_maestro) {
         $query = "
         SELECT 
         id_pdeclaracion,
@@ -144,7 +142,7 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
-*/
+
     public function listar($id_empleador_maestro,$anio) {
         $query = "
         SELECT 
@@ -169,6 +167,31 @@ class PlameDeclaracionDao extends AbstractDao {
         return $lista;
     }
 
+    //--------------------------------------------------------------------------//
+    //--------------------------------------------------------------------------//
+    
+    public function buscar_ID($id_pdeclaracion){
+        
+       $query = "
+        SELECT
+         id_pdeclaracion,
+         id_empleador_maestro,
+         periodo,
+         fecha_creacion,
+         fecha_modificacion
+        FROM pdeclaraciones 
+        WHERE id_pdeclaracion = ?
+";
+       
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+       
+        return $lista[0];
+    }
+    
 }
 
 ?>

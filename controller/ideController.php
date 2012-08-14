@@ -22,8 +22,8 @@ if (is_null($ID_EMPLEADOR) || is_null($RUC) || is_null($ID_EMPLEADOR_MAESTRO)) {
     define('ID_EMPLEADOR_MAESTRO', $ID_EMPLEADOR_MAESTRO);
 }
 // ----------- finall ----- Identificacion Empleador Sistema -------------//
-/*
-  echo "<pre>ID_EMPLEADOR";
+
+/*  echo "<pre>ID_EMPLEADOR";
   print_r(ID_EMPLEADOR);
   echo "</pre>";
   echo "<hr>";

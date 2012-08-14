@@ -4,27 +4,26 @@ class Adelanto {
 
     //put your code here
     private $id_adelanto;
+    private $id_declaracion;
     private $id_trabajador;
     private $cod_periodo_remuneracion;
-    private $dia_total;
-    private $dia_laborado;
-    private $dia_nolaborado;
     private $valor;
     private $fecha_inicio;
     private $fecha_fin;
     private $fecha_creacion;
+    private $id_empresa_centro_costo;
 
     public function __construct() {
         $this->id_adelanto = null;
+        $this->id_declaracion = null;
         $this->id_trabajador = null;
         $this->cod_periodo_remuneracion = null;
-        $this->dia_total = null;
-        $this->dia_laborado = null;
-        $this->dia_nolaborado = null;
+        $this->glosa = null;
         $this->valor = null;
         $this->fecha_inicio = null;
         $this->fecha_fin = null;
         $this->fecha_creacion = null;
+        $this->id_empresa_centro_costo = null;
     }
 
     public function getId_adelanto() {
@@ -33,6 +32,14 @@ class Adelanto {
 
     public function setId_adelanto($id_adelanto) {
         $this->id_adelanto = $id_adelanto;
+    }
+
+    public function getId_declaracion() {
+        return $this->id_declaracion;
+    }
+
+    public function setId_declaracion($id_declaracion) {
+        $this->id_declaracion = $id_declaracion;
     }
 
     public function getId_trabajador() {
@@ -49,37 +56,6 @@ class Adelanto {
 
     public function setCod_periodo_remuneracion($cod_periodo_remuneracion) {
         $this->cod_periodo_remuneracion = $cod_periodo_remuneracion;
-    }
-
-    public function getDia_total() {
-        return $this->dia_total;
-    }
-
-    /*
-      public function setDia_total($dia_total) {
-      $this->dia_total = $dia_total;
-      }
-     */
-
-// EDIT
-    public function getDia_laborado() {
-        $dia_total = (is_numeric($this->dia_total)) ? $this->dia_total : 0;
-        $dia_nolaborado = ( is_numeric($this->dia_nolaborado)) ? $this->dia_nolaborado : 0;
-
-        $rpta = $dia_total - $dia_nolaborado;
-        return $rpta;
-    }
-
-    public function setDia_laborado($dia_laborado) {
-        $this->dia_laborado = $dia_laborado;
-    }
-
-    public function getDia_nolaborado() {
-        return $this->dia_nolaborado;
-    }
-
-    public function setDia_nolaborado($dia_nolaborado) {
-        $this->dia_nolaborado = $dia_nolaborado;
     }
 
     public function getValor() {
@@ -112,6 +88,14 @@ class Adelanto {
 
     public function setFecha_creacion($fecha_creacion) {
         $this->fecha_creacion = $fecha_creacion;
+    }
+
+    public function getId_empresa_centro_costo() {
+        return $this->id_empresa_centro_costo;
+    }
+
+    public function setId_empresa_centro_costo($id_empresa_centro_costo) {
+        $this->id_empresa_centro_costo = $id_empresa_centro_costo;
     }
 
 }

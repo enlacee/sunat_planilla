@@ -34,6 +34,8 @@ function validarFormtrabajador(){
 	
 	var f7 = form.txt_rpensionario_fecha_inicio_base.value;
 	var f8 = form.txt_rpensionario_fecha_fin_base.value;
+	//---------
+
 
 
 
@@ -191,7 +193,7 @@ if( fecha_estado == true ){
 		
 		
 
-if( fecha_estado==true){ alert ("entroodosadasdasdasd");
+if( fecha_estado==true){ console.log("entroodosadasdasdasd");
 	fecha_estado = validarRelacionPeriodoConResto();
 	
 }

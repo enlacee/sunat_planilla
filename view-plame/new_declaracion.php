@@ -74,8 +74,8 @@ function validarNewDeclaracion(){ //Registrar Periodo
 
 
 //-----------------------------------------------------------
-function registrarDeclaracion(periodo){
-}
+//function registrarDeclaracion(periodo){
+//}
 
 
 

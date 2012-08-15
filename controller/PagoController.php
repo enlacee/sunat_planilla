@@ -162,10 +162,12 @@ function buscarPagoPor_ID($id_pago){
         $model->setId_trabajador($data['id_trabajador']);
         $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
         $model->setValor($data['valor']);
+        
         $model->setDescuento($data['descuento']);
         $model->setDescripcion($data['descripcion']);
         $model->setDia_total($data['dia_total']);
         $model->setDia_nosubsidiado($data['dia_nosubsidiado']);
+        $model->setDia_laborado($data['dia_laborado']);
         $model->setOrdinario_hora($data['ordinario_hora']);
         $model->setOrdinario_min($data['ordinario_min']);
         $model->setSobretiempo_hora($data['sobretiempo_hora']);
@@ -173,6 +175,14 @@ function buscarPagoPor_ID($id_pago){
         $model->setEstado($data['estado']);
     }
     return $model;
+    
+    
+    
+    
+    function CalcularSueldo($dia_total,$dia_falto){
+       // $dia = 
+        
+    }
     
     
 }
@@ -260,7 +270,7 @@ function cargar_tabla_grid_lineal(){
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
-        $_06 = $dias;
+        $_06 = $rec['dia_laborado'];
         $_07 = $rec['valor']; //INGRESOS
         $_08 = $descuento;//$rec['descuento']; 
         $_09 = $valor_neto; //$rec['valor_neto'];
@@ -305,19 +315,29 @@ function cargar_tabla_grid_lineal(){
 //editar
 
 function editarPago(){
-    
+    echo "<pre>";
+    print_r($_REQUEST);
+    echo "</pre>";
     $ID_PAGO = $_REQUEST['id_pago'];
     
     $model = new Pago();
-    $model->setId_pago($ID_PAGO);    
+    $model->setId_pago($ID_PAGO);
+    //$model->setValor($valor) //NO CAMBIA
     $model->setDescuento($_REQUEST['descuento']); 
-    
+    $model->setValor_total($_REQUEST['total_ingreso']);
     $model->setDescripcion($_REQUEST['descripcion']);
+    $model->setDia_laborado($_REQUEST['dia_laborado']);
     
     $model->setDia_nosubsidiado($_REQUEST['dia_subsidiado']);
     //$model->setOrdinario_min($ordinario_min)
     $model->setSobretiempo_hora($_REQUEST['hora_sobretiempo_hh']);
     $model->setSobretiempo_min($_REQUEST['hora_sobretiempo_mm']);
+    
+    //$model->set
+    
+    echo "<pre>MODEL";
+    print_r($model);
+    echo "</pre>";
     
     $dao = new PagoDao();
     return $dao->actualizar($model);

@@ -436,3 +436,43 @@ function crearDialogoDiaNoLaborado(){
 	});
 }
 
+
+
+//----------------------------------------------------
+//----------------------------------------------------
+//funciuones
+
+//-------------------------------
+function registrarDeclaracion(){ alert("..");
+
+var data = $("#formPago").serialize();
+var id_declaracion = document.getElementById('id_declaracion').value;
+var declaracionRectificadora = document.getElementById('rbtn_declaracionRectificadora').value;
+var periodo = document.getElementById('txt_periodo_tributario').value;
+
+   $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/PlameDeclaracionController.php",
+	   data: {oper : 'add-data-ptrabajadores',
+	   id_declaracion : id_declaracion,
+	   declaracionRectificadora: declaracionRectificadora,
+	   periodo : periodo
+   },//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(datos){
+	
+	
+	if(datos){
+		alert("Se guardo Correctamente los datos");
+	}else{
+		alert("Error");
+	}
+	
+	
+   }
+   }); 
+
+
+
+}
+

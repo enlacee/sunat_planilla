@@ -207,7 +207,7 @@
     function cargarTablaPdeclaracionEmpresa(){ 
 		//var d = new Date();
 		//var n = d.getFullYear(); 
-		var anio = document.getElementById('anio').value;
+		var anio = document.getElementById('anio').value || 2012;
 		
 		
         $("#list").jqGrid('GridUnload');
@@ -889,3 +889,5 @@ var data = $("#formPago").serialize();
 
 
 }
+
+

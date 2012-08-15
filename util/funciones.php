@@ -216,7 +216,12 @@ function getFechasDePago($fecha) {
     // data 1
     $dos_sem_seg = strtotime($fecha_string . "second weeks");
     $dos_sem = date("Y-m-d", $dos_sem_seg);
-    //
+    //segunda semana + 1 dia
+	$DOS_SEM_MAS_SEG = date("Y-m-d", strtotime("$dos_sem + 1 day"));
+//-----------
+//$hoy= date("Y-m-d");
+//echo date("Y-m-d", strtotime( "$hoy + 1 day")) ; 	
+//-----------	
     $mes_inicio_seg = strtotime($fecha_string . "first day");
     $mes_inicio = date("Y-m-d", $mes_inicio_seg);
     //
@@ -227,6 +232,7 @@ function getFechasDePago($fecha) {
     //return
     $rpta = array("fecha" => $fecha_string,
         "second_weeks" => $dos_sem,
+		"second_weeks_mas1" => $DOS_SEM_MAS_SEG,
         "first_day" => $mes_inicio,
         "last_day" => $mes_fin
     );

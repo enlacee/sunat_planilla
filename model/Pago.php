@@ -10,9 +10,11 @@ class Pago {
    
     private $valor;
     private $descuento;
+    private $valor_total;
     private $descripcion;
     private $dia_total;
     private $dia_nosubsidiado;
+    private $dia_laborado;
     private $ordinario_hora;
     private $ordinario_min;
     private $sobretiempo_hora;
@@ -27,9 +29,11 @@ class Pago {
   
         $this->valor=null;
         $this->descuento=null;
+        $this->valor_total=null;
         $this->descripcion=null;
         $this->dia_total=null;
         $this->dia_nosubsidiado=null;
+        $this->dia_laborado=null;
         $this->ordinario_hora=null;
         $this->ordinario_min=null;
         $this->sobretiempo_hora=null;
@@ -69,17 +73,6 @@ class Pago {
         $this->id_empresa_centro_costo = $id_empresa_centro_costo;
     }
 
-    public function getValor_neto() {
-        $a = ($this->getValor()) ? $this->getValor() : 0;
-        $b = ($this->getDescuento()) ? $this->getDescuento() : 0;        
-         
-        return $a - $b;;
-    }
-/*
-    public function setValor_neto($valor_neto) {
-        $this->valor_neto = $valor_neto;
-    }*/
-
     public function getValor() {
         return $this->valor;
     }
@@ -94,6 +87,14 @@ class Pago {
 
     public function setDescuento($descuento) {
         $this->descuento = $descuento;
+    }
+
+    public function getValor_total() {
+        return $this->valor_total;
+    }
+
+    public function setValor_total($valor_total) {
+        $this->valor_total = $valor_total;
     }
 
     public function getDescripcion() {
@@ -115,13 +116,17 @@ class Pago {
     public function getDia_nosubsidiado() {
         return $this->dia_nosubsidiado;
     }
-    
-    public function getDiaCalc(){
-        return ($this->getDia_total() - $this->getDia_nosubsidiado());
-    }
 
     public function setDia_nosubsidiado($dia_nosubsidiado) {
         $this->dia_nosubsidiado = $dia_nosubsidiado;
+    }
+
+    public function getDia_laborado() {
+        return $this->dia_laborado;
+    }
+
+    public function setDia_laborado($dia_laborado) {
+        $this->dia_laborado = $dia_laborado;
     }
 
     public function getOrdinario_hora() {
@@ -165,7 +170,7 @@ class Pago {
     }
 
 
-
+   
 
 }
 

@@ -15,7 +15,7 @@ $cbo_tipo_empleador = comboTipoEmpleador();
 $data = $_SESSION['sunat_empleador'];
 
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
-
+$ID_DECLARACION = $_REQUEST['id_declaracion'];
 
 //echo "<pre>";
 //print_r($data);
@@ -30,7 +30,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 //VARIABLES GLOBALES:
 
 var PERIODO = '<?php echo $PERIODO; ?>';
-
+var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 
     $(document).ready(function(){
                   
@@ -49,6 +49,14 @@ var PERIODO = '<?php echo $PERIODO; ?>';
 //functiones GRID
 
 //	cargarTablaPTrabajadores(PERIODO);
+
+
+
+//add-data-ptrabajadores
+
+
+
+
 
 	
 </script>
@@ -75,6 +83,10 @@ var PERIODO = '<?php echo $PERIODO; ?>';
 
           <form id="frmNuevaDeclaracion" name="frmNuevaDeclaracion" method="post" action="">
           
+		    <p>id_declaracion		      
+		      <input type="text" name="id_declaracion" id="id_declaracion"
+              value="<?php echo $ID_DECLARACION; ?>" />
+		    </p>
 		    <p>RUC:
               <label for="ruc"></label>
             <input type="text" name="ruc" id="ruc"  readonly="readonly"
@@ -89,20 +101,20 @@ var PERIODO = '<?php echo $PERIODO; ?>';
       <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  readonly="readonly"
       value="<?php echo $PERIODO; ?>" />
 		    </p>
-            
-              <p>Declaracion Sustitutoria o Rectificadora 
-                <input type="radio" name="rbtn_declaracionRectificadora" id="" value="1" />Si
-                <input type="radio" name="rbtn_declaracionRectificadora" id="" value="0" />
-                No
-                
-             <span class="ocultar"> Limpia datos Edit</span>
+		    <div class="ocultar"> 
+              <p>Declaracion Sustitutoria o Rectificadora
+                 <input name="rbtn_declaracionRectificadora" type="radio" id="rbtn_declaracionRectificadora" value="1" checked="checked" />
+                 Si
+                 <input type="radio" name="rbtn_declaracionRectificadora" id="rbtn_declaracionRectificadora" value="0" />
+No </p>
+               <p>Limpia datos Edit</p>
+            </div>
              </p>
-            
-		    <p>Sincronizar datos: Actualizar Prestadores de Servicios: 
-		      <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />		      
-		      <input type="button" name="btnEjecutar" id="btnEjecutar" value="Ejecutar" />
-		    </p>
-		    <p>La declaracion se ebabor&oacute; 
+             Sincronizar datos: Actualizar Prestadores de Servicios: 
+            <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />		      
+	        <input type="button" name="btnEjecutar" id="btnEjecutar" value="Actualizar Declaracion" 
+            onclick="registrarDeclaracion()" />
+		    <p>La declaracion se ebabor&oacute; 'Ultima actualizacion'
 		      <input type="text" name="dfcreacion" id="dfcreacion" />
 		    </p>
 		    <p>&nbsp;</p>

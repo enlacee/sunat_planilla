@@ -132,7 +132,8 @@ class TrabajadorDao extends AbstractDao {
           percibe_renta_5ta_exonerada = ?,
           aplicar_convenio_doble_inposicion = ?,
           cod_convenio = ?,          
-          estado = ?
+          estado = ?,
+          id_empresa_centro_costo = ?
         WHERE id_trabajador = ?;
 	";
 
@@ -161,7 +162,8 @@ class TrabajadorDao extends AbstractDao {
         $stm->bindValue(18, $com->getCod_convenio());
        // $stm->bindValue(19, $com->getCod_situacion());
         $stm->bindValue(19, $com->getEstado());
-        $stm->bindValue(20, $com->getId_trabajador());
+        $stm->bindValue(20, $com->getId_empresa_centro_costo());
+        $stm->bindValue(21, $com->getId_trabajador());
         $stm->execute();
         $stm = null;
         return true;
@@ -301,18 +303,45 @@ class TrabajadorDao extends AbstractDao {
      *
      *  OK FULLL "Categoria Trabajador.php"
      */
-    public function buscaTrabajadorPorIdPersona($id_persona) {//OK
+    public function buscaTrabajadorPorIdPersona($id_persona,$id_trabajador) {//OK
         $query = "
-        SELECT *FROM trabajadores AS t
-
+        SELECT 
+        id_trabajador,
+        id_persona,
+        cod_regimen_laboral,
+        cod_nivel_educativo,
+        cod_categorias_ocupacionales,
+        id_ocupacion_2,
+        cod_ocupacion_p,
+        cod_tipo_contrato,
+        cod_tipo_pago,
+        cod_periodo_remuneracion,
+        monto_remuneracion,
+        id_monto_remuneracion,
+        id_establecimiento,
+        jornada_laboral,
+        situacion_especial,
+        discapacitado,
+        sindicalizado,
+        percibe_renta_5ta_exonerada,
+        aplicar_convenio_doble_inposicion,
+        cod_convenio,
+        t.cod_situacion,
+        estado,
+        id_empresa_centro_costo
+        
+        FROM trabajadores AS t
         INNER JOIN situaciones AS s
         ON t.cod_situacion = s.cod_situacion
-        WHERE id_persona = ? 
+        WHERE (id_persona = ? AND id_trabajador = ?)
+	ORDER BY  id_trabajador ASC
+        
         -- AND t.cod_situacion = 1                    
         ";
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_persona);
+        $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
@@ -345,9 +374,10 @@ class TrabajadorDao extends AbstractDao {
         percibe_renta_5ta_exonerada,
         aplicar_convenio_doble_inposicion,
         cod_convenio,
-        cod_situacion
+        cod_situacion,
+        id_empresa_centro_costo
 
-        FROM db.trabajadores
+        FROM trabajadores
         WHERE(id_trabajador = ?)
                   
         ";

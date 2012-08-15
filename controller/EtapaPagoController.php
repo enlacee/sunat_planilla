@@ -44,12 +44,12 @@ function listarTrabajadoresPorEtapa() {
     //=========================================================================//
     $ID_DECLARACION = $_REQUEST['id_declaracion'];
     $COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
-    // echo "ID_DECLARACION = " . $ID_DECLARACION;
-    // echo "  COD_PERIODO_REMUNERACION =" . $COD_PERIODO_REMUNERACION;   
+     //echo "ID_DECLARACION = " . $ID_DECLARACION;
+     //echo "  COD_PERIODO_REMUNERACION =" . $COD_PERIODO_REMUNERACION;   
     if ($COD_PERIODO_REMUNERACION == '2') { // 2 =quincena        
         $dao = new EtapaPagoDao();
         $data_etapapago = $dao->buscarEtapaPago($ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-        //echo "<pre>";
+        //echo "<pre>ETAPA PAGO";
         //var_dump($data_etapapago);
         //echo "</pre>";
         if (is_array($data_etapapago) && count($data_etapapago) == 0) { // Registrar 1era QUINCENA
@@ -108,7 +108,7 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
         $FECHA['inicio'] = $FECHAX['first_day'];
         $FECHA['fin'] = $FECHAX['second_weeks'];
     } else if ($tipo == '2') {
-        $FECHA['inicio'] = $FECHAX['second_weeks']; //SUMAR 1 DIA para = 16/01/2012 a 31/01/2012
+        $FECHA['inicio'] = $FECHAX['second_weeks_mas1']; //SUMAR 1 DIA para = 16/01/2012 a 31/01/2012
         $FECHA['fin'] = $FECHAX['last_day'];
     }
     //========================================================================//
@@ -266,7 +266,7 @@ function registrar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
         $FECHA['inicio'] = $FECHAX['first_day'];
         $FECHA['fin'] = $FECHAX['second_weeks'];
     } else if ($tipo == '2') {
-        $FECHA['inicio'] = $FECHAX['second_weeks']; //SUMAR 1 DIA para = 16/01/2012 a 31/01/2012
+        $FECHA['inicio'] = $FECHAX['second_weeks_mas1']; //SUMAR 1 DIA para = 16/01/2012 a 31/01/2012
         $FECHA['fin'] = $FECHAX['last_day'];
     }
     //========================================================================// 
@@ -502,9 +502,11 @@ function registrar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
             $objPago->setId_empresa_centro_costo($tra_unico[$i]['id_empresa_centro_costo']);
             
             $objPago->setValor($SUELDO_CAL);
+            $objPago->setValor_total($SUELDO_CAL);
             $objPago->setDescuento(0);
             //$objPago->setDescripcion();
             $objPago->setDia_total($dias_laborados);
+            $objPago->setDia_laborado($dias_laborados);
             $objPago->setDia_nosubsidiado(0);
             $objPago->setOrdinario_hora($dias_laborados * 8);
             $objPago->setOrdinario_min(0);            

@@ -34,6 +34,7 @@ class Trabajador {
     private $cod_convenio;
     private $cod_situacion;
     private $estado;
+    private $id_empresa_centro_costo;
     
     function __construct() {
      $this->id_trabajador=null;
@@ -59,9 +60,9 @@ class Trabajador {
      $this->cod_convenio = null;
      $this->cod_situacion =null;
      $this->estado = null;
+     $this->id_empresa_centro_costo = null;
     }
   
-    
     public function getId_trabajador() {
         return $this->id_trabajador;
     }
@@ -237,6 +238,15 @@ class Trabajador {
     public function setEstado($estado) {
         $this->estado = $estado;
     }
+
+    public function getId_empresa_centro_costo() {
+        return $this->id_empresa_centro_costo;
+    }
+
+    public function setId_empresa_centro_costo($id_empresa_centro_costo) {
+        $this->id_empresa_centro_costo = $id_empresa_centro_costo;
+    }
+
 
 
 

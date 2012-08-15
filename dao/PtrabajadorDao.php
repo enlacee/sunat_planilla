@@ -38,7 +38,7 @@ class PtrabajadorDao extends AbstractDao {
                 ";
         try {
             $this->pdo->beginTransaction();
-            
+
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1, $model->getId_trabajador());
             $stm->bindValue(2, $model->getId_pdeclaracion());
@@ -46,7 +46,7 @@ class PtrabajadorDao extends AbstractDao {
             $stm->bindValue(4, $model->getAporta_essalud_vida());
             $stm->bindValue(5, $model->getAporta_asegura_tu_pension());
             $stm->bindValue(6, $model->getDomiciliado());
-            
+
             $stm->bindValue(7, $model->getIngreso_5ta_categoria());
             $stm->bindValue(8, $model->getCod_tipo_trabajador());
             $stm->bindValue(9, $model->getCod_situacion());
@@ -58,7 +58,7 @@ class PtrabajadorDao extends AbstractDao {
             $stm = $this->pdo->prepare($query2);
             $stm->execute();
             $lista = $stm->fetchAll();
-            
+
             $this->pdo->commit();
             return $lista[0]['id'];
 
@@ -96,12 +96,10 @@ class PtrabajadorDao extends AbstractDao {
     }
 
     //jqgrid
-    public function cantidad($periodo){
-        
-        
+    public function cantidad($periodo) {
         
     }
-        
+
     /**
      *
      * @param type $id_empleador_maestro
@@ -112,7 +110,7 @@ class PtrabajadorDao extends AbstractDao {
      * y un Periodo "Y-m-d"
      * 
      */
-    public function listar($id_empleador_maestro, $periodo){
+    public function listar($id_empleador_maestro, $periodo) {
 
         $query = "
         SELECT
@@ -157,12 +155,11 @@ class PtrabajadorDao extends AbstractDao {
         $stm->bindValue(2, $periodo);
         $stm->execute();
         $data = $stm->fetchAll();
-        
+
         return $data;
-        
     }
-    
-    public function buscar_ID($id_ptrabajador){
+
+    public function buscar_ID($id_ptrabajador) {
 
         $query = "
         SELECT 
@@ -205,8 +202,38 @@ class PtrabajadorDao extends AbstractDao {
         $data = $stm->fetchAll();
         return $data[0];
     }
-    
-    
+
+    public function listarPor_ID_declaracion($id_pdeclaracion) {
+
+        $query = "
+        SELECT 
+        id_ptrabajador,
+        id_trabajador,
+        id_pdeclaracion
+        FROM ptrabajadores
+        WHERE id_pdeclaracion = ?       
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $data = $stm->fetchAll();
+        return $data;
+    }
+
+    public function eliminarPtrabajadorPor_id_declaracion($id_pdeclaracion) {
+
+        $query ="
+        DELETE
+        FROM ptrabajadores
+        WHERE id_pdeclaracion = ?;";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        //$data = $stm->fetchAll();
+        return true;
+    }
+
 }
 
 ?>

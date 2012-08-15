@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 13, 2012 at 07:33 
+-- Generation Time: Aug 15, 2012 at 09:28 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -18,35 +18,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `adelantos`
---
-
-CREATE TABLE IF NOT EXISTS `adelantos` (
-  `id_adelanto` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_pdeclaracion` int(10) unsigned NOT NULL,
-  `id_trabajador` int(10) unsigned NOT NULL,
-  `cod_periodo_remuneracion` int(11) NOT NULL COMMENT 'SEGUN escogio por DEFAULT es \r\nquincena!!\r\nESto es inertado de cod_ TRABJADOR',
-  `valor` decimal(10,3) DEFAULT NULL COMMENT 'pago = [dia_laborado *(0.333/100) ] * BASICO',
-  `fecha_inicio` date DEFAULT NULL COMMENT 'periodo_laboral de QUINCENA',
-  `fecha_fin` date DEFAULT NULL COMMENT 'periodo_laboral de QUINCENA',
-  `fecha_creacion` date DEFAULT NULL,
-  `id_empresa_centro_costo` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id_adelanto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='NEW UN SOLO ADELANTO 15CENAL\r\nPeriodo_Remuneracion = \r\n-2 se' AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `adelantos`
---
-
-INSERT INTO `adelantos` (`id_adelanto`, `id_pdeclaracion`, `id_trabajador`, `cod_periodo_remuneracion`, `valor`, `fecha_inicio`, `fecha_fin`, `fecha_creacion`, `id_empresa_centro_costo`) VALUES
-(1, 1, 2, 2, '0.000', '2012-01-01', '2012-01-15', '2012-08-11', 2),
-(2, 1, 15, 2, '0.000', '2012-01-01', '2012-01-15', '2012-08-11', 2),
-(3, 3, 15, 2, '0.000', '2012-03-01', '2012-03-15', '2012-08-11', 2),
-(4, 3, 16, 2, '0.000', '2012-03-01', '2012-03-15', '2012-08-11', 2);
 
 -- --------------------------------------------------------
 
@@ -12809,27 +12780,27 @@ CREATE TABLE IF NOT EXISTS `dcem_pdescuentos` (
   KEY `id_detalle_concepto_empleador_maestro` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_ptrabajador_2` (`id_ptrabajador`),
   KEY `id_detalle_concepto_empleador__2` (`id_detalle_concepto_empleador_maestro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS =0700insert all 0700 marcadostotal = calcul' AUTO_INCREMENT=197 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS =0700insert all 0700 marcadostotal = calcul' AUTO_INCREMENT=400 ;
 
 --
 -- Dumping data for table `dcem_pdescuentos`
 --
 
 INSERT INTO `dcem_pdescuentos` (`id_pdcem_pdescuento`, `id_ptrabajador`, `id_detalle_concepto_empleador_maestro`, `monto`) VALUES
-(183, 5, 232, NULL),
-(184, 5, 233, NULL),
-(185, 5, 234, NULL),
-(186, 5, 235, NULL),
-(187, 5, 236, NULL),
-(188, 5, 237, NULL),
-(189, 5, 238, NULL),
-(190, 6, 232, NULL),
-(191, 6, 233, NULL),
-(192, 6, 234, NULL),
-(193, 6, 235, NULL),
-(194, 6, 236, NULL),
-(195, 6, 237, NULL),
-(196, 6, 238, NULL);
+(386, 23, 232, NULL),
+(387, 23, 233, NULL),
+(388, 23, 234, NULL),
+(389, 23, 235, NULL),
+(390, 23, 236, NULL),
+(391, 23, 237, NULL),
+(392, 23, 238, NULL),
+(393, 24, 232, NULL),
+(394, 24, 233, NULL),
+(395, 24, 234, NULL),
+(396, 24, 235, NULL),
+(397, 24, 236, NULL),
+(398, 24, 237, NULL),
+(399, 24, 238, NULL);
 
 -- --------------------------------------------------------
 
@@ -12848,161 +12819,161 @@ CREATE TABLE IF NOT EXISTS `dcem_pingresos` (
   KEY `id_detalle_concepto_empleador_maestro` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_detalle_concepto_empleador__2` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_ptrabajador_2` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='INGRESOSCONCETPOS = 0100, 0200, 0300, 1000TOTAL = suma c' AUTO_INCREMENT=963 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='INGRESOSCONCETPOS = 0100, 0200, 0300, 1000TOTAL = suma c' AUTO_INCREMENT=3331 ;
 
 --
 -- Dumping data for table `dcem_pingresos`
 --
 
 INSERT INTO `dcem_pingresos` (`id_dcem_pingreso`, `id_ptrabajador`, `id_detalle_concepto_empleador_maestro`, `devengado`, `pagado`) VALUES
-(815, 5, 148, NULL, NULL),
-(816, 5, 149, NULL, NULL),
-(817, 5, 150, NULL, NULL),
-(818, 5, 151, NULL, NULL),
-(819, 5, 152, NULL, NULL),
-(820, 5, 153, NULL, NULL),
-(821, 5, 154, NULL, NULL),
-(822, 5, 155, NULL, NULL),
-(823, 5, 156, NULL, NULL),
-(824, 5, 157, NULL, NULL),
-(825, 5, 158, NULL, NULL),
-(826, 5, 159, NULL, NULL),
-(827, 5, 160, NULL, NULL),
-(828, 5, 161, NULL, NULL),
-(829, 5, 162, NULL, NULL),
-(830, 5, 163, NULL, NULL),
-(831, 5, 164, NULL, NULL),
-(832, 5, 165, NULL, NULL),
-(833, 5, 166, NULL, NULL),
-(834, 5, 167, NULL, NULL),
-(835, 5, 168, NULL, NULL),
-(836, 5, 169, NULL, NULL),
-(837, 5, 170, NULL, NULL),
-(838, 5, 171, NULL, NULL),
-(839, 5, 172, NULL, NULL),
-(840, 5, 173, NULL, NULL),
-(841, 5, 174, NULL, NULL),
-(842, 5, 175, NULL, NULL),
-(843, 5, 176, NULL, NULL),
-(844, 5, 177, NULL, NULL),
-(845, 5, 178, NULL, NULL),
-(846, 5, 179, NULL, NULL),
-(847, 5, 180, NULL, NULL),
-(848, 5, 181, NULL, NULL),
-(849, 5, 182, NULL, NULL),
-(850, 5, 183, NULL, NULL),
-(851, 5, 184, NULL, NULL),
-(852, 5, 185, NULL, NULL),
-(853, 5, 186, NULL, NULL),
-(854, 5, 187, NULL, NULL),
-(855, 5, 188, NULL, NULL),
-(856, 5, 189, NULL, NULL),
-(857, 5, 190, NULL, NULL),
-(858, 5, 191, NULL, NULL),
-(859, 5, 192, NULL, NULL),
-(860, 5, 193, NULL, NULL),
-(861, 5, 194, NULL, NULL),
-(862, 5, 195, NULL, NULL),
-(863, 5, 196, NULL, NULL),
-(864, 5, 197, NULL, NULL),
-(865, 5, 198, NULL, NULL),
-(866, 5, 199, NULL, NULL),
-(867, 5, 200, NULL, NULL),
-(868, 5, 201, NULL, NULL),
-(869, 5, 275, NULL, NULL),
-(870, 5, 276, NULL, NULL),
-(871, 5, 277, NULL, NULL),
-(872, 5, 278, NULL, NULL),
-(873, 5, 279, NULL, NULL),
-(874, 5, 280, NULL, NULL),
-(875, 5, 281, NULL, NULL),
-(876, 5, 282, NULL, NULL),
-(877, 5, 283, NULL, NULL),
-(878, 5, 284, NULL, NULL),
-(879, 5, 285, NULL, NULL),
-(880, 5, 286, NULL, NULL),
-(881, 5, 287, NULL, NULL),
-(882, 5, 288, NULL, NULL),
-(883, 5, 289, NULL, NULL),
-(884, 5, 290, NULL, NULL),
-(885, 5, 291, NULL, NULL),
-(886, 5, 292, NULL, NULL),
-(887, 5, 293, NULL, NULL),
-(888, 5, 294, NULL, NULL),
-(889, 6, 148, NULL, NULL),
-(890, 6, 149, NULL, NULL),
-(891, 6, 150, NULL, NULL),
-(892, 6, 151, NULL, NULL),
-(893, 6, 152, NULL, NULL),
-(894, 6, 153, NULL, NULL),
-(895, 6, 154, NULL, NULL),
-(896, 6, 155, NULL, NULL),
-(897, 6, 156, NULL, NULL),
-(898, 6, 157, NULL, NULL),
-(899, 6, 158, NULL, NULL),
-(900, 6, 159, NULL, NULL),
-(901, 6, 160, NULL, NULL),
-(902, 6, 161, NULL, NULL),
-(903, 6, 162, NULL, NULL),
-(904, 6, 163, NULL, NULL),
-(905, 6, 164, NULL, NULL),
-(906, 6, 165, NULL, NULL),
-(907, 6, 166, NULL, NULL),
-(908, 6, 167, NULL, NULL),
-(909, 6, 168, NULL, NULL),
-(910, 6, 169, NULL, NULL),
-(911, 6, 170, NULL, NULL),
-(912, 6, 171, NULL, NULL),
-(913, 6, 172, NULL, NULL),
-(914, 6, 173, NULL, NULL),
-(915, 6, 174, NULL, NULL),
-(916, 6, 175, NULL, NULL),
-(917, 6, 176, NULL, NULL),
-(918, 6, 177, NULL, NULL),
-(919, 6, 178, NULL, NULL),
-(920, 6, 179, NULL, NULL),
-(921, 6, 180, NULL, NULL),
-(922, 6, 181, NULL, NULL),
-(923, 6, 182, NULL, NULL),
-(924, 6, 183, NULL, NULL),
-(925, 6, 184, NULL, NULL),
-(926, 6, 185, NULL, NULL),
-(927, 6, 186, NULL, NULL),
-(928, 6, 187, NULL, NULL),
-(929, 6, 188, NULL, NULL),
-(930, 6, 189, NULL, NULL),
-(931, 6, 190, NULL, NULL),
-(932, 6, 191, NULL, NULL),
-(933, 6, 192, NULL, NULL),
-(934, 6, 193, NULL, NULL),
-(935, 6, 194, NULL, NULL),
-(936, 6, 195, NULL, NULL),
-(937, 6, 196, NULL, NULL),
-(938, 6, 197, NULL, NULL),
-(939, 6, 198, NULL, NULL),
-(940, 6, 199, NULL, NULL),
-(941, 6, 200, NULL, NULL),
-(942, 6, 201, NULL, NULL),
-(943, 6, 275, NULL, NULL),
-(944, 6, 276, NULL, NULL),
-(945, 6, 277, NULL, NULL),
-(946, 6, 278, NULL, NULL),
-(947, 6, 279, NULL, NULL),
-(948, 6, 280, NULL, NULL),
-(949, 6, 281, NULL, NULL),
-(950, 6, 282, NULL, NULL),
-(951, 6, 283, NULL, NULL),
-(952, 6, 284, NULL, NULL),
-(953, 6, 285, NULL, NULL),
-(954, 6, 286, NULL, NULL),
-(955, 6, 287, NULL, NULL),
-(956, 6, 288, NULL, NULL),
-(957, 6, 289, NULL, NULL),
-(958, 6, 290, NULL, NULL),
-(959, 6, 291, NULL, NULL),
-(960, 6, 292, NULL, NULL),
-(961, 6, 293, NULL, NULL),
-(962, 6, 294, NULL, NULL);
+(3183, 23, 148, NULL, NULL),
+(3184, 23, 149, NULL, NULL),
+(3185, 23, 150, NULL, NULL),
+(3186, 23, 151, NULL, NULL),
+(3187, 23, 152, NULL, NULL),
+(3188, 23, 153, NULL, NULL),
+(3189, 23, 154, NULL, NULL),
+(3190, 23, 155, NULL, NULL),
+(3191, 23, 156, NULL, NULL),
+(3192, 23, 157, NULL, NULL),
+(3193, 23, 158, NULL, NULL),
+(3194, 23, 159, NULL, NULL),
+(3195, 23, 160, NULL, NULL),
+(3196, 23, 161, NULL, NULL),
+(3197, 23, 162, NULL, NULL),
+(3198, 23, 163, NULL, NULL),
+(3199, 23, 164, NULL, NULL),
+(3200, 23, 165, NULL, NULL),
+(3201, 23, 166, NULL, NULL),
+(3202, 23, 167, NULL, NULL),
+(3203, 23, 168, '100.00', '100.00'),
+(3204, 23, 169, NULL, NULL),
+(3205, 23, 170, NULL, NULL),
+(3206, 23, 171, NULL, NULL),
+(3207, 23, 172, NULL, NULL),
+(3208, 23, 173, NULL, NULL),
+(3209, 23, 174, NULL, NULL),
+(3210, 23, 175, NULL, NULL),
+(3211, 23, 176, NULL, NULL),
+(3212, 23, 177, NULL, NULL),
+(3213, 23, 178, NULL, NULL),
+(3214, 23, 179, NULL, NULL),
+(3215, 23, 180, NULL, NULL),
+(3216, 23, 181, NULL, NULL),
+(3217, 23, 182, NULL, NULL),
+(3218, 23, 183, NULL, NULL),
+(3219, 23, 184, NULL, NULL),
+(3220, 23, 185, NULL, NULL),
+(3221, 23, 186, NULL, NULL),
+(3222, 23, 187, NULL, NULL),
+(3223, 23, 188, NULL, NULL),
+(3224, 23, 189, NULL, NULL),
+(3225, 23, 190, NULL, NULL),
+(3226, 23, 191, NULL, NULL),
+(3227, 23, 192, NULL, NULL),
+(3228, 23, 193, NULL, NULL),
+(3229, 23, 194, NULL, NULL),
+(3230, 23, 195, NULL, NULL),
+(3231, 23, 196, NULL, NULL),
+(3232, 23, 197, NULL, NULL),
+(3233, 23, 198, NULL, NULL),
+(3234, 23, 199, NULL, NULL),
+(3235, 23, 200, NULL, NULL),
+(3236, 23, 201, NULL, NULL),
+(3237, 23, 275, NULL, NULL),
+(3238, 23, 276, NULL, NULL),
+(3239, 23, 277, NULL, NULL),
+(3240, 23, 278, NULL, NULL),
+(3241, 23, 279, NULL, NULL),
+(3242, 23, 280, NULL, NULL),
+(3243, 23, 281, NULL, NULL),
+(3244, 23, 282, NULL, NULL),
+(3245, 23, 283, NULL, NULL),
+(3246, 23, 284, NULL, NULL),
+(3247, 23, 285, NULL, NULL),
+(3248, 23, 286, NULL, NULL),
+(3249, 23, 287, NULL, NULL),
+(3250, 23, 288, NULL, NULL),
+(3251, 23, 289, NULL, NULL),
+(3252, 23, 290, NULL, NULL),
+(3253, 23, 291, NULL, NULL),
+(3254, 23, 292, NULL, NULL),
+(3255, 23, 293, NULL, NULL),
+(3256, 23, 294, NULL, NULL),
+(3257, 24, 148, NULL, NULL),
+(3258, 24, 149, NULL, NULL),
+(3259, 24, 150, NULL, NULL),
+(3260, 24, 151, NULL, NULL),
+(3261, 24, 152, NULL, NULL),
+(3262, 24, 153, NULL, NULL),
+(3263, 24, 154, NULL, NULL),
+(3264, 24, 155, NULL, NULL),
+(3265, 24, 156, NULL, NULL),
+(3266, 24, 157, NULL, NULL),
+(3267, 24, 158, NULL, NULL),
+(3268, 24, 159, NULL, NULL),
+(3269, 24, 160, NULL, NULL),
+(3270, 24, 161, NULL, NULL),
+(3271, 24, 162, NULL, NULL),
+(3272, 24, 163, NULL, NULL),
+(3273, 24, 164, NULL, NULL),
+(3274, 24, 165, NULL, NULL),
+(3275, 24, 166, NULL, NULL),
+(3276, 24, 167, NULL, NULL),
+(3277, 24, 168, '100.00', '100.00'),
+(3278, 24, 169, NULL, NULL),
+(3279, 24, 170, NULL, NULL),
+(3280, 24, 171, NULL, NULL),
+(3281, 24, 172, NULL, NULL),
+(3282, 24, 173, NULL, NULL),
+(3283, 24, 174, NULL, NULL),
+(3284, 24, 175, NULL, NULL),
+(3285, 24, 176, NULL, NULL),
+(3286, 24, 177, NULL, NULL),
+(3287, 24, 178, NULL, NULL),
+(3288, 24, 179, NULL, NULL),
+(3289, 24, 180, NULL, NULL),
+(3290, 24, 181, NULL, NULL),
+(3291, 24, 182, NULL, NULL),
+(3292, 24, 183, NULL, NULL),
+(3293, 24, 184, NULL, NULL),
+(3294, 24, 185, NULL, NULL),
+(3295, 24, 186, NULL, NULL),
+(3296, 24, 187, NULL, NULL),
+(3297, 24, 188, NULL, NULL),
+(3298, 24, 189, NULL, NULL),
+(3299, 24, 190, NULL, NULL),
+(3300, 24, 191, NULL, NULL),
+(3301, 24, 192, NULL, NULL),
+(3302, 24, 193, NULL, NULL),
+(3303, 24, 194, NULL, NULL),
+(3304, 24, 195, NULL, NULL),
+(3305, 24, 196, NULL, NULL),
+(3306, 24, 197, NULL, NULL),
+(3307, 24, 198, NULL, NULL),
+(3308, 24, 199, NULL, NULL),
+(3309, 24, 200, NULL, NULL),
+(3310, 24, 201, NULL, NULL),
+(3311, 24, 275, NULL, NULL),
+(3312, 24, 276, NULL, NULL),
+(3313, 24, 277, NULL, NULL),
+(3314, 24, 278, NULL, NULL),
+(3315, 24, 279, NULL, NULL),
+(3316, 24, 280, NULL, NULL),
+(3317, 24, 281, NULL, NULL),
+(3318, 24, 282, NULL, NULL),
+(3319, 24, 283, NULL, NULL),
+(3320, 24, 284, NULL, NULL),
+(3321, 24, 285, NULL, NULL),
+(3322, 24, 286, NULL, NULL),
+(3323, 24, 287, NULL, NULL),
+(3324, 24, 288, NULL, NULL),
+(3325, 24, 289, NULL, NULL),
+(3326, 24, 290, NULL, NULL),
+(3327, 24, 291, NULL, NULL),
+(3328, 24, 292, NULL, NULL),
+(3329, 24, 293, NULL, NULL),
+(3330, 24, 294, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13018,67 +12989,67 @@ CREATE TABLE IF NOT EXISTS `dcem_ptributos_aportes` (
   PRIMARY KEY (`id_dcem_ptributo_aporte`),
   KEY `id_detalle_concepto_empleador_maestro` (`id_detalle_concepto_empleador_maestro`),
   KEY `id_ptrabajador` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tributos y aportes 0600 y 0800' AUTO_INCREMENT=352 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tributos y aportes 0600 y 0800' AUTO_INCREMENT=1135 ;
 
 --
 -- Dumping data for table `dcem_ptributos_aportes`
 --
 
 INSERT INTO `dcem_ptributos_aportes` (`id_dcem_ptributo_aporte`, `id_detalle_concepto_empleador_maestro`, `id_ptrabajador`, `monto`) VALUES
-(298, 216, 5, NULL),
-(299, 217, 5, NULL),
-(300, 218, 5, NULL),
-(301, 219, 5, NULL),
-(302, 220, 5, NULL),
-(303, 221, 5, NULL),
-(304, 222, 5, NULL),
-(305, 223, 5, NULL),
-(306, 224, 5, NULL),
-(307, 225, 5, NULL),
-(308, 226, 5, NULL),
-(309, 227, 5, NULL),
-(310, 228, 5, NULL),
-(311, 229, 5, NULL),
-(312, 230, 5, NULL),
-(313, 231, 5, NULL),
-(314, 239, 5, NULL),
-(315, 240, 5, NULL),
-(316, 241, 5, NULL),
-(317, 242, 5, NULL),
-(318, 243, 5, NULL),
-(319, 244, 5, NULL),
-(320, 245, 5, NULL),
-(321, 246, 5, NULL),
-(322, 247, 5, NULL),
-(323, 248, 5, NULL),
-(324, 249, 5, NULL),
-(325, 216, 6, NULL),
-(326, 217, 6, NULL),
-(327, 218, 6, NULL),
-(328, 219, 6, NULL),
-(329, 220, 6, NULL),
-(330, 221, 6, NULL),
-(331, 222, 6, NULL),
-(332, 223, 6, NULL),
-(333, 224, 6, NULL),
-(334, 225, 6, NULL),
-(335, 226, 6, NULL),
-(336, 227, 6, NULL),
-(337, 228, 6, NULL),
-(338, 229, 6, NULL),
-(339, 230, 6, NULL),
-(340, 231, 6, NULL),
-(341, 239, 6, NULL),
-(342, 240, 6, NULL),
-(343, 241, 6, NULL),
-(344, 242, 6, NULL),
-(345, 243, 6, NULL),
-(346, 244, 6, NULL),
-(347, 245, 6, NULL),
-(348, 246, 6, NULL),
-(349, 247, 6, NULL),
-(350, 248, 6, NULL),
-(351, 249, 6, NULL);
+(1081, 216, 23, NULL),
+(1082, 217, 23, NULL),
+(1083, 218, 23, NULL),
+(1084, 219, 23, NULL),
+(1085, 220, 23, NULL),
+(1086, 221, 23, NULL),
+(1087, 222, 23, NULL),
+(1088, 223, 23, NULL),
+(1089, 224, 23, NULL),
+(1090, 225, 23, NULL),
+(1091, 226, 23, NULL),
+(1092, 227, 23, NULL),
+(1093, 228, 23, NULL),
+(1094, 229, 23, NULL),
+(1095, 230, 23, NULL),
+(1096, 231, 23, NULL),
+(1097, 239, 23, NULL),
+(1098, 240, 23, NULL),
+(1099, 241, 23, NULL),
+(1100, 242, 23, NULL),
+(1101, 243, 23, NULL),
+(1102, 244, 23, NULL),
+(1103, 245, 23, NULL),
+(1104, 246, 23, NULL),
+(1105, 247, 23, NULL),
+(1106, 248, 23, NULL),
+(1107, 249, 23, NULL),
+(1108, 216, 24, NULL),
+(1109, 217, 24, NULL),
+(1110, 218, 24, NULL),
+(1111, 219, 24, NULL),
+(1112, 220, 24, NULL),
+(1113, 221, 24, NULL),
+(1114, 222, 24, NULL),
+(1115, 223, 24, NULL),
+(1116, 224, 24, NULL),
+(1117, 225, 24, NULL),
+(1118, 226, 24, NULL),
+(1119, 227, 24, NULL),
+(1120, 228, 24, NULL),
+(1121, 229, 24, NULL),
+(1122, 230, 24, NULL),
+(1123, 231, 24, NULL),
+(1124, 239, 24, NULL),
+(1125, 240, 24, NULL),
+(1126, 241, 24, NULL),
+(1127, 242, 24, NULL),
+(1128, 243, 24, NULL),
+(1129, 244, 24, NULL),
+(1130, 245, 24, NULL),
+(1131, 246, 24, NULL),
+(1132, 247, 24, NULL),
+(1133, 248, 24, NULL),
+(1134, 249, 24, NULL);
 
 -- --------------------------------------------------------
 
@@ -16364,45 +16335,15 @@ CREATE TABLE IF NOT EXISTS `etapas_pagos` (
   PRIMARY KEY (`id_etapa_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`,`cod_periodo_remuneracion`),
   KEY `cod_periodo_remuneracion` (`cod_periodo_remuneracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `etapas_pagos`
 --
 
 INSERT INTO `etapas_pagos` (`id_etapa_pago`, `id_pdeclaracion`, `cod_periodo_remuneracion`, `fecha_inicio`, `fecha_fin`, `fecha_creacion`, `tipo`, `glosa`) VALUES
-(1, 1, 2, '2012-01-01', '2012-01-15', '2012-08-13', 1, 'QUINCENA NRO 1'),
-(2, 1, 2, '2012-01-15', '2012-01-31', '2012-08-13', 2, 'QUINCENA NRO 2');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jornadas_laborales`
---
-
-CREATE TABLE IF NOT EXISTS `jornadas_laborales` (
-  `id_jornada_laboral` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_adelanto` int(10) unsigned NOT NULL,
-  `dia_total` smallint(2) DEFAULT NULL,
-  `dia_nosubsidiado` smallint(2) unsigned DEFAULT NULL COMMENT 'dia no laborado',
-  `ordinario_hora` int(11) DEFAULT NULL,
-  `ordinario_min` int(11) DEFAULT NULL,
-  `sobretiempo_hora` int(11) DEFAULT NULL,
-  `sobretiempo_min` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_jornada_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='01- sin descuentos' AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `jornadas_laborales`
---
-
-INSERT INTO `jornadas_laborales` (`id_jornada_laboral`, `id_adelanto`, `dia_total`, `dia_nosubsidiado`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`) VALUES
-(1, 1, 15, NULL, 120, NULL, NULL, NULL),
-(2, 2, 15, NULL, 120, NULL, NULL, NULL),
-(3, 1, 15, NULL, 120, NULL, NULL, NULL),
-(4, 2, 15, NULL, 120, NULL, NULL, NULL),
-(5, 3, 15, NULL, 120, NULL, NULL, NULL),
-(6, 4, 15, NULL, 120, NULL, NULL, NULL);
+(7, 1, 2, '2012-01-01', '2012-01-15', '2012-08-15', 1, 'QUINCENA NRO 1'),
+(8, 1, 2, '2012-01-16', '2012-01-31', '2012-08-15', 2, 'QUINCENA NRO 2');
 
 -- --------------------------------------------------------
 
@@ -26326,12 +26267,13 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   `id_etapa_pago` int(10) unsigned NOT NULL,
   `id_trabajador` int(10) unsigned NOT NULL,
   `id_empresa_centro_costo` int(10) unsigned NOT NULL,
-  `valor_neto` decimal(10,2) DEFAULT NULL,
   `valor` decimal(10,2) DEFAULT NULL,
   `descuento` decimal(10,2) DEFAULT NULL,
+  `valor_total` decimal(10,2) unsigned NOT NULL,
   `descripcion` tinytext,
   `dia_total` smallint(6) DEFAULT NULL,
   `dia_nosubsidiado` smallint(5) unsigned DEFAULT NULL COMMENT 'dia no laborado',
+  `dia_laborado` smallint(5) unsigned NOT NULL,
   `ordinario_hora` smallint(6) DEFAULT NULL,
   `ordinario_min` smallint(6) DEFAULT NULL,
   `sobretiempo_hora` smallint(6) DEFAULT NULL,
@@ -26341,17 +26283,17 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   KEY `id_etapa_pago` (`id_etapa_pago`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TRABAJADORES filtrados por \r\nPERIODO DE REMUNERACION\r\n15' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TRABAJADORES filtrados por \r\nPERIODO DE REMUNERACION\r\n15' AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `pagos`
 --
 
-INSERT INTO `pagos` (`id_pago`, `id_etapa_pago`, `id_trabajador`, `id_empresa_centro_costo`, `valor_neto`, `valor`, `descuento`, `descripcion`, `dia_total`, `dia_nosubsidiado`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`) VALUES
-(7, 1, 2, 2, '250.00', '250.00', NULL, NULL, 15, NULL, 120, NULL, NULL, NULL, 0),
-(8, 1, 15, 2, '375.00', '375.00', NULL, NULL, 15, NULL, 120, NULL, NULL, NULL, 0),
-(9, 2, 16, 2, '225.00', '225.00', NULL, NULL, 9, NULL, 72, NULL, NULL, NULL, 0),
-(10, 2, 15, 2, '375.00', '375.00', NULL, NULL, 17, NULL, 136, NULL, NULL, NULL, 0);
+INSERT INTO `pagos` (`id_pago`, `id_etapa_pago`, `id_trabajador`, `id_empresa_centro_costo`, `valor`, `descuento`, `valor_total`, `descripcion`, `dia_total`, `dia_nosubsidiado`, `dia_laborado`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`) VALUES
+(24, 7, 2, 2, '250.00', '48.00', '202.00', '', 15, 5, 10, 120, 0, 200, 68, 0),
+(25, 7, 15, 2, '375.00', '0.00', '375.00', '', 15, 1, 14, 120, 0, 0, 0, 0),
+(26, 8, 16, 2, '200.00', '0.00', '200.00', NULL, 8, 0, 8, 64, 0, NULL, NULL, 0),
+(27, 8, 15, 2, '375.00', '0.00', '375.00', NULL, 16, 0, 16, 128, 0, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -26632,15 +26574,14 @@ CREATE TABLE IF NOT EXISTS `pdeclaraciones` (
   PRIMARY KEY (`id_pdeclaracion`),
   KEY `id_empleador_maestro` (`id_empleador_maestro`),
   KEY `id_empleador_maestro_2` (`id_empleador_maestro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `pdeclaraciones`
 --
 
 INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `periodo`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 2, '2012-01-01', '2012-08-05', '2012-08-05'),
-(2, 2, '2012-02-01', '2012-08-13', '2012-08-13');
+(1, 2, '2012-01-01', '2012-08-15', '2012-08-15');
 
 -- --------------------------------------------------------
 
@@ -26979,15 +26920,15 @@ CREATE TABLE IF NOT EXISTS `pjornadas_laborales` (
   `total_hora_mm` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_pjornada_laboral`),
   KEY `id_ptrabajador` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `pjornadas_laborales`
 --
 
 INSERT INTO `pjornadas_laborales` (`id_pjornada_laboral`, `id_ptrabajador`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `hora_ordinaria_hh`, `hora_ordinaria_mm`, `hora_sobretiempo_hh`, `hora_sobretiempo_mm`, `total_hora_hh`, `total_hora_mm`) VALUES
-(1, 5, 23, NULL, NULL, 23, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 6, 31, NULL, NULL, 31, NULL, NULL, NULL, NULL, NULL, NULL);
+(30, 23, 23, NULL, NULL, 23, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 24, 31, NULL, NULL, 31, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -27002,17 +26943,17 @@ CREATE TABLE IF NOT EXISTS `pperiodos_laborales` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_pperiodo_laboral`),
   KEY `id_ptrabajador` (`id_ptrabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Puede tener barios periodos de trabajando dentro de ese MES' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Puede tener barios periodos de trabajando dentro de ese MES' AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `pperiodos_laborales`
 --
 
 INSERT INTO `pperiodos_laborales` (`id_pperiodo_laboral`, `id_ptrabajador`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 5, '2011-01-01', '2012-01-20'),
-(2, 5, '2012-01-28', '2012-01-28'),
-(3, 5, '2012-01-30', NULL),
-(4, 6, '2012-01-01', NULL);
+(50, 23, '2011-01-01', '2012-01-20'),
+(51, 23, '2012-01-28', '2012-01-28'),
+(52, 23, '2012-01-30', NULL),
+(53, 24, '2012-01-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -27089,15 +27030,15 @@ CREATE TABLE IF NOT EXISTS `ptrabajadores` (
   PRIMARY KEY (`id_ptrabajador`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Categoria Trabajador,... \r\nVolcado de IDS de trabajadores' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Categoria Trabajador,... \r\nVolcado de IDS de trabajadores' AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `ptrabajadores`
 --
 
 INSERT INTO `ptrabajadores` (`id_ptrabajador`, `id_trabajador`, `id_pdeclaracion`, `aporta_essalud_sctr`, `aporta_essalud_vida`, `aporta_asegura_tu_pension`, `domiciliado`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_situacion`, `cod_regimen_aseguramiento_salud`, `cod_regimen_pensionario`) VALUES
-(5, 16, 1, 0, 0, 0, 1, 0, '21', '1', '00', '02'),
-(6, 15, 1, 0, 0, 0, 1, 0, '21', '1', '00', '02');
+(23, 16, 1, 0, 0, 0, 1, 0, '21', '1', '00', '02'),
+(24, 15, 1, 0, 0, 0, 1, 0, '21', '1', '00', '02');
 
 -- --------------------------------------------------------
 

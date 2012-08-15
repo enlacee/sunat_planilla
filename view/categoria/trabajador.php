@@ -58,8 +58,8 @@ $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 // ---- Busqueda Trabajador
 $objTRA = new Trabajador();
 //-- funcion Controlador Trabajador
-$objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA);
-$objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
+$objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA,$ID_TRABAJADOR);
+//$objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
 
 //--- sub 1 Periodo Laboral
 $objTRADetalle_1 = new DetallePeriodoLaboral();
@@ -131,9 +131,11 @@ foreach ($lista_establecimientos as $indice) {
 
 //############################################################################
 
-//echo "<pre>trabajador"; //$objTRADetalle_5
-//print_r($objTRA);
-//echo "</pre>";
+echo "<pre>trabajador"; //$objTRADetalle_5
+print_r($objTRA);
+echo "</pre>";
+
+$comboCCosto = comboCentroCosto();
 
 
 
@@ -898,7 +900,21 @@ foreach ($lista_establecimientos as $indice) {
               <td><strong>Centro de Costo</strong></td>
               <td><label for="cboCentroCosto"></label>
                 <select name="cboCentroCosto" id="cboCentroCosto" style="width:100px">
-                <option>01</option>
+                <option value="0">-</option>                
+<?php
+foreach ($comboCCosto as $indice) {
+	
+	if ($indice['id_empresa_centro_costo'] == $objTRA->getId_empresa_centro_costo() ) {
+		$html = '<option value="'. $indice['cod_tipo_documento'] .'"  selected="selected"  >' . $indice['descripcion'] . '</option>';
+	} else {
+		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
+}
+?>
+
+                //$objTRA
+                
                 </select></td>
               <td>&nbsp;</td>
             </tr>

@@ -122,6 +122,6 @@ calcDiaSubsidiado();
     <p>
         <input type="button" name="btnGrabar" id="btnGrabar" value="Grabar" onclick="grabarDiaSubsidiado()" />
         <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="validarNuevoInput()" />
-        <input type="button" name="demo" id="demo" value="Button"  onclick="getIdsCombos()"/>
+        <!--<input type="button" name="demo" id="demo" value="Button"  onclick="getIdsCombos()"/>-->
     </p>
 </form>

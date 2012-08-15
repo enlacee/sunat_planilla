@@ -1,5 +1,4 @@
 <?php
-
 //Obtener Comunmente  id_empleador_maestro
 require_once '../dao/EmpleadorMaestroDao.php';
 require_once '../controller/EmpleadorMaestroController.php';
@@ -15,15 +14,15 @@ $ID_EMPLEADOR_MAESTRO = $data_empMaestro['id_empleador_maestro']; //++
 // DEFINE
 if (is_null($ID_EMPLEADOR) || is_null($RUC) || is_null($ID_EMPLEADOR_MAESTRO)) {
     //header($string, $replace)
-    header('Location: index.php');
+    header('Location: www.google.com');
 } else {
     define('ID_EMPLEADOR', $ID_EMPLEADOR);
     define('RUC', $RUC);
     define('ID_EMPLEADOR_MAESTRO', $ID_EMPLEADOR_MAESTRO);
 }
 // ----------- finall ----- Identificacion Empleador Sistema -------------//
-
-/*  echo "<pre>ID_EMPLEADOR";
+ /* 
+  echo "<pre>ID_EMPLEADOR";
   print_r(ID_EMPLEADOR);
   echo "</pre>";
   echo "<hr>";
@@ -35,6 +34,6 @@ if (is_null($ID_EMPLEADOR) || is_null($RUC) || is_null($ID_EMPLEADOR_MAESTRO)) {
   print_r(ID_EMPLEADOR_MAESTRO);
   echo "</pre>";
   echo "<hr>";
-  */
+ */
  
 ?>

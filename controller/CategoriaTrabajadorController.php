@@ -276,6 +276,7 @@ function editarTrabajador() {
 
     $tra->setMonto_remuneracion($_REQUEST['txt_monto_remuneracion_basica_inicial']);
     $tra->setId_establecimiento($_REQUEST['txt_id_establecimiento']);
+    $tra->setId_empresa_centro_costo($_REQUEST['cboCentroCosto']);
 
     //Artilujio 01 - JornadaLaboral=checkbox
     $jlaboral = $_REQUEST['jlaboral'];
@@ -396,14 +397,15 @@ function editarTrabajador() {
     return true;
 }
 
-function buscarTrabajadorPorIdPersona($id_persona) {
+function buscarTrabajadorPorIdPersona($id_persona,$id_trabajador) {
     $dao = new TrabajadorDao();
     /* buscaTrabajadorPorIdPersona */
-    $data = $dao->buscaTrabajadorPorIdPersona($id_persona);
+    $data = $dao->buscaTrabajadorPorIdPersona($id_persona,$id_trabajador);
     //echo "CONTROLLER DAO";
-    //echo "<pre>";
-    //print_r($data);
-    //echo "</pre>";
+    /*echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+    */
     $model = new Trabajador();
     $model->setId_trabajador($data['id_trabajador']);
     $model->setId_persona($data['id_persona']);
@@ -430,8 +432,9 @@ function buscarTrabajadorPorIdPersona($id_persona) {
 
     $model->setEstado($data['estado']);
     $model->setCod_situacion($data['cod_situacion']);
+    $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
 
-//	var_dump($model);
+	//var_dump($model);
 
     return $model;
 }

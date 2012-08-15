@@ -1,5 +1,4 @@
 <?php
-
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
@@ -20,16 +19,11 @@ if ($op) {
     require_once '../model/Dcem_Ptributo_aporte.php';
 
     require_once '../model/PjornadaLaboral.php';
-// INGRESO
-    require_once '../model/Dcem_Pingreso.php';
+
+
     require_once '../dao/Dcem_PingresoDao.php';
-    //DESCUENTO
-    require_once '../model/Dcem_Pdescuento.php';
     require_once '../dao/Dcem_PdescuentoDao.php';
-    //TRIBUTO
-    require_once '../model/Dcem_Ptributo_aporte.php';
     require_once '../dao/Dcem_PtributoAporteDao.php';
-    //JORNADA LABORAL
     require_once '../dao/PjoranadaLaboralDao.php';
 
     require_once '../dao/PtrabajadorDao.php';
@@ -61,56 +55,30 @@ if ($op) {
     //MODEL PperiodoLaboral
     require_once ('../model/PperiodoLaboral.php');
     require_once '../dao/PperiodoLaboralDao.php';
-
-    //PAGO DAO
-    require_once '../dao/PagoDao.php';
 }
 
 $response = NULL;
 
 if ($op == "cargar_tabla") {
     $response = cargar_tabla_pdeclaracio(ID_EMPLEADOR_MAESTRO);
-} else if ($op == "add") { //READY
+} else if ($op == "add") {
     $post_fecha = "01/" . $_REQUEST['periodo'];
     $periodo = getFechaPatron($post_fecha, "Y-m-d");
     $response = nuevaDeclaracionPeriodo(ID_EMPLEADOR_MAESTRO, $periodo);
-} else if ($op == "add-data-ptrabajadores") { //en realidad es UNIR DATOS
     
-    ECHO "DDDDDDDDDDDDDDDDDDDDDDDDDD";
     
-    $tipo = $_REQUEST['declaracionRectificadora']; // 1
-
-    $ID_DECLARACION = $_REQUEST['id_declaracion'];
+} else if ($op == "addDDxx") {
     $post_fecha = "01/" . $_REQUEST['periodo'];
     $periodo = getFechaPatron($post_fecha, "Y-m-d");
     // Se Registra el Periodo mes/anio 
-    /* $BANDERA = */
-    if ($tipo == '1') { //Elimina rastro y crea otro
-        $daopt = new PtrabajadorDao();
-        $data_ptrabajadores = $daopt->listarPor_ID_declaracion($ID_DECLARACION);
-        ECHO "SSSSSS = ";
-        var_dump($data_ptrabajadores);
-        
-        if (count($data_ptrabajadores) > 0) {
-            $daopt->eliminarPtrabajadorPor_id_declaracion($ID_DECLARACION);
-        }
-        ///ready
-        nuevaDeclaracion(ID_EMPLEADOR_MAESTRO, $periodo, $ID_DECLARACION);
-    } else if ($tipo == 0) { //UPDATE
-        
-        
-    }
-
-
-
-    //registrar_Ptrabajadores_enPdeclaracion(ID_EMPLEADOR_MAESTRO, $ID_DECLARACION, $periodo);
-
+    /* $BANDERA = */ nuevaDeclaracion(ID_EMPLEADOR_MAESTRO, $periodo);
     /*
       if ($BANDERA) {
       $response->rows[0]['estado'] = "true";
       } else {
       $response->rows[0]['estado'] = "false";
       }
+
       $response->rows[0]['data_mes'] = getMesInicioYfin($periodo);
      */
 } else if ($op == "cargar_tabla_ptrabajador") {
@@ -129,20 +97,51 @@ function existeDeclaracion() {
     $dao->existeDeclaracion();
 }
 
+// New view Empresa
+function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
+    
+    $FECHA = getMesInicioYfin($periodo);
+    //PASO 01   existe periodo?    
+    $dao = new PlameDeclaracionDao();
+    $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
+
+    //paso 02 Num Trabajadores > 1 ?
+    $Daoo = new PlameDao();
+    $data_tra = $Daoo->listarTrabajadoresPorPeriodo($id_empleador_maestro, $FECHA['mes_inicio'], $FECHA['mes_fin']);
+
+    $num_trabajadores = count($data_tra);
+    //$num_trabajadores = $dao->contarTrabajadoresEnPeriodo($id_empleador_maestro, $periodo);
+
+    $rpta = 'false';
+    if ($num_declaracion == 0) {            
+        if ($num_trabajadores <= 0) {
+            //$response->rows[0]['tipo'] = "num_trabajador";
+            //$response->rows[0]['estado'] = "false";
+        } else if ($num_trabajadores > 0) {
+            $rpta = 'true';
+        }
+    }
+    
+    if ($rpta == 'true') {        
+        /*$response =*/  $dao->registrar($id_empleador_maestro, $periodo);
+    }
+    
+   // $response = strval($rpta);
+    
+    return strval($rpta); //SOLO 1 = TRUE
+    
+}
+
 //FUNCION ADCIONAL
-//FUNCION ADCIONAL
-function nuevaDeclaracion($id_empleador_maestro, $periodo, $ID_DECLARACION) {
+function nuevaDeclaracion($id_empleador_maestro, $periodo) {
 
     $estado = false;
-
     $FECHA = getMesInicioYfin($periodo);
 
-    echo "FECHA['mes_inicio'] = " . $FECHA['mes_inicio'];
-    echo "FECHA['mes_fin'] = " . $FECHA['mes_fin'];
-
     //PASO 01   existe periodo?    
-    //$dao = new PlameDeclaracionDao();
-    //$num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
+    $dao = new PlameDeclaracionDao();
+    $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
+
     //paso 02 Num Trabajadores > 1 ?
     $Daoo = new PlameDao();
 
@@ -153,12 +152,16 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo, $ID_DECLARACION) {
 
 
     $rpta = false;
-    if ($num_trabajadores >= 1) {
-        $rpta = true;
+
+    if ($num_declaracion == 0) {
+        if ($num_trabajadores >= 1) {
+            $rpta = true;
+        }
     }
 
 
-    if ($rpta == true) {
+
+    if (/* $rpta == true */true) {
         ////EVALUA SI ES NECESARIO UN TRY CATH!!!!!!!!!!!!!   
         $datafor = array();
         for ($i = 0; $i < count($data_tra); $i++) {// PRIMERO 
@@ -260,7 +263,7 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo, $ID_DECLARACION) {
         //INICIO NEW CON ID_UNICOS  Y periodos y dias laborados dentro del MES.
         //------INICIO    
         //PASO 01
-        //$id_pdeclaracion = $dao->registrar($id_empleador_maestro, $periodo);
+        $id_pdeclaracion = $dao->registrar($id_empleador_maestro, $periodo);
 
         for ($i = 0; $i < count($tra_unico); $i++) { // UNICO
             $dias_laborados = 0;
@@ -292,9 +295,7 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo, $ID_DECLARACION) {
               echo "dia laborado = " . $dias_laborados;
               echo "***************************************************";
              */
-
-            ECHO "APUNTO DE REG $i";
-            registrarPTrabajadores($tra_unico[$i]['id_trabajador'],$tra_unico[$i]['id_persona'], $ID_DECLARACION, $id_empleador_maestro, $data_obj_ppl, $dias_laborados);
+            registrarPTrabajadores($tra_unico[$i]['id_trabajador'], $id_pdeclaracion, $id_empleador_maestro, $data_obj_ppl, $dias_laborados);
         }
 
 
@@ -310,7 +311,7 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo, $ID_DECLARACION) {
 
 //------
 // ESTA FUNCION CREADA PARA aminorar el codigo en la funcion nuevaDeclaracion
-function registrarPTrabajadores($id_trabajador,$id_persona, $id_pdeclaracion, $id_empleador_maestro, $data_obj_ppl, $dia_laborado) {
+function registrarPTrabajadores($id_trabajador, $id_pdeclaracion, $id_empleador_maestro, $data_obj_ppl, $dia_laborado) {
 
     /**
      * Datos Personales actuales del Trabajador 
@@ -376,27 +377,6 @@ function registrarPTrabajadores($id_trabajador,$id_persona, $id_pdeclaracion, $i
         //DAO
         $dao_i->registrar($obj_i);
     }
-    
-    //---------::::::::::::::::::::::::::::::ACtualizar PINGRESOOO::::::::::::::::::::::::::::---------
-    // 01 = sueldo basico  concepto[0121]
-    // 02 = asig.familiar  concepto[0201]
-    
-    $id_dcem_pingreso_0121 =  $dao_i->get_id_dcem_pingreso($id_empleador_maestro, '0121', $ID_PTRABAJADOR);
-    //$obj_i = new Dcem_Pingreso();
-    $obj_i->setId_dcem_pingreso($id_dcem_pingreso_0121);
-    $obj_i->setDevengado(100);
-    $obj_i->setPagado(100);
-    $dao_i->actualizar($obj_i);
-    
-
-    //00000001111111 -> listar parametro sueldo basico...
-    
-    //00000002222222
-    $daoPago = new PagoDao();
-    $DATA_TOP = $daoPago->listaGrup_Por_Persona($id_pdeclaracion);
-    
-    ???????????
-     //---------::::::::::::::::::::::::::::::ACtualizar PINGRESOOO::::::::::::::::::::::::::::---------   
 
     //--------------------------------------------------------------------------
     //PASO 02.1  -- DESCUENTOS listar conceptos
@@ -517,7 +497,7 @@ function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclara
         $anio = getFechaPatron($_01, "Y");
         $periodo = "$mes/$anio";
 
-        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_declaracion=" . $param . "&periodo=" . $periodo . "','#CapaContenedorFormulario')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo=" . $periodo . "','#CapaContenedorFormulario')";
         $js2 = "";
         $js3 = "";
 
@@ -550,7 +530,7 @@ function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclara
             $_02,
             $estado,
             utf8_encode($modificar),
-            $null,//utf8_encode($eliminar),
+            utf8_encode($eliminar),
             utf8_encode($archivo)
         );
 
@@ -629,9 +609,9 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
         $param = $rec["id_pdeclaracion"];
         $_01 = $rec['periodo'];
         //$_02 = '<a href="javascript:add_15('.$param.',\''.$_01.'\')" title = "Agregar UNICO Adelanto 15">1era 15</a>';
-        $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $_01 . '\',\'#CapaContenedorFormulario\')"title = "ADD 15">ADD 15</a>';
-        //$_04 = "INSET SNT";
-        //$_05 = "UPDATE SNT";
+        $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion='.$param.'&periodo='.$_01.'\',\'#CapaContenedorFormulario\')"title = "VER">Ver</a>';
+        $_04 = "ST-ADD";
+        $_05 = "ST-Edit";
 
         $periodo = getFechaPatron($_01, "m/Y");
 
@@ -650,6 +630,8 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
 
     return $response;
 }
+
+
 
 //dos
 function retornan_Id_Persona_Unico($data_tra) {
@@ -681,7 +663,7 @@ function retornan_Id_Persona_Unico($data_tra) {
 }
 
 // VIEW EMPRESA 
-function buscar_ID_Pdeclaracion($id_pdeclaracion) {
+function buscar_ID_Pdeclaracion($id_pdeclaracion){
     $dao = new PlameDeclaracionDao();
     $data = $dao->buscar_ID($id_pdeclaracion);
     //var_dump($data);
@@ -693,61 +675,7 @@ function buscar_ID_Pdeclaracion($id_pdeclaracion) {
     $model->setFecha_modificacion($data['fecha_modificacion']);
     $model->setEstado($data['estado']);
     return $model;
+    
 }
 
-// New view Empresa READY
-function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
-
-    $FECHA = getMesInicioYfin($periodo);
-    //PASO 01   existe periodo?    
-    $dao = new PlameDeclaracionDao();
-    $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
-
-    //paso 02 Num Trabajadores > 1 ?
-    $Daoo = new PlameDao();
-    $data_tra = $Daoo->listarTrabajadoresPorPeriodo($id_empleador_maestro, $FECHA['mes_inicio'], $FECHA['mes_fin']);
-
-    $num_trabajadores = count($data_tra);
-    //$num_trabajadores = $dao->contarTrabajadoresEnPeriodo($id_empleador_maestro, $periodo);
-
-    $rpta = 'false';
-    if ($num_declaracion == 0) {
-        if ($num_trabajadores <= 0) {
-            //$response->rows[0]['tipo'] = "num_trabajador";
-            //$response->rows[0]['estado'] = "false";
-        } else if ($num_trabajadores > 0) {
-            $rpta = 'true';
-        }
-    }
-
-    if ($rpta == 'true') {
-        /* $response = */ $dao->registrar($id_empleador_maestro, $periodo);
-    }
-
-    // $response = strval($rpta);
-
-    return strval($rpta); //SOLO 1 = TRUE
-}
-
-
-
-
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-//*****************************************************************************
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-
-
-    function updateMaster_Pingreso($id_empleador_maestro,$cod_detalle_concepto,$ID_PTRABAJADOR,$VALOR_X){
-        $dao_i = new Dcem_PingresoDao();
-        $id_dcem_pingreso_0121 =  $dao_i->get_id_dcem_pingreso($id_empleador_maestro, $cod_detalle_concepto, $ID_PTRABAJADOR);
-        $obj_i = new Dcem_Pingreso();
-        $obj_i->setId_dcem_pingreso($id_dcem_pingreso_0121);
-        $obj_i->setDevengado($VALOR_X);
-        $obj_i->setPagado($VALOR_X);
-        
-        $dao_i->actualizar($obj_i);
-    }
 ?>

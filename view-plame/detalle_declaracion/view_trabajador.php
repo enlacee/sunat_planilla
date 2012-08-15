@@ -1,10 +1,10 @@
 <div id="detalle_declaracion_trabajador">
 
 
-  <h2>EDIT trabajador<br />
+<!--  <h2>EDIT trabajador<br />
     jqgrid
     <br />
-  </h2>
+  </h2>-->
   
 <table id="list">
 </table>

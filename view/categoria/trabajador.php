@@ -131,9 +131,9 @@ foreach ($lista_establecimientos as $indice) {
 
 //############################################################################
 
-echo "<pre>trabajador"; //$objTRADetalle_5
-print_r($objTRA);
-echo "</pre>";
+//echo "<pre>trabajador"; //$objTRADetalle_5
+//print_r($objTRA);
+//echo "</pre>";
 
 $comboCCosto = comboCentroCosto();
 
@@ -357,7 +357,7 @@ $COD_ESTADO = $_REQUEST['cod_situacion'];
 				
             },
 			submitHandler: function(data) { 
-				alert("submitHandler");				
+				//alert("submitHandler");				
 			//-----------------------------------------------------------------------				
 				var from_data =  $("#form_trabajador").serialize();
 				$.getJSON('sunat_planilla/controller/CategoriaTrabajadorController.php?'+from_data,

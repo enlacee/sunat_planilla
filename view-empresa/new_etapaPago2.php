@@ -13,9 +13,9 @@ $anio = getFechaPatron($periodo, "Y");
 $ID_DECLARACION = $_REQUEST['id_declaracion'];
 
 //-------------------------------------------
-echo "<pre>";
-echo print_r(getFechasDePago($periodo));
-echo "</pre>";
+//echo "<pre>";
+//echo print_r(getFechasDePago($periodo));
+//echo "</pre>";
 
 $FECHAX = getFechasDePago($periodo);
 
@@ -72,19 +72,21 @@ if($premunerativo == 2){ //quincena 2
 
         </ul>
         <div id="tabs-1">
-            id_declaracion
-          <input name="id_declaracion" id="id_declaracion" type="text" value="<?php echo $ID_DECLARACION; ?>">
-            <br />
-            cod_periodo_remuneracionn
-            <input type="text" name="cod_periodo_remuneracion" id="cod_periodo_remuneracion" value="<?php echo $cod_periodo_remuneracion; ?>" />
-            <h2>Adelanto 
-                <input name="adelanto" type="text" id="adelanto" 
+<div class="ocultar">id_declaracion
+  <input name="id_declaracion" id="id_declaracion" type="text" value="<?php echo $ID_DECLARACION; ?>">
+  <br />
+  cod_periodo_remuneracionn
+  <input type="text" name="cod_periodo_remuneracion" id="cod_periodo_remuneracion" value="<?php echo $cod_periodo_remuneracion; ?>" />
+  <br />
+  periodo
+  <input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>" />
+</div>
+<h2>Adelanto 
+          <input name="adelanto" type="text" id="adelanto" 
                        value="<?php echo getNameMonth($mes); ?>" size="10" />
                 del 
                 <input name="anio" type="text" id="anio" value="<?php echo $anio; ?>" size="5" />
-                <input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>" />
-                
-            </h2>
+</h2>
           <h2>03 Seleccionde Periodo</h2>
             <p>
                 

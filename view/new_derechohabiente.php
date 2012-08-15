@@ -1,5 +1,4 @@
 <?php
-
 //COMBO FILE
 require_once('../dao/AbstractDao.php');
 require_once('../dao/ComboDao.php');
@@ -44,9 +43,9 @@ $cbo_situaciones =comboSituacion();
 
 ?>
 
-            <script>
-			
-                
+<script>
+
+
                 //INICIO HISTORIAL
 			$(document).ready(function(){
 						   
@@ -182,14 +181,6 @@ $cbo_situaciones =comboSituacion();
 //--------------------------------------------------------------
 
 		</script>
-
-
-
-
-
-
-
-
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
@@ -201,7 +192,7 @@ $cbo_situaciones =comboSituacion();
 <div id="tabs">
 	
     <form action="sunat_planilla/controller/DerechohabienteController.php" method="post" 
-	name="form_edit_derechohabiente" id="form_new_derechohabiente" novalidate="novalidate">
+	name="form_new_derechohabiente" id="form_new_derechohabiente" novalidate="novalidate">
                 
                 <input name="oper" type="hidden" value="add">
                 <fieldset>

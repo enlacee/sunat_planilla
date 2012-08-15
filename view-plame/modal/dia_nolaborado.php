@@ -38,15 +38,15 @@ calcDiaNoSubsidiado();
 
 
 <form action="" method="get" name="formDiaNoSubsidiado" id="formDiaNoSubsidiado">
-
-    oper
-    <input name="oper" type="text" value="dual" />
-    <br />
-    id_pjoranada_laboral
-    <label for="id_pjoranada_laboral"></label>
-    <input type="text" name="id_pjornada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
-    <table width="450" border="1" id="tb_dnolaborado">
-        <tr>
+<div class="ocultar">oper
+  <input name="oper" type="text" value="dual" />
+  <br />
+  id_pjoranada_laboral
+  <label for="id_pjoranada_laboral"></label>
+  <input type="text" name="id_pjornada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
+</div>
+<table width="450" border="1" id="tb_dnolaborado">
+      <tr>
             <td width="217">tipo desuspens&oacute;n</td>
             <td width="81">cantidad de dias</td>
             <td width="88">Modificar</td>

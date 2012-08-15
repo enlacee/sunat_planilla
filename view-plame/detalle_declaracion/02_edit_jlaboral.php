@@ -163,8 +163,8 @@ for ($i = 0; $i < $counteo; $i++):
 
         //-------------------------------------------------------------
         //---- CODIGO
-        var id = '<input type="text" size="4" id="pdia_subsidiado-'+ COD_DETALLE_CONCEPTO +'" name="pdia_subsidiado[]" value ="" >';
-        var estado = '<input type="text" size="4" id="estado-'+ COD_DETALLE_CONCEPTO +'" name="estado[]" value ="0" >';
+        var id = '<input type="hidden" size="4" id="pdia_subsidiado-'+ COD_DETALLE_CONCEPTO +'" name="pdia_subsidiado[]" value ="" >';
+        var estado = '<input type="hidden" size="4" id="estado-'+ COD_DETALLE_CONCEPTO +'" name="estado[]" value ="0" >';
         //var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
 
         var input_cdia = '<input name="ds_cantidad_dia[]" type="text" id="ds_cantidad_dia-'+COD_DETALLE_CONCEPTO+'" size="7"  onblur="calcDiaSubsidiado()"/>';

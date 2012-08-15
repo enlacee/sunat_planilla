@@ -526,6 +526,8 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
    success: function(datos){
 
    console.log("LLEGO "+datos);
+   alert("Se Genero Adelanto Quincenal");
+   cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario');
    }
    }); 
 

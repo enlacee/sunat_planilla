@@ -215,7 +215,7 @@ function editarPersonaDireccion(id_persona_direccion){  //alert (".");
 //-------------------------------------------------------------
 //-----------------DERECHOHABIENTES DIRECCIONES ---------------
 //  intranet intranet intranet intranet intranet intranet 
-/*
+
     function crearDialogoDerechohabienteDireccion(){
         $("#dialog-form-editarDireccion-Derechohabiente").dialog({           
             autoOpen: false,
@@ -270,7 +270,7 @@ function editarPersonaDireccion(id_persona_direccion){  //alert (".");
             }
         }); 
     }
-	*/
+	
 //-------------------------------------------------------------
 //-------------------DERECHOHABIENTES--------------------------
 //  intranet intranet intranet intranet intranet intranet 

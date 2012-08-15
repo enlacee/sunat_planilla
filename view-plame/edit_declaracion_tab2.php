@@ -1,5 +1,4 @@
 <?php
-
 //*******************************************************************//
 require_once('../view/ide.php');
 //*******************************************************************//
@@ -8,7 +7,7 @@ $data = $_SESSION['sunat_empleador'];
 
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
-echo "DDDDDDDDDD".$PERIODO;
+//echo "DDDDDDDDDD".$PERIODO;
 ?>
 <script type="text/javascript">
 //VARIABLES GLOBALES

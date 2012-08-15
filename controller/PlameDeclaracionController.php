@@ -378,6 +378,7 @@ function registrarPTrabajadores($id_trabajador,$id_persona, $id_pdeclaracion, $i
     }
     
     //---------::::::::::::::::::::::::::::::ACtualizar PINGRESOOO::::::::::::::::::::::::::::---------
+/*   
     // 01 = sueldo basico  concepto[0121]
     // 02 = asig.familiar  concepto[0201]
     
@@ -395,7 +396,7 @@ function registrarPTrabajadores($id_trabajador,$id_persona, $id_pdeclaracion, $i
     $daoPago = new PagoDao();
     $DATA_TOP = $daoPago->listaGrup_Por_Persona($id_pdeclaracion);
     
-    ???????????
+*/
      //---------::::::::::::::::::::::::::::::ACtualizar PINGRESOOO::::::::::::::::::::::::::::---------   
 
     //--------------------------------------------------------------------------

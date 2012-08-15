@@ -11,7 +11,7 @@ require_once("../controller/ComboCategoriaController.php");
 
 $data = comboPeriodoRemuneracion();
 $cod_periodo_remuneracion = $_REQUEST['cod_periodo_remuneracion'];
-var_dump($periodoR);
+//var_dump($periodoR);
 
 $periodo = $_REQUEST['periodo'];
 $ID_DECLARACION = $_REQUEST['id_declaracion'];
@@ -61,12 +61,17 @@ function adelanteEtapa01(){
         <div id="tabs-1">
           <h2>01 Declaracion</h2>
           <p>
+          <div class="ocultar">
           id_declaracion
           <input name="id_declaracion" id="id_declaracion" type="text" value="<?php echo $ID_DECLARACION; ?>">
+          <br />
+          periodo
+          <input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>" />
+          </div>
           <br>
+Periodo o Declaracion 
 <input name="mes" type="text" id="mes" value="<?php echo $mes;?>" size="4" readonly="readonly">
-            <input name="anio" type="text" id="anio" value="<?php echo $anio;?>" size="7" readonly="readonly" > 
-            <input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>">
+            <input name="anio" type="text" id="anio" value="<?php echo $anio;?>" size="7" readonly="readonly" >
           </p>
           <h2>02 Seleccionde tipo Adelanto</h2>
           <p>

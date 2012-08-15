@@ -2,7 +2,7 @@
     $(document).ready(function(){                  
         $( "#tabs").tabs();
 		
-		tabla_Conf_Remuneracion();
+		tabla_Conf_Afp();
 	});
 </script>
 
@@ -10,7 +10,7 @@
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Editar Empleador</a></li>			
+            <li><a href="#tabs-1">Configuracion AFP</a></li>			
 
         </ul>
         

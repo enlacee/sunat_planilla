@@ -270,7 +270,7 @@ class PagoDao extends AbstractDao {
     }
 
     //AGRUPADO
-    public function listaGrup_Por_Persona($id_pdeclaracion) {
+    public function listaGrup_Por_Persona($id_pdeclaracion,$id_persona) {
         $query = "
         SELECT 
             SUM(pg.dia_laborado) AS sum_dia_laborado,
@@ -295,12 +295,14 @@ class PagoDao extends AbstractDao {
         ON pg.id_trabajador = t.id_trabajador
         INNER JOIN personas AS p
         ON t.id_persona = p.id_persona
-
-        WHERE id_pdeclaracion = $id_pdeclaracion
-        GROUP BY p.id_persona
+	
+	-- id_declaracion :: EL mes = 2 15cenas
+        WHERE (id_pdeclaracion = ? AND p.id_persona = ?) 
+        GROUP BY p.id_persona 
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_persona);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;

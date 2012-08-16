@@ -49,7 +49,7 @@ class ConfAsignacionFamiliarDao extends AbstractDao {
         $query = "
         DELETE
         FROM conf_asignacion_familiar
-        WHERE id_conf_asignacion_familiar = ?;    
+        WHERE id_conf_asignacion_familiar = ?; 
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id);

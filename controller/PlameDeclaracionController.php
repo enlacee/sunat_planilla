@@ -76,8 +76,7 @@ if ($op == "cargar_tabla") {
     $response = nuevaDeclaracionPeriodo(ID_EMPLEADOR_MAESTRO, $periodo);
 } else if ($op == "add-data-ptrabajadores") { //en realidad es UNIR DATOS
     
-    ECHO "DDDDDDDDDDDDDDDDDDDDDDDDDD";
-    
+  
     $tipo = $_REQUEST['declaracionRectificadora']; // 1
 
     $ID_DECLARACION = $_REQUEST['id_declaracion'];
@@ -136,7 +135,6 @@ function nuevaDeclaracion($id_empleador_maestro, $periodo, $ID_DECLARACION) {
     $estado = false;
 
     $FECHA = getMesInicioYfin($periodo);
-
     echo "FECHA['mes_inicio'] = " . $FECHA['mes_inicio'];
     echo "FECHA['mes_fin'] = " . $FECHA['mes_fin'];
 
@@ -378,25 +376,27 @@ function registrarPTrabajadores($id_trabajador,$id_persona, $id_pdeclaracion, $i
     }
     
     //---------::::::::::::::::::::::::::::::ACtualizar PINGRESOOO::::::::::::::::::::::::::::---------
-/*   
+  
     // 01 = sueldo basico  concepto[0121]
     // 02 = asig.familiar  concepto[0201]
-    
+  /*  
     $id_dcem_pingreso_0121 =  $dao_i->get_id_dcem_pingreso($id_empleador_maestro, '0121', $ID_PTRABAJADOR);
-    //$obj_i = new Dcem_Pingreso();
+    
+    $obj_i = new Dcem_Pingreso();
     $obj_i->setId_dcem_pingreso($id_dcem_pingreso_0121);
     $obj_i->setDevengado(100);
     $obj_i->setPagado(100);
+    //DAO
     $dao_i->actualizar($obj_i);
-    
+*/    
 
     //00000001111111 -> listar parametro sueldo basico...
-    
+   /*
     //00000002222222
     $daoPago = new PagoDao();
-    $DATA_TOP = $daoPago->listaGrup_Por_Persona($id_pdeclaracion);
-    
-*/
+    $DATA_TOP = $daoPago->listaGrup_Por_Persona($id_pdeclaracion, $id_persona);
+    */
+
      //---------::::::::::::::::::::::::::::::ACtualizar PINGRESOOO::::::::::::::::::::::::::::---------   
 
     //--------------------------------------------------------------------------
@@ -740,15 +740,30 @@ function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
 //-----------------------------------------------------------------------------
 
 
+// $id_pdeclaracion
 
-    function updateMaster_Pingreso($id_empleador_maestro,$cod_detalle_concepto,$ID_PTRABAJADOR,$VALOR_X){
+// COD CONCEPTO = concepto 0121 = basico
+// 
+
+    function updateMaster_Pingreso($id_empleador_maestro,$id_pdeclaracion,$id_persona,$codigo,$VALOR_X,$ID_PTRABAJADOR){
+        
+        $daoPago = new PagoDao();
+        $DATA_TOP = $daoPago->listaGrup_Por_Persona($id_pdeclaracion, $id_persona);
+        
+        //-------- UPDATE ----------
+        //01
         $dao_i = new Dcem_PingresoDao();
-        $id_dcem_pingreso_0121 =  $dao_i->get_id_dcem_pingreso($id_empleador_maestro, $cod_detalle_concepto, $ID_PTRABAJADOR);
+        $id_dcem_pingreso_0121 =  $dao_i->get_id_dcem_pingreso($id_empleador_maestro, $codigo, $ID_PTRABAJADOR);
+        //02
         $obj_i = new Dcem_Pingreso();
         $obj_i->setId_dcem_pingreso($id_dcem_pingreso_0121);
         $obj_i->setDevengado($VALOR_X);
-        $obj_i->setPagado($VALOR_X);
-        
+        $obj_i->setPagado($VALOR_X);        
         $dao_i->actualizar($obj_i);
+        //-------- UPDATE ----------
+        
+        
+        
+        
     }
 ?>

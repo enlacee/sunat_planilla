@@ -52,10 +52,12 @@ $cbo_tipo_documento = comboTipoDocumento();
 			var id2 = data.id_trabajador;
 			
 			if(rpta == false){
-				alert("Prestador de Servicio ya fue registrado.\n");
+				alert("Prestador de Servicio ya fue registrado.\n"+data.mensaje);
 				//cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&id_trabajador='+id2+'&cod_situacion=1','#CapaContenedorFormulario')
 					
 			}else if(rpta == true){//True Reg new Trabajador
+				console.log("se acaba de crear un nuevo trabajador...");
+				console.log("Debe llenarse los datos... erros else");
 				alert("Registre los nuevos datos del Trabajador")
 				cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&id_trabajador='+id2+'&cod_situacion=1','#CapaContenedorFormulario')
 				

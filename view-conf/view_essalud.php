@@ -2,7 +2,7 @@
     $(document).ready(function(){                  
         $( "#tabs").tabs();
 		
-		//tabla_Conf_Afp();
+		tabla_Conf_Essalud();
 	});
 </script>
 

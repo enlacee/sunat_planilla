@@ -9,7 +9,7 @@ if ($op) {
     // IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
 
-    require_once '../dao/ConfOnpDao.php';
+    require_once '../dao/ConfAsignacionFamiliarDao.php';
     
 }
 
@@ -17,7 +17,7 @@ $responce = NULL;
 
 if ($op == "cargar_tabla") {
 
-    $responce = listarConfOnp();
+    $responce = listarConfAsignacionFamiliar();
 } else if ($op == "edit") {
     $responce = edit();
 } else if ($op == "add"){
@@ -28,8 +28,8 @@ if ($op == "cargar_tabla") {
 
 echo (!empty($responce)) ? json_encode($responce) : '';
 
-function listarConfOnp() {
-    $dao = new ConfOnpDao();
+function listarConfAsignacionFamiliar() {
+    $dao = new ConfAsignacionFamiliarDao();
 
     $page = $_GET['page'];
     $limit = $_GET['rows'];
@@ -76,7 +76,7 @@ function listarConfOnp() {
 
     foreach ($lista as $rec) {
 
-        $param = $rec["id_conf_onp"];
+        $param = $rec["id_conf_asignacion_familiar"];
         $_01 = $rec['tasa'];
         $_02 = $rec['fecha'];
         //hereee
@@ -94,14 +94,12 @@ function listarConfOnp() {
 }
 
 function add(){
-//echo"<pre>";
-//print_r($_REQUEST);
-//echo "</pre>";
+    
     $fecha_vigencia = $_REQUEST['fecha'];
     $valor = $_REQUEST['valor'];
     $fecha_vigencia = getFechaPatron($fecha_vigencia, "Y-m-d");
-
-    $dao = new ConfOnpDao();
+    
+    $dao = new ConfAsignacionFamiliarDao();
     return $dao->registrar($valor, $fecha_vigencia);
     
 }
@@ -112,13 +110,13 @@ function edit(){
     $fecha_vigencia = $_REQUEST['fecha'];
     $fecha_vigencia = getFechaPatron($fecha_vigencia, "Y-m-d");
     
-    $dao = new ConfOnpDao();
+    $dao = new ConfAsignacionFamiliarDao();
     return $dao->actualizar($id, $valor, $fecha_vigencia);
 }
 
 function del(){
     $id = $_REQUEST['id'];
-    $dao = new ConfOnpDao();
+    $dao = new ConfAsignacionFamiliarDao();
     return $dao->eliminar($id);
 }
 

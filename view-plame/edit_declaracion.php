@@ -4,7 +4,7 @@ require_once('../view/ide.php');
 //*******************************************************************//
 require_once '../controller/ideController.php';
 
-echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
+//echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
 // -- Carga de COMBOS
 require_once('../dao/ComboCategoriaDao.php');
 require_once('../controller/ComboCategoriaController.php');

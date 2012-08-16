@@ -362,7 +362,7 @@ function editarTrabajador() {
     }
 
 
-
+	//DAO trabajador
     $dao_tra->actualizarTrabajador($tra);
 
     //-----------------------------------------

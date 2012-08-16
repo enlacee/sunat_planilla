@@ -8,9 +8,9 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 $ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
 $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 
-echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
-echo "<br>";
-echo "DDDDDDDDDD".$PERIODO;
+//echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
+//echo "<br>";
+//echo "DDDDDDDDDD".$PERIODO;
 ?>
 <style type="text/css">
 

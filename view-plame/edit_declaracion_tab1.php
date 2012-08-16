@@ -11,7 +11,6 @@ require_once('../controller/ComboCategoriaController.php');
 
 //Combo 01
 $cbo_tipo_empleador = comboTipoEmpleador();
-
 $data = $_SESSION['sunat_empleador'];
 
 //echo "<pre>";

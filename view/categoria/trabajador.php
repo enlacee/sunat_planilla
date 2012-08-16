@@ -905,7 +905,7 @@ foreach ($lista_establecimientos as $indice) {
 foreach ($comboCCosto as $indice) {
 	
 	if ($indice['id_empresa_centro_costo'] == $objTRA->getId_empresa_centro_costo() ) {
-		$html = '<option value="'. $indice['cod_tipo_documento'] .'"  selected="selected"  >' . $indice['descripcion'] . '</option>';
+		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'"  selected="selected"  >' . $indice['descripcion'] . '</option>';
 	} else {
 		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'" >' . $indice['descripcion'] . '</option>';
 	}

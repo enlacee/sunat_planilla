@@ -324,22 +324,31 @@ class PersonaDao extends AbstractDao {
         
         return $lista[0]['id_persona'];
     }
-    
+    //VER SI ES USADO ???
     public function listarTrabajadoresPor_ID_Persona($id_persona){
         
         $query ="
         SELECT 
         t.id_trabajador,
-        t.cod_situacion
+        t.cod_situacion,
+        dpl.fecha_inicio,
+        dpl.fecha_fin
         
         FROM personas AS p	
         INNER JOIN trabajadores AS t
         ON p.id_persona = t.id_persona
+        
+        INNER JOIN detalle_periodos_laborales AS dpl
+	ON t.id_trabajador = dpl.id_trabajador
+	
+	WHERE p.id_persona = ?
 
-        WHERE p.id_persona = ?          
+                
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_persona);
+       // $stm->bindValue(2, $mes_inicio);
+       // $stm->bindValue(3, $mes_fin);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
@@ -347,6 +356,9 @@ class PersonaDao extends AbstractDao {
         return $lista;
         
     }
+    
+    
+    
     
 
     // OJO USADO EN REPORTES

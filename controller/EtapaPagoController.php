@@ -320,7 +320,10 @@ function registrar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
 
         $tra_unico = retornan_Id_Persona_UnicoEtapaPago($data_tra);
         $min_periodo = array();
-        //echo "trabajador UNICO".count($tra_unico);
+        echo "trabajador UNICO".count($tra_unico);
+        echo "<pre>";
+        print_r($tra_unico);
+        echo "<pre> unico FIN";
         //--- INICIO REGISTRAR ETAPA DE PAGO -------//
         //DAO
         $dao_ep = new EtapaPagoDao();

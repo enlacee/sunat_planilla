@@ -11,9 +11,9 @@ class ConfOnpDao extends AbstractDao {
                     fecha,
                     fecha_creacion)
         VALUES (
-                tasa,
-                fecha,
-                fecha_creacion);
+                ?,
+                ?,
+                ?);
 ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $valor);

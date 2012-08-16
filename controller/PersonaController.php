@@ -126,32 +126,76 @@ function buscarPersonaPrestadoraServicio($id_empleador_maestro, $num_doc, $cod_t
     $ID_PERSONA = $dao->existePersonaRegistrada($id_empleador_maestro, $num_doc, $cod_tipo_documento);
 
     if (!is_null($ID_PERSONA)) {
+       
+        $hoy = date("Y-m-d");
+        $FECHA = getMesInicioYfin( $hoy );
+       // echo "fecha inicio ".$FECHA['mes_inicio'];
+       // echo "fecha inicio ".$FECHA['mes_fin'];
+       
+        $data = $dao->listarTrabajadoresPor_ID_Persona($ID_PERSONA,$FECHA['mes_inicio'],'2012-01-31');
 
-        $data = $dao->listarTrabajadoresPor_ID_Persona($ID_PERSONA);
-
-        $countEstado = 0;
-        $activo_id_trabajador;
-        for ($i = 0; $i < count($data); $i++) {
-            if ($data[$i]['cod_situacion'] == 1) {  //situacion 1 solo PUEDE SER UNO!!!
-                $activo_id_trabajador = $data[$i]['id_trabajador'];
-                $countEstado++;
-            }
-        }
-// hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee EROROORROROOROR Y NEW TRABAJADOR
-        if ($countEstado == 0) {
+        //echo "conteo = ".count($data);
+        //-----------------------------------------------------------------------------------------
+        //Preguntamos si Dentro de este (mes PRESENTE) ah finalizado como trabajador la persona
+        //Si no hay registro de Nada = Que si puede registrarse la Persona con un 
+        //Nuevo ID_TRABAJADOR (cosa que nunca tendremos registrado a la persona en 2 veces
+        //en el mismo mes aunque renuncie y quiera trabajar de nuevo EL Sistema no lo permitira)  
+        //-----------------------------------------------------------------------------------------
+        //SI HAY UNo trabajador que finalizo de trabajar o fue dado de baja
+        //en este periodo Ejmp : (2012-01-01 al 2012-01-31) mes completo de Enero
+       /* if (count($data) >= 1) {
+            //NADA
+            //$retornar ='no';
+            $retornar->rpta = false;
+            $retornar->id_persona = $ID_PERSONA;
+            $retornar->id_persona = "Persona esta registrada en este periodo Espere al proximo mes para Poder Registrarlo como Nuevo trabajador";
+        } else if (count($data)==0) {
             $id_trabajador = nuevoTrabajador($ID_PERSONA);
             // echo "persona se registro OK $ID_PERSONA";
             $retornar->rpta = true;
             $retornar->id_persona = $ID_PERSONA;
             $retornar->id_trabajador = $id_trabajador;
+        } else {
             
+        }
+        */
+         $countEstado = 0;//0;
+         $countEstadoxxx = 0;
+         
+         
+          $activo_id_trabajador;
+          for ($i = 0; $i < count($data); $i++) {
+              if ($data[$i]['cod_situacion'] == 1) {  //situacion 1 solo PUEDE SER UNO!!!
+              //$activo_id_trabajador = $data[$i]['id_trabajador'];
+                    $countEstado++;
+              
+              }else if($data[$i]['cod_situacion'] == 0){
+                  $fecha_db_i = getFechaPatron($data[$i]['fecha_inicio'], "Y-m");
+                  $fecha_db_f = getFechaPatron($data[$i]['fecha_inicio'], "Y-m");
+                  $hoy =  date("Y-m");       
+                  if($fecha_db_i == $hoy || $fecha_db_f == $hoy){ //FFIN es lo correcto
+                      $countEstadoxxx++;
+                  }
+                  
+              }
+          } 
+// hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee EROROORROROOROR Y NEW TRABAJADOR
+        if ($countEstadoxxx == 0) {
+            $id_trabajador = nuevoTrabajador($ID_PERSONA);
+            // echo "persona se registro OK $ID_PERSONA";
+            $retornar->rpta = true;
+            $retornar->id_persona = $ID_PERSONA;
+            $retornar->id_trabajador = $id_trabajador;
+            $retornar->mensaje = "Se genero un Nuevo trabajador";
         } else {
             //ECHO "PERSONA TIENE UN TRABAJADOR ACTIVO";
             //$retornar ='no';
             $retornar->rpta = false;
             $retornar->id_persona = $ID_PERSONA;
             $retornar->id_trabajador = $activo_id_trabajador;
+            $retornar->mensaje = "Persona esta registrada en este periodo Espere al proximo mes para Poder Registrarlo como Nuevo trabajador";
         }
+        
     } else {//ENDIF
         $retornar->rpta = 'otro';
     }
@@ -269,7 +313,6 @@ function nuevaPersona() {
 
         //CONTROLLER categoriaTrabajadorController
         //echo "IDDDDDDDDDDDDDDDDDDD_id_persona  ".$ID_PERSONA;
-
         // Funcion Util
         $ID_TRABAJADOR = nuevoTrabajador($ID_PERSONA);
 
@@ -426,7 +469,7 @@ function nuevaPersona() {
           //------------------ FINAL Registrar TRABAJADOR  ---------------------------------
          */
 
-        
+
         if ($ID_TRABAJADOR) {
             return $rpta['id_persona'] = $ID_PERSONA;
         } else {
@@ -473,6 +516,7 @@ function eliminarPersona($id) {
 
     return $rpta;
 }
+
 //?????
 function cargar_tabla() {
     $ESTADO = ($_REQUEST['estado']) ? $_REQUEST['estado'] : 0;
@@ -591,7 +635,7 @@ function cargar_tabla() {
 
         $_10 = $rec['cod_situacion'];
 
-        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "&id_trabajador=".$_00."&cod_situacion=" . $_10 . "','#CapaContenedorFormulario')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "&id_trabajador=" . $_00 . "&cod_situacion=" . $_10 . "','#CapaContenedorFormulario')";
         $js2 = "javascript:eliminarPersona('" . $param . "')";
 
         if ($_10 == 1) {
@@ -689,15 +733,7 @@ function existePersonaRegistrada($id_empleador_maestro, $num_doc, $cod_tipo_docu
     return $data['id_persona'];
 }
 
-
-
-
 //--------------------
 // -- VIEW EMPRESA
-
 //function cargar_tabla_
-
-
-
-
 ?>

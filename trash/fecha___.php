@@ -21,11 +21,16 @@ function getFechaPatron($fecha_es_us, $patron_date) {
 $us = "2011-02-01";
 $es = "01/05/2012";
 
-echo getFechaPatron($us,"Y-m-d");
+//echo getFechaPatron($us,"Y-m-d");
 
 
+function getDayThatYear($Ymd){
+    return date("z",strtotime($Ymd));
+}
 
+$hoy = '2012-01-01';
 
+echo date("z",strtotime($hoy));
 
 
 

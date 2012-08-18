@@ -2,50 +2,29 @@
 
 class PeriodoRemuneracionDao extends AbstractDao {
 
-    // public function registrar($obj) {
-    // }
+    //put your code here
 
-    public function actualizar($obj) {
+    public function buscar_ID($ID) {
 
-        $model = new PeriodoRemuneracion();
-        $model = $obj;
-        $query = "
-        UPDATE periodos_remuneraciones
-        SET         
-        tasa_pago = ?
-        WHERE cod_periodo_remuneracion = ?;        
-        ";
-
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $model->getTasa_pago());
-        $stm->bindValue(2, $model->getCod_periodo_remuneracion());
-
-        $stm->execute();
-        //$lista = $stm->fetchAll();
-        $stm = null;
-        return true;
-    }
-
-
-    public function listar($WHERE=null) {
         $query = "
         SELECT
-        cod_periodo_remuneracion,
-        descripcion,
-        tasa_pago,
-        estado
+          cod_periodo_remuneracion,
+          descripcion,
+          tasa,
+          dia,
+          estado
         FROM periodos_remuneraciones
-        WHERE estado = 1
-        $WHERE
-            ";
-        
-        
+        WHERE cod_periodo_remuneracion = ?
+        AND estado = 1        
+";
+
         $stm = $this->pdo->prepare($query);
-        //$stm->bindValue(1, $id_pjoranada_laboral);
+        $stm->bindValue(1, $ID);
+
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        return $lista;
+        return $lista[0];
     }
 
 }

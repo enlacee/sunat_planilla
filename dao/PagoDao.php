@@ -7,58 +7,58 @@ class PagoDao extends AbstractDao {
         $model = new Pago();
         $model = $obj;
         $query = "
-        INSERT INTO pagos
-                    (
-                     id_etapa_pago,
-                     id_trabajador,
-                     id_empresa_centro_costo,                     
-                     valor,
-                     descuento,
-                     valor_total,
-                     descripcion,
-                     dia_total,
-                     dia_nosubsidiado,
-                     dia_laborado,
-                     ordinario_hora,
-                     ordinario_min,
-                     sobretiempo_hora,
-                     sobretiempo_min,
-                     estado)
-        VALUES (
-                ?,
-                ?,
-                ?,                
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?);        
+INSERT INTO pagos
+            (
+             id_trabajador,
+             id_etapa_pago,
+             dia_laborado,
+             dia_total,
+             sueldo_base,
+             sueldo,
+             descuento,
+             sueldo_neto,
+             ordinario_hora,
+             ordinario_min,
+             sobretiempo_hora,
+             sobretiempo_min,
+             estado,
+             descripcion,
+             id_empresa_centro_costo)
+VALUES (
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?);
                 ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $model->getId_etapa_pago());
-        $stm->bindValue(2, $model->getId_trabajador());
-        $stm->bindValue(3, $model->getId_empresa_centro_costo());
-        $stm->bindValue(4, $model->getValor());
-        $stm->bindValue(5, $model->getDescuento());
-        $stm->bindValue(6, $model->getValor_total());
-        $stm->bindValue(7, $model->getDescripcion());
-        $stm->bindValue(8, $model->getDia_total());
-        $stm->bindValue(9, $model->getDia_nosubsidiado());
-        $stm->bindValue(10, $model->getDia_laborado());
+        $stm->bindValue(1, $model->getId_trabajador());
+        $stm->bindValue(2, $model->getId_estapa_pago());
+        $stm->bindValue(3, $model->getDia_laborado());
+        $stm->bindValue(4, $model->getDia_total());        
+        $stm->bindValue(5, $model->getSueldo_base());        
+        $stm->bindValue(6, $model->getSueldo());
+        $stm->bindValue(7, $model->getDescuento());
+        $stm->bindValue(8, $model->getSueldo_neto());
+        $stm->bindValue(9, $model->getOrdinario_hora());
+        $stm->bindValue(10, $model->getOrdinario_min());
+        $stm->bindValue(11, $model->getSobretiempo_hora());
+        $stm->bindValue(12, $model->getSobretiempo_min());
 
-        $stm->bindValue(11, $model->getOrdinario_hora());
-        $stm->bindValue(12, $model->getOrdinario_min());
-        $stm->bindValue(13, $model->getSobretiempo_hora());
-        $stm->bindValue(14, $model->getSobretiempo_min());
-        $stm->bindValue(15, $model->getEstado());
+        $stm->bindValue(13, $model->getEstado());
+        $stm->bindValue(14, $model->getDescripcion());
+        $stm->bindValue(15, $model->getId_empresa_centro_costo());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -70,30 +70,33 @@ class PagoDao extends AbstractDao {
 
         $model = new Pago();
         $model = $obj;
+        //-- dia_laborado = ?,
         $query = "
         UPDATE pagos
         SET           
           descuento = ?,
-          valor_total=?,
-          descripcion = ?,
-          dia_nosubsidiado = ?,
-          dia_laborado = ?,
+          sueldo_neto = ?,
+          ordinario_hora = ?,
+          ordinario_min = ?,
           sobretiempo_hora = ?,
-          sobretiempo_min = ?
-        WHERE id_pago = ?; 
+          sobretiempo_min = ?, 
+          descripcion = ?,
+          fecha_modificacion = ?
+
+        WHERE id_pago = ?;
         ";
 
-        $stm = $this->pdo->prepare($query);
+        $stm = $this->pdo->prepare($query);        
         $stm->bindValue(1, $model->getDescuento());
-        $stm->bindValue(2, $model->getValor_total());
-        $stm->bindValue(3, $model->getDescripcion());
-        $stm->bindValue(4, $model->getDia_nosubsidiado());
-
-        $stm->bindValue(5, $model->getDia_laborado());
-        $stm->bindValue(6, $model->getSobretiempo_hora());
-        $stm->bindValue(7, $model->getSobretiempo_min());
-        $stm->bindValue(8, $model->getId_pago());
-
+        $stm->bindValue(2, $model->getSueldo_neto());
+        $stm->bindValue(3, $model->getOrdinario_hora());
+        $stm->bindValue(4, $model->getOrdinario_min());
+        $stm->bindValue(5, $model->getSobretiempo_hora());
+        $stm->bindValue(6, $model->getSobretiempo_min());
+        $stm->bindValue(7, $model->getDescripcion());
+        $stm->bindValue(8, $model->getFecha_modificacion());
+        $stm->bindValue(9, $model->getId_pago());
+                
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;
@@ -105,15 +108,13 @@ class PagoDao extends AbstractDao {
         $query = "
         SELECT
           p.id_pago,
-          p.id_trabajador,          
-          
-          p.valor,
+          p.id_trabajador,
+          p.sueldo,
           p.descuento,
-          p.valor_total,
-          p.dia_total,
-          p.dia_nosubsidiado,
-          p.dia_laborado,
-          p.estado,	  
+          p.sueldo_neto, -- Calculado y guardado
+          p.dia_total,          
+          p.estado,
+          p.id_empresa_centro_costo,	  
           per.cod_tipo_documento,
           per.num_documento,
            per.apellido_paterno,
@@ -133,6 +134,7 @@ class PagoDao extends AbstractDao {
 
         WHERE p.id_etapa_pago = ?     
         ";
+       
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_etapa_pago);
 
@@ -147,22 +149,23 @@ class PagoDao extends AbstractDao {
         SELECT
           id_pago,
           id_etapa_pago,
-          id_trabajador,
-          id_empresa_centro_costo,          
-          valor,
+          id_trabajador,                   
+          sueldo,
           descuento,
-          valor_total,
+          sueldo_neto,
+          sueldo_base,
           descripcion,
-          dia_total,
-          dia_nosubsidiado,
+          dia_total,          
           dia_laborado,
           ordinario_hora,
           ordinario_min,
           sobretiempo_hora,
           sobretiempo_min,
-          estado
+          estado,
+          id_empresa_centro_costo, 
+          fecha_modificacion
         FROM pagos
-        WHERE id_pago = ?           
+        WHERE id_pago = ?            
 ";
 
         $stm = $this->pdo->prepare($query);
@@ -188,13 +191,10 @@ class PagoDao extends AbstractDao {
             per.apellido_paterno,
             per.apellido_materno,
             per.nombres,
-           p.dia_total, -- dia calculado q SE TRABAJO CALC 01
-           p.dia_nosubsidiado, -- hacer CAL 02
-           p.dia_laborado,
-            p.valor,
+            p.dia_total,
+            p.sueldo,
             p.descuento,
-            p.valor_total,
-            -- neto a pagar CALC 
+            p.sueldo_neto,            
             p.estado 
         FROM pagos AS p
 

@@ -58,22 +58,22 @@ require_once('../../controller/DetalleRegimenPensionarioController.php');
 /**
 ********* BUSQUEDA 01 EDIT = TRA-bajador por ID importante
 */
-$ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
+$ID_PAGO = $_REQUEST['id_pago'];
 /*
 echo"<pre>ID_PTRABAJADOR..";
 print_r($ID_PTRABAJADOR);
 echo"</pre>";
 */
 //data - ptrabajador
-$ptrabajador = new Ptrabajador();
-$ptrabajador = buscar_IDPtrabajador($ID_PTRABAJADOR);
+$obj_pago = new Pago();
+$obj_pago = buscar_IDPago($ID_PAGO);
 
 //echo "<pre>";
-//print_r($ptrabajador);
+//print_r($obj_pago);
 //echo "</pre>";
 
 $trabajador = new Trabajador();
-$trabajador = buscar_IDTrabajador($ptrabajador->getId_trabajador());
+$trabajador = buscar_IDTrabajador($obj_pago->getId_trabajador());
 
 
 //data - persona
@@ -82,7 +82,7 @@ $persona = buscarPersonaPorId($trabajador->getId_persona());
 
 
 //echo "<pre>";
-//print_r($ptrabajador);
+//print_r($obj_pago);
 //echo "</pre>";
 
 //----------------------------------------------------------------
@@ -127,8 +127,8 @@ $objTRADetalle_1 = $dataObj[0];
 ?>
 <div class="ptrabajador">
 <div class="ocultar">
-id_ptrabajador<input name="id_ptrabajador" type="text" readonly="readonly"
- value="<?php echo $ID_PTRABAJADOR; ?>" />
+id_pago
+
 </div>
 <label for="pt_tipo_documento">Tipo documento: 
   <select name="pt_tipo_documento" id="pt_tipo_documento" disabled="disabled" 
@@ -173,159 +173,26 @@ value="<?php echo $persona->getNum_documento(); ?>" />
 />
 
 
-<h1>DATOS LABORALES Y DE SEGURIDAD SOCIAL</h1>
-
-<p><b>Periodo Laboral</b>
-  
-</p>
-
-  <p>
-    <label for="pt_fecha_inicio">Fecha de inicio</label>
-    <input name="pt_fecha_inicio" type="text" disabled="disabled" id="pt_fecha_inicio"
-    value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_inicio(), "d/m/Y");?>" />
-    
-    
-    <label for="pt_fecha_fin">Fecha de fin</label>
-    <input name="pt_fecha_fin" type="text" disabled="disabled" id="pt_fecha_fin"
-           value="<?php echo  getFechaPatron($objTRADetalle_1->getFecha_fin(), "d/m/Y");?>" ç />
-    
-           <a href="javascript:editarPTperiodoLaboral('<?php echo $ptrabajador->getId_ptrabajador();?>')">ver detalle</a></p>
-  
-<p>
-  <label for="pt_tipo_trabajador">Tipo de trabajador</label>
-  <select name="pt_ttrabajador" id="pt_ttrabajador" style="width:180px;" disabled="disabled" >
-    <!--<option value="0" >-</option>-->
-<?php
-foreach ($cbo_tipo_trabajador as $indice) {
-	//----
-	if($indice['cod_tipo_trabajador'] =="0" ){		
-		$html = '<option value="0"  >-</option>';	
-	}else if( $indice['cod_tipo_trabajador'] ==  $ptrabajador->getCod_tipo_trabajador()){
-		$html = '<option value="' . $indice['cod_tipo_trabajador'] .'" selected="selected" >'.$indice['cod_tipo_trabajador'].'-'.$indice['descripcion'].'</option>';
-	}else {
-		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';
-	}
-	echo $html;
-} 
-?>
-</select>  
-  
-<label for="pt_situacion">Situaci&oacute;n</label>
-              <select name="pt_situacion" id="pt_situacion" style="width:160px"  disabled="disabled"
-              
-               >
-            <!--<option value="" >-</option>-->
-            <?php              
-            foreach ($combo_situacion as $indice) {
-            
-            if($indice['cod_situacion']=== $ptrabajador->getCod_situacion() ){
-            
-            $html = '<option value="'.$indice['cod_situacion'].'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';	
-            
-            } else {
-				
-            $html = '<option value="'. $indice['cod_situacion'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
-            
-			}
-            echo $html;
-            }
-            ?>
-              </select>
-</p>
+<h1>DATOS LABORALES</h1>
 
 <p>
-  <label for="pt_regimen_salud">R&eacute;gimen de salud</label>
-  
-<select name="pt_regimen_salud" id="pt_regimen_salud" style="width:210px;" disabled="disabled">
-                <!--<option value="" >-</option>-->
-<?php              
-foreach ($combo_regimen_salud as $indice) {	
-	if($indice['cod_regimen_aseguramiento_salud']=== $ptrabajador->getCod_regimen_aseguramiento_salud()){		
-		$html = '<option value="'.$indice['cod_regimen_aseguramiento_salud'].'" selected="selected" >' . $indice['descripcion'] . '</option>';			
-	} else {
-		$html = '<option value="'. $indice['cod_regimen_aseguramiento_salud'] .'" >' . $indice['descripcion'] . '</option>';
-	}
-	echo $html;
-}
-?>  
-</select>
-
-</p>
-<p>
-  <label for="pt_regimen_pensionario">R&eacute;gimen de pensionario</label>
-          <select name="pt_regimen_pensionario" id="pt_regimen_pensionario" style="width:180px" 
-          disabled="disabled">
-                <!--<option value="">-</option>-->
-<?php 
-foreach ($combo_regimen_pensionario  as $indice) {
+  <label for="cboCentroCosto">Centro de costo</label>
+    <select name="cboCentroCosto" disabled="disabled" style="width:180px;">
+      <?php
+foreach ($cbo_ccosto as $indice) {
 	
-	if ($indice['cod_regimen_pensionario']==0 ) {		
-		$html = '<option value="0" >-</option>';
+	if ( $indice['id_empresa_centro_costo'] == $obj_pago->getId_empresa_centro_costo()) {
 		
-	}else if($indice['cod_regimen_pensionario'] == $ptrabajador->getCod_regimen_pensionario() ){
-		
-		$html = '<option value="'. $indice['cod_regimen_pensionario'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-
+		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
 	} else {
-		
-		$html = '<option value="'. $indice['cod_regimen_pensionario'] .'" >' . $indice['descripcion'] . '</option>';
-
+		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'" >' . $indice['descripcion'] . '</option>';
 	}
 	echo $html;
 }
 ?>
-</select>
+    </select>
 </p>
-
-
-
-
-
-
-<p>
-  <label for="rbtn_pt_sctr">Aporta a Es Salud - SCTR</label>
-  <input name="rbtn_pt_sctr" type="radio" value="1" disabled="disabled" />SI
-  
-  <input name="rbtn_pt_sctr" type="radio" value="0" checked="checked"  disabled="disabled" />NO
-</p>
-<p>
-  <label for="rbtn_pt_pension">Aporta a Es Salud + Vida</label>
-  <input name="rbtn_pt_evida" type="radio" value="1"  
-  <?php echo ($ptrabajador->getAporta_essalud_vida() == '1') ? ' checked="checked"' : ''; ?>/>SI
-<input name="rbtn_pt_evida" type="radio" value="0" 
-  <?php echo ($ptrabajador->getAporta_essalud_vida() == '0') ? ' checked="checked"' : ''; ?>
-/>NO</p>
-<p>
-  <label for="rbtn_pt_pension">Aporta a Asegura tu Pensi&oacute;n</label>
-  <input name="rbtn_pt_pension" type="radio" value="1" 
-    <?php echo ($ptrabajador->getAporta_asegura_tu_pension() == '1') ? ' checked="checked"' : ''; ?>
-   />SI
-<input name="rbtn_pt_pension" type="radio" value="0" 
-<?php echo ($ptrabajador->getAporta_asegura_tu_pension() == '0') ? ' checked="checked"' : ''; ?>
-/>NO</p>
-<p> <b>DATOS TRIBUTARIOS</b></p>
-<p>
-  
-  
-  
-  <label for="rbtn_pt_dociliado">Condici&oacute;n de domicilio seg&uacute;n impuesto a la renta</label>
-  <input name="rbtn_pt_dociliado" type="radio" value="1"  
-<?php echo ($ptrabajador->getDomiciliado() == '1') ? ' checked="checked"' : ''; ?>  
-  />
-  Domiciliado
-  <input name="rbtn_pt_dociliado" type="radio" value="0" 
- <?php echo ($ptrabajador->getDomiciliado() == '0') ? ' checked="checked"' : ''; ?> 
-  />
-  No Domiciliado</p>
-<p>¿Tiene otros ingresos de 5ta Categoria? 
-  <input type="radio" name="radio" id="rbtn_pt_ingreso5ta_categoria" value="rbtn_pt_ingreso5ta_categoria" />
-  SI
-  <input name="radio" type="radio" id="rbtn_pt_ingreso5ta_categoria2" value="rbtn_pt_ingreso5ta_categoria" checked="checked" />
-  NO
-  <label for="rbtn_pt_ingreso5ta_categoria"></label>
-</p>
-<p>&nbsp;</p>
-
+<p><img src="images/icons/candado_1.png" width="72" height="72" /></p>
 </div>
 
 

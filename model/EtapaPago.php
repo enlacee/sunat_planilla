@@ -13,15 +13,16 @@ class EtapaPago {
     private $glosa;
 
     public function __construct() {
-        $this->id_etapa_pago = null;
-        $this->id_pdeclaracion = null;
-        $this->cod_periodo_remuneracion = null;
-        $this->fecha_inicio = null;
-        $this->fecha_fin = null;
-        $this->fecha_creacion = null;
-        $this->tipo = null;
-        $this->glosa = null;
+     $this->id_etapa_pago=null;
+     $this->id_pdeclaracion=null;
+     $this->cod_periodo_remuneracion=null;
+     $this->fecha_inicio=null;
+     $this->fecha_fin=null;
+     $this->fecha_creacion=null;
+     $this->tipo=null;
+     $this->glosa=null;
     }
+ 
     public function getId_etapa_pago() {
         return $this->id_etapa_pago;
     }
@@ -87,7 +88,5 @@ class EtapaPago {
     }
 
 
-
+    
 }
-
-?>

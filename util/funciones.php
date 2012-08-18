@@ -257,5 +257,7 @@ function getTipoMonedaPago($valor) {
     return $encontro;
 }
 
-
+function getDayThatYear($Ymd){
+    return date("z",strtotime($Ymd));
+}
 ?>

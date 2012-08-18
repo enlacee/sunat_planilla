@@ -15,13 +15,16 @@ if ($op) {
 
     //DATO BASICO CALCULO
     require_once '../dao/ConfPeriodoRemuneracionDao.php';
+    
+    //CALCULO DE DIAS controller
+    require_once '../controller/PlameDiaNoSubsidiadoController.php';
+    require_once '../controller/PlameDiaSubsidiadoController.php';
+    
 }
 
 $response = NULL;
 
-if ($op == "cargar_tabla") {
-    $response = cargartabla();
-} else if ($op == "registrar_etapa") {
+if ($op == "registrar_etapa") {
     $response = registrarTrabajadoresPorEtapa();
 } else if ($op == "cargar_tabla") {
     $response = cargartabla();
@@ -161,18 +164,23 @@ function buscarPagoPor_ID($id_pago){
         $model->setId_etapa_pago($data['id_etapa_pago']);
         $model->setId_trabajador($data['id_trabajador']);
         $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
-        $model->setValor($data['valor']);
+        $model->setSueldo_base($data['sueldo_base']);
+        $model->setSueldo($data['sueldo']);
+        $model->setSueldo_neto($data['sueldo_neto']);        
         
         $model->setDescuento($data['descuento']);
         $model->setDescripcion($data['descripcion']);
         $model->setDia_total($data['dia_total']);
-        $model->setDia_nosubsidiado($data['dia_nosubsidiado']);
         $model->setDia_laborado($data['dia_laborado']);
+        /*$model->setDia_nosubsidiado($data['dia_nosubsidiado']);
+        $model->setDia_laborado($data['dia_laborado']);*/
         $model->setOrdinario_hora($data['ordinario_hora']);
         $model->setOrdinario_min($data['ordinario_min']);
         $model->setSobretiempo_hora($data['sobretiempo_hora']);
         $model->setSobretiempo_min($data['sobretiempo_min']);
         $model->setEstado($data['estado']);
+        $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
+        $model->setFecha_modificacion($data['fecha_modificacion']);
     }
     return $model;
     
@@ -252,28 +260,32 @@ function cargar_tabla_grid_lineal(){
         return $response;
     }
 //print_r($lista);
+  
 
     foreach ($lista as $rec) {
+        $param = $rec["id_pago"];        
+        $dia_total = $rec['dia_total'];
         
-        $dia_total = (is_numeric($rec['dia_total'])) ? $rec['dia_total'] : 0;
-        $dia_falto = (is_numeric($rec['dia_nosubsidiado'])) ? $rec['dia_nosubsidiado'] : 0;
-        $dias = $dia_total - $dia_falto;
-        //-----------------------------
-        $valor = (is_numeric($rec['valor'])) ? $rec['valor'] : 0;
-        $descuento = (is_numeric($rec['descuento'])) ? $rec['descuento'] : 0;
-        $valor_neto = $valor - $descuento;
-
-        $param = $rec["id_pago"];
+        
+        
+       $dao1 = new PdiaSubsidiadoDao();
+       $dia_subsidiado = $dao1->busacar_IdPago($param,"SUMA");
+       
+       $dao2 =new PdiaNoSubsidiadoDao();
+       $dia_NOsubsidiado = $dao2->buscar_IdPago($param,"SUMA");
+      
+       
+       $dia_laborado_calc = $dia_total - ($dia_subsidiado +$dia_NOsubsidiado);
         //$_00 = $rec['id_trabajador'];
         $_01 = $rec['cod_tipo_documento'];
         $_02 = $rec['num_documento'];  
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
-        $_06 = $rec['dia_laborado'];
-        $_07 = $rec['valor']; //INGRESOS
-        $_08 = $descuento;//$rec['descuento']; 
-        $_09 = $valor_neto; //$rec['valor_neto'];
+        $_06 = $dia_laborado_calc;
+        $_07 = $rec['sueldo']; //INGRESOS
+        $_08 = $rec['descuento'];//$rec['descuento']; 
+        $_09 = $rec['sueldo_neto']; //$rec['valor_neto'];
         $_10 = $rec['estado'];
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param. "&id_trabajador=".$_00."','#detalle_declaracion_trabajador')";
@@ -299,7 +311,7 @@ function cargar_tabla_grid_lineal(){
             $_08,
             $_09,
             $_10
-            //$opciones
+            //$opciones*/
         );
         $i++;
     }
@@ -312,6 +324,8 @@ function cargar_tabla_grid_lineal(){
 }
 
 
+
+
 //editar
 
 function editarPago(){
@@ -322,17 +336,17 @@ function editarPago(){
     
     $model = new Pago();
     $model->setId_pago($ID_PAGO);
+    //$model->setId_trabajador($data[]);
     //$model->setValor($valor) //NO CAMBIA
     $model->setDescuento($_REQUEST['descuento']); 
-    $model->setValor_total($_REQUEST['total_ingreso']);
+    $model->setSueldo_neto($_REQUEST['total_ingreso']);
     $model->setDescripcion($_REQUEST['descripcion']);
-    $model->setDia_laborado($_REQUEST['dia_laborado']);
-    
-    $model->setDia_nosubsidiado($_REQUEST['dia_subsidiado']);
-    //$model->setOrdinario_min($ordinario_min)
+    //$model->setDia_laborado($_REQUEST['dia_laborado']);
+    $model->setOrdinario_hora($_REQUEST['hora_ordinaria_hh']);
+    $model->setOrdinario_min($_REQUEST['hora_ordinaria_mm']);
     $model->setSobretiempo_hora($_REQUEST['hora_sobretiempo_hh']);
     $model->setSobretiempo_min($_REQUEST['hora_sobretiempo_mm']);
-    
+    $model->setFecha_modificacion(date("Y-m-d H:i:s"));
     //$model->set
     
     echo "<pre>MODEL";

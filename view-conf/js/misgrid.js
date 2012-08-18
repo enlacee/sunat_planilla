@@ -413,5 +413,71 @@ function tabla_Conf_Essalud(){
 }
 
 
+//-----------------------------------------------------------------------------------
+
+function tabla_Conf_SueldoBasico(){
+			
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/ConfSueldoBasicoController.php?oper=cargar_tabla',
+            datatype: 'json',
+            colNames:['','Id','Valor','Fecha Vigencia'],
+            colModel :[
+				{name: 'myac', width:80, fixed:true, sortable:false, resize:false, formatter:'actions',
+					formatoptions:{keys:true}
+				},
+				{
+				name:'id_conf_sueldo_basico',
+				index:'id_conf_sueldo_basico',
+				sortable:true,
+				key : true,				
+				width:55
+				},		
+  	
+                {
+                    name:'valor',
+                    index:'valor',
+                    search:true, 
+					sortable:false,
+                    editable:true,
+					editrules:{required:true},
+                    width:120, 
+                    align:'center' 
+                },
+                {
+                    name:'fecha', 
+                    index:'fecha',
+                    search:true,
+					sortable:false,
+                    editable:true,
+					editrules:{required:true},
+                    width:90,
+                    align:'center'
+                }		
 
 
+            ],
+            pager: '#pager',
+			heigth:'200px',
+            rowNum:10,
+            rowList:[10,20,30],
+            sortname: 'id_conf_periodo_remuneracion',
+            sortorder: 'asc',
+            viewrecords: true,
+			editurl: "sunat_planilla/controller/ConfSueldoBasicoController.php", 
+            caption: 'Configuracion',
+            //toolbar: [true,"top"],
+            //multiselect: true,
+            //hiddengrid: false,
+			//jsonReader: {
+			//repeatitems : false
+			//},
+
+			
+        });
+		
+	
+     //--- PIE GRID
+	jQuery("#list").jqGrid('navGrid','#pager',{add:true,edit:false,del:false,search:false});
+	//---------
+
+}

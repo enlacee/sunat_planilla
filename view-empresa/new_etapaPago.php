@@ -75,10 +75,11 @@ Periodo o Declaracion
           </p>
           <h2>02 Seleccionde tipo Adelanto</h2>
           <p>
+            periodo pago
             <select name="cboPeriodoRemunerativo" id="cboPeriodoRemunerativo">
-              <!--<option value="0">- tipo de adento -</option>-->
+      <option value="2">- QUINCENAL -</option>
       <?php 
-
+/*
 foreach ($data as $indice) {
 	 if( $indice['cod_periodo_remuneracion'] == $cod_periodo_remuneracion){
 
@@ -89,6 +90,7 @@ foreach ($data as $indice) {
 	}
 	echo $html;
 } 
+*/
 ?>
             </select>
           </p>

@@ -4,13 +4,13 @@ class PdiaSubsidiado {
 
     //put your code here
     private $id_pdia_subsidiado;
-    private $id_pjornada_laboral;
+    private $id_pago;
     private $cantidad_dia;
     private $cod_tipo_suspen_relacion_laboral;
 
     public function __construct() {
         $this->id_pdia_subsidiado = null;
-        $this->id_pjornada_laboral = null;
+        $this->id_pago = null;
         $this->cantidad_dia = null;
         $this->cod_tipo_suspen_relacion_laboral = null;
     }
@@ -23,12 +23,12 @@ class PdiaSubsidiado {
         $this->id_pdia_subsidiado = $id_pdia_subsidiado;
     }
 
-    public function getId_pjornada_laboral() {
-        return $this->id_pjornada_laboral;
+    public function getId_pago() {
+        return $this->id_pago;
     }
 
-    public function setId_pjornada_laboral($id_pjornada_laboral) {
-        $this->id_pjornada_laboral = $id_pjornada_laboral;
+    public function setId_pago($id_pago) {
+        $this->id_pago = $id_pago;
     }
 
     public function getCantidad_dia() {
@@ -46,6 +46,7 @@ class PdiaSubsidiado {
     public function setCod_tipo_suspen_relacion_laboral($cod_tipo_suspen_relacion_laboral) {
         $this->cod_tipo_suspen_relacion_laboral = $cod_tipo_suspen_relacion_laboral;
     }
+
 
 
 

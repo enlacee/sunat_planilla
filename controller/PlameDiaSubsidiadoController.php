@@ -17,15 +17,15 @@ if ($op == "edit") {
     $response = editarPdiaSubsidiado();
 } else if ($op == "dual") {
     dualPdiaSubsidiado();
-} else if( $op == ""){
-    
+} else if( $op == "del"){
+    eliminarPdiaSubsidiado();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
 
 function dualPdiaSubsidiado() {
     // nuevo o Actualizar
-    $id_pjoranada_laboral = $_REQUEST['id_pjornada_laboral']; //id_pjoranada_laboral
+    $id_pago = $_REQUEST['id_pago']; //id_pjoranada_laboral
 
     $id_dia_subsidiado = $_REQUEST['pdia_subsidiado'];
     $estado = $_REQUEST['estado'];
@@ -43,13 +43,13 @@ function dualPdiaSubsidiado() {
         if ($estado[$i] == 0) { //Registrar   
             echo "estado = 0";
             //$model = new PdiaSubsidiado();
-            $model->setId_pjornada_laboral($id_pjoranada_laboral);
+            $model->setId_pago($id_pago);
             $model->setCantidad_dia($ds_cantidad_dia[$i]);
             $model->setCod_tipo_suspen_relacion_laboral($cbo_ds_tipo_suspension[$i]);
             
-            echo "<pre>";
-            print_r($model);
-            echo "</pre>";
+            //echo "<pre>";
+            //print_r($model);
+            //echo "</pre>";
             //DAO
             $dao->registrar($model);
         } else { //Actualizar 
@@ -66,16 +66,16 @@ function dualPdiaSubsidiado() {
 
 
 
-function buscarDiaSPor_IdPjornadaLaboral($id_pjoranada_laboral){
+function buscarDiaSPor_IdPago($id_pago){
     $dao = new PdiaSubsidiadoDao();
-    $data = $dao->busacar_IdPjorandaLaboral($id_pjoranada_laboral);    
+    $data = $dao->busacar_IdPago($id_pago);    
     
     $arreglo = array();    
     
     for($i=0; $i<count($data);$i++){ 
         $model = new PdiaSubsidiado();
         $model->setId_pdia_subsidiado($data[$i]['id_pdia_subsidiado']);
-        $model->setId_pjornada_laboral($data[$i]['id_pjornada_laboral']);
+        $model->setId_pago($data[$i]['id_pago']);
         $model->setCantidad_dia($data[$i]['cantidad_dia']);
         $model->setCod_tipo_suspen_relacion_laboral($data[$i]['cod_tipo_suspen_relacion_laboral']);
                 
@@ -88,4 +88,11 @@ function buscarDiaSPor_IdPjornadaLaboral($id_pjoranada_laboral){
     
 }
 
+
+function eliminarPdiaSubsidiado(){
+    $id = $_REQUEST['id'];    
+    $dao = new PdiaSubsidiadoDao();    
+    return $dao->eliminar($id);
+    
+}
 ?>

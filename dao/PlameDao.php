@@ -110,7 +110,7 @@ class PlameDao extends AbstractDao {
 
     // ADELANTO QUINCENAL
     //before = listarTrabajadoresPorPeriodo_15 , 7
-    public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin, $cod_periodo_remuneracion) {
+    public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin/*, $cod_periodo_remuneracion*/) {
 
         $query = "		
         SELECT 
@@ -154,16 +154,16 @@ class PlameDao extends AbstractDao {
 	AND (dpl.fecha_inicio <= ? )  -- >fin_periodo PRIMER FILTRO SI Aprueba estar en Perido 01/2012
 	AND (dpl.fecha_fin >= ? OR dpl.fecha_fin IS NULL )
         
-        AND t.cod_periodo_remuneracion = ? -- 2 = quincena
-        
 	ORDER BY t.id_trabajador,dpl.fecha_inicio DESC
         
 	";
+        // --  NO TOMA EN CUENTA A TRABAJADORES POR [ AND t.cod_periodo_remuneracion = ? -- 2 = quincena
+        
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_EM);
         $stm->bindValue(2, $mes_fin);
         $stm->bindValue(3, $mes_inicio);
-        $stm->bindValue(4, $cod_periodo_remuneracion);
+        //$stm->bindValue(4, $cod_periodo_remuneracion);
 
         $stm->execute();
         $lista = $stm->fetchAll();

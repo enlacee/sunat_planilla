@@ -348,93 +348,9 @@ function editarPTperiodoLaboral(id_ptrabajador){
 }
 
 
-//---------------------------------------------------
-function editarDiaSubcidiado(id_pjoranada_laboral){
-	crearDialogoDiaSubsidiado();
-	//id_pjoranada_laboral = 0;
-    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/view-plame/modal/dia_subsidiado.php",
-   data: {id_pjoranada_laboral : id_pjoranada_laboral},
-   async:true,
-   success: function(datos){
-    $('#editarDiaSubsidiado').html(datos);
-    
-    $('#dialog-dia-subsidiado').dialog('open');
-   }
-   }); 
-
-	
-
-}
 
 
-function crearDialogoDiaSubsidiado(){
-//alert('crearDialogoPersonaDireccion');
-	$("#dialog-dia-subsidiado").dialog({ 
-           
-			autoOpen: false,
-			height: 250,
-			width: 490,
-			modal: true,
-			title: "Dias Subsidiados"
-			/*                      
-			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
-				'Guardar': function() {	
-				}
-                                
-			},			
-			open: function() {},
-			close: function() {}
-			*/
-	});
-}
 
-
-//---------------------------------------------------
-function editarDiaNoLaborado(id_pjoranada_laboral){
-	crearDialogoDiaNoLaborado();
-	var dia_subsidiado = document.getElementById('dia_subsidiado').value
-   $.ajax({
-   type: "POST",
-   url: "sunat_planilla/view-plame/modal/dia_nolaborado.php",
-   data: {id_pjoranada_laboral : id_pjoranada_laboral, dia_subsidiado : dia_subsidiado},
-   async:true,
-   success: function(datos){
-    $('#editarDiaNoLaborado').html(datos);
-    
-    $('#dialog-dia-noLaborado').dialog('open');
-   }
-   }); 
-
-}
-
-function crearDialogoDiaNoLaborado(){
-//alert('crearDialogoPersonaDireccion');
-	$("#dialog-dia-noLaborado").dialog({ 
-           
-			autoOpen: false,
-			height: 250,
-			width: 490,
-			modal: true,
-			title: "Dias no laborados y no Subsidiados" 
-			/*                      
-			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
-				'Guardar': function() {	
-				}
-                                
-			},			
-			open: function() {},
-			close: function() {}
-			*/
-	});
-}
 
 
 

@@ -27,7 +27,10 @@ console.log("sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.ph
 	});
 	
 	
-	cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/01_edit.php?id_pago='+ID_PAGO ,'#tabs-3-1');
+	cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/01_edit_dtrabajador.php?id_pago='+ID_PAGO ,'#tabs-3-1');
+	cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/02_edit_jlaboral.php?id_pago='+ID_PAGO ,'#tabs-3-2');
+	cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/03_edit_ingresos.php?id_pago='+ID_PAGO ,'#tabs-3-3');
+	
 	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/02_edit_jlaboral.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-2');
 	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/03_edit_ingresos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-3');
 	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-4');
@@ -37,7 +40,7 @@ console.log("sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.ph
 	cargarTablaPagoGrid_Lineal(ID_PAGO);
 	
 </script>
-<form id="formPago" name="formPago"  id="formPago" method="post" action="" style="border:2px solid #00F;">
+<form id="formPago" name="formPago"  method="post" action="" style="border:2px solid #00F;">
 id_pago
 <input name="id_pago" type="text" id="id_pago" value="<?php echo $ID_PAGO; ?>" readonly="readonly" />
 <div align="left">

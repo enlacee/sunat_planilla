@@ -14,9 +14,9 @@ $suspencion1 = comboSuspensionLaboral_1();
 $suspencion2 = comboSuspensionLaboral_2();
 //fin combos
 //ACTUALIZAR
-require_once '../../model/PjornadaLaboral.php';
-require_once '../../dao/PjoranadaLaboralDao.php';
-require_once '../../controller/PlameJornadaLaboralController.php';
+require_once '../../model/Pago.php';
+require_once '../../dao/PagoDao.php';
+require_once '../../controller/PagoController.php';
 
 //--- Dia subsidiado
 require_once '../../controller/PlameDiaSubsidiadoController.php';
@@ -30,20 +30,23 @@ require_once '../../model/PdiaNoSubsidiado.php';
 
 
 $id_ptrabajador = $_REQUEST['id_ptrabajador'];
+$ID_PAGO = ($_REQUEST['id_pago']);
 
-$PjornadaLaboral = new PjornadaLaboral();
-$PjornadaLaboral = buscarPjornadaLaboral_IdPtrabajdor($id_ptrabajador);
+
+$obj_pago = new Pago();
+$obj_pago = buscarPagoPor_ID($ID_PAGO);
 
 //echo "<pre>PjornadaLaboral";
-//echo print_r($PjornadaLaboral);
+//echo print_r($obj_pago);
 //echo "</pre>";
 
-$data_ds = buscarDiaSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
-$data_dns = buscarDiaNoSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
+$data_ds = buscarDiaSPor_IdPago($obj_pago->getId_pago());
+$data_dns = buscarDiaNoSPor_IdPago($obj_pago->getId_pago());
 
 
 //Obtener dias Subsidiados
-$dia_laborado = $PjornadaLaboral->getDia_laborado();
+$dia_laborado_calc = $obj_pago->getDia_total();//$obj_pago->getDia_laborado();
+
 $dia_subsidiado = 0;
 $dia_nosubsidiado = 0;
 
@@ -57,7 +60,7 @@ for ($i = 0; $i < count($data_dns); $i++) {
 
 // Operacion
 
-$dia_laborado = $dia_laborado - ($dia_subsidiado + $dia_nosubsidiado);
+$dia_laborado_calc = $dia_laborado_calc - ($dia_subsidiado + $dia_nosubsidiado);
 
 
 ?>
@@ -228,10 +231,20 @@ for ($i = 0; $i < $counteo; $i++):
 
     }
 
-    function eliminar_ds(elementId){ alert (" "+elementId);
+    function eliminar_ds(elementId,ID){ //alert (" "+elementId);
 	
         var obj = document.getElementById(elementId)
         eliminarElemento(obj);
+		
+		$.ajax({
+			type: "POST",
+			url: "sunat_planilla/controller/PlameDiaSubsidiadoController.php",
+			data: {oper : 'del', id : ID},
+			async:true,
+			success: function(datos){
+				
+			}
+		   }); 
 
 
 
@@ -538,16 +551,23 @@ for ($i = 0; $i < $counteo; $i++):
 
 
 
-            function eliminar_dns(elementId){ alert (" "+elementId);
+	function eliminar_dns(elementId,ID){ //alert (" "+elementId);
 
-                var obj = document.getElementById(elementId)
-                eliminarElemento(obj);
-                /*
-        console.log("master intacto");
-        console.dir(master);
-                 */
+		var obj = document.getElementById(elementId)
+		eliminarElemento(obj);
+	
+		$.ajax({
+			type: "POST",
+			url: "sunat_planilla/controller/PlameDiaNoSubsidiadoController.php",
+			data: {oper : 'del', id : ID},
+			async:true,
+			success: function(datos){
+				
+			}
+		   }); 
 
-            }
+
+	}
 
 
 
@@ -794,68 +814,68 @@ function calcHoraLaboradaEvento(event){
 */
 
 
-
+calcHoraLaborada();
 
 </script>
 
 <div class="ptrabajador">
 
     <div class="section">
-        <div class="article fila1">
+      <div class="article fila1">
             <div class="ocultar">
-                id_pjornada_laboral:<input name="id_pjornada_laboral" id="id_pjornada_laboral" 
-                                           type="text" readonly="readonly" value="<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>" />
+                id_pago:
+                  <input name="id_pago" id="id_pago" 
+                     type="text" readonly="readonly" value="<?php echo $obj_pago->getId_pago(); ?>" />
             </div>
-            <h3>Dias de Jornada</h3>
+    <h3>Dias de Jornada</h3>
             <hr />
             <p>
                 <label for="dia_laborado">Laborados</label>
                 <input name="dia_laborado" type="text" id="dia_laborado" size="4" readonly="readonly"
-                       value="<?php echo $dia_laborado; ?>" />
-
-
-
+                       value="<?php echo $dia_laborado_calc; ?>" />
             </p>
-            <p>
-                <label for="dia_subsidiado">Subsidiados</label>
-                <input name="dia_subsidiado" type="text" id="dia_subsidiado" 
+        <p>
+              <label for="dia_subsidiado">Subsidiados</label>
+              <input name="dia_subsidiado" type="text" id="dia_subsidiado" 
                        value="<?php echo $dia_subsidiado; ?>" size="4" readonly="readonly" />
-                <span>
-                    <a href="javascript:editarDiaSubcidiado( '<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>')">
-                        <img src="images/edit.png"></a></span>
-            </p>
-            <p>
+            <span>
+                <a href="javascript:editarDiaSubsidiado( '<?php echo $obj_pago->getId_pago(); ?>')">
+                    <img src="images/edit.png"></a></span>            </p>
+  <p>
                 <label for="dia_nosubsidiado">No laborados y no subsidiados:</label>
                 <input name="dia_nosubsidiado" type="text" id="dia_nosubsidiado" 
                        value="<?php echo $dia_nosubsidiado; ?>" size="4" readonly="readonly" />
                 <span >
-                    <a href='javascript:editarDiaNoLaborado("<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>")'>
-                        <img src="images/edit.png"></a></span>
-            </p>
+                <a href='javascript:editarDiaNoLaborado("<?php echo $obj_pago->getId_pago(); ?>")'>
+                <img src="images/edit.png"></a></span>    </p>
             <h3>TOTAL: 
                 <label for="dia_total"></label>
                 <input name="dia_total" type="text" id="dia_total" size="4" readonly="readonly"
-                       value="<?php echo $PjornadaLaboral->getDia_total(); ?>" />
+                       value="<?php echo $obj_pago->getDia_total(); ?>" />
             </h3>
             <p>&nbsp;</p>
-        </div>
+      </div>
         <div class="article fila2">
             <h3>Horas Laboradas</h3>
             <hr />
             <p>        
                 <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
                 <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh"
+                       value="<?php echo $obj_pago->getOrdinario_hora();?>"
                  onkeydown="soloNumeros(event)" size="5" maxlength="3" readonly="readonly" />
                 :
-              <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm"
+                <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm"
+                       value="<?php echo $obj_pago->getOrdinario_min();?>"
                 onkeydown="soloNumeros(event)" size="5" maxlength="2" readonly="readonly" />
             </p>
             <p>
                 <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
                 <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" maxlength="3"
+                       value="<?php echo $obj_pago->getSobretiempo_hora(); ?>"
                 onkeydown="soloNumeros(event)" />
                 :
                 <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" maxlength="2"
+                       value="<?php echo $obj_pago->getSobretiempo_min();?>"
                 onkeydown="soloNumeros(event)" onblur="" />
             </p>
             <h3>TOTAL HORAS:

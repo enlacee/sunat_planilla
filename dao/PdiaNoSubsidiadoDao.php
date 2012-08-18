@@ -10,7 +10,7 @@ class PdiaNoSubsidiadoDao extends AbstractDao {
         $query = "
         INSERT INTO pdias_nosubsidiados
                     (
-                    id_pjornada_laboral,
+                    id_pago,
                     cantidad_dia,
                     cod_tipo_suspen_relacion_laboral)
         VALUES (
@@ -20,7 +20,7 @@ class PdiaNoSubsidiadoDao extends AbstractDao {
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $model->getId_pjornada_laboral());
+        $stm->bindValue(1, $model->getId_pago());
         $stm->bindValue(2, $model->getCantidad_dia());
         $stm->bindValue(3, $model->getCod_tipo_suspen_relacion_laboral());
 
@@ -70,19 +70,35 @@ class PdiaNoSubsidiadoDao extends AbstractDao {
         return true;
     }
 
-    public function buscar_IdPjorandaLaboral($id_pjoranada_laboral) {
+    public function buscar_IdPago($id_pago,$SUM=null) {
 
-        $query = "
+        $query1 = "
         SELECT *FROM pdias_nosubsidiados
-        WHERE id_pjornada_laboral = ?         
+        WHERE id_pago = ?         
         ";
-
+        $query2 = "
+        SELECT        
+        SUM(cantidad_dia) AS cantidad_dia
+        FROM pdias_nosubsidiados
+        WHERE id_pago = ?          
+        ";
+        if ($SUM == "SUMA") {
+            $query = $query2;
+        } else {
+            $query = $query1;
+        }
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_pjoranada_laboral);
+        $stm->bindValue(1, $id_pago);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        return $lista;
+
+        if ($SUM == "SUMA") {
+            return $lista[0]['cantidad_dia'];
+        } else {
+            return $lista;;
+        }
+        
     }
 
 }

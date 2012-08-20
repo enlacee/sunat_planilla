@@ -73,6 +73,22 @@ class ConfAsignacionFamiliarDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+    
+        public function vigente() {
+        $query = "
+        SELECT
+            id_conf_asignacion_familiar,
+            tasa,
+            fecha      
+        FROM conf_asignacion_familiar
+        ORDER BY fecha DESC        
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['tasa'];
+    }
 
 }
 

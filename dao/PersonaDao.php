@@ -293,29 +293,25 @@ class PersonaDao extends AbstractDao {
         return $lista;
     }
 
-    public function existePersonaRegistrada($id_empleador_maestro,$num_doc,$cod_tipo_documento) {
+    public function existePersonaRegistrada($id_empleador,$num_doc,$cod_tipo_documento) {
         $query = "
         SELECT 
         id_persona,
         cod_tipo_documento,
-        num_documento
-        
+        num_documento        
         
         FROM personas AS p
         INNER JOIN empleadores AS e
         ON p.id_empleador = e.id_empleador
-        
-	INNER JOIN empleadores_maestros AS em
-	ON e.id_empleador = em.id_empleador
 	
-	WHERE (em.id_empleador_maestro = ? 
+	WHERE (e.id_empleador = ? 
 	AND p.num_documento = ? 
 	AND p.cod_tipo_documento = ? )
         
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(1, $id_empleador);
         $stm->bindValue(2, $num_doc);
         $stm->bindValue(3, $cod_tipo_documento);
         $stm->execute();

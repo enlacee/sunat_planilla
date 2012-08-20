@@ -214,98 +214,9 @@
 
 
 
-//--------------------------
-    function cargarTablaPDeclaracion(){ 		
-        //$("#list").jqGrid('GridUnload');
-        $("#list").jqGrid({
-            url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla',
-            datatype: 'json',
-            colNames:['ID','Periodo','Ultima Fecha Actualizaci&oacute;n.','Estado',
-                'Modificar', 'Eliminar','Archivo Envio'],
-            colModel :[
-                {
-                    name:'id_pdeclaracion', 
-                    editable:false, 
-                    index:'id_pdeclaracion',
-                    search:false,
-                    width:20,
-                    align:'center'
-                },		
-                {
-                    name:'periodo',
-                    index:'periodo',
-                    search:false, 
-                    editable:false,
-                    width:90, 
-                    align:'center' 
-                },
-                {
-                    name:'fecha_modificacion', 
-                    index:'fecha_modificacion',
-                    search:false,
-                    editable:false,
-                    width:100,
-                    align:'center'
-                },
-                {
-                    name:'estado', 
-                    index:'estado',
-                    editable:false,
-                    width:80,
-                    align:'center'
-                },
-                {
-                    name:'modificar', 
-                    index:'modificar',
-                    editable:false,
-                    width:90,
-                    align:'center'
-                },
-				
-                {
-                    name:'archivo',
-                    index:'archivo',
-                    search:false,
-                    editable:false,
-                    width:60,
-                    align:'center'
-                },
-                {
-                    name:'estado',
-                    index:'estado',
-                    search:false,
-                    editable:false,
-                    width:60,
-                    align:'center'
-                }											
 
 
-            ],
-            pager: '#pager',
-			heigth:'450px',
-            rowNum:12,
-            rowList:[12,24,36],
-            sortname: 'id_pdeclaracion',
-            sortorder: 'asc',
-            viewrecords: true,
-            gridview: true,
-            //caption: 'Trabajadores Activos',
-            //toolbar: [true,"top"],
-            //multiselect: true,
-            hiddengrid: false,
-
-			
-        });
-		
-		
-        //--- PIE GRID
-//	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-
-	
-    }
-
-
-///------------------------------------------------------------
+//------------------------------------------------------------
 
 
 function crearDialogoPTperiodoLaboral(){

@@ -6,9 +6,9 @@ require_once '../../controller/ideController2.php';
 //$data = $_SESSION['sunat_empleador'];
 
 $ID_PAGO = ($_REQUEST['id_pago']);
-echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
-echo "<br>";
-echo "DDDDDDDDDD".$PERIODO;
+//echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
+//echo "<br>";
+//echo "DDDDDDDDDD".$PERIODO;
 ?>
 
 <!-- -->
@@ -40,9 +40,16 @@ console.log("sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.ph
 	cargarTablaPagoGrid_Lineal(ID_PAGO);
 	
 </script>
+<table id="list_lineal">
+</table>
+
+<div id="pager">
+</div>
+
 <form id="formPago" name="formPago"  method="post" action="" style="border:2px solid #00F;">
-id_pago
-<input name="id_pago" type="text" id="id_pago" value="<?php echo $ID_PAGO; ?>" readonly="readonly" />
+<div class="ocultar">id_pago
+  <input name="id_pago" type="text" id="id_pago" value="<?php echo $ID_PAGO; ?>" readonly="readonly" />
+</div>
 <div align="left">
   <br>
 <div style="width:150px; margin:0 0 0 500px; background: #FF0; ">
@@ -111,9 +118,5 @@ id_pago
 </form>
 
 
-<table id="list_lineal">
-</table>
 
-<div id="pager">
-</div>
 <!-- finn-->

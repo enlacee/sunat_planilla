@@ -65,6 +65,20 @@ class EtapaPagoDao extends AbstractDao {
         return true;
     }
 
+    public function eliminar($etapas_pagos) {
+
+        $query = "		
+        DELETE
+        FROM etapas_pagos
+        WHERE id_etapa_pago = ?;
+		";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $etapas_pagos);
+        $stm->execute();
+        $stm = null;
+        return true;
+    }
+
     /**
      *
      * @param type $id_declaracion

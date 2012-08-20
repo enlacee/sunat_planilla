@@ -4,10 +4,7 @@
 <div id="detalle_declaracion_trabajador">
 
 
-  <h2>EDIT trabajador<br />
-    jqgrid
-    <br />
-  </h2>
+  <h2>Lista de trabajadores</h2>
   
 <table id="list">
 </table>

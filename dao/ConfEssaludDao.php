@@ -1,7 +1,9 @@
 <?php
-class ConfEssaludDao  extends AbstractDao{
+
+class ConfEssaludDao extends AbstractDao {
+
     //put your code here
-       //put your code here
+    //put your code here
     public function registrar($valor, $fecha_vigencia) {
         $query = "
         INSERT INTO conf_essalud
@@ -74,8 +76,22 @@ class ConfEssaludDao  extends AbstractDao{
         return $lista;
     }
 
-    
-    
+    public function vigente() {
+        $query = "
+        SELECT
+            id_conf_essalud,
+            tasa,
+            fecha      
+        FROM conf_essalud
+        ORDER BY fecha DESC        
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['tasa'];
+    }
+
 }
 
 ?>

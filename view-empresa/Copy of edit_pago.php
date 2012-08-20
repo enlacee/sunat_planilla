@@ -15,7 +15,7 @@ require_once "../model/EtapaPago.php";
 require_once "../dao/EtapaPagoDao.php";
 require_once "../controller/EtapaPagoController.php";
 
-//echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
+echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
 // -- Carga de COMBOS
 //require_once('../dao/ComboCategoriaDao.php');
 //require_once('../controller/ComboCategoriaController.php');
@@ -42,9 +42,9 @@ echo "</pre>";
 //ETAPA DE PAGO
 $obj_estapa_pago = buscar_ID_EtapaPago($ID_ETAPA_PAGO);
 
-echo "<pre>";
+//echo "<pre>";
 //print_r($obj_estapa_pago);
-echo "</pre>";
+//echo "</pre>";
 ?>
 
 <script type="text/javascript">
@@ -60,8 +60,8 @@ echo "</pre>";
 	});
 //---------------------------------
 
-	cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab2.php?periodo=' ,'#tabs-2');
-	//cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab3.php?periodo=' ,'#tabs-3');
+//	cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab2.php?periodo=' ,'#tabs-2');
+//	cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab3.php?periodo=' ,'#tabs-3');
 
 
 
@@ -76,7 +76,7 @@ echo "</pre>";
 
 <div id="tabs">
 
-<div class="ocultar">id_declaracion 
+<div class="ocultarr">id_declaracion 
 <input type="text" name="id_pdeclaracion" id="id_pdeclaracion"
 value="<?php echo $ID_PDECLARACION; ?>" readonly="true" >
 <br>
@@ -93,7 +93,7 @@ value="<?php echo $ID_ETAPA_PAGO; ?>">
 <ul>
             <li><a href="#tabs-1">Informacion General</a></li>	
             <li><a href="#tabs-2">Detalle de Declaraci&oacute;n</a></li>
-            <!--<li><a href="#tabs-3">Determinacion de Deuda</a></li>-->	            		
+            <li><a href="#tabs-3">Determinacion de Deuda</a></li>	            		
 
   </ul>
         
@@ -144,7 +144,7 @@ value="<?php echo $ID_ETAPA_PAGO; ?>">
             		    
           </form>
         
-      </div><!-- tabs-1 -->
+      </div>
         
         
         <div id="tabs-2">
@@ -153,8 +153,8 @@ value="<?php echo $ID_ETAPA_PAGO; ?>">
 </div>
         
         
-        <!--<div id="tabs-3">
-        ass3</div>-->
+        <div id="tabs-3">
+        ass3</div>
         
         
 </div>

@@ -112,30 +112,27 @@ function validarPeriodo(periodo){
           <br />
           Periodo Tributario (mm/aaaa)          
       <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  />
-      <input type="button" name="ver periodo" id="ver periodo" value="lista de Trabajadores Activos del  periodo"
-      onclick="verPeriodo()" />
+		    <input type="button" name="btnValidar"  value="Registrar"  onclick="validarNewDeclaracionPeriodo()"/>
 		    </p>
 		    <table id="list">
 	        </table>
         <div id="pager"></div>
+        <div class="ocultar">Lista de Trabajadores que se registraran en el periodo (mes/a&ntilde;o)
+          <sbr />
+          <p>estado
+            <input type="text" name="estado" id="estado" />
+            <br />
+            periodo inicio
               
-Lista de Trabajadores que se registraran en el periodo (mes/a&ntilde;o)<sbr />
-<p><br />
-  estado
-  <input type="text" name="estado" id="estado" />
-  <br />
-  periodo inicio
-
-  <input type="text" name="mes_inicio" id="mes_inicio" />
-  <br />
-  periodo fin 
-  <input type="text" name="mes_fin" id="mes_fin" />
-  <br />
-  <br />
-  
-  <input type="button" name="btnValidar"  value="Validar Y Registrar"  onclick="validarNewDeclaracionPeriodo()"/>
-</p>
-</p>
+            <input type="text" name="mes_inicio" id="mes_inicio" />
+            <br />
+            periodo fin 
+            <input type="text" name="mes_fin" id="mes_fin" />
+            <br />
+            <br />
+                </p>
+        </div>
+  </p>
           </form>
         
       </div><!-- tabs-1 -->

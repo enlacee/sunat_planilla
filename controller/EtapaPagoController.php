@@ -20,10 +20,7 @@ if ($op) {
     //PAGO
     require_once '../dao/PagoDao.php';
     require_once '../model/Pago.php';
-
-    //DATO BASICO CALCULO
-    require_once '../dao/ConfPeriodoRemuneracionDao.php';
-    
+  
     //EPAGO TRABAJADOR
     require_once '../dao/PeriodoRemuneracionDao.php';
     
@@ -39,10 +36,16 @@ if ($op == "trabajador_por_etapa") {
 } else if ($op == "cargar_tabla") {
 
     $response = cargartabla();
+}else if($op == "del"){
+    $response = del_etapaPago();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
 
+function del_etapaPago(){
+    $dao = new EtapaPagoDao();
+    $dao->eliminar($_REQUEST['id_etapa_pago']);
+}
 //-----------
 function listarTrabajadoresPorEtapa() {
     //=========================================================================//
@@ -329,15 +332,19 @@ function registrar_15($id_etapa_pago,$FECHA_INICIO,$FECHA_FIN) {
         for ($i = 0; $i < count($data_tra); $i++) {
 
             //---            
-            if ($data_tra[$i]['fecha_inicio']) {
+            if($data_tra[$i]['fecha_inicio'] > $FECHA_INICIO){
+                //default
+            }else if($data_tra[$i]['fecha_inicio'] <= $FECHA_INICIO){
                 $data_tra[$i]['fecha_inicio'] = $FECHA_INICIO;
             }
             //---            
             //---            
             if (is_null($data_tra[$i]['fecha_fin'])) {
                 $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
-            }else if($data_tra[$i]['fecha_fin'] > $FECHA_FIN){ //INSUE
+            }else if($data_tra[$i]['fecha_fin'] >= $FECHA_FIN){ //INSUE
                 $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
+            }else if($data_tra[$i]['fecha_fin'] < $FECHA_FIN){
+                //default
             }
             //---
             $a = getDayThatYear($data_tra[$i]['fecha_inicio']);
@@ -347,6 +354,9 @@ function registrar_15($id_etapa_pago,$FECHA_INICIO,$FECHA_FIN) {
             $dia_laborado =$data_tra[$i]['dia_laborado'];
 
 
+   echo "<pre>AFTER";
+    print_r($data_tra);    
+    echo "</pre>";
 // 01 Registrar Epagos_trabajadores
 
 
@@ -513,17 +523,25 @@ function cargartabla() {
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
 
-        // $js2 = "javascript:eliminarPersona('" . $param . "')";		
+        $js2 = "javascript:eliminarEtapaPago('" . $param . "')";		
         $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar" >
 		<a href="' . $js . '"><img src="images/edit.png"/></a>
 		</span>
+                &nbsp;
+		<span  title="Editar" >
+		<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
+		</span>
+
 		</div>';
+        
+
+        
+        
         //hereee
         //$_02 = '<a href="javascript:add_15('.$param.',\''.$_01.'\')" title = "Agregar UNICO Adelanto 15">1era 15</a>';
         // $_04 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_etapaPago.php?id_declaracion='.$param.'&periodo='.$_01.'\',\'#CapaContenedorFormulario\')"title = "VER">Ver</a>';
-        $_05 = "ST-ADD";
-        $_06 = "ST-Edit";
+
 
         //hereee
         $response->rows[$i]['id'] = $param;

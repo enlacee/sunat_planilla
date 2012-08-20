@@ -63,23 +63,40 @@ function add_15(id_declaracion,periodo,num15){ //QUINCENAL
             <input type="button" name="button" id="button" value="Nuevo Periodo"
             onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_periodo.php','#CapaContenedorFormulario')" />
             
-            <h2>lista de periodos JQGRID
+            <h2>lista de periodos 
               <label for="anio"></label>
               <select name="anio" id="anio" onchange="cargarTablaPdeclaracionEmpresa()">
                 <option value="2011">2011</option>
                 <option value="2012" selected="selected">2012</option>
               </select>
             </h2>
-          
-            <table id="list">
-            </table>
-            <div id="pager"></div>
+            
+
+
+
+
+
+   
+   
+            <div class="section">
+              <div class="article fila1">
+<table id="list">
+</table>
+<div id="pager"></div>
+
+              </div>
+              <div class="article fila2">
+              
+<table id="list10_d">
+</table>
+<div id="list10_d"></div>
+              </div>
+            </div>
             
             
             
-            <table id="list10_d">
-            </table>
-            <div id="list10_d"></div>
+            
+
             
 
         

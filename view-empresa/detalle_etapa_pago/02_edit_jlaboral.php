@@ -822,11 +822,7 @@ calcHoraLaborada();
 
     <div class="section">
       <div class="article fila1">
-            <div class="ocultar">
-                id_pago:
-                  <input name="id_pago" id="id_pago" 
-                     type="text" readonly="readonly" value="<?php echo $obj_pago->getId_pago(); ?>" />
-            </div>
+            
     <h3>Dias de Jornada</h3>
             <hr />
             <p>

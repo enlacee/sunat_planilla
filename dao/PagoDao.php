@@ -44,7 +44,7 @@ VALUES (
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $model->getId_trabajador());
-        $stm->bindValue(2, $model->getId_estapa_pago());
+        $stm->bindValue(2, $model->getId_etapa_pago());
         $stm->bindValue(3, $model->getDia_laborado());
         $stm->bindValue(4, $model->getDia_total());        
         $stm->bindValue(5, $model->getSueldo_base());        

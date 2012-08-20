@@ -110,7 +110,7 @@ foreach ($cbo_tipo_documento as $indice) {
           </div>
           <div class="fila_input" >
             <label>Numero Documento </label>
-            <input name="txt_num_documento" type="text" id="txt_num_documento" />
+            <input name="txt_num_documento" type="text" id="txt_num_documento" maxlength="8"/>
             <input type="button" name="btn_existePersona" id="btn_existePersona" value="Buscar Persona"
                     onclick="existePersonaRegistrada()" />
             <label for="id_persona_existe"></label>

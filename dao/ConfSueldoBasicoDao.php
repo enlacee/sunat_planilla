@@ -1,15 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of ConfSueldoBasico
- *
- * @author conta 1
- */
 class ConfSueldoBasicoDao extends AbstractDao {
     //put your code here
     public function registrar($valor, $fecha_vigencia) {
@@ -83,6 +73,21 @@ class ConfSueldoBasicoDao extends AbstractDao {
         return $lista;
     }
     
+        public function vigente() {
+        $query = "
+        SELECT
+            id_conf_sueldo_basico,
+            valor,
+            fecha      
+        FROM conf_sueldo_basico
+        ORDER BY fecha DESC        
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['valor'];
+    }
     
     
 }

@@ -143,7 +143,7 @@ class PlameDeclaracionDao extends AbstractDao {
         return $lista;
     }
 
-    public function listar($id_empleador_maestro,$anio) {
+    public function listar($id_empleador_maestro, $anio) {
         $query = "
         SELECT 
         id_pdeclaracion,
@@ -166,13 +166,99 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+    /*
+     * Lista 1 Declaracion y 2 etapas = 2quincenas
+     */
+    public function listarDeclaracionEtapa($id_declaracion, $WHERE=null) {
+        $query = "
+        SELECT 
+        -- pago
+        pg.id_pago,
+        pg.id_trabajador,
+        -- pago
+        -- persona
+        p.id_persona,
+        p.num_documento,
+        p.cod_tipo_documento,
+        p.apellido_paterno,
+        p.apellido_materno,
+        p.nombres
+        -- persona
+
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        inner join trabajadores as t
+        on pg.id_trabajador = t.id_trabajador
+        inner join personas as p
+        on t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion= ?
+        $WHERE        
+        -- and p.num_documento = 12345678
+        GROUP BY id_trabajador
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_declaracion);
+        //$stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
 
     //--------------------------------------------------------------------------//
     //--------------------------------------------------------------------------//
-    
-    public function buscar_ID($id_pdeclaracion){
+/*
+ * Primera 15CENA para concepto 0701 ADELANTO
+ */
+    public function PrimerAdelantoMensual($ID_TRABAJADOR,$id_pdeclaracion){ 
         
-       $query = "
+       // PERIMERA QUINCENA  = 15
+        $query  ="
+        SELECT 
+        -- pago
+        pg.id_pago,
+        pg.id_trabajador,
+        pg.sueldo      
+        -- pago
+
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        INNER JOIN trabajadores AS t
+        ON pg.id_trabajador = t.id_trabajador
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion= ?
+        AND DAY(ep.fecha_fin) = '15'
+        AND pg.id_trabajador = ?
+            ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $ID_TRABAJADOR); 
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['sueldo'];
+        
+        
+    }
+    
+    
+    
+    
+    public function buscar_ID($id_pdeclaracion) {
+
+        $query = "
         SELECT
          id_pdeclaracion,
          id_empleador_maestro,
@@ -182,16 +268,16 @@ class PlameDeclaracionDao extends AbstractDao {
         FROM pdeclaraciones 
         WHERE id_pdeclaracion = ?
 ";
-       
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-       
+
         return $lista[0];
     }
-    
+
 }
 
 ?>

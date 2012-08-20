@@ -60,7 +60,7 @@ $cbo_estado_civil = comboEstadosCiviles();
 		
 function validarFormNewPersonalPrincipal(obj){
 	//alert(validarFormNewPersonal());
-	
+	//alert(obj);	
 	if( validarFormNewPersonal()) { 
 		
 		//-----------------------------------------------------------------------				
@@ -68,17 +68,16 @@ function validarFormNewPersonalPrincipal(obj){
 			$.getJSON('sunat_planilla/controller/PersonaController.php?'+from_data,
 				function(data){
 				//funcion.js index.php
-					alert(data);
+					//alert(data);
 					
 					if(data){
 
 					//alert(data);
-					//console.log(data);
-					//cargarTablaPersonalDireccion(data);					
+					//console.log(data);									
 					disableForm('form_new_personal');
 					$("#DIV_GRID_DIRECCION").show();
 					alert ('Se Guardo Correctamente.\nAhora registre su Direccion');
-
+					cargarTablaPersonalDireccion(data);	
 					}else{
 						alert("El Num de Documento:"+$("#txt_num_documento").val()+"Ya se encuentra registrado!\n no se puede registrar nuevamente");
 						//alert("Ocurrio un error, intente nuevamente no hay datos JSON");
@@ -226,6 +225,7 @@ function validarFormNewPersonal(){
 	}	
 	return estado;
 	
+	
 }
 
 
@@ -262,105 +262,6 @@ function validarFechaNacimiento(fecha){// alert("hola"+fecha);
 
 //-----------------------------------------------------
 
-function existePersonaRegistrada(){
-
-	//get data
-	var cbo_tipo_documento = document.getElementById('cbo_tipo_documento').value;
-	var num_documento = document.getElementById('txt_num_documento').value;
-	
-	
-$.getJSON(
-'sunat_planilla/controller/PersonaController.php?oper=existe_persona&tipo_documento='+cbo_tipo_documento+"&num_documento="+num_documento,
-function(ID){
-	
-	//console.log(dataa);
-	//console.dir(dataa);
-	//Existe persona pero se registrara como NUEVO TRABAJADOR
-	if(ID){	
-		alert("Persona Encontrada id_persona = "+ ID);		
-		document.getElementById('id_persona_existe').value = ID;
-//-----------------------		
-		//ENVIA A OTR VISTA SI EXISTE ID_PERSONA registrada.
-		
-	$.ajax({
-		type: 'get',
-		dataType: 'json',
-		url: 'sunat_planilla/controller/PersonaController.php',
-		data: {oper: 'add_persona_newtrabajador', id_persona_existe : ID },
-		success: function(data){
-			console.log("SE REGISTRO NUEVO TRABAJADOR  = "+data);
-			//var cbo_base = document.getElementById('cbo_establecimiento');
-		//	cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&cod_situacion=1','#CapaContenedorFormulario')
-			
-			
-			
-		}
-	});	
-//--------------------
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	}
-});
-
-
-
-/*
-var id = document.getElementById('id_persona_existe').value;
-
-alert("no pasa id ttx "+ id);
-if(id.length>=1){ alert("a pasar a ajax "+ id);
-//ENVIA A OTR VISTA SI EXISTE ID_PERSONA registrada.
-	$.ajax({
-		type: 'get',
-		dataType: 'json',
-		url: 'sunat_planilla/controller/PersonaController.php',
-		data: {oper: 'add_persona_newtrabajador', id_persona_existe : id }
-        },
-		success: function(data){
-			console.log(data);
-			//var cbo_base = document.getElementById('cbo_establecimiento');
-			cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona='+id+'&cod_situacion=1','#CapaContenedorFormulario')
-			
-			
-			
-		}
-	});
-
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-}
-
 
 </script>
 <div class="demo" align="left">
@@ -390,7 +291,7 @@ if(id.length>=1){ alert("a pasar a ajax "+ id);
   <?php
 foreach ($cbo_tipo_documento as $indice) {
 	
-	if ($indice['cod_tipo_documento'] == '0' /*$_REQUEST['tipo_documento']*/ /*'0'$obj_banco_liqui->getId_banco()*/ ) {
+	if ($indice['cod_tipo_documento'] == '0' /*'0'$obj_banco_liqui->getId_banco()*/ ) {
 		
 		$html = '<option value="'. $indice['cod_tipo_documento'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
 	} else {
@@ -405,7 +306,7 @@ foreach ($cbo_tipo_documento as $indice) {
                   </div>
                   <div class="fila_input" >
                     <label>Numero Documento </label>
-                    <input name="txt_num_documento" type="text" id="txt_num_documento" value="<?php echo $_REQUEST['num_documento']; ?>">
+                    <input name="txt_num_documento" type="text" id="txt_num_documento" value="<?php echo $_REQUEST['num_documento']; ?>" >
                     <label for="id_persona_existe"></label>
                   </div>
                   <div class="fila_input">

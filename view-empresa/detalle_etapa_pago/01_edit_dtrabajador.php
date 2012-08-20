@@ -28,10 +28,7 @@ $cbo_ccosto = comboCentroCosto();
 
 ?>
 <div class="ptrabajador">
-<div class="ocultar">
-id_pago
 
-</div>
 <h1>DATOS LABORALES</h1>
 
 <p>

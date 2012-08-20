@@ -11,8 +11,9 @@ class PlameDao extends AbstractDao {
      * Lista Trabajadores que estan dentro de un periodo mes/anio
      * sunat proporciona el PLAME desde 2011-11-01 hasta hoy.
      */
+    /*
     public function listarTrabajadoresPorPeriodo($id_EM, $mes_inicio, $mes_fin) {
-//   cod_periodo_remuneracion::
+
         $query = "		
         SELECT 
         -- detalle
@@ -62,51 +63,10 @@ class PlameDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        /* echo "<pre>";
-          print_r($lista);
-          echo "</pre>";
-         */
+
         return $lista;
     }
-
-    /*  public function cantidadTrabajadoresPorPeriodo($id_EM, $mes_fin) {
-
-      $fecha_inicio_sunat = '2011-11-01';
-
-
-      $query = "
-      SELECT
-      COUNT(*) AS  numfilas
-
-      FROM personas AS p
-      INNER JOIN trabajadores AS t
-      ON p.id_persona = t.id_persona
-
-      INNER JOIN empleadores_maestros AS em
-      ON p.id_empleador = em.id_empleador
-
-      INNER JOIN detalle_periodos_laborales AS dpl
-      ON t.id_trabajador = dpl.id_trabajador
-
-      WHERE (t.cod_situacion = 1 AND em.id_empleador_maestro = ? )
-
-      AND dpl.fecha_inicio >= ?  -- fecha inicio SUNAT PLANILLA
-
-      -- fecha periodo
-      AND dpl.fecha_inicio <= ?  -- fin periodo
-      -- fecha periodo
-      ";
-      $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $id_EM);
-      $stm->bindValue(2, $fecha_inicio_sunat);
-      $stm->bindValue(3, $mes_fin);
-      $stm->execute();
-      $lista = $stm->fetchAll();
-      $stm = null;
-
-      return $lista[0]['numfilas'];
-      }
-     */
+*/
 
     // ADELANTO QUINCENAL
     //before = listarTrabajadoresPorPeriodo_15 , 7
@@ -216,7 +176,6 @@ class PlameDao extends AbstractDao {
 	ORDER BY t.id_trabajador,dpl.fecha_inicio DESC    
 ";
 
-// -- AND t.cod_periodo_remuneracion = 2 -- 2 = quincena  
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_EM);
@@ -228,10 +187,7 @@ class PlameDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        /* echo "<pre>";
-          print_r($lista);
-          echo "</pre>";
-         */
+ 
         return $lista;
     }
 

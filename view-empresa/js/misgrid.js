@@ -97,7 +97,7 @@
 
             ],
             pager: '#pager',
-			heigth:'200px',
+			height:'200px',
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_trabajador',
@@ -214,7 +214,7 @@
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_empresa&anio='+anio,
             datatype: 'json',
-            colNames:['Id','Periodo','Add Adelanto','Edit Adelanto','SUNAT','SUNAT'],
+            colNames:['Id','Periodo','Add Adelanto','Edit Adelanto'],
             colModel :[
                 {
                     name:'id_pdeclaracion', 
@@ -246,21 +246,8 @@
                     editable:false,
                     width:90,
                     align:'center'
-                },
-                {
-                    name:'sunatAdd', 
-                    index:'sunatAdd',
-                    editable:false,
-                    width:50,
-                    align:'center'
-                },
-                {
-                    name:'sunatEdit', 
-                    index:'sunatEdit',
-                    editable:false,
-                    width:50,
-                    align:'center'
                 }
+
 
             ],
             pager: '#pager',
@@ -319,8 +306,8 @@ jQuery("#list10_d").jqGrid({
 	datatype: "json",
    	colNames:['Id','Tipo', 'Finicio', 'Ffin','Opciones'],
    	colModel:[
-   		{name:'id_etapa_pago',index:'id_etapa_pago', width:55},
-   		{name:'descripcion',index:'descripcion', width:180},
+   		{name:'id_etapa_pago',index:'id_etapa_pago', width:20},
+   		{name:'descripcion',index:'descripcion', width:100},
    		{name:'fecha_inicio',index:'fecha_inicio', width:80, align:"left"},
    		{name:'fecha_fin',index:'fecha_fin', width:80, align:"left"},		
    		{name:'opciones',index:'opciones', width:80,align:"center", sortable:false, search:false}
@@ -489,7 +476,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 
             ],
             pager: '#pager',
-			heigth:'250px',
+			height:'250px',
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_trabajador',
@@ -597,7 +584,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 
             ],
             pager: '#pager',
-			heigth:'250px',
+			height:'250px',
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_pago',
@@ -619,7 +606,8 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	
 	//--------------------------------------------------------------------------
 	
-function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ alert("cargarTablaTrabajadoresPorEtapa id_etapa_pago "+id_etapa_pago);
+function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ 
+alert("cargarTablaTrabajadoresPorEtapa "+id_etapa_pago);
 		
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
@@ -716,7 +704,7 @@ function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ alert("cargarTablaTraba
                 }	
             ],
             pager: '#pager',
-			heigth:'450px',
+			//height:100,
             rowNum:9,
             rowList:[15,30,45],
             sortname: 'id_pago',
@@ -840,7 +828,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
             ],
 			//caption: 'Lista de .',
            //pager: '#pager',			
-			heigth:'80px',
+			height:30,
             //rowNum:9,
             //rowList:[15,30,45],
             //sortname: 'id_pago',
@@ -859,7 +847,197 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 	
     }
 	
+// DECLARACION SUNAT
+
+//--------------------------
+    function cargarTablaPDeclaracion(){ 		
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla',
+            datatype: 'json',
+            colNames:['ID','Periodo','Ultima Fecha Actualizaci&oacute;n.','Estado',
+                'Modificar', 'Eliminar','Archivo Envio'],
+            colModel :[
+                {
+                    name:'id_pdeclaracion', 
+                    editable:false, 
+                    index:'id_pdeclaracion',
+                    search:false,
+                    width:20,
+                    align:'center'
+                },		
+                {
+                    name:'periodo',
+                    index:'periodo',
+                    search:false, 
+                    editable:false,
+                    width:90, 
+                    align:'center' 
+                },
+                {
+                    name:'fecha_modificacion', 
+                    index:'fecha_modificacion',
+                    search:false,
+                    editable:false,
+                    width:100,
+                    align:'center'
+                },
+                {
+                    name:'estado', 
+                    index:'estado',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'modificar', 
+                    index:'modificar',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+				
+                {
+                    name:'archivo',
+                    index:'archivo',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },
+                {
+                    name:'estado',
+                    index:'estado',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                }											
+
+
+            ],
+            pager: '#pager',
+			height:300,
+            rowNum:12,
+            rowList:[12,24,36],
+            sortname: 'id_pdeclaracion',
+            sortorder: 'asc',
+            viewrecords: true,
+            gridview: true,
+            //caption: 'Trabajadores Activos',
+            //toolbar: [true,"top"],
+            //multiselect: true,
+            hiddengrid: false,
+
+			
+        });
+		
+		
+        //--- PIE GRID
+//	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+
 	
+    }//end
+
+
+//--------------------------
+    function cargarTablaPDeclaracionEtapaPago(id_pdeclaracion){ 		
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+		//direction: "rtl",
+            url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_declaracion_etapa&id_pdeclaracion='+id_pdeclaracion,
+            datatype: 'json',
+            colNames:['Id','T.Doc','Num Doc','A. Paterno',
+                'A. Materno', 'Nombres','opcion'],
+            colModel :[
+                {
+                    name:'id_pago', 
+                    editable:false, 
+                    index:'id_pago',
+                    search:false,
+                    width:20,
+                    align:'center'
+                },		
+                {
+                    name:'cod_tipo_documento',
+                    index:'cod_tipo_documento',
+                    search:true, 
+                    editable:false,
+                    width:30, 
+                    align:'center' 
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    search:true,
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+				
+                {
+                    name:'nombres',
+                    index:'nombres',
+                    search:true,
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'estado',
+                    index:'estado',
+                    search:false,
+                    editable:false,
+                    width:70,
+                    align:'center'
+                }											
+
+
+            ],
+            pager: '#pager',
+			height:300,
+			//width :390,
+            rowNum:15,
+            rowList:[15,30,45,60],
+            sortname: 'id_pago',
+            sortorder: 'asc',
+            viewrecords: true,
+            gridview: true,
+            //caption: 'Trabajadores Activos',
+            //toolbar: [true,"top"],
+            //multiselect: true,
+            hiddengrid: false,
+
+			
+        });
+		
+		
+        //--- PIE GRID
+	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+
+	
+    }
+
+
+
+
+
+
+
 //---------------------------------------------------------------
 // DIALOG
 
@@ -956,15 +1134,119 @@ function crearDialogoDiaNoLaborado(){
 
 
 
+//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
+//  intranet intranet intranet intranet intranet intranet intranet intranet
+
+function crearDialogoPtrabajador(){
+//alert('crearDialogoPtrabajador');
+	$("#dialog-form-editarPtrabajador").dialog({ 
+           
+			autoOpen: false,
+			height: 310,
+			width: 400,
+			modal: true,
+                        
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				
+
+					if(true){
+						var from_data =  $("#frmPtrabajador").serialize();
+						//alert ("from_data = "+from_data);
+						//---------------------------
+						$.getJSON(
+							'sunat_planilla/controller/PlameTrabajadorController.php?oper=edit&'+from_data,
+							function(data){
+								if(data){
+									//jQuery("#list").trigger("reloadGrid");
+									alert("Registro Se guardo correctamente.");	
+									$("#dialog-form-editarPtrabajador").dialog('close');				
+								}else{
+									alert("Ocurrio un error, intente nuevamente");						
+								}
+							}
+						);	
+						//---------------------------			
+						
+					}//ENDIF
+				
+									
+				}
+                                
+			},
+			open: function() {},
+			close: function() {}
+	});
+}
 
 
 
+function editarPtrabajador(id_trabajador){  //alert (".");
+crearDialogoPtrabajador();
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-empresa/modal/edit_ptrabajador.php",
+   data: { id_trabajador : id_trabajador },//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(datos){
+    $('#editarPtrabajador').html(datos);
+    
+    $('#dialog-form-editarPtrabajador').dialog('open');
+   }
+   }); 
+}
 
 
 
+//---------------------------------------------------------------
+function generarDeclaracionPlanilla(id_pdeclaracion,obj){
+	//obj.disabled = true;
+	//obj.value = "Generando...";
+	
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
+   data: { oper: 'generar_declaracion', id_pdeclaracion : id_pdeclaracion },//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(datos){
+	
+	console.log("Se Genero la planilla correctamente");
+	//obj.value = "OK...";
+	
+	
+   }
+   }); 
+	
 
 
 
+}
+
+
+
+//-------------------------------------------
+function eliminarEtapaPago(id_etapa_pago){
+	var estado = confirm("Seguro que desea eliminar?");
+	
+if(estado == true){
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/EtapaPagoController.php",
+   data: { oper: 'del', id_etapa_pago : id_etapa_pago },//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(data){
+	console.log("Se elimino correctamente");
+	//jQuery("#list").trigger("reloadGrid");
+	jQuery("#list10_d").trigger("reloadGrid");
+	
+   }
+   }); 
+}
+}
 
 
 

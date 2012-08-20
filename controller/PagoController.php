@@ -13,8 +13,6 @@ if ($op) {
     require_once '../dao/PagoDao.php';
     require_once '../model/Pago.php';
 
-    //DATO BASICO CALCULO
-    require_once '../dao/ConfPeriodoRemuneracionDao.php';
     
     //CALCULO DE DIAS controller
     require_once '../controller/PlameDiaNoSubsidiadoController.php';

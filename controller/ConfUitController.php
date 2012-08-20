@@ -135,4 +135,8 @@ function del(){
     return $dao->eliminar($id);
 }
 
+function buscarUitVigente(){
+    $dao = new ConfUitDao();
+    return $dao->vigente();
+}
 ?>

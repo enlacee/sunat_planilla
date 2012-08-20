@@ -27,6 +27,9 @@ $T_ONP = $dao_4->vigente();
 $dao_5 = new ConfUitDao();
 $UIT = $dao_5->vigente();
 
+// Valores Fijos
+$ESSALUD_MAS = 5;
+$SNP_MAS = 5;
 
 // DEFINE
 if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || is_null($UIT)) {
@@ -38,11 +41,19 @@ if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || 
     $T_ESSALUD = 0;
     $T_ONP = 0;
     $UIT = 0;
+    
+    $ESSALUD_MAS = 0;
+    $SNP_MAS = 0;
+    
 } else {
     define('SB', $SB);
     define('T_AF', $T_AF);
     define('T_ESSALUD', $T_ESSALUD);
     define('T_ONP', $T_ONP);
     define('UIT', $UIT);
+    
+    define('ESSALUD_MAS',$ESSALUD_MAS);
+    define('SNP_MAS', $SNP_MAS);
+    
 }
 ?>

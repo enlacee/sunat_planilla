@@ -42,7 +42,7 @@ function tabla_Conf_Remuneracion(){
 
             ],
             pager: '#pager',
-			heigth:'200px',
+			//height:250,
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_conf_periodo_remuneracion',
@@ -110,7 +110,7 @@ function tabla_Conf_Uit(){
 
             ],
             pager: '#pager',
-			heigth:'200px',
+			//height:200,
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_conf_periodo_remuneracion',
@@ -140,25 +140,25 @@ function tabla_Conf_Uit(){
 function tabla_Conf_Afp(){
 	
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/ConfAfptController.php?oper=cargar_tabla',
+            url:'sunat_planilla/controller/ConfAfpController.php?oper=cargar_tabla',
             datatype: 'json',
-            colNames:['','Id','Tasa','Fecha Vigencia'],
+            colNames:['','Id','Ap. Obligatorio','Comision', 'Prima de Seguro','fecha'],
             colModel :[
 				{name: 'myac', width:80, fixed:true, sortable:false, resize:false, formatter:'actions',
 					formatoptions:{keys:true}
 				},
 				{
-				name:'id_conf_uit',
+				name:'id_conf_afp',
 				sortable:true,
 				key : true,
-				index:'id_conf_uit',
+				index:'id_conf_afp',
 				width:55
 				},		
   	
                 {
-                    name:'valor',
-                    index:'valor',
-                    search:true, 
+                    name:'aporte_obligatorio',
+                    index:'aporte_obligatorio',
+                    search:false, 
 					sortable:false,
                     editable:true,
 					editrules:{required:true},
@@ -166,9 +166,30 @@ function tabla_Conf_Afp(){
                     align:'center' 
                 },
                 {
+                    name:'comision',
+                    index:'comision',
+                    search:false, 
+					sortable:false,
+                    editable:true,
+					editrules:{required:true},
+                    width:120, 
+                    align:'center' 
+                },				
+                {
+                    name:'prima_seguro',
+                    index:'prima_seguro',
+                    search:false, 
+					sortable:false,
+                    editable:true,
+					editrules:{required:true},
+                    width:120, 
+                    align:'center' 
+                },			
+
+                {
                     name:'fecha', 
                     index:'fecha',
-                    search:true,
+                    search:false,
 					sortable:false,
                     editable:true,
 					editrules:{required:true},
@@ -179,14 +200,14 @@ function tabla_Conf_Afp(){
 
             ],
             pager: '#pager',
-			heigth:'200px',
+			height:'200px',
             rowNum:10,
             rowList:[10,20,30],
-            sortname: 'id_conf_periodo_remuneracion',
+            sortname: 'id_conf_afp',
             sortorder: 'asc',
             viewrecords: true,
-			editurl: "sunat_planilla/controller/ConfUitController.php", 
-            caption: 'Configuracion',
+			editurl: "sunat_planilla/controller/ConfAfpController.php", 
+            caption: 'Configuracion Tasas %',
             //toolbar: [true,"top"],
             //multiselect: true,
             //hiddengrid: false,

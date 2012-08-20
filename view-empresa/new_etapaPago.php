@@ -78,6 +78,8 @@ Periodo o Declaracion
             periodo pago
             <select name="cboPeriodoRemunerativo" id="cboPeriodoRemunerativo">
       <option value="2">- QUINCENAL -</option>
+      <option value="1">- MENSUAL -</option>
+      
       <?php 
 /*
 foreach ($data as $indice) {

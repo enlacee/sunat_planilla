@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2012 at 11:18 
+-- Generation Time: Jul 06, 2012 at 06:50 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -26,15 +26,30 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `afectaciones` (
-  `cod_afectacion` char(4) NOT NULL,
+  `cod_afectacion` char(2) NOT NULL,
+  `id_tabla_22` int(10) unsigned NOT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cod_afectacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='NO MODIFICABLE';
+  PRIMARY KEY (`cod_afectacion`),
+  KEY `id_tabla_22` (`id_tabla_22`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `afectaciones`
 --
 
+INSERT INTO `afectaciones` (`cod_afectacion`, `id_tabla_22`, `descripcion`) VALUES
+('01', 1, 'ESSALUD SEGURO REGULAR TRABAJADOR'),
+('02', 1, 'ESSALUD - CBSSP - SEG TRAB PESQUERO'),
+('03', 1, 'ESSALUD SEGURO AGRARIO / ACUICULTOR'),
+('04', 1, 'ESSALUD SCTR'),
+('05', 1, 'IMPUESTO EXTRAORD. DE SOLIDARIDAD'),
+('06', 1, 'FONDO DERECHOS SOCIALES DEL ARTISTA'),
+('07', 1, 'SENATI'),
+('08', 2, 'SISTEMA NACIONAL DE PENSIONES 19990'),
+('09', 2, 'SISTEMA PRIVADO DE PENSIONES'),
+('10', 2, 'RENTA 5TA CATEGORÍA RETENCIONES'),
+('11', 3, 'ESSALUD SEGURO REGULAR PENSIONISTA'),
+('12', 3, 'CONTRIB. SOLIDARIA ASISTENCIA PREVIS');
 
 -- --------------------------------------------------------
 
@@ -76,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `coberturas_salud` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_cobertura_salud`),
   KEY `id_personal_tercero` (`id_personal_tercero`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='SCTR Salud - Vigencia de cobertura\r\n------ HISTORIAL ------\r' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='SCTR Salud - Vigencia de cobertura\r\n------ HISTORIAL ------\r' AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `coberturas_salud`
@@ -92,7 +107,6 @@ CREATE TABLE IF NOT EXISTS `coberturas_salud` (
 CREATE TABLE IF NOT EXISTS `conceptos` (
   `cod_concepto` char(4) NOT NULL,
   `descripcion` varchar(50) DEFAULT NULL,
-  `seleccionado` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`cod_concepto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='''TABLA 22:  "INGRESOS, TRIBUTOS Y DESCUENTOS"\r\n0100\r\n0200\r\n0';
 
@@ -100,28 +114,18 @@ CREATE TABLE IF NOT EXISTS `conceptos` (
 -- Dumping data for table `conceptos`
 --
 
-
--- --------------------------------------------------------
-
---
--- Table structure for table `conceptos_seleccionados`
---
-
-CREATE TABLE IF NOT EXISTS `conceptos_seleccionados` (
-  `id_concepto_seleccionado` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_empleador` int(11) NOT NULL,
-  `cod_detalle_concepto` char(4) NOT NULL,
-  `seleccionado` tinyint(1) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  PRIMARY KEY (`id_concepto_seleccionado`),
-  KEY `id_empleador` (`id_empleador`),
-  KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `conceptos_seleccionados`
---
-
+INSERT INTO `conceptos` (`cod_concepto`, `descripcion`) VALUES
+('0100', 'INGRESOS'),
+('0200', 'INGRESOS: ASIGNACIONES'),
+('0300', 'INGRESOS: BONIFICACIONES'),
+('0400', 'INGRESOS: GRATIFICACIONES / AGUINALDOS'),
+('0500', 'INGRESOS: INDEMNIZACIONES'),
+('0600', 'APORTACIONES DEL TRABAJADOR / PENSIONISTA'),
+('0700', 'CONCEPTOS VARIOS'),
+('0800', 'APORTACIONES DE CARGO DEL EMPLEADOR'),
+('0900', 'CONCEPTOS VARIOS'),
+('1000', 'OTROS CONCEPTOS'),
+('2000', 'RÉGIMEN LABORAL PÚBLICO');
 
 -- --------------------------------------------------------
 
@@ -12818,13 +12822,225 @@ CREATE TABLE IF NOT EXISTS `derechohabientes_direcciones` (
 CREATE TABLE IF NOT EXISTS `detalles_conceptos` (
   `cod_detalle_concepto` char(4) NOT NULL,
   `cod_concepto` char(4) NOT NULL,
+  `id_empleador_maestro` int(10) unsigned NOT NULL,
   `descripcion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`cod_detalle_concepto`),
-  KEY `cod_concepto` (`cod_concepto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='insert\r\n0101\r\n0102\r\n0103\r\n..xxxx\r\nLo mismo para todos los Em';
+  KEY `cod_concepto` (`cod_concepto`),
+  KEY `id_empleador_maestro` (`id_empleador_maestro`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='id_empleador_maestro\r\nthis-> Empleador Identificado en el Si';
 
 --
 -- Dumping data for table `detalles_conceptos`
+--
+
+INSERT INTO `detalles_conceptos` (`cod_detalle_concepto`, `cod_concepto`, `id_empleador_maestro`, `descripcion`) VALUES
+('0101', '0100', 0, 'ALIMENTACIÓN PRINCIPAL EN DINERO'),
+('0102', '0100', 0, 'ALIMENTACIÓN PRINCIPAL EN ESPECIE'),
+('0103', '0100', 0, 'COMISIONES O DESTAJO'),
+('0104', '0100', 0, 'COMISIONES EVENTUALES A TRABAJADORES'),
+('0105', '0100', 0, 'TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 25%'),
+('0106', '0100', 0, 'TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 35%'),
+('0107', '0100', 0, 'TRABAJO EN DÍA FERIADO O DÍA DE DESCANSO'),
+('0108', '0100', 0, 'INCREMENTO EN SNP 3.3 %'),
+('0109', '0100', 0, 'INCREMENTO POR AFILIACIÓN A AFP 10.23%'),
+('0110', '0100', 0, 'INCREMENTO POR AFILIACIÓN A AFP 3.00%'),
+('0111', '0100', 0, 'PREMIOS POR VENTAS'),
+('0112', '0100', 0, 'PRESTACIONES ALIMENTARIAS - SUMINISTROS DIRECTOS'),
+('0113', '0100', 0, 'PRESTACIONES ALIMENTARIAS - SUMINISTROS INDIRECTOS'),
+('0114', '0100', 0, 'VACACIONES TRUNCAS'),
+('0115', '0100', 0, 'REMUNERACIÓN DÍA DE DESCANSO Y FERIADOS (INCLUIDA LA DEL 1° DE MAYO)'),
+('0116', '0100', 0, 'REMUNERACIÓN EN ESPECIE'),
+('0117', '0100', 0, 'COMPENSACIÓN VACACIONAL'),
+('0118', '0100', 0, 'REMUNERACIÓN VACACIONAL'),
+('0119', '0100', 0, 'REMUNERACIONES DEVENGADAS'),
+('0120', '0100', 0, 'SUBVENCIÓN ECONÓMICA MENSUAL (PRACTICANTE SENATI)'),
+('0121', '0100', 0, 'REMUNERACIÓN O JORNAL BÁSICO'),
+('0122', '0100', 0, 'REMUNERACIÓN PERMANENTE'),
+('0123', '0100', 0, 'REMUNERACIÓN DE LOS SOCIOS DE COOPERATIVAS'),
+('0124', '0100', 0, 'REMUNERACIÓN POR LA HORA DE PERMISO POR LACTANCIA'),
+('0125', '0100', 0, 'REMUNERACIÓN INTEGRAL ANUAL - CUOTA'),
+('0126', '0100', 0, 'INGRESOS DEL CONDUCTOR DE LA MICROEMPRESA AFILIADO AL SIS'),
+('0127', '0100', 0, 'INGRESOS DEL CONDUCTOR DE LA MICROEMPRESA - SEGURO REGULAR'),
+('0201', '0200', 0, 'ASIGNACIÓN FAMILIAR'),
+('0202', '0200', 0, 'ASIGNACIÓN O BONIFICACIÓN POR EDUCACIÓN (1)'),
+('0203', '0200', 0, 'ASIGNACIÓN POR CUMPLEAÑOS'),
+('0204', '0200', 0, 'ASIGNACIÓN POR MATRIMONIO'),
+('0205', '0200', 0, 'ASIGNACIÓN  POR NACIMIENTO DE HIJOS'),
+('0206', '0200', 0, 'ASIGNACIÓN POR FALLECIMIENTO DE FAMILIARES'),
+('0207', '0200', 0, 'ASIGNACIÓN POR OTROS MOTIVOS PERSONALES (2)'),
+('0208', '0200', 0, 'ASIGNACIÓN POR FESTIVIDAD'),
+('0209', '0200', 0, 'ASIGNACIÓN PROVISIONAL POR DEMANDA DE TRABAJADOR DESPEDIDO'),
+('0210', '0200', 0, 'ASIGNACIÓN VACACIONAL'),
+('0211', '0200', 0, 'ASIGNACIÓN POR ESCOLARIDAD 30 JORNALES BASICOS/AÑO'),
+('0212', '0200', 0, 'ASIGNACIONES OTORGADAS POR ÚNICA VEZ CON MOTIVO DE CIERTAS CONTINGENCIAS'),
+('0213', '0200', 0, 'ASIGNACIONES OTORGADAS REGULARMENTE'),
+('0214', '0200', 0, 'ASIGNACIÓN POR FALLECIMIENTO 1 UIT'),
+('0301', '0300', 0, 'BONIFICACIÓN POR 25 Y 30 AÑOS DE SERVICIOS'),
+('0302', '0300', 0, 'BONIFICACIÓN POR CIERRE DE PLIEGO'),
+('0303', '0300', 0, 'BONIFICACIÓN POR PRODUCCIÓN, ALTURA, TURNO, ETC.'),
+('0304', '0300', 0, 'BONIFICACIÓN POR RIESGO DE CAJA'),
+('0305', '0300', 0, 'BONIFICACIONES POR TIEMPO DE SERVICIOS'),
+('0306', '0300', 0, 'BONIFICACIONES REGULARES'),
+('0307', '0300', 0, 'BONIFICACIONES CAFAE (3)'),
+('0308', '0300', 0, 'COMPENSACIÓN POR TRABAJOS EN DÍAS DE DESCANSO Y EN FERIADOS'),
+('0309', '0300', 0, 'BONIFICACIÓN POR TURNO NOCTURNO 20% JORNAL BASICO'),
+('0310', '0300', 0, 'BONIFICACIÓN CONTACTO DIRECTO CON AGUA 20% JORNAL BÁSICO'),
+('0311', '0300', 0, 'BONIFICACION UNIFICADA DE CONSTRUCCIÓN'),
+('0312', '0300', 0, 'BONIFICACIÓN EXTRAORDINARIA TEMPORAL – LEY 29351'),
+('0313', '0300', 0, 'BONIFICACIÓN EXTRAORDINARIA PROPORCIONAL – LEY 29351'),
+('0401', '0400', 0, 'GRATIFICACIONES DE FIESTAS PATRIAS Y NAVIDAD'),
+('0402', '0400', 0, 'OTRAS GRATIFICACIONES ORDINARIAS'),
+('0403', '0400', 0, 'GRATIFICACIONES EXTRAORDINARIAS'),
+('0404', '0400', 0, 'AGUINALDOS DE JULIO Y DICIEMBRE'),
+('0405', '0400', 0, 'GRATIFICACIONES PROPORCIONAL'),
+('0406', '0400', 0, 'GRATIFICACIONES DE FIESTAS PATRIAS Y NAVIDAD – LEY 29351'),
+('0407', '0400', 0, 'GRATIFICACIONES PROPORCIONAL – LEY 29351'),
+('0501', '0500', 0, 'INDEMNIZACIÓN POR DESPIDO INJUSTIFICADO U HOSTILIDAD'),
+('0502', '0500', 0, 'INDEMNIZACIÓN POR MUERTE O INCAPACIDAD'),
+('0503', '0500', 0, 'INDEMNIZACIÓN POR RESOLUCIÓN DE CONTRATO SUJETO A MODALIDAD'),
+('0504', '0500', 0, 'INDEMNIZACIÓN POR VACACIONES NO GOZADAS'),
+('0505', '0500', 0, 'INDEMNIZACIÓN POR RETENCIÓN INDEBIDA DE CTS ART. 52 D.S Nº 001-97-TR'),
+('0506', '0500', 0, 'INDEMNIZACIÓN POR NO REINCORPORAR A UN TRABAJADOR CESADO EN UN PROCEDIMIENTO DE CESE COLECTIVO - DS 001-96-TR'),
+('0507', '0500', 0, 'INDEMNIZACIÓN POR REALIZAR HORAS EXTRAS IMPUESTAS POR EL EMPLEADOR'),
+('0601', '0600', 0, 'SISTEMA PRIVADO DE PENSIONES - COMISIÓN PORCENTUAL'),
+('0602', '0600', 0, 'CONAFOVICER'),
+('0603', '0600', 0, 'CONTRIBUCIÓN SOLIDARIA PARA LA ASISTENCIA PREVISIONAL'),
+('0604', '0600', 0, 'ESSALUD +VIDA'),
+('0605', '0600', 0, 'RENTA QUINTA CATEGORÍA RETENCIONES'),
+('0606', '0600', 0, 'SISTEMA PRIVADO DE PENSIONES - PRIMA DE SEGURO'),
+('0607', '0600', 0, 'SISTEMA NACIONAL DE PENSIONES - D.L.19990'),
+('0608', '0600', 0, 'SISTEMA PRIVADO DE PENSIONES - APORTACIÓN OBLIGATORIA'),
+('0609', '0600', 0, 'SISTEMA PRIVADO DE PENSIONES - APORTACIÓN VOLUNTARIA'),
+('0610', '0600', 0, 'ESSALUD - SEGURO REGULAR - PENSIONISTA'),
+('0611', '0600', 0, 'OTROS APORTACIONES DEL TRABAJADOR / PENSIONISTA'),
+('0612', '0600', 0, 'SISTEMA NACIONAL DE PENSIONES - ASEGURA TU PENSIÓN'),
+('0613', '0600', 0, 'RÉGIMEN PENSIONARIO - D.L. 20530'),
+('0614', '0600', 0, 'RÉGIMEN PENSIONARIO DEL SERV. DIPLOMÁTICO'),
+('0615', '0600', 0, 'RÉGIMEN DE PENSIONES MILITAR-POLICIAL'),
+('0701', '0700', 0, 'ADELANTO'),
+('0702', '0700', 0, 'CUOTA SINDICAL'),
+('0703', '0700', 0, 'DESCUENTO AUTORIZADO U ORDENADO POR MANDATO JUDICIAL'),
+('0704', '0700', 0, 'TARDANZAS'),
+('0705', '0700', 0, 'INASISTENCIAS'),
+('0706', '0700', 0, 'OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE '),
+('0707', '0700', 0, 'OTROS DESCUENTOS DEDUCIBLES DE LA BASE IMPONIBLE '),
+('0801', '0800', 0, 'SISTEMA PRIVADO DE PENSIONES - APORTACIÓN VOLUNTARIA'),
+('0802', '0800', 0, 'FONDO DE DERECHOS SOCIALES DEL ARTISTA'),
+('0803', '0800', 0, 'PÓLIZA DE SEGURO - D. LEG. 688'),
+('0804', '0800', 0, 'ESSALUD (SEGURO REGULAR, CBBSP, AGRARIO/ACUICULTOR) - TRABAJADOR'),
+('0805', '0800', 0, 'PENSIONES – SEGURO COMPLEMENTARIO DE TRABAJO DE RIESGO'),
+('0806', '0800', 0, 'ESSALUD – SEGURO COMPLEMENTARIO DE TRABAJO DE RIESGO'),
+('0807', '0800', 0, 'SENATI'),
+('0808', '0800', 0, 'IMPUESTO EXTRAORDINARIO DE SOLIDARIDAD'),
+('0809', '0800', 0, 'OTRAS APORTACIONES DE CARGO DEL EMPLEADOR'),
+('0810', '0800', 0, 'EPS - SEGURO COMPLEMENTARIO DE TRABAJO DE RIESGO'),
+('0811', '0800', 0, 'SEGURO INTEGRAL DE SALUD - SIS'),
+('0901', '0900', 0, 'BIENES DE LA PROPIA EMPRESA OTORGADOS PARA EL CONSUMO DEL TRABAJADOR'),
+('0902', '0900', 0, 'BONO DE PRODUCTIVIDAD'),
+('0903', '0900', 0, 'CANASTA DE NAVIDAD O SIMILARES'),
+('0904', '0900', 0, 'COMPENSACIÓN POR TIEMPO DE SERVICIOS'),
+('0905', '0900', 0, 'GASTOS DE REPRESENTACIÓN (MOVILIDAD, VESTUARIO, VIÁTICOS Y SIMILARES) - LIBRE DISPONIBILIDAD'),
+('0906', '0900', 0, 'INCENTIVO POR CESE DEL TRABAJADOR (4)'),
+('0907', '0900', 0, 'LICENCIA CON GOCE DE HABER'),
+('0908', '0900', 0, 'MOVILIDAD DE LIBRE DISPOSICIÓN'),
+('0909', '0900', 0, 'MOVILIDAD SUPEDITADA A ASISTENCIA Y QUE CUBRE SÓLO EL TRASLADO'),
+('0910', '0900', 0, 'PARTICIPACIÓN EN LAS UTILIDADES - PAGADAS ANTES DE LA DECLARACIÓN ANUAL DEL IMPUESTO A LA RENTA'),
+('0911', '0900', 0, 'PARTICIPACIÓN EN LAS UTILIDADES - PAGADAS DESPUES DE LA DECLARACIÓN ANUAL DEL IMPUESTO A LA RENTA'),
+('0912', '0900', 0, 'PENSIONES DE JUBILACIÓN O CESANTÍA, MONTEPÍO O INVALIDEZ'),
+('0913', '0900', 0, 'RECARGO AL CONSUMO'),
+('0914', '0900', 0, 'REFRIGERIO QUE NO ES ALIMENTACIÓN PRINCIPAL'),
+('0915', '0900', 0, 'SUBSIDIOS POR MATERNIDAD'),
+('0916', '0900', 0, 'SUBSIDIOS DE  INCAPACIDAD POR ENFERMEDAD'),
+('0917', '0900', 0, 'CONDICIONES DE TRABAJO'),
+('0918', '0900', 0, 'IMPUESTO A LA RENTA DE QUINTA CATEGORÍA ASUMIDO'),
+('0919', '0900', 0, 'SISTEMA NACIONAL DE PENSIONES ASUMIDO'),
+('0920', '0900', 0, 'SISTEMA PRIVADO DE PENSIONES ASUMIDO'),
+('0921', '0900', 0, 'PENSIONES DE JUBILACIÓN O CESANTÍA, MONTEPÍO O INVALIDEZ PENDIENTES POR LIQUIDAR'),
+('0922', '0900', 0, 'SUMAS O BIENES QUE NO SON DE LIBRE DISPOSICIÓN'),
+('0923', '0900', 0, 'INGRESOS DE CUARTA CATEGORIA QUE SON CONSIDERADOS DE QUNTA CATEGORIA'),
+('0924', '0900', 0, 'INGRESOS CUARTA-QUINTA SIN RELACIÓN DE DEPENDENCIA '),
+('0925', '0900', 0, 'INGRESO DEL PESCADOR Y PROCESADOR ARTESANAL INDEPENDIENTE - BASE DE CALCULO APORTE ESSALUD - LEY 27177'),
+('1001', '1000', 0, 'OTROS CONCEPTOS 1'),
+('1002', '1000', 0, 'OTROS CONCEPTOS 2'),
+('1003', '1000', 0, 'OTROS CONCEPTOS 3'),
+('1004', '1000', 0, 'OTROS CONCEPTOS 4'),
+('1005', '1000', 0, 'OTROS CONCEPTOS 5'),
+('1006', '1000', 0, 'OTROS CONCEPTOS 6'),
+('1007', '1000', 0, 'OTROS CONCEPTOS 7'),
+('1008', '1000', 0, 'OTROS CONCEPTOS 8'),
+('1009', '1000', 0, 'OTROS CONCEPTOS 9'),
+('1010', '1000', 0, 'OTROS CONCEPTOS 10'),
+('1011', '1000', 0, 'OTROS CONCEPTOS 11'),
+('1012', '1000', 0, 'OTROS CONCEPTOS 12'),
+('1013', '1000', 0, 'OTROS CONCEPTOS 13'),
+('1014', '1000', 0, 'OTROS CONCEPTOS 14'),
+('1015', '1000', 0, 'OTROS CONCEPTOS 15'),
+('1016', '1000', 0, 'OTROS CONCEPTOS 16'),
+('1017', '1000', 0, 'OTROS CONCEPTOS 17'),
+('1018', '1000', 0, 'OTROS CONCEPTOS 18'),
+('1019', '1000', 0, 'OTROS CONCEPTOS 19'),
+('1020', '1000', 0, 'OTROS CONCEPTOS 20'),
+('2001', '2000', 0, 'REMUNERACIÓN'),
+('2002', '2000', 0, 'SALARIO OBREROS'),
+('2003', '2000', 0, 'BONIFICACIÓN PERSONAL - QUINQUENIO'),
+('2004', '2000', 0, 'BONIFICACIÓN FAMILIAR'),
+('2005', '2000', 0, 'BONIFICACIÓN DIFERENCIAL'),
+('2006', '2000', 0, 'AGUINALDOS'),
+('2007', '2000', 0, 'REMUNERACIÓN VACACIONAL'),
+('2008', '2000', 0, 'ASIGNACIÓN POR AÑOS DE SERVICIOS'),
+('2009', '2000', 0, 'BONIFICACIÓN POR ESCOLARIDAD'),
+('2010', '2000', 0, 'COMPENSACIÓN POR TIEMPO DE SERVICIOS'),
+('2011', '2000', 0, 'ALIMENTACIÓN - CAFAE (3)'),
+('2012', '2000', 0, 'MOVILIDAD - CAFAE (3)'),
+('2013', '2000', 0, 'RACIONAMIENTO - CAFAE'),
+('2014', '2000', 0, 'INCENTIVOS LABORALES - CAFAE (3)'),
+('2015', '2000', 0, 'BONO JURISDICCIONAL/ BONO FISCAL'),
+('2016', '2000', 0, 'GASTOS OPERATIVOS DE MAGISTRADOS Y FISCALES'),
+('2017', '2000', 0, 'ASIGNACIÓN POR SERVICIO EXTERIOR'),
+('2018', '2000', 0, 'BONIFICACIÓN CONSULAR'),
+('2019', '2000', 0, 'ASIGNACIÓN ESPECIAL PARA DOCENTES UNIVERSITARIOS '),
+('2020', '2000', 0, 'HOMOLOGACIÓN  DE DOCENTES UNIVERSITARIOS'),
+('2021', '2000', 0, 'ASIGNACIÓN ESPECIAL POR LABOR PEDAGÓGICA EFECTIVA'),
+('2022', '2000', 0, 'ASIGNACIÓN EXTRAORDINARIA POR TRABAJO ASISTENCIAL'),
+('2023', '2000', 0, 'SERVICIOS EXTRAORDINARIOS PNP'),
+('2024', '2000', 0, 'ASIGNACIONES FFAA Y PNP'),
+('2025', '2000', 0, 'COMBUSTIBLE FFAA Y PNP '),
+('2026', '2000', 0, 'OTROS INGRESOS REMUNERATIVOS PERSONAL ADMINISTRATIVO'),
+('2027', '2000', 0, 'OTROS INGRESOS NO REMUNERATIVOS PERSONAL ADMINISTRATIVO'),
+('2028', '2000', 0, 'OTROS INGRESOS REMUNERATIVOS MAGISTRADOS'),
+('2029', '2000', 0, 'OTROS INGRESOS NO REMUNERATIVOS MAGISTRADOS'),
+('2030', '2000', 0, 'OTROS INGRESOS REMUNERATIVOS DOCENTES UNIVERSITARIOS'),
+('2031', '2000', 0, 'OTROS INGRESOS NO REMUNERATIVOS DOCENTES UNIVERSITARIOS'),
+('2032', '2000', 0, 'OTROS INGRESOS REMUNERATIVOS PROFESORADO'),
+('2033', '2000', 0, 'OTROS INGRESOS NO REMUNERATIVOS PROFESORADO'),
+('2034', '2000', 0, 'OTROS INGRESOS REMUNERATIVOS PROFESIONALES DE LA SALUD'),
+('2035', '2000', 0, 'OTROS INGRESOS NO REMUNERATIVOS PROFESIONALES DE LA SALUD'),
+('2036', '2000', 0, 'OTROS INGRESOS REMUNERATIVOS FFAA Y PNP'),
+('2037', '2000', 0, 'OTROS INGRESOS NO REMUNERATIVOS FFAA Y PNP'),
+('2038', '2000', 0, 'ASIGNACIÓN ESPECIAL - D.U. 126-2001'),
+('2039', '2000', 0, 'INGRESOS D.LEG. 1057 - CAS'),
+('2040', '2000', 0, 'REMUNERACIÓN POR DÍAS CON RELACIÓN LABORAL EN EL PERÍODO  DE UN CAS'),
+('2041', '2000', 0, 'AGUINALDOS DE JULIO Y DICIEMBRE – LEY 29351'),
+('2042', '2000', 0, 'BONIFICACIÓN ESPECIAL A SERV PUB - DU 037-94');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detalle_conceptos_afectaciones`
+--
+
+CREATE TABLE IF NOT EXISTS `detalle_conceptos_afectaciones` (
+  `id_detalle_concepto_afectacion` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cod_detalle_concepto` char(4) NOT NULL,
+  `cod_afectacion` char(4) NOT NULL,
+  `afecto` char(20) DEFAULT NULL COMMENT 'afecto radiobuuton',
+  PRIMARY KEY (`id_detalle_concepto_afectacion`),
+  KEY `cod_detalle_concepto` (`cod_detalle_concepto`),
+  KEY `cod_afectacion` (`cod_afectacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `detalle_conceptos_afectaciones`
 --
 
 
@@ -12841,7 +13057,7 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimiento` (
   PRIMARY KEY (`id_detalle_establecimiento`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_establecimiento` (`id_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `detalle_establecimiento`
@@ -12861,7 +13077,7 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimientos_formacion` (
   PRIMARY KEY (`id_detalle_establecimiento_formacion`),
   KEY `id_establecimiento` (`id_establecimiento`),
   KEY `id_personal_formacion_laboral` (`id_personal_formacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `detalle_establecimientos_formacion`
@@ -12881,7 +13097,7 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_formativos` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_detalle_periodo_formativo`),
   KEY `id_personal_formacion_laboral` (`id_personal_formacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------ detallle HISTORIAL- ---' AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------ detallle HISTORIAL- ---' AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `detalle_periodos_formativos`
@@ -12903,7 +13119,7 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales` (
   PRIMARY KEY (`id_detalle_periodo_laboral`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `detalle_periodos_laborales`
@@ -12925,7 +13141,7 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales_pensionistas` (
   PRIMARY KEY (`id_detalle_periodo_laboral_pensionista`),
   KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`),
   KEY `id_pensionista` (`id_pensionista`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='\r\n------ HISTORIAL ------' AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='\r\n------ HISTORIAL ------' AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `detalle_periodos_laborales_pensionistas`
@@ -12948,7 +13164,7 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_pensionarios` (
   PRIMARY KEY (`id_detalle_regimen_pensionario`,`id_trabajador`,`cod_regimen_pensionario`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `detalle_regimenes_pensionarios`
@@ -12972,7 +13188,7 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_salud` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_regimen_aseguramiento_salud` (`cod_regimen_aseguramiento_salud`),
   KEY `cod_eps` (`cod_eps`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `detalle_regimenes_salud`
@@ -12994,7 +13210,7 @@ CREATE TABLE IF NOT EXISTS `detalle_tipos_trabajadores` (
   PRIMARY KEY (`id_detalle_tipo_trabajador`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_tipo_trabajador` (`cod_tipo_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `detalle_tipos_trabajadores`
@@ -13031,27 +13247,6 @@ INSERT INTO `documentos_vinculos_familiares` (`cod_documento_vinculo_familiar`, 
 ('09', 'RESOLUCIÓN JUDICIAL - RECONOC. DE UNIÓN DE HECHO', 'RESOL JUDICIAL REC. UNIÓN DE HECHO'),
 ('10', 'ACTA DE NACIMIENTO O DOCUMENTO ANALOGO QUE SUSTENTA FILIACI?N.', 'ACTA NAC/DOC ANALOGO SUST FILIACION.'),
 ('11', 'DECLARACIÓN JURADA EXISTENCIA DE  UNIÓN DE HECHO', 'DDJJ EXISTENCIA UNIÓN DE HECHO');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `d_conceptos_afectaciones`
---
-
-CREATE TABLE IF NOT EXISTS `d_conceptos_afectaciones` (
-  `id_d_concepto_afectacion` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `cod_detalle_concepto` char(4) NOT NULL,
-  `cod_afectacion` char(4) NOT NULL,
-  `seleccionado` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id_d_concepto_afectacion`,`cod_detalle_concepto`,`cod_afectacion`),
-  KEY `cod_detalle_concepto` (`cod_detalle_concepto`),
-  KEY `cod_afectacion` (`cod_afectacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='check_marcados\r\nNo Modificable XQ son fijos = relacion' AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `d_conceptos_afectaciones`
---
-
 
 -- --------------------------------------------------------
 
@@ -13308,7 +13503,7 @@ CREATE TABLE IF NOT EXISTS `lugares_destaques` (
   PRIMARY KEY (`id_lugar_destaque`),
   KEY `id_personal_tercero` (`id_personal_tercero`),
   KEY `id_establecimiento` (`id_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `lugares_destaques`
@@ -23481,7 +23676,7 @@ CREATE TABLE IF NOT EXISTS `pensionistas` (
   KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`),
   KEY `id_persona` (`id_persona`),
   KEY `cod_situacion` (`cod_situacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `pensionistas`
@@ -23501,7 +23696,7 @@ CREATE TABLE IF NOT EXISTS `periodos_destaques` (
   `fecha_fin` date DEFAULT NULL,
   PRIMARY KEY (`id_periodo_destaque`),
   KEY `id_personal_tercero` (`id_personal_tercero`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='LINK_DETALLE' AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='LINK_DETALLE' AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `periodos_destaques`
@@ -23556,7 +23751,7 @@ CREATE TABLE IF NOT EXISTS `personales_formaciones_laborales` (
   KEY `id_modalidad_formativa` (`id_modalidad_formativa`),
   KEY `id_ocupacion_2` (`id_ocupacion_2`),
   KEY `cod_situacion` (`cod_situacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `personales_formaciones_laborales`
@@ -23580,7 +23775,7 @@ CREATE TABLE IF NOT EXISTS `personales_terceros` (
   KEY `id_persona` (`id_persona`),
   KEY `id_empleador_destaque_yoursef` (`id_empleador_destaque_yoursef`),
   KEY `cod_situacion` (`cod_situacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='RUC de la empresa que destaca o desplaza' AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='RUC de la empresa que destaca o desplaza' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `personales_terceros`
@@ -23838,6 +24033,27 @@ INSERT INTO `situaciones` (`cod_situacion`, `descripcion`, `descripcion_abreviad
 ('1', 'ACTIVO O SUBSIDIADO (1)', 'ACTIVO'),
 ('2', 'SIN VÍNCULO LABORAL CON CONCEPTOS PENDIENTE DE LIQUIDAR  (2)', 'SIN VINC. LAB. CON CONC PEND POR LIQUIDA'),
 ('3', 'SUSPENSIÓN PERFECTA DE LABORES (3)', 'SUSPENSIÓN PERFECTA DE LABORES');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tabla_22`
+--
+
+CREATE TABLE IF NOT EXISTS `tabla_22` (
+  `id_tabla_22` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_tabla_22`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Empleador, Trabajador, Pensionista\r\nPersonas afecto a concep' AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tabla_22`
+--
+
+INSERT INTO `tabla_22` (`id_tabla_22`, `descripcion`) VALUES
+(1, 'EMPLEADOR'),
+(2, 'TRABAJADOR'),
+(3, 'PENSIONISTA');
 
 -- --------------------------------------------------------
 
@@ -24509,7 +24725,7 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   KEY `id_ocupacion_2` (`id_ocupacion_2`),
   KEY `cod_situacion` (`cod_situacion`),
   KEY `id_monto_remuneracion` (`id_monto_remuneracion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `trabajadores`
@@ -27009,17 +27225,16 @@ INSERT INTO `zonas` (`cod_zona`, `descripcion`) VALUES
 --
 
 --
+-- Constraints for table `afectaciones`
+--
+ALTER TABLE `afectaciones`
+  ADD CONSTRAINT `afectaciones_ibfk_1` FOREIGN KEY (`id_tabla_22`) REFERENCES `tabla_22` (`id_tabla_22`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `coberturas_salud`
 --
 ALTER TABLE `coberturas_salud`
   ADD CONSTRAINT `coberturas_salud_ibfk_1` FOREIGN KEY (`id_personal_tercero`) REFERENCES `personales_terceros` (`id_personal_tercero`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `conceptos_seleccionados`
---
-ALTER TABLE `conceptos_seleccionados`
-  ADD CONSTRAINT `conceptos_seleccionados_ibfk_1` FOREIGN KEY (`id_empleador`) REFERENCES `empleadores` (`id_empleador`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `conceptos_seleccionados_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `c_ocupaciones_ocupaciones_p`
@@ -27055,7 +27270,15 @@ ALTER TABLE `derechohabientes_direcciones`
 -- Constraints for table `detalles_conceptos`
 --
 ALTER TABLE `detalles_conceptos`
-  ADD CONSTRAINT `detalles_conceptos_ibfk_1` FOREIGN KEY (`cod_concepto`) REFERENCES `conceptos` (`cod_concepto`);
+  ADD CONSTRAINT `detalles_conceptos_ibfk_2` FOREIGN KEY (`id_empleador_maestro`) REFERENCES `empleadores_maestros` (`id_empleador_maestro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalles_conceptos_ibfk_1` FOREIGN KEY (`cod_concepto`) REFERENCES `conceptos` (`cod_concepto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detalle_conceptos_afectaciones`
+--
+ALTER TABLE `detalle_conceptos_afectaciones`
+  ADD CONSTRAINT `detalle_conceptos_afectaciones_ibfk_2` FOREIGN KEY (`cod_afectacion`) REFERENCES `afectaciones` (`cod_afectacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_conceptos_afectaciones_ibfk_1` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detalle_establecimiento`
@@ -27112,13 +27335,6 @@ ALTER TABLE `detalle_regimenes_salud`
 ALTER TABLE `detalle_tipos_trabajadores`
   ADD CONSTRAINT `detalle_tipos_trabajadores_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_tipos_trabajadores_ibfk_2` FOREIGN KEY (`cod_tipo_trabajador`) REFERENCES `tipos_trabajadores` (`cod_tipo_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `d_conceptos_afectaciones`
---
-ALTER TABLE `d_conceptos_afectaciones`
-  ADD CONSTRAINT `d_conceptos_afectaciones_ibfk_1` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `d_conceptos_afectaciones_ibfk_2` FOREIGN KEY (`cod_afectacion`) REFERENCES `afectaciones` (`cod_afectacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `empleadores`

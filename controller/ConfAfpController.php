@@ -1,4 +1,5 @@
 <?php
+
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
@@ -9,7 +10,6 @@ if ($op) {
     require_once '../controller/ideController.php';
 
     require_once '../dao/ConfAfpDao.php';
-    
 }
 
 $responce = NULL;
@@ -19,10 +19,10 @@ if ($op == "cargar_tabla") {
     $responce = listarAfp();
 } else if ($op == "edit") {
     $responce = edit();
-} else if ($op == "add"){
-    $responce = add();    
-} else if($op == "del"){
-    $responce = del(); 
+} else if ($op == "add") {
+    $responce = add();
+} else if ($op == "del") {
+    $responce = del();
 }
 
 echo (!empty($responce)) ? json_encode($responce) : '';
@@ -76,6 +76,7 @@ function listarAfp() {
     foreach ($lista as $rec) {
 
         $param = $rec["id_conf_afp"];
+        $_00 = $rec['descripcion_abreviada'];
         $_01 = $rec['aporte_obligatorio'];
         $_02 = $rec['comision'];
         $_03 = $rec['prima_seguro'];
@@ -83,8 +84,8 @@ function listarAfp() {
         //hereee
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
-            $key,
             $param,
+            $_00,
             $_01,
             $_02,
             $_03,
@@ -96,38 +97,63 @@ function listarAfp() {
     return $response;
 }
 
-function add(){
-    
-    $fecha_vigencia = $_REQUEST['fecha'];    
+function add() {
+    $cod_regimen_pensionario = $_REQUEST['cod_regimen_pensionario'];
+    $fecha_vigencia = $_REQUEST['fecha'];
     $ap_obligatorio = $_REQUEST['aporte_obligatorio'];
     $comision = $_REQUEST['comision'];
     $prima_seguro = $_REQUEST['prima_seguro'];
-    
+
     $fecha_vigencia = getFechaPatron($fecha_vigencia, "Y-m-d");
-    
+
     $dao = new ConfAfpDao();
-    return $dao->registrar($ap_obligatorio, $comision, $prima_seguro, $fecha_vigencia);
-    
+    return $dao->registrar($cod_regimen_pensionario, $ap_obligatorio, $comision, $prima_seguro, $fecha_vigencia);
 }
 
-function edit(){
+function edit() {
     $id = $_REQUEST['id'];
+    $cod_regimen_pensionario = $_REQUEST['cod_regimen_pensionario'];
     $ap_obligatorio = $_REQUEST['aporte_obligatorio'];
     $comision = $_REQUEST['comision'];
     $prima_seguro = $_REQUEST['prima_seguro'];
-    
+
     $fecha_vigencia = $_REQUEST['fecha'];
     $fecha_vigencia = getFechaPatron($fecha_vigencia, "Y-m-d");
-    
+
     $dao = new ConfAfpDao();
-    return $dao->actualizar($id, $ap_obligatorio, $comision, $prima_seguro, $fecha_vigencia);
+    return $dao->actualizar($id, $cod_regimen_pensionario, $ap_obligatorio, $comision, $prima_seguro, $fecha_vigencia);
 }
 
-function del(){
+function del() {
     $id = $_REQUEST['id'];
     $dao = new ConfAfpDao();
     return $dao->eliminar($id);
 }
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// AFP
+
+
+function vigenteAfp($id) {
+
+    $dao = new ConfAfpDao();
+    $data = $dao->vigenteAfp($id);
+
+    $model = new ConfAfp();
+    $model->setId_conf_afp($data['id_conf_afp']);
+    $model->setCod_regimen_pensionario($data['cod_regimen_pensionario']);
+    $model->setAporte_obligatorio($data['aporte_obligatorio']);
+    $model->setComision($data['comision']);
+    $model->setPrima_seguro($data['prima_seguro']);
+    $model->setFecha($data['fecha']);
+    $model->setFecha_creacion($data['fecha_creacion']);
+    
+    return $model;
+}
+
+
+
 
 
 

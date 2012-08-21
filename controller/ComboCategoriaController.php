@@ -20,15 +20,30 @@ if ($op == "cargar_tabla") {
     
 } elseif ($op == "ocupaciones") { //Ojo Listado de Ocupaciones Segun Anexo 2 SUNAT
     $responce = comboOcupacionPorIdCategoriaOcupacional($_REQUEST['cbo_categoria_ocupacional']);
-} else {
-    // echo "oper INCORRECTO COMBO";
+    
+}else if ($op == "select_codigo") {
+    echo cargarSelectCodigo();
 }
 
 //echo count($responce);
 echo (!empty($responce)) ? json_encode($responce) : '';
 
 
+function cargarSelectCodigo() {
 
+      
+    $lista_codigos = comboRegimenPensionarioCatP("combo_grid");    
+
+    $html = '<select name="codigo_articulo_detalle">';
+    $html .= '<option value="0" selected="selected" >Elija Opcion</option>';
+    foreach ($lista_codigos as $key => $value) {
+        $html .='<option value="' . $value['cod_regimen_pensionario'] . '" >' . $value['descripcion_abreviada'] . '</option>';
+      
+    }
+    $html.="</select>";     
+     
+     return $html;     
+}
 /**
  *   -----------------------------------------------------------------------------------------
  * 	FUNCIONES COMBO_BOX
@@ -176,11 +191,14 @@ function comboMotivoBajaRegistroCatPensionista() {
 
 //end function
 
-function comboRegimenPensionarioCatP() {
+function comboRegimenPensionarioCatP($op=null) { //alternativo
     $dao = new ComboCategoriaDao();
     $arreglo = $dao->comboRegimenPensionario();
     //ID A ELIMINAR
     $id = array('02', '03', '09', '10', '11', '13', '99');
+    if($op =="combo_grid"){
+        array_push($id, '0','12');
+    }
 
     $counteo = count($id);
     for ($i = 0; $i < $counteo; $i++) {
@@ -196,7 +214,9 @@ function comboRegimenPensionarioCatP() {
             }
         }
     }
-    return $arreglo;
+    $listaSimpleFinal = array_values($arreglo);
+    return $listaSimpleFinal;
+
 }
 
 /* * *

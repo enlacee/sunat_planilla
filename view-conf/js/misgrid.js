@@ -142,18 +142,29 @@ function tabla_Conf_Afp(){
         $("#list").jqGrid({
             url:'sunat_planilla/controller/ConfAfpController.php?oper=cargar_tabla',
             datatype: 'json',
-            colNames:['','Id','Ap. Obligatorio','Comision', 'Prima de Seguro','fecha'],
+            colNames:['Id','AFP','Ap. Obligatorio','Comision', 'Prima de Seguro','fecha'],
             colModel :[
-				{name: 'myac', width:80, fixed:true, sortable:false, resize:false, formatter:'actions',
-					formatoptions:{keys:true}
-				},
 				{
 				name:'id_conf_afp',
 				sortable:true,
 				key : true,
 				index:'id_conf_afp',
-				width:55
-				},		
+				align:'center',
+				width:20
+				},
+                {
+                    name:'cod_regimen_pensionario',
+                    index:'cod_regimen_pensionario',
+                    search:false, 
+					sortable:false,
+                    editable:true,
+					editrules:{required:true},
+                    width:120, 
+                    align:'center',
+					edittype:"select",
+					editoptions:{dataUrl:
+				'sunat_planilla/controller/ComboCategoriaController.php?oper=select_codigo' },
+				},				
   	
                 {
                     name:'aporte_obligatorio',
@@ -220,7 +231,7 @@ function tabla_Conf_Afp(){
 		
 	
      //--- PIE GRID
-	jQuery("#list").jqGrid('navGrid','#pager',{add:true,edit:false,del:false,search:false});
+	jQuery("#list").jqGrid('navGrid','#pager',{add:true,edit:true,del:false,search:false});
 	//---------
 
 }

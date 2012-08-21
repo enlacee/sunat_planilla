@@ -51,8 +51,7 @@ function listarTrabajadoresPorEtapa() {
     //=========================================================================//
     $ID_DECLARACION = $_REQUEST['id_declaracion'];
     $COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
-    //echo "ID_DECLARACION = " . $ID_DECLARACION;
-    //echo "  COD_PERIODO_REMUNERACION =" . $COD_PERIODO_REMUNERACION;   
+
     if ($COD_PERIODO_REMUNERACION == '2') { // 2 =quincena        
         $dao = new EtapaPagoDao();
         $data_etapapago = $dao->buscarEtapaPago($ID_DECLARACION, $COD_PERIODO_REMUNERACION);
@@ -113,7 +112,7 @@ function registrarTrabajadoresPorEtapa() {
             registrar_15($id_etapa_pago,$FECHA['inicio'],$FECHA['fin']);
             
             
-        } else if (count($data_id_etapa_pago) == 1) {
+        } else if (count($data_id_etapa_pago) == 1) { //Segunda QUINCENA
             $FECHA['inicio'] = $FECHAX['second_weeks_mas1']; //SUMAR 1 DIA para = 16/01/2012 a 31/01/2012
             $FECHA['fin'] = $FECHAX['last_day'];
             //================================

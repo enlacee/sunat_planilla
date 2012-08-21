@@ -18,8 +18,13 @@ if ($op) {
     require_once '../dao/DeclaracionDconceptoDao.php';
 
     require_once '../model/DeclaracionDconcepto.php';
-}
 
+    // AFP
+    require_once '../model/ConfAfp.php';
+    require_once '../dao/ConfAfpDao.php';
+    require_once '../controller/ConfAfpController.php';
+}
+????
 $responce = NULL;
 if ($op == "add") {
     //$responce = add_PtrabajadorPdeclaracion();
@@ -29,7 +34,6 @@ if ($op == "add") {
 
 
 echo (!empty($responce)) ? json_encode($responce) : '';
-
 
 function generarDeclaracionPlanillaMensual() {
 //==============================================================================
@@ -59,7 +63,6 @@ function generarDeclaracionPlanillaMensual() {
         echo "id_trabajador_pdeclaracion = " . $id_trabajador_pdeclaracion;
 
         // paso 03 :: Consultar Conceptos
-
         // INGRESOS
         ECHO "SEULDO BASICO";
         concepto_0121($id_trabajador_pdeclaracion);
@@ -70,49 +73,46 @@ function generarDeclaracionPlanillaMensual() {
         // DESCUENTOS
         ECHO "DESCUENTO";
         concepto_0701($ID_TRABAJADOR[$i], $ID_PDECLARACION, $id_trabajador_pdeclaracion);
-????       
+        //????
         // paso 04 :: Preguntar si el trabajador cumple:
         // TRIBUTOS Y APORTACIONES
-        
+
         $DATA_TRA = $dao->buscar_ID_trabajador($ID_TRABAJADOR[$i]);
         // Regimen de Salud
-        if($DATA_TRA['cod_regimen_aseguramiento_salud'] == '00'){ //ok Regimen de Salud Regular
+        if ($DATA_TRA['cod_regimen_aseguramiento_salud'] == '00') { //ok Regimen de Salud Regular
             concepto_0804($id_trabajador_pdeclaracion);
-        }else{
-           // null 
+        } else {
+            // null 
         }
-        
+
         // Regimen Pensionario
-        if($DATA_TRA['cod_regimen_aseguramiento_salud'] == '02'){ //ONP
+        //AFP 
+
+
+        if ($DATA_TRA['cod_regimen_pensionario'] == '02') { //ONP
             concepto_0607($id_trabajador_pdeclaracion);
-        }else if($DATA_TRA['cod_regimen_aseguramiento_salud'] == '21'){ //Integra
-           
-        }else if($DATA_TRA['cod_regimen_aseguramiento_salud'] == '22'){ //horizonte
-            
-        }else if($DATA_TRA['cod_regimen_aseguramiento_salud'] == '23'){ //Profuturo
-            
-        }else if($DATA_TRA['cod_regimen_aseguramiento_salud'] == '24'){ //Prima
-            
-        }else{
+        } else if ($DATA_TRA['cod_regimen_pensionario'] == '21') { //Integra            
+            concepto_AFP($id_trabajador_pdeclaracion, '21');
+        } else if ($DATA_TRA['cod_regimen_pensionario'] == '22') { //horizonte
+            concepto_AFP($id_trabajador_pdeclaracion, '22');
+        } else if ($DATA_TRA['cod_regimen_pensionario'] == '23') { //Profuturo
+            concepto_AFP($id_trabajador_pdeclaracion, '23');
+        } else if ($DATA_TRA['cod_regimen_pensionario'] == '24') { //Prima
+            concepto_AFP($id_trabajador_pdeclaracion, '24');
+        } else {
             //null
         }
-        
-        
+
+
         //Otra utilidades
-        if($DATA_TRA['aporta_essalud_vida'] == '1'){ // ESSALUD_MAS
+        if ($DATA_TRA['aporta_essalud_vida'] == '1') { // ESSALUD_MAS
             concepto_0604($id_trabajador_pdeclaracion);
         }
-        
-        if($DATA_TRA['aporta_asegura_tu_pension'] == '1'){ //ASEGURA PENSION_MAS
+
+        if ($DATA_TRA['aporta_asegura_tu_pension'] == '1') { //ASEGURA PENSION_MAS
             concepto_0612($id_trabajador_pdeclaracion);
         }
         //-----------------------------------------------------------
-        
-        
-        
-        
-        
-        
     }//ENDFOR
 }
 
@@ -128,9 +128,7 @@ function concepto_0121($id_trabajador_pdeclaracion) {
     $model->setCod_detalle_concepto('0121');
 
     $dao = new DeclaracionDconceptoDao();
-    echo "<pre>";
-    print_r($model);
-    echo "</pre>";
+
     return $dao->registrar($model);
 }
 
@@ -144,12 +142,10 @@ function concepto_0201($id_trabajador_pdeclaracion) {
     $model->setMonto_pagado($CAL_AF);
     $model->setCod_detalle_concepto('0201');
 
-    $dao = new DeclaracionDconceptoDao();
-    echo "<pre>";
-    print_r($model);
-    echo "</pre>";
-
-    return $dao->registrar($model);
+    $dao = new DeclaracionDconceptoDao();    
+    $dao->registrar($model);
+    
+    return true;
 }
 
 // Adelanto en este caso la suma de las 2 QUINCENAS ?????????? DUDAAA!!! 
@@ -169,10 +165,6 @@ function concepto_0701($ID_TRABAJADOR, $ID_PDECLARACION, $id_trabajador_pdeclara
     $model->setCod_detalle_concepto('0701');
 
     $dao = new DeclaracionDconceptoDao();
-    echo "<pre>";
-    print_r($model);
-    echo "</pre>";
-
     return $dao->registrar($model);
 }
 
@@ -210,18 +202,70 @@ function concepto_0607($id_trabajador_pdeclaracion) {
     $model->setMonto_pagado($CALC);
     $model->setCod_detalle_concepto('0607');
     //dao
+    $dao = new DeclaracionDconceptoDao();
     return $dao->registrar($model);
 }
 
 // AFP o SPP 
-// 0606 = PRIMA DE SEGURO
-// 0608 = APORTACIÓN OBLIGATORIA
-// 0609 = APORTACIÓN VOLUNTARIA
-// 0611 =
-function concepto_0606() {
-    
-}
+// 0601 = Comision afp porcentual
+// 0606 = Prima de suguro AFP
+// 0608 = SPP aportacion obligatoria
+function concepto_AFP($id_trabajador_pdeclaracion, $cod_regimen_pensionario) {
 
+    //====================================================          
+    $all_ingreso = allConceptos_Afectos_Ingreso($id_trabajador_pdeclaracion);
+    //ECHO " all_ingreso = " . $all_ingreso;
+    //====================================================    
+    //----
+    $afp = new ConfAfp();
+    $afp = vigenteAfp($cod_regimen_pensionario);
+    //----
+
+    $A_OBLIGATORIO = floatval($afp->getAporte_obligatorio());
+    $COMISION = floatval($afp->getComision());
+    $PRIMA_SEGURO = floatval($afp->getPrima_seguro());
+
+
+    // UNO = comision porcentual
+    $_601 = (floatval($all_ingreso)) * ($COMISION / 100);
+
+    // DOS prima de seguro
+    $_606 = (floatval($all_ingreso)) * ($PRIMA_SEGURO / 100);
+    
+    // TRES = aporte obligatorio
+    $_608 = (floatval($all_ingreso)) * ($A_OBLIGATORIO / 100);
+
+
+    // uno DAO
+    $model = new DeclaracionDconcepto();
+    $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
+    //$model->setMonto_devengado($CALC);
+    $model->setMonto_pagado($_601);
+    $model->setCod_detalle_concepto('0601');
+    $dao = new DeclaracionDconceptoDao();
+    $dao->registrar($model);
+    
+    
+    // dos DAO
+    $model = new DeclaracionDconcepto();
+    $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
+    //$model->setMonto_devengado($CALC);
+    $model->setMonto_pagado($_606);
+    $model->setCod_detalle_concepto('0606');
+    $dao = new DeclaracionDconceptoDao();
+    $dao->registrar($model);  
+    
+    // tres DAO
+    $model = new DeclaracionDconcepto();
+    $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
+    //$model->setMonto_devengado($CALC);
+    $model->setMonto_pagado($_608);
+    $model->setCod_detalle_concepto('0608');
+    $dao = new DeclaracionDconceptoDao();
+    $dao->registrar($model);    
+    
+    return true;
+}
 
 // 604 ESSALUD + VIDA
 function concepto_0604($id_trabajador_pdeclaracion) {
@@ -242,7 +286,7 @@ function concepto_0612($id_trabajador_pdeclaracion) {
     $CALC = SNP_MAS;
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
-   // $model->setMonto_devengado($CALC);
+    // $model->setMonto_devengado($CALC);
     $model->setMonto_pagado($CALC);
     $model->setCod_detalle_concepto('0612');
 

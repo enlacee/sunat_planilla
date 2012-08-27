@@ -106,7 +106,7 @@
     }
 	
 	
-	
+	/*
     function cargarTablaPTrabajadores(periodo){ alert("cargarTablaPTrabajadores periodo "+periodo);
 		
         //$("#list").jqGrid('GridUnload');
@@ -211,9 +211,231 @@
 
 	
     }
+*/
+
+//-----------------------------------------------------------
+    function cargarTablaTrabajadorPdeclaracion(id_pdeclaracion){ alert("id_pdeclaracion "+id_pdeclaracion);
+		
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/TrabajadorPdeclaracionController.php?oper=cargar_tabla_2&id_pdeclaracion='+id_pdeclaracion,
+            datatype: 'json',
+            colNames:['Id','Tipo_doc','Numero Doc','APaterno',
+                'AMaterno', 'Nombres','dias L.','Sueldo','Op'],
+            colModel :[
+                {
+                    name:'id_trabajador_pdeclaracion', 
+                    editable:false, 
+                    index:'id_trabajador_pdeclaracion',
+                    search:false,
+                    width:20,
+                    align:'center'
+                },		
+                {
+                    name:'cod_tipo_documento',
+                    index:'cod_tipo_documento',
+                    search:false, 
+                    editable:false,
+                    width:70, 
+                    align:'center' 
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',                    
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'nombres', 
+                    index:'nombres',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'dia_laborado',
+                    index:'dia_laborado',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },
+				
+                {
+                    name:'sueldo',
+                    index:'sueldo',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },
+                {
+                    name:'opciones',
+                    index:'opciones',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                }											
 
 
+            ],
+            pager: '#pager',
+			heigth:'250px',
+            rowNum:9,
+            rowList:[9,18,36],
+            sortname: 'id_trabajador_pdeclaracion',
+            sortorder: 'asc',
+            viewrecords: true,
+            gridview: true,
+            //caption: 'Trabajadores Activos',
+            toolbar: [true,"top"],
+            //multiselect: true,
+            hiddengrid: false,
 
+			
+        });
+		
+		
+        //--- PIE GRID
+	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+
+	
+    }
+
+//----------------------------------------------------------------------
+// GRID LINEAL
+function cargarTablaTrabajadorPdeclaracionGrid_Lineal(id){
+		
+        //$("#list").jqGrid('GridUnload');
+        $("#list_lineal").jqGrid({
+            url:'sunat_planilla/controller/TrabajadorPdeclaracionController.php?oper=grid_lineal&id='+id,
+            datatype: 'json',
+            colNames:['Id','Tipo doc','Numero Doc','APaterno',
+                'AMaterno', 'Nombres','dias.','Ingresos','Descto.','Neto Pagar','Estado'],
+            colModel :[
+                {
+                    name:'id_trabajador_pdeclaracion', 
+                    editable:false, 
+                    index:'id_trabajador_pdeclaracion',
+                    search:false,
+                    width:20,
+                    align:'center'
+                },		
+                {
+                    name:'cod_tipo_documento',
+                    index:'cod_tipo_documento',
+                    search:false, 
+                    editable:false,
+                    width:70, 
+                    align:'center' 
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    search:false,
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'nombres', 
+                    index:'nombres',
+                    editable:false,
+                    width:90,
+                    align:'center'
+                },
+                {
+                    name:'dias',
+                    index:'dias',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },
+				
+                {
+                    name:'valor',
+                    index:'valor',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },
+				{
+                    name:'descuento',
+                    index:'descuento',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },
+                {
+                    name:'neto_pagar',
+                    index:'neto_pagar',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                },											
+                {
+                    name:'estado',
+                    index:'estado',
+                    search:false,
+                    editable:false,
+                    width:60,
+                    align:'center'
+                }	
+            ],
+			//caption: 'Lista de .',
+           //pager: '#pager',			
+			height:30,
+            //rowNum:9,
+            //rowList:[15,30,45],
+            //sortname: 'id_pago',
+            //sortorder: 'asc',
+            viewrecords: true,
+            gridview: true,
+            //hiddengrid: false,
+
+			
+        });
+		
+		
+        //--- PIE GRID
+//	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+
+	
+    }
 
 
 //------------------------------------------------------------

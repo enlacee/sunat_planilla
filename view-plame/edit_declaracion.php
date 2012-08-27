@@ -41,8 +41,8 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 	});
 //---------------------------------
 
-	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab2.php?periodo='+PERIODO ,'#tabs-2');
-	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab3.php?periodo='+PERIODO ,'#tabs-3');
+	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab2.php?id_declaracion='+ID_DECLARACION+'&periodo='+PERIODO ,'#tabs-2');
+	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab3.php?id_declaracion='+ID_DECLARACION+'&periodo='+PERIODO ,'#tabs-3');
 
 
 

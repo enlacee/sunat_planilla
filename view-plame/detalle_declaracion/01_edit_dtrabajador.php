@@ -9,51 +9,6 @@ require_once('../../util/funciones.php');
 require_once('../../dao/ComboCategoriaDao.php');
 require_once('../../controller/ComboCategoriaController.php');
 
-//COMBO BASICO
-require_once('../../dao/ComboDao.php');
-require_once('../../controller/ComboController.php');
-
-require_once('../../util/funciones.php');
-require_once('../../dao/ComboCategoriaDao.php');
-require_once('../../controller/ComboCategoriaController.php');
-
-
-//############################################################################
-//------- Ptrabajador
-require_once('../../model/Ptrabajador.php');
-require_once('../../dao/PtrabajadorDao.php');
-require_once('../../controller/PlameTrabajadorController.php');
-
-//------- Persona
-require_once('../../model/Persona.php');
-require_once('../../dao/PersonaDao.php');
-require_once('../../controller/PersonaController.php');
-
-//------- Trabajador
-require_once('../../model/Trabajador.php');
-require_once('../../dao/TrabajadorDao.php');
-require_once('../../controller/CategoriaTrabajadorController.php');
-
-
-//--------------- PLAME periodoLaboral
-require_once('../../model/PperiodoLaboral.php');
-require_once('../../dao/PperiodoLaboralDao.php');
-require_once('../../controller/PlamePeriodosLaboralesController.php');
-
-//--------------- sub detalle_2
-require_once('../../model/DetalleTipoTrabajador.php');
-require_once('../../dao/DetalleTipoTrabajadorDao.php');
-require_once('../../controller/DetalleTipoTrabajadorController.php');
-
-//--------------- sub detalle_4
-require_once('../../model/DetalleRegimenSalud.php');
-require_once('../../dao/DetalleRegimenSaludDao.php');
-require_once('../../controller/DetalleRegimenSaludController.php');
-
-//--------------- sub detalle_5
-require_once('../../model/DetalleRegimenPensionario.php');
-require_once('../../dao/DetalleRegimenPensionarioDao.php');
-require_once('../../controller/DetalleRegimenPensionarioController.php');
 
 /**
 ********* BUSQUEDA 01 EDIT = TRA-bajador por ID importante
@@ -89,40 +44,6 @@ $persona = buscarPersonaPorId($trabajador->getId_persona());
 // IMPORTANT  id_tipo_empleador = 01->privado 02->publico 03->otros
 $id_tipo_empleador = $_SESSION['sunat_empleador']['id_tipo_empleador'];
 
-//$remype = $_SESSION['sunat_empleador']['remype'];
-
-// COMBO 01
-$cbo_tipo_documento = comboTipoDocumento(); //var_dump($cbo_tipo_documento);
-
-//combo 03x
-$cbo_tipo_trabajador = comboTipoTrabajadorPorIdTipoEmpleador($id_tipo_empleador); 
-
-
-//COMBO 07
-$combo_regimen_salud = comboRegimenSalud();
-
-// COMBO 08
-$combo_regimen_pensionario = comboRegimenPensionario();
-
-//combo 10
-$combo_situacion = comboSituacion($estado);
-
-
-
-
-//----------------------------------------------------------------
-//--- sub 1 Plame Periodo Laboral
-
-$objTRADetalle_1 = new PperiodoLaboral();
-$dataObj = array();
-$dataObj = buscarPLPorIdPtrabajador( $ID_PTRABAJADOR );
-
-//echo "<pre>ID_PTRABAJADOR";
-//print_r($dataObj);
-//echo "</pre>";
-
-$objTRADetalle_1 = $dataObj[0];
-
 
 ?>
 <div class="ptrabajador">
@@ -135,6 +56,7 @@ id_pago
 					  style="width:70px">
 						<option value="">-</option>
 <?php
+/*
 foreach ($cbo_tipo_documento as $indice) {
 	
 	if ( $indice['cod_tipo_documento'] == $persona->getCod_tipo_documento() ) {
@@ -144,7 +66,7 @@ foreach ($cbo_tipo_documento as $indice) {
 		$html = '<option value="'. $indice['cod_tipo_documento'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
 	}
 	echo $html;
-}
+}*/
 ?>
 
 

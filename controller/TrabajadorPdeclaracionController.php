@@ -45,15 +45,21 @@ if ($op) {
     require_once '../dao/PeriodoRemuneracionDao.php';
 }
 //????
-$responce = NULL;
+$response = NULL;
 if ($op == "add") {
-    //$responce = add_PtrabajadorPdeclaracion();
+    //$response = add_PtrabajadorPdeclaracion();
 } else if ($op == "generar_declaracion") {
     generarDeclaracionPlanillaMensual();
+} else if ($op == "cargar_tabla_2") {
+    
+    $response = listar_trabajadorPdeclaracion();
+}else if($op == "grid_lineal"){
+    
+     $response = cargar_tabla_grid_lineal();
 }
 
 
-echo (!empty($responce)) ? json_encode($responce) : '';
+echo (!empty($response)) ? json_encode($response) : '';
 
 //EtapaPagoController
 function calcularSegudaQuincena($ID_PDECLARACION) {
@@ -118,11 +124,11 @@ function generarDeclaracionPlanillaMensual() {
     //DAO (workers list of declaracion)
     $dao = new PlameDeclaracionDao();
     $data_traa = $dao->listarDeclaracionEtapa($ID_PDECLARACION);
-    
+
     echo "<pre> data_traa";
     print_r($data_traa);
     echo "</pre>";
-    
+
     //TRABAJADORES YA REGISTRADOS (0 si no hay registrados aun)
     $dao_trapdecla = new TrabajadorPdeclaracionDao();
     $_data_id_trabajador = $dao_trapdecla->listar($ID_PDECLARACION, "id_trabajador");
@@ -144,15 +150,15 @@ function generarDeclaracionPlanillaMensual() {
     /* --------------filtro de  id_trabajadores ------------- */
 
     echo "<pre>  IDDDSSSSDDSSS";
-      print_r($ids);
-    echo "</pre>";  
+    print_r($ids);
+    echo "</pre>";
     if (isset($ids)) {
         //filtro//
         $ids_tra = array();
         for ($i = 0; $i < count($ids); $i++) {
             for ($j = 0; $j < count($data); $j++) {
                 if ($ids[$i] == $data[$j]['id_trabajador']) {
-                    echo $data[$j]['id_trabajador']."ssssssssssssssssssssssssssssssss";
+                    echo $data[$j]['id_trabajador'] . "ssssssssssssssssssssssssssssssss";
                     $ids_tra[]['id_trabajador'] = $data[$j]['id_trabajador']; //$data[$j];
                     break;
                 }
@@ -180,10 +186,10 @@ function generarDeclaracionPlanillaMensual() {
         // ..... anes Genero la Seguna Quincenaaaaa
         $dao_pago = new PagoDao();
         $data_sum = $dao_pago->dosQuincenas($ID_PDECLARACION, $ID_TRABAJADOR[$i]);
-        
+
         $obj = new TrabajadorPdeclaracion();
         $obj->setId_pdeclaracion($ID_PDECLARACION);
-        $obj->setId_trabajador($ID_TRABAJADOR[$i]); 
+        $obj->setId_trabajador($ID_TRABAJADOR[$i]);
         $obj->setDia_laborado($data_sum['dia_laborado']);
         $obj->setDia_total($data_sum['dia_laborado']);
         $obj->setOrdinario_hora($data_sum['ordinario_hora']);
@@ -194,8 +200,8 @@ function generarDeclaracionPlanillaMensual() {
         $obj->setSueldo_neto($data_sum['sueldo_neto']);
         $obj->setEstado(0);
         $obj->setFecha_creacion(date("Y-m-d H:i:s"));
-        
-        
+
+
         $dao = new TrabajadorPdeclaracionDao();
         $id_trabajador_pdeclaracion = $dao->registrar($obj);
         //echo "id_trabajador_pdeclaracion = " . $id_trabajador_pdeclaracion;
@@ -483,3 +489,266 @@ function concepto_0804($id_trabajador_pdeclaracion) {
     return $dao->registrar($model);
 }
 
+//-----------------------------------------------------------------------------//
+//.............................................................................//
+//-----------------------------------------------------------------------------//
+
+function listar_trabajadorPdeclaracion() {
+    
+    $ID_PDECLARACION =$_REQUEST['id_pdeclaracion'];
+
+    $dao = new TrabajadorPdeclaracionDao();
+
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
+    $sord = $_GET['sord']; // get the direction
+
+    $WHERE = "";
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $lista = array();
+    $lista = $dao->listar($ID_PDECLARACION,null,$WHERE);
+//echo "<pre>";
+//print_r($lista);
+//echo "</pre>";
+    $count = count($lista);
+
+    // $count = $count['numfilas'];
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; // do not put $limit*($page - 1)
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+// CONTRUYENDO un JSON
+
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+    $i = 0;
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return $response;
+    }
+//print_r($lista);
+
+    foreach ($lista as $rec) {
+
+        $param = $rec["id_trabajador_pdeclaracion"];
+        
+        $_01 = $rec['id_trabajador'];        
+        $_02 = $rec['cod_tipo_documento'];
+        $_03 = $rec['num_documento'];
+        $_04 = $rec['apellido_paterno'];
+        $_05= $rec['apellido_materno'];
+        $_06= $rec['nombres'];
+        $_07 = $rec['dia_laborado'];
+        $_08 = $rec['sueldo'];
+        
+
+        
+        
+
+       // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
+        
+        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_trabajador_pdeclaracion=".$param."&id_trabajador=".$_01."','#detalle_declaracion_trabajador')";
+        
+        
+        $js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
+        $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar"   >
+		<a href="' . $js . '" class="divEditar" ></a>
+		</span>              
+                
+		<span  title="Editar"   >
+		<a href="' . $js2 . '" class="divEliminar" ></a>
+		</span>
+
+		</div>';
+
+
+
+
+        //hereee
+        //$_02 = '<a href="javascript:add_15('.$param.',\''.$_01.'\')" title = "Agregar UNICO Adelanto 15">1era 15</a>';
+        // $_04 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_etapaPago.php?id_declaracion='.$param.'&periodo='.$_01.'\',\'#CapaContenedorFormulario\')"title = "VER">Ver</a>';
+        //hereee
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            //$_01,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $_06,
+            $_07,
+            $_08,
+            $opciones
+        );
+        $i++;
+    }
+
+//echo "<pre>";
+//print_r($response);
+//echo "</pre>";
+    return $response;
+}
+
+
+// GRID SIN PIE 
+function cargar_tabla_grid_lineal(){
+      $ID = $_REQUEST['id'];
+
+    $dao = new TrabajadorPdeclaracionDao();
+
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
+    $sord = $_GET['sord']; // get the direction
+
+    $WHERE = "";
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $lista = array();
+    $lista = $dao->buscar_ID_GRID_LINEAL($ID);
+
+    $count = count($lista);
+
+    // $count = $count['numfilas'];
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; // do not put $limit*($page - 1)
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+// CONTRUYENDO un JSON
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+    $i = 0;
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        //return $response;
+    }
+//print_r($lista);
+  
+
+    foreach ($lista as $rec) {
+        $param = $rec["id_trabajador_pdeclaracion"];        
+        $dia_total = $rec['dia_total'];
+        
+        
+        /*
+       $dao1 = new PdiaSubsidiadoDao();
+       $dia_subsidiado = $dao1->busacar_IdPago($param,"SUMA");
+       
+       $dao2 =new PdiaNoSubsidiadoDao();
+       $dia_NOsubsidiado = $dao2->buscar_IdPago($param,"SUMA");
+      
+       
+       $dia_laborado_calc = $dia_total - ($dia_subsidiado +$dia_NOsubsidiado);
+       */
+        //$_00 = $rec['id_trabajador'];
+        $_01 = $rec['cod_tipo_documento'];
+        $_02 = $rec['num_documento'];  
+        $_03 = $rec['apellido_paterno'];
+        $_04 = $rec['apellido_materno'];
+        $_05 = $rec['nombres'];
+        $_06 = $dia_laborado_calc;
+        $_07 = $rec['sueldo']; //INGRESOS
+        $_08 = $rec['descuento'];//$rec['descuento']; 
+        $_09 = $rec['sueldo_neto']; //$rec['valor_neto'];
+        $_10 = $rec['estado'];
+
+        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param. "&id_trabajador=".$_00."','#detalle_declaracion_trabajador')";
+
+        // $js2 = "javascript:eliminarPersona('" . $param . "')";		
+        $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar" >
+		<a href="' . $js . '"><img src="images/edit.png"/></a>
+		</span>
+		</div>';
+
+        //hereee
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            $_01,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $_06,
+            $_07,
+            $_08,
+            $_09,
+            $_10
+            //$opciones*/
+        );
+        $i++;
+    }
+
+//echo "<pre>";
+//print_r($response);
+//echo "</pre>";
+    return $response;   
+    
+}

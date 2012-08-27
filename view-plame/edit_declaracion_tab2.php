@@ -4,6 +4,7 @@ require_once('../view/ide.php');
 //*******************************************************************//
 require_once '../controller/ideController.php';
 $data = $_SESSION['sunat_empleador'];
+$id_declaracion = $_REQUEST['id_declaracion'];
 
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
@@ -11,7 +12,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 ?>
 <script type="text/javascript">
 //VARIABLES GLOBALES
-//var PERIODOX = '<?php echo $PERIODO;?>';
+//var PERIODOX = '<?php //echo $PERIODO;?>';
 
     $(document).ready(function(){
                   
@@ -20,13 +21,15 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 	});
 	
 	
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_trabajador.php' ,'#tabs-2-1');
+	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_trabajador.php?id_declaracion='+ID_DECLARACION ,'#tabs-2-1');
 	//cargar_pagina('sunat_planilla/view-plame/declaraciones_detalle/view_trabajador.php','#tabs-2-2');
 	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_p4ta_catecoria.php?periodo='+$PERIODO ,'#tabs-2-3');
 
 	
+	cargarTablaTrabajadorPdeclaracion(ID_DECLARACION);
+	//cargarTablaPTrabajadores(ID_DECLARACION);
 	
-	cargarTablaPTrabajadores(PERIODO);
+	
 	
 	
 </script>

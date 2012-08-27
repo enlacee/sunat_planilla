@@ -38,11 +38,11 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $this->pdo->beginTransaction();
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1, $model->getId_pdeclaracion());
-            $stm->bindValue(2, $model->getId_trabajador());            
+            $stm->bindValue(2, $model->getId_trabajador());
             $stm->bindValue(3, $model->getDia_laborado());
-            $stm->bindValue(4, $model->getDia_total());    
+            $stm->bindValue(4, $model->getDia_total());
             $stm->bindValue(5, $model->getOrdinario_hora());
-            $stm->bindValue(6, $model->getOrdinario_min()); 
+            $stm->bindValue(6, $model->getOrdinario_min());
             $stm->bindValue(7, $model->getSueldo());
             $stm->bindValue(8, $model->getSueldo_neto());
             $stm->bindValue(9, $model->getEstado());
@@ -68,9 +68,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
     }
 
     //
-     public function actualizar($obj) {
+    public function actualizar($obj) {
 
-      $query = "
+        $query = "
     UPDATE trabajadores_pdeclaraciones
     SET 
       dia_total = ?,
@@ -84,26 +84,26 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
       fecha_modificacion = ?
     WHERE id_trabajador_pdeclaracion = ?;
       ";
-      $model = new TrabajadorPdeclaracion();
-      $model = $obj;
+        $model = new TrabajadorPdeclaracion();
+        $model = $obj;
 
-      $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $model->getDia_total());
-      $stm->bindValue(2, $model->getDia_laborado());
-      $stm->bindValue(3, $model->getOrdinario_hora());
-      $stm->bindValue(4, $model->getOrdinario_min());
-      $stm->bindValue(5, $model->getSobretiempo_hora());
-      $stm->bindValue(6, $model->getSobretiempo_min());
-      $stm->bindValue(7, $model->getSueldo());
-      $stm->bindValue(8, $model->getSueldo_neto());
-      $stm->bindValue(9, $model->getFecha_modificacion());
-      $stm->bindValue(10, $model->getId_trabajador_pdeclaracion());
-  
-      $stm->execute();
-      $stm = null;
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $model->getDia_total());
+        $stm->bindValue(2, $model->getDia_laborado());
+        $stm->bindValue(3, $model->getOrdinario_hora());
+        $stm->bindValue(4, $model->getOrdinario_min());
+        $stm->bindValue(5, $model->getSobretiempo_hora());
+        $stm->bindValue(6, $model->getSobretiempo_min());
+        $stm->bindValue(7, $model->getSueldo());
+        $stm->bindValue(8, $model->getSueldo_neto());
+        $stm->bindValue(9, $model->getFecha_modificacion());
+        $stm->bindValue(10, $model->getId_trabajador_pdeclaracion());
 
-      return true;
-      }
+        $stm->execute();
+        $stm = null;
+
+        return true;
+    }
 
     public function eliminar($id_trabajador_pdeclaracion) {
 
@@ -176,7 +176,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
       }
      */
 
-    function listar($id_pdeclaracion,$op=null) {
+    function listar($id_pdeclaracion, $op=null, $WHERE=null) {
 
         $query = "
         SELECT
@@ -203,7 +203,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         INNER JOIN personas AS per
         ON t.id_persona = per.id_persona
-
+        
+        $WHERE
 
         WHERE tpd.id_pdeclaracion = ?            
 ";
@@ -223,6 +224,48 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         }
 
         return $lista;
+    }
+
+    public function buscar_ID_GRID_LINEAL($id_trabajadorpdeclaracion) {
+
+        $query = "
+        SELECT
+          tpd.id_trabajador_pdeclaracion,
+          tpd.id_trabajador,
+          tpd.dia_laborado,
+          tpd.dia_total,
+          tpd.ordinario_hora,
+          tpd.ordinario_min,
+          tpd.sobretiempo_hora,
+          tpd.sobretiempo_min,
+          tpd.sueldo,
+          tpd.sueldo_neto,
+          tpd.estado,
+        per.cod_tipo_documento,
+        per.num_documento,
+        per.apellido_paterno,
+        per.apellido_materno,
+        per.nombres 
+
+        FROM  trabajadores_pdeclaraciones AS tpd
+
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS per
+        ON t.id_persona = per.id_persona
+
+
+        WHERE id_trabajador_pdeclaracion = ?       
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajadorpdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+       
     }
 
 }

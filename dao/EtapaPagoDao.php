@@ -137,21 +137,42 @@ class EtapaPagoDao extends AbstractDao {
         }
     }
 
-    public function buscarEtapaPago($id_declaracion, $cod_periodo_remuneracion) {
+    public function buscarEtapaPago($id_declaracion, $cod_periodo_remuneracion,$tipo) {
         $query = "
         SELECT
           id_etapa_pago
         FROM etapas_pagos
-        WHERE (id_pdeclaracion= ? AND cod_periodo_remuneracion = ?)           
+        WHERE (id_pdeclaracion= ? AND cod_periodo_remuneracion = ?)
+        AND tipo = ?
 ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_declaracion);
         $stm->bindValue(2, $cod_periodo_remuneracion);
+        $stm->bindValue(3, $tipo);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista;
     }
+    
+        public function buscarEtapaPago_ID($id_declaracion, $cod_periodo_remuneracion,$tipo) {
+        $query = "
+        SELECT
+          id_etapa_pago
+        FROM etapas_pagos
+        WHERE (id_pdeclaracion= ? AND cod_periodo_remuneracion = ?)
+        AND tipo = ?
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_declaracion);
+        $stm->bindValue(2, $cod_periodo_remuneracion);
+        $stm->bindValue(3, $tipo);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['id_etapa_pago'];
+    }
+    
 
     public function buscarEtapaPago2($id_declaracion, $cod_periodo_remuneracion, $tipo) {
         $query = "

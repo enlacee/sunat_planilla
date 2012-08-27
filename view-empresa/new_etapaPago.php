@@ -37,12 +37,16 @@ function adelanteEtapa01(){
 	
 	var id_declaracion = document.getElementById('id_declaracion').value;
 	
+	var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
+	url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;
 	
-	
-	if(cod_periodo_remuneracion==2){
-		var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
-		url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;		
+	if(cod_periodo_remuneracion==2){		
 		cargar_pagina(url,'#CapaContenedorFormulario');
+		
+	}else if(cod_periodo_remuneracion==1){ //MENSUAL
+	
+	cargar_pagina('sunat_planilla/view-empresa/edit_declaracion.php?id_pdeclaracion='+id_declaracion,'#CapaContenedorFormulario')
+		//cargar_pagina(url,'#CapaContenedorFormulario');
 		
 	}else{
 		alert("No se permite el adelanto "+ cod_periodo_remuneracion);
@@ -73,12 +77,12 @@ Periodo o Declaracion
 <input name="mes" type="text" id="mes" value="<?php echo $mes;?>" size="4" readonly="readonly">
             <input name="anio" type="text" id="anio" value="<?php echo $anio;?>" size="7" readonly="readonly" >
           </p>
-          <h2>02 Seleccionde tipo Adelanto</h2>
-          <p>
-            periodo pago
-            <select name="cboPeriodoRemunerativo" id="cboPeriodoRemunerativo">
-      <option value="2">- QUINCENAL -</option>
-      <option value="1">- MENSUAL -</option>
+          <h2>02 Seleccione:</h2>
+          <h2>
+            Operacion
+              <select name="cboPeriodoRemunerativo" id="cboPeriodoRemunerativo">
+              <option value="2">- Primera Quincena -</option>
+              <option value="1">- Mensual -</option>
       
       <?php 
 /*
@@ -95,16 +99,15 @@ foreach ($data as $indice) {
 */
 ?>
             </select>
-          </p>
-          
-          
-        <p>&nbsp;</p>
-        <hr />          
-          <input type="button" name="btnAtras"  value="&lt;&lt; Atras" disabled="disabled"
+          </h2>
+          <p>
+            <input type="button" name="btnAtras"  value="&lt;&lt; Atras" disabled="disabled"
             onclick="cargar_pagina('sunat_planilla/view-empresa/view_etapaPago2.php','#CapaContenedorFormulario')" />
-          <input type="button" name="btnAdelante" id="btnAdelante" value="SIGUIENTE &gt;&gt;"
+            <input type="button" name="btnAdelante" id="btnAdelante" value="SIGUIENTE &gt;&gt;"
             
-            onclick="adelanteEtapa01()" /></p>
+            onclick="adelanteEtapa01()" />
+            </p>
+</p>
         </div>
 </div>
 

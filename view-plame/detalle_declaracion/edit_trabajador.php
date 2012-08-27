@@ -46,9 +46,6 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
 	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-4');
 	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/05_edit_taportes.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-5');
 	
-	//cargarTablaPTrabajadores(PERIODO);
-	
-	
 </script>
 <form id="formPtrabajador" name="formPtrabajador" method="post" action="" style="border:2px solid #F0F;">
 

@@ -14,7 +14,7 @@ if ($op) {
 $response = NULL;
 
 if ($op == "edit") {
-    $response = editarPdiaSubsidiado();
+    //$response = editarPdiaSubsidiado();
 } else if ($op == "dual") {
     dualPdiaNoSubsidiado();
 } else if ($op == "del") {

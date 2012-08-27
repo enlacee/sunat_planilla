@@ -2,27 +2,51 @@
 
 class TrabajadorPdeclaracionDao extends AbstractDao {
 
-    public function registrar($id_pdeclaracion, $id_trabajador) {
+    public function registrar($obj) {
 
 
         try {
             $query = "
-        INSERT INTO trabajadores_pdeclaraciones
-                    (
-                     id_pdeclaracion,
-                     id_trabajador)
-        VALUES (
-                ?,
-                ?); ";
+            INSERT INTO trabajadores_pdeclaraciones
+                        (
+                         id_pdeclaracion,
+                         id_trabajador,
+                         dia_laborado,
+                         dia_total,
+                         ordinario_hora,
+                         ordinario_min,
+                         sueldo,
+                         sueldo_neto,
+                         estado,
+                         fecha_creacion
+                            )
+            VALUES (
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                    ); ";
             //Inicia transaccion
-            //$em = new TrabajadorPdeclaracionDao()
-            //$em = $obj_pensionista;
-
+            $model = new TrabajadorPdeclaracion();
+            $model = $obj;
             $this->pdo->beginTransaction();
             $stm = $this->pdo->prepare($query);
-            $stm->bindValue(1, $id_pdeclaracion);
-            $stm->bindValue(2, $id_trabajador);
-
+            $stm->bindValue(1, $model->getId_pdeclaracion());
+            $stm->bindValue(2, $model->getId_trabajador());            
+            $stm->bindValue(3, $model->getDia_laborado());
+            $stm->bindValue(4, $model->getDia_total());    
+            $stm->bindValue(5, $model->getOrdinario_hora());
+            $stm->bindValue(6, $model->getOrdinario_min()); 
+            $stm->bindValue(7, $model->getSueldo());
+            $stm->bindValue(8, $model->getSueldo_neto());
+            $stm->bindValue(9, $model->getEstado());
+            $stm->bindValue(10, $model->getFecha_creacion());
             $stm->execute();
 
             // id Comerico
@@ -44,21 +68,42 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
     }
 
     //
-    /* public function actualizar($obj) {
+     public function actualizar($obj) {
 
       $query = "
-
+    UPDATE trabajadores_pdeclaraciones
+    SET 
+      dia_total = ?,
+      dia_laborado = ?,  
+      ordinario_hora = ?,
+      ordinario_min = ?,
+      sobretiempo_hora = ?,
+      sobretiempo_min = ?,
+      sueldo = ?,
+      sueldo_neto = ?,  
+      fecha_modificacion = ?
+    WHERE id_trabajador_pdeclaracion = ?;
       ";
-      $com = new Pensionista();
-      $com = $obj;
+      $model = new TrabajadorPdeclaracion();
+      $model = $obj;
 
       $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $com->getCod_tipo_trabajador());
+      $stm->bindValue(1, $model->getDia_total());
+      $stm->bindValue(2, $model->getDia_laborado());
+      $stm->bindValue(3, $model->getOrdinario_hora());
+      $stm->bindValue(4, $model->getOrdinario_min());
+      $stm->bindValue(5, $model->getSobretiempo_hora());
+      $stm->bindValue(6, $model->getSobretiempo_min());
+      $stm->bindValue(7, $model->getSueldo());
+      $stm->bindValue(8, $model->getSueldo_neto());
+      $stm->bindValue(9, $model->getFecha_modificacion());
+      $stm->bindValue(10, $model->getId_trabajador_pdeclaracion());
+  
       $stm->execute();
       $stm = null;
 
       return true;
-      } */
+      }
 
     public function eliminar($id_trabajador_pdeclaracion) {
 
@@ -73,17 +118,19 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm = null;
         return true;
     }
-    
+
     /*
      * Ayuda y 
      * Busca informacion para ayudar con la generacion de 
      * Conceptos.
      */
-    public function buscar_ID_trabajador($id_trabajador){
-        
-        $query ="
+
+    public function buscar_ID_trabajador($id_trabajador) {
+
+        $query = "
             SELECT 
                 t.id_trabajador,
+                t.monto_remuneracion,
                 -- p.nombres,
                 -- drs.id_detalle_regimen_salud,
                 drs.cod_regimen_aseguramiento_salud,
@@ -112,22 +159,71 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        
-        return $lista[0];       
-        
-    }
-/*
-    public function buscar_ID() {
-        $query = "		
 
-		";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador_pdeclaracion);
-        $stm->execute();
-        $stm = null;
-        return true;
+        return $lista[0];
     }
-    */
+
+    /*
+      public function buscar_ID() {
+      $query = "
+
+      ";
+      $stm = $this->pdo->prepare($query);
+      $stm->bindValue(1, $id_trabajador_pdeclaracion);
+      $stm->execute();
+      $stm = null;
+      return true;
+      }
+     */
+
+    function listar($id_pdeclaracion,$op=null) {
+
+        $query = "
+        SELECT
+          tpd.id_trabajador_pdeclaracion,
+          tpd.id_trabajador,
+          tpd.dia_laborado,
+          tpd.dia_total,
+          tpd.ordinario_hora,
+          tpd.ordinario_min,
+          tpd.sobretiempo_hora,
+          tpd.sobretiempo_min,
+          tpd.sueldo,
+          tpd.sueldo_neto,
+        per.cod_tipo_documento,
+        per.num_documento,
+        per.apellido_paterno,
+        per.apellido_materno,
+        per.nombres 
+
+        FROM  trabajadores_pdeclaraciones AS tpd
+
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS per
+        ON t.id_persona = per.id_persona
+
+
+        WHERE tpd.id_pdeclaracion = ?            
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        if ($op == 'id_trabajador') { // ['id_trabajador']
+            $new = array();
+            for ($i = 0; $i < count($lista); $i++) {
+                $new[]['id_trabajador'] = $lista[$i]['id_trabajador'];
+            }
+            return $new;
+        }
+
+        return $lista;
+    }
 
 }
 

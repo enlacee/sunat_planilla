@@ -47,17 +47,6 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 
 
 //functiones GRID
-
-//	cargarTablaPTrabajadores(PERIODO);
-
-
-
-//add-data-ptrabajadores
-
-
-
-
-
 	
 </script>
 

@@ -70,6 +70,7 @@ function add_15(id_declaracion,periodo,num15){ //QUINCENAL
                 <option value="2012" selected="selected">2012</option>
               </select>
             </h2>
+            <p>&nbsp;</p>
             
 
 
@@ -78,7 +79,7 @@ function add_15(id_declaracion,periodo,num15){ //QUINCENAL
 
    
    
-            <div class="section">
+        <div class="section">
               <div class="article fila1">
 <table id="list">
 </table>

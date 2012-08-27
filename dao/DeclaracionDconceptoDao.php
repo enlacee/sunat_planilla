@@ -2,9 +2,7 @@
 
 class DeclaracionDconceptoDao extends AbstractDao {
 
-    //put your code here
-
-
+//????
     public function registrar($obj) {
         $model = new DeclaracionDconcepto();
         $model = $obj;

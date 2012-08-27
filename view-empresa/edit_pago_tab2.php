@@ -24,8 +24,6 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 	var ID_ESTAPA_PAGO = document.getElementById('id_etapa_pago').value;	
 	cargarTablaTrabajadoresPorEtapa(ID_ESTAPA_PAGO);
-	//cargarTablaPTrabajadores(PERIODO);
-	
 	
 </script>
 

@@ -46,6 +46,9 @@ if($premunerativo == 2){ //quincena 2
 		
     });
 	
+	var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
+	var id_declaracion = document.getElementById('id_declaracion').value;
+cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion);
     //--------------------------
 	
     function atrasEtapa02(){
@@ -87,23 +90,17 @@ if($premunerativo == 2){ //quincena 2
                 del 
                 <input name="anio" type="text" id="anio" value="<?php echo $anio; ?>" size="5" />
 </h2>
-          <h2>03 Seleccionde Periodo</h2>
-            <p>
-                
-                <?php for($i=0;$i<count($FECHA);$i++):?>
-                
-                <input type="radio" name="periodoAdelanto"  value="<?php echo $FECHA[$i]['tipo']; ?>"  readonly="readonly" />
-                <?php echo $FECHA[$i]['inicio']; ?> al <?php ?><?php echo $FECHA[$i]['fin']; ?>
-                <input name="estado" type="text" value="<?php echo "echo"; ?>" />
-                <br />
-              <?php endfor;?>
-                
-            <p>
-<input type="button" name="btnver" id="btnver" value="01VER TRABAJADORES" onclick="cargarTabla_Etapa()">
-<input type="button" name="btnGenerar" id="btnGenerar" value="02 GENERAR ADELANTO" onclick="registrarEtapa()" />
-<br />
-            lista de trabajadores dentro del periodo: centro costo.                        
-
+          <h2>03 Seleccionde Operacion</h2>
+            
+            
+            
+            
+            
+          <p><!--  onclick="registrarEtapa()" -->
+            <input type="button" name="adelanto_01" id="adelanto_01" value="01 Adelanto Individual">
+            <input type="button" name="adelanto_02" id="adelanto_02" value="02 Adelanto Total" />
+            <br />
+            lista de trabajadores dentro del periodo: centro costo.          </p>
           <table id="list">
             </table>
             <div id="pager">          

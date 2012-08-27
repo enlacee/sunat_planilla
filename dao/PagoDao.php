@@ -23,8 +23,10 @@ INSERT INTO pagos
              sobretiempo_min,
              estado,
              descripcion,
+             fecha_creacion,
              id_empresa_centro_costo)
 VALUES (
+        ?,
         ?,
         ?,
         ?,
@@ -46,8 +48,8 @@ VALUES (
         $stm->bindValue(1, $model->getId_trabajador());
         $stm->bindValue(2, $model->getId_etapa_pago());
         $stm->bindValue(3, $model->getDia_laborado());
-        $stm->bindValue(4, $model->getDia_total());        
-        $stm->bindValue(5, $model->getSueldo_base());        
+        $stm->bindValue(4, $model->getDia_total());
+        $stm->bindValue(5, $model->getSueldo_base());
         $stm->bindValue(6, $model->getSueldo());
         $stm->bindValue(7, $model->getDescuento());
         $stm->bindValue(8, $model->getSueldo_neto());
@@ -58,7 +60,8 @@ VALUES (
 
         $stm->bindValue(13, $model->getEstado());
         $stm->bindValue(14, $model->getDescripcion());
-        $stm->bindValue(15, $model->getId_empresa_centro_costo());
+        $stm->bindValue(15, $model->getFecha_creacion());
+        $stm->bindValue(16, $model->getId_empresa_centro_costo());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -86,7 +89,7 @@ VALUES (
         WHERE id_pago = ?;
         ";
 
-        $stm = $this->pdo->prepare($query);        
+        $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $model->getDescuento());
         $stm->bindValue(2, $model->getSueldo_neto());
         $stm->bindValue(3, $model->getOrdinario_hora());
@@ -96,31 +99,31 @@ VALUES (
         $stm->bindValue(7, $model->getDescripcion());
         $stm->bindValue(8, $model->getFecha_modificacion());
         $stm->bindValue(9, $model->getId_pago());
-                
+
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;
         return true;
     }
 
-    public function listar($id_etapa_pago) {
+    public function listar($id_etapa_pago, $op=null) {
 
         $query = "
         SELECT
-          p.id_pago,
-          p.id_trabajador,
-          p.sueldo,
-          p.descuento,
-          p.sueldo_neto, -- Calculado y guardado
-          p.dia_total,          
-          p.estado,
-          p.id_empresa_centro_costo,	  
-          per.cod_tipo_documento,
-          per.num_documento,
-           per.apellido_paterno,
-           per.apellido_materno,
-           per.nombres,
-           ecc.descripcion AS ccosto
+            p.id_pago,
+            p.id_trabajador,
+            p.sueldo,
+            p.descuento,
+            p.sueldo_neto, -- Calculado y guardado
+            p.dia_total,          
+            p.estado,
+            p.id_empresa_centro_costo,	  
+            per.cod_tipo_documento,
+            per.num_documento,
+            per.apellido_paterno,
+            per.apellido_materno,
+            per.nombres,
+            ecc.descripcion AS ccosto
         FROM pagos AS p
 
         INNER JOIN trabajadores AS t
@@ -134,13 +137,21 @@ VALUES (
 
         WHERE p.id_etapa_pago = ?     
         ";
-       
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_etapa_pago);
 
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
+        if ($op == 'id_trabajador') { // ['id_trabajador']
+            $new = array();
+            for ($i = 0; $i < count($lista); $i++) {
+                $new[]['id_trabajador'] = $lista[$i]['id_trabajador'];
+            }
+            return $new;
+        }
+
         return $lista;
     }
 
@@ -218,95 +229,59 @@ VALUES (
         return $lista;
     }
 
-    /**
-     *
-     * @param type $id_pdeclaracion
-     * @return type 
-     * LISTADO DE TRABAJADORES DE VIEW-EMPRESA registrados (tabla pago)
-     */
-    public function listarTablaPago_PorDeclaracion($id_pdeclaracion) {
+    public function del($id) {
 
         $query = "
-        SELECT 
-        pd.id_pdeclaracion,
-        pd.periodo,
-        ep.glosa,
-        pg.id_trabajador,
-        pg.id_empresa_centro_costo,
-        pg.valor,
-        pg.descuento,
-        pg.valor_total,
-        pg.descripcion,
-        pg.dia_total,
-        pg.dia_nosubsidiado,
-        pg.dia_laborado,
-        pg.ordinario_hora,
-        pg.ordinario_min,
-        pg.sobretiempo_hora,
-        pg.sobretiempo_min,
-        pg.estado,
+        DELETE
+        FROM pagos
+        WHERE id_pago = ?;        
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id);
+        $stm->execute();
+        $stm = null;
+        return true;
+    }
 
-        t.id_persona
+    public function dosQuincenas($id_pdeclaracion, $id_trabajador) {
+        $query = "
+        SELECT 
+        -- pago
+        pg.id_trabajador,
+        SUM(pg.sueldo) AS sueldo,
+        SUM(pg.sueldo_neto) AS sueldo_neto,
+        SUM(pg.dia_laborado) AS dia_laborado ,
+        SUM(pg.ordinario_hora) AS ordinario_hora,
+        SUM(pg.ordinario_min) AS ordinario_min,
+        SUM(pg.sobretiempo_hora) AS sobretiempo_hora,
+        SUM(pg.sobretiempo_min) AS sobretiempo_min,
+        -- pago
+        -- persona
+        p.nombres
+        -- persona
 
         FROM pdeclaraciones AS pd
         INNER JOIN etapas_pagos AS ep
         ON pd.id_pdeclaracion = ep.id_pdeclaracion
-
         INNER JOIN pagos AS pg
         ON ep.id_etapa_pago = pg.id_etapa_pago
-
-        INNER JOIN trabajadores AS t
-        ON pg.id_trabajador = t.id_trabajador
-
-        WHERE pd.id_pdeclaracion = ?        
-";
-
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_pdeclaracion);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista;
-    }
-
-    //AGRUPADO
-    public function listaGrup_Por_Persona($id_pdeclaracion,$id_persona) {
-        $query = "
-        SELECT 
-            SUM(pg.dia_laborado) AS sum_dia_laborado,
-            SUM(pg.dia_nosubsidiado) AS sum_dia_nosubsidiado, -- falta tb
-            SUM(pg.dia_total) AS sum_dia_total,
-            SUM(pg.ordinario_hora) AS sum_ordinario_hora,
-            SUM(pg.ordinario_min) AS sum_ordinario_min,
-            SUM(pg.sobretiempo_hora) AS sum_sobretiempo_hora,
-            SUM(pg.sobretiempo_min) AS sum_sobretiempo_min,
-            SUM(pg.descuento) AS sum_descuento,
-            SUM(pg.valor) AS sum_valor,
-            SUM(pg.valor_total) AS sum_valor_total,
-
-            -- persona
-            p.id_persona
-
-        FROM etapas_pagos AS ep
-        INNER JOIN pagos AS pg
-        ON ep.id_etapa_pago = pg.id_etapa_pago
-
+        -- tra
         INNER JOIN trabajadores AS t
         ON pg.id_trabajador = t.id_trabajador
         INNER JOIN personas AS p
         ON t.id_persona = p.id_persona
-	
-	-- id_declaracion :: EL mes = 2 15cenas
-        WHERE (id_pdeclaracion = ? AND p.id_persona = ?) 
-        GROUP BY p.id_persona 
-        ";
+        -- tra
+        WHERE pd.id_pdeclaracion = ?
+        AND t.id_trabajador  = ?        
+";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $id_persona);
+        $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        return $lista;
+        
+        return $lista[0];
     }
 
 }

@@ -203,7 +203,7 @@ function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclara
         $periodo = "$mes/$anio";
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_declaracion.php?id_pdeclaracion=" . $param . "&periodo=" . $periodo . "','#CapaContenedorFormulario')";
-        $js2 = "";
+        $js2 = "javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_pdeclaracion=" . $param . "&periodo=" . $periodo . "','#CapaContenedorFormulario')";
         $js3 = "";
 
         $modificar = '<div id="">
@@ -213,7 +213,15 @@ function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclara
           &nbsp;
           </div>'
         ;
-
+		
+		$modificar2 = '<div id="">
+		<span  title="Editar" >
+		<a href="' . $js2 . '"><img src="images/edit.png"/></a>
+		</span>
+		&nbsp;
+		</div>'
+		;
+		
 
         $eliminar = '<div id="">
           <span  title="Eliminar" >
@@ -235,7 +243,7 @@ function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclara
             $_02,
             $estado,
             utf8_encode($modificar),
-            $null, //utf8_encode($eliminar),
+            utf8_encode($modificar2),
             utf8_encode($archivo)
         );
 
@@ -314,17 +322,23 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
         $param = $rec["id_pdeclaracion"];
         $_01 = $rec['periodo'];
 
-        $daoooo = new EtapaPagoDao();
-        $data = $daoooo->listar($param);
-        $num_15cenas = count($data);
 
-        if ($num_15cenas == 2) {
-            $_04 = '<a href="sunat_planilla/controller/PlameDeclaracionController.php?op=PM&id_declaracion=' . $param . '&periodo=' . $_01 . '">Generar P.Mensual</a>';
-        }
+       
+        
+        $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $_01 . '\',\'#CapaContenedorFormulario\')"title = "Operaciones">Oper</a>';
 
+         $js ="javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_declaracion=".$param."&periodo=".$_01."','#CapaContenedorFormulario')";
+        //$js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
+        $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar"   >
+		<a href="' . $js . '" class="divEditar" ></a>
+		</span>              
 
-        $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $_01 . '\',\'#CapaContenedorFormulario\')"title = "ADD 15">ADD 15</a>';
-
+		</div>';        
+        
+        
+        
+        
 
         $periodo = getFechaPatron($_01, "m/Y");
 
@@ -333,7 +347,7 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
         $response->rows[$i]['cell'] = array(
             $param,
             $periodo,
-            $_02,
+            $opciones,
             $_03
         );
         $i++;
@@ -476,9 +490,9 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
         
         
         //hereee
-        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['id'] = $id_trabajador;
         $response->rows[$i]['cell'] = array(
-            $param,
+            $id_trabajador,
             $_01,
             $_02,
             $_03,

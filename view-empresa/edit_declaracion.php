@@ -45,6 +45,11 @@ $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
           <li>1ERA QUINCENA</li>
           <li>2DA QUINCENA</li>
           </ol>
+          
+            <input type="button" name="adelanto_01" id="adelanto_mes_01" value="01 Mensual Individual">
+            <input type="button" name="adelanto_02" id="adelanto_mes_02" value="02 Mensual Total" />
+          
+          
           <table id="list">
         </table>
         <div id="pager" align="left">

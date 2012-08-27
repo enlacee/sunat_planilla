@@ -253,6 +253,7 @@ class PlameDeclaracionDao extends AbstractDao {
         
     }
     
+    //HERE consulta SUM para trabajadores_pdeclaraciones
     
     
     

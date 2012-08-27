@@ -32,6 +32,9 @@ if ($op == "registrar_etapa") {
 }else if($op == "edit"){
     
     $response = editarPago();
+}else if($op == "del"){
+    $response =eliminarPago();
+    
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
@@ -117,12 +120,19 @@ function cargartabla(){
         $_09 = $rec['estado'];
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param. "&id_trabajador=".$_00."','#detalle_declaracion_trabajador')";
-
+        $js2 = "javascript:eliminarPago('" . $param . "')";
+        
+        
         // $js2 = "javascript:eliminarPersona('" . $param . "')";		
         $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar" >
-		<a href="' . $js . '"><img src="images/edit.png"/></a>
+		<a href="' . $js . '" class="divEditar" ></a>
 		</span>
+                
+		<span  title="Eliminar" >
+		<a href="' . $js2 . '" class="divEliminar" ></a>
+		</span>
+
 		</div>';
 
         //hereee
@@ -357,5 +367,10 @@ function editarPago(){
     
 }
 
+
+function eliminarPago(){    
+    $dao = new PagoDao();
+    return $dao->del($_REQUEST['id_pago']);
+}
 
 ?>

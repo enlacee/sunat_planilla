@@ -20,10 +20,9 @@ if ($op) {
     //PAGO
     require_once '../dao/PagoDao.php';
     require_once '../model/Pago.php';
-  
+
     //EPAGO TRABAJADOR
     require_once '../dao/PeriodoRemuneracionDao.php';
-    
 }
 
 $response = NULL;
@@ -36,16 +35,17 @@ if ($op == "trabajador_por_etapa") {
 } else if ($op == "cargar_tabla") {
 
     $response = cargartabla();
-}else if($op == "del"){
+} else if ($op == "del") {
     $response = del_etapaPago();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
 
-function del_etapaPago(){
+function del_etapaPago() {
     $dao = new EtapaPagoDao();
     $dao->eliminar($_REQUEST['id_etapa_pago']);
 }
+
 //-----------
 function listarTrabajadoresPorEtapa() {
     //=========================================================================//
@@ -53,22 +53,15 @@ function listarTrabajadoresPorEtapa() {
     $COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
 
     if ($COD_PERIODO_REMUNERACION == '2') { // 2 =quincena        
-        $dao = new EtapaPagoDao();
-        $data_etapapago = $dao->buscarEtapaPago($ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-        //echo "<pre>ETAPA PAGO";
-        //var_dump($data_etapapago);
-        //echo "</pre>";
-        if (is_array($data_etapapago) && count($data_etapapago) == 0) { // Registrar 1era QUINCENA
-            $response = listar_15(1, $ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-            //registrar_15(1,$ID_DECLARACION,$COD_PERIODO_REMUNERACION);
-        } else if (is_array($data_etapapago) && count($data_etapapago) == 1) {//Registrar 2DA QUINCENA
-            $response = listar_15(2, $ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-            //registrar_15(2,$ID_DECLARACION,$COD_PERIODO_REMUNERACION);        
-        } else if (count($data_etapapago) >= 2) { //CASOS controlado de Error
-            $response = false;
-        } else {
-            echo "UN CASO INCONTROLABLE QUINCENA!";
-        }
+        //$dao = new EtapaPagoDao();
+        //$id_etapa_pago = $dao->buscarEtapaPago_ID($ID_DECLARACION, $COD_PERIODO_REMUNERACION, 1);
+        //if (is_array($id_etapa_pago) && count($data_etapapago) == 0) { // Registrar 1era QUINCENA
+        $response = listar_15(1, $ID_DECLARACION, $COD_PERIODO_REMUNERACION);
+
+        /* } else {
+          echo "UN CASO INCONTROLABLE QUINCENA!";
+          }
+         */
     }
     //=========================================================================//
     return $response;
@@ -79,12 +72,12 @@ function registrarTrabajadoresPorEtapa() {
     //=========================================================================//
     $ID_DECLARACION = $_REQUEST['id_declaracion'];
     $COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
+    $ids_trabajador = $_REQUEST['ids'];
+
+
     // echo "ID_DECLARACION = " . $ID_DECLARACION;
     // echo "  COD_PERIODO_REMUNERACION =" . $COD_PERIODO_REMUNERACION;   
-    if ($COD_PERIODO_REMUNERACION == '2') { // 2 =quincena        
-        $dao = new EtapaPagoDao();
-        $data_id_etapa_pago = $dao->buscarEtapaPago($ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-
+    if ($COD_PERIODO_REMUNERACION == '2') { // 2 = SIEMPRE PRIMERA quincena
         //========================================================================//
         $daoPlame = new PlameDeclaracionDao();
         $data_d = $daoPlame->buscar_ID($ID_DECLARACION);
@@ -93,64 +86,33 @@ function registrarTrabajadoresPorEtapa() {
         $FECHAX = getFechasDePago($FECHA_PERIODO);
         $FECHA = array();
         //========================================================================//
-        // NO EXISTE = Es la 1era 15
-        if (count($data_id_etapa_pago) == 0) {
+        if (true/* count($data_id_etapa_pago) == 0 */) {
             $FECHA['inicio'] = $FECHAX['first_day'];
             $FECHA['fin'] = $FECHAX['second_weeks'];
             //================================
-            $model = new EtapaPago();
-            $model->setId_pdeclaracion($ID_DECLARACION);
-            $model->setCod_periodo_remuneracion($COD_PERIODO_REMUNERACION);
-            $model->setFecha_inicio($FECHA['inicio']);
-            $model->setFecha_fin($FECHA['fin']);
-            $model->setGlosa("Primera Quincena");
-            $model->setTipo("1");
-            $model->setFecha_creacion(date("Y-m-d"));
-            
-            $id_etapa_pago = $dao->registrar($model);
+
+            $dao = new EtapaPagoDao();
+            $id_etapa_pago = $dao->buscarEtapaPago_ID($ID_DECLARACION, 2, 1);
+
+            if (is_null($id_etapa_pago)) {
+
+                $model = new EtapaPago();
+                $model->setId_pdeclaracion($ID_DECLARACION);
+                $model->setCod_periodo_remuneracion($COD_PERIODO_REMUNERACION);
+                $model->setFecha_inicio($FECHA['inicio']);
+                $model->setFecha_fin($FECHA['fin']);
+                $model->setGlosa("Primera Quincena");
+                $model->setTipo("1");
+                $model->setFecha_creacion(date("Y-m-d"));
+
+                $id_etapa_pago = $dao->registrar($model);
+            }
             //--------------------------------
-            registrar_15($id_etapa_pago,$FECHA['inicio'],$FECHA['fin']);
-            
-            
-        } else if (count($data_id_etapa_pago) == 1) { //Segunda QUINCENA
-            $FECHA['inicio'] = $FECHAX['second_weeks_mas1']; //SUMAR 1 DIA para = 16/01/2012 a 31/01/2012
-            $FECHA['fin'] = $FECHAX['last_day'];
-            //================================
-            $model = new EtapaPago();
-            $model->setId_pdeclaracion($ID_DECLARACION);
-            $model->setCod_periodo_remuneracion($COD_PERIODO_REMUNERACION);
-            $model->setFecha_inicio($FECHA['inicio']);
-            $model->setFecha_fin($FECHA['fin']);
-            $model->setGlosa("Segunda Quincena");
-            $model->setTipo("2");
-            $model->setFecha_creacion(date("Y-m-d"));
-            
-            $id_etapa_pago = $dao->registrar($model);
-            
-            //--------------------------------
-            registrar_15($id_etapa_pago,$FECHA['inicio'],$FECHA['fin']);
-            
-        } else if (count($data_id_etapa_pago) >= 2) {
-            $response = false;
+            registrar_15($id_etapa_pago, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
         } else {
             echo "UN CASO INCONTROLABLE QUINCENA! En tabla Etapa de PAGO";
         }
-        
-        
-      /*  //echo "<pre>";
-        //var_dump($data_etapapago);
-        //echo "</pre>";
-        if (is_array($data_etapapago) && count($data_etapapago) == 0) { // Registrar 1era QUINCENA
-            $response = registrar_15(1, $ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-        } else if (is_array($data_etapapago) && count($data_etapapago) == 1) {//Registrar 2DA QUINCENA
-            $response = registrar_15(2, $ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-        } else if (count($data_etapapago) >= 2) { //CASOS controlado de Error
-            $response = false;
-        } else {
-            echo "UN CASO INCONTROLABLE QUINCENA!";
-        }*/
     }
-    //=========================================================================//
 }
 
 ///-------------------- 
@@ -185,28 +147,28 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
     $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
     $sord = $_GET['sord']; // get the direction
     // $WHERE = "";
-    /*
-      if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
 
-      $operadores["eq"] = "=";
-      $operadores["ne"] = "<>";
-      $operadores["lt"] = "<";
-      $operadores["le"] = "<=";
-      $operadores["gt"] = ">";
-      $operadores["ge"] = ">=";
-      $operadores["cn"] = "LIKE";
-      if ($_GET['searchOper'] == "cn")
-      $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
-      else
-      $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
-      }
-     */
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
     if (!$sidx)
         $sidx = 1;
 
     //llena en al array
     $lista = array();
-    $lista = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA['inicio'], $FECHA['fin'], $COD_PERIODO_REMUNERACION);
+    $lista = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA['inicio'], $FECHA['fin'], $WHERE);
 
     $count = count($lista);
     //$count = $dao_plame->cantidadTrabajadoresPorPeriodo(ID_EMPLEADOR_MAESTRO, $FECHA['mes_inicio'],$FECHA['mes_fin']);
@@ -312,66 +274,141 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
     return $response;
 }
 
-function registrar_15($id_etapa_pago,$FECHA_INICIO,$FECHA_FIN) {
+function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids=null) {
 
     // DAO
     $dao_plame = new PlameDao();
-    $data_tra = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA_INICIO,$FECHA_FIN);
+    $data_traa = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA_INICIO, $FECHA_FIN);
 
 
-    //----------------------******************-----------------------------------
-    echo "id_etapa_pago = ".$id_etapa_pago;
-    echo "<br>";
-    $estado = false;
-    echo "<pre>ANTES";
-    print_r($data_tra);    
+    //TRABAJADORES YA REGISTRADOS
+    $dao_pago = new PagoDao();
+    $_data_id_trabajador = $dao_pago->listar($id_etapa_pago, "id_trabajador");
+    
+    if(count($data_traa) ==  count($_data_id_trabajador) ){
+        echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS";
+        return false;
+    }
+
+
+
+    echo "<pre> _data_id_trabajador";
+    print_r($_data_id_trabajador);
     echo "</pre>";
 
-    if (count($data_tra) >= 1) {
+    /*--------------filtro de  id_trabajadores -------------*/
+    for ($i = 0; $i < count($_data_id_trabajador); $i++) {
+        for ($j = 0; $j < count($data_traa); $j++) {
+            if ($_data_id_trabajador[$i]['id_trabajador'] == $data_traa[$j]['id_trabajador']) {
+                unset($data_traa[$j]);
+                break;
+            }
+        }
+    }
+    $data_tra = array_values($data_traa);
+ /*--------------filtro de  id_trabajadores -------------*/
+
+//-------------------------------------------------------------------
+    //listar Trabajadores ya listados en $id_etapa_pago    
+    echo "<pre>idsS";
+    print_r($ids);
+    echo "</pre>";
+    if (isset($ids)) {
+        /*         * ** filtro **** */
+        $ids_tra = array();
+        for ($i = 0; $i < count($ids); $i++) {
+            for ($j = 0; $j < count($data_tra); $j++) {
+                if ($ids[$i] == $data_tra[$j]['id_trabajador']) {
+
+                    $ids_tra[] = $data_tra[$j];
+                    break;
+                }
+            }
+        }
+        $data_tra = null;
+        $data_tra = $ids_tra; //array_values($data_traa);  
+    }
+    
+    echo "<pre>TRABAJADOR a INSERT";
+    print_r($data_tra);
+    echo "<pre>";
+//-------------------------------------------------------------------
+
+
+
+    if (count($data_tra) >= 1 ) {
         for ($i = 0; $i < count($data_tra); $i++) {
 
             //---            
-            if($data_tra[$i]['fecha_inicio'] > $FECHA_INICIO){
+            if ($data_tra[$i]['fecha_inicio'] > $FECHA_INICIO) {
                 //default
-            }else if($data_tra[$i]['fecha_inicio'] <= $FECHA_INICIO){
+            } else if ($data_tra[$i]['fecha_inicio'] <= $FECHA_INICIO) {
                 $data_tra[$i]['fecha_inicio'] = $FECHA_INICIO;
             }
             //---            
             //---            
             if (is_null($data_tra[$i]['fecha_fin'])) {
                 $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
-            }else if($data_tra[$i]['fecha_fin'] >= $FECHA_FIN){ //INSUE
+            } else if ($data_tra[$i]['fecha_fin'] >= $FECHA_FIN) { //INSUE
                 $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
-            }else if($data_tra[$i]['fecha_fin'] < $FECHA_FIN){
+            } else if ($data_tra[$i]['fecha_fin'] < $FECHA_FIN) {
                 //default
             }
-            //---
+            //---            
+
+
+
+            $cubodin = 0;
+            //solo si la fecha de fin es mayor a 15 "segunda quincena" Anomalias
+            $_2da_quincena = date("j", strtotime($data_tra[$i]['fecha_fin']));
+            if (intval($_2da_quincena) > 15) {
+
+                $num_dia = date("t", strtotime($data_tra[$i]['fecha_fin']));
+                if ($num_dia == 28) {
+                    $cubodin = 2;
+                } else if ($num_dia == 29) {
+                    $cubodin = 1;
+                }
+            }
+
+
             $a = getDayThatYear($data_tra[$i]['fecha_inicio']);
             $b = getDayThatYear($data_tra[$i]['fecha_fin']);
 
-            $data_tra[$i]['dia_laborado'] = ($b - $a) + 1;
-            $dia_laborado =$data_tra[$i]['dia_laborado'];
+            //$data_tra[$i]['dia_laborado'] = 
+
+            $dia_laborado = ($b - $a) + 1 + $cubodin;
+            $dia_laborado_data = ($b - $a) + 1;//$data_tra[$i]['dia_laborado'];
 
 
-   echo "<pre>AFTER";
-    print_r($data_tra);    
-    echo "</pre>";
+            if ($dia_laborado >= 15) { //solo para ver dias NO afecta calc
+                $dia_laborado = 15;
+            } else {
+                //null
+            }
+
+
+            $data_tra[$i]['dia_no_laborado'] = 15 - $dia_laborado;
+            $dia_no_laborado = $data_tra[$i]['dia_no_laborado'];
+
+
+            echo "<pre>AFTER ANIBAL 01";
+            print_r($data_tra);
+            echo "</pre>";
 // 01 Registrar Epagos_trabajadores
-
-
 //02 Registrar Pagos               
             $model = new Pago();
             $model->setId_trabajador($data_tra[$i]['id_trabajador']);
-            $model->setId_etapa_pago($id_etapa_pago);            
-            $model->setDia_laborado($dia_laborado);
-            $model->setDia_total($dia_laborado);
+            $model->setId_etapa_pago($id_etapa_pago);
+            $model->setDia_laborado($dia_laborado_data);
+            $model->setDia_total($dia_laborado_data);
             $model->setSueldo_base($data_tra[$i]['monto_remuneracion']);
-            
+
 //---------------------------------------------------------------------------------------            
             //---------------------------------------------------//
             $daoPR = new PeriodoRemuneracionDao();
             $data = $daoPR->buscar_ID(2); // 2 = QUINCENAL
-            echo "<pre>oooooooooo_pago";
+            echo "<pre>oooooooooo_pago BUSCANDO ANIBAL 02";
             print_r($data);
             echo "</pre>";
             //---------------------------------------------------//
@@ -380,37 +417,42 @@ function registrar_15($id_etapa_pago,$FECHA_INICIO,$FECHA_FIN) {
             //$dia = $data['dia'];       ---------------------------------- MONTO-REMUNERACION
             $SUELDO = $data_tra[$i]['monto_remuneracion'];
 
-            if ($dia_laborado >= $data['dia']) { //15 == 15
-                $SUELDO_CAL = $SUELDO * ($percent / 100);
-            } else if ($dia_laborado < $data['dia']) {
-                $porcentaje_x_dia = ($percent / $data['dia']); //SIEMPRE 15
-                $percent = ($porcentaje_x_dia * $dia_laborado);
-                $SUELDO_CAL = $SUELDO * ($percent / 100);
-            }
+            /* if ($dia_laborado >= $data['dia']) { //15 == 15
+              $SUELDO_CAL = $SUELDO * ($percent / 100);
+              } else if ($dia_laborado < $data['dia']) {
+              $porcentaje_x_dia = ($percent / $data['dia']); //SIEMPRE 15
+              $percent = ($porcentaje_x_dia * $dia_laborado);
+              $SUELDO_CAL = $SUELDO * ($percent / 100);
+              }
+             */
+            //-------------------------------------------
+            $DESCTO = ($SUELDO / 30) * $dia_no_laborado;
             //--------------------------------------------
             $SUELDO_CAL = $SUELDO * ($percent / 100);
+            //--------------------------------------------
+            $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
 //---------------------------------------------------------------------------------------
             $model->setSueldo($SUELDO_CAL);
             $model->setSueldo_neto($SUELDO_CAL);
             $model->setOrdinario_hora($dia_laborado * 8);
             $model->setEstado(0);
             $model->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
+            $model->setFecha_creacion(date("Y-m-d H:i:s"));
+          
             $dao = new PagoDao();
             $dao->registrar($model);
-            
         }
     }
-    
-    
-    
-//----------------------******************-----------------------------------   
 
-    echo "<pre>";
-    print_r($data_tra); 
-    echo "</pre>";
-    
-    
-    return "okkKKK" . $estado;
+
+
+//----------------------******************-----------------------------------   
+//    echo "<pre>";
+//    print_r($data_tra);
+//    echo "</pre>";
+
+
+    return "okkKKK";
 }
 
 //function Auxiliar
@@ -522,26 +564,24 @@ function cargartabla() {
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
 
-        $js2 = "javascript:eliminarEtapaPago('" . $param . "')";		
+        $js2 = "javascript:eliminarEtapaPago('" . $param . "')";
         $opciones = '<div id="divEliminar_Editar">				
-		<span  title="Editar" >
-		<a href="' . $js . '"><img src="images/edit.png"/></a>
-		</span>
-                &nbsp;
-		<span  title="Editar" >
-		<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
+		<span  title="Editar"   >
+		<a href="' . $js . '" class="divEditar" ></a>
+		</span>              
+                
+		<span  title="Editar"   >
+		<a href="' . $js2 . '" class="divEliminar" ></a>
 		</span>
 
 		</div>';
-        
 
-        
-        
+
+
+
         //hereee
         //$_02 = '<a href="javascript:add_15('.$param.',\''.$_01.'\')" title = "Agregar UNICO Adelanto 15">1era 15</a>';
         // $_04 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_etapaPago.php?id_declaracion='.$param.'&periodo='.$_01.'\',\'#CapaContenedorFormulario\')"title = "VER">Ver</a>';
-
-
         //hereee
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(

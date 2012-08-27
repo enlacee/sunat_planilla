@@ -63,12 +63,6 @@ echo "</pre>";
 	cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab2.php?periodo=' ,'#tabs-2');
 	//cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab3.php?periodo=' ,'#tabs-3');
 
-
-
-//functiones GRID
-
-//	cargarTablaPTrabajadores(PERIODO);
-
 	
 </script>
 

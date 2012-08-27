@@ -378,9 +378,9 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
    //vocabulario Etapa
    //-semanal = ?
    //-quincenal = ?
-    function cargarTabla_Etapa(){
-		var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
-		var id_declaracion = document.getElementById('id_declaracion').value;
+    function cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion){
+
+		var arreglo = new Array();
 		
         $("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
@@ -408,7 +408,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
                 {
                     name:'num_documento', 
                     index:'num_documento',
-                    search:false,
+                    search:true,
                     editable:false,
                     width:80,
                     align:'center'
@@ -438,6 +438,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
                     name:'fecha_inicio', 
                     index:'fecha_inicio',
                     editable:false,
+					search:false,
                     width:90,
                     align:'center'
                 },
@@ -445,6 +446,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
                     name:'fecha_fin', 
                     index:'fecha_fin',
                     editable:false,
+					search:false,
                     width:90,
                     align:'center'
                 },
@@ -459,6 +461,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
                     name:'descripcion', 
                     index:'descripcion',
                     editable:false,
+					search:false,
                     width:90,
                     align:'center'
                 },
@@ -485,8 +488,46 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
             gridview: true,
             //caption: 'Trabajadores Activos',
             toolbar: [true,"top"],
-            //multiselect: true,
+            multiselect: true,
             hiddengrid: false,
+			
+            onSelectRow: function(rowid, selected) {
+					
+                    var bandera = false;					 
+                    for(var i = 0; i < arreglo.length ;i++){
+                        // alert( rowid +"a igualar = " + ids_trabajadores_2[i]);
+                        if(arreglo[i] == rowid){
+                            // Ya existe rowid en array
+                            bandera = true;
+                            arreglo[i] =null;
+                            break;
+                        }
+                    }//ENDFOR
+		
+                    if(bandera==false){
+                        arreglo.push(rowid);						
+                    }
+					console.log(arreglo);
+
+
+		
+            },
+            onSelectAll : function(rowids,selected) {  
+				limpiarArray(arreglo)
+				
+				if(selected){												
+					var array = new Array();
+					for(var i=0;i<rowids.length;i++){
+					arreglo[i] = rowids[i];
+					}
+					//ids_trabajadores_2 = array;
+				}//ENFIF
+					console.log(arreglo);				
+				
+                
+            },	
+			
+			
 
 			
         });
@@ -495,17 +536,83 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
         //--- PIE GRID
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
+	//------------------------
+	
+	
+	$("#t_list").append($("#adelanto_01"));
+	$("#t_list").append($("#adelanto_02"));
+	
+	
+	//01 = indidual
+   $("#adelanto_01").click(function(){ alert("gddd");
+											
+	var news = new Array();
+	var j=0;
+	for(var i=0; i<arreglo.length;i++){
+		if(arreglo[i]!=null){
+			news[j]=arreglo[i];
+			j++;
+		}
+	}
+	console.log(news);
+
+	//-------------
+	if(news.length>=1){ 
+		// -----arrayCadena
+		var cadena='';
+		for(var i=0; i < news.length;i++){	
+			cadena+= "ids[]="+news[i];
+			if(i != (news.length-1)){
+				cadena+= "&";
+			}	
+		}
+		//alert(cadena);
+		// -----arrayCadena
+		registrarEtapa(cadena);
+		//window.location.href="sunat_planilla/controller/Estructura_01TrabajadorController.php?oper=t-registro-baja&"+cadena;
+		//$("#list-2").jqGrid('GridUnload');
+		   jQuery("#list").trigger("reloadGrid"); 
+			limpiarArray(arreglo);
+			limpiarArray(news);
+	}else{
+		alert("Debe seleccionar un registro,\n para generar el Adelanto Individual");
+	}
+
+		
+	});
+   
+   //02  = total
+	$("#adelanto_02").click(function(){
+		
+		registrarEtapa(null);
+	});
+
+
+	
+//--
+
+		
+//--
+
+	
+	
+
 	
     }
 	
 	
-	function registrarEtapa(){
+	function registrarEtapa(cadena){
 		var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
 		var id_declaracion = document.getElementById('id_declaracion').value;
+		if(cadena!=null){
+			cadena = "?"+cadena;
+		}else{
+			cadena = '';	
+		}
 		
 	$.ajax({
    type: "POST",
-   url: "sunat_planilla/controller/EtapaPagoController.php",
+   url: "sunat_planilla/controller/EtapaPagoController.php"+cadena,
    data: {cod_periodo_remuneracion : cod_periodo_remuneracion,
    id_declaracion : id_declaracion,
    oper : "registrar_etapa"},
@@ -941,7 +1048,9 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 
 
 //--------------------------
-    function cargarTablaPDeclaracionEtapaPago(id_pdeclaracion){ 		
+    function cargarTablaPDeclaracionEtapaPago(id_pdeclaracion){ 
+	
+		var	arreglo = new Array();
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
 		//direction: "rtl",
@@ -1018,9 +1127,49 @@ function cargarTablaPagoGrid_Lineal(id_pago){
             viewrecords: true,
             gridview: true,
             //caption: 'Trabajadores Activos',
-            //toolbar: [true,"top"],
-            //multiselect: true,
+            toolbar: [true,"top"],
+            multiselect: true,
             hiddengrid: false,
+			
+            onSelectRow: function(rowid, selected) {
+					
+                    var bandera = false;					 
+                    for(var i = 0; i < arreglo.length ;i++){
+                        // alert( rowid +"a igualar = " + ids_trabajadores_2[i]);
+                        if(arreglo[i] == rowid){
+                            // Ya existe rowid en array
+                            bandera = true;
+                            arreglo[i] =null;
+                            break;
+                        }
+                    }//ENDFOR
+		
+                    if(bandera==false){
+                        arreglo.push(rowid);						
+                    }
+					console.log(arreglo);
+
+
+		
+            },
+            onSelectAll : function(rowids,selected) {  
+				limpiarArray(arreglo)
+				
+				if(selected){												
+					var array = new Array();
+					for(var i=0;i<rowids.length;i++){
+					arreglo[i] = rowids[i];
+					}
+					//ids_trabajadores_2 = array;
+				}//ENFIF
+					console.log(arreglo);				
+				
+                
+            },	
+			
+			
+			
+			
 
 			
         });
@@ -1029,6 +1178,64 @@ function cargarTablaPagoGrid_Lineal(id_pago){
         //--- PIE GRID
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
+	//------------------------------------------
+	//------------------------
+	
+	
+	$("#t_list").append($("#adelanto_mes_01"));
+	$("#t_list").append($("#adelanto_mes_02"));
+	
+	
+	//01 = indidual
+   $("#adelanto_mes_01").click(function(){ 
+											
+	var news = new Array();
+	var j=0;
+	for(var i=0; i<arreglo.length;i++){
+		if(arreglo[i]!=null){
+			news[j]=arreglo[i];
+			j++;
+		}
+	}
+	console.log(news);
+
+	//-------------
+	if(news.length>=1){ 
+		// -----arrayCadena
+		var cadena='';
+		for(var i=0; i < news.length;i++){	
+			cadena+= "ids[]="+news[i];
+			if(i != (news.length-1)){
+				cadena+= "&";
+			}	
+		}
+		//alert(cadena);
+
+		generarDeclaracionPlanilla(id_pdeclaracion,$(this),cadena);
+
+		   jQuery("#list").trigger("reloadGrid"); 
+			limpiarArray(arreglo);
+			limpiarArray(news);
+	}else{
+		alert("Debe seleccionar un registro,\n para generar periodo Mensual Individual");
+	}
+
+		
+	});
+   
+   //02  = total
+	$("#adelanto_mes_02").click(function(){
+		
+		//registrarEtapa(null);
+		generarDeclaracionPlanilla(id_pdeclaracion,$(this),null);
+	});
+	
+	
+	
+	
+	
+	
+	
 	
     }
 
@@ -1143,7 +1350,7 @@ function crearDialogoPtrabajador(){
 	$("#dialog-form-editarPtrabajador").dialog({ 
            
 			autoOpen: false,
-			height: 310,
+			height: 450,
 			width: 400,
 			modal: true,
                         
@@ -1159,7 +1366,7 @@ function crearDialogoPtrabajador(){
 						//alert ("from_data = "+from_data);
 						//---------------------------
 						$.getJSON(
-							'sunat_planilla/controller/PlameTrabajadorController.php?oper=edit&'+from_data,
+							'sunat_planilla/controller/PlameTrabajadorController.php?'+from_data,
 							function(data){
 								if(data){
 									//jQuery("#list").trigger("reloadGrid");
@@ -1203,13 +1410,19 @@ crearDialogoPtrabajador();
 
 
 //---------------------------------------------------------------
-function generarDeclaracionPlanilla(id_pdeclaracion,obj){
+function generarDeclaracionPlanilla(id_pdeclaracion,obj,cadena){
 	//obj.disabled = true;
 	//obj.value = "Generando...";
+		if(cadena!=null){
+			cadena = "?"+cadena;
+		}else{
+			cadena = '';	
+		}
+	
 	
     $.ajax({
    type: "POST",
-   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
+   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php"+cadena,
    data: { oper: 'generar_declaracion', id_pdeclaracion : id_pdeclaracion },//Enviando a ediatarProducto.php vareiable=id_producto
    async:true,
    success: function(datos){
@@ -1249,8 +1462,25 @@ if(estado == true){
 }
 
 
-
-
+//-------------------------------------------
+function eliminarPago(id){
+	var estado = confirm("Seguro que desea eliminar?");
+	
+	if(estado == true){
+		$.ajax({
+	   type: "POST",
+	   url: "sunat_planilla/controller/PagoController.php",
+	   data: { oper: 'del', id_pago : id },//Enviando a ediatarProducto.php vareiable=id_producto
+	   async:true,
+	   success: function(data){
+		console.log("Se elimino correctamente");
+		//jQuery("#list").trigger("reloadGrid");
+		jQuery("#list").trigger("reloadGrid");
+		
+	   }
+   }); 
+}
+}
 	//-------------------------------------------------------
 	//-------------------------------------------------------
 	// FUNCIONES

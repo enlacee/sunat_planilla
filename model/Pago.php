@@ -22,6 +22,7 @@ class Pago {
     private $descripcion;
     private $id_empresa_centro_costo;
     private $fecha_modificacion;
+    private $fecha_creacion;
 
     function __construct() {
      $this->id_pago=null;
@@ -43,6 +44,7 @@ class Pago {
      $this->descripcion=null;
      $this->id_empresa_centro_costo=null;
      $this->fecha_modificacion=null;
+     $this->fecha_creacion=null;
     }
     public function getId_pago() {
         return $this->id_pago;
@@ -178,6 +180,14 @@ class Pago {
 
     public function setFecha_modificacion($fecha_modificacion) {
         $this->fecha_modificacion = $fecha_modificacion;
+    }
+
+    public function getFecha_creacion() {
+        return $this->fecha_creacion;
+    }
+
+    public function setFecha_creacion($fecha_creacion) {
+        $this->fecha_creacion = $fecha_creacion;
     }
 
 

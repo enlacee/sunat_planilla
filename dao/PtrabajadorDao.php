@@ -13,10 +13,16 @@ class PtrabajadorDao extends AbstractDao {
         INSERT INTO ptrabajadores
             (
              id_trabajador,
+             asignacion_familiar,
+             para_ti_familia,
+             para_ti_familia_op,
              aporta_essalud_vida,
              aporta_asegura_tu_pension,
              domiciliado)
         VALUES (
+                ?,
+                ?,
+                ?,
                 ?,
                 ?,
                 ?,
@@ -27,9 +33,12 @@ class PtrabajadorDao extends AbstractDao {
 
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1, $model->getId_trabajador());
-            $stm->bindValue(2, $model->getAporta_essalud_vida());
-            $stm->bindValue(3, $model->getAporta_asegura_tu_pension());
-            $stm->bindValue(4, $model->getDomiciliado());
+            $stm->bindValue(2, $model->getAsignacion_familiar());
+            $stm->bindValue(3, $model->getPara_ti_familia());
+            $stm->bindValue(4, $model->getPara_ti_familia_op());
+            $stm->bindValue(5, $model->getAporta_essalud_vida());
+            $stm->bindValue(6, $model->getAporta_asegura_tu_pension());
+            $stm->bindValue(7, $model->getDomiciliado());
 
             $stm->execute();
 
@@ -55,7 +64,10 @@ class PtrabajadorDao extends AbstractDao {
 
         $query = "
         UPDATE ptrabajadores
-        SET   
+        SET
+          asignacion_familiar = ?,
+          para_ti_familia = ?,
+          para_ti_familia_op = ?,
           aporta_essalud_vida = ?,
           aporta_asegura_tu_pension = ?,
           domiciliado = ?
@@ -63,10 +75,13 @@ class PtrabajadorDao extends AbstractDao {
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $obj->getAporta_essalud_vida());
-        $stm->bindValue(2, $obj->getAporta_asegura_tu_pension());
-        $stm->bindValue(3, $obj->getDomiciliado());
-        $stm->bindValue(4, $obj->getId_ptrabajador());
+        $stm->bindValue(1, $obj->getAsignacion_familiar());
+        $stm->bindValue(2, $obj->getPara_ti_familia());
+        $stm->bindValue(3, $obj->getPara_ti_familia_op());
+        $stm->bindValue(4, $obj->getAporta_essalud_vida());
+        $stm->bindValue(5, $obj->getAporta_asegura_tu_pension());
+        $stm->bindValue(6, $obj->getDomiciliado());
+        $stm->bindValue(7, $obj->getId_ptrabajador());
         $stm->execute();
         //$data = $stm->fetchAll();
         return true;
@@ -76,6 +91,9 @@ class PtrabajadorDao extends AbstractDao {
 
         $query = "
         SELECT
+         asignacion_familiar,
+          para_ti_familia,
+          para_ti_familia_op,
           id_ptrabajador,
           id_trabajador,
           aporta_essalud_vida,

@@ -1481,6 +1481,29 @@ function eliminarPago(id){
    }); 
 }
 }
+//---------------------------------
+function eliminarTrabajadorPdeclaracion(id){
+	var estado = confirm("Seguro que desea eliminar?");
+	
+	if(estado == true){
+		$.ajax({
+	   type: "POST",
+	   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
+	   data: { oper: 'del', id : id },//Enviando a ediatarProducto.php vareiable=id_producto
+	   async:true,
+	   success: function(data){
+		console.log("Se elimino correctamente");
+		//jQuery("#list").trigger("reloadGrid");
+		jQuery("#list").trigger("reloadGrid");
+		
+	   }
+   }); 
+}
+}
+
+
+
+
 	//-------------------------------------------------------
 	//-------------------------------------------------------
 	// FUNCIONES

@@ -229,6 +229,21 @@ function Table_detalle_conceptos_afectaciones() {
 }
 
 
+//----------------------------------------------------------------------------//
+//............................................................................//
+//----------------------------------------------------------------------------//
+// view-plame 27/08/2012
+
+function view_listarConcepto($id_empleador_maestro,$cod_concepto,$seleccionado=1){
+    // listar : 3 paramentro
+    // 1 = activo
+    // 0 = inactivo
+    $dao = new PlameDetalleConceptoEmpleadorMaestroDao();
+    $data = $dao->view_listarConcepto($id_empleador_maestro, $cod_concepto, $seleccionado);
+    
+    return $data;    
+    
+}
 
 
 

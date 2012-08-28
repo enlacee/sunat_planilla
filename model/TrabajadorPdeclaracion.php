@@ -19,7 +19,12 @@ class TrabajadorPdeclaracion extends AbstractDao {
     private $descripcion;
     private $fecha_creacion;
     private $fecha_modificacion;
-    
+    //
+    private $ingreso_5ta_categoria;
+    private $cod_tipo_trabajador;
+    private $cod_regimen_pensionario;
+    private $cod_regimen_aseguramiento_salud;
+    private $cod_situacion;
 
     function __construct() {
         $this->id_trabajador_pdeclaracion = null;
@@ -29,15 +34,20 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->dia_total = null;
         $this->ordinario_hora = null;
         $this->ordinario_min = null;
-        $this->sobretiempo_hora=null;
-        $this->sobretiempo_min=null;
-        $this->sueldo=null;
-        $this->sueldo_neto=null;
-        $this->estado=null;
-        $this->descripcion=null;
-        $this->fecha_creacion=null;
-        $this->fecha_modificacion=null;
-        
+        $this->sobretiempo_hora = null;
+        $this->sobretiempo_min = null;
+        $this->sueldo = null;
+        $this->sueldo_neto = null;
+        $this->estado = null;
+        $this->descripcion = null;
+        $this->fecha_creacion = null;
+        $this->fecha_modificacion = null;
+        //
+        $this->ingreso_5ta_categoria=null;
+        $this->cod_tipo_trabajador=null;
+        $this->cod_regimen_pensionario=null;
+        $this->cod_regimen_aseguramiento_salud=null;
+        $this->cod_situacion=null;
     }
 
     public function getId_trabajador_pdeclaracion() {
@@ -160,8 +170,50 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->fecha_modificacion = $fecha_modificacion;
     }
 
+    public function getIngreso_5ta_categoria() {
+        return $this->ingreso_5ta_categoria;
+    }
 
+    public function setIngreso_5ta_categoria($ingreso_5ta_categoria) {
+        $this->ingreso_5ta_categoria = $ingreso_5ta_categoria;
+    }
 
+    public function getCod_tipo_trabajador() {
+        return $this->cod_tipo_trabajador;
+    }
+
+    public function setCod_tipo_trabajador($cod_tipo_trabajador) {
+        $this->cod_tipo_trabajador = $cod_tipo_trabajador;
+    }
+
+    public function getCod_regimen_pensionario() {
+        return $this->cod_regimen_pensionario;
+    }
+
+    public function setCod_regimen_pensionario($cod_regimen_pensionario) {
+        $this->cod_regimen_pensionario = $cod_regimen_pensionario;
+    }
+
+    public function getCod_regimen_aseguramiento_salud() {
+        return $this->cod_regimen_aseguramiento_salud;
+    }
+
+    public function setCod_regimen_aseguramiento_salud($cod_regimen_aseguramiento_salud) {
+        $this->cod_regimen_aseguramiento_salud = $cod_regimen_aseguramiento_salud;
+    }
+
+    public function getCod_situacion() {
+        return $this->cod_situacion;
+    }
+
+    public function setCod_situacion($cod_situacion) {
+        $this->cod_situacion = $cod_situacion;
+    }
+
+ 
+    
+    
+   
 }
 
 ?>

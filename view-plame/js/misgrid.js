@@ -525,3 +525,101 @@ var periodo = document.getElementById('txt_periodo_tributario').value;
 
 }
 
+
+
+//----------------------------------------------------------
+
+//---------------------------------------------------------------
+// DIALOG
+
+//---------------------------------------------------
+function editarDiaSubsidiado_0(id_tpd){
+	crearDialogoDiaSubsidiado_0();
+	//id_pjoranada_laboral = 0;
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-plame/modal/dia_subsidiado.php",
+   data: {id_tpd : id_tpd},
+   async:true,
+   success: function(datos){
+    $('#editarDiaSubsidiado_0').html(datos);
+    
+    $('#dialog-dia-subsidiado_0').dialog('open');
+   }
+   }); 
+
+	
+
+}
+
+
+function crearDialogoDiaSubsidiado_0(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog-dia-subsidiado_0").dialog({ 
+           
+			autoOpen: false,
+			height: 250,
+			width: 490,
+			modal: true,
+			title: "Dias Subsidiados"
+			/*                      
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				}
+                                
+			},			
+			open: function() {},
+			close: function() {}
+			*/
+	});
+}
+
+//-----------------------------------------------------------------------
+
+//---------------------------------------------------
+function editarDiaNoLaborado_0(id_tpd){
+	crearDialogoDiaNoLaborado_0();
+	var dia_subsidiado = document.getElementById('dia_subsidiado').value
+   $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-plame/modal/dia_nolaborado.php",
+   data: {id_tpd : id_tpd, dia_subsidiado : dia_subsidiado},
+   async:true,
+   success: function(datos){
+	  
+    $('#editarDiaNoLaborado_0').html(datos);
+    
+    $('#dialog-dia-noLaborado_0').dialog('open');
+   }
+   }); 
+
+}
+
+function crearDialogoDiaNoLaborado_0(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog-dia-noLaborado_0").dialog({ 
+           
+			autoOpen: false,
+			height: 250,
+			width: 490,
+			modal: true,
+			title: "Dias no laborados y no Subsidiados" 
+			/*                      
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				}
+                                
+			},			
+			open: function() {},
+			close: function() {}
+			*/
+	});
+}
+
+

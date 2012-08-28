@@ -4,23 +4,41 @@ require_once '../../view/ide2.php';
 //*******************************************************************//
 //require_once('../../util/funciones.php');
 require_once('../../dao/AbstractDao.php');
-//require_once('../../controller/ideController2.php');
 
-require_once('../../model/Dcem_Pingreso.php');
-require_once('../../dao/Dcem_PingresoDao.php');
-require_once('../../controller/PlameDcem_PingresoController.php');
+//IDE
+require_once('../../controller/ideController2.php');
+
+require_once('../../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
+require_once('../../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
 
 
-$ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
+$ID_TRABAJADOR_PDECLARACION = $_REQUEST['id_ptrabajador'];
 
-$datas = new Dcem_Pingreso();
+require_once("../../controller/DeclaracionDconceptoController.php");
+require_once("../../dao/DeclaracionDconceptoDao.php");
+//-------------------------------------------------------------------------------
+$calc_conceptos = array();
+$calc_conceptos = listar_concepto_calc_ID_TrabajadorPdeclaracion($ID_TRABAJADOR_PDECLARACION);
+
+
+//-------------------------------------------------------------------------------
+
+//$datas = new Dcem_Pingreso();
 //$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
-$pingreso = array();
-$pingreso = listarDcem_Pingreso($ID_PTRABAJADOR);
 
-//echo "<pre>";
-//print_r($pingreso);
-//echo "</pre>";
+//$pingreso = listarDcem_Pingreso($ID_TRABAJADOR_PDECLARACION);
+$conceptos= array('100','200','300','400','500','900');
+//$conceptos = "90";
+$pingreso = array();
+$pingreso = view_listarConcepto(ID_EMPLEADOR_MAESTRO,$conceptos);
+
+//echo "ID_EMPLEADOR_MAESTRO essss = ".ID_EMPLEADOR_MAESTRO;
+/*
+echo "<pre>";
+print_r($calc_conceptos);
+echo "</pre>";
+*/
+
 ?>
 <script type="text/javascript">
 
@@ -183,10 +201,10 @@ function generate_code(text,txt_id) {
 
 
                 <tr>
-                    <td> <?php echo $pingreso[$i]['id_dcem_pingreso']; ?></td>
+                    <td> <?php echo $pingreso[$i]['id_detalle_concepto_empleador_maestro']; ?></td>
                     <td><label for="pt_codigo"></label>
                         <input name="pt_codigo" type="text" id="" size="5" 
-                               value="<?php echo $pingreso[$i]['cod_detalle_concepto']; //echo $pingreso[$i]['id_ptrabajador'];   ?>"      />
+                               value="<?php echo $pingreso[$i]['cod_detalle_concepto']; //echo $pingreso[$i]['ID_TRABAJADOR_PDECLARACION'];   ?>"      />
 
                     </td>
                     <td><?php echo $pingreso[$i]['descripcion']; ?></td>
@@ -196,7 +214,21 @@ function generate_code(text,txt_id) {
                                onkeyup="duplicarDatoDevengado(<?php echo $ID;?>)" />
                     </td>
                     <td><input name="pt_pagado" type="text" id="pt_pagado-<?php echo $ID;?>" size="8"
-                               value="<?php echo $pingreso[$i]['pagado']; ?>" maxlength="7" />
+                               value="<?php 
+							   
+							   for($x=0; $x<count($calc_conceptos); $x++){
+								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ){
+									   echo $calc_conceptos[$x]['monto_pagado'];
+									   break;
+									}
+								   
+								}							   
+							  // echo $pingreso[$i]['pagado']; 
+							   
+							   
+							   
+							   
+							   ?>" maxlength="7" />
                     </td>
                 </tr>
 

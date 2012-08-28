@@ -35,10 +35,10 @@ $ID_PAGO = ($_REQUEST['id_pago']);
 
 $obj_pago = new Pago();
 $obj_pago = buscarPagoPor_ID($ID_PAGO);
-
-//echo "<pre>PjornadaLaboral";
-//echo print_r($obj_pago);
-//echo "</pre>";
+/*
+echo "<pre>";
+echo print_r($obj_pago);
+echo "</pre>";*/
 
 $data_ds = buscarDiaSPor_IdPago($obj_pago->getId_pago());
 $data_dns = buscarDiaNoSPor_IdPago($obj_pago->getId_pago());

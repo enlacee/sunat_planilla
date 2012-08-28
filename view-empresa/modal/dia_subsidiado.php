@@ -58,7 +58,8 @@ calcDiaSubsidiado();
                     <td>
                         <input size="4" id="pdia_subsidiado-<?php echo $ID; ?>" name="pdia_subsidiado[]" 
                                value="<?php echo $data[$i]->getId_pdia_subsidiado(); ?>" 
-                               type="hidden"> <?php //echo "<h1>ddd<h1>". $data[$i]->getCod_tipo_suspen_relacion_laboral(); ?>
+                               type="hidden"> 
+                               
                         <input size="4" id="estado-<?php echo $ID; ?>" name="estado[]" 
                                value="<?php echo ($data[$i]->getId_pdia_subsidiado()) ? 1 : 0; ?>"
                                type="hidden">

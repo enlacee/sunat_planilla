@@ -51,11 +51,13 @@ if ($op == "add") {
 } else if ($op == "generar_declaracion") {
     generarDeclaracionPlanillaMensual();
 } else if ($op == "cargar_tabla_2") {
-    
+
     $response = listar_trabajadorPdeclaracion();
-}else if($op == "grid_lineal"){
-    
-     $response = cargar_tabla_grid_lineal();
+} else if ($op == "grid_lineal") {
+
+    $response = cargar_tabla_grid_lineal();
+} else if ($op == "del") {
+    $response = eliminar_trabajadorPdeclaracion();
 }
 
 
@@ -133,9 +135,15 @@ function generarDeclaracionPlanillaMensual() {
     $dao_trapdecla = new TrabajadorPdeclaracionDao();
     $_data_id_trabajador = $dao_trapdecla->listar($ID_PDECLARACION, "id_trabajador");
 
-    echo "<pre> _data_id_trabajador";
-    print_r($_data_id_trabajador);
-    echo "</pre>";
+    if (count($data_traa) == count($_data_id_trabajador)) {
+        echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-MENSUAL]! ";
+        return false;
+    }
+
+
+//    echo "<pre> _data_id_trabajador";
+//    print_r($_data_id_trabajador);
+//    echo "</pre>";
 
     /* --------------filtro de  id_trabajadores ------------- */
     for ($i = 0; $i < count($_data_id_trabajador); $i++) {
@@ -158,7 +166,7 @@ function generarDeclaracionPlanillaMensual() {
         for ($i = 0; $i < count($ids); $i++) {
             for ($j = 0; $j < count($data); $j++) {
                 if ($ids[$i] == $data[$j]['id_trabajador']) {
-                    echo $data[$j]['id_trabajador'] . "ssssssssssssssssssssssssssssssss";
+
                     $ids_tra[]['id_trabajador'] = $data[$j]['id_trabajador']; //$data[$j];
                     break;
                 }
@@ -199,15 +207,24 @@ function generarDeclaracionPlanillaMensual() {
         $obj->setSueldo($data_sum['sueldo']);
         $obj->setSueldo_neto($data_sum['sueldo_neto']);
         $obj->setEstado(0);
-        $obj->setFecha_creacion(date("Y-m-d H:i:s"));
+        $obj->setFecha_creacion(date("Y-m-d H:i:s"));       
+     
 
-
-        $dao = new TrabajadorPdeclaracionDao();
-        $id_trabajador_pdeclaracion = $dao->registrar($obj);
+        // LISTADO DE trabajadores ya registrados en el periodo o mes ejem: mm/yyyy               
         //echo "id_trabajador_pdeclaracion = " . $id_trabajador_pdeclaracion;
         //....................................................................//
         // Otras utilidades
+        $dao = new TrabajadorPdeclaracionDao(); 
         $DATA_TRA = $dao->buscar_ID_trabajador($ID_TRABAJADOR[$i]);
+        
+        //Registrar datos adicionales del Trabajador
+        $obj->setIngreso_5ta_categoria(0);
+        $obj->setCod_tipo_trabajador($DATA_TRA['cod_tipo_trabajador']);
+        $obj->setCod_regimen_pensionario($DATA_TRA['cod_regimen_pensionario']);
+        $obj->setCod_regimen_aseguramiento_salud($DATA_TRA['cod_regimen_aseguramiento_salud']);
+        $obj->setCod_situacion($DATA_TRA['cod_situacion']);
+        
+        $id_trabajador_pdeclaracion = $dao->registrar($obj);
         //....................................................................//
         // paso 03 :: Consultar Conceptos
         // INGRESOS
@@ -361,6 +378,8 @@ function concepto_AFP($id_trabajador_pdeclaracion, $cod_regimen_pensionario) {
     $all_ingreso = allConceptos_Afectos_Ingreso($id_trabajador_pdeclaracion);
     //ECHO " all_ingreso = " . $all_ingreso;
     //====================================================    
+    echo "all_ingreso =". $all_ingreso;
+    
     //----
     $afp = new ConfAfp();
     $afp = vigenteAfp($cod_regimen_pensionario);
@@ -494,8 +513,8 @@ function concepto_0804($id_trabajador_pdeclaracion) {
 //-----------------------------------------------------------------------------//
 
 function listar_trabajadorPdeclaracion() {
-    
-    $ID_PDECLARACION =$_REQUEST['id_pdeclaracion'];
+
+    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
 
     $dao = new TrabajadorPdeclaracionDao();
 
@@ -526,7 +545,7 @@ function listar_trabajadorPdeclaracion() {
         $sidx = 1;
 
     $lista = array();
-    $lista = $dao->listar($ID_PDECLARACION,null,$WHERE);
+    $lista = $dao->listar($ID_PDECLARACION, null, $WHERE);
 //echo "<pre>";
 //print_r($lista);
 //echo "</pre>";
@@ -564,25 +583,25 @@ function listar_trabajadorPdeclaracion() {
     foreach ($lista as $rec) {
 
         $param = $rec["id_trabajador_pdeclaracion"];
-        
-        $_01 = $rec['id_trabajador'];        
+
+        $_01 = $rec['id_trabajador'];
         $_02 = $rec['cod_tipo_documento'];
         $_03 = $rec['num_documento'];
         $_04 = $rec['apellido_paterno'];
-        $_05= $rec['apellido_materno'];
-        $_06= $rec['nombres'];
+        $_05 = $rec['apellido_materno'];
+        $_06 = $rec['nombres'];
         $_07 = $rec['dia_laborado'];
         $_08 = $rec['sueldo'];
-        
 
-        
-        
 
-       // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
-        
-        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_trabajador_pdeclaracion=".$param."&id_trabajador=".$_01."','#detalle_declaracion_trabajador')";
-        
-        
+
+
+
+        // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
+
+        $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_trabajador_pdeclaracion=" . $param . "&id_trabajador=" . $_01 . "','#detalle_declaracion_trabajador')";
+
+
         $js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
         $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar"   >
@@ -624,10 +643,9 @@ function listar_trabajadorPdeclaracion() {
     return $response;
 }
 
-
 // GRID SIN PIE 
-function cargar_tabla_grid_lineal(){
-      $ID = $_REQUEST['id'];
+function cargar_tabla_grid_lineal() {
+    $ID = $_REQUEST['id'];
 
     $dao = new TrabajadorPdeclaracionDao();
 
@@ -689,36 +707,36 @@ function cargar_tabla_grid_lineal(){
         //return $response;
     }
 //print_r($lista);
-  
+
 
     foreach ($lista as $rec) {
-        $param = $rec["id_trabajador_pdeclaracion"];        
+        $param = $rec["id_trabajador_pdeclaracion"];
         $dia_total = $rec['dia_total'];
-        
-        
+
+
         /*
-       $dao1 = new PdiaSubsidiadoDao();
-       $dia_subsidiado = $dao1->busacar_IdPago($param,"SUMA");
-       
-       $dao2 =new PdiaNoSubsidiadoDao();
-       $dia_NOsubsidiado = $dao2->buscar_IdPago($param,"SUMA");
-      
-       
-       $dia_laborado_calc = $dia_total - ($dia_subsidiado +$dia_NOsubsidiado);
-       */
+          $dao1 = new PdiaSubsidiadoDao();
+          $dia_subsidiado = $dao1->busacar_IdPago($param,"SUMA");
+
+          $dao2 =new PdiaNoSubsidiadoDao();
+          $dia_NOsubsidiado = $dao2->buscar_IdPago($param,"SUMA");
+
+
+          $dia_laborado_calc = $dia_total - ($dia_subsidiado +$dia_NOsubsidiado);
+         */
         //$_00 = $rec['id_trabajador'];
         $_01 = $rec['cod_tipo_documento'];
-        $_02 = $rec['num_documento'];  
+        $_02 = $rec['num_documento'];
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
         $_06 = $dia_laborado_calc;
         $_07 = $rec['sueldo']; //INGRESOS
-        $_08 = $rec['descuento'];//$rec['descuento']; 
+        $_08 = $rec['descuento']; //$rec['descuento']; 
         $_09 = $rec['sueldo_neto']; //$rec['valor_neto'];
         $_10 = $rec['estado'];
 
-        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param. "&id_trabajador=".$_00."','#detalle_declaracion_trabajador')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
 
         // $js2 = "javascript:eliminarPersona('" . $param . "')";		
         $opciones = '<div id="divEliminar_Editar">				
@@ -741,7 +759,7 @@ function cargar_tabla_grid_lineal(){
             $_08,
             $_09,
             $_10
-            //$opciones*/
+                //$opciones*/
         );
         $i++;
     }
@@ -749,6 +767,36 @@ function cargar_tabla_grid_lineal(){
 //echo "<pre>";
 //print_r($response);
 //echo "</pre>";
-    return $response;   
-    
+    return $response;
+}
+
+// view-plame
+function buscar_ID_TrabajadorPdeclaracion($id) {
+    //$id = $_REQUEST[''];
+    $dao = new TrabajadorPdeclaracionDao();
+    $data = $dao->buscar_ID($id);
+    $model = new TrabajadorPdeclaracion();
+    $model->setId_trabajador_pdeclaracion($data['id_trabajador_pdeclaracion']);
+    $model->setId_pdeclaracion($data['id_pdeclaracion']);
+    $model->setId_trabajador($data['id_trabajador']);
+    $model->setDia_laborado($data['dia_laborado']);
+    $model->setDia_total($data['dia_total']);
+    $model->setOrdinario_hora($data['ordinario_hora']);
+    $model->setOrdinario_min($data['ordinario_min']);
+    $model->setSobretiempo_hora($data['sobretiempo_hora']);
+    $model->setSobretiempo_min($data['sobretiempo_min']);
+    $model->setSueldo($data['sueldo']);
+    $model->setSueldo_neto($data['sueldo_neto']);
+    $model->setEstado($data['estado']);
+    $model->setFecha_creacion($data['fecha_creacion']);
+    $model->setFecha_modificacion($data['fecha_modificacion']);
+
+    return $model;
+}
+
+function eliminar_trabajadorPdeclaracion() {
+    $id = $_REQUEST['id'];
+
+    $dao = new TrabajadorPdeclaracionDao();
+    return $dao->eliminar($id);
 }

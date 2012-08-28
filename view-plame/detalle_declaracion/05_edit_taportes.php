@@ -4,25 +4,15 @@ require_once '../../view/ide2.php';
 //*******************************************************************//
 //require_once('../../util/funciones.php');
 require_once('../../dao/AbstractDao.php');
-//require_once('../../controller/ideController2.php');
 
-//require_once('../../model/Dcem_Pdescuento.php');
-require_once('../../dao/Dcem_PtributoAporteDao.php');
-require_once('../../controller/PlameDcem_PtributoAporteController.php');
+//IDE
+require_once('../../controller/ideController2.php');
 
-//--------------- sub detalle_5
-require_once('../../model/DetalleRegimenPensionario.php');
-require_once('../../dao/DetalleRegimenPensionarioDao.php');
-require_once('../../controller/DetalleRegimenPensionarioController.php');
-
+require_once('../../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
+require_once('../../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
 
 $ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
 $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
-
-//--- sub 5 Regimen Pensionario
-// $objTRADetalle_5
-$objTRADetalle_5 = new DetalleRegimenPensionario();
-$objTRADetalle_5 = buscarDetalleRegimenPensionario ( $ID_TRABAJADOR );
 
 // Filtro si es:
 // -- ONP
@@ -39,7 +29,7 @@ $afp = array('0601', '0602','0604','0605' , '0606','0608', '0609', '0611','0612'
 // AFP = 21,22,23,24
 
 
-$codigo = $objTRADetalle_5->getCod_regimen_pensionario();
+$codigo = '02';//$objTRADetalle_5->getCod_regimen_pensionario();
 $detalle_concepto = array();
 
 if($codigo =='02'){
@@ -53,19 +43,24 @@ if($codigo =='02'){
 
 //$datas = new Dcem_Pd();
 //$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
-$ptaporte = array();
-$ptaporte = listarDcem_PtributoAporte($ID_PTRABAJADOR);
+//$ptaporte = array();
+//$ptaporte = listarDcem_PtributoAporte($ID_PTRABAJADOR);
+//$pingreso = listarDcem_Pingreso($ID_PTRABAJADOR);
+$conceptos= array('600','800');
 
-
-echo "<pre>regimen ? ";
-print_r($codigo);
+$ptaporte = view_listarConcepto(ID_EMPLEADOR_MAESTRO,$conceptos,0);
+/*
+echo "<pre>ptaporte ? ";
+print_r($ptaporte);
 echo "</pre>";
 echo "<hr>";
+*/
 
-echo "<pre>";
-//print_r($ptaporte);
+/*
+echo "<pre> lista a buscar detalle_concepto";
+print_r($detalle_concepto);
 echo "</pre>";
-
+*/
 
 ?>
 
@@ -95,19 +90,20 @@ id_dcem_ptributo_aporte<input name="id_dcem_ptributo_aporte" type="text" readonl
 //        if (count($ptaporte) >= 1):
 
 	for ($i = 0; $i < count($ptaporte); $i++):
-				
+			
 		//INICIO ---- Aportaciones del trabajador 0600
 		if($ptaporte[$i]['cod_concepto'] == '0600'):
 		
 ?>
                 
-<?php			
+<?php
+
 if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final conceptos 0600 , 0800
 ?>
                   
     <tr>
       <td><input name="ptta_id_dcem_ptributo_aporte[]" type="text" id="ptta_id_dcem_ptributo_aporte" size="5" 
-      value="<?php echo $ptaporte[$i]['id_dcem_ptributo_aporte']; ?>" /></td>
+      value="<?php echo $ptaporte[$i]['id_detalle_concepto_empleador_maestro']; ?>" /></td>
       <td><label for="pt_codigo"></label>
       <input name="ptta_cod_detalle_concepto[]" type="text" id="ptta_cod_detalle_concepto" size="5" 
        value="<?php echo $ptaporte[$i]['cod_detalle_concepto'];?>"/>
@@ -184,7 +180,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //FILTR
 <!-- CUERPO INICIO 0800 -->
     <tr>
       <td><input name="ptta_id_dcem_ptributo_aporte[]" type="text" id="ptta_id_dcem_ptributo_aporte" size="5" 
-      value="<?php echo $ptaporte[$i]['id_dcem_ptributo_aporte']; ?>" /></td>
+      value="<?php echo $ptaporte[$i]['id_detalle_concepto_empleador_maestro']; ?>" /></td>
       <td><label for="pt_codigo"></label>
       <input name="ptta_cod_detalle_concepto[]" type="text" id="ptta_cod_detalle_concepto" size="5" 
        value="<?php echo $ptaporte[$i]['cod_detalle_concepto'];?>"/>

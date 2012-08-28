@@ -3,24 +3,24 @@
 class DiaSubsidiado {
 
     //put your code here
-    private $id_subsudiado;
+    private $id_dia_subsidiado;
     private $id_trabajador_pdeclaracion;
     private $cantidad_dia;
     private $cod_tipo_suspen_relacion_laboral;
 
     public function __construct() {
-        $this->id_subsudiado = null;
+        $this->id_dia_subsidiado = null;
         $this->id_trabajador_pdeclaracion = null;
         $this->cantidad_dia = null;
         $this->cod_tipo_suspen_relacion_laboral = null;
     }
     
-    public function getId_subsudiado() {
-        return $this->id_subsudiado;
+    public function getId_dia_subsidiado() {
+        return $this->id_dia_subsidiado;
     }
 
-    public function setId_subsudiado($id_subsudiado) {
-        $this->id_subsudiado = $id_subsudiado;
+    public function setId_dia_subsidiado($id_dia_subsidiado) {
+        $this->id_dia_subsidiado = $id_dia_subsidiado;
     }
 
     public function getId_trabajador_pdeclaracion() {
@@ -46,6 +46,7 @@ class DiaSubsidiado {
     public function setCod_tipo_suspen_relacion_laboral($cod_tipo_suspen_relacion_laboral) {
         $this->cod_tipo_suspen_relacion_laboral = $cod_tipo_suspen_relacion_laboral;
     }
+
 
 
 

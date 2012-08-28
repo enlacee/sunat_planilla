@@ -3,7 +3,7 @@
 class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
     //put your code here
-    public function registrar($id_empleador_maestro, $cod_detalle_concepto,$seleccionado) {
+    public function registrar($id_empleador_maestro, $cod_detalle_concepto, $seleccionado) {
 
         $query = "
         INSERT INTO detalles_conceptos_empleadores_maestros
@@ -27,7 +27,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
             $stm->bindValue(1, $id_empleador_maestro);
             $stm->bindValue(2, $cod_detalle_concepto);
             $stm->bindValue(3, $seleccionado);
-            
+
             $stm->execute();
 
             // id Persona
@@ -41,7 +41,6 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
             //return true;
             $stm = null;
             return $lista[0]['id'];
-            
         } catch (Exception $e) {
             //  Util::rigistrarLog( $e, $query );
             $this->pdo->rollBack();
@@ -189,41 +188,32 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
         return true;
     }
-    
-    
-    public function actualizarConceptoDescripcion1000($id_detalle_concepto_empleador_maestro,$descripcion){
-        
+
+    public function actualizarConceptoDescripcion1000($id_detalle_concepto_empleador_maestro, $descripcion) {
+
         $query = "
         UPDATE detalles_conceptos_empleadores_maestros
         SET 
           descripcion_1000 = ?
         WHERE id_detalle_concepto_empleador_maestro = ?;        
         ";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $descripcion);
         $stm->bindValue(2, $id_detalle_concepto_empleador_maestro);
         $stm->execute();
         $stm = null;
         return true;
-        
-        
-        
-        
-        
-        
     }
 
-    
-    
-    
     /*
      * Utilizando EN concepto 1000 JAVASCRIPT 
      * /view-plame/detalle/view_detalle_concepto_1000.php
      * Function busca ID PARA CHECK Segun empleador Maestro
      */
-    public function buscarID_CheckConcepto1000_EM($id_empleador_maestro,$cod_detalle_concepto){
-        
+
+    public function buscarID_CheckConcepto1000_EM($id_empleador_maestro, $cod_detalle_concepto) {
+
         $query = "
         SELECT 
             id_detalle_concepto_empleador_maestro 
@@ -232,23 +222,22 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         AND cod_detalle_concepto = ?   
         ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1,$id_empleador_maestro);
-        $stm->bindValue(2,$cod_detalle_concepto);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $cod_detalle_concepto);
         $stm->execute();
         $lista = $stm->fetchAll();
-        $stm=null;
-        
+        $stm = null;
+
         return $lista[0]['id_detalle_concepto_empleador_maestro'];
-        
     }
-    
+
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
     //  LISTAR datos para tablas
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    
-    public function listar_dcem_pingresos($id_empleador_maestro){
+
+    public function listar_dcem_pingresos($id_empleador_maestro) {
         $query = "
         SELECT 
         dcem.id_detalle_concepto_empleador_maestro,
@@ -273,11 +262,9 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         $stm = null;
 
         return $lista;
-        
     }
-    
-    
-    public function listar_dcem_pdescuentos($id_empleador_maestro){
+
+    public function listar_dcem_pdescuentos($id_empleador_maestro) {
         $query = "
         SELECT 
         dcem.id_detalle_concepto_empleador_maestro,
@@ -298,13 +285,11 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         $lista = $stm->fetchAll();
         $stm = null;
 
-        return $lista;  
-        
+        return $lista;
     }
-    
-    
-   public function listar_dcem_ptributos_aportes($id_empleador_maestro){
-        
+
+    public function listar_dcem_ptributos_aportes($id_empleador_maestro) {
+
         $query = "
         SELECT 
         dcem.id_detalle_concepto_empleador_maestro,
@@ -326,14 +311,66 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         $lista = $stm->fetchAll();
         $stm = null;
 
-        return $lista;  
+        return $lista;
     }
-    
-    
 
-    
-    
-    
+//----------------------------------------------------------------------------//
+//............................................................................//
+//----------------------------------------------------------------------------//
+// view-plame 27/08/2012
+
+    public function view_listarConcepto($id_empleador_maestro, $cod_concepto, $seleccionado) {
+
+        if (is_array($cod_concepto) && count($cod_concepto) >= 1) {
+            $sql = " ";
+            for ($i = 0; $i < count($cod_concepto); $i++) {
+                $sql .= $cod_concepto[$i];
+                if ($i == (count($cod_concepto)) - 1) {
+                    //null                    
+                } else {
+                    $sql .= ",";
+                }
+            }
+        }else{
+            $sql = $cod_concepto;
+        }
+        
+        //echo "sql   ".$sql;
+
+        $query = "
+        SELECT
+          dce.id_detalle_concepto_empleador_maestro,
+          dce.id_empleador_maestro,
+          dce.cod_detalle_concepto,
+          dce.seleccionado,
+          dce.descripcion_1000,
+          dc.descripcion,
+          c.cod_concepto  
+        FROM detalles_conceptos_empleadores_maestros AS dce
+        INNER JOIN detalles_conceptos AS dc
+        ON dce.cod_detalle_concepto = dc.cod_detalle_concepto
+        INNER JOIN conceptos AS c
+        ON dc.cod_concepto = c.cod_concepto
+
+        WHERE (dce.id_empleador_maestro = ?)
+        AND c.cod_concepto in ($sql)        
+        AND dce.seleccionado = $seleccionado
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        //$stm->bindValue(2, '$cod_concepto');
+        // $stm->bindValue(3, $seleccionado);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+       /* echo "<pre>$sql y estado $seleccionado  ";
+        print_r($lista);
+        echo "</pre>";
+        */
+        return $lista;
+    }
+
 }
 
 ?>

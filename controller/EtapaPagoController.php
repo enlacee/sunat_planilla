@@ -286,7 +286,7 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids=null) {
     $_data_id_trabajador = $dao_pago->listar($id_etapa_pago, "id_trabajador");
     
     if(count($data_traa) ==  count($_data_id_trabajador) ){
-        echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS";
+        echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-QUINCENAL]! ";
         return false;
     }
 

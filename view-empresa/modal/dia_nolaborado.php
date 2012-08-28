@@ -42,7 +42,6 @@ calcDiaNoSubsidiado();
   <input name="oper" type="text" value="dual" />
   <br />
   id_pago
-  <label for="id_pjoranada_laboral"></label>
   <input type="text" name="id_pago" id="" value="<?php echo $id_pago; ?>" />
 </div>
 <table width="450" border="1" id="tb_dnolaborado">
@@ -65,15 +64,17 @@ calcDiaNoSubsidiado();
         <tr id="dia_nosubsidiado-<?php echo $ID;?>">
 
             <td>
-                <input size="4" id="pdia_nosubsidiado-<?php echo $ID; ?>" name="pdia_nosubsidiado[]" 
-                value="<?php echo $data[$i]->getId_pdia_nosubsidiado();?>" type="hidden">
-                <input size="4" id="estado-<?php echo $ID; ?>" name="estado[]" type="hidden"                
-                value="<?php echo ($data[$i]->getId_pdia_nosubsidiado()) ? 1 : 0; ?>" /> 
-				
-				<?php //echo "<h1>ddd<h1>". $data[$i]->getCod_tipo_suspen_relacion_laboral(); ?>
+                <input size="4" id="id_pdia_nosubsidiado-<?php echo $ID; ?>" name="id_pdia_nosubsidiado[]"  type="text" 
+                value="<?php echo $data[$i]->getId_pdia_nosubsidiado(); ?>" />
                 
+                
+                <input size="4" id="estado-<?php echo $ID; ?>" name="estado[]" 
+               value="<?php echo ($data[$i]->getId_pdia_nosubsidiado()) ? 1 : 0; ?>"
+                 type="text">
+                 
                  <input type="hidden" name="txt_cbo_dns_tipo_suspension[]" 
                  value="<?php echo $data[$i]->getCod_tipo_suspen_relacion_laboral(); ?>"/>  
+                 
                 
                 <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-<?php echo $ID; ?>" style="width:150px;" onchange=""> 
                     <?php
@@ -100,12 +101,11 @@ calcDiaNoSubsidiado();
                 value="<?php echo $data[$i]->getCantidad_dia();?>"/>
             </td>
             <td>
-                <span title="editar"><a href="javascript:editar_dns('<?php echo $ID; ?>',<?php echo $data[$i]->getId_pdia_nosubsidiado();?>)">
-                <img src="images/edit.png"></a></span>
+                <span title="editar"><a href="javascript:editar_dns('<?php echo $ID; ?>',<?php echo $data[$i]->getId_pdia_nosubsidiado(); ?>)"><img src="images/edit.png"></a></span>
             </td>
             <td>
                 <span title="editar">
-                    <a href="javascript:eliminar_dns('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_pdia_nosubsidiado();?>)">
+                    <a href="javascript:eliminar_dns('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_pdia_nosubsidiado(); ?>)">
                         <img src="images/cancelar.png"/></a></span>
             </td>
 

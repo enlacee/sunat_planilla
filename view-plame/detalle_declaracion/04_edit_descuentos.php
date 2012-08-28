@@ -4,23 +4,31 @@ require_once '../../view/ide2.php';
 //*******************************************************************//
 //require_once('../../util/funciones.php');
 require_once('../../dao/AbstractDao.php');
-//require_once('../../controller/ideController2.php');
 
-//require_once('../../model/Dcem_Pdescuento.php');
-require_once('../../dao/Dcem_PdescuentoDao.php');
-require_once('../../controller/PlameDcem_PdescuentoController.php');
+//IDE
+require_once('../../controller/ideController2.php');
+
+require_once('../../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
+require_once('../../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
 
 
 $ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
 
-//$datas = new Dcem_Pd();
+//$datas = new Dcem_Pingreso();
 //$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
+
+//$pingreso = listarDcem_Pingreso($ID_PTRABAJADOR);
+
 $pdescuento = array();
-$pdescuento = listarDcem_Pdescuento($ID_PTRABAJADOR);
+$pdescuento = view_listarConcepto(ID_EMPLEADOR_MAESTRO,700);
+
+//echo "ID_EMPLEADOR_MAESTRO essss = ".ID_EMPLEADOR_MAESTRO;
 
 //echo "<pre>";
-//print_r($pdescuento);
+//print_r($pingreso);
 //echo "</pre>";
+
+
 ?>
 <div class="ptrabajador">
 <div class="ocultar">
@@ -47,7 +55,7 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
     
     
     <tr>
-      <td><?php echo $pdescuento[$i]['id_pdcem_pdescuento']; ?></td>
+      <td><?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?></td>
       <td><label for="pt_codigo"></label>
       <input name="pt_codigo" type="text" id="pt_codigo" size="5" 
       value="<?php echo $pdescuento[$i]['cod_detalle_concepto'];?>" />

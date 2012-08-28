@@ -14,36 +14,40 @@ $suspencion1 = comboSuspensionLaboral_1();
 $suspencion2 = comboSuspensionLaboral_2();
 //fin combos
 //ACTUALIZAR
-require_once '../../model/PjornadaLaboral.php';
-require_once '../../dao/PjoranadaLaboralDao.php';
-require_once '../../controller/PlameJornadaLaboralController.php';
+require_once '../../model/TrabajadorPdeclaracion.php';
+require_once '../../dao/TrabajadorPdeclaracionDao.php';
+require_once '../../controller/TrabajadorPdeclaracionController.php';
 
 //--- Dia subsidiado
-require_once '../../controller/PlameDiaSubsidiadoController.php';
-require_once '../../model/PdiaSubsidiado.php';
-require_once '../../dao/PdiaSubsidiadoDao.php';
+require_once '../../controller/DiaSubsidiadoController.php';
+require_once '../../model/DiaSubsidiado.php';
+require_once '../../dao/DiaSubsidiadoDao.php';
 
 //--- Dia no subsidiado
-require_once '../../controller/PlameDiaNoSubsidiadoController.php';
-require_once '../../dao/PdiaNoSubsidiadoDao.php';
-require_once '../../model/PdiaNoSubsidiado.php';
+require_once '../../controller/DiaNoSubsidiadoController.php';
+require_once '../../dao/DiaNoSubsidiadoDao.php';
+require_once '../../model/DiaNoSubsidiado.php';
 
 
 $id_ptrabajador = $_REQUEST['id_ptrabajador'];
 
-$PjornadaLaboral = new PjornadaLaboral();
-$PjornadaLaboral = buscarPjornadaLaboral_IdPtrabajdor($id_ptrabajador);
+$ID = $_REQUEST['id_ptrabajador'];
 
-//echo "<pre>PjornadaLaboral";
-//echo print_r($PjornadaLaboral);
-//echo "</pre>";
 
-$data_ds = buscarDiaSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
-$data_dns = buscarDiaNoSPor_IdPjornadaLaboral($PjornadaLaboral->getId_pjornada_laboral());
+$obj_tpd = new TrabajadorPdeclaracion();
+$obj_tpd = buscar_ID_TrabajadorPdeclaracion($ID);
+/*
+echo "<pre>TPD";
+print_r($obj_tpd);
+echo "</pre>";
+*/
+$data_ds = buscarDiaSPor_IdTrabajadorPdeclaracion($obj_tpd->getId_trabajador_pdeclaracion());
+$data_dns = buscarDiaNoSPor_IdTrabajadorPdeclaracion($obj_tpd->getId_trabajador_pdeclaracion());
 
 
 //Obtener dias Subsidiados
-$dia_laborado = $PjornadaLaboral->getDia_laborado();
+$dia_laborado_calc = $obj_tpd->getDia_total();//$obj_tpd->getDia_laborado();
+
 $dia_subsidiado = 0;
 $dia_nosubsidiado = 0;
 
@@ -57,7 +61,7 @@ for ($i = 0; $i < count($data_dns); $i++) {
 
 // Operacion
 
-$dia_laborado = $dia_laborado - ($dia_subsidiado + $dia_nosubsidiado);
+$dia_laborado_calc = $dia_laborado_calc - ($dia_subsidiado + $dia_nosubsidiado);
 
 
 ?>
@@ -181,7 +185,7 @@ for ($i = 0; $i < $counteo; $i++):
 
         //html +='    <a href="javascript:eliminarElemento( document.getElementById( \'plaboral-row-'+id+'\' ) )" > delete </a>';
         span2 = '<span title="editar">';
-        span2 +="<a href=\"javascript:eliminar_ds( 'dia_subsidiado-"+COD_DETALLE_CONCEPTO+"' )\"><img src=\"images/cancelar.png\"></a>";
+        span2 +="<a href=\"javascript:eliminar_ds_0( 'dia_subsidiado-"+COD_DETALLE_CONCEPTO+"' )\"><img src=\"images/cancelar.png\"></a>";
         span2 += finSpan;
 
 
@@ -228,10 +232,20 @@ for ($i = 0; $i < $counteo; $i++):
 
     }
 
-    function eliminar_ds(elementId){ alert (" "+elementId);
+    function eliminar_ds_0(elementId,ID){ //alert (" "+elementId);
 	
         var obj = document.getElementById(elementId)
         eliminarElemento(obj);
+		
+		$.ajax({
+			type: "POST",
+			url: "sunat_planilla/controller/DiaSubsidiadoController.php",
+			data: {oper : 'del', id : ID},
+			async:true,
+			success: function(datos){
+				
+			}
+		   }); 
 
 
 
@@ -271,7 +285,7 @@ for ($i = 0; $i < $counteo; $i++):
         $.ajax({
             type: 'post',
             dataType: 'json',
-            url: 'sunat_planilla/controller/PlameDiaSubsidiadoController.php?'+data,
+            url: 'sunat_planilla/controller/DiaSubsidiadoController.php?'+data,
             data: {/*id_pjornada_laboral: id_pjornada_laboral*/},
             success: function(json){
 				
@@ -484,12 +498,12 @@ for ($i = 0; $i < $counteo; $i++):
                 var finSpan = '</span>';
 
                 span1 = '<span title="editar">';
-                span1 +="<a href=\"javascript:editar_dns('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
+                span1 +="<a href=\"javascript:editar_dns_0('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
                 span1 += finSpan;
 
 
                 span2 = '<span title="editar">';
-                span2 +="<a href=\"javascript:eliminar_dns('dia_nosubsidiado-"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/cancelar.png\"></a>";
+                span2 +="<a href=\"javascript:eliminar_dns_0('dia_nosubsidiado-"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/cancelar.png\"></a>";
                 span2 += finSpan;
 
 
@@ -538,16 +552,23 @@ for ($i = 0; $i < $counteo; $i++):
 
 
 
-            function eliminar_dns(elementId){ alert (" "+elementId);
+	function eliminar_dns_0(elementId,ID){ //alert (" "+elementId);
 
-                var obj = document.getElementById(elementId)
-                eliminarElemento(obj);
-                /*
-        console.log("master intacto");
-        console.dir(master);
-                 */
+		var obj = document.getElementById(elementId)
+		eliminarElemento(obj);
+	
+		$.ajax({
+			type: "POST",
+			url: "sunat_planilla/controller/DiaNoSubsidiadoController.php",
+			data: {oper : 'del', id : ID},
+			async:true,
+			success: function(datos){
+				
+			}
+		   }); 
 
-            }
+
+	}
 
 
 
@@ -586,7 +607,7 @@ for ($i = 0; $i < $counteo; $i++):
                 $.ajax({
                     type: 'post',
                     dataType: 'json',
-                    url: 'sunat_planilla/controller/PlameDiaNoSubsidiadoController.php?'+data,
+                    url: 'sunat_planilla/controller/DiaNoSubsidiadoController.php?'+data,
                     data: {/*id_pjornada_laboral: id_pjornada_laboral*/},
                     success: function(json){
 				
@@ -691,7 +712,7 @@ function grabarDiaNoSubsidiado(){
         $.ajax({
             type: 'post',
             dataType: 'json',
-            url: 'sunat_planilla/controller/PlameDiaNoSubsidiadoController.php?'+data,
+            url: 'sunat_planilla/controller/DiaNoSubsidiadoController.php?'+data,
             data: {/*id_pjornada_laboral: id_pjornada_laboral*/},
             success: function(json){
 				
@@ -794,68 +815,64 @@ function calcHoraLaboradaEvento(event){
 */
 
 
-
+calcHoraLaborada();
 
 </script>
 
 <div class="ptrabajador">
 
     <div class="section">
-        <div class="article fila1">
-            <div class="ocultar">
-                id_pjornada_laboral:<input name="id_pjornada_laboral" id="id_pjornada_laboral" 
-                                           type="text" readonly="readonly" value="<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>" />
-            </div>
-            <h3>Dias de Jornada</h3>
+      <div class="article fila1">
+            
+    <h3>Dias de Jornada</h3>
             <hr />
             <p>
                 <label for="dia_laborado">Laborados</label>
                 <input name="dia_laborado" type="text" id="dia_laborado" size="4" readonly="readonly"
-                       value="<?php echo $dia_laborado; ?>" />
-
-
-
+                       value="<?php echo $dia_laborado_calc; ?>" />
             </p>
-            <p>
-                <label for="dia_subsidiado">Subsidiados</label>
-                <input name="dia_subsidiado" type="text" id="dia_subsidiado" 
+        <p>
+              <label for="dia_subsidiado">Subsidiados</label>
+              <input name="dia_subsidiado" type="text" id="dia_subsidiado" 
                        value="<?php echo $dia_subsidiado; ?>" size="4" readonly="readonly" />
-                <span>
-                    <a href="javascript:editarDiaSubcidiado( '<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>')">
-                        <img src="images/edit.png"></a></span>
-            </p>
-            <p>
+            <span>
+                <a href="javascript:editarDiaSubsidiado_0( '<?php echo $obj_tpd->getId_trabajador_pdeclaracion(); ?>')">
+                    <img src="images/edit.png"></a></span>            </p>
+  <p>
                 <label for="dia_nosubsidiado">No laborados y no subsidiados:</label>
                 <input name="dia_nosubsidiado" type="text" id="dia_nosubsidiado" 
                        value="<?php echo $dia_nosubsidiado; ?>" size="4" readonly="readonly" />
                 <span >
-                    <a href='javascript:editarDiaNoLaborado("<?php echo $PjornadaLaboral->getId_pjornada_laboral(); ?>")'>
-                        <img src="images/edit.png"></a></span>
-            </p>
+                    <a href='javascript:editarDiaNoLaborado_0("<?php echo $obj_tpd->getId_trabajador_pdeclaracion(); ?>")'>
+                <img src="images/edit.png"></a></span>    </p>
             <h3>TOTAL: 
                 <label for="dia_total"></label>
                 <input name="dia_total" type="text" id="dia_total" size="4" readonly="readonly"
-                       value="<?php echo $PjornadaLaboral->getDia_total(); ?>" />
+                       value="<?php echo $obj_tpd->getDia_total(); ?>" />
             </h3>
             <p>&nbsp;</p>
-        </div>
+      </div>
         <div class="article fila2">
             <h3>Horas Laboradas</h3>
             <hr />
             <p>        
                 <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
                 <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh"
-                 onkeydown="soloNumeros(event)" size="5" maxlength="3" readonly="readonly" />
+                       value="<?php echo $obj_tpd->getOrdinario_hora();?>"
+                 onkeydown="soloNumeros(event)" size="5" maxlength="3" />
                 :
               <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm"
-                onkeydown="soloNumeros(event)" size="5" maxlength="2" readonly="readonly" />
+                       value="<?php echo $obj_tpd->getOrdinario_min();?>"
+                onkeydown="soloNumeros(event)" size="5" maxlength="2" />
             </p>
             <p>
                 <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
                 <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" maxlength="3"
+                       value="<?php echo $obj_tpd->getSobretiempo_hora(); ?>"
                 onkeydown="soloNumeros(event)" />
                 :
                 <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" maxlength="2"
+                       value="<?php echo $obj_tpd->getSobretiempo_min();?>"
                 onkeydown="soloNumeros(event)" onblur="" />
             </p>
             <h3>TOTAL HORAS:
@@ -876,16 +893,16 @@ function calcHoraLaboradaEvento(event){
 
 
 <!---  DIALOG -->
-<div id="dialog-dia-subsidiado">
+<div id="dialog-dia-subsidiado_0">
 
-    <div id="editarDiaSubsidiado"> </div>
+    <div id="editarDiaSubsidiado_0"> </div>
 
 </div> 
 
 
 <!---  DIALOG -->
-<div id="dialog-dia-noLaborado">
+<div id="dialog-dia-noLaborado_0">
 
-    <div id="editarDiaNoLaborado"> </div>
+    <div id="editarDiaNoLaborado_0"> </div>
 
 </div> 

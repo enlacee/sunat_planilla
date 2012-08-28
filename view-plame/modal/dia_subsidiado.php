@@ -4,36 +4,37 @@ require_once '../../dao/ComboCategoriaDao.php';
 require_once '../../controller/ComboCategoriaController.php';
 
 //datos
-require_once '../../model/PdiaSubsidiado.php';
-require_once '../../dao/PdiaSubsidiadoDao.php';
-require_once '../../controller/PlameDiaSubsidiadoController.php';
+require_once '../../model/DiaSubsidiado.php';
+require_once '../../dao/DiaSubsidiadoDao.php';
+require_once '../../controller/DiaSubsidiadoController.php';
 
 $suspencion1 = comboSuspensionLaboral_1();
-$id_pjoranada_laboral = $_REQUEST['id_pjoranada_laboral'];
+$id_pago = $_REQUEST['id_tpd'];
 
 //DATOS
-$data = buscarDiaSPor_IdPjornadaLaboral($id_pjoranada_laboral);
-
-//echo "<pre>";
-//print_r($data);
-//echo "</pre>";
+$data = buscarDiaSPor_IdTrabajadorPdeclaracion($id_pago);
+/*
+echo "<pre>";
+print_r($data);
+echo "</pre>";*/
 ?>
 
 <script type="text/javascript">
 //FUNCION INICIO
-calcDiaSubsidiado();    
+//calcDiaSubsidiado();    
 
 </script>
 <form action="" method="get" id="formDiaSubsidiado" name="formDiaSubsidiado">
 
     <div class="tb" style="width:450px;" >
-        oper
+<div class="ocultar">oper
         <input name="oper" type="text" value="dual" />
         <br />
-        id_pjoranada_laboral
-        <label for="id_pjoranada_laboral"></label>
-        <input type="text" name="id_pjornada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
-        <table width="450" border="1" id="tb_dsubsidiado">
+        id_pago
+        <label for="id_pago"></label>
+        <input type="text" name="id_pago" id="" value="<?php echo $id_pago; ?>" />
+</div>
+<table width="450" border="1" id="tb_dsubsidiado">
             <tr>
                 <td width="217">tipo desuspens&oacute;n</td>
                 <td width="81">cantidad de dias</td>
@@ -57,10 +58,10 @@ calcDiaSubsidiado();
                 <tr id="dia_subsidiado-<?php echo $ID;?>">
                     <td>
                         <input size="4" id="pdia_subsidiado-<?php echo $ID; ?>" name="pdia_subsidiado[]" 
-                               value="<?php echo $data[$i]->getId_pdia_subsidiado(); ?>" 
-                               type="hidden">
+                               value="<?php echo $data[$i]->getId_dia_subsidiado(); ?>" 
+                               type="hidden"> 
                         <input size="4" id="estado-<?php echo $ID; ?>" name="estado[]" 
-                               value="<?php echo ($data[$i]->getId_pdia_subsidiado()) ? 1 : 0; ?>"
+                               value="<?php echo ($data[$i]->getId_dia_subsidiado()) ? 1 : 0; ?>"
                                type="hidden">
                                
                              <input type="hidden" name="txt_cbo_ds_tipo_suspension[]" 
@@ -92,14 +93,14 @@ calcDiaSubsidiado();
                     </td>
                     <td>
                         <span title="editar">
-                            <a href="javascript:editar_ds('<?php echo $ID; ?>')">
+                            <a href="javascript:editar_ds_0('<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?>)">
                                 <img src="images/edit.png">
                             </a>
                         </span>
                     </td>
                     <td>
                         <span title="editar">
-                            <a href="javascript:eliminar_ds( 'dia_subsidiado-<?php echo $ID; ?>' )">
+                            <a href="javascript:eliminar_ds_0( 'dia_subsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?> )">
                                 <img src="images/cancelar.png"></a></span>
                     </td>
                 </tr>

@@ -9,18 +9,29 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $query = "
             INSERT INTO trabajadores_pdeclaraciones
                         (
-                         id_pdeclaracion,
-                         id_trabajador,
-                         dia_laborado,
-                         dia_total,
-                         ordinario_hora,
-                         ordinario_min,
-                         sueldo,
-                         sueldo_neto,
-                         estado,
-                         fecha_creacion
+                    id_pdeclaracion,
+                    id_trabajador,
+                    dia_laborado,
+                    dia_total,
+                    ordinario_hora,
+                    ordinario_min,
+                    sueldo,
+                    sueldo_neto,
+                    estado,
+                    fecha_creacion,                         
+                    ingreso_5ta_categoria,
+                    cod_tipo_trabajador,
+                    cod_regimen_pensionario,
+                    cod_regimen_aseguramiento_salud,
+                    cod_situacion                         
+                         
                             )
             VALUES (
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -47,6 +58,11 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $stm->bindValue(8, $model->getSueldo_neto());
             $stm->bindValue(9, $model->getEstado());
             $stm->bindValue(10, $model->getFecha_creacion());
+            $stm->bindValue(11, $model->getIngreso_5ta_categoria());
+            $stm->bindValue(12, $model->getCod_tipo_trabajador());
+            $stm->bindValue(13, $model->getCod_regimen_pensionario());
+            $stm->bindValue(14, $model->getCod_regimen_aseguramiento_salud());
+            $stm->bindValue(15, $model->getCod_situacion());
             $stm->execute();
 
             // id Comerico
@@ -131,11 +147,13 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             SELECT 
                 t.id_trabajador,
                 t.monto_remuneracion,
+                t.cod_situacion,
                 -- p.nombres,
                 -- drs.id_detalle_regimen_salud,
                 drs.cod_regimen_aseguramiento_salud,
                 -- drp.id_detalle_regimen_pensionario,
                 drp.cod_regimen_pensionario,
+                dtt.cod_tipo_trabajador,
                 -- ptrabajador
                 pt.aporta_essalud_vida,
                 pt.aporta_asegura_tu_pension
@@ -148,7 +166,10 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
             INNER JOIN detalle_regimenes_pensionarios AS drp
             ON drp.id_trabajador = t.id_trabajador
-
+            -- new
+            INNER JOIN detalle_tipos_trabajadores AS dtt
+            ON t.id_trabajador = dtt.id_trabajador
+            
             LEFT JOIN ptrabajadores AS pt
             ON t.id_trabajador = pt.id_trabajador
 
@@ -163,18 +184,36 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return $lista[0];
     }
 
-    /*
-      public function buscar_ID() {
+    
+      public function buscar_ID($id) {
       $query = "
-
+        SELECT
+          id_trabajador_pdeclaracion,
+          id_pdeclaracion,
+          id_trabajador,
+          dia_laborado,
+          dia_total,
+          ordinario_hora,
+          ordinario_min,
+          sobretiempo_hora,
+          sobretiempo_min,
+          sueldo,
+          sueldo_neto,
+          estado,
+          descripcion,
+          fecha_creacion,
+          fecha_modificacion
+        FROM trabajadores_pdeclaraciones
+        WHERE id_trabajador_pdeclaracion = ?
       ";
       $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $id_trabajador_pdeclaracion);
+      $stm->bindValue(1, $id);
       $stm->execute();
+      $lista = $stm->fetchAll();
       $stm = null;
-      return true;
+      return $lista[0];
       }
-     */
+     
 
     function listar($id_pdeclaracion, $op=null, $WHERE=null) {
 

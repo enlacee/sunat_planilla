@@ -11,23 +11,23 @@ require_once '../../dao/ComboCategoriaDao.php';
 require_once '../../controller/ComboCategoriaController.php';
 
 //datos
-require_once '../../controller/PlameDiaNoSubsidiadoController.php';
-require_once '../../model/PdiaNoSubsidiado.php';
-require_once '../../dao/PdiaNoSubsidiadoDao.php';
+require_once '../../controller/DiaNoSubsidiadoController.php';
+require_once '../../model/DiaNoSubsidiado.php';
+require_once '../../dao/DiaNoSubsidiadoDao.php';
 
 
 $suspencion2 = comboSuspensionLaboral_2();
-$id_pjoranada_laboral = $_REQUEST['id_pjoranada_laboral'];
-
+$id_pago = $_REQUEST['id_tpd'];
 //DATOS
-$data = buscarDiaNoSPor_IdPjornadaLaboral($id_pjoranada_laboral);
-
-//echo "<pre>";
-//print_r($data);
-//echo "</pre>";
-
+$data = buscarDiaNoSPor_IdTrabajadorPdeclaracion($id_pago);
+/*
+echo "<pre>";
+print_r($data);
+echo "</pre>";
+*/
 
 ?>
+
 
 
 <script type="text/javascript">
@@ -38,12 +38,13 @@ calcDiaNoSubsidiado();
 
 
 <form action="" method="get" name="formDiaNoSubsidiado" id="formDiaNoSubsidiado">
-<div class="ocultar">oper
-  <input name="oper" type="text" value="dual" />
-  <br />
-  id_pjoranada_laboral
-  <label for="id_pjoranada_laboral"></label>
-  <input type="text" name="id_pjornada_laboral" id="" value="<?php echo $id_pjoranada_laboral; ?>" />
+<div class="ocultar">
+  <div class="ocultar">oper
+    <input name="oper" type="text" value="dual" />
+      <br />
+    id_tpd
+    <input type="text" name="id_pago" id="" value="<?php echo $id_pago; ?>" />
+  </div>
 </div>
 <table width="450" border="1" id="tb_dnolaborado">
       <tr>
@@ -65,9 +66,17 @@ calcDiaNoSubsidiado();
         <tr id="dia_nosubsidiado-<?php echo $ID;?>">
 
             <td>
-                <input size="4" id="id_pdia_nosubsidiado-1" name="id_pdia_nosubsidiado[]" value="" type="hidden">
-                <input size="4" id="estado-1" name="estado[]" value="0" type="hidden">
-                <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-1" style="width:150px;" onchange=""> 
+                <input size="4" id="id_pdia_nosubsidiado-<?php echo $ID; ?>" name="id_pdia_nosubsidiado[]" 
+                value="<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>" type="hidden">
+                <input size="4" id="estado-<?php echo $ID; ?>" name="estado[]"  type="hidden" 
+                value="<?php echo ($data[$i]->getId_dia_nosubsidiado()) ? 1 : 0; ?>"/>
+                
+              <input type="hidden" name="txt_cbo_dns_tipo_suspension[]" 
+                 value="<?php echo $data[$i]->getCod_tipo_suspen_relacion_laboral(); ?>"/>  
+
+                
+                
+          <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-<?php echo $ID; ?>" style="width:150px;" onchange=""> 
                     <?php
                     foreach ($suspencion2 as $indice) {
 
@@ -88,15 +97,15 @@ calcDiaNoSubsidiado();
 
             </td>
             <td>
-                <input name="dns_cantidad_dia[]" id="dns_cantidad_dia-1" size="7" type="text"
+                <input name="dns_cantidad_dia[]" id="dns_cantidad_dia-<?php echo $ID; ?>" size="7" type="text"
                 value="<?php echo $data[$i]->getCantidad_dia();?>"/>
             </td>
             <td>
-                <span title="editar"><a href="javascript:editar_dns('1')"><img src="images/edit.png"></a></span>
+                <span title="editar"><a href="javascript:editar_dns_0('<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)"><img src="images/edit.png"></a></span>
             </td>
             <td>
                 <span title="editar">
-                    <a href="javascript:eliminar_dns('dia_nosubsidiado-1')">
+                    <a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
                         <img src="images/cancelar.png"/></a></span>
             </td>
 

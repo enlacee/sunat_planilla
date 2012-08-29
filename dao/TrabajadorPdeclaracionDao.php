@@ -202,7 +202,13 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
           estado,
           descripcion,
           fecha_creacion,
-          fecha_modificacion
+          fecha_modificacion,
+          ingreso_5ta_categoria,
+          cod_tipo_trabajador,
+          cod_regimen_pensionario,
+          cod_regimen_aseguramiento_salud,
+          cod_situacion
+
         FROM trabajadores_pdeclaraciones
         WHERE id_trabajador_pdeclaracion = ?
       ";

@@ -9,9 +9,7 @@ if ($op) {
     require_once '../controller/ideController.php';
 
     // IDE CONFIGURACION 
-    require_once '../controller/ConfController.php';
-
-
+    //require_once '../controller/ConfController.php';
     //Actualizar PLAME   
     require_once '../dao/PlameDeclaracionDao.php';
     require_once '../model/TrabajadorPdeclaracion.php';
@@ -24,6 +22,14 @@ if ($op) {
     require_once '../model/ConfAfp.php';
     require_once '../dao/ConfAfpDao.php';
     require_once '../controller/ConfAfpController.php';
+    // IDE CONFIGURACION 
+    require_once '../dao/ConfAsignacionFamiliarDao.php';
+    require_once '../dao/ConfSueldoBasicoDao.php';
+    require_once '../dao/ConfEssaludDao.php';
+    require_once '../dao/ConfOnpDao.php';
+    require_once '../dao/ConfUitDao.php';
+
+
 
 
 
@@ -44,12 +50,15 @@ if ($op) {
     //EPAGO TRABAJADOR
     require_once '../dao/PeriodoRemuneracionDao.php';
 }
-//????
+
 $response = NULL;
 if ($op == "add") {
     //$response = add_PtrabajadorPdeclaracion();
 } else if ($op == "generar_declaracion") {
-    generarDeclaracionPlanillaMensual();
+    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
+    generarConfiguracion($ID_PDECLARACION);
+
+    generarDeclaracionPlanillaMensual($ID_PDECLARACION);
 } else if ($op == "cargar_tabla_2") {
 
     $response = listar_trabajadorPdeclaracion();
@@ -62,6 +71,72 @@ if ($op == "add") {
 
 
 echo (!empty($response)) ? json_encode($response) : '';
+
+function generarConfiguracion($ID_PDECLARACION) {
+
+    $daox = new PlameDeclaracionDao();
+    $datax = $daox->buscar_ID($ID_PDECLARACION);
+    $periodo = $datax['periodo'];
+
+//--- SUELDO BASE = SB
+    $dao_1 = new ConfSueldoBasicoDao();
+    $SB = $dao_1->vigenteAux($periodo);
+
+//--- ASIGNACION FAMILIAR = AF
+    $dao_2 = new ConfAsignacionFamiliarDao();
+    $T_AF = $dao_2->vigenteAux($periodo);
+
+//--- TASA ESSALUD = T_ ESSALUD
+    $dao_3 = new ConfEssaludDao();
+    $T_ESSALUD = $dao_3->vigenteAux($periodo);
+
+//--- TASA ONP = T_ONP
+    $dao_4 = new ConfOnpDao();
+    $T_ONP = $dao_4->vigenteAux($periodo);
+
+//--- UIT
+    $dao_5 = new ConfUitDao();
+    $UIT = $dao_5->vigenteAux($periodo);
+
+// Valores Fijos
+    $ESSALUD_MAS = 5;
+    $SNP_MAS = 5;
+    echo "8888888888888888888888888888888888888888888888";
+    
+    echo "SB =".$SB;
+    echo "T_AF =".$T_AF;
+    echo "T_ESSALUD =".$T_ESSALUD;
+    echo "T_ONP =".$T_ONP;
+    echo "UIT =".$UIT;
+    
+    echo "8888888888888888888888888888888888888888888888";
+
+
+
+    // DEFINE
+    if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || is_null($UIT)) {
+        //header($string, $replace)
+        //header('Location: www.google.com');
+
+        $SB = 0;
+        $T_AF = 0;
+        //$T_ESSALUD = 0;
+        $T_ONP = 0;
+        $UIT = 0;
+
+        $ESSALUD_MAS = 0;
+        $SNP_MAS = 0;
+    } else {
+        define('SB', $SB);
+        define('T_AF', $T_AF);
+        //define('T_ESSALUD', $T_ESSALUD);
+        define('T_ONP', $T_ONP);
+        define('UIT', $UIT);
+
+        define('ESSALUD_MAS', $ESSALUD_MAS);
+        define('SNP_MAS', $SNP_MAS);
+    }
+}
 
 //EtapaPagoController
 function calcularSegudaQuincena($ID_PDECLARACION) {
@@ -107,7 +182,7 @@ function calcularSegudaQuincena($ID_PDECLARACION) {
     }
 }
 
-function generarDeclaracionPlanillaMensual() {
+function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
     /* OJO Para controlar mejor :
      * 01 :: listado de todos los trabajadores activos con su padre Persona.
      * 02 :: Preguntar sii pertenece al periodo N.
@@ -115,7 +190,7 @@ function generarDeclaracionPlanillaMensual() {
      */
 
 //==============================================================================
-    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
+    //$ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     $ids = $_REQUEST['ids'];
 
     calcularSegudaQuincena($ID_PDECLARACION);
@@ -207,32 +282,32 @@ function generarDeclaracionPlanillaMensual() {
         $obj->setSueldo($data_sum['sueldo']);
         $obj->setSueldo_neto($data_sum['sueldo_neto']);
         $obj->setEstado(0);
-        $obj->setFecha_creacion(date("Y-m-d H:i:s"));       
-     
+        $obj->setFecha_creacion(date("Y-m-d H:i:s"));
+
 
         // LISTADO DE trabajadores ya registrados en el periodo o mes ejem: mm/yyyy               
         //echo "id_trabajador_pdeclaracion = " . $id_trabajador_pdeclaracion;
         //....................................................................//
         // Otras utilidades
-        $dao = new TrabajadorPdeclaracionDao(); 
+        $dao = new TrabajadorPdeclaracionDao();
         $DATA_TRA = $dao->buscar_ID_trabajador($ID_TRABAJADOR[$i]);
-        
+
         //Registrar datos adicionales del Trabajador
         $obj->setIngreso_5ta_categoria(0);
         $obj->setCod_tipo_trabajador($DATA_TRA['cod_tipo_trabajador']);
         $obj->setCod_regimen_pensionario($DATA_TRA['cod_regimen_pensionario']);
         $obj->setCod_regimen_aseguramiento_salud($DATA_TRA['cod_regimen_aseguramiento_salud']);
         $obj->setCod_situacion($DATA_TRA['cod_situacion']);
-        
+
         $id_trabajador_pdeclaracion = $dao->registrar($obj);
         //....................................................................//
         // paso 03 :: Consultar Conceptos
         // INGRESOS
         ECHO "SEULDO BASICO";
-        concepto_0121($id_trabajador_pdeclaracion, $DATA_TRA['monto_remuneracion']);
+        concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo']/* $DATA_TRA['monto_remuneracion'] */);
         //Asignacion familiar
         ECHO "ASIGNACION FAMILIAR";
-        concepto_0201($id_trabajador_pdeclaracion, $DATA_TRA['monto_remuneracion']);
+        concepto_0201($id_trabajador_pdeclaracion, $data_sum['sueldo']/* $DATA_TRA['monto_remuneracion'] */);
 
         // DESCUENTOS - ADELANTO
         ECHO "DESCUENTO -ADELANTO ";
@@ -242,7 +317,7 @@ function generarDeclaracionPlanillaMensual() {
         // TRIBUTOS Y APORTACIONES
         // Regimen de Salud
         if ($DATA_TRA['cod_regimen_aseguramiento_salud'] == '00') { //ok Regimen de Salud Regular
-            concepto_0804($id_trabajador_pdeclaracion);
+            concepto_0804($id_trabajador_pdeclaracion, $ID_PDECLARACION);
         } else {
             // null 
         }
@@ -280,12 +355,19 @@ function generarDeclaracionPlanillaMensual() {
 // Sueldo Basico
 function concepto_0121($id_trabajador_pdeclaracion, $monto_remuneracion) {
 
-    //SUELDO BASICO    
-    $SUELDO_BASE = $monto_remuneracion;
+    //SUELDO BASICO
+    $SB = null;
+    if ($monto_remuneracion < SB) {
+        $SB = SB;
+    } else {
+        $SB = $monto_remuneracion;
+    }
+
+    //$SUELDO_BASE = $monto_remuneracion;
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
-    $model->setMonto_devengado($SUELDO_BASE);
-    $model->setMonto_pagado($SUELDO_BASE);
+    $model->setMonto_devengado($SB);
+    $model->setMonto_pagado($SB);
     $model->setCod_detalle_concepto('0121');
 
     $dao = new DeclaracionDconceptoDao();
@@ -296,7 +378,14 @@ function concepto_0121($id_trabajador_pdeclaracion, $monto_remuneracion) {
 // ASIGNACION FAMILIAR
 function concepto_0201($id_trabajador_pdeclaracion, $monto_remuneracion) {
     //SUELDO BASICO
-    $SB = $monto_remuneracion;
+    $SB = null;
+    if ($monto_remuneracion < SB) {
+        $SB = SB;
+    } else {
+        $SB = $monto_remuneracion;
+    }
+    //$SB = $monto_remuneracion;
+
     $CAL_AF = $SB * (T_AF / 100);
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
@@ -353,11 +442,14 @@ function concepto_0607($id_trabajador_pdeclaracion) {
 
     //====================================================          
     $all_ingreso = allConceptos_Afectos_Ingreso($id_trabajador_pdeclaracion);
-    //ECHO " all_ingreso = " . $all_ingreso;
+    ECHO " OHMM ALL all_ingreso = " . $all_ingreso;
     //====================================================
 
     $CALC = (floatval($all_ingreso)) * (T_ONP / 100);
-
+    
+    echo "T_ONP  = ".T_ONP;
+    echo "*-**-*--**-*-*-**-*";
+    echo "CALC = ".$CALC;
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
     //$model->setMonto_devengado($CALC);
@@ -378,8 +470,8 @@ function concepto_AFP($id_trabajador_pdeclaracion, $cod_regimen_pensionario) {
     $all_ingreso = allConceptos_Afectos_Ingreso($id_trabajador_pdeclaracion);
     //ECHO " all_ingreso = " . $all_ingreso;
     //====================================================    
-    echo "all_ingreso =". $all_ingreso;
-    
+    echo "all_ingreso =" . $all_ingreso;
+
     //----
     $afp = new ConfAfp();
     $afp = vigenteAfp($cod_regimen_pensionario);
@@ -491,12 +583,26 @@ function allConceptos_Afectos_Ingreso($id_trabajador_pdeclaracion) {
 }
 
 // 804 ESSALUD trabajador
-function concepto_0804($id_trabajador_pdeclaracion) {
+function concepto_0804($id_trabajador_pdeclaracion, $ID_PDECLARACION) {
     //====================================================          
     $all_ingreso = allConceptos_Afectos_Ingreso($id_trabajador_pdeclaracion);
     //====================================================
+    $dao = new PlameDeclaracionDao();
+    $arreglo = $dao->buscar_ID($ID_PDECLARACION);
 
-    $CALC = floatval($all_ingreso) * (T_ESSALUD / 100);
+    //--- TASA ESSALUD = T_ ESSALUD
+    $dao_3 = new ConfEssaludDao();
+    $T_ESSALUD = $dao_3->vigenteAux($arreglo['periodo']); //2012-01-01
+    echo "<pre>";
+    print_r($arreglo);
+    echo "</pre>";
+
+    echo " T_ESSALUD " . $T_ESSALUD;
+    var_dump($T_ESSALUD);
+    echo "herehereherhe ****************************** ";
+
+    $CALC = floatval($all_ingreso) * ($T_ESSALUD / 100);
+    //$CALC = 
 
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
@@ -790,6 +896,11 @@ function buscar_ID_TrabajadorPdeclaracion($id) {
     $model->setEstado($data['estado']);
     $model->setFecha_creacion($data['fecha_creacion']);
     $model->setFecha_modificacion($data['fecha_modificacion']);
+    $model->setIngreso_5ta_categoria($data['ingreso_5ta_categoria']);
+    $model->setCod_tipo_trabajador($data['cod_tipo_trabajador']);
+    $model->setCod_regimen_pensionario($data['cod_regimen_pensionario']);
+    $model->setCod_regimen_aseguramiento_salud($data['cod_regimen_aseguramiento_salud']);
+    $model->setCod_situacion($data['cod_situacion']);
 
     return $model;
 }

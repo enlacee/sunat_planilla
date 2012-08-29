@@ -88,6 +88,11 @@ value="<?php echo $obj_ptrabajador->getId_ptrabajador();?>" />
   oper 
   <input name="oper" type="text" id="oper" value="edit" />
 </p>
+<h2 class="">Configuracion Sueldo</h2>
+Adelanto %
+<label for="adelanto"></label>
+<input type="text" name="adelanto" id="adelanto" 
+value="<?php echo $obj_ptrabajador->getAdelanto(); ?>" />
 <h2 >Configuracion Empresa</h2>
 <p>Asignacion familiar: 
   <input type="radio" name="rbtn_afamiliar" id="" value="1"

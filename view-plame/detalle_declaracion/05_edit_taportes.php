@@ -2,7 +2,7 @@
 //*******************************************************************//
 require_once '../../view/ide2.php';
 //*******************************************************************//
-//require_once('../../util/funciones.php');
+require_once('../../util/funciones.php');
 require_once('../../dao/AbstractDao.php');
 
 //IDE
@@ -11,8 +11,22 @@ require_once('../../controller/ideController2.php');
 require_once('../../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
 require_once('../../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
 
-$ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
-$ID_TRABAJADOR = $_REQUEST['id_trabajador'];
+// trabajadorPdeclaracion
+require_once('../../model/TrabajadorPdeclaracion.php');
+require_once('../../dao/TrabajadorPdeclaracionDao.php');
+require_once('../../controller/TrabajadorPdeclaracionController.php');
+
+$ID_TRABAJADOR_PDECLARACION = $_REQUEST['id_ptrabajador'];
+
+require_once("../../controller/DeclaracionDconceptoController.php");
+require_once("../../dao/DeclaracionDconceptoDao.php");
+//-------------------------------------------------------------------------------
+$calc_conceptos = array();
+$calc_conceptos = listar_concepto_calc_ID_TrabajadorPdeclaracion($ID_TRABAJADOR_PDECLARACION);
+
+
+$obj = new TrabajadorPdeclaracion();
+$obj = buscar_ID_TrabajadorPdeclaracion($ID_TRABAJADOR_PDECLARACION);
 
 // Filtro si es:
 // -- ONP
@@ -29,7 +43,7 @@ $afp = array('0601', '0602','0604','0605' , '0606','0608', '0609', '0611','0612'
 // AFP = 21,22,23,24
 
 
-$codigo = '02';//$objTRADetalle_5->getCod_regimen_pensionario();
+$codigo = $obj->getCod_regimen_pensionario();// '02' //$objTRADetalle_5->getCod_regimen_pensionario();
 $detalle_concepto = array();
 
 if($codigo =='02'){
@@ -49,12 +63,12 @@ if($codigo =='02'){
 $conceptos= array('600','800');
 
 $ptaporte = view_listarConcepto(ID_EMPLEADOR_MAESTRO,$conceptos,0);
-/*
-echo "<pre>ptaporte ? ";
-print_r($ptaporte);
+
+echo "<pre>";
+//print_r($obj);
 echo "</pre>";
 echo "<hr>";
-*/
+
 
 /*
 echo "<pre> lista a buscar detalle_concepto";
@@ -112,7 +126,16 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
       <td><label for="ptta_base"></label>
       <input name="ptta_base[]" type="text" id="ptta_base" size="8" /></td>
       
-      <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8" /></td>
+      <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8"
+      value="<?php 
+	   for($x=0; $x<count($calc_conceptos); $x++):
+		   if($ptaporte[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
+			   echo $calc_conceptos[$x]['monto_pagado'];
+			   break;
+			endif;
+		endfor;
+	   ?>"
+       /></td>
     </tr>
 <?php
 endif; //inicio conceptos 0600 , 0800				

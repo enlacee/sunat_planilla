@@ -39,6 +39,8 @@ print_r($calc_conceptos);
 echo "</pre>";
 */
 
+
+
 ?>
 <script type="text/javascript">
 
@@ -221,7 +223,6 @@ function generate_code(text,txt_id) {
 									   echo $calc_conceptos[$x]['monto_pagado'];
 									   break;
 									}
-								   
 								}							   
 							  // echo $pingreso[$i]['pagado']; 
 							   

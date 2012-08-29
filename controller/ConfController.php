@@ -19,9 +19,9 @@ $dao_2 = new ConfAsignacionFamiliarDao();
 $T_AF = $dao_2->vigente();
 
 //--- TASA ESSALUD = T_ ESSALUD
-$dao_3 = new ConfEssaludDao();
+/*$dao_3 = new ConfEssaludDao();
 $T_ESSALUD = $dao_3->vigente();
-
+*/
 //--- TASA ONP = T_ONP
 $dao_4 = new ConfOnpDao();
 $T_ONP = $dao_4->vigente();
@@ -43,13 +43,13 @@ $data = $dao_6->vigenteAfpPrima();
 
 
 // DEFINE
-if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || is_null($UIT)) {
+if (is_null($SB) || is_null($T_AF) /*|| is_null($T_ESSALUD)*/ || is_null($T_ONP) || is_null($UIT)) {
     //header($string, $replace)
     //header('Location: www.google.com');
 
     $SB = 0;
     $T_AF = 0;
-    $T_ESSALUD = 0;
+    //$T_ESSALUD = 0;
     $T_ONP = 0;
     $UIT = 0;
     
@@ -59,7 +59,7 @@ if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || 
 } else {
     define('SB', $SB);
     define('T_AF', $T_AF);
-    define('T_ESSALUD', $T_ESSALUD);
+    //define('T_ESSALUD', $T_ESSALUD);
     define('T_ONP', $T_ONP);
     define('UIT', $UIT);
     

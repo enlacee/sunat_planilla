@@ -125,9 +125,9 @@ function edit() {
 }
 
 function del() {
-    $id = $_REQUEST['id'];
+    /*$id = $_REQUEST['id'];
     $dao = new ConfAfpDao();
-    return $dao->eliminar($id);
+    return $dao->eliminar($id);*/
 }
 
 //------------------------------------------------------------------------------

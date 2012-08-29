@@ -4,6 +4,7 @@ class Ptrabajador {
 
     private $id_ptrabajador;
     private $id_trabajador;
+    private $adelanto;
     private $asignacion_familiar;
     private $para_ti_familia;
     private $para_ti_familia_op;
@@ -14,6 +15,7 @@ class Ptrabajador {
     function __construct() {
         $this->id_ptrabajador = null;
         $this->id_trabajador = null;
+        $this->adelanto = null;
         $this->asignacion_familiar=null;
         $this->para_ti_familia = null;
         $this->para_ti_familia_op = null;
@@ -35,6 +37,14 @@ class Ptrabajador {
 
     public function setId_trabajador($id_trabajador) {
         $this->id_trabajador = $id_trabajador;
+    }
+
+    public function getAdelanto() {
+        return $this->adelanto;
+    }
+
+    public function setAdelanto($adelanto) {
+        $this->adelanto = $adelanto;
     }
 
     public function getAsignacion_familiar() {
@@ -84,6 +94,7 @@ class Ptrabajador {
     public function setDomiciliado($domiciliado) {
         $this->domiciliado = $domiciliado;
     }
+
 
 
 

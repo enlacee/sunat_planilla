@@ -62,7 +62,7 @@ class ConfAfpDao extends AbstractDao {
         return true;
     }
 
-    public function eliminar($id) {
+/*    public function eliminar($id) {
         $query = "
         DELETE
         FROM conf_afp
@@ -73,7 +73,7 @@ class ConfAfpDao extends AbstractDao {
         $stm->bindValue(1, $id);
         $stm->execute();
         return true;
-    }
+    }*/
 
     public function listar() {
 

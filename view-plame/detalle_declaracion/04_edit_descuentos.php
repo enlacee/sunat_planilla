@@ -12,7 +12,13 @@ require_once('../../dao/PlameDetalleConceptoEmpleadorMaestroDao.php');
 require_once('../../controller/PlameDetalleConceptoEmpleadorMaestroController.php');
 
 
-$ID_PTRABAJADOR = $_REQUEST['id_ptrabajador'];
+$ID_TRABAJADOR_PDECLARACION = $_REQUEST['id_ptrabajador'];
+
+require_once("../../controller/DeclaracionDconceptoController.php");
+require_once("../../dao/DeclaracionDconceptoDao.php");
+//-------------------------------------------------------------------------------
+$calc_conceptos = array();
+$calc_conceptos = listar_concepto_calc_ID_TrabajadorPdeclaracion($ID_TRABAJADOR_PDECLARACION);
 
 //$datas = new Dcem_Pingreso();
 //$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
@@ -24,10 +30,15 @@ $pdescuento = view_listarConcepto(ID_EMPLEADOR_MAESTRO,700);
 
 //echo "ID_EMPLEADOR_MAESTRO essss = ".ID_EMPLEADOR_MAESTRO;
 
-//echo "<pre>";
-//print_r($pingreso);
-//echo "</pre>";
+/*echo "<pre>";
+print_r($pdescuento);
+echo "</pre";
+echo "<hr>";
 
+echo "<pre>";
+print_r($calc_conceptos);
+echo "</pre>";
+*/
 
 ?>
 <div class="ptrabajador">
@@ -63,7 +74,14 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
       <td><?php echo $pdescuento[$i]['descripcion'];?></td>
       <td><label for="pt_monto"></label>
       <input name="pt_monto" type="text" id="pt_monto" size="8" 
-       value="<?php echo $pdescuento[$i]['monto'];?>" />
+       value="<?php 
+	   for($x=0; $x<count($calc_conceptos); $x++):
+		   if($pdescuento[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
+			   echo $calc_conceptos[$x]['monto_pagado'];
+			   break;
+			endif;
+		endfor;
+	   ?>" />
        </td>
     </tr>
     

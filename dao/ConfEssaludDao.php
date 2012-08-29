@@ -1,9 +1,6 @@
 <?php
 
 class ConfEssaludDao extends AbstractDao {
-
-    //put your code here
-    //put your code here
     public function registrar($valor, $fecha_vigencia) {
         $query = "
         INSERT INTO conf_essalud
@@ -89,6 +86,29 @@ class ConfEssaludDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
+        return $lista[0]['tasa'];
+    }
+
+    public function vigenteAux($periodo) {       
+        
+        $query = "
+        SELECT
+            id_conf_essalud,
+            tasa,
+            fecha      
+        FROM conf_essalud
+        WHERE fecha <='$periodo'
+        ORDER BY fecha DESC
+";
+        //-- AND ( MONTH(fecha) <= XD)
+        
+        $stm = $this->pdo->prepare($query);        
+        //$stm->bindValue(1, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        
+        
         return $lista[0]['tasa'];
     }
 

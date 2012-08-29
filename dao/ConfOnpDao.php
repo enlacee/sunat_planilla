@@ -89,9 +89,23 @@ class ConfOnpDao extends AbstractDao {
         $stm = null;
         return $lista[0]['tasa'];
     }
-    
-    
-    
+
+    public function vigenteAux($periodo) {
+        $query = "
+        SELECT
+            id_conf_onp,
+            tasa,
+            fecha      
+        FROM conf_onp
+        WHERE fecha <='$periodo'
+        ORDER BY fecha DESC     
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['tasa'];
+    }
 
 }
 

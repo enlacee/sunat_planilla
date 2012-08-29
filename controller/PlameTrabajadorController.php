@@ -25,15 +25,17 @@ echo (!empty($responce)) ? json_encode($responce) : '';
 
 function editar_Ptrabajador() {
     $model = new Ptrabajador();
+    $model->setId_ptrabajador($_REQUEST['id_ptrabajador']);
+    $model->setAdelanto($_REQUEST['adelanto']);
     $model->setAsignacion_familiar($_REQUEST['rbtn_afamiliar']);
     $ptf = $_REQUEST['rbtn_ptf'];
     $model->setPara_ti_familia($ptf);
     if ($ptf == "1") {
         $model->setPara_ti_familia_op($_REQUEST['rbtn_tipo_ptf']);
-    }else if ($ptf == "0"){
+    } else if ($ptf == "0") {
         $model->setPara_ti_familia_op(null);
     }
-    $model->setId_ptrabajador($_REQUEST['id_ptrabajador']);
+    
     $model->setAporta_essalud_vida($_REQUEST['rbtn_essaludvida']);
     $model->setAporta_asegura_tu_pension($_REQUEST['rbtn_apension']);
     $model->setDomiciliado($_REQUEST['rbtn_pt_domiciliado']);
@@ -48,11 +50,12 @@ function buscar_ID_Ptrabajador($id_ptrabajador) {
     $data = $dao->buscar_ID($id_ptrabajador);
 
     $model = new Ptrabajador();
+    $model->setId_ptrabajador($data['id_ptrabajador']);
+    $model->setId_trabajador($data['id_trabajador']);
+    $model->setAdelanto($data['adelanto']);
     $model->setAsignacion_familiar($data['asignacion_familiar']);
     $model->setPara_ti_familia($data['para_ti_familia']);
     $model->setPara_ti_familia_op($data['para_ti_familia_op']);
-    $model->setId_ptrabajador($data['id_ptrabajador']);
-    $model->setId_trabajador($data['id_trabajador']);
     $model->setAporta_essalud_vida($data['aporta_essalud_vida']);
     $model->setAporta_asegura_tu_pension($data['aporta_asegura_tu_pension']);
     $model->setDomiciliado($data['domiciliado']);
@@ -67,6 +70,7 @@ function existeID_TrabajadorPoPtrabajador($id_trabajador) {
     if (is_null($ID_PTRABAJADOR)) {
         $model = new Ptrabajador();
         $model->setId_trabajador($id_trabajador);
+        $model->setAdelanto(50);
         $model->setAsignacion_familiar(0);
         $model->setPara_ti_familia(0);
 

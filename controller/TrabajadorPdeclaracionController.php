@@ -379,11 +379,11 @@ function concepto_0121($id_trabajador_pdeclaracion, $monto_remuneracion) {
 function concepto_0201($id_trabajador_pdeclaracion, $monto_remuneracion) {
     //SUELDO BASICO
     $SB = null;
-    if ($monto_remuneracion < SB) {
+    //if ($monto_remuneracion < SB) {
         $SB = SB;
-    } else {
-        $SB = $monto_remuneracion;
-    }
+    //} else {
+    //    $SB = $monto_remuneracion;
+    //}
     //$SB = $monto_remuneracion;
 
     $CAL_AF = $SB * (T_AF / 100);

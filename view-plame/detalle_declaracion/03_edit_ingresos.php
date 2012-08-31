@@ -43,6 +43,7 @@ echo "</pre>";
 
 ?>
 <script type="text/javascript">
+inicioCalc();
 
 //var 
 	var tabla = document.getElementById("tb_Pingreso");
@@ -156,6 +157,9 @@ function duplicarDatoDevengado(id){ console.log(id);
 }
 
 
+
+
+
 function generate_code(text,txt_id) {
 	var str = "";
 	
@@ -170,6 +174,23 @@ function generate_code(text,txt_id) {
 	$("#"+txt_id).html( str );
 
 }
+
+function inicioCalc(){
+//console.log("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn n n nn   n n n");
+var data = $(".idd");
+for(var id = 1; id<=data.length;id++){
+	console.log("entro "+id);
+	var d = document.getElementById('pt_devengado-'+id);
+	var p = document.getElementById('pt_pagado-'+id);
+	console.log(id+" "+d.value);
+	console.log(id+" "+p.value);
+	p.value=d.value;
+}
+//console.log(data);
+//console.dir(data);
+//console.log("finnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn n n nn   n n n");
+}
+
 </script>
 <div class="ptrabajador">
   <div class="ocultar">
@@ -181,11 +202,11 @@ function generate_code(text,txt_id) {
     <hr />
     <table width="670" border="1" id="tb_Pingreso">
         <tr>
-            <td width="10">&nbsp;</td>
-            <td width="55">C&oacute;digo</td>
-            <td width="202">Concepto</td>
-            <td width="96">Devengado(S/.)</td>
-            <td width="134">Pagado(S/.)</td>
+            <td width="22">&nbsp;</td>
+            <td width="57">C&oacute;digo</td>
+            <td width="266">Concepto</td>
+            <td width="121">Devengado(S/.)</td>
+            <td width="170">Pagado(S/.)</td>
         </tr>
 
 
@@ -203,33 +224,39 @@ function generate_code(text,txt_id) {
 
 
                 <tr>
-                    <td> <?php echo $pingreso[$i]['id_detalle_concepto_empleador_maestro']; ?></td>
+                    <td>
+                    <input type="hidden" class="idd" name="id[]" size="1" />                    <?php echo $pingreso[$i]['id_detalle_concepto_empleador_maestro']; ?></td>
                     <td><label for="pt_codigo"></label>
-                        <input name="pt_codigo" type="text" id="" size="5" 
+                        <input name="pt_codigo" type="text" id="" size="4" 
                                value="<?php echo $pingreso[$i]['cod_detalle_concepto']; //echo $pingreso[$i]['ID_TRABAJADOR_PDECLARACION'];   ?>"      />
+                      <label for="id_declaracion_dconcepto"></label>
+                        <input name="id_declaracion_dconcepto" type="text" id="id_declaracion_dconcepto" size="2"
+                        
+                        value="<?php for($x=0; $x<count($calc_conceptos); $x++):
+								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
+									   echo $calc_conceptos[$x]['id_declaracion_dconcepto'];
+									   break;
+									endif;
+								endfor;?>" />
+                      <label for="estado"></label>
+                        <input name="estado" type="text" id="estado" size="1" />
 
                     </td>
                     <td><?php echo $pingreso[$i]['descripcion']; ?></td>
                     <td><label for="pt_devengado"></label>
                         <input name="pt_devengado" type="text" id="pt_devengado-<?php echo $ID;?>" size="8"
-                               value="<?php echo $pingreso[$i]['devengado']; ?>" maxlength="7"
-                               onkeyup="duplicarDatoDevengado(<?php echo $ID;?>)" />
-                    </td>
-                    <td><input name="pt_pagado" type="text" id="pt_pagado-<?php echo $ID;?>" size="8"
-                               value="<?php 
-							   
-							   for($x=0; $x<count($calc_conceptos); $x++){
-								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ){
+                              maxlength="7" onkeyup="duplicarDatoDevengado(<?php echo $ID;?>)"
+                               value="<?php 							   
+							   for($x=0; $x<count($calc_conceptos); $x++):
+								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
 									   echo $calc_conceptos[$x]['monto_pagado'];
 									   break;
-									}
-								}							   
-							  // echo $pingreso[$i]['pagado']; 
-							   
-							   
-							   
-							   
-							   ?>" maxlength="7" />
+									endif;
+								endfor;
+							   ?>" />
+                    </td>
+                    <td><input name="pt_pagado" type="text" id="pt_pagado-<?php echo $ID;?>" size="8"
+                               value="" maxlength="7" />
                     </td>
                 </tr>
 

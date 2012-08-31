@@ -715,13 +715,13 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	
 function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ 
 alert("cargarTablaTrabajadoresPorEtapa "+id_etapa_pago);
-		
+		var arreglo = new Array();
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PagoController.php?oper=cargar_tabla&id_etapa_pago='+id_etapa_pago,
             datatype: 'json',
             colNames:['Id','Tipo doc','Numero Doc','APaterno',
-                'AMaterno', 'Nombres','dias T.','Valor a.','Ccosto','Estado','Opciones'],
+                'AMaterno', 'Nombres','dias T.','Sueldo.','Ccosto','Estado','Opciones'],
             colModel :[
                 {
                     name:'id_pago', 
@@ -742,7 +742,7 @@ alert("cargarTablaTrabajadoresPorEtapa "+id_etapa_pago);
                 {
                     name:'num_documento', 
                     index:'num_documento',
-                    search:false,
+                    search:true,
                     editable:false,
                     width:90,
                     align:'center'
@@ -778,8 +778,8 @@ alert("cargarTablaTrabajadoresPorEtapa "+id_etapa_pago);
                 },
 				
                 {
-                    name:'valor_neto',
-                    index:'valor_neto',
+                    name:'sueldo_neto',
+                    index:'sueldo_neto',
                     search:false,
                     editable:false,
                     width:60,
@@ -819,20 +819,134 @@ alert("cargarTablaTrabajadoresPorEtapa "+id_etapa_pago);
             viewrecords: true,
             gridview: true,
             //caption: 'Trabajadores Activos',
-            //toolbar: [true,"top"],
-            //multiselect: true,
+            toolbar: [true,"top"],
+            multiselect: true,
             hiddengrid: false,
+			
+            onSelectRow: function(rowid, selected) {
+					
+                    var bandera = false;					 
+                    for(var i = 0; i < arreglo.length ;i++){
+                        // alert( rowid +"a igualar = " + ids_trabajadores_2[i]);
+                        if(arreglo[i] == rowid){
+                            // Ya existe rowid en array
+                            bandera = true;
+                            arreglo[i] =null;
+                            break;
+                        }
+                    }//ENDFOR
+		
+                    if(bandera==false){
+                        arreglo.push(rowid);						
+                    }
+					console.log(arreglo);
+
+
+		
+            },
+            onSelectAll : function(rowids,selected) {  
+				limpiarArray(arreglo)
+				
+				if(selected){												
+					var array = new Array();
+					for(var i=0;i<rowids.length;i++){
+					arreglo[i] = rowids[i];
+					}
+					//ids_trabajadores_2 = array;
+				}//ENFIF
+					console.log(arreglo);				
+				
+                
+            },	
+			
+			
+			
+			
 
 			
         });
 		
 		
         //--- PIE GRID
-//	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+
+
+	$("#t_list").append($("#reporte15_01"));
+	$("#t_list").append($("#reporte15_02"));
+	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	var id_etapa_pago = document.getElementById('id_etapa_pago').value;
+
+	
+	
+	
+	//01 = indidual
+   $("#reporte15_01").click(function(){
+											
+	var news = new Array();
+	var j=0;
+	for(var i=0; i<arreglo.length;i++){
+		if(arreglo[i]!=null){
+			news[j]=arreglo[i];
+			j++;
+		}
+	}
+	console.log(news);
+
+	//-------------
+	if(news.length>=1){ 
+		// -----arrayCadena
+		var cadena='';
+		for(var i=0; i < news.length;i++){	
+			cadena+= "ids[]="+news[i];
+			if(i != (news.length-1)){
+				cadena+= "&";
+			}	
+		}
+		//alert(cadena);
+		// -----arrayCadena
+	
+		var url = "sunat_planilla/controller/PagoController.php?"+cadena;
+		url +="&oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		
+		window.location.href = url;
+		//$("#list-2").jqGrid('GridUnload');
+		   jQuery("#list").trigger("reloadGrid"); 
+			limpiarArray(arreglo);
+			limpiarArray(news);
+	}else{
+		alert("Debe seleccionar un registro,\n para generar el Adelanto Individual");
+	}
+
+		
+	});
+   
+   //02  = total
+	$("#reporte15_02").click(function(){
+		
+		//registrarEtapa(null);
+
+		var url = "sunat_planilla/controller/PagoController.php";
+		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		
+		window.location.href = url;
+
+	});
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
     }
-
+//---------------------------------------------------------------------
 
 
 //----------------------------------------------------------------------

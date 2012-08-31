@@ -65,7 +65,7 @@ $conceptos= array('600','800');
 $ptaporte = view_listarConcepto(ID_EMPLEADOR_MAESTRO,$conceptos,0);
 
 echo "<pre>";
-//print_r($obj);
+//print_r($calc_conceptos);
 echo "</pre>";
 echo "<hr>";
 
@@ -121,6 +121,8 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
       <td><label for="pt_codigo"></label>
       <input name="ptta_cod_detalle_concepto[]" type="text" id="ptta_cod_detalle_concepto" size="5" 
        value="<?php echo $ptaporte[$i]['cod_detalle_concepto'];?>"/>
+      <label for="id_ptrabajador"></label>
+      <input name="id_ptrabajador" type="text" id="id_ptrabajador" size="5" />
       </td>
       <td><?php echo $ptaporte[$i]['descripcion'] ?></td>
       <td><label for="ptta_base"></label>
@@ -212,7 +214,16 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //FILTR
       <td><label for="ptta_base"></label>
       <input name="ptta_base[]" type="text" id="ptta_base" size="8" /></td>
       
-      <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8" /></td>
+      <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8"
+      value="<?php 
+	   for($x=0; $x<count($calc_conceptos); $x++):
+		   if($ptaporte[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
+			   echo $calc_conceptos[$x]['monto_pagado'];
+			   break;
+			endif;
+		endfor;
+	   ?>"
+       /></td>
     </tr>
 <!-- CUERPO FIN 0800 -->
 

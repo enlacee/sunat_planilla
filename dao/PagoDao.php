@@ -117,6 +117,7 @@ VALUES (
             p.sueldo_neto, -- Calculado y guardado
             p.dia_total,          
             p.estado,
+            p.fecha_creacion,
             p.id_empresa_centro_costo,	  
             per.cod_tipo_documento,
             per.num_documento,

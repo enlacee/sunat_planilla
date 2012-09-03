@@ -123,6 +123,33 @@ class DeclaracionDconceptoDao extends AbstractDao {
         return $lista;
     }
 
+    //---------------------------------------------------------------
+    // Funcion utilizada x Renta 5ta Categoria - controller
+    //---------------------------------------------------------------
+
+    public function listarTrabajadorPorDeclaracion($id_trabajador,$id_pdeclaracion) {
+        $query = "
+        SELECT 
+        -- tpd.id_pdeclaracion,
+        -- tpd.id_trabajador,
+        ddc.cod_detalle_concepto,
+        ddc.monto_pagado
+        FROM trabajadores_pdeclaraciones AS tpd
+        INNER JOIN declaraciones_dconceptos AS ddc
+        ON tpd.id_trabajador_pdeclaracion = ddc.id_trabajador_pdeclaracion
+        WHERE tpd.id_trabajador = ?
+        AND tpd.id_pdeclaracion = ?          
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+
 }
 
 ?>

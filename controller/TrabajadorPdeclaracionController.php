@@ -1,5 +1,4 @@
 <?php
-
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
@@ -49,6 +48,11 @@ if ($op) {
 
     //EPAGO TRABAJADOR
     require_once '../dao/PeriodoRemuneracionDao.php';
+
+    // Renta de QUINTA
+    
+    require_once '../controller/IR5Controller.php';
+    require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 }
 
 $response = NULL;
@@ -211,20 +215,15 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
     $_data_id_trabajador = $dao_trapdecla->listar($ID_PDECLARACION, "id_trabajador");
 
     if (count($data_traa) == count($_data_id_trabajador)) {
-        echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-MENSUAL]! ";
-        return false;
+       // echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-MENSUAL]! ";
+       // return false;
     }
-
-
-//    echo "<pre> _data_id_trabajador";
-//    print_r($_data_id_trabajador);
-//    echo "</pre>";
 
     /* --------------filtro de  id_trabajadores ------------- */
     for ($i = 0; $i < count($_data_id_trabajador); $i++) {
         for ($j = 0; $j < count($data_traa); $j++) {
             if ($_data_id_trabajador[$i]['id_trabajador'] == $data_traa[$j]['id_trabajador']) {
-                unset($data_traa[$j]);
+                //unset($data_traa[$j]);
                 break;
             }
         }
@@ -269,7 +268,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         // ..... anes Genero la Seguna Quincenaaaaa
         $dao_pago = new PagoDao();
         $data_sum = $dao_pago->dosQuincenas($ID_PDECLARACION, $ID_TRABAJADOR[$i]);
-
+/*
         $obj = new TrabajadorPdeclaracion();
         $obj->setId_pdeclaracion($ID_PDECLARACION);
         $obj->setId_trabajador($ID_TRABAJADOR[$i]);
@@ -304,10 +303,10 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         // paso 03 :: Consultar Conceptos
         // INGRESOS
         ECHO "SEULDO BASICO";
-        concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo']/* $DATA_TRA['monto_remuneracion'] */);
+        concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo']);
         //Asignacion familiar
         ECHO "ASIGNACION FAMILIAR";
-        concepto_0201($id_trabajador_pdeclaracion, $data_sum['sueldo']/* $DATA_TRA['monto_remuneracion'] */);
+        concepto_0201($id_trabajador_pdeclaracion, $data_sum['sueldo']);
 
         // DESCUENTOS - ADELANTO
         ECHO "DESCUENTO -ADELANTO ";
@@ -349,6 +348,16 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
             concepto_0612($id_trabajador_pdeclaracion);
         }
         //-----------------------------------------------------------
+        
+ */       
+        /**
+         * Calculo Renta de Quinta
+         */
+        
+         calcular_IR5_concepto_0605($ID_PDECLARACION,$ID_TRABAJADOR[$i],$data_sum['sueldo']);
+        //concepto_0605($id_trabajador_pdeclaracion, $monto);
+        
+        
     }//ENDFOR
 }
 
@@ -420,7 +429,7 @@ function concepto_0701($ID_TRABAJADOR, $ID_PDECLARACION, $id_trabajador_pdeclara
 }
 
 // RENTA DE QUINTA CATEGORIA
-function concepto_0605($id_trabajador_pdeclaracion) {
+function concepto_0605($id_trabajador_pdeclaracion,$monto) {
     /*
       $CAL_AF = SB * (T_AF/100);
       $model = new DeclaracionDconcepto();

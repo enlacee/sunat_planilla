@@ -7,10 +7,10 @@
  * @return string fecha
  */
 function getFechaPatron($fecha_es_us, $patron_date) {
+    
     if (!isset($fecha_es_us) || $fecha_es_us == "0000-00-00") {
         return null;
     }
-
 
     $fecha_es_us = eregi_replace("/", "-", $fecha_es_us);
 

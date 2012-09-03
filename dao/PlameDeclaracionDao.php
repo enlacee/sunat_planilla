@@ -154,7 +154,7 @@ class PlameDeclaracionDao extends AbstractDao {
         INNER JOIN empleadores_maestros AS em
         ON pd.id_empleador_maestro = em.id_empleador_maestro
 
-        WHERE(em.id_empleador_maestro= ?AND YEAR(pd.periodo) = ?)
+        WHERE(em.id_empleador_maestro= ? AND YEAR(pd.periodo) = ?)
         ORDER BY periodo ASC
         ";
 

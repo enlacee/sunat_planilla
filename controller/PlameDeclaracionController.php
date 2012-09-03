@@ -1,5 +1,4 @@
 <?php
-
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();

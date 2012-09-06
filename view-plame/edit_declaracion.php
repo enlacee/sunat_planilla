@@ -42,7 +42,7 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 //---------------------------------
 
 	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab2.php?id_declaracion='+ID_DECLARACION+'&periodo='+PERIODO ,'#tabs-2');
-	cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab3.php?id_declaracion='+ID_DECLARACION+'&periodo='+PERIODO ,'#tabs-3');
+	//cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab3.php?id_declaracion='+ID_DECLARACION+'&periodo='+PERIODO ,'#tabs-3');
 
 
 
@@ -60,7 +60,7 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
         <ul>
             <li><a href="#tabs-1">Informacion General</a></li>	
             <li><a href="#tabs-2">Detalle de Declaraci&oacute;n</a></li>
-            <li><a href="#tabs-3">Determinacion de Deuda</a></li>	            		
+            <!--<li><a href="#tabs-3">Determinacion de Deuda</a></li>-->	            		
 
         </ul>
         
@@ -72,10 +72,10 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 
           <form id="frmNuevaDeclaracion" name="frmNuevaDeclaracion" method="post" action="">
           
-		    <p>id_declaracion		      
+		    <div class="ocultar">id_declaracion		      
 		      <input type="text" name="id_declaracion" id="id_declaracion"
               value="<?php echo $ID_DECLARACION; ?>" />
-		    </p>
+		    </div>
 		    <p>RUC:
               <label for="ruc"></label>
             <input type="text" name="ruc" id="ruc"  readonly="readonly"
@@ -97,15 +97,17 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
                  <input type="radio" name="rbtn_declaracionRectificadora" id="rbtn_declaracionRectificadora" value="0" />
 No </p>
                <p>Limpia datos Edit</p>
-            </div>
-             </p>
-             Sincronizar datos: Actualizar Prestadores de Servicios: 
-            <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />		      
-	        <input type="button" name="btnEjecutar" id="btnEjecutar" value="Actualizar Declaracion" 
+               <p>&nbsp;</p>
+              <p>Sincronizar datos: Actualizar Prestadores de Servicios:
+  <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />
+  <input type="button" name="btnEjecutar" id="btnEjecutar" value="Actualizar Declaracion" 
             onclick="registrarDeclaracion()" />
-		    <p>La declaracion se ebabor&oacute; 'Ultima actualizacion'
-		      <input type="text" name="dfcreacion" id="dfcreacion" />
-		    </p>
+              </p>
+              <p>La declaracion se ebabor&oacute; 'Ultima actualizacion'
+                <input type="text" name="dfcreacion" id="dfcreacion" />
+              </p>
+		    </div>
+		    <p>&nbsp;</p>
 		    <p>&nbsp;</p>
 		    <p>&nbsp;</p>
             
@@ -121,11 +123,12 @@ No </p>
           <p>ass2 </p>
 </div>
         
-        
+        <!--
         <div id="tabs-3">
         ass
         
         3</div>
+        -->
         
         
 </div>

@@ -79,8 +79,8 @@ function add_15(id_declaracion,periodo,num15){ //QUINCENAL
 
    
    
-        <div class="section">
-              <div class="article fila1">
+<div class="section">
+      <div class="article fila1">
 <table id="list">
 </table>
 <div id="pager"></div>

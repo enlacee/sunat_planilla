@@ -618,6 +618,8 @@ function buscar_IDTrabajador($id_trabajador) {
     return $model;
 }
 
+
+
 // REGISTRAR NUEVO:: utilizado en PersonaController
 function nuevoTrabajador($ID_PERSONA) {
 //---------------------------------------------------------------------------------

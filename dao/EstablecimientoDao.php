@@ -177,6 +177,26 @@ function actualizarEstablecimiento_2($id,$actividad_de_riesgo){
             throw $e;
         }
     }
+    
+    //edit 06/09/2012 ->Usado en Planilla
+    function listar_Ids_Establecimientos($id_empleador){
+        $query ="
+        SELECT 
+        e.ruc,
+        est.id_establecimiento
+        FROM empleadores AS e
+        INNER JOIN establecimientos AS est
+        ON e.id_empleador = est.id_empleador
+        WHERE e.id_empleador = ?";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$id_empleador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        
+        return $lista;       
+        
+    }
 
 
 

@@ -1,4 +1,5 @@
 <?php
+
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
@@ -50,7 +51,7 @@ if ($op) {
     require_once '../dao/PeriodoRemuneracionDao.php';
 
     // Renta de QUINTA
-    
+
     require_once '../controller/IR5Controller.php';
     require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 }
@@ -76,6 +77,13 @@ if ($op == "add") {
 
 echo (!empty($response)) ? json_encode($response) : '';
 
+
+/**
+ *
+ * @param type $ID_PDECLARACION 
+ * 
+ * Configuracion...
+ */
 function generarConfiguracion($ID_PDECLARACION) {
 
     $daox = new PlameDeclaracionDao();
@@ -105,16 +113,17 @@ function generarConfiguracion($ID_PDECLARACION) {
 // Valores Fijos
     $ESSALUD_MAS = 5;
     $SNP_MAS = 5;
-    echo "8888888888888888888888888888888888888888888888";
-    
-    echo "SB =".$SB;
-    echo "T_AF =".$T_AF;
-    echo "T_ESSALUD =".$T_ESSALUD;
-    echo "T_ONP =".$T_ONP;
-    echo "UIT =".$UIT;
-    
-    echo "8888888888888888888888888888888888888888888888";
+    /*
+      echo "8888888888888888888888888888888888888888888888";
 
+      echo "SB =".$SB;
+      echo "T_AF =".$T_AF;
+      echo "T_ESSALUD =".$T_ESSALUD;
+      echo "T_ONP =".$T_ONP;
+      echo "UIT =".$UIT;
+
+      echo "8888888888888888888888888888888888888888888888";
+     */
 
 
     // DEFINE
@@ -215,8 +224,8 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
     $_data_id_trabajador = $dao_trapdecla->listar($ID_PDECLARACION, "id_trabajador");
 
     if (count($data_traa) == count($_data_id_trabajador)) {
-       // echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-MENSUAL]! ";
-       // return false;
+        // echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-MENSUAL]! ";
+        // return false;
     }
 
     /* --------------filtro de  id_trabajadores ------------- */
@@ -268,96 +277,93 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         // ..... anes Genero la Seguna Quincenaaaaa
         $dao_pago = new PagoDao();
         $data_sum = $dao_pago->dosQuincenas($ID_PDECLARACION, $ID_TRABAJADOR[$i]);
-/*
-        $obj = new TrabajadorPdeclaracion();
-        $obj->setId_pdeclaracion($ID_PDECLARACION);
-        $obj->setId_trabajador($ID_TRABAJADOR[$i]);
-        $obj->setDia_laborado($data_sum['dia_laborado']);
-        $obj->setDia_total($data_sum['dia_laborado']);
-        $obj->setOrdinario_hora($data_sum['ordinario_hora']);
-        $obj->setOrdinario_min($data_sum['ordinario_min']);
-        $obj->setSobretiempo_hora($data_sum['sobretiempo_hora']);
-        $obj->setSobretiempo_min($data_sum['sobretiempo_min']);
-        $obj->setSueldo($data_sum['sueldo']);
-        $obj->setSueldo_neto($data_sum['sueldo_neto']);
-        $obj->setEstado(0);
-        $obj->setFecha_creacion(date("Y-m-d H:i:s"));
+        /*
+          $obj = new TrabajadorPdeclaracion();
+          $obj->setId_pdeclaracion($ID_PDECLARACION);
+          $obj->setId_trabajador($ID_TRABAJADOR[$i]);
+          $obj->setDia_laborado($data_sum['dia_laborado']);
+          $obj->setDia_total($data_sum['dia_laborado']);
+          $obj->setOrdinario_hora($data_sum['ordinario_hora']);
+          $obj->setOrdinario_min($data_sum['ordinario_min']);
+          $obj->setSobretiempo_hora($data_sum['sobretiempo_hora']);
+          $obj->setSobretiempo_min($data_sum['sobretiempo_min']);
+          $obj->setSueldo($data_sum['sueldo']);
+          $obj->setSueldo_neto($data_sum['sueldo_neto']);
+          $obj->setEstado(0);
+          $obj->setFecha_creacion(date("Y-m-d H:i:s"));
 
 
-        // LISTADO DE trabajadores ya registrados en el periodo o mes ejem: mm/yyyy               
-        //echo "id_trabajador_pdeclaracion = " . $id_trabajador_pdeclaracion;
-        //....................................................................//
-        // Otras utilidades
-        $dao = new TrabajadorPdeclaracionDao();
-        $DATA_TRA = $dao->buscar_ID_trabajador($ID_TRABAJADOR[$i]);
+          // LISTADO DE trabajadores ya registrados en el periodo o mes ejem: mm/yyyy
+          //echo "id_trabajador_pdeclaracion = " . $id_trabajador_pdeclaracion;
+          //....................................................................//
+          // Otras utilidades
+          $dao = new TrabajadorPdeclaracionDao();
+          $DATA_TRA = $dao->buscar_ID_trabajador($ID_TRABAJADOR[$i]);
 
-        //Registrar datos adicionales del Trabajador
-        $obj->setIngreso_5ta_categoria(0);
-        $obj->setCod_tipo_trabajador($DATA_TRA['cod_tipo_trabajador']);
-        $obj->setCod_regimen_pensionario($DATA_TRA['cod_regimen_pensionario']);
-        $obj->setCod_regimen_aseguramiento_salud($DATA_TRA['cod_regimen_aseguramiento_salud']);
-        $obj->setCod_situacion($DATA_TRA['cod_situacion']);
+          //Registrar datos adicionales del Trabajador
+          $obj->setIngreso_5ta_categoria(0);
+          $obj->setCod_tipo_trabajador($DATA_TRA['cod_tipo_trabajador']);
+          $obj->setCod_regimen_pensionario($DATA_TRA['cod_regimen_pensionario']);
+          $obj->setCod_regimen_aseguramiento_salud($DATA_TRA['cod_regimen_aseguramiento_salud']);
+          $obj->setCod_situacion($DATA_TRA['cod_situacion']);
 
-        $id_trabajador_pdeclaracion = $dao->registrar($obj);
-        //....................................................................//
-        // paso 03 :: Consultar Conceptos
-        // INGRESOS
-        ECHO "SEULDO BASICO";
-        concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo']);
-        //Asignacion familiar
-        ECHO "ASIGNACION FAMILIAR";
-        concepto_0201($id_trabajador_pdeclaracion, $data_sum['sueldo']);
+          $id_trabajador_pdeclaracion = $dao->registrar($obj);
+          //....................................................................//
+          // paso 03 :: Consultar Conceptos
+          // INGRESOS
+          ECHO "SEULDO BASICO";
+          concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo']);
+          //Asignacion familiar
+          ECHO "ASIGNACION FAMILIAR";
+          concepto_0201($id_trabajador_pdeclaracion, $data_sum['sueldo']);
 
-        // DESCUENTOS - ADELANTO
-        ECHO "DESCUENTO -ADELANTO ";
-        concepto_0701($ID_TRABAJADOR[$i], $ID_PDECLARACION, $id_trabajador_pdeclaracion);
+          // DESCUENTOS - ADELANTO
+          ECHO "DESCUENTO -ADELANTO ";
+          concepto_0701($ID_TRABAJADOR[$i], $ID_PDECLARACION, $id_trabajador_pdeclaracion);
 
-        // paso 04 :: Preguntar si el trabajador cumple:
-        // TRIBUTOS Y APORTACIONES
-        // Regimen de Salud
-        if ($DATA_TRA['cod_regimen_aseguramiento_salud'] == '00') { //ok Regimen de Salud Regular
-            concepto_0804($id_trabajador_pdeclaracion, $ID_PDECLARACION);
-        } else {
-            // null 
-        }
-        // Regimen Pensionario
-        //AFP 
-
-
-        if ($DATA_TRA['cod_regimen_pensionario'] == '02') { //ONP
-            concepto_0607($id_trabajador_pdeclaracion);
-        } else if ($DATA_TRA['cod_regimen_pensionario'] == '21') { //Integra            
-            concepto_AFP($id_trabajador_pdeclaracion, '21');
-        } else if ($DATA_TRA['cod_regimen_pensionario'] == '22') { //horizonte
-            concepto_AFP($id_trabajador_pdeclaracion, '22');
-        } else if ($DATA_TRA['cod_regimen_pensionario'] == '23') { //Profuturo
-            concepto_AFP($id_trabajador_pdeclaracion, '23');
-        } else if ($DATA_TRA['cod_regimen_pensionario'] == '24') { //Prima
-            concepto_AFP($id_trabajador_pdeclaracion, '24');
-        } else {
-            //null
-        }
+          // paso 04 :: Preguntar si el trabajador cumple:
+          // TRIBUTOS Y APORTACIONES
+          // Regimen de Salud
+          if ($DATA_TRA['cod_regimen_aseguramiento_salud'] == '00') { //ok Regimen de Salud Regular
+          concepto_0804($id_trabajador_pdeclaracion, $ID_PDECLARACION);
+          } else {
+          // null
+          }
+          // Regimen Pensionario
+          //AFP
 
 
-        //Otra utilidades
-        if ($DATA_TRA['aporta_essalud_vida'] == '1') { // ESSALUD_MAS
-            concepto_0604($id_trabajador_pdeclaracion);
-        }
+          if ($DATA_TRA['cod_regimen_pensionario'] == '02') { //ONP
+          concepto_0607($id_trabajador_pdeclaracion);
+          } else if ($DATA_TRA['cod_regimen_pensionario'] == '21') { //Integra
+          concepto_AFP($id_trabajador_pdeclaracion, '21');
+          } else if ($DATA_TRA['cod_regimen_pensionario'] == '22') { //horizonte
+          concepto_AFP($id_trabajador_pdeclaracion, '22');
+          } else if ($DATA_TRA['cod_regimen_pensionario'] == '23') { //Profuturo
+          concepto_AFP($id_trabajador_pdeclaracion, '23');
+          } else if ($DATA_TRA['cod_regimen_pensionario'] == '24') { //Prima
+          concepto_AFP($id_trabajador_pdeclaracion, '24');
+          } else {
+          //null
+          }
 
-        if ($DATA_TRA['aporta_asegura_tu_pension'] == '1') { //ASEGURA PENSION_MAS
-            concepto_0612($id_trabajador_pdeclaracion);
-        }
-        //-----------------------------------------------------------
-        
- */       
+
+          //Otra utilidades
+          if ($DATA_TRA['aporta_essalud_vida'] == '1') { // ESSALUD_MAS
+          concepto_0604($id_trabajador_pdeclaracion);
+          }
+
+          if ($DATA_TRA['aporta_asegura_tu_pension'] == '1') { //ASEGURA PENSION_MAS
+          concepto_0612($id_trabajador_pdeclaracion);
+          }
+          //-----------------------------------------------------------
+
+         */
         /**
          * Calculo Renta de Quinta
          */
-        
-         calcular_IR5_concepto_0605($ID_PDECLARACION,$ID_TRABAJADOR[$i],$data_sum['sueldo']);
+        calcular_IR5_concepto_0605($ID_PDECLARACION, $ID_TRABAJADOR[$i], $data_sum['sueldo']);
         //concepto_0605($id_trabajador_pdeclaracion, $monto);
-        
-        
     }//ENDFOR
 }
 
@@ -389,7 +395,7 @@ function concepto_0201($id_trabajador_pdeclaracion, $monto_remuneracion) {
     //SUELDO BASICO
     $SB = null;
     //if ($monto_remuneracion < SB) {
-        $SB = SB;
+    $SB = SB;
     //} else {
     //    $SB = $monto_remuneracion;
     //}
@@ -429,7 +435,7 @@ function concepto_0701($ID_TRABAJADOR, $ID_PDECLARACION, $id_trabajador_pdeclara
 }
 
 // RENTA DE QUINTA CATEGORIA
-function concepto_0605($id_trabajador_pdeclaracion,$monto) {
+function concepto_0605($id_trabajador_pdeclaracion, $monto) {
     /*
       $CAL_AF = SB * (T_AF/100);
       $model = new DeclaracionDconcepto();
@@ -455,10 +461,10 @@ function concepto_0607($id_trabajador_pdeclaracion) {
     //====================================================
 
     $CALC = (floatval($all_ingreso)) * (T_ONP / 100);
-    
-    echo "T_ONP  = ".T_ONP;
+
+    echo "T_ONP  = " . T_ONP;
     echo "*-**-*--**-*-*-**-*";
-    echo "CALC = ".$CALC;
+    echo "CALC = " . $CALC;
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);
     //$model->setMonto_devengado($CALC);

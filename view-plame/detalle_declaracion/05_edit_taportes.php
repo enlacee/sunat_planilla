@@ -122,7 +122,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
       <input name="ptta_cod_detalle_concepto[]" type="text" id="ptta_cod_detalle_concepto" size="5" 
        value="<?php echo $ptaporte[$i]['cod_detalle_concepto'];?>"/>
       <label for="id_ptrabajador"></label>
-      <input name="id_ptrabajador" type="text" id="id_ptrabajador" size="5" />
+      <input name="id_ptrabajador" type="hidden" id="id_ptrabajador" size="5" />
       </td>
       <td><?php echo $ptaporte[$i]['descripcion'] ?></td>
       <td><label for="ptta_base"></label>
@@ -261,7 +261,7 @@ endfor;
 
 <h3>Aportaciones del Empleador:</h3>
 <hr />
-
+<div class="ocultar">
 <table width="670" border="1">
   <tr>
     <td width="14">&nbsp;</td>
@@ -295,6 +295,8 @@ endfor;
       <input name="pt_total_aporte_trabajador2" type="text" id="pt_total_aporte_trabajador" size="8" /></td>
   </tr>
 </table>
+
+</div>
 <p>&nbsp; </p>
   <p>&nbsp;</p>
   

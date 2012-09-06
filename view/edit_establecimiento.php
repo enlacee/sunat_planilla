@@ -43,16 +43,15 @@ $obj_establecimiento =  buscarEstablecimientoPorId($ID_ESTABLECIMIENTO);
 
 //ECHO "<HR>";
 // --- (01) BUSQUEDA 
+
 $obj_establecimiento_direccion = new EstablecimientoDireccion();	
 $obj_establecimiento_direccion = buscarEstablecimientoDireccionPorId($ID_ESTABLECIMIENTO);
 
 
-echo "<pre>";
-//print_r($obj_establecimiento);
-echo "</pre>";
 
 // COMBO 01
 $cbo_tipo_establecimiento = comboEstablecimiento($ID_EMPLEADOR,true);
+
 
 //-----UBIGEO_RENIEC
 $COD_UBIGEO_RENIEC = $obj_establecimiento_direccion->getCod_ubigeo_reinec();
@@ -69,9 +68,9 @@ $cbo_provincia = comboUbigeoProvincias($data_ubigeo['cod_departamento']); /*$dat
 // COMBO 03
 $cbo_distrito = comboUbigeoReniec($data_ubigeo['cod_provincia']);/*$data_ubigeo['cod_ubigeo_reniec']*/
 
-echo "<pre>";
-//print_r($obj_establecimiento_direccion);
-echo "</pre>";
+//echo "<pre>aaa";
+//var_dump($data_ubigeo);
+//echo "</pre>";
 
 ?>
 

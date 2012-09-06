@@ -160,7 +160,7 @@ class TrabajadorDao extends AbstractDao {
         $stm->bindValue(16, $com->getPercibe_renta_5ta_exonerada());
         $stm->bindValue(17, $com->getAplicar_convenio_doble_inposicion());
         $stm->bindValue(18, $com->getCod_convenio());
-       // $stm->bindValue(19, $com->getCod_situacion());
+        // $stm->bindValue(19, $com->getCod_situacion());
         $stm->bindValue(19, $com->getEstado());
         $stm->bindValue(20, $com->getId_empresa_centro_costo());
         $stm->bindValue(21, $com->getId_trabajador());
@@ -212,7 +212,7 @@ class TrabajadorDao extends AbstractDao {
         try {
 
             $stm = $this->pdo->prepare($query);
-            $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
+            $stm->bindValue(1, $ID_EMPLEADOR_MAESTRO);
             $stm->bindValue(2, $ESTADO);
             $stm->execute();
             $lista = $stm->fetchAll();
@@ -243,9 +243,9 @@ class TrabajadorDao extends AbstractDao {
         AND t.cod_situacion  = ?        
         -- $WHERE
             ;";
-        
+
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
+        $stm->bindValue(1, $ID_EMPLEADOR_MAESTRO);
         $stm->bindValue(2, $ESTADO);
         $stm->execute();
         $lista = $stm->fetchAll();
@@ -253,21 +253,21 @@ class TrabajadorDao extends AbstractDao {
         $stm = null;
     }
 
-    public function actualizarCodigoSituacion($id_trabajador,$cod_situacion){
+    public function actualizarCodigoSituacion($id_trabajador, $cod_situacion) {
         $query = "
         UPDATE trabajadores 
         SET cod_situacion = ?
         WHERE id_trabajador = ?            
         ";
-        
+
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1,$cod_situacion);
-        $stm->bindValue(2,$id_trabajador);
+        $stm->bindValue(1, $cod_situacion);
+        $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $stm = null;
         return true;
     }
-    
+
     public function Baja($id) {
         //DELETE FROM empleadores WHERE id_empleador = ?
 
@@ -303,7 +303,7 @@ class TrabajadorDao extends AbstractDao {
      *
      *  OK FULLL "Categoria Trabajador.php"
      */
-    public function buscaTrabajadorPorIdPersona($id_persona,$id_trabajador) {//OK
+    public function buscaTrabajadorPorIdPersona($id_persona, $id_trabajador) {//OK
         $query = "
         SELECT 
         id_trabajador,
@@ -347,11 +347,10 @@ class TrabajadorDao extends AbstractDao {
         $stm = null;
 
         return $lista[0];
-
     }
-    
+
     // utilizando PLAME
-    public function buscar_IDTrabajador($id_trabajador){
+    public function buscar_IDTrabajador($id_trabajador) {
         $query = "
         SELECT
         id_trabajador,
@@ -385,10 +384,10 @@ class TrabajadorDao extends AbstractDao {
         $stm->bindValue(1, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
-        $stm = null;        
+        $stm = null;
         return $lista[0];
-        
     }
+
     //-----------------------------E4---------------------------------------
     public function listarTrabajadoresSoloID_E4($ID_EMPLEADOR_MAESTRO) {
         $query = "
@@ -835,7 +834,32 @@ class TrabajadorDao extends AbstractDao {
 //---
 // SOLO Personal en Formación-modalidad formativa laboral.
 // Categoria = 5
-//------------------------------------------------------------------------------    
+//------------------------------------------------------------------------------
+
+// new 03/09/2012
+    function buscarTrabajador($num_documento, $cod_tipo_documento) {
+        
+        $query ="
+        SELECT 
+        p.id_persona,
+        t.id_trabajador
+        FROM personas AS p
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        WHERE p.num_documento = ?
+        AND p.cod_tipo_documento = $cod_tipo_documento
+        ORDER BY id_trabajador DESC        
+";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $num_documento);
+        //$stm->bindValue(2, $cod_tipo_documento);
+        $stm->execute();
+        $data = $stm->fetchAll();
+        return $data[0];
+    }
+
 }
 
 //End Class

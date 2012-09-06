@@ -15,17 +15,26 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $sueldo) {
 //| -----------------------------------------------------
 //| --- VOCABULARIO ---                                 |
 //| r = remuneracion                                    |
-//| 
+//| gra = gratificacio-+
 //| 
 //| ----------------------------------------------------
+    $conceptos_afectos5ta = array();
+    $conceptos_afectos5ta = arrayConceptosAfectos_5ta();
+
+    //echo "<pre> INGRESOS AFECTOS 5TA";
+    //$d = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador, $conceptos_afectos5ta);
+    //print_r($d);
+    //echo "</pre>";
+    
 // 01 remuneracion fija
-    $r_fija = $sueldo; //2000;
+    $r_fija = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador, $conceptos_afectos5ta);//$sueldo; //2000;
+    echo "R_FIJA= ".$r_fija;
 // 02 num_meses que falta
     $num_mes_faltan = get_IR5_mesFaltan($periodo);
-
+    
 // 03 remuneracion proyectada
     $r_proyectada = $r_fija * $num_mes_faltan;
-
+    echo "R_PROYECTADA = ".$r_proyectada;
 // 04 gratificacion
     $var_jul_dic = get_IR5_NumGratificaciones($periodo);
     $grat_julio_dic = $r_fija * $var_jul_dic;
@@ -33,12 +42,19 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $sueldo) {
 
 // 05 total 1:
     $total_1 = ($r_proyectada + $grat_julio_dic);
-    echo "TOTAL :: = " . $total_1;
+    echo "TOTAL :: ++ = " . $total_1;
 
 
 // 06 r_meses_anteriores
     $r_meses_anteriores = get_IR5_RMesesAnteriores($ID_PDECLARACION, $id_trabajador, $periodo); //remuneracion de enero ...getRMesesAnteriores();
-    echo "r_meses_anteriores = ".$r_meses_anteriores;
+    echo "r_meses_anteriores = " . $r_meses_anteriores;
+
+// 07 gratificaciones de meses anteriores
+    $gra_meses_anteriores = null;
+    if (get_IR5_NumGratificaciones($periodo) == 1) {
+        //$gra_meses_anteriores =
+    }
+
 
 //echo date("Y",  strtotime($periodo));
 //echo "num_mes_faltan = ".$num_mes_faltan;
@@ -80,7 +96,7 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
         $id_pdeclaracion_lab = null;
 
         for ($j = 0; $j < count($data_pd); $j++) {
-           
+
             if ($data_pd[$j]['periodo'] == $periodo_lab) {
                 $id_pdeclaracion_lab = $data_pd[$j]['id_pdeclaracion'];
 
@@ -105,9 +121,25 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
     return $sum_jbasico;
 }
 
-
-function arrayConceptosAfectos_5ta(){
+// Get all ingresos 
+function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador, $conceptos_afectos5ta) {
+    $dao_dconcepto = new DeclaracionDconceptoDao();
+    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
     
+    $sum = 0;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos5ta)) {
+            //echo "afeccctooooo = ".$data_dconcepto[$z]['cod_detalle_concepto'];
+            //echo "afeccct monto_pagado = ".$data_dconcepto[$z]['monto_pagado'];
+            $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
+            //$ID_DCEM = $dao->registrar($id_empleador_maestro, $d_detalle_concepto[$i]['cod_detalle_concepto'], '1');
+        }
+    }
+    return $sum;
+}
+
+function arrayConceptosAfectos_5ta() {
+
 //..............................................................................
     $dao_afecto = new PlameDetalleConceptoAfectacionDao();
     $data_afecto = $dao_afecto->conceptosAfecto_a(10);
@@ -117,7 +149,6 @@ function arrayConceptosAfectos_5ta(){
     }
 //..............................................................................   
     return $conceptos_afectos;
-    
 }
 
 function listaPdeclaraciones() {

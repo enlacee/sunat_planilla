@@ -155,7 +155,57 @@ VALUES (
 
         return $lista;
     }
+    
+    // 06/09/2012 ->new uso para reportes
+        public function listar_2($id_etapa_pago,$id_establecimiento,$id_empresa_centro_costo) {
 
+        $query = "
+        SELECT
+            p.id_pago,
+            p.id_trabajador,
+            p.sueldo,
+            p.descuento,
+            p.sueldo_neto, -- Calculado y guardado
+            p.dia_total,          
+            p.estado,
+            p.fecha_creacion,
+            p.id_empresa_centro_costo,	  
+            per.cod_tipo_documento,
+            per.num_documento,
+            per.apellido_paterno,
+            per.apellido_materno,
+            per.nombres,
+            ecc.descripcion AS ccosto
+	    
+        FROM pagos AS p
+
+        INNER JOIN trabajadores AS t
+        ON p.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS per
+        ON t.id_persona = per.id_persona
+
+        INNER JOIN empresa_centro_costo AS ecc
+        ON p.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+
+        WHERE p.id_etapa_pago = ? 
+        AND t.id_establecimiento = ?
+        AND ecc.id_empresa_centro_costo = ?   
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_etapa_pago);
+        $stm->bindValue(2, $id_establecimiento);
+        $stm->bindValue(3, $id_empresa_centro_costo);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;
+    }
+    
+    
     public function buscar_ID($id, $op=null) {
         $query = "
         SELECT

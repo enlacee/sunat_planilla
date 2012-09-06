@@ -230,7 +230,8 @@ for(var id = 1; id<=data.length;id++){
                         <input name="pt_codigo" type="text" id="" size="4" 
                                value="<?php echo $pingreso[$i]['cod_detalle_concepto']; //echo $pingreso[$i]['ID_TRABAJADOR_PDECLARACION'];   ?>"      />
                       <label for="id_declaracion_dconcepto"></label>
-                        <input name="id_declaracion_dconcepto" type="text" id="id_declaracion_dconcepto" size="2"
+                        <input name="id_declaracion_dconcepto" type="hidden" id="id_declaracion_dconcepto" size="2"
+                       
                         
                         value="<?php for($x=0; $x<count($calc_conceptos); $x++):
 								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
@@ -239,7 +240,7 @@ for(var id = 1; id<=data.length;id++){
 									endif;
 								endfor;?>" />
                       <label for="estado"></label>
-                        <input name="estado" type="text" id="estado" size="1" />
+                        <input name="estado" type="hidden" id="estado" size="1" />
 
                     </td>
                     <td><?php echo $pingreso[$i]['descripcion']; ?></td>
@@ -278,7 +279,7 @@ for(var id = 1; id<=data.length;id++){
     </table>
     <br />
     701 = adelanto = suma de todos los adelantos dentro del mes
-    <p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 

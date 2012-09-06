@@ -1,6 +1,4 @@
 <?php
-//require_once '../dao/ConfAfpDao.php';
-
 require_once '../dao/ConfAsignacionFamiliarDao.php';
 require_once '../dao/ConfSueldoBasicoDao.php';
 require_once '../dao/ConfEssaludDao.php';

@@ -1,6 +1,7 @@
 <?php
 
 class EmpresaCentroCostoDao extends AbstractDao {
+
     // NO UTILIZADO
     public function registrar($descripcion) {
 
@@ -15,10 +16,10 @@ class EmpresaCentroCostoDao extends AbstractDao {
         $stm = null;
         return true;
     }
-    
+
     // NO UTILIZADO
-    public function actualizar($id,$descripcion){
-        
+    public function actualizar($id, $descripcion) {
+
         $query = "
         UPDATE empresa_centro_costo
         SET   descripcion = ?
@@ -30,22 +31,21 @@ class EmpresaCentroCostoDao extends AbstractDao {
         $stm->execute();
         $stm = null;
         return true;
-        
     }
+
     //OK   
-    public function listar(){
-        
-        $query ="SELECT *FROM empresa_centro_costo";        
-        $stm= $this->pdo->prepare($query);
+    public function listar() {
+
+        $query = "SELECT *FROM empresa_centro_costo";
+        $stm = $this->pdo->prepare($query);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista;
-        
     }
 
-    public function listarCCosto_PorIdEstablecimiento($id_establecimiento){
-        
+    public function listarCCosto_PorIdEstablecimiento($id_establecimiento) {
+
         $query = "
         SELECT 
         estcc.id_establecimiento,
@@ -57,20 +57,42 @@ class EmpresaCentroCostoDao extends AbstractDao {
         ON estcc.id_empresa_centro_costo = empcc.id_empresa_centro_costo
         WHERE estcc.id_establecimiento = ?        
         ";
-        
-        $stm= $this->pdo->prepare($query);
+
+        $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_establecimiento);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
 
-        
+
         return $lista;
-        
-        
     }
-    
-    
+
+    //edit 06/09/2012 ->Usado en Planilla
+    function listar_Ids_EmpresaCentroCosto($id_establecimiento) {
+
+        $query = "
+        SELECT 
+        estcc.id_empresa_centro_costo,
+        ecc.descripcion
+        -- estcc.id_establecimiento,
+        -- estcc.id_establecimiento_centro_costo,
+
+        FROM establecimientos AS est
+
+        INNER JOIN establecimientos_centros_costos AS estcc
+        ON est.id_establecimiento = estcc.id_establecimiento
+        INNER JOIN empresa_centro_costo AS ecc
+        ON estcc.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+        WHERE est.id_establecimiento = ?";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_establecimiento);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        return $lista;
+    }
+
 }
 
 ?>

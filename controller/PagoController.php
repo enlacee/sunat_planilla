@@ -3,6 +3,7 @@
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
+
     require_once '../util/Spreadsheet/Excel/Writer.php';
     require_once '../util/funciones.php';
     require_once '../dao/AbstractDao.php';
@@ -22,6 +23,13 @@ if ($op) {
 
     //PLAME
     require_once '../dao/PlameDeclaracionDao.php';
+
+
+    //NEW 06/08/2012 Utilizando recursos de t-registro
+    require_once '../dao/EstablecimientoDao.php';
+    require_once '../dao/EmpresaCentroCostoDao.php';
+    require_once '../dao/EstablecimientoDireccionDao.php';
+    //require_once '../controller/EstablecimientoDireccionController.php';
 }
 
 $response = NULL;
@@ -119,24 +127,24 @@ function cargartabla() {
         $_06 = $rec['dia_total'];
         $_07 = $rec['sueldo_neto'];
         $_08 = $rec['ccosto']; //Ccosto
-        $_09 = $rec['estado'];
+        //$_09 = $rec['estado'];
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
         $js2 = "javascript:eliminarPago('" . $param . "')";
 
+        /*
+          // $js2 = "javascript:eliminarPersona('" . $param . "')";
+          $opciones = '<div id="divEliminar_Editar">
+          <span  title="Editar" >
+          <a href="' . $js . '" class="divEditar" ></a>
+          </span>
 
-        // $js2 = "javascript:eliminarPersona('" . $param . "')";		
-        $opciones = '<div id="divEliminar_Editar">				
-		<span  title="Editar" >
-		<a href="' . $js . '" class="divEditar" ></a>
-		</span>
-                
-		<span  title="Eliminar" >
-		<a href="' . $js2 . '" class="divEliminar" ></a>
-		</span>
+          <span  title="Eliminar" >
+          <a href="' . $js2 . '" class="divEliminar" ></a>
+          </span>
 
-		</div>';
-
+          </div>';
+         */
         //hereee
         $response->rows[$i]['id'] = $_00; //$param;
         $response->rows[$i]['cell'] = array(
@@ -368,29 +376,273 @@ function generarRecibo15() {
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $id_etapa_pago = $_REQUEST['id_etapa_pago'];
 
+    //
+    $dao = new PlameDeclaracionDao();
+    $data_pd = $dao->buscar_ID($id_pdeclaracion);
+    $fecha = $data_pd['periodo'];
 
-    $dao = new PagoDao();
-    $data_tra = $dao->listar($id_etapa_pago);
+    $nombre_mes = getNameMonth(getFechaPatron($fecha, "m"));
+    $anio = getFechaPatron($fecha, "Y");
 
-    if (isset($ids)) {
-        /*         * ** filtro **** */
-        $ids_tra = array();
-        for ($i = 0; $i < count($ids); $i++) {
-            for ($j = 0; $j < count($data_tra); $j++) {
-                if ($ids[$i] == $data_tra[$j]['id_trabajador']) {
 
-                    $ids_tra[] = $data_tra[$j];
-                    break;
+
+//..............................................................................
+// Inicio Exel
+//..............................................................................
+// Creating a workbook
+    $workbook = new Spreadsheet_Excel_Writer();
+
+// sending HTTP headers
+    $workbook->send(NAME_COMERCIAL . '-1RA QUINCENA.xls');
+//OPCIONAL
+// $workbook->setTempDir('/home/xnoguer/temp');
+//ESTILOS EXEL
+    $negrita = & $workbook->addFormat();
+    $negrita->setBold();
+    //-- Colores RGB
+    $workbook->setCustomColor(11, 0, 0, 150);
+    $workbook->setCustomColor(12, 192, 192, 192);
+    $workbook->setCustomColor(13, 221, 60, 16);
+    $workbook->setCustomColor(14, 255, 255, 0);
+    //-- Format_txt_Centrado
+    $format_tabla_head_centrado = & $workbook->addFormat();
+    $format_tabla_head_centrado->setBold();
+    $format_tabla_head_centrado->setSize(8);
+    $format_tabla_head_centrado->setTextWrap(1);
+    $format_tabla_head_centrado->setBorder(1);
+    $format_tabla_head_centrado->setColor(11);
+    $format_tabla_head_centrado->setFgColor(12);
+    $format_tabla_head_centrado->setBgColor(12);
+    $format_tabla_head_centrado->setVAlign('vequal_space');
+//$format_tabla_head_centrado->setHAlign('equal_space');
+    $format_tabla_head_centrado->setAlign('center');
+
+//--format_line_separador
+    $format_line_separador = & $workbook->addFormat();
+    $format_line_separador->setBottom(1);
+    $format_line_separador->setBorderColor(11);
+    //--format_decimal_total_azul
+    $format_decimal_total_azul = & $workbook->addFormat();
+    $format_decimal_total_azul->setNumFormat($moneda . '[$S/.-280A] #.##0,0');
+    $format_decimal_total_azul->setColor(11);
+    $format_decimal_total_azul->setBold();
+    $format_decimal_total_azul->setAlign("left");
+    //$format_decimal_total_azul->setHAlign("center");
+    $format_decimal_total_azul->setSize(8);
+    $format_decimal_total_azul->setBorderColor('black');
+//--format_simple_amarillo
+    $format_simple_amarillo = $workbook->addFormat();
+    $format_simple_amarillo->setSize(8);
+    $format_simple_amarillo->setColor("black");
+    $format_simple_amarillo->setFgColor(14);
+    $format_simple_amarillo->setBold();
+
+// Creating a worksheet
+    $worksheet = & $workbook->addWorksheet('hoja 01');
+
+
+
+
+
+    // paso 01 Listar ESTABLECIMIENTOS del Emplearo 'Empresa'
+    $dao_est = new EstablecimientoDao();
+    $est = array();
+    $est = $dao_est->listar_Ids_Establecimientos(ID_EMPLEADOR);
+
+
+
+    //$worksheet->write(0, 0, "00000");
+    // paso 02 listar CENTROS DE COSTO del establecimento.    
+    if (is_array($est) && count($est) > 0) {
+        //DAO
+        $dao_cc = new EmpresaCentroCostoDao();
+        $dao_pago = new PagoDao();
+        $dao_estd = new EstablecimientoDireccionDao();
+
+        // -------- Variables globales --------//
+        $SUM_STOTAL_CC = 0;
+        $SUM_TOTAL_CC = array();
+        $SUM_TOTAL_EST = array();
+
+        $row_a = 0;
+        $col_a = 0;
+
+        for ($i = 0; $i < count($est); $i++) {
+
+            //Establecimiento direccion Reniec
+            $data_est_direc = $dao_estd->buscarEstablecimientoDireccionReniec($id_establecimiento);
+
+            $ecc = array();
+            $ecc = $dao_cc->listar_Ids_EmpresaCentroCosto($est[$i]['id_establecimiento']);
+            // paso 03 listamos los trabajadores por Centro de costo 
+
+
+            $row = 0 + $row_a;
+            $col = 0 + $col_a;
+
+            for ($j = 0; $j < /*1*/ count($ecc) ; $j++) {
+                
+                $SUM_TOTAL_CC[$j]['centro_costo'] = $ecc[$j]['descripcion'];
+                $SUM_TOTAL_CC[$j]['monto'] = 0;
+
+                //var_dump($ecc);
+                $daoed = new EstablecimientoDireccionDao();
+                $data_est_direc = array();
+                $data_est_direc = $daoed->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']);
+
+                // titulo
+                if ($row == 0) {
+                    $worksheet->setColumn($row, $col, 1);
+                    $worksheet->setColumn(($row + 1), ($col + 1), 4);
+                    $worksheet->setColumn(($row + 2), ($col + 2), 15);
+                    $worksheet->setColumn(($row + 3), ($col + 3), 40);
+                    $worksheet->setColumn(($row + 4), ($col + 4), 15);
+                    $worksheet->setColumn(($row + 5), ($col + 5), 21);
+                    $worksheet->setColumn(($row + 6), ($col + 6), 10);
+                    $worksheet->setColumn(($row + 7), ($col + 7), 10);
+                    $array = array(
+                        "01",
+                        "02",
+                        "03",
+                        "04",
+                        "05",
+                        "06",
+                        "07",
+                        "08"
+                    );
+                    $worksheet->writeRow($row, $col, $array, $format_tabla_head_centrado);
                 }
+
+
+
+                $worksheet->write(($row + 1), ($col + 1), NAME_EMPRESA);
+
+                $descripcion1 = date("d/m/Y", strtotime($data_pd['fecha_modificacion']));
+                $descripcion2 = " - -";
+                $worksheet->write(($row + 1), ($col + 4), "FECHA : ");
+                $worksheet->write(($row + 1), ($col + 5), $descripcion1);
+
+                $worksheet->write(($row + 2), ($col + 4), "PAGINA :");
+                $worksheet->write(($row + 2), ($col + 5), $descripcion2);
+
+                $worksheet->write(($row + 4), ($col + 2), "1RA QUINCENA");
+
+                $worksheet->write(($row + 5), ($col + 2), "LOCALIDAD : " . $data_est_direc['ubigeo_distrito']);
+
+                $worksheet->write(($row + 6), ($col + 2), "CENTRO DE COSTO : " . strtoupper($ecc[$j]['descripcion']), $format_simple_amarillo);
+
+                $row = $row + 8;
+                //$worksheet->write($row, $col, "##################################################");
+                $array = array(
+                    "01",
+                    "N",
+                    "DNI",
+                    "APELLIDOS Y NOMBRES",
+                    "IMPORTE",
+                    "FIRMA",
+                    "07",
+                    "08"
+                );
+                $worksheet->writeRow($row, $col, $array, $format_tabla_head_centrado);
+
+                // LISTA DE TRABAJADORES
+                $data_tra = $dao_pago->listar_2($id_etapa_pago, $est[$i]['id_establecimiento'], $ecc[$j]['id_empresa_centro_costo']);
+
+                for ($k = 0; $k < count($data_tra); $k++) {
+                    $row = $row + 1;
+                    $worksheet->write(($row), ($col + 1), $k);
+                    $worksheet->write(($row), ($col + 2), $data_tra[$k]['cod_tipo_documento'] . "-" . $data_tra[$k]['num_documento']);
+                    $worksheet->write(($row), ($col + 3), $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres']);
+                    $worksheet->write(($row), ($col + 4), $data_tra[$k]['sueldo'], $format_decimal_total_azul);
+                    $worksheet->write(($row), ($col + 5), "_____________________");
+                    
+                    $SUM_TOTAL_CC[$j]['monto'] = $SUM_TOTAL_CC[$j]['monto'] + $data_tra[$k]['sueldo'];
+                }
+
+                //--- LINE
+                $row++;
+                $worksheet->write(($row), ($col + 0), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 1), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 2), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 3), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 4), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 5), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 6), "", $format_line_separador);
+                $worksheet->write(($row), ($col + 7), "", $format_line_separador);
+                
+                $row++;
+                $worksheet->write(($row), ($col + 3), "TOTAL EN :".$SUM_TOTAL_CC[$j]['centro_costo']);
+                $worksheet->write(($row), ($col + 4), $SUM_TOTAL_CC[$j]['monto'],$format_decimal_total_azul);
+                $row=$row+4;
+                
+
+
+
+
+
+                //$row_a = $row_a + 5;
             }
-        }
-        $data_tra = null;
-        $data_tra = $ids_tra; //array_values($data_traa);  
+        }//END FOR
+    }//END IF
+//..............................................................................
+// Inicio Exel
+//..............................................................................
+
+  //|---------------------------------------------------------------------------
+  //| Calculos Finales
+  //|
+  //|---------------------------------------------------------------------------
+    
+    //$worksheet->write(($row+4), ($col + 1), ".::RESUMEN DE PAGOS::.");    
+    for($z=0;$z<count($SUM_TOTAL_CC);$z++){  
+      $row = $row + 1;  
+      $worksheet->write(($row), ($col + 2), $SUM_TOTAL_CC[$z]['centro_costo']); 
+      $worksheet->write(($row), ($col + 4), $SUM_TOTAL_CC[$z]['monto'],$format_decimal_total_azul);
+      
+      $SUM_STOTAL_CC = $SUM_STOTAL_CC + $SUM_TOTAL_CC[$z]['monto'];
+      
     }
+    
+    
+    //
+    $row = $row + 3;
+    $worksheet->write(($row), ($col + 2), "T O T A L   G E N E R A L");
+    $worksheet->write(($row), ($col + 4), $SUM_STOTAL_CC,$format_decimal_total_azul);
+    
+    
+    
+    
+    $workbook->close();
+    //generarRecibo15Exel($id_pdeclaracion, $data_tra);
+//------------------------------------------------------------------------------    
+    /*    //$dao = new PagoDao();
+      //$data_tra = $dao->listar($id_etapa_pago);
+      // INDIVIDUAL DESABILITADO !!!!!
+      if (isset($idsXXX)) {
+      //-------- filtro-------//
+      $ids_tra = array();
+      for ($i = 0; $i < count($ids); $i++) {
+      for ($j = 0; $j < count($data_tra); $j++) {
+      if ($ids[$i] == $data_tra[$j]['id_trabajador']) {
 
-
-    generarRecibo15Exel($id_pdeclaracion, $data_tra);
+      $ids_tra[] = $data_tra[$j];
+      break;
+      }
+      }
+      }
+      $data_tra = null;
+      $data_tra = $ids_tra; //array_values($data_traa);
+      }
+     */
+//------------------------------------------------------------------------------        
+    //generarRecibo15Exel($id_pdeclaracion, $data_tra);
 }
+
+
+
+
+
+
 
 function generarRecibo15Exel($id_pdeclaracion, $dataa) {
 
@@ -402,13 +654,12 @@ function generarRecibo15Exel($id_pdeclaracion, $dataa) {
 
     $nombre_mes = getNameMonth(getFechaPatron($fecha, "m"));
     $anio = getFechaPatron($fecha, "Y");
-    getFechaPatron($fecha_es_us, $patron_date);
 
 // Creating a workbook
     $workbook = new Spreadsheet_Excel_Writer();
 
 // sending HTTP headers
-    $workbook->send('Anibal-exel.xls');
+    $workbook->send(NAME_COMERCIAL . '-1RA QUINCENA.xls');
 //OPCIONAL
 // $workbook->setTempDir('/home/xnoguer/temp');
 //ESTILOS EXEL
@@ -448,7 +699,7 @@ function generarRecibo15Exel($id_pdeclaracion, $dataa) {
 
 
 // Creating a worksheet
-    $worksheet = & $workbook->addWorksheet('My first worksheet');
+    $worksheet = & $workbook->addWorksheet('hoja 01');
 
 
     //--------------------------------------------------------------------------
@@ -486,7 +737,7 @@ function generarRecibo15Exel($id_pdeclaracion, $dataa) {
             );
 
             //$worksheet->writeRow($row, $col, $array, $format_tabla_head_centrado);
-            $worksheet->write($row, ($col + 1), 'CAMUENTE S.A', $negrita);
+            $worksheet->write($row, ($col + 1), NAME_EMPRESA, $negrita);
             $worksheet->write(($row + 2), ($col + 3), 'RECIBO', $negrita);
 
 
@@ -523,20 +774,26 @@ function generarRecibo15Exel($id_pdeclaracion, $dataa) {
             $worksheet->write(($row + 14), ($col + 3), "__________________");
             $worksheet->write(($row + 15), ($col + 3), "RECIBI CONFORME");
             $worksheet->write(($row + 16), ($col + 3), "DNI. " . $data['num_documento']);
-            
+
             //--- LINE
             $worksheet->write(($row + 17), ($col + 0), "", $format_line_separador);
             $worksheet->write(($row + 17), ($col + 1), "", $format_line_separador);
             $worksheet->write(($row + 17), ($col + 2), "", $format_line_separador);
             $worksheet->write(($row + 17), ($col + 3), "", $format_line_separador);
             $worksheet->write(($row + 17), ($col + 4), "", $format_line_separador);
-
-            
         }
 
         $row_a = $row_a + 19;
         //$col_a = $col_a + 19;
     }
+
+
+
+
+    //------------------------------------------------------------------------
+    //----------------------- HOJA 2 ---------------------------------------
+    //------------------------------------------------------------------------  
+    $worksheet = & $workbook->addWorksheet('hoja 02');
 
 
 

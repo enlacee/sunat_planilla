@@ -214,9 +214,10 @@
 */
 
 //-----------------------------------------------------------
-    function cargarTablaTrabajadorPdeclaracion(id_pdeclaracion){ alert("id_pdeclaracion "+id_pdeclaracion);
-		
-        //$("#list").jqGrid('GridUnload');
+    function cargarTablaTrabajadorPdeclaracion(id_pdeclaracion){ 
+	alert("Cargando... "+id_pdeclaracion);
+	console.log("Cargando..."+id_pdeclaracion);
+        
         $("#list").jqGrid({
             url:'sunat_planilla/controller/TrabajadorPdeclaracionController.php?oper=cargar_tabla_2&id_pdeclaracion='+id_pdeclaracion,
             datatype: 'json',

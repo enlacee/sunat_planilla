@@ -8,7 +8,7 @@ $op = $_REQUEST["oper"];
 if ($op) {
     //require_once '../model/Persona.php';
     require_once ('../dao/AbstractDao.php');
-    require_once ('../dao/EstablecimientoDao.php');
+    require_once '../dao/EstablecimientoDao.php';
     require_once ('../dao/EstablecimientoDireccionDao.php');
     require_once('../model/Establecimiento.php');
 
@@ -17,29 +17,30 @@ if ($op) {
     require_once('../model/EstablecimientoDireccion.php');
 }
 
-$responce = NULL;
+$response = NULL;
 
 if ($op == "cargar_tabla") {
-    $responce = cargar_tabla(); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
+    $response = cargar_tabla(); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
 } elseif ($op == "cargar_tabla2") {
-    $responce = cargar_tabla2();
+    $response = cargar_tabla2();
 } elseif ($op == "add") {
-    $responce = nuevo();
+    $response = nuevo();
 } elseif ($op == "edit") {
-    $responce = editar();
+    $response = editar();
 } elseif ($op == "del") {
     $id = $_REQUEST['id_establecimiento'];
-    $responce = isset($id) ? eliminar($id) : "ERROR SCRIPT";
+    $response = isset($id) ? eliminar($id) : "ERROR SCRIPT";
 } elseif ($op == "04") {
-    $responce = existeRucDuplicado($_REQUEST['txt_ruc']);
+    $response = existeRucDuplicado($_REQUEST['txt_ruc']);
 } elseif ($op == "validar_codigo") {
-    $responce = existeCodigoEstablecimiento();
+    $response = existeCodigoEstablecimiento();
 } else {
-    echo "<p>variable OPER no esta definido</p>";
+    //echo "<p>variable OPER no esta definido</p>";
 }
 
 
-echo json_encode($responce);
+//echo json_encode($response);
+echo (!empty($response)) ? json_encode($response) : '';
 /* * **********categoria*************** */
 
 function nuevo() {
@@ -191,14 +192,14 @@ function cargar_tabla() {
     $lista = $dao_empleador->listarEstablecimientos($ID_EMPLEADOR, $WHERE, $start, $limit, $sidx, $sord);
 
 // CONTRUYENDO un JSON
-    $responce->page = $page;
-    $responce->total = $total_pages;
-    $responce->records = $count;
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
     $i = 0;
 
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
-        return $responce;  /* break; */
+        return $response;  /* break; */
     }
 
 
@@ -254,8 +255,8 @@ function cargar_tabla() {
           </div>';
          */
 
-        $responce->rows[$i]['id'] = $param;
-        $responce->rows[$i]['cell'] = array(
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
             $param,
             $_01,
             $_02,
@@ -269,7 +270,7 @@ function cargar_tabla() {
         $i++;
     }
 
-    return $responce;
+    return $response;
 }
 
 function buscaEmpleadorPorRuc($ruc) {
@@ -421,14 +422,14 @@ function cargar_tabla2() {
     $lista = $dao_empleador->listarEstablecimientos2($ID_EMPLEADOR, $WHERE, $start, $limit, $sidx, $sord);
 
 // CONTRUYENDO un JSON
-    $responce->page = $page;
-    $responce->total = $total_pages;
-    $responce->records = $count;
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
     $i = 0;
 
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
-        return $responce;  /* break; */
+        return $response;  /* break; */
     }
 
 
@@ -503,8 +504,8 @@ function cargar_tabla2() {
 
         //---------------Inicio Cadena String----------//
         //
-        $responce->rows[$i]['id'] = $param;
-        $responce->rows[$i]['cell'] = array(
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
             $param,
             $_01,
             $_02,
@@ -516,7 +517,7 @@ function cargar_tabla2() {
         $i++;
     }
 
-    return $responce;
+    return $response;
 }
 
 ?>

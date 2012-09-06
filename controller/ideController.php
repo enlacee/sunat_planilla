@@ -19,6 +19,9 @@ if (is_null($ID_EMPLEADOR) || is_null($RUC) || is_null($ID_EMPLEADOR_MAESTRO)) {
     define('ID_EMPLEADOR', $ID_EMPLEADOR);
     define('RUC', $RUC);
     define('ID_EMPLEADOR_MAESTRO', $ID_EMPLEADOR_MAESTRO);
+    
+    define('NAME_COMERCIAL',$_SESSION['sunat_empleador']['nombre_comercial']);
+    define('NAME_EMPRESA', $_SESSION['sunat_empleador']['razon_social_concatenado']);
 }
 // ----------- finall ----- Identificacion Empleador Sistema -------------//
  /*

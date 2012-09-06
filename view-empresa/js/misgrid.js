@@ -352,7 +352,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 				//input_fin.value = data.rows[0]['data_mes']['mes_fin'];
 								
 				//---------
-				alert("data ="+data);			
+							
 				if(data=='true'){
 					//cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
 					alert("Se registro correctamente el Periodo");
@@ -544,7 +544,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	
 	
 	//01 = indidual
-   $("#adelanto_01").click(function(){ alert("gddd");
+   $("#adelanto_01").click(function(){ //alert("gddd");
 											
 	var news = new Array();
 	var j=0;
@@ -554,7 +554,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 			j++;
 		}
 	}
-	console.log(news);
+	//console.log(news);
 
 	//-------------
 	if(news.length>=1){ 
@@ -714,9 +714,13 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	//--------------------------------------------------------------------------
 	
 function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ 
-alert("cargarTablaTrabajadoresPorEtapa "+id_etapa_pago);
+
+alert("Cargando... "+id_etapa_pago);
+console.log("Cargando..."+id_etapa_pago);
+
+
 		var arreglo = new Array();
-        //$("#list").jqGrid('GridUnload');
+        
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PagoController.php?oper=cargar_tabla&id_etapa_pago='+id_etapa_pago,
             datatype: 'json',
@@ -1650,3 +1654,138 @@ var data = $("#formPago").serialize();
 }
 
 
+//---------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------
+function crearDialogoNewRPC(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog_new_trabajador_rpc").dialog({ 
+           
+			autoOpen: false,
+			height: 230,
+			width: 350,
+			modal: true,
+                        
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				
+					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php	
+					var form = $("#nuevo_trabajador_rpc");
+					var estado_form = validarNewRPC(form); //$("#form_direccion").valid();
+					
+					if(estado_form){
+	
+						var from_data =  form.serialize();
+						//var from_data = document.new_trabajador_rpc;
+						//alert ("from_data  new_trabajador_rpc = "+from_data);
+						
+						//---------------------------
+						$.getJSON(
+							'sunat_planilla/controller/RegistroPorConceptoController.php?'+from_data,
+							function(data){
+								
+								if(data=="true"){									
+									alert("Se Registro Correctamente.");	
+									$("#dialog_new_trabajador_rpc").dialog('close');
+									jQuery("#list").trigger("reloadGrid");
+									//$("#list").jqGrid('GridUnload');	
+								}else if(data =="false"){
+									alert("El trabajador ya fue registrado\n revise la lista.");						
+								}else if(data == null){
+									alert("Ocurrio un error.")
+								}
+							}
+						);	
+						//---------------------------			
+						
+					}//ENDIF
+				
+									
+				}
+                                
+			},
+			open: function() {},
+			close: function() {}
+	});
+}
+
+
+
+function validarNewRPC(obj){
+	rpta = false;
+	
+	var numDni = obj[0].num_documento.value;
+	
+	if(!isNaN(numDni)){
+		if((numDni.length==8)){
+			rpta = true;
+		}else{
+			alert("Solo se permite 8 digitos");
+			rpta = false;
+		}
+		
+	}else{
+		alert("Solo se permite Numeros");
+		rpta = false;
+	}
+	return rpta;
+
+
+}
+
+/*
+function editarAfectacion(id){  //alert (".");
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-plame/modal/afectaciones.php",
+   data: "id_detalle_concepto="+id,
+   async:true,
+   success: function(datos){
+    $('#editarAfectacion').html(datos);
+    
+    $('#dialog-form-editarAfectacion').dialog('open');
+   }
+   }); 
+}
+*/
+
+function newRPC(id){
+	crearDialogoNewRPC();
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-empresa/modal/new_trabajador_rpc.php",
+   data: { cod_detalle_concepto : id },
+   async:true,
+   success: function(datos){
+    $('#new_trabajador_rpc').html(datos);
+    
+    $('#dialog_new_trabajador_rpc').dialog('open');
+   }
+   }); 
+}
+
+
+function editar_EstadoRPC(id,estado){
+	var str = (estado ==1) ? "ACTIVO" : "INACTIVO"; 
+	var bandera = confirm("Seguro de cambiar a : "+str);
+	
+if(bandera){
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/RegistroPorConceptoController.php?oper=edit-estado",
+   data: { id : id, estado : estado },
+   async:true,
+   success: function(data){
+	if(data){
+		jQuery("#list").trigger("reloadGrid");
+	}else{
+		console.log("Ocurrio un Error");
+	}
+	
+	}
+   }); 
+}
+
+}

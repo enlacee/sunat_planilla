@@ -23,19 +23,32 @@ if ($op) {
 
     //EPAGO TRABAJADOR
     require_once '../dao/PeriodoRemuneracionDao.php';
+    
+    
     //ultimo recurso
     require_once '../controller/PlameTrabajadorController.php';
+    require_once '../dao/PtrabajadorDao.php';
+    
+    //---
+    require_once '../dao/RegistroPorConceptoDao.php';
+    
+    //variables conceptos
+    require_once '../controller/ConfConceptosController.php'; 
+    
+
+    
 }
 
 $response = NULL;
 
 if ($op == "trabajador_por_etapa") {
-
     $response = listarTrabajadoresPorEtapa();
+    
 } else if ($op == "registrar_etapa") {
+
     $response = registrarTrabajadoresPorEtapa();
 } else if ($op == "cargar_tabla") {
-
+    
     $response = cargartabla();
 } else if ($op == "del") {
     $response = del_etapaPago();
@@ -295,7 +308,7 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
 
 
     echo "<pre> _data_id_trabajador";
-    print_r($_data_id_trabajador);
+    //print_r($_data_id_trabajador);
     echo "</pre>";
 
     /* --------------filtro de  id_trabajadores ------------- */
@@ -316,7 +329,7 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
     print_r($ids);
     echo "</pre>";
     if (isset($ids)) {
-        /*         * ** filtro **** */
+        //------- filtro-------//
         $ids_tra = array();
         for ($i = 0; $i < count($ids); $i++) {
             for ($j = 0; $j < count($data_tra); $j++) {
@@ -407,11 +420,18 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
             $model->setSueldo_base($data_tra[$i]['monto_remuneracion']);
 
 //--------------------------------------------------------------------------------------- 
-            $id_ptrabajador = existeID_TrabajadorPoPtrabajador($data_tra[$i]['id_trabajador']);
-            $daopt = new PtrabajadorDao();
+            //$id_ptrabajador = existeID_TrabajadorPoPtrabajador($data_tra[$i]['id_trabajador']);
+            //$daopt = new PtrabajadorDao();
             //buscar_ID_Ptrabajador
-            $datax = $daopt->buscar_ID($id_ptrabajador);
-            $dataxx = (is_null($datax['adelanto'])) ? 50 : $datax['adelanto'];
+            //$datax = $daopt->buscar_ID($id_ptrabajador);
+            $dao_rpc = new RegistroPorConceptoDao();
+
+           //??????????? 
+            $datax = $dao_rpc->buscar_RPC_PorTrabajador($data_tra[$i]['id_trabajador'], C701, 1);
+            echo "<pre>dataxxxx";
+            print_r($datax);
+            echo "</pre>";
+            $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
 
             $numero = number_format($dataxx, 3);
 //----------------------------------------------------------------------------------------
@@ -441,7 +461,8 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
                     $SUELDO_CAL = $SUELDO * ($percent / 100);
                 } else if ($dia_laborado < 15) {
                     $DESCTO = ($SUELDO / 30) * $dia_no_laborado;
-                    $SUELDO_CAL = $SUELDO  * ($percent / 100);; // 50%
+                    $SUELDO_CAL = $SUELDO * ($percent / 100);
+                    ; // 50%
                     $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
                 }
 
@@ -652,8 +673,5 @@ function buscar_ID_EtapaPago($id_etapa_pago) {
 
     return $model;
 }
-
-
-
 
 ?>

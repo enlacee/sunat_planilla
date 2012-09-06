@@ -340,7 +340,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         $query = "
         SELECT
           dce.id_detalle_concepto_empleador_maestro,
-          dce.id_empleador_maestro,
+          -- dce.id_empleador_maestro,
           dce.cod_detalle_concepto,
           dce.seleccionado,
           dce.descripcion_1000,

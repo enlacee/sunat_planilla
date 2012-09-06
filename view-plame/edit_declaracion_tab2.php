@@ -9,6 +9,7 @@ $id_declaracion = $_REQUEST['id_declaracion'];
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 //echo "DDDDDDDDDD".$PERIODO;
+
 ?>
 <script type="text/javascript">
 //VARIABLES GLOBALES
@@ -41,19 +42,19 @@ RUC: <?php echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
     <div id="tabs2">
         <ul>
             <li><a href="#tabs-2-1">Trabajadores</a></li>
-            <li><a href="#tabs-2-2">Pensionistas</a></li>	
-            <li><a href="#tabs-2-3">PS 4Ta Categoria</a></li>		
+            <!--<li><a href="#tabs-2-2">Pensionistas</a></li>	
+            <li><a href="#tabs-2-3">PS 4Ta Categoria</a></li>-->		
 
         </ul>
         <div id="tabs-2-1">
         11111        
         </div>
-        <div id="tabs-2-2">
+        <!--<div id="tabs-2-2">
         22222        
         </div>
         <div id="tabs-2-3">
         3333        
-        </div>
+        </div>-->
         
         
 </div>

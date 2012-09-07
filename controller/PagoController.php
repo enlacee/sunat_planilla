@@ -30,6 +30,8 @@ if ($op) {
     require_once '../dao/EmpresaCentroCostoDao.php';
     require_once '../dao/EstablecimientoDireccionDao.php';
     //require_once '../controller/EstablecimientoDireccionController.php';
+    //ZIP
+    require_once '../util/zip/zipfile.inc.php';
 }
 
 $response = NULL;
@@ -46,7 +48,10 @@ if ($op == "registrar_etapa") {
 } else if ($op == "del") {
     $response = eliminarPago();
 } else if ($op == "recibo15") {
-    generarRecibo15();
+    //generarRecibo15();
+    generarRecibo15_txt();
+} else if ($op == "recibo15_txt") {
+    generarRecibo15_txt();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
@@ -480,8 +485,8 @@ function generarRecibo15() {
             $row = 0 + $row_a;
             $col = 0 + $col_a;
 
-            for ($j = 0; $j < /*1*/ count($ecc) ; $j++) {
-                
+            for ($j = 0; $j < /* 1 */ count($ecc); $j++) {
+
                 $SUM_TOTAL_CC[$j]['centro_costo'] = $ecc[$j]['descripcion'];
                 $SUM_TOTAL_CC[$j]['monto'] = 0;
 
@@ -555,7 +560,7 @@ function generarRecibo15() {
                     $worksheet->write(($row), ($col + 3), $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres']);
                     $worksheet->write(($row), ($col + 4), $data_tra[$k]['sueldo'], $format_decimal_total_azul);
                     $worksheet->write(($row), ($col + 5), "_____________________");
-                    
+
                     $SUM_TOTAL_CC[$j]['monto'] = $SUM_TOTAL_CC[$j]['monto'] + $data_tra[$k]['sueldo'];
                 }
 
@@ -569,12 +574,12 @@ function generarRecibo15() {
                 $worksheet->write(($row), ($col + 5), "", $format_line_separador);
                 $worksheet->write(($row), ($col + 6), "", $format_line_separador);
                 $worksheet->write(($row), ($col + 7), "", $format_line_separador);
-                
+
                 $row++;
-                $worksheet->write(($row), ($col + 3), "TOTAL EN :".$SUM_TOTAL_CC[$j]['centro_costo']);
-                $worksheet->write(($row), ($col + 4), $SUM_TOTAL_CC[$j]['monto'],$format_decimal_total_azul);
-                $row=$row+4;
-                
+                $worksheet->write(($row), ($col + 3), "TOTAL EN :" . $SUM_TOTAL_CC[$j]['centro_costo']);
+                $worksheet->write(($row), ($col + 4), $SUM_TOTAL_CC[$j]['monto'], $format_decimal_total_azul);
+                $row = $row + 4;
+
 
 
 
@@ -587,31 +592,28 @@ function generarRecibo15() {
 //..............................................................................
 // Inicio Exel
 //..............................................................................
-
-  //|---------------------------------------------------------------------------
-  //| Calculos Finales
-  //|
-  //|---------------------------------------------------------------------------
-    
+    //|---------------------------------------------------------------------------
+    //| Calculos Finales
+    //|
+    //|---------------------------------------------------------------------------
     //$worksheet->write(($row+4), ($col + 1), ".::RESUMEN DE PAGOS::.");    
-    for($z=0;$z<count($SUM_TOTAL_CC);$z++){  
-      $row = $row + 1;  
-      $worksheet->write(($row), ($col + 2), $SUM_TOTAL_CC[$z]['centro_costo']); 
-      $worksheet->write(($row), ($col + 4), $SUM_TOTAL_CC[$z]['monto'],$format_decimal_total_azul);
-      
-      $SUM_STOTAL_CC = $SUM_STOTAL_CC + $SUM_TOTAL_CC[$z]['monto'];
-      
+    for ($z = 0; $z < count($SUM_TOTAL_CC); $z++) {
+        $row = $row + 1;
+        $worksheet->write(($row), ($col + 2), $SUM_TOTAL_CC[$z]['centro_costo']);
+        $worksheet->write(($row), ($col + 4), $SUM_TOTAL_CC[$z]['monto'], $format_decimal_total_azul);
+
+        $SUM_STOTAL_CC = $SUM_STOTAL_CC + $SUM_TOTAL_CC[$z]['monto'];
     }
-    
-    
+
+
     //
     $row = $row + 3;
     $worksheet->write(($row), ($col + 2), "T O T A L   G E N E R A L");
-    $worksheet->write(($row), ($col + 4), $SUM_STOTAL_CC,$format_decimal_total_azul);
-    
-    
-    
-    
+    $worksheet->write(($row), ($col + 4), $SUM_STOTAL_CC, $format_decimal_total_azul);
+
+
+
+
     $workbook->close();
     //generarRecibo15Exel($id_pdeclaracion, $data_tra);
 //------------------------------------------------------------------------------    
@@ -638,11 +640,445 @@ function generarRecibo15() {
     //generarRecibo15Exel($id_pdeclaracion, $data_tra);
 }
 
+function generarRecibo15_txt() {
+    // id de trabajador a generar recibo x quincena.
+    //null
+    $ids = $_REQUEST['ids'];
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $id_etapa_pago = $_REQUEST['id_etapa_pago'];
+    /*
+      echo "<pre>";
+      print_r($_REQUEST);
+      echo "</pre>";
+     */
+    //
+    $dao = new PlameDeclaracionDao();
+    $data_pd = $dao->buscar_ID($id_pdeclaracion);
+    $fecha = $data_pd['periodo'];
+
+    $nombre_mes = getNameMonth(getFechaPatron($fecha, "m"));
+    $anio = getFechaPatron($fecha, "Y");
+
+
+    $file_name = NAME_COMERCIAL . '-1RA QUINCENA.txt';
+
+    $BREAK = chr(13) . chr(10);
+    $LINEA = str_repeat('-', 80);
+//..............................................................................
+// Inicio Exel
+//..............................................................................
+    $fp = fopen($file_name, 'w');
+
+
+    // paso 01 Listar ESTABLECIMIENTOS del Emplearo 'Empresa'
+    $dao_est = new EstablecimientoDao();
+    $est = array();
+    $est = $dao_est->listar_Ids_Establecimientos(ID_EMPLEADOR);
+
+    // paso 02 listar CENTROS DE COSTO del establecimento.    
+    if (is_array($est) && count($est) > 0) {
+        //DAO
+        $dao_cc = new EmpresaCentroCostoDao();
+        $dao_pago = new PagoDao();
+        $dao_estd = new EstablecimientoDireccionDao();
+
+        // -------- Variables globales --------//        
+        $SUM_TOTAL_CC = array();
+        $SUM_TOTAL_EST = array();
+
+
+
+        for ($i = 0; $i < count($est); $i++) { // ESTABLECIMIENTO
+            //echo " i = $i establecimiento    ID=".$est[$i]['id_establecimiento'];
+            //echo "<br>";
+            //$SUM_TOTAL_EST[$i]['establecimiento'] = strtoupper("Establecimiento X ==" . $est[$i]['id_establecimiento']);
+            $SUM_TOTAL_EST[$i]['monto'] = 0;
+            //Establecimiento direccion Reniec
+            $data_est_direc = $dao_estd->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']/* $id_establecimiento */);
+
+            $SUM_TOTAL_EST[$i]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
+
+            $ecc = array();
+            $ecc = $dao_cc->listar_Ids_EmpresaCentroCosto($est[$i]['id_establecimiento']);
+            // paso 03 listamos los trabajadores por Centro de costo 
+
+            for ($j = 0; $j < /* 1 */ count($ecc); $j++) {  //CENTRO DE COSTO
+                //echo " j = $j centro de costo   ID=".$ecc[$j]['id_empresa_centro_costo'];
+                //echo "<br>";
+                $SUM_TOTAL_CC[$i][$j]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
+                $SUM_TOTAL_CC[$i][$j]['centro_costo'] = strtoupper($ecc[$j]['descripcion']);
+                $SUM_TOTAL_CC[$i][$j]['monto'] = 0;
+
+                //var_dump($ecc);
+                //$daoed = new EstablecimientoDireccionDao();
+                // USAR  llenar combo x 1
+                //$data_est_direc = array();
+                //$data_est_direc = $daoed->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']);
+
+
+
+                fwrite($fp, $LINEA);
+                fwrite($fp, $BREAK);
+                fwrite($fp, NAME_EMPRESA);
+                //$worksheet->write(($row + 1), ($col + 1), NAME_EMPRESA);
+
+                $descripcion1 = date("d/m/Y", strtotime($data_pd['fecha_modificacion']));
+                $descripcion2 = "- -";
+                fwrite($fp, str_pad("FECHA : ", 47, " ", STR_PAD_LEFT));
+                fwrite($fp, str_pad($descripcion1, 0, " ", STR_PAD_LEFT));
+                fwrite($fp, $BREAK);
+
+                fwrite($fp, str_pad("PAGINA :", 70, " ", STR_PAD_LEFT));
+                fwrite($fp, str_pad($descripcion2, 0, " ", STR_PAD_LEFT));
+                fwrite($fp, $BREAK);
+
+                fwrite($fp, str_pad("1RA QUINCENA", 80, "-", STR_PAD_BOTH));
+                fwrite($fp, $BREAK);
+
+                fwrite($fp, str_pad("PLANILLA DEL MES DE " . $nombre_mes . " DEL " . $anio, 80, "-", STR_PAD_BOTH));
+                fwrite($fp, $BREAK);
+
+                fwrite($fp, "LOCALIDAD : " . $data_est_direc['ubigeo_distrito']);
+                fwrite($fp, $BREAK);
+                fwrite($fp, "CENTRO DE COSTO $j: " . strtoupper($ecc[$j]['descripcion']));
+
+
+                //$worksheet->write($row, $col, "##################################################");
+
+
+                $cabecera_1 = str_pad("N", 5, " ", STR_PAD_RIGHT);
+                $cabecera_2 = str_pad("DNI", 15, " ", STR_PAD_RIGHT);
+                $cabecera_3 = str_pad("APELLIDOS Y NOMBRES", 40, " ", STR_PAD_RIGHT);
+                $cabecera_4 = str_pad("IMPORTE", 10, " ", STR_PAD_RIGHT);
+                $cabecera_5 = str_pad("FIRMA", 10, " ", STR_PAD_RIGHT);
+
+                fwrite($fp, $BREAK);
+
+                fwrite($fp, $LINEA);
+                fwrite($fp, $BREAK);
+                fwrite($fp, $cabecera_1);
+                fwrite($fp, $cabecera_2);
+                fwrite($fp, $cabecera_3);
+                fwrite($fp, $cabecera_4);
+                fwrite($fp, $cabecera_5);
+                fwrite($fp, $BREAK);
+                fwrite($fp, $LINEA);
+
+
+                // LISTA DE TRABAJADORES
+                //    echo "id_etapa_pago = =  = $id_etapa_pago";
+                //    echo "<br>";
+                $data_tra = $dao_pago->listar_2($id_etapa_pago, $est[$i]['id_establecimiento'], $ecc[$j]['id_empresa_centro_costo']);
+
+
+
+
+                if (count($data_tra) <= 0) {
+                    //unset($SUM_TOTAL_CC[$j]);
+                }
+
+
+                for ($k = 0; $k < count($data_tra); $k++) {
+
+                    /*
+                      echo "<br>";
+                      echo "------------------------------";
+                      echo "<br>";
+                      echo $est[$i]['cod_tipo_documento'];
+                      echo $est[$i]['apellido_materno'];
+                      echo "<br>";
+                      echo "------------------------------";
+                      echo "<br>";
+                     */
+
+
+
+                    $texto_1 = $k;
+                    $texto_2 = $data_tra[$k]['cod_tipo_documento'] . "-" . $data_tra[$k]['num_documento'];
+                    $texto_3 = $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres'];
+                    $texto_4 = $data_tra[$k]['sueldo'];
+                    $texto_5 = "__________";
+
+                    $cuerpo_1 = str_pad($texto_1, 5, " ", STR_PAD_RIGHT);
+                    $cuerpo_2 = str_pad($texto_2, 15, " ", STR_PAD_RIGHT);
+                    $cuerpo_3 = str_pad($texto_3, 40, " ", STR_PAD_RIGHT);
+                    $cuerpo_4 = str_pad($texto_4, 10, " ", STR_PAD_RIGHT);
+                    $cuerpo_5 = str_pad($texto_5, 10, " ", STR_PAD_RIGHT);
+
+                    fwrite($fp, $BREAK);
+                    fwrite($fp, $cuerpo_1);
+                    fwrite($fp, $cuerpo_2);
+                    fwrite($fp, $cuerpo_3);
+                    fwrite($fp, $cuerpo_4);
+                    fwrite($fp, $cuerpo_5);
+                    // por persona
+                    $SUM_TOTAL_CC[$i][$j]['monto'] = $SUM_TOTAL_CC[$i][$j]['monto'] + $data_tra[$k]['sueldo'];
+                }
+
+
+                $SUM_TOTAL_EST[$i]['monto'] = $SUM_TOTAL_EST[$i]['monto'] + $SUM_TOTAL_CC[$i][$j]['monto'];
+
+                //--- LINE
+                fwrite($fp, $BREAK);
+                fwrite($fp, $LINEA);
+                fwrite($fp, $BREAK);
+
+                fwrite($fp, str_pad("TOTAL EN :" . $SUM_TOTAL_CC[$i][$j]['centro_costo'], 60, " ", STR_PAD_RIGHT));
+                fwrite($fp, $SUM_TOTAL_CC[$i][$j]['monto']);
+
+
+
+                fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK);
+                //$row_a = $row_a + 5;
+            }//END FOR CCosto
+
+            fwrite($fp, "CALCULO FINAL CENTRO COSTO ");
+
+            fwrite($fp, $BREAK);
+
+            //$worksheet->write(($row+4), ($col + 1), ".::RESUMEN DE PAGOS::.");
+            $SUM = 0;
+            for ($z = 0; $z < count($SUM_TOTAL_CC[$i]); $z++) {
+
+                fwrite($fp, str_pad($SUM_TOTAL_CC[$i][$z]['centro_costo'], 59, " ", STR_PAD_RIGHT));
+                fwrite($fp, number_format($SUM_TOTAL_CC[$i][$z]['monto'], 2));
+                fwrite($fp, $BREAK);
+
+
+                $SUM = $SUM + $SUM_TOTAL_CC[$i][$z]['monto'];
+            }
+            fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 59, " ", STR_PAD_RIGHT));
+            fwrite($fp, number_format($SUM, 2));
+
+            
+            fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
+            fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
+      
+        }//END FOR Est
+
+
+        fwrite($fp, str_repeat('*', 80));
+        fwrite($fp, $BREAK);
+        fwrite($fp, "CALCULO FINAL ESTABLECIMIENTOS ");
+        fwrite($fp, $BREAK);
+
+        //$worksheet->write(($row+4), ($col + 1), ".::RESUMEN DE PAGOS::.");
+        $SUM = 0;
+        for ($z = 0; $z < count($SUM_TOTAL_EST); $z++) {
+
+            fwrite($fp, str_pad($SUM_TOTAL_EST[$z]['establecimiento'], 59, " ", STR_PAD_RIGHT));
+            fwrite($fp, number_format($SUM_TOTAL_EST[$z]['monto'], 2));
+            fwrite($fp, $BREAK);
+
+
+            $SUM = $SUM + $SUM_TOTAL_EST[$z]['monto'];
+        }
+        fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 59, " ", STR_PAD_RIGHT));
+        fwrite($fp, number_format($SUM, 2));
+        fwrite($fp, $BREAK);
+        fwrite($fp, $BREAK);
+    }//END IF
+//..............................................................................
+// Inicio Exel
+//..............................................................................
+    //|---------------------------------------------------------------------------
+    //| Calculos Finales
+    //|
+    //|---------------------------------------------------------------------------
+    //
+    fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
+    fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
 
 
 
 
 
+    // $workbook->close();
+    // .........................................................................
+    // SEGUNDO ARCHIVO
+    //..........................................................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $file = array();
+    $file[] = $file_name;
+    $file[] = generarRecibo15_txt2($id_pdeclaracion, $id_etapa_pago);
+
+
+    $zipfile = new zipfile();
+    $carpeta = "file-" . date("d-m-Y") . "/";
+    $zipfile->add_dir($carpeta);
+
+    for ($i = 0; $i < count($file); $i++) {
+        $zipfile->add_file(implode("", file($file[$i])), $carpeta . $file[$i]);
+        //$zipfile->add_file( file_get_contents($file[$i]),$carpeta.$file[$i]);
+    }
+
+    header("Content-type: application/octet-stream");
+    header("Content-disposition: attachment; filename=zipfile.zip");
+
+    echo $zipfile->file();
+}
+
+function generarRecibo15_txt2($id_pdeclaracion, $id_etapa_pago) {
+
+
+    $dao = new PlameDeclaracionDao();
+    $data_pd = $dao->buscar_ID($id_pdeclaracion);
+    $fecha = $data_pd['periodo'];
+
+    $nombre_mes = getNameMonth(getFechaPatron($fecha, "m"));
+    $anio = getFechaPatron($fecha, "Y");
+
+
+    $dao_pago = new PagoDao();
+    $dataa = $dao_pago->listar($id_etapa_pago);
+
+
+    $file_name = NAME_COMERCIAL . '-BOLETA QUINCENA.txt';
+
+    $BREAK = chr(13) . chr(10);
+    $LINEA = str_repeat('-', 80);
+//..............................................................................
+// Inicio Exel
+//..............................................................................
+    $fp = fopen($file_name, 'w');
+
+
+
+    for ($a = 0; $a < count($dataa); $a++) {
+
+        $data = array();
+        $data = $dataa[$a];
+
+        for ($i = 0; $i < 1; $i++) { // Repetir 2 VECES
+            fwrite($fp, str_pad(NAME_EMPRESA, 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad(NAME_EMPRESA, 50, " ", STR_PAD_LEFT));
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+
+            fwrite($fp, str_pad('R E C I B O', 20, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad('R E C I B O', 50, " ", STR_PAD_LEFT));
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('* * * * * *', 20, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad('* * * * * *', 50, " ", STR_PAD_LEFT));
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+
+            fwrite($fp, str_pad('ADELANTO DE QUINCENA CORRESPONDIENTE', 20, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad('ADELANTO DE QUINCENA CORRESPONDIENTE', 50, " ", STR_PAD_LEFT));
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('Al MES DE ' . strtoupper($nombre_mes) . " DEL " . $anio, 20, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad('Al MES DE ' . strtoupper($nombre_mes) . " DEL " . $anio, 50, " ", STR_PAD_LEFT));
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            $_NOMBRE_ = $data['apellido_paterno'] . " " . $data['apellido_materno'] . " " . $data['nombres'];
+            fwrite($fp, str_pad('NOMBRES:', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad($_NOMBRE_, 42, " ", STR_PAD_RIGHT));
+            fwrite($fp, str_pad('NOMBRES:', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad($_NOMBRE_, 8, " ", STR_PAD_LEFT));
+            //fwrite($fp, $BREAK);
+
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('SUELDO: ', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad($data['sueldo'], 42, " ", STR_PAD_RIGHT));
+            fwrite($fp, str_pad('SUELDO: ', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad($data['sueldo'], 8, " ", STR_PAD_LEFT));
+            fwrite($fp, $BREAK);
+
+
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('N. CTA: ', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad(' -  -', 42, " ", STR_PAD_RIGHT));
+            fwrite($fp, str_pad('N. CTA: ', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad(' -  -', 8, " ", STR_PAD_LEFT));
+            fwrite($fp, $BREAK);
+
+
+
+            fwrite($fp, $BREAK);
+            $_FECHA_CREACION_ = getFechaPatron($data['fecha_creacion'], "d/m/Y");
+            fwrite($fp, str_pad('FECHA: ', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad($_FECHA_CREACION_, 43, " ", STR_PAD_RIGHT));
+            fwrite($fp, str_pad('FECHA: ', 0, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad($_FECHA_CREACION_, 7, " ", STR_PAD_LEFT));
+
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+
+
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('_______________', 0, " ", STR_PAD_LEFT)); //VO
+            fwrite($fp, str_pad('_______________', 30, " ", STR_PAD_LEFT));
+
+            fwrite($fp, str_pad('_______________', 20, " ", STR_PAD_LEFT));   //VO           
+            fwrite($fp, str_pad('_______________', 30, " ", STR_PAD_LEFT));
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('      Vo.Bo.   ', 0, " ", STR_PAD_LEFT)); //VO
+            fwrite($fp, str_pad('RECIBI CONFORME', 30, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad('      Vo.Bo.   ', 20, " ", STR_PAD_LEFT));  //VO
+            fwrite($fp, str_pad('RECIBI CONFORME', 30, " ", STR_PAD_LEFT));
+
+
+
+            //fwrite($fp, str_pad('RECIBI CONFORME', 0, " ", STR_PAD_LEFT));   
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad('DNI', 33, " ", STR_PAD_LEFT));
+            fwrite($fp, str_pad('DNI', 50, " ", STR_PAD_LEFT));
+
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+
+
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+
+            //--- LINE
+        }
+    }
+
+    return $file_name;
+}
 
 function generarRecibo15Exel($id_pdeclaracion, $dataa) {
 
@@ -803,6 +1239,15 @@ function generarRecibo15Exel($id_pdeclaracion, $dataa) {
 //$workbook->setVersion(8);
 // Let's send the file
     $workbook->close();
+}
+
+function logeo($mensaje) {
+    $fpx = fopen("log.txt", 'w');
+    fwrite($fpx, "inicio");
+    fwrite($fpx, $mensaje);
+    fwrite($fpx, chr(13) . chr(10));
+    fwrite($fpx, chr(13) . chr(10));
+    fclose($fpx);
 }
 ?>
 

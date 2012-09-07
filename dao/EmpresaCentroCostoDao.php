@@ -55,7 +55,8 @@ class EmpresaCentroCostoDao extends AbstractDao {
 
         INNER JOIN empresa_centro_costo AS empcc
         ON estcc.id_empresa_centro_costo = empcc.id_empresa_centro_costo
-        WHERE estcc.id_establecimiento = ?        
+        WHERE estcc.id_establecimiento = ?
+        AND estcc.seleccionado = 1
         ";
 
         $stm = $this->pdo->prepare($query);
@@ -84,7 +85,9 @@ class EmpresaCentroCostoDao extends AbstractDao {
         ON est.id_establecimiento = estcc.id_establecimiento
         INNER JOIN empresa_centro_costo AS ecc
         ON estcc.id_empresa_centro_costo = ecc.id_empresa_centro_costo
-        WHERE est.id_establecimiento = ?";
+        WHERE est.id_establecimiento = ?
+        AND estcc.seleccionado = 1
+        ";
         
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_establecimiento);

@@ -50,6 +50,8 @@ require_once('../../controller/DetalleRegimenPensionarioController.php');
 
 
 //############################################################################
+require_once('../../controller/EmpresaCentroCostoController.php');
+require_once('../../dao/EmpresaCentroCostoDao.php');
 /**
 ********* BUSQUEDA 01 EDIT = TRA-bajador por ID importante
 */
@@ -60,7 +62,9 @@ $objTRA = new Trabajador();
 //-- funcion Controlador Trabajador
 $objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA,$ID_TRABAJADOR);
 //$objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
-
+echo "<pre>";
+print_r($objTRA->getId_empresa_centro_costo());
+echo "</pre>";
 //--- sub 1 Periodo Laboral
 $objTRADetalle_1 = new DetallePeriodoLaboral();
 $objTRADetalle_1 = buscarDetallePeriodoLaboral( $objTRA->getId_trabajador());
@@ -135,7 +139,10 @@ foreach ($lista_establecimientos as $indice) {
 //print_r($objTRA);
 //echo "</pre>";
 
-$comboCCosto = comboCentroCosto();
+//$objTRA->getId_empresa_centro_costo();
+
+//$comboCCosto = comboCentroCosto();
+$comboCCosto = listarCentroCosto($objTRA->getId_establecimiento(),"all");
 
 
 

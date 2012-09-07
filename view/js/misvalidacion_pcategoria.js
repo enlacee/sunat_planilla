@@ -1104,8 +1104,8 @@ function limpiarcomboVinculadosTipoTrabajadorConCategoriaOcupacional(){
 
 ********************************************************************************************************/
 function seleccionarLocalDinamico(oCombo){ //alert(oCombo.value);
-	var oInput = document.getElementById('txt_codigo_local');
-	var oInput2 = document.getElementById('txt_id_establecimiento');
+	var oInput = document.getElementById('txt_codigo_local')||0;
+	var oInput2 = document.getElementById('txt_id_establecimiento')||0;
 	
 	var aguja = oCombo.value;
 

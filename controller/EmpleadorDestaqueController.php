@@ -417,7 +417,8 @@ function listarEstablecimientoDestaque($id_empleador) {
 
         $lista[$i]['cod_establecimiento'] = $rec[$i]['cod_establecimiento'];
         $lista[$i]['tipo_establecimiento'] = $rec[$i]['tipo_establecimiento_descripcion'];
-        $lista[$i]['id_empleador'] = $rec[$i]['id_establecimiento'];
+        $lista[$i]['id_establecimiento'] = $rec[$i]['id_establecimiento'];
+        $lista[$i]['id_empleador'] = $rec[$i]['id_empleador'];
 
         $lista[$i]['id'] = $rec[$i]['id_establecimiento'] . "|" . $rec[$i]['id_tipo_establecimiento'] . "|" . $rec[$i]['cod_establecimiento'];
         $lista[$i]['descripcion'] = $cadena;

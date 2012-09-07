@@ -1418,3 +1418,93 @@ function editarPersonaDireccion(id_persona_direccion){  //alert (".");
    }
    }); 
 }
+
+
+//------------------------------------------------
+
+function seleccionarLocalDinamico(oCombo){ 
+	var oInput = document.getElementById('txt_codigo_local') || 0;
+	var oInput2 = document.getElementById('txt_id_establecimiento')||0;
+	
+	var aguja = oCombo.value;
+
+	var partes = aguja.split("|");	
+	
+	var id_establecimiento = partes[0];	
+	var codigo_establecimiento = partes[2];
+	
+	oInput.value = codigo_establecimiento;
+	oInput2.value = id_establecimiento;
+
+	cargarEstablecimientoLocalesCCosto(oCombo);
+	//seleccionarComboCodigoAinput(oCombo,oInput);
+	
+}
+
+//-----------------------------------------
+function cargarEstablecimientoLocalesCCosto(idComboPadre){ 
+		
+	var valor = idComboPadre.value;
+	var fragmento = valor.split("|"); //Array()
+	
+	
+	
+	var objCombo = document.getElementById('cboCentroCosto');
+	//cbo_depa.options[cbo_depa.selectedIndex].value
+	if(valor=='0'){
+		//objCombo.disabled = true;
+		alert("Debe Selecionar Un Local Correcto");
+		limpiarComboGlobal(objCombo);
+	}else{
+		//limpiarComboGlobal(objCombo);
+		//objCombo.disabled = false;
+	//-----
+
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
+		data: {id_establecimiento: fragmento[0], oper: 'lista_centrocosto'},
+		beforeSend: function(objeto){ /*alert("Adiós, me voy a ejecutar");*/ },
+        complete: function(objeto, exito){ /*alert("Me acabo de completar");
+			if(exito=="success"){alert("Y con éxito");}*/
+        },
+		success: function(json){
+			//console.log(json);
+			if(json == null || json.length<1 ){
+				var mensaje = "No Existen Establecimientos Registrados\n";
+				mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
+				mensaje += "O el problema es aun Mayor"; 
+				//limpiarComboGlobal(objCombo);
+				objCombo.disabled =true;
+				alert(mensaje);	
+			}else{
+				objCombo.disabled =false;
+				llenarComboDinamico(json,objCombo);
+			}
+		}
+	});
+	//-----		
+	}
+	
+
+}//ENDIF
+
+
+//-----------------------
+function llenarComboDinamico(test,objCombo){
+
+	var counteo = objCombo.length;
+	for(var i=0;i<counteo;i++){
+		objCombo.options[i] = null;
+	}
+	//console.log("fin limpiado");	
+	
+	var counteo = 	test.length;		
+	objCombo.options[0] = new Option('-', '0');
+	for(var i=0;i<counteo;i++){
+		objCombo.options[i+1] = new Option(test[i].descripcion, test[i].id);
+	}
+
+
+}

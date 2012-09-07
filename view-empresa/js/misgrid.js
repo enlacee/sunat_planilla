@@ -877,6 +877,9 @@ console.log("Cargando..."+id_etapa_pago);
 
 	$("#t_list").append($("#reporte15_01"));
 	$("#t_list").append($("#reporte15_02"));
+	
+	$("#t_list").append($("#reporte15_mas"));
+	
 	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 	var id_etapa_pago = document.getElementById('id_etapa_pago').value;
 
@@ -928,28 +931,95 @@ console.log("Cargando..."+id_etapa_pago);
 	$("#reporte15_02").click(function(){
 		
 		//registrarEtapa(null);
-
 		var url = "sunat_planilla/controller/PagoController.php";
 		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
 		
 		window.location.href = url;
+		//window.open(url);
+
+	});
+	
+	   //02  = total
+	$("#reporte15_mas").click(function(){
+		
+		editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago);
+		/*
+		var url = "sunat_planilla/controller/PagoController.php";
+		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		
+		window.location.href = url;
+		//window.open(url);
+		*/
 
 	});
 
 
-
-
-
-
-
-
-
-
-
-
-
+}
 	
-    }
+	
+	
+	//---- new 06/09/2012
+function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
+	crearDialogoMasOp();
+	
+   $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-empresa/modal/edit_mas_opciones.php",
+   data: {id_pdeclaracion : id_pdeclaracion, id_etapa_pago : id_etapa_pago},
+   async:true,
+   success: function(datos){
+    $('#dialog_editarPagoMasOP').html(datos);
+    
+    $('#dialog_editarPagoMasOP').dialog('open');
+   }
+   }); 
+}
+
+//
+
+	function crearDialogoMasOp(){
+//alert('crearDialogoPersonaDireccion');
+	$("#dialog_editarPagoMasOP").dialog({ 
+           
+			autoOpen: false,
+			height: 300,
+			width: 280,
+			modal: true,                        
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Generar': function() {	
+				var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+				var id_etapa_pago =  document.getElementById('id_etapa_pago').value;
+				
+				var id_establecimientos = document.getElementById('id_establecimientos').value;				
+				var cboCentroCosto = document.getElementById('cboCentroCosto').value;
+				
+				var id = id_establecimientos.split('|');
+		
+				
+				var url = "sunat_planilla/controller/PagoController.php";
+				url += "?oper=recibo15";
+				url += "&id_pdeclaracion="+id_pdeclaracion;
+				url += "&id_etapa_pago="+id_etapa_pago;
+				url += "&id_establecimientos="+id[0];
+				url += "&cboCentroCosto="+cboCentroCosto;
+				alert(url);
+		
+				window.location.href = url;
+
+				
+				
+				
+				}
+                                
+			},			
+			open: function() {},
+			close: function() {}
+	});
+}
+
 //---------------------------------------------------------------------
 
 

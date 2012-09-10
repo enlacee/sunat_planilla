@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 07, 2012 at 05:59 p.m.
+-- Generation Time: Sep 10, 2012 at 10:34 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -12889,22 +12889,13 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos` (
   PRIMARY KEY (`id_declaracion_dconcepto`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=110 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=174 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos`
 --
 
 INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
-(45, 7, '0121', '2000.00', '2000.00'),
-(46, 7, '0201', '67.50', '67.50'),
-(47, 7, '0701', '200.00', '200.00'),
-(48, 7, '0304', '555.00', '555.00'),
-(49, 7, '0909', '450.00', '450.00'),
-(50, 7, '0804', '186.08', '186.08'),
-(51, 7, '0601', NULL, '37.22'),
-(52, 7, '0606', NULL, '23.98'),
-(53, 7, '0608', NULL, '206.75'),
 (84, 12, '0121', '2000.00', '2000.00'),
 (85, 12, '0201', '67.50', '67.50'),
 (86, 12, '0701', '200.00', '200.00'),
@@ -12930,7 +12921,18 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (106, 15, '0804', '60.75', '60.75'),
 (107, 15, '0607', NULL, '87.75'),
 (108, 15, '0604', NULL, '5.00'),
-(109, 15, '0612', NULL, '5.00');
+(109, 15, '0612', NULL, '5.00'),
+(163, 21, '0121', '2000.00', '2000.00'),
+(164, 21, '0201', '67.50', '67.50'),
+(165, 21, '0701', '200.00', '200.00'),
+(166, 21, '0804', '186.08', '186.08'),
+(167, 21, '0601', NULL, '37.22'),
+(168, 21, '0606', NULL, '23.98'),
+(169, 21, '0608', NULL, '206.75'),
+(170, 21, '0604', NULL, '5.00'),
+(171, 21, '0612', NULL, '5.00'),
+(172, 21, '0105', '20.83', '20.83'),
+(173, 21, '0106', '11.25', '11.25');
 
 -- --------------------------------------------------------
 
@@ -13360,7 +13362,7 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (69, 1, '0601', 0, NULL),
 (70, 1, '0602', 0, NULL),
 (71, 1, '0603', 0, NULL),
-(72, 1, '0604', 0, NULL),
+(72, 1, '0604', 1, NULL),
 (73, 1, '0605', 0, NULL),
 (74, 1, '0606', 0, NULL),
 (75, 1, '0607', 0, NULL),
@@ -13368,7 +13370,7 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (77, 1, '0609', 0, NULL),
 (78, 1, '0610', 0, NULL),
 (79, 1, '0611', 0, NULL),
-(80, 1, '0612', 0, NULL),
+(80, 1, '0612', 1, NULL),
 (81, 1, '0613', 0, NULL),
 (82, 1, '0614', 0, NULL),
 (83, 1, '0615', 0, NULL),
@@ -13507,7 +13509,7 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (216, 2, '0601', 0, NULL),
 (217, 2, '0602', 0, NULL),
 (218, 2, '0603', 0, NULL),
-(219, 2, '0604', 0, NULL),
+(219, 2, '0604', 1, NULL),
 (220, 2, '0605', 0, NULL),
 (221, 2, '0606', 0, NULL),
 (222, 2, '0607', 0, NULL),
@@ -13515,14 +13517,14 @@ INSERT INTO `detalles_conceptos_empleadores_maestros` (`id_detalle_concepto_empl
 (224, 2, '0609', 0, NULL),
 (225, 2, '0610', 0, NULL),
 (226, 2, '0611', 0, NULL),
-(227, 2, '0612', 0, NULL),
+(227, 2, '0612', 1, NULL),
 (228, 2, '0613', 0, NULL),
 (229, 2, '0614', 0, NULL),
 (230, 2, '0615', 0, NULL),
 (231, 2, '0616', 0, NULL),
 (232, 2, '0701', 1, NULL),
 (233, 2, '0702', 1, NULL),
-(234, 2, '0703', 0, NULL),
+(234, 2, '0703', 1, NULL),
 (235, 2, '0704', 1, NULL),
 (236, 2, '0705', 1, NULL),
 (237, 2, '0706', 1, NULL),
@@ -16258,7 +16260,7 @@ CREATE TABLE IF NOT EXISTS `etapas_pagos` (
   PRIMARY KEY (`id_etapa_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`,`cod_periodo_remuneracion`),
   KEY `cod_periodo_remuneracion` (`cod_periodo_remuneracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=83 ;
 
 --
 -- Dumping data for table `etapas_pagos`
@@ -16267,10 +16269,11 @@ CREATE TABLE IF NOT EXISTS `etapas_pagos` (
 INSERT INTO `etapas_pagos` (`id_etapa_pago`, `id_pdeclaracion`, `cod_periodo_remuneracion`, `fecha_inicio`, `fecha_fin`, `fecha_creacion`, `tipo`, `glosa`) VALUES
 (42, 1, 2, '2012-01-01', '2012-01-15', '2012-09-03', 1, 'Primera Quincena'),
 (45, 3, 2, '2012-02-01', '2012-02-15', '2012-09-03', 1, 'Primera Quincena'),
-(55, 4, 2, '2012-03-01', '2012-03-15', '2012-09-05', 1, 'Primera Quincena'),
 (64, 1, 2, '2012-01-16', '2012-01-31', '2012-09-05', 2, 'Segunda Quincena'),
 (65, 3, 2, '2012-02-16', '2012-02-29', '2012-09-05', 2, 'Segunda Quincena'),
-(66, 5, 2, '2012-01-01', '2012-01-15', '2012-09-05', 1, 'Primera Quincena');
+(66, 5, 2, '2012-01-01', '2012-01-15', '2012-09-05', 1, 'Primera Quincena'),
+(80, 4, 2, '2012-03-01', '2012-03-15', '2012-09-10', 1, 'Primera Quincena'),
+(82, 4, 2, '2012-03-16', '2012-03-31', '2012-09-10', 2, 'Segunda Quincena');
 
 -- --------------------------------------------------------
 
@@ -26232,7 +26235,7 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   KEY `id_trabajador` (`id_trabajador`,`id_etapa_pago`,`id_empresa_centro_costo`),
   KEY `id_etapa_pago` (`id_etapa_pago`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=107 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=123 ;
 
 --
 -- Dumping data for table `pagos`
@@ -26243,14 +26246,15 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (75, 4, 42, 15, NULL, NULL, 15, '1300.00', '585.00', NULL, '585.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-03 06:06:01', NULL, 2),
 (80, 1, 45, 15, NULL, NULL, 15, '2000.00', '200.00', NULL, '200.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-03 06:24:22', NULL, 1),
 (81, 4, 45, 10, NULL, NULL, 10, '1300.00', '433.33', NULL, '433.33', 80, NULL, NULL, NULL, '0', NULL, '2012-09-03 06:24:22', NULL, 2),
-(90, 1, 55, 15, NULL, NULL, 15, '2000.00', '200.00', NULL, '200.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 06:50:41', NULL, 1),
 (100, 1, 64, 16, NULL, NULL, 16, '2000.00', '1800.00', NULL, '1800.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 07:53:48', NULL, 1),
 (101, 4, 64, 16, NULL, NULL, 16, '1300.00', '650.00', NULL, '650.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 07:53:48', NULL, 2),
 (102, 1, 65, 14, NULL, NULL, 14, '2000.00', '1800.00', NULL, '1800.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 07:54:46', NULL, 1),
 (103, 5, 66, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 14:09:32', NULL, 2),
 (104, 6, 66, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 14:09:57', NULL, 1),
 (105, 7, 66, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 14:09:57', NULL, 2),
-(106, 8, 66, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 14:09:57', NULL, 1);
+(106, 8, 66, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-05 14:09:57', NULL, 1),
+(120, 1, 80, 15, NULL, NULL, 15, '2000.00', '200.00', NULL, '200.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-10 10:28:21', NULL, 1),
+(122, 1, 82, 16, NULL, NULL, 16, '2000.00', '1800.00', NULL, '1800.00', 120, NULL, NULL, NULL, '0', NULL, '2012-09-10 10:32:16', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -27097,15 +27101,15 @@ CREATE TABLE IF NOT EXISTS `registros_por_conceptos` (
   PRIMARY KEY (`id_registro_por_concepto`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='01 : select de conceptos que usara la empresa\r\n02 : registra' AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='01 : select de conceptos que usara la empresa\r\n02 : registra' AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `registros_por_conceptos`
 --
 
 INSERT INTO `registros_por_conceptos` (`id_registro_por_concepto`, `id_trabajador`, `cod_detalle_concepto`, `valor`, `estado`, `fecha_creacion`) VALUES
-(1, 1, '0105', '50.00', 1, '2012-09-04'),
-(2, 1, '0106', NULL, NULL, '2012-09-04'),
+(1, 1, '0105', '2.00', 1, '2012-09-04'),
+(2, 1, '0106', '1.00', 1, '2012-09-04'),
 (3, 4, '0701', '50.00', 1, '2012-09-04'),
 (4, 1, '0701', '10.00', 1, '2012-09-04'),
 (5, 1, '0107', NULL, NULL, '2012-09-04'),
@@ -27114,7 +27118,10 @@ INSERT INTO `registros_por_conceptos` (`id_registro_por_concepto`, `id_trabajado
 (8, 1, '0704', '1.20', 1, '2012-09-04'),
 (9, 1, '0909', '450.00', 0, '2012-09-05'),
 (10, 5, '0701', '49.00', 1, '2012-09-05'),
-(11, 5, '0201', NULL, NULL, '2012-09-06');
+(11, 5, '0201', NULL, NULL, '2012-09-06'),
+(12, 1, '0604', '1.00', 1, '2012-09-10'),
+(13, 1, '0612', '1.00', 1, '2012-09-10'),
+(14, 1, '0308', '2.00', 1, '2012-09-10');
 
 -- --------------------------------------------------------
 
@@ -27923,18 +27930,18 @@ CREATE TABLE IF NOT EXISTS `trabajadores_pdeclaraciones` (
   KEY `id_pdeclaracion` (`id_pdeclaracion`,`id_trabajador`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_pdeclaracion_2` (`id_pdeclaracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `trabajadores_pdeclaraciones`
 --
 
 INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pdeclaracion`, `id_trabajador`, `dia_laborado`, `dia_total`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `sueldo`, `sueldo_neto`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cod_regimen_aseguramiento_salud`, `cod_situacion`) VALUES
-(7, 4, 1, 31, 31, 240, NULL, NULL, NULL, '2000.00', '2000.00', 0, NULL, '2012-09-05 07:46:22', NULL, 0, '21', '21', '00', '1'),
 (12, 1, 1, 31, 31, 240, NULL, NULL, NULL, '2000.00', '2000.00', 0, NULL, '2012-09-05 07:53:48', NULL, 0, '21', '21', '00', '1'),
 (13, 1, 4, 31, 31, 240, NULL, NULL, NULL, '1235.00', '1235.00', 0, NULL, '2012-09-05 07:53:48', NULL, 0, '19', '02', '00', '0'),
 (14, 3, 1, 29, 29, 240, NULL, NULL, NULL, '2000.00', '2000.00', 0, NULL, '2012-09-05 07:54:46', NULL, 0, '21', '21', '00', '1'),
-(15, 3, 4, 10, 10, 80, NULL, NULL, NULL, '433.33', '433.33', 0, NULL, '2012-09-05 07:54:47', NULL, 0, '19', '02', '00', '0');
+(15, 3, 4, 10, 10, 80, NULL, NULL, NULL, '433.33', '433.33', 0, NULL, '2012-09-05 07:54:47', NULL, 0, '19', '02', '00', '0'),
+(21, 4, 1, 31, 31, 240, NULL, NULL, NULL, '2000.00', '2000.00', 0, NULL, '2012-09-10 10:32:16', NULL, 0, '21', '21', '00', '1');
 
 -- --------------------------------------------------------
 
@@ -30771,8 +30778,8 @@ ALTER TABLE `ptrabajadores`
 -- Constraints for table `registros_por_conceptos`
 --
 ALTER TABLE `registros_por_conceptos`
-  ADD CONSTRAINT `registros_por_conceptos_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `registros_por_conceptos_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `registros_por_conceptos_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `registros_por_conceptos_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `servicios_prestados`

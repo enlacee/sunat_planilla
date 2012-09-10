@@ -98,7 +98,9 @@ function registrarDetalleConceptoEM($id_empleador_maestro) {
      */
     $arreglo1 = array('0105', '0106', '0107', '0118', '0121', '0122', '0201', '0306', '0701', '0702', '0706');
     
-    //tributos y aportes. ONP Y AFP    
+    //tributos y aportes. ONP Y AFP 
+    //604 = ESALUD + vida.
+    //612 = SNP Asegura tu pension.   
     $arreglo2 = array('0601', '0602','0604' , '0605', '0606', '0607','0608', '0609', '0611','0612', '0801', '0803','0804','0809');
     
     $arreglo = array_merge($arreglo1, $arreglo2);

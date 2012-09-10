@@ -18,8 +18,6 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $sueldo) {
 //| gra = gratificacio-+
 //| 
 //| ----------------------------------------------------
-    $conceptos_afectos5ta = array();
-    $conceptos_afectos5ta = arrayConceptosAfectos_5ta();
 
     //echo "<pre> INGRESOS AFECTOS 5TA";
     //$d = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador, $conceptos_afectos5ta);
@@ -27,7 +25,7 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $sueldo) {
     //echo "</pre>";
     
 // 01 remuneracion fija
-    $r_fija = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador, $conceptos_afectos5ta);//$sueldo; //2000;
+    $r_fija = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador);//$sueldo; //2000;
     echo "R_FIJA= ".$r_fija;
 // 02 num_meses que falta
     $num_mes_faltan = get_IR5_mesFaltan($periodo);
@@ -121,28 +119,100 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
     return $sum_jbasico;
 }
 
+
+
 // Get all ingresos 
-function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador, $conceptos_afectos5ta) {
+function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador) {
+    
+    $conceptos_afectos5ta = arrayConceptosAfectos_a('10');
+    
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
     
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos5ta)) {
-            //echo "afeccctooooo = ".$data_dconcepto[$z]['cod_detalle_concepto'];
-            //echo "afeccct monto_pagado = ".$data_dconcepto[$z]['monto_pagado'];
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
-            //$ID_DCEM = $dao->registrar($id_empleador_maestro, $d_detalle_concepto[$i]['cod_detalle_concepto'], '1');
+            
         }
     }
     return $sum;
 }
 
-function arrayConceptosAfectos_5ta() {
+
+// Get all ingresos 
+function get_SNP_Ingresos($id_pdeclaracion, $id_trabajador) {
+    
+    $conceptos_afectos = arrayConceptosAfectos_a('08');
+    
+    $dao_dconcepto = new DeclaracionDconceptoDao();
+    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+    
+    $sum = 0;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
+            $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
+        }
+    }
+    return $sum;
+}
+
+// Get all ingresos 
+function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
+    
+    $conceptos_afectos = arrayConceptosAfectos_a('09');
+    
+    $dao_dconcepto = new DeclaracionDconceptoDao();
+    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+    
+    $sum = 0;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
+            $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
+        }
+    }
+    return $sum;
+}
+
+
+
+// Get all ingresos 
+function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
+    
+    $conceptos_afectos = arrayConceptosAfectos_a('01');
+    
+    $dao_dconcepto = new DeclaracionDconceptoDao();
+    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+    
+    $sum = 0;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
+            $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
+        }
+    }
+    return $sum;
+}
+
+
+
+
+/**
+ *
+ * @param type $cod_afectacion
+ * @return type 
+ * 
+ *  Esto es variable segun 
+ *  cod_afectacion:
+ *  - 10 = Renta de quinta
+ *  - 08 = SNP
+ *  - 01 = Esalud Regular
+ */
+function arrayConceptosAfectos_a($cod_afectacion) {
 
 //..............................................................................
-    $dao_afecto = new PlameDetalleConceptoAfectacionDao();
-    $data_afecto = $dao_afecto->conceptosAfecto_a(10);
+    $dao_afecto = new PlameDetalleConceptoAfectacionDao();    
+    $data_afecto = $dao_afecto->conceptosAfecto_a($cod_afectacion);
+    
     $conceptos_afectos = array();
     for ($x = 0; $x < count($data_afecto); $x++) {
         $conceptos_afectos[] = $data_afecto[$x]['cod_detalle_concepto'];
@@ -150,6 +220,7 @@ function arrayConceptosAfectos_5ta() {
 //..............................................................................   
     return $conceptos_afectos;
 }
+//------------------------------------------------------------------------------
 
 function listaPdeclaraciones() {
     $dao = new PlameDeclaracionDao();

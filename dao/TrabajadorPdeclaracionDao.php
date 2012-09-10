@@ -153,10 +153,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                 drs.cod_regimen_aseguramiento_salud,
                 -- drp.id_detalle_regimen_pensionario,
                 drp.cod_regimen_pensionario,
-                dtt.cod_tipo_trabajador,
-                -- ptrabajador
-                pt.aporta_essalud_vida,
-                pt.aporta_asegura_tu_pension
+                dtt.cod_tipo_trabajador
+               
             FROM trabajadores AS t
             INNER JOIN personas AS p
             ON t.id_persona = p.id_persona
@@ -170,9 +168,6 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             INNER JOIN detalle_tipos_trabajadores AS dtt
             ON t.id_trabajador = dtt.id_trabajador
             
-            LEFT JOIN ptrabajadores AS pt
-            ON t.id_trabajador = pt.id_trabajador
-
             WHERE t.id_trabajador = ?        
         ";
         $stm = $this->pdo->prepare($query);

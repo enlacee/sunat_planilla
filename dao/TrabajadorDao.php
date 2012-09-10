@@ -849,6 +849,7 @@ class TrabajadorDao extends AbstractDao {
 
         WHERE p.num_documento = ?
         AND p.cod_tipo_documento = $cod_tipo_documento
+        AND t.cod_situacion = 1
         ORDER BY id_trabajador DESC        
 ";
         

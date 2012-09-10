@@ -60,7 +60,7 @@ echo "</pre>";
 	});
 //---------------------------------
 
-	cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab2.php?periodo=' ,'#tabs-2');
+	cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab2.php' ,'#tabs-2');
 	//cargar_pagina('sunat_planilla/view-empresa/edit_pago_tab3.php?periodo=' ,'#tabs-3');
 
 	
@@ -81,8 +81,8 @@ value="<?php echo $ID_ETAPA_PAGO; ?>">
 
 
 
-  <p>Empresa :<span class="red"><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></span>
-    Declaracion: <span class="red"><?php echo getFechaPatron($pdeclaracion->getPeriodo(),"m/Y"); ?></span>  </p>
+  <p>EMPRESA: <span class="red"><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></span>
+    DECLARACION: <span class="red"><?php echo getFechaPatron($pdeclaracion->getPeriodo(),"m/Y"); ?></span>  </p>
     
 <ul>
             <li><a href="#tabs-1">Informacion General</a></li>	

@@ -2,7 +2,13 @@
 //*******************************************************************//
 require_once('../view/ide.php');
 //*******************************************************************//
+require_once('../util/funciones.php');
 require_once '../controller/ideController.php';
+
+//NEW
+require_once("../controller/PlameDeclaracionController.php");
+require_once("../dao/PlameDeclaracionDao.php");
+require_once ("../model/Pdeclaracion.php");
 
 //echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
 // -- Carga de COMBOS
@@ -16,6 +22,11 @@ $data = $_SESSION['sunat_empleador'];
 
 $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 $ID_DECLARACION = $_REQUEST['id_declaracion'];
+
+//$ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
+
+$pdeclaracion = new Pdeclaracion();
+$pdeclaracion = buscar_ID_Pdeclaracion($ID_DECLARACION);
 
 //echo "<pre>";
 //print_r($data);
@@ -53,16 +64,25 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 
 <div align="left">
 
-
     <div id="tabs">
-    
-    
-        <ul>
+ <div class="ocultar">   
+    id_declaracion
+  <input type="text" name="id_declaracion" id="id_declaracion"
+              value="<?php echo $ID_DECLARACION; ?>" />
+</div>    
+
+<p>EMPRESA: <span class="red"><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></span>
+    DECLARACION: <span class="red"><?php echo getFechaPatron($pdeclaracion->getPeriodo(),"m/Y"); ?></span>
+</p>
+
+
+
+<ul>
             <li><a href="#tabs-1">Informacion General</a></li>	
             <li><a href="#tabs-2">Detalle de Declaraci&oacute;n</a></li>
             <!--<li><a href="#tabs-3">Determinacion de Deuda</a></li>-->	            		
 
-        </ul>
+      </ul>
         
         
         <div id="tabs-1">
@@ -71,12 +91,7 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
           <h2>Datos Basicos de la Declaracion:</h2>
 
           <form id="frmNuevaDeclaracion" name="frmNuevaDeclaracion" method="post" action="">
-          
-		    <div class="ocultar">id_declaracion		      
-		      <input type="text" name="id_declaracion" id="id_declaracion"
-              value="<?php echo $ID_DECLARACION; ?>" />
-		    </div>
-		    <p>RUC:
+          <p>RUC:
               <label for="ruc"></label>
             <input type="text" name="ruc" id="ruc"  readonly="readonly"
             value="<?php  echo $data['ruc']; ?>" />

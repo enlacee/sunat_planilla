@@ -715,8 +715,8 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	
 function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ 
 
+console.log("Cargandou..."+id_etapa_pago);
 alert("Cargando... "+id_etapa_pago);
-console.log("Cargando..."+id_etapa_pago);
 
 
 		var arreglo = new Array();
@@ -933,6 +933,7 @@ console.log("Cargando..."+id_etapa_pago);
 		//registrarEtapa(null);
 		var url = "sunat_planilla/controller/PagoController.php";
 		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		url +="&todo=todo";
 		
 		window.location.href = url;
 		//window.open(url);
@@ -1228,7 +1229,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
         });
 		
 		
-        //--- PIE GRID
+//--- PIE GRID
 //	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
 	
@@ -1367,8 +1368,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
 	//------------------------------------------
-	//------------------------
-	
+
 	
 	$("#t_list").append($("#adelanto_mes_01"));
 	$("#t_list").append($("#adelanto_mes_02"));
@@ -1396,8 +1396,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 			if(i != (news.length-1)){
 				cadena+= "&";
 			}	
-		}
-		//alert(cadena);
+		}		
 
 		generarDeclaracionPlanilla(id_pdeclaracion,$(this),cadena);
 
@@ -1412,9 +1411,8 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 	});
    
    //02  = total
-	$("#adelanto_mes_02").click(function(){
+	$("#adelanto_mes_02").click(function(){		
 		
-		//registrarEtapa(null);
 		generarDeclaracionPlanilla(id_pdeclaracion,$(this),null);
 	});
 	
@@ -1438,9 +1436,8 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 
 //---------------------------------------------------
 function editarDiaSubsidiado(id_pago){
-	crearDialogoDiaSubsidiado();
-	//id_pjoranada_laboral = 0;
-    $.ajax({
+	crearDialogoDiaSubsidiado();	
+   $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/dia_subsidiado.php",
    data: {id_pago : id_pago},
@@ -1458,7 +1455,6 @@ function editarDiaSubsidiado(id_pago){
 
 
 function crearDialogoDiaSubsidiado(){
-//alert('crearDialogoPersonaDireccion');
 	$("#dialog-dia-subsidiado").dialog({ 
            
 			autoOpen: false,
@@ -1580,12 +1576,12 @@ function crearDialogoPtrabajador(){
 
 
 
-function editarPtrabajador(id_trabajador){  //alert (".");
+function editarPtrabajador(id_trabajador){ 
 crearDialogoPtrabajador();
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/edit_ptrabajador.php",
-   data: { id_trabajador : id_trabajador },//Enviando a ediatarProducto.php vareiable=id_producto
+   data: { id_trabajador : id_trabajador },
    async:true,
    success: function(datos){
     $('#editarPtrabajador').html(datos);
@@ -1613,11 +1609,9 @@ function generarDeclaracionPlanilla(id_pdeclaracion,obj,cadena){
    url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php"+cadena,
    data: { oper: 'generar_declaracion', id_pdeclaracion : id_pdeclaracion },//Enviando a ediatarProducto.php vareiable=id_producto
    async:true,
-   success: function(datos){
-	
+   success: function(datos){	
 	console.log("Se Genero la planilla correctamente");
-	//obj.value = "OK...";
-	
+		
 	
    }
    }); 
@@ -1637,11 +1631,10 @@ if(estado == true){
     $.ajax({
    type: "POST",
    url: "sunat_planilla/controller/EtapaPagoController.php",
-   data: { oper: 'del', id_etapa_pago : id_etapa_pago },//Enviando a ediatarProducto.php vareiable=id_producto
+   data: { oper: 'del', id_etapa_pago : id_etapa_pago },
    async:true,
    success: function(data){
 	console.log("Se elimino correctamente");
-	//jQuery("#list").trigger("reloadGrid");
 	jQuery("#list10_d").trigger("reloadGrid");
 	
    }
@@ -1658,11 +1651,10 @@ function eliminarPago(id){
 		$.ajax({
 	   type: "POST",
 	   url: "sunat_planilla/controller/PagoController.php",
-	   data: { oper: 'del', id_pago : id },//Enviando a ediatarProducto.php vareiable=id_producto
+	   data: { oper: 'del', id_pago : id },
 	   async:true,
 	   success: function(data){
-		console.log("Se elimino correctamente");
-		//jQuery("#list").trigger("reloadGrid");
+		console.log("Se elimino correctamente");		
 		jQuery("#list").trigger("reloadGrid");
 		
 	   }
@@ -1688,7 +1680,6 @@ function eliminarTrabajadorPdeclaracion(id){
    }); 
 }
 }
-
 
 
 
@@ -1727,7 +1718,7 @@ var data = $("#formPago").serialize();
 //---------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------
 function crearDialogoNewRPC(){
-//alert('crearDialogoPersonaDireccion');
+
 	$("#dialog_new_trabajador_rpc").dialog({ 
            
 			autoOpen: false,
@@ -1748,23 +1739,20 @@ function crearDialogoNewRPC(){
 					if(estado_form){
 	
 						var from_data =  form.serialize();
-						//var from_data = document.new_trabajador_rpc;
-						//alert ("from_data  new_trabajador_rpc = "+from_data);
 						
 						//---------------------------
 						$.getJSON(
 							'sunat_planilla/controller/RegistroPorConceptoController.php?'+from_data,
-							function(data){
-								
-								if(data=="true"){									
+							function(data){								
+                                
+								if(data.estado){									
 									alert("Se Registro Correctamente.");	
 									$("#dialog_new_trabajador_rpc").dialog('close');
 									jQuery("#list").trigger("reloadGrid");
-									//$("#list").jqGrid('GridUnload');	
-								}else if(data =="false"){
-									alert("El trabajador ya fue registrado\n revise la lista.");						
-								}else if(data == null){
-									alert("Ocurrio un error.")
+										
+								}else{
+                                    alert(data.mensaje);
+															
 								}
 							}
 						);	
@@ -1805,21 +1793,7 @@ function validarNewRPC(obj){
 
 }
 
-/*
-function editarAfectacion(id){  //alert (".");
-    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/view-plame/modal/afectaciones.php",
-   data: "id_detalle_concepto="+id,
-   async:true,
-   success: function(datos){
-    $('#editarAfectacion').html(datos);
-    
-    $('#dialog-form-editarAfectacion').dialog('open');
-   }
-   }); 
-}
-*/
+
 
 function newRPC(id){
 	crearDialogoNewRPC();

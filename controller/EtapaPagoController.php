@@ -293,6 +293,15 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
 
     // DAO
     $dao_plame = new PlameDao();
+    
+    //|-------------------------------------------------------------------------
+    //| Aki para mejorar. la aplicacion debe de preguntar por un Trabajador en 
+    //| concreto:
+    //|
+    //| XQ esta funcion devuelve una lista de trabajadores. Si la persona tubiera
+    //| por registros de trabajador. el sistema crearia :
+    //| reportes de la persona.. duplicadooooo.
+    //|-------------------------------------------------------------------------
     $data_traa = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA_INICIO, $FECHA_FIN);
 
 
@@ -307,9 +316,9 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
 
 
 
-    echo "<pre> _data_id_trabajador";
+    //echo "<pre> _data_id_trabajador";
     //print_r($_data_id_trabajador);
-    echo "</pre>";
+    //echo "</pre>";
 
     /* --------------filtro de  id_trabajadores ------------- */
     for ($i = 0; $i < count($_data_id_trabajador); $i++) {
@@ -407,7 +416,8 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
             $dia_no_laborado = $data_tra[$i]['dia_no_laborado'];
 
 
-            echo "<pre>AFTER ANIBAL 01";
+            echo "<pre> -_-DATOS A COSULTAR PARA CONCEPTO DE ADELANTO";
+            echo "AFTER ANIBAL 01";
             print_r($data_tra);
             echo "</pre>";
 // 01 Registrar Epagos_trabajadores
@@ -427,8 +437,8 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
             $dao_rpc = new RegistroPorConceptoDao();
 
            //??????????? 
-            $datax = $dao_rpc->buscar_RPC_PorTrabajador($data_tra[$i]['id_trabajador'], C701, 1);
-            echo "<pre>dataxxxx";
+            $datax = $dao_rpc->buscar_RPC_PorTrabajador($data_tra[$i]['id_trabajador'], C701,1);
+            echo "<pre>dataxXx DE CONCEPTO ADELANTO";
             print_r($datax);
             echo "</pre>";
             $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];

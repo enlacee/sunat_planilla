@@ -124,7 +124,8 @@ class DeclaracionDconceptoDao extends AbstractDao {
     }
 
     //---------------------------------------------------------------
-    // Funcion utilizada x Renta 5ta Categoria - controller
+    // Funcion utilizada x Renta 5ta Categoria - controller u ONP U ESSALUD ++
+    //10/09/2012
     //---------------------------------------------------------------
 
     public function listarTrabajadorPorDeclaracion($id_trabajador,$id_pdeclaracion) {

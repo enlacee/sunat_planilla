@@ -28,7 +28,7 @@ echo (!empty($response)) ? json_encode($response) : '';
 
 function registrarRPC() {
     //???
-    $rpta = "default";
+    $rpta->estado = "default";
     // 01 
     $num_documento = $_REQUEST['num_documento'];
     $cod_tipo_documento = $_REQUEST['tipoDoc'];
@@ -38,9 +38,9 @@ function registrarRPC() {
 
     $dao_tra = new TrabajadorDao();
     $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento);
+    
 
-
-    if (!is_null($data['id_trabajador'])) {
+    if (isset($data['id_trabajador'])) {
 
         //Pregunta si esta registrado en  :: registros_por_conceptos
         $dao = new RegistroPorConceptoDao();
@@ -52,24 +52,26 @@ function registrarRPC() {
             $model = new RegistroPorConcepto();
             $model->setCod_detalle_concepto($cod_detalle_concepto);
             $model->setId_trabajador($data['id_trabajador']);
-            $model->setFecha_creacion(date("Y-m-d"));
+            $model->setFecha_creacion(date("Y-m-d  H:i:s"));
 
             $dao = new RegistroPorConceptoDao();
-            $rpta = $dao->add($model);
+            $rpta->estado = $dao->add($model);
         } else if (isset($datax['id_registro_por_concepto'])) {
 
             //trabajador ya esta registrado..
-            $rpta = false;
+            $rpta->estado = false;
+            $rpta->mensaje = "El Trabajador ya se encuentra Registrado en esta Lista.";
         }
         //$id_trabajador = $data['id_trabajador'];
         // 02
-    } else if (isset($data['id_trabajador'])) {
-
+    } else {       
         // trabajador no existe en base de datos:
-        $rpta = null;
+        $rpta->estado = false;//null; //FALSE
+        $rpta->mensaje ="El trabajador no existe,\no ya fue dado de baja.";
     }
-    //var_dump( $rpta);
-    return ($rpta) ? "true" : "false";
+    //var_dump( $rpta);    
+    //echo "=".$rpta;
+    return $rpta;//($rpta == true) ? "true" : "false";
 }
 
 function listarRPC() {

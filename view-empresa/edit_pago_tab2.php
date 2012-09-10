@@ -29,11 +29,15 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 
 <div align="left">
-    <div class="blue">RUC: <?php echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?></div>
+    <div class="blue"> 
+	<?php //echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
+    </div>
     
 <div id="tabs2">
-        <ul>
-            <li><a href="#tabs-2-1">Trabajadores</a></li>
+
+
+<ul>
+      <li><a href="#tabs-2-1">Trabajadores</a></li>
             <!--<li><a href="#tabs-2-2">Pensionistas</a></li>	
             <li><a href="#tabs-2-3">PS 4Ta Categoria</a></li>-->		
 

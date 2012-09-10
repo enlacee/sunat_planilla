@@ -102,7 +102,7 @@ class RegistroPorConceptoDao extends AbstractDao {
         $stm->bindValue(2, $estado);
         $stm->execute();
         $lista = $stm->fetchAll();
-        return $lista;
+        return $lista[0];
     }
 
     // -- sin uso   04/09/2012
@@ -154,6 +154,7 @@ class RegistroPorConceptoDao extends AbstractDao {
 
         WHERE cod_detalle_concepto = ?
         AND emp.id_empleador = ?
+        AND t.cod_situacion = 1
         ";
 
         $stm = $this->pdo->prepare($query);
@@ -168,11 +169,13 @@ class RegistroPorConceptoDao extends AbstractDao {
     function buscar_ID_trabajador($id_trabajador, $cod_detalle_concepto) {
         $query = "
         SELECT 
-        id_registro_por_concepto,
-        id_trabajador
-        FROM registros_por_conceptos
-        WHERE id_trabajador = ?
-        AND cod_detalle_concepto = $cod_detalle_concepto
+        rpc.id_registro_por_concepto,
+        rpc.id_trabajador
+        FROM registros_por_conceptos AS rpc        
+        WHERE rpc.id_trabajador = ?
+        AND rpc.cod_detalle_concepto = $cod_detalle_concepto
+
+
 ";
 
         $stm = $this->pdo->prepare($query);

@@ -611,7 +611,7 @@ function cargarEstablecimientoLocales(idComboPadre){
 //-----------------------
 
 //-----------------------------------------
-function cargarEstablecimientoLocalesCCosto(idComboPadre){ alert(idComboPadre.value);
+function cargarEstablecimientoLocalesCCosto(idComboPadre){ //alert(idComboPadre.value);
 	
 	var valor = idComboPadre.value;
 	var fragmento = valor.split("|"); //Array()

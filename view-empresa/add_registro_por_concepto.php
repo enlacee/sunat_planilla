@@ -82,12 +82,41 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 			}else{
 				return [true,""];
 			}
+		// ------------------------------------------------				
+		// 0705 = INASISTENCIAS
+		}else if(cod_detalle_concepto=='0705'){
+			if(value < 0 || value >1){
+				return [false,"Please enter value between 0 and 30"];
+			}else{
+				return [true,""];
+			}
+		
+		
+		}else if(cod_detalle_concepto=='0604'){
+			if(value < 0 || value >1){
+				return [false,"Please enter value between 0 and 1"];
+			}else{
+				return [true,""];
+			}
+		// ------------------------------------------------				
+		// 0612 = SISTEMA NACIONAL DE PENSIONES - ASEGURA TU PENSIÓN
+		}else if(cod_detalle_concepto=='0612'){
+			if(value < 0 || value >1){
+				return [false,"Please enter value between 0 and 1"];
+			}else{
+				return [true,""];
+			}
+		// ------------------------------------------------				
+		// 0705 = INASISTENCIAS
+		}else if(cod_detalle_concepto=='0705'){
+			if(value < 0 || value >1){
+				return [false,"Please enter value between 0 and 30"];
+			}else{
+				return [true,""];
+			}
 		
 		
 		}
-		
-		
-		
 		
 			
 	}

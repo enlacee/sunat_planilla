@@ -5,7 +5,7 @@
 
 
   <h2>Lista de trabajadores</h2>
-<input type="button" name="reporte15_01" id="reporte15_01" value="01 Recibo Individual">
+<input type="hidden" name="reporte15_01" id="reporte15_01" value="01 Recibo Individual">
 <input type="button" name="reporte15_02" id="reporte15_02" value="02 Recibo Total" /> 
 <input type="button" name="reporte15_mas" id="reporte15_mas" value="mas op" />
 <br />

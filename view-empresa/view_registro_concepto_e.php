@@ -1,5 +1,4 @@
-<?php 
-//session_start();
+<?php
 //*******************************************************************//
 require_once('../view/ide.php');
 //*******************************************************************//
@@ -11,29 +10,29 @@ require_once('../view/ide.php');
 		
 	});
 	
-	cargarTablaConceptosRPC();
+	cargarTablaConceptosRPCE();
 	
 	
-    function cargarTablaConceptosRPC(){
+    function cargarTablaConceptosRPCE(){
 
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PlameConceptoController.php?oper=cargar_registro_por_concepto',
+            url:'sunat_planilla/controller/Concepto_E_EmpleadorController.php?oper=cargar_tabla',
             datatype: 'json',
             colNames:['Id','Codigo','Concepto','Opciones'],
             colModel :[
                 {
-                    name:'id_detalle_concepto_empleador_maestro', 
+                    name:'id_concepto_e_empleador', 
                     editable:false, 
 					hidden:true,
-                    index:'id_detalle_concepto_empleador_maestro',
+                    index:'id_concepto_e_empleador',
                     search:false,
                     width:30,
                     align:'center'
                 },		
                 {
-                    name:'cod_detalle_concepto',
-                    index:'cod_detalle_concepto',
+                    name:'id_concepto_e',
+                    index:'id_concepto_e',
                     search:true, 
                     editable:false,
                     width:70, 
@@ -60,9 +59,9 @@ require_once('../view/ide.php');
             ],
             pager: '#pager',
 			height:350,
-            rowNum:25,
-            rowList:[25,50,75],
-            sortname: 'id_detalle_concepto_empleador_maestro',
+            rowNum:15,
+            rowList:[15,30,45],
+            sortname: 'id_concepto_e_empleador',
             sortorder: 'asc',
             viewrecords: true,
             gridview: true,

@@ -37,7 +37,7 @@ function registrarRPC() {
     $dao_tra = new TrabajadorDao();
 
     $dao_tra = new TrabajadorDao();
-    $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento,ID_EMPLEADOR);
+    $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento);
     
 
     if (isset($data['id_trabajador'])) {

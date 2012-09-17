@@ -1832,7 +1832,7 @@ function newRPC(id,tipo_concepto){
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/new_trabajador_rpc.php",
-   data: { cod_detalle_concepto : id, tipo_concepto: tipo_concepto },
+   data: { cod_detalle_concepto : id },
    async:true,
    success: function(datos){
     $('#new_trabajador_rpc').html(datos);
@@ -1866,30 +1866,6 @@ if(bandera){
 
 }
 
-
-
-function editar_EstadoRPCE(id,estado){
-    var str = (estado ==1) ? "ACTIVO" : "INACTIVO"; 
-    var bandera = confirm("Seguro de cambiar a : "+str);
-    
-if(bandera){
-    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/RegistroConceptoEController.php?oper=edit-estado",
-   data: { id : id, estado : estado },
-   async:true,
-   success: function(data){
-    if(data){
-        jQuery("#list").trigger("reloadGrid");
-    }else{
-        console.log("Ocurrio un Error");
-    }
-    
-    }
-   }); 
-}
-
-}
 
 
 

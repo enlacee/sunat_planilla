@@ -1,62 +1,82 @@
 <?php
-
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
     require_once '../dao/AbstractDao.php';
-    require_once '../dao/RegistroPorConceptoDao.php';
-    require_once '../model/RegistroPorConcepto.php';
-    require_once '../controller/ideController.php';
+    require_once '../dao//RegistroPorConceptoDao.php';
+    require_once '../dao/RegistroConceptoEDao.php';
+
+    
+    require_once '../dao/Concepto_E_EmpleadorDao.php';
+    require_once '../model/RegistroConceptoE.php';
 
     //trabajador
     require_once '../dao/TrabajadorDao.php';
+    require_once '../controller/ideController.php';
 }
 
 $response = NULL;
 
 if ($op == "add") {
-    $response = registrarRPC();
+    $response = registrarRPCE();
 } else if ($op == "cargar_tabla") {
-    $response = listarRPC();
+    $response = listarRPCE();
 } else if ($op == "edit") {
-    $response = editRPC();
+    $response = editRPCE();
 } else if ($op == "edit-estado") {
-    $response = editEstadoRPC();
+    $response = editEstadoRPCE();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
 
-function registrarRPC() {
-    //???
+    //--------------------------------------------------------------------------
+    function buscar_ID_ConceptoEmpleador($id_empleador,$id_concepto_e_empleador){
+       // echo "\n\nid_empleador id_empleador id_empleador = $id_empleador";
+      //  echo "\n\nid_concepto_e id_concepto_e id_concepto_e = $id_concepto_e_empleador";
+
+        $dao = new Concepto_E_EmpleadorDao();
+        $id =  $dao->buscarId_ConceptoEmpleador($id_empleador, $id_concepto_e_empleador);
+        return $id;
+        
+    }
+    //--------------------------------------------------------------------------
+
+function registrarRPCE() {
+    //var_dump($_REQUEST);
+ 
     $rpta->estado = "default";
     // 01 
     $num_documento = $_REQUEST['num_documento'];
     $cod_tipo_documento = $_REQUEST['tipoDoc'];
-    $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
+    $id_concepto_e_empleador_empleador = $_REQUEST['cod_detalle_concepto']; // = id_concepto_e_empleador
+    
+    
 
     $dao_tra = new TrabajadorDao();
 
     $dao_tra = new TrabajadorDao();
+    //echo "ID_EMPLEADOR ".ID_EMPLEADOR;
     $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento,ID_EMPLEADOR);
     
 
     if (isset($data['id_trabajador'])) {
 
         //Pregunta si esta registrado en  :: registros_por_conceptos
-        $dao = new RegistroPorConceptoDao();
-        $datax = $dao->buscar_ID_trabajador($data['id_trabajador'], $cod_detalle_concepto);
+        $dao = new RegistroConceptoEDao();
+        $datax = $dao->buscar_ID_trabajador($data['id_trabajador'], $id_concepto_e_empleador_empleador); //  !!!!  1!   !!!
+        //echo "encontroo trabajador unico en este concepto";
         //var_dump($datax);
 
-        if (is_null($datax['id_registro_por_concepto'])) {
+        if (is_null($datax['id_registro_concepto_e'])) {
 
-            $model = new RegistroPorConcepto();
-            $model->setCod_detalle_concepto($cod_detalle_concepto);
+            $model = new RegistroConceptoE();
+            $model->setId_concepto_e_empleador($id_concepto_e_empleador_empleador);
             $model->setId_trabajador($data['id_trabajador']);
             $model->setFecha_creacion(date("Y-m-d  H:i:s"));
 
-            $dao = new RegistroPorConceptoDao();
+            $dao = new RegistroConceptoEDao();
             $rpta->estado = $dao->add($model);
-        } else if (isset($datax['id_registro_por_concepto'])) {
+        } else if (isset($datax['id_registro_concepto_e'])) {
 
             //trabajador ya esta registrado..
             $rpta->estado = false;
@@ -72,12 +92,23 @@ function registrarRPC() {
     //var_dump( $rpta);    
     //echo "=".$rpta;
     return $rpta;//($rpta == true) ? "true" : "false";
+ 
 }
 
-function listarRPC() {
-    $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
-
-    $dao = new RegistroPorConceptoDao();
+function listarRPCE() {
+    $id_concepto_e_empleador = $_REQUEST['cod_detalle_concepto'];
+    $id_empleador = ID_EMPLEADOR;
+    /*
+    echo "id_concepto_e = $id_concepto_e_empleador"."\n<br>";
+    echo "ID_EMPLEADOR = ".ID_EMPLEADOR;
+    */
+    
+    //$id_concepto_e_empleador = buscar_ID_ConceptoEmpleador($id_empleador, $id_concepto_e_empleador);
+    //echo "\n\n--------------------\n\n";
+    //var_dump($id_concepto_e_empleador_empleador);
+    //echo "\n\n--------------------\n\n";
+    
+    $dao = new RegistroConceptoEDao();
 
     $page = $_GET['page'];
     $limit = $_GET['rows'];
@@ -107,7 +138,7 @@ function listarRPC() {
 
     $lista = array();
 
-    $lista = $dao->listar2($cod_detalle_concepto,ID_EMPLEADOR);
+    $lista = $dao->listar($id_concepto_e_empleador);
 
     $count = count($lista);
 
@@ -141,7 +172,7 @@ function listarRPC() {
 
     foreach ($lista as $rec) {
 
-        $param = $rec["id_registro_por_concepto"];
+        $param = $rec["id_registro_concepto_e"];
         $_01 = $rec['cod_tipo_documento'];
         $_02 = $rec['num_documento'];
         $_03 = $rec['apellido_paterno'];
@@ -154,14 +185,14 @@ function listarRPC() {
 
         $opciones = null;
         if ($_07 == 1) {
-            $js = "javascript:editar_EstadoRPC('" . $param . "',0)";
+            $js = "javascript:editar_EstadoRPCE('" . $param . "',0)";
             $opciones = '<div id="divEliminar_Editar">
           <span  title="Activo" >
           <a href="' . $js . '" class="ui-icon ui-icon-circle-check" ></a>
           </span>
           </div>';
         } else if ($_07 == 0 || $_07 == null) {
-            $js = "javascript:editar_EstadoRPC('" . $param . "',1)";
+            $js = "javascript:editar_EstadoRPCE('" . $param . "',1)";
             $opciones = '<div id="divEliminar_Editar">
           <span  title="Inactivo"  >
           <a href="' . $js . '" class="ui-icon ui-icon-circle-close" ></a>
@@ -195,23 +226,24 @@ function listarRPC() {
     return $response;
 }
 
-function editRPC() {
+function editRPCE() {
     $id = $_REQUEST['id'];
     $valor = $_REQUEST['valor'];
 
-    $obj = new RegistroPorConcepto();
-    $obj->setId_registro_por_concepto($id);
+    $obj = new RegistroConceptoE();
+    $obj->setId_registro_concepto_e($id);
     $obj->setValor($valor);
 
-    $dao = new RegistroPorConceptoDao();
+    $dao = new RegistroConceptoEDao();
     return $dao->edit($obj);
 }
 
-function editEstadoRPC() {
-    $obj = new RegistroPorConcepto();
-    $obj->setId_registro_por_concepto($_REQUEST['id']);
+function editEstadoRPCE() {
+    $obj = new RegistroConceptoE();
+    $obj->setId_registro_concepto_e($_REQUEST['id']);
     $obj->setEstado($_REQUEST['estado']);
-    $dao = new RegistroPorConceptoDao();
+    $dao = new RegistroConceptoEDao();
+    //$dao = new RegistroPorConceptoDao();
     return $dao->edit_estado($obj);
 }
 

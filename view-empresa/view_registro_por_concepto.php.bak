@@ -1,8 +1,8 @@
-<?php 
-//session_start();
-//*******************************************************************//
-require_once('../view/ide.php');
-//*******************************************************************//
+<?php
+/*echo "<pre>";
+print_r($_REQUEST);
+echo "</pre>";
+*/
 ?>
 <script type="text/javascript">
     $(document).ready(function(){

@@ -1,6 +1,5 @@
 <?php
 $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
-$tipo_concepto = $_REQUEST['tipo_concepto'];
 ?>
 <form action="" method="get" name="nuevo_trabajador_rpc"  id="nuevo_trabajador_rpc" >
 

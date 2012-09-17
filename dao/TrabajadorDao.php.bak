@@ -837,7 +837,7 @@ class TrabajadorDao extends AbstractDao {
 //------------------------------------------------------------------------------
 
 // new 03/09/2012
-    function buscarTrabajador($num_documento, $cod_tipo_documento,$id_empleador) {
+    function buscarTrabajador($num_documento, $cod_tipo_documento) {
         
         $query ="
         SELECT 
@@ -847,17 +847,15 @@ class TrabajadorDao extends AbstractDao {
         INNER JOIN trabajadores AS t
         ON p.id_persona = t.id_persona
 
-        WHERE (p.num_documento = ? AND p.cod_tipo_documento = ?)
-        AND p.id_empleador = ?
-        
+        WHERE p.num_documento = ?
+        AND p.cod_tipo_documento = $cod_tipo_documento
         AND t.cod_situacion = 1
         ORDER BY id_trabajador DESC        
 ";
         
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $num_documento);
-        $stm->bindValue(2, $cod_tipo_documento);
-        $stm->bindValue(3, $id_empleador);
+        //$stm->bindValue(2, $cod_tipo_documento);
         $stm->execute();
         $data = $stm->fetchAll();
         return $data[0];

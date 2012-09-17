@@ -12,65 +12,65 @@ class PlameDao extends AbstractDao {
      * sunat proporciona el PLAME desde 2011-11-01 hasta hoy.
      */
     /*
-    public function listarTrabajadoresPorPeriodo($id_EM, $mes_inicio, $mes_fin) {
+      public function listarTrabajadoresPorPeriodo($id_EM, $mes_inicio, $mes_fin) {
 
-        $query = "		
-        SELECT 
-        -- detalle
-        p.id_persona,
-        t.cod_situacion,
-        p.cod_tipo_documento,
-        p.num_documento,
-        p.nombres,
-        p.apellido_materno,
-        p.apellido_paterno,
+      $query = "
+      SELECT
+      -- detalle
+      p.id_persona,
+      t.cod_situacion,
+      p.cod_tipo_documento,
+      p.num_documento,
+      p.nombres,
+      p.apellido_materno,
+      p.apellido_paterno,
 
-        -- detalle        
-        t.id_trabajador,
-	t.cod_periodo_remuneracion,
-	t.monto_remuneracion,    
-        
-        dpl.fecha_inicio,
-        dpl.fecha_fin
+      -- detalle
+      t.id_trabajador,
+      t.cod_periodo_remuneracion,
+      t.monto_remuneracion,
 
-        FROM personas AS p
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona
+      dpl.fecha_inicio,
+      dpl.fecha_fin
 
-        INNER JOIN empleadores_maestros AS em
-	ON p.id_empleador = em.id_empleador
+      FROM personas AS p
+      INNER JOIN trabajadores AS t
+      ON p.id_persona = t.id_persona
 
-	INNER JOIN detalle_periodos_laborales AS dpl
-	ON t.id_trabajador = dpl.id_trabajador
+      INNER JOIN empleadores_maestros AS em
+      ON p.id_empleador = em.id_empleador
 
-	-- 17 = No se inicio relacion laboral
-	WHERE ( dpl.cod_motivo_baja_registro <> '17' AND em.id_empleador_maestro = ? )
+      INNER JOIN detalle_periodos_laborales AS dpl
+      ON t.id_trabajador = dpl.id_trabajador
 
-	-- fecha periodo
-	AND (dpl.fecha_inicio <= ? )  -- >fin_periodo PRIMER FILTRO SI Aprueba estar en Perido 01/2012
-	AND (dpl.fecha_fin >= ? OR dpl.fecha_fin IS NULL )
-        
-        -- NO EXISTE QUINCENA THIS IS MONTH'S 
-        
-	ORDER BY t.id_trabajador,dpl.fecha_inicio DESC
-        
-	";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_EM);
-        $stm->bindValue(2, $mes_fin);
-        $stm->bindValue(3, $mes_inicio);
+      -- 17 = No se inicio relacion laboral
+      WHERE ( dpl.cod_motivo_baja_registro <> '17' AND em.id_empleador_maestro = ? )
 
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
+      -- fecha periodo
+      AND (dpl.fecha_inicio <= ? )  -- >fin_periodo PRIMER FILTRO SI Aprueba estar en Perido 01/2012
+      AND (dpl.fecha_fin >= ? OR dpl.fecha_fin IS NULL )
 
-        return $lista;
-    }
-*/
+      -- NO EXISTE QUINCENA THIS IS MONTH'S
+
+      ORDER BY t.id_trabajador,dpl.fecha_inicio DESC
+
+      ";
+      $stm = $this->pdo->prepare($query);
+      $stm->bindValue(1, $id_EM);
+      $stm->bindValue(2, $mes_fin);
+      $stm->bindValue(3, $mes_inicio);
+
+      $stm->execute();
+      $lista = $stm->fetchAll();
+      $stm = null;
+
+      return $lista;
+      }
+     */
 
     // ADELANTO QUINCENAL
     //before = listarTrabajadoresPorPeriodo_15 , 7
-    public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin,$WHERE=null/*, $cod_periodo_remuneracion*/) {
+    public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin, $WHERE = null/* , $cod_periodo_remuneracion */) {
 
         $query = "		
         SELECT 
@@ -120,7 +120,7 @@ class PlameDao extends AbstractDao {
         
 	";
         // --  NO TOMA EN CUENTA A TRABAJADORES POR [ AND t.cod_periodo_remuneracion = ? -- 2 = quincena
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_EM);
         $stm->bindValue(2, $mes_fin);
@@ -130,11 +130,58 @@ class PlameDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        /* echo "<pre>";
-          print_r($lista);
-          echo "</pre>";
-         */
         return $lista;
+    }
+
+    //new 10/09/2012
+    public function listarTrabajadorPeriodo($id_empleador_maestro, $id_trabajador) {
+
+        $query = "
+          SELECT
+        p.id_persona,
+        t.cod_situacion,
+        p.cod_tipo_documento,
+        p.num_documento,
+        p.nombres,
+        p.apellido_materno,
+        p.apellido_paterno,
+
+        -- detalle        
+        t.id_trabajador,
+	t.cod_periodo_remuneracion,
+	t.monto_remuneracion,    
+        
+        dpl.fecha_inicio,
+        dpl.fecha_fin,
+        -- centro costo
+        ecc.id_empresa_centro_costo,
+        ecc.descripcion
+
+        FROM personas AS p
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+        -- Centro costo
+	INNER JOIN empresa_centro_costo AS ecc
+	ON t.id_empresa_centro_costo = ecc.id_empresa_centro_costo        
+	-- Centro Costo
+        INNER JOIN empleadores_maestros AS em
+	ON p.id_empleador = em.id_empleador
+
+	INNER JOIN detalle_periodos_laborales AS dpl
+	ON t.id_trabajador = dpl.id_trabajador
+
+	-- 17 = No se inicio relacion laboral
+	WHERE ( dpl.cod_motivo_baja_registro <> '17' AND em.id_empleador_maestro = ? )
+	AND t.id_trabajador = ?           
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $id_trabajador);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0];
     }
 
     /*
@@ -144,7 +191,7 @@ class PlameDao extends AbstractDao {
      *  buscarPeriodosTrabajador_ID_persona:: Solo se utiliza para el PDT-PLAME =mensual
      */
 
-    public function buscarPeriodosTrabajador_ID_persona_MENSUAL($id_EM, $mes_inicio, $mes_fin,$ID_PERSONA) {
+    public function buscarPeriodosTrabajador_ID_persona_MENSUAL($id_EM, $mes_inicio, $mes_fin, $ID_PERSONA) {
 
         $query = "
         SELECT 
@@ -189,7 +236,7 @@ class PlameDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
- 
+
         return $lista;
     }
 

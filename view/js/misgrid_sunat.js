@@ -553,7 +553,7 @@ function bajaEstablecimiento(id){
             /*						multiselect: false,
                                     hiddengrid: true,*/
             onSelectRow: function(ids) {},
-            height:'100px',
+            height:340,
            // width:720
         });
         //--- PIE GRID

@@ -249,7 +249,7 @@ function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
         return $response;
     }
 //print_r($lista);
-    $conceptos_workers = array('0105', '0106', '0107', '0201', '0304','312','406','407','0604','0612', '0701', '0703', '0704', '0705', '0909');
+    $conceptos_workers = array('0105', '0106', '0107','0115', '0201', '0304'/*,'312','406'*/,'407','0604','0612', '0701', '0703', '0704', '0705', '0909');
 
     foreach ($lista as $rec) {
 

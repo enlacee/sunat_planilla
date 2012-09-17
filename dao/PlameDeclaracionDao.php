@@ -166,10 +166,12 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+
     /*
      * Lista 1 Declaracion y 2 etapas = 2quincenas
      */
-    public function listarDeclaracionEtapa($id_declaracion, $WHERE=null) {
+
+    public function listarDeclaracionEtapa($id_declaracion, $WHERE = null) {
         $query = "
         SELECT 
         -- pago
@@ -213,13 +215,13 @@ class PlameDeclaracionDao extends AbstractDao {
 
     //--------------------------------------------------------------------------//
     //--------------------------------------------------------------------------//
-/*
- * Primera 15CENA para concepto 0701 ADELANTO
- */
-    public function PrimerAdelantoMensual($ID_TRABAJADOR,$id_pdeclaracion){ 
-        
-       // PERIMERA QUINCENA  = 15
-        $query  ="
+    /*
+     * Primera 15CENA para concepto 0701 ADELANTO
+     */
+    public function PrimerAdelantoMensual($ID_TRABAJADOR, $id_pdeclaracion) {
+
+        // PERIMERA QUINCENA  = 15
+        $query = "
         SELECT 
         -- pago
         pg.id_pago,
@@ -244,19 +246,17 @@ class PlameDeclaracionDao extends AbstractDao {
             ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $ID_TRABAJADOR); 
+        $stm->bindValue(2, $ID_TRABAJADOR);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0]['sueldo'];
-        
-        
     }
-    
+
     //HERE consulta SUM para trabajadores_pdeclaraciones
-    
-    
-    
+
+
+
     public function buscar_ID($id_pdeclaracion) {
 
         $query = "
@@ -272,6 +272,28 @@ class PlameDeclaracionDao extends AbstractDao {
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista[0];
+    }
+
+    public function Buscar_IDPeriodo($id_empleador_maestro,$periodo) {
+        $query = "
+        SELECT
+        id_pdeclaracion,
+        id_empleador_maestro,
+        periodo,
+        fecha_creacion,
+        fecha_modificacion
+        FROM pdeclaraciones
+        WHERE (id_empleador_maestro = ? AND periodo = ? ) 
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $periodo);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;

@@ -18,21 +18,19 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $sueldo) {
 //| gra = gratificacio-+
 //| 
 //| ----------------------------------------------------
-
     //echo "<pre> INGRESOS AFECTOS 5TA";
     //$d = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador, $conceptos_afectos5ta);
     //print_r($d);
     //echo "</pre>";
-    
 // 01 remuneracion fija
-    $r_fija = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador);//$sueldo; //2000;
-    echo "R_FIJA= ".$r_fija;
+    $r_fija = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador); //$sueldo; //2000;
+    echo "R_FIJA= " . $r_fija;
 // 02 num_meses que falta
     $num_mes_faltan = get_IR5_mesFaltan($periodo);
-    
+
 // 03 remuneracion proyectada
     $r_proyectada = $r_fija * $num_mes_faltan;
-    echo "R_PROYECTADA = ".$r_proyectada;
+    echo "R_PROYECTADA = " . $r_proyectada;
 // 04 gratificacion
     $var_jul_dic = get_IR5_NumGratificaciones($periodo);
     $grat_julio_dic = $r_fija * $var_jul_dic;
@@ -72,8 +70,6 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
     $anio = date("Y", strtotime($periodo));
     $dia = date("d", strtotime($periodo));
 
-    // num_mes = 2  =febrero
-    // 01 Listado de declaracion por Anio
     $dao_pd = new PlameDeclaracionDao();
     $data_pd = $dao_pd->listar(ID_EMPLEADOR_MAESTRO, $anio);
     //echo "MES PERIODO = ==== " . $periodo;
@@ -82,8 +78,9 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
     $conceptos_afectos = arrayConceptosAfectos_5ta();
 //..............................................................................    
 // -- -- - -- -IMPORTANTE LISTA TODOS LOS CONCEPTOS EN BASE DE DATOS - -- - - -//
-    $dao_dconcepto = new DeclaracionDconceptoDao();
+    
 
+    $dao_dconcepto = new DeclaracionDconceptoDao();
     $sum_jbasico = 0;
     for ($i = ($mes - 1); $i > 0; $i--) {
 
@@ -101,53 +98,44 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
                 $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion_lab);
                 for ($z = 0; $z < count($data_dconcepto); $z++) {
                     if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
-                        //echo "afeccctooooo = ".$data_dconcepto[$z]['cod_detalle_concepto'];
-                        //echo "afeccct monto_pagado = ".$data_dconcepto[$z]['monto_pagado'];
+
                         $sum_jbasico = $sum_jbasico + $data_dconcepto[$z]['monto_pagado'];
-                        //$ID_DCEM = $dao->registrar($id_empleador_maestro, $d_detalle_concepto[$i]['cod_detalle_concepto'], '1');
                     }
                 }
             }
         }
-        //echo "OKKsum_jbasico $i= " . $sum_jbasico;
-        //echo "periodo_lab = " . $periodo_lab;
         //$sum_jbasico =
     }
 
-    //echo "sum_jbasico = " . $sum_jbasico;
 
     return $sum_jbasico;
 }
 
-
-
 // Get all ingresos 
 function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador) {
-    
+
     $conceptos_afectos5ta = arrayConceptosAfectos_a('10');
-    
+
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-    
+
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos5ta)) {
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
-            
         }
     }
     return $sum;
 }
 
-
 // Get all ingresos 
 function get_SNP_Ingresos($id_pdeclaracion, $id_trabajador) {
-    
+
     $conceptos_afectos = arrayConceptosAfectos_a('08');
-    
+
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-    
+
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
@@ -159,12 +147,12 @@ function get_SNP_Ingresos($id_pdeclaracion, $id_trabajador) {
 
 // Get all ingresos 
 function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
-    
+
     $conceptos_afectos = arrayConceptosAfectos_a('09');
-    
+
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-    
+
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
@@ -173,17 +161,15 @@ function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
     }
     return $sum;
 }
-
-
 
 // Get all ingresos 
 function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
-    
+
     $conceptos_afectos = arrayConceptosAfectos_a('01');
-    
+
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-    
+
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
@@ -192,9 +178,6 @@ function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
     }
     return $sum;
 }
-
-
-
 
 /**
  *
@@ -210,9 +193,9 @@ function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
 function arrayConceptosAfectos_a($cod_afectacion) {
 
 //..............................................................................
-    $dao_afecto = new PlameDetalleConceptoAfectacionDao();    
+    $dao_afecto = new PlameDetalleConceptoAfectacionDao();
     $data_afecto = $dao_afecto->conceptosAfecto_a($cod_afectacion);
-    
+
     $conceptos_afectos = array();
     for ($x = 0; $x < count($data_afecto); $x++) {
         $conceptos_afectos[] = $data_afecto[$x]['cod_detalle_concepto'];
@@ -220,6 +203,7 @@ function arrayConceptosAfectos_a($cod_afectacion) {
 //..............................................................................   
     return $conceptos_afectos;
 }
+
 //------------------------------------------------------------------------------
 
 function listaPdeclaraciones() {

@@ -319,7 +319,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 //----------------------------------------------------------------------------//
 // view-plame 27/08/2012
 
-    public function view_listarConcepto($id_empleador_maestro, $cod_concepto, $seleccionado) {
+    public function view_listarConcepto($id_empleador_maestro, $cod_concepto, $seleccionado=1) {
 
         if (is_array($cod_concepto) && count($cod_concepto) >= 1) {
             $sql = " ";

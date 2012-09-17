@@ -183,12 +183,12 @@ class TrabajadorDao extends AbstractDao {
 		p.sexo,
 		-- t.cod_situacion,
 		s.descripcion_abreviada AS estado,
-                t.estado  AS reporte,
+                t.estado  AS reporte/*,
 		
 		IF (p.tabla_trabajador = 1,'TRA','0') AS categoria_1,
 		IF (p.tabla_pensionista = 1,'PEN','0') AS categoria_2,
 		IF (p.tabla_personal_formacion_laboral = 1,'PFOR','0') AS categoria_3,
-		IF (p.tabla_personal_terceros = 1,'PTER','0') AS categoria_4	
+		IF (p.tabla_personal_terceros = 1,'PTER','0') AS categoria_4*/	
 		
         FROM personas AS p        
         INNER JOIN tipos_documentos AS td

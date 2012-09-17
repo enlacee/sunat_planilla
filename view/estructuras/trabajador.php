@@ -120,7 +120,7 @@ require_once('../ide2.php');
 
             ],
             pager: '#pager-1',
-			height:'200px',
+			height:380,
             //width:'800px',
             //autowidth: true,
             rowNum:10,
@@ -377,7 +377,8 @@ if(news.length > 0){
             pager: '#pager-2',
             //autowidth: true,
 			//width: '',
-			heigth:'200px',
+			height: 380,
+	
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_trabajador',

@@ -251,7 +251,7 @@
 
             ],
             pager: '#pager',
-			height:'250px',
+			height:'280px',
             width:'100px',
             //autowidth: true,
             rowNum:12,
@@ -356,9 +356,9 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 				if(data=='true'){
 					//cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
 					alert("Se registro correctamente el Periodo");
-					//javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
+					javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
 				}else if(data =='false'){
-					alert("FALSE Periodo Ya se encuentra Registrado!\n O no existe ningun trabajador en el periodo: ."+input_inicio.value);
+					alert("Periodo ya se encuentra Registrado!\nO no existe ningun trabajador en el periodo: ."+input_inicio.value);
 				}
 				
 				
@@ -1006,7 +1006,7 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				url += "&id_etapa_pago="+id_etapa_pago;
 				url += "&id_establecimientos="+id[0];
 				url += "&cboCentroCosto="+cboCentroCosto;
-				alert(url);
+				//alert(url);
 		
 				window.location.href = url;
 
@@ -1036,16 +1036,17 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 'AMaterno', 'Nombres','dias.','Ingresos','Descto.','Neto Pagar','Estado'],
             colModel :[
                 {
-                    name:'id_pago', 
+                    name:'id_trabajador', 
                     editable:false, 
-                    index:'id_pago',
+                    index:'id_trabajador',
                     search:false,
                     width:20,
                     align:'center'
                 },		
                 {
                     name:'cod_tipo_documento',
-                    index:'cod_tipo_documento',
+                    index:'cod_tipo_documento',					
+					sortable: false,
                     search:false, 
                     editable:false,
                     width:70, 
@@ -1054,6 +1055,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'num_documento', 
                     index:'num_documento',
+					sortable: false,
                     search:false,
                     editable:false,
                     width:90,
@@ -1062,6 +1064,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
+					sortable: fale,
                     editable:false,
                     width:80,
                     align:'center'
@@ -1069,6 +1072,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
+					sortable: false,
                     editable:false,
                     width:90,
                     align:'center'
@@ -1076,6 +1080,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'nombres', 
                     index:'nombres',
+					sortable: false,
                     editable:false,
                     width:90,
                     align:'center'
@@ -1084,6 +1089,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                     name:'dias',
                     index:'dias',
                     search:false,
+					sortable: false,
                     editable:false,
                     width:60,
                     align:'center'
@@ -1092,6 +1098,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'valor',
                     index:'valor',
+					sortable: false,
                     search:false,
                     editable:false,
                     width:60,
@@ -1100,6 +1107,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 				{
                     name:'descuento',
                     index:'descuento',
+					sortable: false,
                     search:false,
                     editable:false,
                     width:60,
@@ -1108,6 +1116,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'neto_pagar',
                     index:'neto_pagar',
+					sortable: false,
                     search:false,
                     editable:false,
                     width:60,
@@ -1116,8 +1125,8 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                 {
                     name:'estado',
                     index:'estado',
-                    search:false,
-                    editable:false,
+					sortable:false,
+                    search:false,                    
                     width:60,
                     align:'center'
                 }	
@@ -1127,7 +1136,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 			height:30,
             //rowNum:9,
             //rowList:[15,30,45],
-            //sortname: 'id_pago',
+            sortname: 'id_trabajador',
             //sortorder: 'asc',
             viewrecords: true,
             gridview: true,
@@ -1833,3 +1842,101 @@ if(bandera){
 }
 
 }
+
+
+
+
+//planilla vaciones 12/09/2012
+function crearDialogoVacacion(){
+
+	$("#dialog_view_vacacion").dialog({ 
+           
+			autoOpen: false,
+			height: 400,
+			width: 540,
+			modal: true,
+           /*             
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {	
+				
+					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php	
+					var form = $("#nuevo_trabajador_rpc");
+					//var estado_form = validarNewRPC(form); //$("#form_direccion").valid();
+					
+					if(estado_form){
+	
+						var from_data =  form.serialize();						
+						//---------------------------
+						$.getJSON(
+							'sunat_planilla/controller/RegistroPorConceptoController.php?'+from_data,
+							function(data){
+								if(data.estado){									
+									alert("Se Registro Correctamente.");	
+									$("#dialog_new_trabajador_rpc").dialog('close');
+									jQuery("#list").trigger("reloadGrid");
+								}else{
+                                    alert(data.mensaje);	
+								}
+							}
+						);	
+						//---------------------------			
+						
+					}//ENDIF
+				
+									
+				}
+                                
+			},*/
+			open: function() {},
+			close: function() {}
+	});
+}
+
+
+
+function verVacacion(id,name){
+	crearDialogoVacacion();	
+$.ajax({
+   type: "POST",
+   url: "sunat_planilla/view-empresa/modal/view_vacaciones.php",
+   data: {id_trabajador:id,name :name },//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(datos){
+    $('#view_vacacion').html(datos);
+    
+    $('#dialog_view_vacacion').dialog('open');
+   }
+   }); 
+	
+
+}
+
+//--------------------------
+function guardarVacacionProgramada(){
+	var id_trabajador = document.getElementById('id_trabajador').value;
+	var fv_calculado = document.getElementById('fv_calculado').value;
+	var fv_programado = document.getElementById('fv_programado').value;
+	
+$.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/VacacionController.php",
+   data: {
+	   oper : 'add',
+	   id_trabajador : id_trabajador,
+	   fv_calculado : fv_calculado,
+	   fv_programado: fv_programado
+	    },//Enviando a ediatarProducto.php vareiable=id_producto
+   async:true,
+   success: function(data){
+	   alert("Se Registro Correctamente.");
+	   $('#dialog_view_vacacion').dialog('close');
+	   jQuery("#list").trigger("reloadGrid");
+   }
+   }); 
+
+}
+
+

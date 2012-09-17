@@ -71,7 +71,7 @@ alert(".... __ ---");
 </script>
 <div style="width:700px; height:auto; overflow:hidden; border:1px solid red">
 
-<table width="670" border="1">
+<table width="670" border="1" class="tabla_gris">
   <tr>
     <td width="252">Codigo</td>
     <td width="408">Descripcion</td>
@@ -103,7 +103,7 @@ value="<?php echo $cod_concepto; ?>"/>
 
 <input type="text" name="cod_concepto" value="<?php echo $cod_concepto; ?>" />
 <div id="view_detalle_concepto" style="height:200px; overflow:scroll;">
-  <table width="670" border="1">
+  <table width="670" border="1" class="tabla_gris">
     <tr>
       <td width="45">Codigo</td>
       <td width="320">Descripcion</td>

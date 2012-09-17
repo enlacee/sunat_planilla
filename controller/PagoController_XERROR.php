@@ -305,12 +305,12 @@ function cargar_tabla_grid_lineal() {
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
 
-        // $js2 = "javascript:eliminarPersona('" . $param . "')";       
-        $opciones = '<div id="divEliminar_Editar">              
-        <span  title="Editar" >
-        <a href="' . $js . '"><img src="images/edit.png"/></a>
-        </span>
-        </div>';
+        // $js2 = "javascript:eliminarPersona('" . $param . "')";		
+        $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar" >
+		<a href="' . $js . '"><img src="images/edit.png"/></a>
+		</span>
+		</div>';
 
         //hereee
         $response->rows[$i]['id'] = $param;
@@ -724,7 +724,7 @@ function generarRecibo15_txt() {
             }
 
             if ($bandera_1/* $est[$i]['id_establecimiento'] == $master_est  || $cubo_est == "todo" */) {
-                $SUM_TOTAL_EST[$i]['monto'] = 0;
+                $SUM_TOTAL_EST[$i]['monto'] = 0.00;
                 //Establecimiento direccion Reniec
                 $data_est_direc = $dao_estd->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']/* $id_establecimiento */);
 
@@ -745,9 +745,9 @@ function generarRecibo15_txt() {
 
                     if ($bandera_2/* $ecc[$j]['id_empresa_centro_costo'] == $master_cc  || $cubo_cc = "todo" */) {
 
-                        $SUM_TOTAL_CC[$i][$j]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
+                        $SUM_TOTAL_CC[$i][$j]['establecimiento'] = strtoupper($data_est_direc['ubigeo_distrito']);
                         $SUM_TOTAL_CC[$i][$j]['centro_costo'] = strtoupper($ecc[$j]['descripcion']);
-                        $SUM_TOTAL_CC[$i][$j]['monto'] = 0;
+                        $SUM_TOTAL_CC[$i][$j]['monto'] = 0.00;
 
                         //var_dump($ecc);
                         //$daoed = new EstablecimientoDireccionDao();
@@ -757,7 +757,7 @@ function generarRecibo15_txt() {
 
 
 
-                        //fwrite($fp, $LINEA);
+                        fwrite($fp, $LINEA);
                         fwrite($fp, $BREAK);
                         fwrite($fp, NAME_EMPRESA);
                         //$worksheet->write(($row + 1), ($col + 1), NAME_EMPRESA);
@@ -775,22 +775,12 @@ function generarRecibo15_txt() {
                         fwrite($fp, str_pad("1RA QUINCENA", 80, " ", STR_PAD_BOTH));
                         fwrite($fp, $BREAK);
 
-                        fwrite($fp, str_pad("PLANILLA DEL MES DE " . strtoupper($nombre_mes) . " DEL " . $anio, 80, " ", STR_PAD_BOTH));
-                        fwrite($fp, $BREAK);
-                        fwrite($fp, $BREAK);
-
-                        fwrite($fp, "LOCALIDAD : " . $data_est_direc['ubigeo_distrito']);
+                        fwrite($fp, str_pad("PLANILLA DEL MES DE " . strtoupper($nombre_mes) . " DEL " . $anio, 80, "-", STR_PAD_BOTH));
                         fwrite($fp, $BREAK);
                         fwrite($fp, $BREAK);
                         
-                        fwrite($fp, "CENTRO DE COSTO : " . strtoupper($ecc[$j]['descripcion']));
-                        fwrite($fp, $BREAK);
-                        fwrite($fp, $BREAK);
-                        //$worksheet->write($row, $col, "##################################################");
-
-
                         $cabecera_1 = str_pad("N ", 4, " ", STR_PAD_LEFT);
-                        $cabecera_2 = str_pad("DNI", 12, " ", STR_PAD_RIGHT);
+                        $cabecera_2 = str_pad("DNI", 11, " ", STR_PAD_RIGHT);
                         $cabecera_3 = str_pad("APELLIDOS Y NOMBRES", 40, " ", STR_PAD_RIGHT);
                         $cabecera_4 = str_pad("IMPORTE", 9, " ", STR_PAD_RIGHT);
                         $cabecera_5 = str_pad("FIRMA", 15, " ", STR_PAD_RIGHT);
@@ -806,7 +796,21 @@ function generarRecibo15_txt() {
                         fwrite($fp, $cabecera_5);
                         fwrite($fp, $BREAK);
                         fwrite($fp, $LINEA);
+                        fwrite($fp, $BREAK);                        
+                        
+                        
+                        
+
+                        fwrite($fp, "LOCALIDAD : " . $data_est_direc['ubigeo_distrito']);
                         fwrite($fp, $BREAK);
+                        fwrite($fp, $BREAK);
+                        
+                        fwrite($fp, "CENTRO DE COSTO : " . strtoupper($ecc[$j]['descripcion']));
+                        fwrite($fp, $BREAK);
+                        fwrite($fp, $BREAK);
+                        //$worksheet->write($row, $col, "##################################################");
+
+
 
                         // LISTA DE TRABAJADORES
                         $data_tra = array();
@@ -817,7 +821,12 @@ function generarRecibo15_txt() {
                          */
 
 
-
+                        if(count($data_tra)<=0){
+                            $mensaje = str_pad("NO SE ENCONTRARON TRABAJADORES !", 40, " ", STR_PAD_RIGHT);
+                            fwrite($fp, $BREAK);
+                            fwrite($fp, $mensaje);
+                            fwrite($fp, $BREAK);
+                        }
                         for ($k = 0; $k < count($data_tra); $k++) {
 
 //..............................................................................
@@ -862,7 +871,7 @@ function generarRecibo15_txt() {
                         //fwrite($fp, $LINEA);
                         fwrite($fp, $LINEA);
                         fwrite($fp, $BREAK);
-                        fwrite($fp, str_pad("TOTAL " . $SUM_TOTAL_CC[$i][$j]['centro_costo']." ".$SUM_TOTAL_EST[$i]['establecimiento'], 56, " ", STR_PAD_RIGHT));
+                        fwrite($fp, str_pad("TOTAL " . $SUM_TOTAL_CC[$i][$j]['centro_costo']." ".$SUM_TOTAL_EST[$i]['establecimiento'], 60, " ", STR_PAD_RIGHT));
                         fwrite($fp, number_format($SUM_TOTAL_CC[$i][$j]['monto'],2));
                         fwrite($fp, $BREAK);
                         fwrite($fp, $LINEA);
@@ -890,7 +899,7 @@ function generarRecibo15_txt() {
                 fwrite($fp, number_format($SUM, 2));
 */
 
-                fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
+                //fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
                 //fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK . $BREAK);
             }
         }//END FOR Est

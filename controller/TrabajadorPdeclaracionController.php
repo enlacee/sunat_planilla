@@ -317,7 +317,6 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
           
           //   Configurar sueldo Automatico
           //
-          //
           $data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
           //
           //
@@ -341,7 +340,8 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
           $obj->setCod_situacion($DATA_TRA['cod_situacion']);
 
           $id_trabajador_pdeclaracion = $dao->registrar($obj);
-/*          
+// --- Comment end 
+        
 //....................................................................//
           // paso 03 :: Consultar Conceptos
           // INGRESOS
@@ -486,8 +486,10 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         ECHO "entro a  fUNCION gratificaccion de JULIO Y DICIEMBRE";
         concepto_28_Navidad_LEY_29351($id_trabajador_pdeclaracion, $ID_PDECLARACION, $ID_TRABAJADOR[$i], $data_sum['sueldo']);
 
-*/
-        ECHO "\nREMUNERACION VACACIONAL  0118" ;
+
+// --- Comment end 
+
+        ECHO "\n\n\nREMUNERACION VACACIONAL  0118" ;
 
         concepto_0118($id_trabajador_pdeclaracion, $ID_PDECLARACION, $ID_TRABAJADOR[$i], $data_sum['sueldo']);
 
@@ -599,6 +601,11 @@ function concepto_0118($id, $id_pdeclaracion, $id_trabajador, $sueldo) {
 
     //__ 00 Listar Vacacion Trabajador
     $dao_vac = new VacacionDao();
+    
+    echo "\nid_trabajador = ".$id_trabajador;
+    echo "\nanio_periodo = ".$anio_periodo;
+    echo "\n";
+    
     $data_vacacion = $dao_vac->fechaVacacionProgramada($id_trabajador, $anio_periodo);
 
     var_dump($data_vacacion);
@@ -606,13 +613,41 @@ function concepto_0118($id, $id_pdeclaracion, $id_trabajador, $sueldo) {
     echo "entrara a iff..";
 
     if (is_array($data_vacacion)) {
-
-        if (isset($data_vacacion['fecha_programada'])) {
-
+        
+        //--------------------------------------------
+        // - Condicion de Lapso valido de 11 meses. para Establecer Vacaciones
+        // - Xq si pasa los 12 meses Se le pagaria indemnizacion.        
+        //--------------------------------------------
+        //variable fecha mas 11 mes
+        $fecha_max_vacacion_programada = crearFecha($data_vacacion['fecha'], 0, 11, 0);
+        
+        /*if( $data_vacacion['fecha_programada']<=$fecha_max_vacacion_programada ){             
+        }*/
+        
+        
+        
+        echo "\nF.PROGRAMADA = ".$data_vacacion['fecha_programada'];
+        echo "\nfecha_max_vacacion_programada =".$fecha_max_vacacion_programada; 
+        
+        //fecha programada  ES MENOR O IGUAL  :fecha_calc + 11 meses    //OK
+        //:: Validar Tambien Con Javascript......................................................................................
+        if ($data_vacacion['fecha_programada'] <= $fecha_max_vacacion_programada /*isset($data_vacacion['fecha_programada'])*/) {
+            echo "entro condicion 0000 1\n";
             $anio_vacacion = getFechaPatron($data_vacacion['fecha_programada'], "Y");
             $mes_vacacion = getFechaPatron($data_vacacion['fecha_programada'], "m");
-
+            
+            
+            
+            echo "anio_vacacion =$anio_vacacion\n";
+            echo "anio_periodo =$anio_periodo\n\n\n\n";
+            
+            echo "mes_vacacion =$mes_vacacion\n";
+            echo "mes_periodo =$mes_periodo\n\n\n\n";
+            
+            
+            
             if (($anio_vacacion == $anio_periodo) && ($mes_vacacion == $mes_periodo)) {
+                echo "\n\n\n\n\n Vacacion se Dara Correctamente en el mes y anio Correcto INSERT\n";
                 //---
                 $model = new DeclaracionDconcepto();
                 $model->setId_trabajador_pdeclaracion($id);
@@ -624,7 +659,20 @@ function concepto_0118($id, $id_pdeclaracion, $id_trabajador, $sueldo) {
                 $dao->registrar($model);
                 //---
             }
+            
+            
+        }else if($data_vacacion['fecha_programada'] > $fecha_max_vacacion_programada){
+            
+            $rpta->mensaje = "fecha Programada, No puede ser Mayor A la Fecha de mas 11 meses.\n"; 
+            echo "fecha Programada, No puede ser Mayor A la Fecha de mas 11 meses.";
+        }else{
+            $rpta->mensaje = "Error Critico";
+            echo "Error Critico";
         }
+            
+        
+        
+        
     }
     
     
@@ -1218,6 +1266,7 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
 function sueldoDefault($sueldo) {
     $sueldo = floatval($sueldo);
     $new_sueldo = 0.00;
+    echo "\n:::".$sueldo ." - ".SB."::::\n";
     if ($sueldo < SB) {
         $new_sueldo = SB;
     } else {

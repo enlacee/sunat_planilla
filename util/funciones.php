@@ -325,7 +325,7 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
 
 
 
-//$fecha ="2005-02-01";
+//$fecha ="2012-02-01";
 
 //echo "ddddddddddddddddddddd = ".crearFecha($fecha,365,0,0);
 
@@ -336,6 +336,10 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
   //$num_0 = ($biciesto_0==1) ? 1 : 0; 
   
   
+//echo "\nantes ".$fecha;
+//echo "<br>";
+//echo "\ndespues : ";
+//  print_r(crearFecha($fecha, 0, 11, 0));
 
 
  

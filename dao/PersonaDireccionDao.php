@@ -157,8 +157,14 @@ class PersonaDireccionDao extends AbstractDao {
         return true;
     }
 
-    public function listarPersonaDirecciones($id_persona, $WHERE, $start, $limit, $sidx, $sord) {
-
+    public function listarPersonaDirecciones($id_persona, $WHERE=null, $start=null, $limit=null, $sidx=null, $sord=null) {
+        
+        $cadena = null;
+        if(is_null($WHERE)){
+           $cadena = $WHERE;
+        }else{
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
         // $query = "SELECT *FROM personas $WHERE  ORDER BY $sidx $sord LIMIT $start $limit";
 
         $query = "
@@ -209,7 +215,7 @@ class PersonaDireccionDao extends AbstractDao {
 		ON pd.cod_zona = z.cod_zona
 		
 		WHERE p.id_persona = ?        
-		$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit
+		$cadena
 	 
         ";
         // echo $query;

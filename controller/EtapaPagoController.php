@@ -443,10 +443,11 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
             echo "</pre>";
             $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
 
-            $numero = number_format($dataxx, 3);
+            $numero = number_format($dataxx, 2);
 //----------------------------------------------------------------------------------------
             //-- Datos basicos --                       
             $SUELDO = $data_tra[$i]['monto_remuneracion'];
+            ECHO "\n\n\n\nSUELDO DB =". $SUELDO;
 
             // 1 Quincena
             if (getFechaPatron($FECHA_INICIO, "d") == '01' || getFechaPatron($FECHA_INICIO, "d") == '1') {
@@ -461,6 +462,8 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
                     $SUELDO_CAL = $SUELDO * (50 / 100); // 50%
                     $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
                 }
+                
+                ECHO "\nMONTO A PAGAR ES = ".$SUELDO_CAL;
             } else {// 2 QUINCENA HAY DESCUENTO
                 echo "ENTROOO EN segundaA quincena";
                 $percent = ($numero) ? $numero : 0;

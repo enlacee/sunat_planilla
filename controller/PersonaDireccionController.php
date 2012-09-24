@@ -272,26 +272,26 @@ function cargar_tabla($id_persona) {
         //---------------Inicio Cadena String----------//
         $cadena = '';
 
-        $cadena .= ($ubigeo_nombre_via != "-") ? $ubigeo_nombre_via : '';
-        $cadena .= (!empty($nombre_via)) ? $nombre_via : '';
-        $cadena .= (!empty($numero_via)) ? $numero_via : '';
+        $cadena .= ($ubigeo_nombre_via != "-") ? " ".$ubigeo_nombre_via : '';
+        $cadena .= (!empty($nombre_via)) ? " ".$nombre_via : '';
+        $cadena .= (!empty($numero_via)) ? " ".$numero_via : '';
 
         $cadena .= ($ubigeo_nombre_zona != "-") ? $ubigeo_nombre_zona : '';
-        $cadena .= (!empty($nombre_zona)) ? $nombre_zona : '';
-        $cadena .= (!empty($etapa)) ? $etapa : '';
+        $cadena .= (!empty($nombre_zona)) ? " ".$nombre_zona : '';
+        $cadena .= (!empty($etapa)) ? " ".$etapa : '';
 
-        $cadena .= (!empty($manzana)) ? 'MZA. ' . $manzana : '';
-        $cadena .= (!empty($blok)) ? $blok : '';
-        $cadena .= (!empty($etapa)) ? $etapa : '';
-        $cadena .= (!empty($lote)) ? 'LOTE. ' . $lote : '';
+        $cadena .= (!empty($manzana)) ? ' MZA. ' . $manzana : '';
+        $cadena .= (!empty($blok)) ? " ".$blok : '';
+        $cadena .= (!empty($etapa)) ? " ".$etapa : '';
+        $cadena .= (!empty($lote)) ? ' LOTE. ' . $lote : '';
 
-        $cadena .= (!empty($departamento)) ? $departamento : '';
-        $cadena .= (!empty($interior)) ? $interior : '';
-        $cadena .= (!empty($kilometro)) ? $kilometro : '';
+        $cadena .= (!empty($departamento)) ? " ".$departamento : '';
+        $cadena .= (!empty($interior)) ? " ".$interior : '';
+        $cadena .= (!empty($kilometro)) ? " ".$kilometro : '';
 
-        $cadena .= ($ubigeo_departamento != "-") ? $ubigeo_departamento."-" : '';
-        $cadena .= ($ubigeo_provincia != "-") ? $ubigeo_provincia."-" : '';
-        $cadena .= ($ubigeo_distrito != "-") ? $ubigeo_distrito : '';
+        $cadena .= ($ubigeo_departamento != "-") ? " ".$ubigeo_departamento."-" : '';
+        $cadena .= ($ubigeo_provincia != "-") ? " ".$ubigeo_provincia."-" : '';
+        $cadena .= ($ubigeo_distrito != "-") ? " ".$ubigeo_distrito : '';
 
         $cadena = strtoupper($cadena);
 

@@ -134,7 +134,7 @@ function del() {
 //------------------------------------------------------------------------------
 // AFP
 
-
+/* FUCK NO SIRVE REMPLAZADO POR DAO.
 function vigenteAfp($id) {
 
     $dao = new ConfAfpDao();
@@ -151,7 +151,7 @@ function vigenteAfp($id) {
     
     return $model;
 }
-
+*/
 
 
 

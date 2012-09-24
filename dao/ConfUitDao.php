@@ -74,23 +74,6 @@ class ConfUitDao extends AbstractDao {
         return $lista;
     }
     
-    //vigente a la fecha
-    public function vigente(){
-       $query = "
-        SELECT
-        id_conf_uit,
-        valor,
-        fecha        
-        FROM conf_uit
-        ORDER BY fecha DESC        
-";
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0]['valor']; 
-        
-    }
     
         public function vigenteAux($periodo){
        $query = "

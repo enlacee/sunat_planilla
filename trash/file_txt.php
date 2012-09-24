@@ -1,6 +1,8 @@
 <?php
+header("Content-Type:text/html; charset=iso-8859-1");
+//header("Content-Type:text/html; charset=utf-8"); 
 
-$archivo = "kardexvalorizado.txt";
+$archivo = "demo_txt.txt";
 $fp = fopen($archivo, "w+");
 
 $cab_uno = chr(15);
@@ -74,25 +76,53 @@ fwrite($fp, str_pad("-", 300));
 
 $sim_line=str_repeat('-',80);
 $dob_line=str_repeat('=',80);
-
 fwrite($fp, chr(13) . chr(10));
-fwrite($fp,"anibaalaaalallal");
 fwrite($fp, chr(13) . chr(10));
-fwrite($fp, $sim_line);
+fwrite($fp, str_pad("FECHA : ", 47, " ", STR_PAD_LEFT));
 fwrite($fp, chr(13) . chr(10));
 fwrite($fp, $dob_line);
+fwrite($fp, chr(13) . chr(10));
+fwrite($fp, chr(13) . chr(10));
+
+// 81 columnas
+
+fwrite($fp, chr(13) . chr(10));
+fwrite($fp,  "81 COLUMNAS");
+fwrite($fp,  str_repeat("Í",81));
+fwrite($fp, chr(13) . chr(10));
+fwrite($fp, chr(13) . chr(10));
+
+// 137 columnas
+fwrite($fp, $dob_line);
+fwrite($fp, chr(13) . chr(10));
+fwrite($fp,  "137 COLUMNAS");
+fwrite($fp, chr(13) . chr(10));
+
+fwrite($fp,  str_repeat("È",1));
+fwrite($fp,  str_repeat("Í",135));
+fwrite($fp,  str_repeat("¼",1));
+
+for($i=0;$i<3;$i++){
+    fwrite($fp, chr(13) . chr(10));
+    fwrite($fp, "º");
+}
+fwrite($fp, chr(13) . chr(10));
+fwrite($fp,  str_repeat("Í",137));
+for($i=0;$i<3;$i++){
+    fwrite($fp, chr(13) . chr(10));
+    fwrite($fp, "*");
+}
+fwrite($fp, chr(13) . chr(10));
 
 
 
-//$fp_line = str_pad($fecha2, 10) . str_pad($cv, 91) . str_pad(number_format($can, 2, ".", ","), 11, " ", STR_PAD_LEFT) . str_pad(number_format($pre, 4, ".", ","), 9, " ", STR_PAD_LEFT) . str_pad(number_format($tot, 2, ".", ","), 11, " ", STR_PAD_LEFT);
 
 
 
-
-
-
+// ----------
 
 
 
 fclose($fp);
+
 ?>

@@ -71,7 +71,7 @@ function getNameMonth($num) {
         "Diciembre"
     );
     $num = intval($num);
-    return $mes[$num - 1];
+    return strtoupper($mes[$num - 1]);
 }
 
 //------------------------------------------------------------------------------
@@ -194,7 +194,8 @@ function getMesInicioYfin($fecha) {
 
 // 01 ADICIONAL
 function getRangoJulio($anio = 1988) {
-
+    //gratificacion para diciembre se toma en cuenta:
+    // ENERO A JUNIO
     $inicio = $anio . "-01-01";
     $data = getMesInicioYfin($anio . "-06-01"); // antes de Julio Ok!..
 
@@ -208,8 +209,12 @@ function getRangoJulio($anio = 1988) {
 //var_dump(getMesRangoDiciembre("2011"));
 
 function getRangoDiciembre($anio = 1988) {
+    //gratificacion para diciembre se toma en cuenta:
+    // JULIO A DICIEMBRE
+    // inicio = 2012-07-01 
+    // fin = 2012-11-30
 
-    $inicio = $anio . "-01-01";
+    $inicio = $anio . "-07-01";
     $data = getMesInicioYfin($anio . "-11-01"); // antes de Dicimenbre OK!
 
     $arreglo = array();

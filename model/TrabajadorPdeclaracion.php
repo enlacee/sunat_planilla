@@ -25,6 +25,8 @@ class TrabajadorPdeclaracion extends AbstractDao {
     private $cod_regimen_pensionario;
     private $cod_regimen_aseguramiento_salud;
     private $cod_situacion;
+    private $id_empresa_centro_costo;
+    private $cod_ocupacion_p;
 
     function __construct() {
         $this->id_trabajador_pdeclaracion = null;
@@ -48,8 +50,9 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->cod_regimen_pensionario=null;
         $this->cod_regimen_aseguramiento_salud=null;
         $this->cod_situacion=null;
+         $this->id_empresa_centro_costo=null;
+         $this->cod_ocupacion_p=null;        
     }
-
     public function getId_trabajador_pdeclaracion() {
         return $this->id_trabajador_pdeclaracion;
     }
@@ -210,7 +213,23 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->cod_situacion = $cod_situacion;
     }
 
- 
+    public function getId_empresa_centro_costo() {
+        return $this->id_empresa_centro_costo;
+    }
+
+    public function setId_empresa_centro_costo($id_empresa_centro_costo) {
+        $this->id_empresa_centro_costo = $id_empresa_centro_costo;
+    }
+
+    public function getCod_ocupacion_p() {
+        return $this->cod_ocupacion_p;
+    }
+
+    public function setCod_ocupacion_p($cod_ocupacion_p) {
+        $this->cod_ocupacion_p = $cod_ocupacion_p;
+    }
+
+
     
     
    

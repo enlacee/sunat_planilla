@@ -23,10 +23,14 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                     cod_tipo_trabajador,
                     cod_regimen_pensionario,
                     cod_regimen_aseguramiento_salud,
-                    cod_situacion                         
+                    cod_situacion,
+                    cod_ocupacion_p,
+                    id_empresa_centro_costo
                          
                             )
             VALUES (
+                    ?,
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -63,6 +67,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $stm->bindValue(13, $model->getCod_regimen_pensionario());
             $stm->bindValue(14, $model->getCod_regimen_aseguramiento_salud());
             $stm->bindValue(15, $model->getCod_situacion());
+            
+            $stm->bindValue(16, $model->getCod_ocupacion_p());
+            $stm->bindValue(17, $model->getId_empresa_centro_costo());
             $stm->execute();
 
             // id Comerico
@@ -145,9 +152,12 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         $query = "
             SELECT 
+		-- trabajador
                 t.id_trabajador,
                 t.monto_remuneracion,
                 t.cod_situacion,
+                t.cod_ocupacion_p,
+                t.id_empresa_centro_costo,
                 -- p.nombres,
                 -- drs.id_detalle_regimen_salud,
                 drs.cod_regimen_aseguramiento_salud,
@@ -308,6 +318,73 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
        
     }
 
+    
+    //->new uso para reportes    
+    public function listar_2($id_pdeclaracion, $id_establecimiento, $id_empresa_centro_costo){
+        
+        $query="
+        SELECT
+          tpd.id_trabajador_pdeclaracion,
+          tpd.id_pdeclaracion,
+          tpd.id_trabajador,
+          tpd.dia_laborado,
+          tpd.ordinario_hora,
+          tpd.sueldo_neto,
+          -- estado,
+          tpd.cod_tipo_trabajador,
+          tpd.cod_regimen_pensionario,
+          tpd.cod_regimen_aseguramiento_salud,
+          tpd.cod_situacion,
+          tpd.id_empresa_centro_costo,
+          tpd.cod_ocupacion_p,
+          -- persona
+          p.id_persona,
+          p.apellido_materno,
+          p.apellido_paterno,
+          p.nombres ,
+          p.num_documento,
+          -- ocupacion
+          op.nombre AS nombre_ocupacion,
+          -- regimen pensionario
+          rp.descripcion_abreviada AS nombre_afp,
+          -- centro costo
+          ecc.descripcion AS nombre_centro_costo
+
+        FROM trabajadores_pdeclaraciones AS tpd
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+
+        LEFT JOIN ocupaciones_p AS  op
+        ON tpd.cod_ocupacion_p = op.cod_ocupacion_p
+
+        LEFT JOIN regimenes_pensionarios AS rp
+        ON tpd.cod_regimen_pensionario = rp.cod_regimen_pensionario
+
+        LEFT JOIN empresa_centro_costo  AS ecc
+        ON tpd.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+
+        WHERE tpd.id_pdeclaracion = ?
+        AND t.id_establecimiento = ?
+        AND ecc.id_empresa_centro_costo = ?              
+";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_establecimiento);
+        $stm->bindValue(3, $id_empresa_centro_costo);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;
+        
+        
+    }
+    
 }
 
 ?>

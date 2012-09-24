@@ -1,0 +1,129 @@
+
+
+Conteo de eSTABLECIMNETO = i = 0
+
+
+
+NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =4
+
+
+
+entra a for j = 0 
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+
+CAMUENTE S.A.
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 45269187                            DNI: 45269187                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: copitan norabuena anibal                                            
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 00/00/000                   
+                                                 NRO.CARNET AFP : 12345678914                A.F.P. : SPP INTEGRA                        
+MES : ENERO DE : 01.2012                         CARGO : OCUPACI?N NO ESPECIFICADA.          SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN LINAREZ 251 ANCASH-HUARAZ-JANGAS                                    
+---------------------------------------------------------------------------------------------------------------------------------------
+*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
+*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   REMUNERACION VACACIONAL        2000.00   *   ADELANTO                        200.00   *   ESSALUD                        180.00   *
+*                                            *   COMISION AFP 1.80%               36.00   *                                           *
+*                                            *   PRIMA DE SEGURO 1.16%            23.20   *                                           *
+*                                            *   JUBILACION SPP 10.00%           200.00   *                                           *
+*                                            *   DSCTO POR MANDATO JUDICIAL      266.68   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA            30.63   *                                           *
+*                                            *                                            *                                           *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   TOTAL REMUNERACIONES              2000   *   TOTAL RETENC./DESCUENTOS        756.51   *   TOTAL APORTACIONES                180   *
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+* REDONDEO     : 11,000.00  *
+-----------------------------
+* NETO A PAGAR : 11,000.00  *                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+
+
+entra a for j = 1 
+
+entra a for j = 2 
+
+entra a for j = 3 
+
+
+
+
+
+
+
+
+
+
+Conteo de eSTABLECIMNETO = i = 1
+
+
+
+NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =2
+
+
+
+entra a for j = 0 
+
+entra a for j = 1 
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+
+CAMUENTE S.A.
+CALLE BARTOLOME FIGARI 193 - PUEBLO LIBRE        CODIGO: 62562568                            DNI: 62562568                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: moria jara maria gina                                               
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 00/00/000                   
+                                                                                             R.P. : DL 19990 - SIST NAC DE PENS - ONP    
+MES : ENERO DE : 01.2012                         CARGO : OCUPACI?N NO ESPECIFICADA.          SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :                                                                             
+---------------------------------------------------------------------------------------------------------------------------------------
+*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
+*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   SUELDO BASICO                  1300.00   *   ADELANTO                        650.00   *   ESSALUD                        117.00   *
+*                                            *   ONP                             169.00   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
+*                                            *                                            *                                           *
+*                                            *                                            *                                           *
+*                                            *                                            *                                           *
+*                                            *                                            *                                           *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   TOTAL REMUNERACIONES              1300   *   TOTAL RETENC./DESCUENTOS           819   *   TOTAL APORTACIONES                117   *
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+* REDONDEO     : 11,000.00  *
+-----------------------------
+* NETO A PAGAR : 11,000.00  *                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+
+
+
+
+
+
+
+
+
+
+
+Conteo de eSTABLECIMNETO = i = 2
+
+
+
+NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =1
+
+
+
+entra a for j = 0 
+
+
+
+
+
+
+
+

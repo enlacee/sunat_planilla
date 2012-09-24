@@ -30,36 +30,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 	cargarTablaTrabajadorPdeclaracion(ID_DECLARACION);
 	//cargarTablaPTrabajadores(ID_DECLARACION);
 	
-	// funciones
 	
-	
-
-   //02  = total
-	$("#reporte30_02").click(function(){
-		
-		//registrarEtapa(null);
-		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
-		url +="?oper=recibo30&id_pdeclaracion="+ID_DECLARACION
-		url +="&todo=todo";
-		
-		window.location.href = url;
-		//window.open(url);
-
-	});
-	
-	   //02  = total
-	$("#reporte30_mas").click(function(){
-		console.log("crear dialog");
-		//editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago);
-		/*
-		var url = "sunat_planilla/controller/PagoController.php";
-		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
-		
-		window.location.href = url;
-		//window.open(url);
-		*/
-
-	});
 	
 	
 </script>

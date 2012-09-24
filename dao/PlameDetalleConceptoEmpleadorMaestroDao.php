@@ -335,6 +335,20 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
             $sql = $cod_concepto;
         }
         
+        if(is_array($seleccionado)&& count($seleccionado) >= 1 ){
+           $sql_seleccionado = " ";
+            for ($i = 0; $i < count($seleccionado); $i++) {
+                $sql_seleccionado .= $seleccionado[$i];
+                if ($i == (count($seleccionado)) - 1) {
+                    //null                    
+                } else {
+                    $sql_seleccionado .= ",";
+                }
+            } 
+        }else{
+            $sql_seleccionado = $seleccionado;
+        }
+        
         //echo "sql   ".$sql;
 
         $query = "
@@ -354,7 +368,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 
         WHERE (dce.id_empleador_maestro = ?)
         AND c.cod_concepto in ($sql)        
-        AND dce.seleccionado = $seleccionado
+        AND dce.seleccionado in ($sql_seleccionado)
         ";
 
         $stm = $this->pdo->prepare($query);

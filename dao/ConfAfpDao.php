@@ -101,7 +101,7 @@ class ConfAfpDao extends AbstractDao {
 //------------------------------------------------------------------------------
 // AFP -- obtiene los datos de afp del ultimo año ingresado
 // siempre 4 afp y anio = 2011,2012    
-    public function vigenteAfp($id) {
+    public function vigenteAfp($cod_regimen_pensionario,$periodo) {
         
         $query = "
         SELECT
@@ -114,107 +114,21 @@ class ConfAfpDao extends AbstractDao {
             fecha_creacion
         FROM conf_afp AS cafp
         WHERE cod_regimen_pensionario = ?
+        AND fecha <= '$periodo'
+
         ORDER BY fecha DESC      
         ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id);
+        $stm->bindValue(1, $cod_regimen_pensionario);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0];
     }
 
-    public function vigenteAfpPrima() {
-        $id = '24';
-        $query = "
-        SELECT
-            id_conf_afp,
-            cod_regimen_pensionario,
-            aporte_obligatorio,
-            comision,
-            prima_seguro,
-            fecha,
-            fecha_creacion
-        FROM conf_afp AS cafp
-        WHERE cod_regimen_pensionario = ?
-        ORDER BY fecha DESC      
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0];
-    }
+  
 
-    public function vigenteAfpHorizonte() {
-        $id = '22';
-        $query = "
-        SELECT
-            id_conf_afp,
-            cod_regimen_pensionario,
-            aporte_obligatorio,
-            comision,
-            prima_seguro,
-            fecha,
-            fecha_creacion
-        FROM conf_afp AS cafp
-        WHERE cod_regimen_pensionario = ?
-        ORDER BY fecha DESC      
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0];
-    }
 
-    public function vigenteAfpIntegra() {
-        $id = '21';
-        $query = "
-        SELECT
-            id_conf_afp,
-            cod_regimen_pensionario,
-            aporte_obligatorio,
-            comision,
-            prima_seguro,
-            fecha,
-            fecha_creacion
-        FROM conf_afp AS cafp
-        WHERE cod_regimen_pensionario = ?
-        ORDER BY fecha DESC      
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0];
-    }
-
-    public function vigenteAfpProfuturo() {
-        $id = '23';
-        $query = "
-        SELECT
-            id_conf_afp,
-            cod_regimen_pensionario,
-            aporte_obligatorio,
-            comision,
-            prima_seguro,
-            fecha,
-            fecha_creacion
-        FROM conf_afp AS cafp
-        WHERE cod_regimen_pensionario = ?
-        ORDER BY fecha DESC      
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0];
-    }
 
 }
 

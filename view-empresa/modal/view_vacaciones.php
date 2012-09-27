@@ -77,8 +77,8 @@ $dia_calc = $now_dia - $dia;
   
 </div>
 <div class="back">
-  <p><?php echo $_REQUEST['name']; ?></p>
-  <p>FECHA INGRESO: <?php echo getFechaPatron($data_fecha['fecha_inicio'],"d/m/Y"); ?></p>
+  <p><?php echo strToUpper($_REQUEST['name']); ?></p>
+  <p>Fecha de ingreso : <?php echo getFechaPatron($data_fecha['fecha_inicio'],"d/m/Y"); ?></p>
 </div>
 <br/>
 
@@ -109,7 +109,7 @@ $dia_calc = $now_dia - $dia;
       <td width=""><input name="fv_programado" type="text" id="fv_programado" size="15"
        <?php echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?>
        />
-        <input type="checkbox" name="chk_estado" id="chk_estado" onclick="cambiarCheck(this)"  />
+        <!--<input type="checkbox" name="chk_estado" id="chk_estado" onclick="cambiarCheck(this)"  />-->
       <label for="chk_estado"></label></td>
       <td width="">
       <input type="button" name="btnAprovar" id="btnAprovar" value="Aprobar Fecha"

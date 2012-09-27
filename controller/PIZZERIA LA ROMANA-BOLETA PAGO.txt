@@ -1,102 +1,94 @@
-
-
-Conteo de eSTABLECIMNETO = i = 0
-
-
-
-NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =4
-
-
-
-entra a for j = 0 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
 
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 45269187                            DNI: 45269187                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: copitan norabuena anibal                                            
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 00/00/000                   
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/01/2011                  
                                                  NRO.CARNET AFP : 12345678914                A.F.P. : SPP INTEGRA                        
-MES : ENERO DE : 01.2012                         CARGO : OCUPACI?N NO ESPECIFICADA.          SECCION : ventas                            
-31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN LINAREZ 251 ANCASH-HUARAZ-JANGAS                                    
+MES : NOVIENBRE DE : 01.2012                     CARGO : OCUPACI?N NO ESPECIFICADA.          SECCION : ventas                            
+30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN LINAREZ 251 ANCASH-HUARAZ-JANGAS                                    
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   REMUNERACION VACACIONAL        2000.00   *   ADELANTO                        200.00   *   ESSALUD                        180.00   *
+*   SUELDO BASICO                 2,000.00   *   ADELANTO                        200.00   *   ESSALUD                        180.00   *
 *                                            *   COMISION AFP 1.80%               36.00   *                                           *
 *                                            *   PRIMA DE SEGURO 1.16%            23.20   *                                           *
 *                                            *   JUBILACION SPP 10.00%           200.00   *                                           *
 *                                            *   DSCTO POR MANDATO JUDICIAL      266.68   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA            30.63   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA             9.10   *                                           *
 *                                            *                                            *                                           *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES              2000   *   TOTAL RETENC./DESCUENTOS        756.51   *   TOTAL APORTACIONES                180   *
+*   TOTAL REMUNERACIONES          2,000.00   *   TOTAL RETENC./DESCUENTOS        734.98   *   TOTAL APORTACIONES             180.00   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------
-* REDONDEO     : 11,000.00  *
+* REDONDEO     :      -0.02 *
 -----------------------------
-* NETO A PAGAR : 11,000.00  *                            _________________________                  _________________________
+* NETO A PAGAR :   1,265.00 *                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
-
-
-entra a for j = 1 
-
-entra a for j = 2 
-
-entra a for j = 3 
-
-
-
-
-
-
-
-
-
-
-Conteo de eSTABLECIMNETO = i = 1
-
-
-
-NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =2
-
-
-
-entra a for j = 0 
-
-entra a for j = 1 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
 
 CAMUENTE S.A.
-CALLE BARTOLOME FIGARI 193 - PUEBLO LIBRE        CODIGO: 62562568                            DNI: 62562568                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: moria jara maria gina                                               
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 00/00/000                   
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 12345678                            DNI: 12345678                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: APELLIDO APELLIDOS PEPE JUAN                                        
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 03/02/2012                  
                                                                                              R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : ENERO DE : 01.2012                         CARGO : OCUPACI?N NO ESPECIFICADA.          SECCION : ventas                            
-31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :                                                                             
+MES : NOVIENBRE DE : 01.2012                     CARGO : OCUPACI?N NO ESPECIFICADA.          SECCION : ventas                            
+30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE DC 96 ICA-ICA-PARCONA                                                
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   SUELDO BASICO                  1300.00   *   ADELANTO                        650.00   *   ESSALUD                        117.00   *
-*                                            *   ONP                             169.00   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
-*                                            *                                            *                                           *
-*                                            *                                            *                                           *
-*                                            *                                            *                                           *
+*   SUELDO BASICO                 2,500.00   *   ADELANTO                      1,250.00   *   ESSALUD                        231.75   *
+*   ASG. FAMILIAR                    75.00   *   ONP                             334.75   *                                           *
+*   BONIF. POR RIESGO DE CAJA       500.00   *   IMPTO. 5TA. CATEGORIA           325.09   *                                           *
 *                                            *                                            *                                           *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES              1300   *   TOTAL RETENC./DESCUENTOS           819   *   TOTAL APORTACIONES                117   *
+*   TOTAL REMUNERACIONES          3,075.00   *   TOTAL RETENC./DESCUENTOS      1,909.84   *   TOTAL APORTACIONES             231.75   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 
+ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 -----------------------------
-* REDONDEO     : 11,000.00  *
+* REDONDEO     :      -0.16 *
 -----------------------------
-* NETO A PAGAR : 11,000.00  *                            _________________________                  _________________________
+* NETO A PAGAR :   1,165.00 *                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+
+CAMUENTE S.A.
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 12345679                            DNI: 12345679                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: LUZ CLARA ROBLEZ CERA                                               
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 05/10/2012                  
+                                                 NRO.CARNET AFP : 36265956689                A.F.P. : SPP PRIMA                          
+MES : NOVIENBRE DE : 01.2012                     CARGO : GERENTE GENERAL, EMPRESA/COMERCIO MINORISTASECCION : ventas                            
+30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA BOILE 255 LORETO-ALTO AMAZONAS-JEBEROS                             
+---------------------------------------------------------------------------------------------------------------------------------------
+*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
+*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   SUELDO BASICO                 1,700.00   *   ADELANTO                        850.00   *   ESSALUD                        153.00   *
+*                                            *   COMISION AFP 1.75%               29.75   *                                           *
+*                                            *   PRIMA DE SEGURO 1.29%            21.93   *                                           *
+*                                            *   JUBILACION SPP 10.00%           170.00   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
+*                                            *                                            *                                           *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   TOTAL REMUNERACIONES          1,700.00   *   TOTAL RETENC./DESCUENTOS      1,071.68   *   TOTAL APORTACIONES             153.00   *
+---------------------------------------------------------------------------------------------------------------------------------------
+
+ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+-----------------------------
+* REDONDEO     :      -0.32 *
+-----------------------------
+* NETO A PAGAR :     628.00 *                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
 
@@ -110,15 +102,14 @@ MES : ENERO DE : 01.2012                         CARGO : OCUPACI?N NO ESPECIFICA
 
 
 
-Conteo de eSTABLECIMNETO = i = 2
 
 
 
-NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =1
 
 
 
-entra a for j = 0 
+
+
 
 
 

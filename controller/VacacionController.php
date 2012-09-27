@@ -171,21 +171,37 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
     // CALCULO DE VACACIONES importante la fecha del Servidor !   
     //__00 _buscar
     $dao = new DetallePeriodoLaboralDao();
+    //echo "id_trabajador = ".$id_trabajador."<br>";
     $data = $dao->buscarDetallePeriodoLaboral($id_trabajador);
-    //echo "entrroorror\n";
-      /* echo "<pre>";
+    //echo "entrroorror\n";    
+    /*
+      echo "<pre> buscarDetallePeriodoLaboral";
       echo print_r($data);
       echo "<pre>";
      */
     //__01__
     $daov = new VacacionDao();
-
+    //NO todos han sido asignado a Vacacion
     $data_v = $daov->listarUltimaFechaVacacion($id_trabajador);
-    //variables
+/*    echo "\n\n**************\n\n";
+    
+    echo "Ultima fecha vacacionen Seteada";
+    echo "<pre>";
+    print_r($data_v);
+    echo "</pre>";
+    echo "\n\n**************\n\n\n";
+    var_dump($data_v['fecha']);
+*/
+//variables
     $fecha_i = null;
+    
 
-    //echo "todoodododo".var_dump($data_v);
 
+/**
+ * SI NO HA SIDO REGISTRADO CON VACACIONES!
+ * se realiza dentro el calculo. para una fecha año atras del actual
+ * esto ocurre solo 1 vez xq el trabajador Nunca tubo vacaciones. 
+ */
     if ($data_v['fecha'] == null) {
         // AUN NO SE HA REGISTRADO NINGUNO , establece trabajador
         // segun la fecha de ingreso.
@@ -193,7 +209,7 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
         // - 2000
         // - 2012
 
-        if (getFechaPatron($data['fecha_inicio'], "Y") < date("Y")) { //fecha < 2012
+        if (getFechaPatron($data['fecha_inicio'], "Y") < date("Y")) { //fecha es MENOR a 2012
             $dia_past = getFechaPatron($data['fecha_inicio'], "d");
             $mes_past = getFechaPatron($data['fecha_inicio'], "m");
             //$anio_past = getFechaPatron($data['fecha_inicio'], "Y");
@@ -202,6 +218,7 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
             $anio_now = date("Y");
             //$resta = ($anio_now - $anio_past) - 1;
             $fecha_i = ($anio_now - 1) . "-" . $mes_past . "-" . $dia_past;
+            //echo "<br>es fecha inicio = ".$fecha_i;
 
 
             $biciesto_0 = date("L", strtotime($fecha_i));
@@ -212,17 +229,21 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
               echo "\n\n\n";
              */
 
-            //echo "\nFECHA TRABAJADOR es Menorrrr\n";
-        } else {
+            
+        } else { // -->> $data['fecha_inicio'] FECHA ES MAYOR al 2012.
             //ES MAYOR !  eh igual.
-            $fecha_i = "FECHA ES MAYO ! Eh igual";
-            //echo "INESSSSPERADO ? ";
-            echo $fecha_i;
+            $fecha_i = $data['fecha_inicio']; //"FECHA ES MAYOR al 2012 ";
+
         }
+        
+        
 
         //$fecha_i = $data['fecha_inicio'];
     } else {
         $fecha_i = $data_v['fecha']; //fecha Calculada.. before insert.
+        
+        //echo "\n\n\n<br>fecha calculada es entonses<br>";
+        //echo "\n\n ===".$fecha_i;
     }
 
     //echo " \nfuera IF\nfecha_i = ".$fecha_i;

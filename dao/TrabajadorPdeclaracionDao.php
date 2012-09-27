@@ -128,6 +128,51 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return true;
     }
 
+    
+    
+    //actulizar horas y minutos sobretiempo 23/09/2012
+    public function actualizarHoraMinuto($sobretiempo_hora,$sobretiempo_min,$id_trabajador_pdeclaracion){
+        
+        $query = "
+    UPDATE trabajadores_pdeclaraciones
+    SET       
+      sobretiempo_hora = ?,
+      sobretiempo_min = ?      
+    WHERE id_trabajador_pdeclaracion = ?;
+      ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $sobretiempo_hora);
+        $stm->bindValue(2, $sobretiempo_min);
+        $stm->bindValue(3, $id_trabajador_pdeclaracion);
+        $stm->execute();
+        $stm = null;
+
+        return true;   
+        
+        
+    }
+    
+    
+    public function selectHoraMinuto($id_trabajador_pdeclaracion){
+        $query = "
+        SELECT 
+        sobretiempo_hora,
+        sobretiempo_min        
+        FROM trabajadores_pdeclaraciones           
+        WHERE id_trabajador_pdeclaracion = ?;
+      ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista[0];
+        
+    }
+    
     public function eliminar($id_trabajador_pdeclaracion) {
 
         $query = "		
@@ -190,7 +235,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
     }
 
     
-      public function buscar_ID($id) {
+    public function buscar_ID($id) {
       $query = "
         SELECT
           id_trabajador_pdeclaracion,
@@ -384,6 +429,183 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         
         
     }
+    
+
+    //------------------------------------------------------------------------//
+    // ------------- FUNCION ESTRUTURAS---------------------------------------//
+    
+    // USADO en Estructuras
+    public function listar_ID_Trabajador($id_pdeclaracion){
+       
+        $query = "
+        SELECT
+        id_trabajador_pdeclaracion,        
+        id_trabajador
+        FROM trabajadores_pdeclaraciones
+        WHERE id_pdeclaracion = ?
+    ";  
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;    
+        
+    }
+    
+    
+    
+     public function estrutura_14($id_pdeclaracion,$id_trabajador){
+        
+        $query = "
+        SELECT  
+        tpd.ordinario_hora,
+        tpd.ordinario_min,
+        tpd.sobretiempo_hora,
+        tpd.sobretiempo_min,
+        p.cod_tipo_documento,
+        p.num_documento
+
+
+        FROM trabajadores_pdeclaraciones AS tpd
+
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+        WHERE tpd.id_pdeclaracion = ?
+        AND tpd.id_trabajador = ?
+    ";        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista[0];        
+        
+    }
+    
+
+     public function estrutura_15_a($id_pdeclaracion,$id_trabajador){
+        
+        $query = "
+        SELECT 
+        ds.cod_tipo_suspen_relacion_laboral,
+        ds.cantidad_dia,
+        p.cod_tipo_documento,
+        p.num_documento
+
+        FROM trabajadores_pdeclaraciones AS tpd
+
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+
+        INNER JOIN dias_subsidiados AS ds
+        ON tpd.id_trabajador_pdeclaracion = ds.id_trabajador_pdeclaracion
+        WHERE tpd.id_pdeclaracion = ?
+        AND tpd.id_trabajador = ?
+    ";  
+        
+        // OJO 
+        // INNER JOIN dias_subsidiados AS ds  = LEFT JOIN
+        // Si quires imprimir Vacios  OPcional revisar SQL. ARRIVA.    
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;        
+        
+    }    
+    
+    
+    
+     public function estrutura_15_b($id_pdeclaracion,$id_trabajador){
+        
+        $query = "
+        SELECT 
+        dns.cod_tipo_suspen_relacion_laboral,
+        dns.cantidad_dia,
+        p.cod_tipo_documento,
+        p.num_documento
+
+        FROM trabajadores_pdeclaraciones AS tpd
+
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+
+        INNER JOIN dias_nosubsidiados AS dns
+        ON tpd.id_trabajador_pdeclaracion = dns.id_trabajador_pdeclaracion
+        WHERE tpd.id_pdeclaracion = ?
+        AND tpd.id_trabajador = ?
+    ";       
+        
+        // OJO 
+        // INNER JOIN dias_nosubsidiados AS dns  = LEFT JOIN
+        // Si quires imprimir Vacios  OPcional revisar SQL. ARRIVA.
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;        
+        
+    }      
+    
+    
+    
+     public function estrutura_18($id_pdeclaracion,$id_trabajador){
+        
+        $query = "
+        SELECT 
+	tpd.id_trabajador_pdeclaracion,
+	tpd.id_pdeclaracion,
+	tpd.id_trabajador,
+	ddc.cod_detalle_concepto,
+	ddc.monto_devengado,
+	ddc.monto_pagado,
+        p.cod_tipo_documento,
+        p.num_documento
+
+        FROM trabajadores_pdeclaraciones AS tpd	
+	INNER JOIN declaraciones_dconceptos AS ddc
+	ON tpd.id_trabajador_pdeclaracion = ddc.id_trabajador_pdeclaracion
+        
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+
+        WHERE tpd.id_pdeclaracion = ?
+        AND tpd.id_trabajador = ?;
+    ";        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;        
+        
+    }      
     
 }
 

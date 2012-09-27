@@ -65,7 +65,7 @@ if ($op) {
     require_once '../dao/EstablecimientoDireccionDao.php';
     require_once '../dao/PersonaDireccionDao.php';
     require_once '../dao/DetalleRegimenPensionarioDao.php';
-    require_once '../dao/DetallePeriodoLaboralDao.php';
+    
     //reporte tabla
     
     
@@ -98,7 +98,6 @@ if ($op == "add") {
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     $estado = generarConfiguracion($ID_PDECLARACION);
  if ($estado == true) {
-     //echo "llegooo";
     generarBoletaTxt($ID_PDECLARACION);
  }
 }
@@ -316,6 +315,8 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
     for ($i = 0; $i < count($ID_TRABAJADOR); $i++) {
 
 
+
+
         //REGISTRAMOS TRABAJADOR (declaracion Mensual)
         // ..... anes Genero la Seguna Quincenaaaaa
         $dao_pago = new PagoDao();
@@ -354,12 +355,12 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         $obj->setCod_regimen_pensionario($DATA_TRA['cod_regimen_pensionario']);
         $obj->setCod_regimen_aseguramiento_salud($DATA_TRA['cod_regimen_aseguramiento_salud']);
         $obj->setCod_situacion($DATA_TRA['cod_situacion']);
-        //ADD 22/09/2012 
+        //ADD 22/09/2012
         $obj->setCod_ocupacion_p($DATA_TRA['cod_ocupacion_p']);
-        $obj->setId_empresa_centro_costo($DATA_TRA['id_empresa_centro_costo']);
+        $obj->setCod_ocupacion_p($DATA_TRA['id_empresa_centro_costo']);
         
 
-        $id_trabajador_pdeclaracion = $dao->registrar( $obj );
+        $id_trabajador_pdeclaracion = $dao->registrar($obj);
 // --- Comment end 
 //....................................................................//
         // paso 03 :: Consultar Conceptos
@@ -540,23 +541,8 @@ function concepto_0105($id, $monto = 0, $horas = 0) {
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.25;
 
     $neto = $nuevo_sueldo_por_hora * $horas;
+
     $neto = roundTwoDecimal($neto);
-    
-    //..............................................
-    $minutos = $horas * 60;
-    
-    $hour=0;
-    $min =0;
-    while($minutos>=60){
-        $hour = $hour + 1;
-        $minutos = $minutos - 60;
-    }
-    $min = $minutos;    
-    
-    $dao_tpd = new TrabajadorPdeclaracionDao();
-    $dao_tpd->actualizarHoraMinuto($hour, $min, $id);
-    //..............................................    
-    
     //registrar
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
@@ -575,33 +561,6 @@ function concepto_0106($id, $monto = 0, $horas = 0) {
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.35;
     $neto = $nuevo_sueldo_por_hora * $horas;
     $neto = roundTwoDecimal($neto);
-    
-    // Consultamos si existe valores seteados en Bd H:mm
-    $dao_tpd = new TrabajadorPdeclaracionDao();
-    $data_time = $dao_tpd->selectHoraMinuto($id);
-    $h = ($data_time['sobretiempo_hora']) ? $data_time['sobretiempo_hora'] : 0;
-    $m = ($data_time['sobretiempo_min']) ? (intval($data_time['sobretiempo_min'])/60) : 0;
-    $hora_decimal_calc = $h + $m;
-    //---------
-    
-    //..............................................
-    $horas = $horas  + $hora_decimal_calc;
-    $minutos = $horas * 60;
-    
-    $hour=0;
-    $min =0;
-    while($minutos>=60){
-        $hour = $hour + 1;
-        $minutos = $minutos - 60;
-    }
-    $min = $minutos;    
-    
-
-    
-    //
-    $dao_tpd->actualizarHoraMinuto($hour, $min, $id);
-    //..............................................
-    
 
     //registrar
     $model = new DeclaracionDconcepto();
@@ -1031,7 +990,8 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
      * 
      */
     if ($mes_periodo == '07' || $mes_periodo == '7') {
-        
+        echo "\nENTRO JULIO EN " . __FILE__;
+
         $fecha = getRangoJulio($anio_periodo);
         $fj_inicio = $fecha['inicio'];
         $fj_fin = $fecha['fin'];
@@ -1072,7 +1032,7 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             // 9% = tasa extraordinaria.   
             // 001 = SI dias feriados >=3 : se le suma todos los dias feriados trabajados /6
             $bextraordinario = ($monto_dias_feriados / 6);
-            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * (T_ESSALUD/100); /*0.09;*/
+            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * 0.09;
 
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
@@ -1098,29 +1058,19 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
 
             if (intval($diax) == 1) { //DIA EMPEZO 01-mes-anio = OK NORMAL
                 $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
-            } else if (intval($diax) > 1) { 
-                //SE CALCULA DEL SIGUIENTE MES.           
-                //asume que empezo diaz despues. .:. + 1 siguiente Mes
+            } else if (intval($diax) > 1) { //SE CALCULA DEL SIGUIENTE MES.                
+                //asume que empezo diaz despues. .:. + 1 siguiente Mes                
                 $mesx = intval($mesx) + 1;
-                
-                //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
-                //Existe un error cuando el mes es  6=06;
-                if($mesx ==(getFechaPatron($fj_fin, "m")) ){
-                    $mes_q_falta = 1;
-                }else{
-                    $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
-                }
-                //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
-                
-                
+                $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
             }
 
 
             $bextraordinario = 0.00;
             $bextraordinario = ($monto_dias_feriados / 6) * $mes_q_falta; //---------------------------------->mes q falta OK
-            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * (T_ESSALUD/100); // 0.09; // ESSALUD = 9%
+            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * 0.09; // ESSALUD = 9%
             //X1 -------------------------- 01 ---------------------------------
-
+            $model = new DeclaracionDconcepto();
+            $model->setId_trabajador_pdeclaracion($id);
             //$model->setMonto_devengado($monto_ingresos_junio);
             //Calculo proporcional ->> a los meses q entroooo
             echo "\nUSTED EMPEZO A TRABAJAR DESPUES DE  $fj_inicio \n";
@@ -1133,8 +1083,6 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             echo "\n ($monto_ingresos_junio/6) * $mes_q_falta  = " . $nuevo;
             echo "\n nuevo = " . $nuevo;
             //
-            $model = new DeclaracionDconcepto();
-            $model->setId_trabajador_pdeclaracion($id);
             $model->setMonto_pagado($nuevo); /* $monto_ingresos_junio */
             $model->setCod_detalle_concepto(C407);
             //$dao
@@ -1180,27 +1128,13 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
         //| f = suma(ingreos) + suma(feriados)
         //|--------------------------------------------------------------------
         // GRATIFICACIONES DE FIESTAS PATRIAS – LEY 29351  -->ABAJO OK
-        echo "\n\n\n\n !ENTRO EN CONDICION DE Diciembre.... \n\n\n";
-        echo "trabajador :: ".$trabajador['fecha_inicio'];
-        echo "\n....................................................\n";
-        
-        
-        echo "FECHAS PARAMETRO";
-        echo "<pre>";
-        print_r($fecha);
-        echo "</pre>";
-        
-        
-        
         if (($trabajador['fecha_inicio'] <= $fj_inicio ) && (($trabajador['fecha_fin'] >= $fj_fin) || ($trabajador['fecha_fin'] == null) )) {
             echo "\n\nINSERT -> 0406 = GRATIFICACION COMPLETA NAVIDAD\n\n";
             // falta el  9 %
             ECHO "\nALL INGRESOS DE NOVIEMBRE = " . $monto_ingresos_noviembre;
             echo"\n TRABAJADOR se Encuentra para GRATIFICACACION DE DICIEMBRE";
             echo "\n $fj_inicio  al $fj_fin o null";
-            
-            
-                        
+
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
             $model->setMonto_pagado($monto_ingresos_noviembre);
@@ -1215,11 +1149,10 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             // 9% = tasa extraordinaria.   
             // 001 = SI dias feriados >=3 : se le suma todos los dias feriados trabajados /6
             $bextraordinario = ($monto_dias_feriados / 6);
-            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * (T_ESSALUD/100);/*0.09;*/
-            
+            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * 0.09; //ESSALUD
+
             echo "\nbonificacion extraordiraria 9% DE ESALUD es  =" . $bextraordinario;
-            
-            
+
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
             $model->setMonto_pagado($bextraordinario);
@@ -1227,9 +1160,6 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             //dao
             $dao = new DeclaracionDconceptoDao();
             $dao->registrar($model);
-            
-            
-            
         } else if ($trabajador['fecha_inicio'] > $fj_inicio) {
 
             echo "\n\n0407=GRATIFICACIONES PROPORCIONAL – LEY 29351\n\n";
@@ -1239,32 +1169,17 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             $diax = getFechaPatron($trabajador['fecha_inicio'], "d");
 
             $mes_q_falta = null;
-            echo "\nanyes de pasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar   fecha fin partes = $fj_fin \n";
-            
-            
 
             if (intval($diax) == 1) { //DIA EMPEZO 01-mes-anio = OK NORMAL
                 $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
-                echo "\nEntro dia  = 1\n.";
-                echo "\nmes_q_falta = $mes_q_falta\n";
-            } else if (intval($diax) > 1) { 
-                 //SE CALCULA DEL SIGUIENTE MES.           
-                //asume que empezo diaz despues. .:. + 1 siguiente Mes
+            } else if (intval($diax) > 1) { //SE CALCULA DEL SIGUIENTE MES.                
+                //asume que empezo diaz despues. .:. + 1 siguiente Mes                
                 $mesx = intval($mesx) + 1;
-                
-                //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
-                //Existe un error cuando el mes es  11=11;
-                if($mesx ==(getFechaPatron($fj_fin, "m")) ){
-                    $mes_q_falta = 1;
-                }else{
-                    $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
-                }
-                //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
-                
+
+                $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
             }
 
             echo "\nMES QUE FALTA = " . $mes_q_falta;
-            var_dump($mes_q_falta);
             echo "\n\n\n";
 
             echo __FILE__;
@@ -1274,14 +1189,13 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
 
             $bextraordinario = 0.00;
             $bextraordinario = ($monto_dias_feriados / 6) * $mes_q_falta;
-            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * (T_ESSALUD/100); /*0.09*/;
-            
-            $nuevo = ($monto_ingresos_noviembre / 6) * $mes_q_falta;
+            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * 0.09;
+
             //X1 
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
-            $model->setMonto_pagado($nuevo);
-            $model->setCod_detalle_concepto(C407);
+            $model->setMonto_pagado($monto_ingresos_noviembre);
+            $model->setCod_detalle_concepto(C406);
             //$daodao
             $dao = new DeclaracionDconceptoDao();
             $dao->registrar($model);
@@ -1436,7 +1350,7 @@ function concepto_0804($id, $id_pdeclaracion, $id_trabajador) {
 
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
-    //$model->setMonto_devengado($CALC);
+    $model->setMonto_devengado($CALC);
     $model->setMonto_pagado($CALC);
     $model->setCod_detalle_concepto('0804');
 
@@ -1752,32 +1666,49 @@ function eliminar_trabajadorPdeclaracion() {
 //|---------------------------------------------------------------------------//
 
 function generarBoletaTxt($id_pdeclaracion) {
-
-    //$ids = $_REQUEST['ids']; 
+ // id de trabajador a generar recibo x quincena.
+    //null
+    $ids = $_REQUEST['ids'];
+    //$id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $id_etapa_pago = $_REQUEST['id_etapa_pago'];
 //---------------------------------------------------
 // Variables secundarios para generar Reporte en txt
-    $master_est = null;/*1*/;
-    $master_cc = null;/*2*/;
+    $master_est = /*null;*/1;
+    $master_cc = /*null;*/2;
 
     if ($_REQUEST['todo'] == "todo") {
-        $cubo_est = "todo";        
+        $cubo_est = "todo";
+        $cubo_cc = "todo";
     }
 
     $id_est = $_REQUEST['id_establecimientos'];
     $id_cc = $_REQUEST['cboCentroCosto'];
 
-    $master_est = (!is_null($id_est)) ?  $id_est : '';
-    $master_cc =  (!is_null($id_cc)) ? $id_cc : '';
-    
-    
+    if (!is_null($id_est)) {
+        $master_est = $id_est;
+    } else {
+        //$cubo_est = "todo";
+    }
+
+    if (!is_null($id_cc)) {
+        $master_cc = $id_cc;
+    } else {
+        //$cubo_cc = "todo";
+    }
+    //
     $dao = new PlameDeclaracionDao();
-    $data_pd = $dao->buscar_ID($id_pdeclaracion);   
+    $data_pd = $dao->buscar_ID($id_pdeclaracion);
+    $fecha = $data_pd['periodo'];
+
+    $nombre_mes = getNameMonth(getFechaPatron($fecha, "m"));
+    $anio = getFechaPatron($fecha, "Y");
+
 
     $file_name = NAME_COMERCIAL . '-BOLETA PAGO.txt';
 
     $BREAK = chr(13) . chr(10);
     $BREAK2 = chr(13) . chr(10). chr(13) . chr(10);
-    //$LINEA = str_repeat('-', 80);
+    $LINEA = str_repeat('-', 80);
 //..............................................................................
 // Inicio Exel
 //..............................................................................
@@ -1797,14 +1728,20 @@ function generarBoletaTxt($id_pdeclaracion) {
         $dao_estd = new EstablecimientoDireccionDao();
         $dao_rp = new DetalleRegimenPensionarioDao(); //[OK]
         $dao_pdireccion = new PersonaDireccionDao(); //[OK]
-        $dao_dpl = new DetallePeriodoLaboralDao(); //[OK]
+
+        // -------- Variables globales --------//        
+        $SUM_TOTAL_CC = array();
+        $SUM_TOTAL_EST = array();
+
 
 
         for ($i = 0; $i < count($est); $i++) { // ESTABLECIMIENTO
-            //fwrite($fp, $BREAK2);
-            //fwrite($fp, "Conteo de eSTABLECIMNETO = i = $i");
-            //fwrite($fp, $BREAK2);
-
+            fwrite($fp, $BREAK2);
+            fwrite($fp, "Conteo de eSTABLECIMNETO = i = $i");
+            fwrite($fp, $BREAK2);
+            //echo " i = $i establecimiento    ID=".$est[$i]['id_establecimiento'];
+            //echo "<br>";
+            //$SUM_TOTAL_EST[$i]['establecimiento'] = strtoupper("Establecimiento X ==" . $est[$i]['id_establecimiento']);
             $bandera_1 = false;
             if ($est[$i]['id_establecimiento'] == $master_est) {
                 $bandera_1 = true;
@@ -1813,22 +1750,25 @@ function generarBoletaTxt($id_pdeclaracion) {
             }
 
             if ($bandera_1) {
+                //$SUM_TOTAL_EST[$i]['monto'] = 0;
                 
-                // paso 02 Establecimiento direccion Reniec
+                //Establecimiento direccion Reniec
                 $data_est_direc = $dao_estd->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']);
-               
+
+                //$SUM_TOTAL_EST[$i]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
                 
-                // paso 03 Centro de costo ' lista los trabajadores por' 
+                
+                //
+                $ecc = array();
                 $ecc = $dao_cc->listar_Ids_EmpresaCentroCosto($est[$i]['id_establecimiento']);
-                
-                //fwrite($fp, $BREAK2);
-                //fwrite($fp, "NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =".count($ecc));                 
-                //fwrite($fp, $BREAK2);
-                
-                
+                // paso 03 listamos los trabajadores por Centro de costo 
+                fwrite($fp, $BREAK2);
+                fwrite($fp, "NUM DE establecimiento y cuantos CENTROS  COSTOS TIENEN   =".count($ecc));
+                 
+                 fwrite($fp, $BREAK2);
                 for ($j = 0; $j < count($ecc); $j++) {
-                    //fwrite($fp, $BREAK2);
-                    //fwrite($fp, "entra a for j = $j ");
+                    fwrite($fp, $BREAK2);
+                    fwrite($fp, "entra a for j = $j ");
                    
                     
                     $bandera_2 = false;
@@ -1839,6 +1779,9 @@ function generarBoletaTxt($id_pdeclaracion) {
                     }
 
                     if ($bandera_2) {
+                        $SUM_TOTAL_CC[$i][$j]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
+                        $SUM_TOTAL_CC[$i][$j]['centro_costo'] = strtoupper($ecc[$j]['descripcion']);
+                        $SUM_TOTAL_CC[$i][$j]['monto'] = 0;
                         
                         // LISTA DE TRABAJADORES
                         $data_tra = array();
@@ -1847,7 +1790,7 @@ function generarBoletaTxt($id_pdeclaracion) {
                         for ($k=0;$k<count($data_tra);$k++){
 
                         //fwrite($fp, $LINEA);
-                        //fwrite($fp, $BREAK);
+                        fwrite($fp, $BREAK);
                         fwrite($fp, str_pad("BOLETA DE PAGO",136," ",STR_PAD_BOTH));
                         fwrite($fp, $BREAK);
                         fwrite($fp, str_pad("D.S. 020-2008-TR DEL 17-01-2008",136," ",STR_PAD_BOTH));
@@ -1870,12 +1813,9 @@ function generarBoletaTxt($id_pdeclaracion) {
                         fwrite($fp, str_pad("NOMBRE Y APELLIDOS: ".$nombre_c ,88," ",STR_PAD_RIGHT));
                         fwrite($fp, $BREAK);                        
                         
-                        // Buscar fecha inicio
-                        $data_fech_inicio = $dao_dpl->buscarDetallePeriodoLaboral_2($data_tra[$k]['id_trabajador']);
-                        
                         fwrite($fp,str_pad("Reo.Pat. 2010033861100000",49," ",STR_PAD_RIGHT));
                         fwrite($fp,str_pad("CARNET DE ESSALUD : -",44," ",STR_PAD_RIGHT));
-                        fwrite($fp,str_pad("FECHA INGRESO : ".  getFechaPatron($data_fech_inicio, "d/m/Y"), 44," ",STR_PAD_RIGHT));
+                        fwrite($fp,str_pad("FECHA INGRESO : 00/00/000", 44," ",STR_PAD_RIGHT));
                         fwrite($fp, $BREAK);
                         
                         //......................................................                                                
@@ -2054,7 +1994,6 @@ function generarBotletaTabla($fp,$id_trabajador_pdeclaracion,$cod_regimen_pensio
     
     
    $LINEA = str_repeat('-', 135);
-   $VACIO = str_repeat('Í', 135);
    $PUNTO = "*";
    $BORDE_R = str_pad('',3," ",STR_PAD_RIGHT); // $BORDER
    $BORDE_L = str_pad('',3," ",STR_PAD_LEFT); // $BORDER
@@ -2063,7 +2002,7 @@ function generarBotletaTabla($fp,$id_trabajador_pdeclaracion,$cod_regimen_pensio
    
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
-   fwrite($fp,str_pad("R E M U N E R A C I O N E S",38," ",STR_PAD_BOTH));
+   fwrite($fp,str_pad("R E M U N E R A C I O N E S".$cadena,38," ",STR_PAD_BOTH));
    fwrite($fp, $BORDE_L);
    
    fwrite($fp, $PUNTO);
@@ -2073,27 +2012,27 @@ function generarBotletaTabla($fp,$id_trabajador_pdeclaracion,$cod_regimen_pensio
    
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
-   fwrite($fp,str_pad("A P O R T A C I O N E S",37," ",STR_PAD_BOTH));
+   fwrite($fp,str_pad("A P O R T A C I O N E S".$cadena,37," ",STR_PAD_BOTH));
    fwrite($fp, $BORDE_L);
    fwrite($fp, $PUNTO);
    fwrite($fp, $BREAK);
    
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
-   fwrite($fp,str_pad("DESCRIPCION",19," ",STR_PAD_RIGHT));
-   fwrite($fp,str_pad("IMPORTE",19," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad("DESCRIPCION".$cadena,19," ",STR_PAD_RIGHT));
+   fwrite($fp,str_pad("IMPORTE".$cadena,19," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L); 
    
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
-   fwrite($fp,str_pad("DESCRIPCION",19," ",STR_PAD_RIGHT));
-   fwrite($fp,str_pad("IMPORTE",19," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad("DESCRIPCION".$cadena,19," ",STR_PAD_RIGHT));
+   fwrite($fp,str_pad("IMPORTE".$cadena,19," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L);
    fwrite($fp, $PUNTO);
    
    fwrite($fp, $BORDE_R);   
-   fwrite($fp,str_pad("DESCRIPCION",19," ",STR_PAD_RIGHT));
-   fwrite($fp,str_pad("IMPORTE",18," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad("DESCRIPCION".$cadena,19," ",STR_PAD_RIGHT));
+   fwrite($fp,str_pad("IMPORTE".$cadena,18," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L); 
    fwrite($fp, $PUNTO);
    
@@ -2192,22 +2131,24 @@ endfor;
 //----------------------------PINTAR EN TABLA-----------------------------------
     $cnt_ingreso = count($ingresos);
     $cnt_descuento = count($descuentos);
-    $cnt_aporte = count($aportes);
+   // $cnt_aporte = count($aportes);
     
-    $mayor = getNumMayor($cnt_ingreso, $cnt_descuento, $cnt_aporte);
-    $mayor = $mayor + 1;
-  
+    $mayor = null;
+   if($cnt_ingreso > $cnt_descuento){
+       $mayor = $cnt_ingreso;
+   }else if($cnt_descuento > $cnt_ingreso ) {
+       $mayor = $cnt_descuento;
+   }
       
    
-   for($i =0; $i<$mayor; $i++): // [7] limite maX por hoja
+   for($i =0;$i<7;$i++):
 
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);
    $descripcion_1 =($ingresos[$i]['descripcion_abreviada']=="") ? $ingresos[$i]['descripcion'] : $ingresos[$i]['descripcion_abreviada'];
    
    fwrite($fp, str_pad($descripcion_1, 29," ",STR_PAD_RIGHT));
-   $ingreso_boo = ($ingresos[$i]['monto_pagado']) ? number_format_var($ingresos[$i]['monto_pagado']) : '';
-   fwrite($fp, str_pad($ingreso_boo,9," ",STR_PAD_LEFT));
+   fwrite($fp, str_pad($ingresos[$i]['monto_pagado'],9," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L);
    fwrite($fp, $PUNTO);
    
@@ -2239,8 +2180,7 @@ endfor;
    
    //$descripcion_2 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
    fwrite($fp, str_pad($descripcion_2, 29," ",STR_PAD_RIGHT));
-   $descuento_boo = ($descuentos[$i]['monto_pagado']) ? number_format_var($descuentos[$i]['monto_pagado']) : '';
-   fwrite($fp,str_pad($descuento_boo,9," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad($descuentos[$i]['monto_pagado'],9," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L);
    fwrite($fp, $PUNTO);
    
@@ -2248,54 +2188,46 @@ endfor;
    $descripcion_3 = ($aportes[$i]['descripcion_abreviada']=="")? $aportes[$i]['descripcion'] : $aportes[$i]['descripcion_abreviada'];
 //   $descripcion_3 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
    fwrite($fp, str_pad($descripcion_3,28," ",STR_PAD_RIGHT));
-   $aporte_boo = ($aportes[$i]['monto_pagado']) ? number_format_var($aportes[$i]['monto_pagado']) : '';
-   fwrite($fp, str_pad($aporte_boo,9," ",STR_PAD_LEFT));
+   fwrite($fp, str_pad($aportes[$i]['monto_pagado'],9," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L);
    fwrite($fp, $PUNTO);
    fwrite($fp, $BREAK);
    
    endfor;
 //----------------------------PINTAR EN TABLA-----------------------------------
-// ----- FIN CUERPO  
+// ----- FIN CUERPO
+   
    
     fwrite($fp, $LINEA);
     fwrite($fp, $BREAK);
-    
-    
+
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
    fwrite($fp,str_pad("TOTAL REMUNERACIONES ",29," ",STR_PAD_RIGHT));
-   fwrite($fp,str_pad(number_format_var($sum_i),9," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad($sum_i,9," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L); 
 
 
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
    fwrite($fp,str_pad("TOTAL RETENC./DESCUENTOS ",29," ",STR_PAD_RIGHT));
-   fwrite($fp,str_pad(number_format_var($sum_d),9," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad($sum_d,9," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L); 
 
    fwrite($fp, $PUNTO);
    fwrite($fp, $BORDE_R);   
    fwrite($fp,str_pad("TOTAL APORTACIONES",28," ",STR_PAD_RIGHT));
-   fwrite($fp,str_pad(number_format_var($sum_a),9," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad($sum_a,9," ",STR_PAD_LEFT));
    fwrite($fp, $BORDE_L); 
    fwrite($fp, $PUNTO);
    fwrite($fp, $BREAK);
    fwrite($fp,$LINEA);
    fwrite($fp, $BREAK2);
    
-   if($mayor<7){
-       for($d=7;$mayor<$d;$d--):
-        fwrite($fp, $VACIO);
-        fwrite($fp, $BREAK);
-        endfor;
-   }      
    
-    //--------- 
-   $arreglo_numero = array();
-   $arreglo_numero = roundFaborContra( ($sum_i - $sum_d) );
+      
    
+    //---------  
    $linea_caja =str_repeat('-', 29);
    fwrite($fp, $linea_caja);
    fwrite($fp, $BREAK);
@@ -2303,8 +2235,7 @@ endfor;
    fwrite($fp, $PUNTO);
    fwrite($fp, str_pad('',1," ",STR_PAD_RIGHT));   
    fwrite($fp,str_pad("REDONDEO",13," ",STR_PAD_RIGHT));
-   fwrite($fp, ":");
-   fwrite($fp,str_pad($arreglo_numero['decimal'],11," ",STR_PAD_LEFT));
+   fwrite($fp,str_pad(": 11,000.00 ",12," ",STR_PAD_LEFT));
    fwrite($fp, str_pad('',1," ",STR_PAD_LEFT)); 
    fwrite($fp, $PUNTO);
    fwrite($fp, $BREAK);
@@ -2315,8 +2246,7 @@ endfor;
    fwrite($fp, $PUNTO);
    fwrite($fp, str_pad('',1," ",STR_PAD_RIGHT));   
    fwrite($fp,str_pad("NETO A PAGAR",13," ",STR_PAD_RIGHT));
-   fwrite($fp, ":");
-   fwrite($fp,str_pad(number_format_var($arreglo_numero['numero']),11," ",STR_PAD_LEFT));  
+   fwrite($fp,str_pad(": 11,000.00 ",12," ",STR_PAD_LEFT));  
    fwrite($fp, str_pad('',1," ",STR_PAD_LEFT)); 
    fwrite($fp, $PUNTO);
    
@@ -2325,7 +2255,7 @@ endfor;
    fwrite($fp, $linea_caja);
    fwrite($fp, str_pad('P.'.NAME_EMPRESA, 49, " ", STR_PAD_LEFT)); //VO
    fwrite($fp, str_pad('RECIBI CONFORME', 43, " ", STR_PAD_LEFT));   
-   fwrite($fp, $BREAK2); // ????
+   fwrite($fp, $BREAK2);  ????
 
     
     

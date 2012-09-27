@@ -25,13 +25,14 @@ function getFechaPatron($fecha_es_us, $patron_date) {
     return $fecha;
 }
 
-function echoo($obj){
-    if(is_null($obj)){
+function echoo($obj) {
+    if (is_null($obj)) {
         echo "\nobj null\n";
-    }else{
-        echo "<pre>".print_r($obj)."</pre>";
+    } else {
+        echo "<pre>" . print_r($obj) . "</pre>";
     }
 }
+
 /**
  *
  * @param array $arreglo 
@@ -304,7 +305,7 @@ function numMesQueFalta($mes_inicio, $mes_fin) {
         $mes_fin = 1;
     }
 
-    $rpta = null;
+    $rpta = 0;
     if ($mes_fin <= $mes_inicio) {
         $mes_fin = 0;
         $mes_inicio = 0;
@@ -316,6 +317,22 @@ function numMesQueFalta($mes_inicio, $mes_fin) {
     return $rpta;
 }
 
+// LOG ERROOR
+//echo numMesQueFalta(11, 11);
+//echo numMesQueFalta(06, 06);
+
+
+
+/**
+ *
+ * @param type $fecha
+ * @param type $day
+ * @param type $month
+ * @param type $year
+ * @return type 
+ * 
+ * @var Ayuda a crear una fecha proxima o anterior segun sea el caso.
+ */
 function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
     //   $fecha = "2012-05-01";
 
@@ -328,24 +345,85 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
     return date("Y-m-d", $str_time);
 }
 
+/**
+ *
+ * @param type $num
+ * @return Decimal Numero Redondeado a dos Decimales
+ */
+function roundTwoDecimal($num) { //SIN REDONDEO
+    $valor = number_format($num, 4);
+
+    $redondeo = round(($valor * 100));
+
+    return $redondeo / 100;
+}
+
+/*
+  function roundTwoDecimal($num) {
+  $valor = number_format($num, 2);
+
+  $redondeo = ($valor * 100);
+  $redondeo = $redondeo / 100;
+
+  $redondeo = round($redondeo);
+  return $redondeo;
+  }
+ */
+
+function number_format_var($number) {
+    return number_format($number, 2, '.', ',');
+}
+
+// NUM = 1950.24
+function roundFaborContra($num) {
 
 
-//$fecha ="2012-02-01";
+    $roundFC = (float) 0.00;
+    if (is_float($num)) {
+        $valor = number_format($num, 2); //Redondeo        
+        $aux = (string) $valor;
+        $decimal = substr($aux, strpos($aux, "."));
+        //quitar el punto decimal
+        $decimal = str_replace('.', '', $decimal);
 
-//echo "ddddddddddddddddddddd = ".crearFecha($fecha,365,0,0);
+        //CONDICION        
+        if (intval($decimal) < 50) {
+            $roundFC = $decimal * (-1);
+        } else {
+            $roundFC = 100 - $decimal;
+        }
 
+        $roundFC = $roundFC / 100;
+    }
 
+    $numero = array();
+    $numero['numero'] = intval($num);
+    $numero['decimal'] = $roundFC;
 
- // $fecha = "2017-08-01";
- // $biciesto_0 = date("L",  strtotime($fecha));    
-  //$num_0 = ($biciesto_0==1) ? 1 : 0; 
-  
-  
-//echo "\nantes ".$fecha;
-//echo "<br>";
-//echo "\ndespues : ";
-//  print_r(crearFecha($fecha, 0, 11, 0));
+    return $numero;
+}
 
+/*
+  $num = 590.59;
+  var_dump (roundFaborContra($num));
+ */
 
- 
+function getNumMayor($a, $b, $c) {
+    //$a=5;
+    //$b=8;
+    //$c=7;
+    $cout = 0;
+
+    if (($a >= $b) && ($a >= $c)) {
+        $cout = $a;
+    }
+    if (($b >= $a) && ($b >= $c)) {
+        $cout = $b;
+    } else {
+        $cout = $c;
+    }
+
+    return $cout;
+}
+
 ?>

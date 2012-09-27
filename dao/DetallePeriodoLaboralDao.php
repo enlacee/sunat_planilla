@@ -83,7 +83,7 @@ class DetallePeriodoLaboralDao extends AbstractDao {
 
     //------- buscador
 
-    function buscarDetallePeriodoLaboral($id_TRA) {
+    function buscarDetallePeriodoLaboral($id_TRA){
        // $query = "SELECT *FROM detalle_periodos_laborales WHERE id_trabajador = ?";
         $query ="
         SELECT 
@@ -103,6 +103,28 @@ class DetallePeriodoLaboralDao extends AbstractDao {
         $data = $stm->fetchAll();
         return $data[0];
     }
+    
+    
+    // funcion reporte  boleta mensual
+ function buscarDetallePeriodoLaboral_2($id_trabajador) {
+       
+        $query ="
+        SELECT 
+            fecha_inicio            
+        FROM detalle_periodos_laborales 
+        WHERE (id_trabajador = ?)
+        ORDER BY id_detalle_periodo_laboral DESC            
+    ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);        
+        $stm->execute();
+        $data = $stm->fetchAll();
+        return $data[0]['fecha_inicio'];
+    }
+    
+    
+    
+    
 
 }
 

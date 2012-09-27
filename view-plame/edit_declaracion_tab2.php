@@ -48,19 +48,84 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 	});
 	
 	   //02  = total
-	$("#reporte30_mas").click(function(){
-		console.log("crear dialog");
-		//editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago);
-		/*
-		var url = "sunat_planilla/controller/PagoController.php";
-		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
-		
-		window.location.href = url;
-		//window.open(url);
-		*/
+	$("#reporte30_mas").click(function(){		
+		editarTDMasOpciones(ID_DECLARACION);		
 
 	});
 	
+	
+	//03  = total
+	$("#reporte_plame").click(function(){		
+		
+		var url = "sunat_planilla/controller/Estructura_PlanillaMensualController.php";
+		url +="?oper=estructura-plame&id_pdeclaracion="+ID_DECLARACION		
+		
+		window.location.href = url;
+				
+
+	});
+
+	
+	
+	
+	//------------------- funciones
+	
+	function editarTDMasOpciones(id_pdeclaracion){
+		crearDialogoTDMasOp();
+		$('#dialog_editarTDMasOP').dialog('open');
+	   $.ajax({
+	   type: "POST",
+	   url: "sunat_planilla/view-plame/modal/edit_mas_opciones.php",
+	   data: {id_pdeclaracion : id_pdeclaracion},
+	   async:true,
+	   success: function(datos){
+		$('#editarTDMasOP').html(datos);
+		
+		//$('#dialog_editarTDMasOP').dialog('open');
+	   }
+	   }); 
+	}
+
+
+
+
+	function crearDialogoTDMasOp(){
+	$("#dialog_editarTDMasOP").dialog({ 
+           
+			autoOpen: false,
+			height: 300,
+			width: 280,
+			modal: true,                        
+			buttons: {
+                   'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Generar': function() {	
+				var id_pdeclaracion = document.getElementById('id_declaracion').value;				
+				
+				var id_establecimientos = document.getElementById('id_establecimientos').value;				
+				var cboCentroCosto = document.getElementById('cboCentroCosto').value;
+				
+				var id = id_establecimientos.split('|');
+		
+				
+				var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
+				url += "?oper=recibo30";
+				url += "&id_pdeclaracion="+id_pdeclaracion;	
+							
+				url += "&id_establecimientos="+id[0];
+				url += "&cboCentroCosto="+cboCentroCosto;
+				//alert(url);
+		
+				window.location.href = url;
+				
+				}
+                                
+			},			
+			open: function() {},
+			close: function() {}
+	});
+}
 	
 </script>
 
@@ -92,3 +157,10 @@ RUC: <?php echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
 
 </div>
 
+<!--  -->
+
+<div id="dialog_editarTDMasOP" title="Mas Opciones">
+
+    <div id="editarTDMasOP" align="left"></div>
+    
+</div>

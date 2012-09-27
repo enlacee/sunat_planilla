@@ -5,6 +5,7 @@
  *  ALL conceptos.
  */
 require_once '../controller/ConfConceptosController.php';
+require_once '../util/funciones.php';
 
 function sueldoMensualXHora($monto) {
     $valor = ($monto / DIA_BASE) / HORA_BASE;
@@ -16,18 +17,7 @@ function sueldoMensualXDia($monto) {
     return roundTwoDecimal($valor);
 }
 
-/**
- *
- * @param type $num
- * @return Decimal Numero Redondeado a dos Decimales
- */
-function roundTwoDecimal($num) {
-    $valor = number_format($num, 4);
 
-    $redondeo = round(($valor * 100));
-
-    return $redondeo / 100;
-}
 /*
 $monto = 1000;
 $horas = 2;

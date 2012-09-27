@@ -858,22 +858,22 @@ calcHoraLaborada();
             <p>        
                 <label for="hora_ordinaria_hh">Ordinarias (HHHH:MM)</label>
                 <input name="hora_ordinaria_hh" type="text" id="hora_ordinaria_hh"
-                       value="<?php echo $obj_tpd->getOrdinario_hora();?>"
-                 onkeydown="soloNumeros(event)" size="5" maxlength="3" />
+                 onkeydown="soloNumeros(event)"
+                       value="<?php echo $obj_tpd->getOrdinario_hora();?>" size="5" maxlength="3" readonly="readonly" />
                 :
               <input name="hora_ordinaria_mm" type="text" id="hora_ordinaria_mm"
-                       value="<?php echo $obj_tpd->getOrdinario_min();?>"
-                onkeydown="soloNumeros(event)" size="5" maxlength="2" />
+                onkeydown="soloNumeros(event)"
+                       value="<?php echo $obj_tpd->getOrdinario_min();?>" size="5" maxlength="2" readonly="readonly" />
             </p>
             <p>
                 <label for="hora_sobretiempo_hh">Sobretiempo(HHH:MM)</label>
-                <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh" size="5" maxlength="3"
-                       value="<?php echo $obj_tpd->getSobretiempo_hora(); ?>"
-                onkeydown="soloNumeros(event)" />
+                <input name="hora_sobretiempo_hh" type="text" id="hora_sobretiempo_hh"
+                onkeydown="soloNumeros(event)"
+                       value="<?php echo $obj_tpd->getSobretiempo_hora(); ?>" size="5" maxlength="3" readonly="readonly" />
                 :
-                <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" size="5" maxlength="2"
-                       value="<?php echo $obj_tpd->getSobretiempo_min();?>"
-                onkeydown="soloNumeros(event)" onblur="" />
+                <input name="hora_sobretiempo_mm" type="text" id="hora_sobretiempo_mm" onblur=""
+                onkeydown="soloNumeros(event)"
+                       value="<?php echo $obj_tpd->getSobretiempo_min();?>" size="5" maxlength="2" readonly="readonly" />
             </p>
             <h3>TOTAL HORAS:
                 <label for="total_hora_hh"></label>

@@ -315,6 +315,11 @@
 		
         //--- PIE GRID
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+    
+    $("#t_list").append($("#reporte30_02"));
+    $("#t_list").append($("#reporte30_mas"));
+	$("#t_list").append($("#reporte_plame"));
+	
 
 	
     }

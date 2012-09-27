@@ -203,6 +203,31 @@ class RegistroPorConceptoDao extends AbstractDao {
         // $lista = $stm->fetchAll();
         return true;
     }
+    
+/**
+ *
+ * @param type $codigo Situacion 0 OR 1
+ * @return boolean 
+ */
+    function bajaCodSituacion($id_trabajador, $cod_situacion=0){
+        $query = "
+        UPDATE registros_por_conceptos
+        SET  
+        cod_situacion = ?       
+        WHERE id_trabajador = ?       
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $cod_situacion);
+        $stm->bindValue(2, $id_trabajador);
+
+        $stm->execute();
+        $stm = null;
+        // $lista = $stm->fetchAll();
+        return true;        
+        
+        
+    }
 
 }
 

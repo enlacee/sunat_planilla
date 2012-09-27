@@ -48,7 +48,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------	
 		// 0106 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 35%	
 		}else if(cod_detalle_concepto=='0106'){
-			if(value < 1 || value >50){
+			if(value < 1 || value >24){
 				return [false,"Horas validas de 1 y 24 horas"];
 			}else{
 				return [true,""];
@@ -93,7 +93,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// 0308 = COMPENSACION POR TRABAJOS EN DIAS DE DESCANSO Y EN FERIADOS
 		}else if(cod_detalle_concepto=='0308'){
 			if(value < 0 || value >10){
-				return [false,"Estados validos 0 y 1"];
+				return [false,"Estados validos 0 y 10"];
 			}else{
 				return [true,""];
 			}

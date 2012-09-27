@@ -875,7 +875,7 @@ alert("Cargando... "+id_etapa_pago);
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
 
-	$("#t_list").append($("#reporte15_01"));
+	//$("#t_list").append($("#reporte15_01"));
 	$("#t_list").append($("#reporte15_02"));
 	
 	$("#t_list").append($("#reporte15_mas"));
@@ -1009,9 +1009,6 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				//alert(url);
 		
 				window.location.href = url;
-
-				
-				
 				
 				}
                                 

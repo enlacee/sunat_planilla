@@ -51,7 +51,10 @@ if ($op == "registrar_etapa") {
     //generarRecibo15();
     generarRecibo15_txt();
 } else if ($op == "recibo15_txt") {
-    generarRecibo15_txt();
+    echo "<pre>";
+    print_r($_REQUEST);
+    echo "</pre>";
+    //generarRecibo15_txt();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
@@ -743,18 +746,17 @@ function generarRecibo15_txt() {
                         $bandera_2 = true;
                     }
 
-                    if ($bandera_2/* $ecc[$j]['id_empresa_centro_costo'] == $master_cc  || $cubo_cc = "todo" */) {
+                    if ($bandera_2) {
 
+                        // LISTA DE TRABAJADORES
+                        $data_tra = array();
+                        $data_tra = $dao_pago->listar_2($id_etapa_pago, $est[$i]['id_establecimiento'], $ecc[$j]['id_empresa_centro_costo']);
+                        
+                        if(/*count*/($data_tra)/*>=1*/){  // Descomentar para que funcione Establecimientos con TRa........                       
+                        
                         $SUM_TOTAL_CC[$i][$j]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
                         $SUM_TOTAL_CC[$i][$j]['centro_costo'] = strtoupper($ecc[$j]['descripcion']);
                         $SUM_TOTAL_CC[$i][$j]['monto'] = 0;
-
-                        //var_dump($ecc);
-                        //$daoed = new EstablecimientoDireccionDao();
-                        // USAR  llenar combo x 1
-                        //$data_est_direc = array();
-                        //$data_est_direc = $daoed->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']);
-
 
 
                         //fwrite($fp, $LINEA);
@@ -808,18 +810,9 @@ function generarRecibo15_txt() {
                         fwrite($fp, $LINEA);
                         fwrite($fp, $BREAK);
 
-                        // LISTA DE TRABAJADORES
-                        $data_tra = array();
-                        $data_tra = $dao_pago->listar_2($id_etapa_pago, $est[$i]['id_establecimiento'], $ecc[$j]['id_empresa_centro_costo']);
-                        /*
-                          $datito[0]['sueldo']=900;
-                          $datito[0]['nombre']="pepepe";
-                         */
 
-
-
+                        
                         for ($k = 0; $k < count($data_tra); $k++) {
-
 //..............................................................................
 // Inicio de Boleta
                             $data = array();
@@ -853,7 +846,9 @@ function generarRecibo15_txt() {
                             // por persona
                             $SUM_TOTAL_CC[$i][$j]['monto'] = $SUM_TOTAL_CC[$i][$j]['monto'] + $data_tra[$k]['sueldo'];
                         }
-
+                        
+                        
+                       
 
                         $SUM_TOTAL_EST[$i]['monto'] = $SUM_TOTAL_EST[$i]['monto'] + $SUM_TOTAL_CC[$i][$j]['monto'];
 
@@ -871,7 +866,11 @@ function generarRecibo15_txt() {
 
                         fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK);
                         //$row_a = $row_a + 5;
-                    }
+                        
+                        }//End Trabajadores
+                        
+                    }//End Bandera.
+                    
                 }//END FOR CCosto
 
 

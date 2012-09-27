@@ -37,6 +37,9 @@ if ($op) {
 
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
+    
+    // baja REGISTRO por Concepto.
+    require_once '../dao/RegistroPorConceptoDao.php';
 }
 
 $responce = NULL;
@@ -244,6 +247,7 @@ function editarTrabajador() {
 
     //DAO
     $dao_tra = new TrabajadorDao();
+    $dao_rc = new RegistroPorConceptoDao();
 
     // echo "\ncbo_tipo_pago = " . $_REQUEST['cbo_tipo_pago'];
     // datos ORDEN FORM
@@ -359,6 +363,7 @@ function editarTrabajador() {
 
     if ($contador) {
         $dao_tra->actualizarCodigoSituacion($ID_TRA, 0);
+        $dao_rc->bajaCodSituacion($ID_TRA, 0);
     }
 
 

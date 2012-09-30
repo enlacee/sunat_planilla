@@ -11,7 +11,7 @@ if ($op) {  // ES NEDD XQ SINO SE DUPLICAN LOS REQUIRE!!!
 //    require_once '../model/Persona.php';
 }
 
-$responce = NULL;
+$responce = null;
 
 if ($op == "cargar_tabla") {
     $responce = cargar_tabla(); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
@@ -22,11 +22,8 @@ if ($op == "cargar_tabla") {
     $responce = comboUbigeoReniec($_REQUEST['id_provincia']);
 } elseif ($op == 'listar_doc_vinculosf') {
     $responce = comboDocumentoVinculoFamiliar($_REQUEST['id']);
-} else {
-    //echo "oper INCORRECTO COMBO";
 }
 
-//echo count($responce);
 echo (!empty($responce)) ? json_encode($responce) : '';
 
 /**
@@ -185,8 +182,6 @@ function comboDocumentoVinculoFamiliar($id) {
     $dao_persona = new ComboDao();
     return $data = $dao_persona->comboDocumentoVinculoFamiliar($id);
 }
-
-//-----------------------------
 
 /**
  * ---------------------------------------------------------------------------------------------

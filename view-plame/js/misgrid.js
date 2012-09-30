@@ -215,7 +215,7 @@
 
 //-----------------------------------------------------------
     function cargarTablaTrabajadorPdeclaracion(id_pdeclaracion){ 
-	alert("Cargando... "+id_pdeclaracion);
+	//alert("Cargando... "+id_pdeclaracion);
 	console.log("Cargando..."+id_pdeclaracion);
         
         $("#list").jqGrid({

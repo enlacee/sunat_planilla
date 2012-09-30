@@ -64,10 +64,9 @@ $conceptos= array('600','800');
 
 $ptaporte = view_listarConcepto(ID_EMPLEADOR_MAESTRO,$conceptos,0);
 
-echo "<pre>";
+//echo "<pre>";
 //print_r($calc_conceptos);
-echo "</pre>";
-echo "<hr>";
+//echo "</pre>";
 
 
 /*
@@ -126,7 +125,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
       </td>
       <td><?php echo $ptaporte[$i]['descripcion'] ?></td>
       <td><label for="ptta_base"></label>
-      <input name="ptta_base[]" type="text" id="ptta_base" size="8" /></td>
+      <input name="ptta_base[]" type="hidden" id="ptta_base" size="8" /></td>
       
       <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8"
       value="<?php 
@@ -212,7 +211,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //FILTR
       </td>
       <td><?php echo $ptaporte[$i]['descripcion'] ?></td>
       <td><label for="ptta_base"></label>
-      <input name="ptta_base[]" type="text" id="ptta_base" size="8" /></td>
+      <input name="ptta_base[]" type="hidden" id="ptta_base" size="8" /></td>
       
       <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8"
       value="<?php 

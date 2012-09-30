@@ -199,8 +199,7 @@ class PlameDeclaracionDao extends AbstractDao {
         on t.id_persona = p.id_persona
         -- tra
         WHERE pd.id_pdeclaracion= ?
-        $WHERE        
-        -- and p.num_documento = 12345678
+        $WHERE
         GROUP BY id_trabajador
         ";
 
@@ -212,6 +211,37 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+    
+       public function listarDeclaracionEtapa_HIJO($id_declaracion) {
+        $query = "
+        SELECT 
+        pg.id_pago,
+        pg.id_trabajador
+           
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        inner join trabajadores as t
+        on pg.id_trabajador = t.id_trabajador
+        inner join personas as p
+        on t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion= ?
+        GROUP BY id_trabajador
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_declaracion);      
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+    
+    
 
     //--------------------------------------------------------------------------//
     //--------------------------------------------------------------------------//

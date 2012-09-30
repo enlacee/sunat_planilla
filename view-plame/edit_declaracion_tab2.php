@@ -22,7 +22,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 	});
 	
 	
-	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_trabajador.php?id_declaracion='+ID_DECLARACION ,'#tabs-2-1');
+	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_trabajador.php?id_declaracion='+ID_DECLARACION ,'#tabs-2-1');
 	//cargar_pagina('sunat_planilla/view-plame/declaraciones_detalle/view_trabajador.php','#tabs-2-2');
 	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_p4ta_catecoria.php?periodo='+$PERIODO ,'#tabs-2-3');
 
@@ -132,7 +132,6 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 <div align="left">
 
-RUC: <?php echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
     <div id="tabs2">
     
    
@@ -143,7 +142,51 @@ RUC: <?php echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
 
         </ul>
         <div id="tabs-2-1">
-        11111        
+
+
+
+
+
+
+
+
+<div id="detalle_declaracion_trabajador">
+
+
+<!--  <h2>EDIT trabajador<br />
+    jqgrid
+    <br />
+  </h2>-->
+<input type="button" name="reporte30_02" id="reporte30_02" value="Reporte Mensual Total" />
+<input type="button" name="reporte30_mas" id="reporte30_mas" value="Mas op" />
+<input type="button" name="reporte_plame" id="reporte_plame" value="PDT PLAME"  />
+  
+<table id="list">
+</table>
+<div id="pager">
+</div>
+
+
+
+
+  
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
         </div>
         <!--<div id="tabs-2-2">
         22222        

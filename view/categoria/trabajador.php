@@ -61,10 +61,8 @@ $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 $objTRA = new Trabajador();
 //-- funcion Controlador Trabajador
 $objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA,$ID_TRABAJADOR);
-//$objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
-echo "<pre>";
-print_r($objTRA->getId_empresa_centro_costo());
-echo "</pre>";
+
+
 //--- sub 1 Periodo Laboral
 $objTRADetalle_1 = new DetallePeriodoLaboral();
 $objTRADetalle_1 = buscarDetallePeriodoLaboral( $objTRA->getId_trabajador());
@@ -499,7 +497,6 @@ var cbo = document.getElementById('cbo_convenio');
 
 }
 .dialog_detalle_1{
-/*	display:inline-block;*/
 	display:inline;
 	
 }
@@ -516,7 +513,7 @@ var cbo = document.getElementById('cbo_convenio');
 	  <label for="tab"></label>
 	</a></h3>
 	<div>
-	  <div style=" width:550px; background-color:#D9FFFD; margin-right:5px;" >
+	  <div style=" width:550px; background-color:#fff; border-right:2px solid blue; " >
 <div class="ocultar">id_trabajador
   <label for="id_trabajador"></label>
   <input type="text" name="id_trabajador_categoria" id="id_trabajador_categoria" 
@@ -588,7 +585,7 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
           </tr>
           <tr>
 		  
-            <td><strong>Tipo de Trabajador</strong>              <input name="id_detalle_tipo_trabajador" type="hidden" id="id_detalle_tipo_trabajador" size="3"
+            <td>Tipo de Trabajador<input name="id_detalle_tipo_trabajador" type="hidden" id="id_detalle_tipo_trabajador" size="3"
               value="<?php  echo $objTRADetalle_2->getId_detalle_tipo_trabajador(); ?>"
                /></td>
             <td>
@@ -645,7 +642,7 @@ foreach ($cbo_tipo_trabajador as $indice) {
         <br>
         <table width="auto" border="1" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="195"><strong>Regimen Laboral </strong></td>
+            <td width="195">Regimen Laboral </td>
             <td colspan="2">
                 <select name="cbo_regimen_laboral" id="cbo_regimen_laboral" style="width:300px;" >
 				<option value="0">-</option>
@@ -670,7 +667,7 @@ foreach ($cbo_regimen_laboral as $indice) {
               </select>            </td>
           </tr>
           <tr>
-            <td><strong>Categoria Ocupacional</strong></td>
+            <td>Categoria Ocupacional</td>
             <td colspan="2">
 <select name="cbo_categoria_ocupacional"  id="cbo_categoria_ocupacional" style="width:230px;" onchange="combosVinculados(this)" 
 >
@@ -690,7 +687,7 @@ foreach ($cbo_categoria_ocupacional as $indice) {
 </select></td>
           </tr>
           <tr>
-            <td><strong>Nivel Educativo </strong></td>
+            <td>Nivel Educativo </td>
             <td colspan="2">
 			<select name="cbo_nivel_educativo" id="cbo_nivel_educativo" style="width:300px;">
 <!--             <option value="0">-</option>-->
@@ -714,7 +711,7 @@ foreach ($combo_nivel_educativo as $indice) {
             <td width="200"><em>Nombre</em></td>
           </tr>
           <tr>
-            <td><strong>Ocupacion</strong></td>
+            <td>Ocupacion</td>
             <td><input name="txt_ocupacion_codigo" id="txt_ocupacion_codigo" type="text" size="12" 
             onkeyup="return seleccionarOcupacionComboPorInput(event,this)" 
             onblur="seleccionarOcupacionComboPorInputTab(this)" 
@@ -744,7 +741,7 @@ foreach ($cbo_ocupaciones as $indice) {
             </select></td>
           </tr>
           <tr>
-            <td><strong>Tipo de Contrato</strong></td>
+            <td>Tipo de Contrato</td>
             <td colspan="2"><select name="cbo_tipo_contrato" style="width:180px" >
               <option value="0">-</option>
   <?php 
@@ -904,7 +901,7 @@ foreach ($lista_establecimientos as $indice) {
               </td>
             </tr>
             <tr>
-              <td><strong>Centro de Costo</strong></td>
+              <td>Centro de Costo</td>
               <td><label for="cboCentroCosto"></label>
                 <select name="cboCentroCosto" id="cboCentroCosto" style="width:100px">
                 <option value="0">-</option>                

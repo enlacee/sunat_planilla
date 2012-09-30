@@ -533,7 +533,7 @@ function eliminarPersona($id) {
     return $rpta;
 }
 
-//?????
+
 function cargar_tabla() {
     $ESTADO = ($_REQUEST['estado']) ? $_REQUEST['estado'] : 0;
 
@@ -544,12 +544,6 @@ function cargar_tabla() {
     $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
     $sord = $_GET['sord']; // get the direction
 
-
-    /*    if ($_REQUEST['estado']) {
-      // $estado = "WHERE p.estado = '" . $_REQUEST['estado'] . "' ";
-      $WHERE = $estado;
-      }
-     */
 
     $WHERE = "";
 
@@ -658,11 +652,7 @@ function cargar_tabla() {
             $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar" >
 		<a href="' . $js . '"><img src="images/edit.png"/></a>
-		</span>				
-		&nbsp;
-		<!-- <span  title="Cancelar" >
-		<a href="' . $js2 . '"><img src="images/cancelar.png"/></a>
-		</span>	-->
+		</span>
 		</div>';
         } else {
             $opciones = '<div id="divEliminar_Editar">				

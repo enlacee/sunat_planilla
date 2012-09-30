@@ -23,32 +23,28 @@ if ($op) {
 
     //EPAGO TRABAJADOR
     require_once '../dao/PeriodoRemuneracionDao.php';
-    
-    
+
+
     //ultimo recurso
     require_once '../controller/PlameTrabajadorController.php';
     require_once '../dao/PtrabajadorDao.php';
-    
+
     //---
     require_once '../dao/RegistroPorConceptoDao.php';
-    
-    //variables conceptos
-    require_once '../controller/ConfConceptosController.php'; 
-    
 
-    
+    //variables conceptos
+    require_once '../controller/ConfConceptosController.php';
 }
 
 $response = NULL;
 
 if ($op == "trabajador_por_etapa") {
     $response = listarTrabajadoresPorEtapa();
-    
 } else if ($op == "registrar_etapa") {
 
     $response = registrarTrabajadoresPorEtapa();
 } else if ($op == "cargar_tabla") {
-    
+
     $response = cargartabla();
 } else if ($op == "del") {
     $response = del_etapaPago();
@@ -72,11 +68,6 @@ function listarTrabajadoresPorEtapa() {
         //$id_etapa_pago = $dao->buscarEtapaPago_ID($ID_DECLARACION, $COD_PERIODO_REMUNERACION, 1);
         //if (is_array($id_etapa_pago) && count($data_etapapago) == 0) { // Registrar 1era QUINCENA
         $response = listar_15(1, $ID_DECLARACION, $COD_PERIODO_REMUNERACION);
-
-        /* } else {
-          echo "UN CASO INCONTROLABLE QUINCENA!";
-          }
-         */
     }
     //=========================================================================//
     return $response;
@@ -123,7 +114,7 @@ function registrarTrabajadoresPorEtapa() {
                 $id_etapa_pago = $dao->registrar($model);
             }
             //--------------------------------
-            registrar_15($id_etapa_pago, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
+            registrar_15($id_etapa_pago, null, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
         } else {
             echo "UN CASO INCONTROLABLE QUINCENA! En tabla Etapa de PAGO";
         }
@@ -289,11 +280,12 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
     return $response;
 }
 
-function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
-
+function registrar_15($id_etapa_pago, $id_etapa_pago_antes, $FECHA_INICIO, $FECHA_FIN, $ids) {
+    $rpta = false;
     // DAO
     $dao_plame = new PlameDao();
-    
+     $dao_pago = new PagoDao();
+
     //|-------------------------------------------------------------------------
     //| Aki para mejorar. la aplicacion debe de preguntar por un Trabajador en 
     //| concreto:
@@ -305,39 +297,34 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
     $data_traa = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA_INICIO, $FECHA_FIN);
 
 
-    //TRABAJADORES YA REGISTRADOS
-    $dao_pago = new PagoDao();
-    $_data_id_trabajador = $dao_pago->listar($id_etapa_pago, "id_trabajador");
-
-    if (count($data_traa) == count($_data_id_trabajador)) {
-        echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-QUINCENAL]! ";
-        return false;
-    }
-
-
-
-    //echo "<pre> _data_id_trabajador";
-    //print_r($_data_id_trabajador);
-    //echo "</pre>";
-
-    /* --------------filtro de  id_trabajadores ------------- */
-    for ($i = 0; $i < count($_data_id_trabajador); $i++) {
-        for ($j = 0; $j < count($data_traa); $j++) {
-            if ($_data_id_trabajador[$i]['id_trabajador'] == $data_traa[$j]['id_trabajador']) {
-                unset($data_traa[$j]);
-                break;
+// Solo enviara datos LA Segunda Quincena!!!!
+    if ($id_etapa_pago_antes) {
+        $_data_id_trabajador = $dao_pago->listar_HIJO($id_etapa_pago_antes);
+       
+        $data_filtro = array();
+        for ($i = 0; $i < count($_data_id_trabajador); $i++) {
+            for ($j = 0; $j < count($data_traa); $j++) {
+                if ($_data_id_trabajador[$i]['id_trabajador'] == $data_traa[$j]['id_trabajador']) {
+                    //unset($data_traa[$j]);
+                    $data_filtro[] = $data_traa[$j];
+                    break;
+                }
             }
         }
+
+        $data_tra = array_values($data_filtro);
+        ECHO "DATOS FILTRADO POR SEGUNDA QUINCENA";
+    } else {
+        ECHO "DATOS FILTRADO POR PRIMERA QUINCENA";
+        $data_tra = array_values($data_traa);
     }
-    $data_tra = array_values($data_traa);
-    /* --------------filtro de  id_trabajadores ------------- */
 
 //-------------------------------------------------------------------
-    //listar Trabajadores ya listados en $id_etapa_pago    
-    echo "<pre>idsS";
-    print_r($ids);
-    echo "</pre>";
+// ID seleccionados en el Grid    
     if (isset($ids)) {
+        echo "<pre>[idsS]  Que Usted Selecciono en el Grid\n";
+        print_r($ids);
+        echo "</pre>";
         //------- filtro-------//
         $ids_tra = array();
         for ($i = 0; $i < count($ids); $i++) {
@@ -353,16 +340,50 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
         $data_tra = $ids_tra; //array_values($data_traa);  
     }
 
-    echo "<pre>TRABAJADOR a INSERT";
-    print_r($data_tra);
-    echo "<pre>";
-//-------------------------------------------------------------------
+    
+  
+    
+    
+    //========== ELIMINAR LO QUE YA EXISTE en BD ===================//
+    //TRABAJADORES YA REGISTRADOS  
+    $data_id_tra_db = $dao_pago->listar_HIJO($id_etapa_pago);
+    //print_r($data_id_tra_db);
+    
+    if (count($data_id_tra_db) > 0) {
+        $data_tra_ref = $data_tra;        
+        
+        for ($i = 0; $i < count($data_id_tra_db); $i++):
 
+            for ($j = 0; $j < count($data_tra_ref); $j++):
+                echo "<< ";
+                echo "i = $i : j = $j ";
+                echo " >>\n";
+                if ($data_id_tra_db[$i]['id_trabajador'] == $data_tra_ref[$j]['id_trabajador']):                   
+                    $data_tra_ref[$j]['id_trabajador'] = null;
+                    echo "encontro trabajador Y  BREAK;";                    
+                    break;
+                endif;
+            endfor;
+
+        endfor;
+        $data_tra =null;
+        $data_tra = array_values($data_tra_ref);
+    }
+
+    
+    echo "DATA CON id_trabajador NULL Y SIN NULL ";    
+    print_r($data_tra);
+    echo "FINNN NULL";
+    
+       
+    
+//-------------------------------------------------------------------
 
 
     if (count($data_tra) >= 1) {
         for ($i = 0; $i < count($data_tra); $i++) {
-
+            if($data_tra[$i]['id_trabajador'] != null){
+                ECHO "INYECTAR A BD";
             //---            
             if ($data_tra[$i]['fecha_inicio'] > $FECHA_INICIO) {
                 //default
@@ -436,8 +457,8 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
             //$datax = $daopt->buscar_ID($id_ptrabajador);
             $dao_rpc = new RegistroPorConceptoDao();
 
-           //??????????? 
-            $datax = $dao_rpc->buscar_RPC_PorTrabajador($data_tra[$i]['id_trabajador'], C701,1);
+            //??????????? 
+            $datax = $dao_rpc->buscar_RPC_PorTrabajador($data_tra[$i]['id_trabajador'], C701, 1);
             echo "<pre>dataxXx DE CONCEPTO ADELANTO";
             print_r($datax);
             echo "</pre>";
@@ -447,7 +468,7 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
 //----------------------------------------------------------------------------------------
             //-- Datos basicos --                       
             $SUELDO = $data_tra[$i]['monto_remuneracion'];
-            ECHO "\n\n\n\nSUELDO DB =". $SUELDO;
+            ECHO "\n\n\n\nSUELDO DB =" . $SUELDO;
 
             // 1 Quincena
             if (getFechaPatron($FECHA_INICIO, "d") == '01' || getFechaPatron($FECHA_INICIO, "d") == '1') {
@@ -462,8 +483,8 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
                     $SUELDO_CAL = $SUELDO * (50 / 100); // 50%
                     $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
                 }
-                
-                ECHO "\nMONTO A PAGAR ES = ".$SUELDO_CAL;
+
+                ECHO "\nMONTO A PAGAR ES = " . $SUELDO_CAL;
             } else {// 2 QUINCENA HAY DESCUENTO
                 echo "ENTROOO EN segundaA quincena";
                 $percent = ($numero) ? $numero : 0;
@@ -510,6 +531,9 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
 
             $dao = new PagoDao();
             $dao->registrar($model);
+            
+            $rpta=true;
+        }
         }
     }
 
@@ -521,7 +545,7 @@ function registrar_15($id_etapa_pago, $FECHA_INICIO, $FECHA_FIN, $ids = null) {
 //    echo "</pre>";
 
 
-    return "okkKKK";
+    return $rpta;
 }
 
 //function Auxiliar

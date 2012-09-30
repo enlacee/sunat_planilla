@@ -58,7 +58,7 @@ if ($op) {
     //
     //CONFIGURACION DE 28 Y NAVIDAD
     require_once '../dao/VacacionDao.php';
-    
+
     // reporte txt
     require_once '../dao/EstablecimientoDao.php';
     require_once '../dao/EmpresaCentroCostoDao.php';
@@ -67,9 +67,7 @@ if ($op) {
     require_once '../dao/DetalleRegimenPensionarioDao.php';
     require_once '../dao/DetallePeriodoLaboralDao.php';
     //reporte tabla
-    
-    
-        //ZIP
+    //ZIP
     require_once '../util/zip/zipfile.inc.php';
 }
 
@@ -93,14 +91,23 @@ if ($op == "add") {
 
     $response = cargar_tabla_grid_lineal();
 } else if ($op == "del") {
-    $response = eliminar_trabajadorPdeclaracion();
+    
+    // Primera Alternativa
+    //$response = eliminar_trabajadorPdeclaracion();
+    
+    $response =elimarEnCascada_trabajador_en_mes();
+    
+    
+    
 } else if ($op == "recibo30") {
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     $estado = generarConfiguracion($ID_PDECLARACION);
- if ($estado == true) {
-     //echo "llegooo";
-    generarBoletaTxt($ID_PDECLARACION);
- }
+    if ($estado == true) {
+        //echo "llegooo";
+        generarBoletaTxt($ID_PDECLARACION);
+    }
+}else if($op == 'eliminar_data_mes'){
+ $response = eliminarDatosMes();
 }
 
 
@@ -182,10 +189,10 @@ function generarConfiguracion($ID_PDECLARACION) {
 }
 
 //EtapaPagoController
-function calcularSegudaQuincena($ID_PDECLARACION) {
+function calcularSegudaQuincena($ID_PDECLARACION,$ids_REQUEST) {
     $COD_PERIODO_REMUNERACION = 2;
     //$COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
-    $ids_trabajador = $_REQUEST['ids'];
+    //$ids = $_REQUEST['ids'];
     //========================================================================//
     $daoPlame = new PlameDeclaracionDao();
     $data_d = $daoPlame->buscar_ID($ID_PDECLARACION);
@@ -194,35 +201,31 @@ function calcularSegudaQuincena($ID_PDECLARACION) {
     $FECHAX = getFechasDePago($FECHA_PERIODO);
     $FECHA = array();
     //========================================================================//
-    //---
-    if (/* count($data_id_etapa_pago) == 1 */true) { //Segunda QUINCENA SI o SI
-        $FECHA['inicio'] = $FECHAX['second_weeks_mas1']; //16/01/2012 a 31/01/2012
-        $FECHA['fin'] = $FECHAX['last_day'];
-        //================================
-        $dao = new EtapaPagoDao();
-        $id_etapa_pago = $dao->buscarEtapaPago_ID($ID_PDECLARACION, 2, 2);
 
-        if (is_null($id_etapa_pago)) {
+    $FECHA['inicio'] = $FECHAX['second_weeks_mas1']; //16/01/2012 a 31/01/2012
+    $FECHA['fin'] = $FECHAX['last_day'];
+    //================================
+    $dao = new EtapaPagoDao();
+    $id_etapa_pago_antes = $dao->buscarEtapaPago_ID($ID_PDECLARACION, 2, 1);//primera quincena
+    
+    $id_etapa_pago = $dao->buscarEtapaPago_ID($ID_PDECLARACION, 2, 2);
+    
 
-            $model = new EtapaPago();
-            $model->setId_pdeclaracion($ID_PDECLARACION);
-            $model->setCod_periodo_remuneracion($COD_PERIODO_REMUNERACION);
-            $model->setFecha_inicio($FECHA['inicio']);
-            $model->setFecha_fin($FECHA['fin']);
-            $model->setGlosa("Segunda Quincena");
-            $model->setTipo("2");
-            $model->setFecha_creacion(date("Y-m-d"));
+    if (is_null($id_etapa_pago)) {
 
-            $id_etapa_pago = $dao->registrar($model);
-        }
-        //--------------------------------
-        registrar_15($id_etapa_pago, $FECHA['inicio'], $FECHA['fin']/* , $ids_trabajador */);
+        $model = new EtapaPago();
+        $model->setId_pdeclaracion($ID_PDECLARACION);
+        $model->setCod_periodo_remuneracion($COD_PERIODO_REMUNERACION);
+        $model->setFecha_inicio($FECHA['inicio']);
+        $model->setFecha_fin($FECHA['fin']);
+        $model->setGlosa("Segunda Quincena");
+        $model->setTipo("2");
+        $model->setFecha_creacion(date("Y-m-d"));
 
-        //--------------------------------
-        // registrar_15($id_etapa_pago, $FECHA['inicio'], $FECHA['fin']);
-    } else {
-        echo "CASO INCONTROLABLE";
+        $id_etapa_pago = $dao->registrar($model);
     }
+    //--------------------------------
+    return registrar_15($id_etapa_pago,$id_etapa_pago_antes, $FECHA['inicio'], $FECHA['fin'],$ids_REQUEST);
 }
 
 function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
@@ -234,81 +237,104 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
 //==============================================================================
     //$ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
+    
     $ids = $_REQUEST['ids'];
+    
+    ECHO "ENTRO EN FUNCION UNICA PARA QUINCENA 2\n\n";
+    
+    
+    $banderin = calcularSegudaQuincena($ID_PDECLARACION,$ids);
+    
 
-    calcularSegudaQuincena($ID_PDECLARACION);
-
-    echo "**************** paso de CALC segunda quincena 15";
-    ECHO " ID_PDECLARACION   :::" . $ID_PDECLARACION;
-
+    echo "\nBANDERIN ES ::: \n\n";
+    var_dump($banderin);
+    echo "\nBANDERIN ES ::: \n\n";
+    
+    if(/*$banderin == */true){
     //DAO (workers list of declaracion)
     $dao = new PlameDeclaracionDao();
-    $data_traa = $dao->listarDeclaracionEtapa($ID_PDECLARACION);
+    //$data_traa = $dao->listarDeclaracionEtapa($ID_PDECLARACION);
+    $data_traa = $dao->listarDeclaracionEtapa_HIJO($ID_PDECLARACION);
 
-
-    //...PERIODO DECLARACION...!
-    //$dao->lis
-
-    echo "<pre> data_traa";
-    print_r($data_traa);
+    
+    echo "<pre> data_traa List 2 etapas 1 y 2 quincena Y agrupa";
+    //print_r($data_traa);
     echo "</pre>";
 
-    //TRABAJADORES YA REGISTRADOS (0 si no hay registrados aun)
-    $dao_trapdecla = new TrabajadorPdeclaracionDao();
-    $_data_id_trabajador = $dao_trapdecla->listar($ID_PDECLARACION, "id_trabajador");
-
-    if (count($data_traa) == count($_data_id_trabajador)) {
-        // echo "DATOS YA SON IGUALES NO PUEDE seguir registrando MAS. [TRUNCADO-MENSUAL]! ";
-        return false;
-    }
-
-    /* --------------filtro de  id_trabajadores ------------- */
-
-    for ($i = 0; $i < count($_data_id_trabajador); $i++) {
-        for ($j = 0; $j < count($data_traa); $j++) {
-            if ($_data_id_trabajador[$i]['id_trabajador'] == $data_traa[$j]['id_trabajador']) {
-                unset($data_traa[$j]);
-                break; //??
-            }
-        }
-    }
-
-    $data = array_values($data_traa);
-
-    /* --------------filtro de  id_trabajadores ------------- */
-
-    echo "<pre>  IDDDSSSSDDSSS";
-    print_r($ids);
-    echo "</pre>";
+    //--
+//-------------------------------------------------------------------
+// ID seleccionados en el Grid    
     if (isset($ids)) {
-        //filtro//
+        echo "<pre>[idsS]  Que Usted Selecciono en el Grid\n";
+        print_r($ids);
+        echo "</pre>";
+        //------- filtro-------//
         $ids_tra = array();
         for ($i = 0; $i < count($ids); $i++) {
-            for ($j = 0; $j < count($data); $j++) {
-                if ($ids[$i] == $data[$j]['id_trabajador']) {
+            for ($j = 0; $j < count($data_traa); $j++) {
+                if ($ids[$i] == $data_traa[$j]['id_trabajador']) {
 
-                    $ids_tra[]['id_trabajador'] = $data[$j]['id_trabajador']; //$data[$j];
-                    break; //
+                    $ids_tra[] = $data_traa[$j];
+                    break;
                 }
             }
         }
-        $data = null;
-        $data = $ids_tra; //array_values($data_traa);  
+        $data_traa = null;
+        $data_traa = $ids_tra; //array_values($data_traa);  
     }
+    
+    
+    
+     //========== ELIMINAR LO QUE YA EXISTE en BD PLANILLA Conceptos ===================//
+    
+    $dao_trapdecla = new TrabajadorPdeclaracionDao();
+    $data_id_tra_db = $dao_trapdecla->listar_HIJO($ID_PDECLARACION);    
+    
+    //print_r($data_id_tra_db);
+    
+    if (count($data_id_tra_db) > 0) {
+        $data_tra_ref = $data_traa;        
+        
+        for ($i = 0; $i < count($data_id_tra_db); $i++):
 
+            for ($j = 0; $j < count($data_tra_ref); $j++):
+                echo "\n<< i = $i : j = $j >>\n";;
+                if ($data_id_tra_db[$i]['id_trabajador'] == $data_tra_ref[$j]['id_trabajador']):                   
+                    $data_tra_ref[$j]['id_trabajador'] = null;
+                    echo "encontro trabajador Y  BREAK!!;";                    
+                    break;
+                endif;
+            endfor;
+
+        endfor;
+        $data_traa =null;
+        $data_traa = array_values($data_tra_ref);
+    }
+    //--
+    
+    
+    
+    
+
+    $data = array_values($data_traa);
+    //$ID_TRABAJADOR = array_values($data_traa);
+    
     // paso 01 :: Get todos los -> id_trabajador
-    $ID_TRABAJADOR = array();
+    $ID_TRABAJADOR = array();    
     for ($i = 0; $i < count($data); $i++) {
-        $ID_TRABAJADOR[] = $data[$i]['id_trabajador'];
+        if($data[$i]['id_trabajador'] !=null):
+            $ID_TRABAJADOR[] = $data[$i]['id_trabajador'];
+        endif;
     }
     $data = null;
+    
 //==============================================================================
     //paso 02 :: Registrar [trabajadores_pdeclaraciones]
 
-    echo "<pre> Insert  list trabajadores";
-    print_r($ID_TRABAJADOR);
-    echo "</pre>";
-
+    echo "\n<pre>INSERT PLANILLA ..!\n";
+    VAR_DUMP($ID_TRABAJADOR);
+    echo "</pre>\n";
+    
     //DAO
     $dao_rpc = new RegistroPorConceptoDao();
 
@@ -357,9 +383,17 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         //ADD 22/09/2012 
         $obj->setCod_ocupacion_p($DATA_TRA['cod_ocupacion_p']);
         $obj->setId_empresa_centro_costo($DATA_TRA['id_empresa_centro_costo']);
-        
-
-        $id_trabajador_pdeclaracion = $dao->registrar( $obj );
+        echo "\n\n";
+        echo "ID_TRABAJADOR[$i] = ".$ID_TRABAJADOR[$i];
+        echo "\n\n";
+        echo "<pre> DATA_TRA";
+        print_r($DATA_TRA);
+        echo "<pre>";
+        echo "<br>\n";
+        echo "<pre> obj Errir anb";
+        print_r($obj);
+        echo "<pre>";
+        $id_trabajador_pdeclaracion = $dao->registrar($obj);
 // --- Comment end 
 //....................................................................//
         // paso 03 :: Consultar Conceptos
@@ -379,6 +413,11 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         ECHO "ASIGNACION FAMILIAR";
         $data_val = array();
         $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C201);
+        ECHO "\nID_TRABAJADOR[$i] = ".$ID_TRABAJADOR[$i];
+        ECHO "id_trabajador_pdeclaracion = $id_trabajador_pdeclaracion     ";
+        echo "ASIGNACION FAMILIAR";
+        VAR_DUMP($data_val);
+        
         if (isset($data_val['valor'])) {
             concepto_0201($id_trabajador_pdeclaracion, $data_sum['sueldo']);
         }
@@ -469,6 +508,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         // 0304 = BONIFICACIÓN POR RIESGO DE CAJA
         $data_val = array();
         $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C304);
+
         if (isset($data_val['valor'])) {
             concepto_0304($id_trabajador_pdeclaracion, $data_val['valor']);
         }
@@ -525,6 +565,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
         calcular_IR5_concepto_0605($id_trabajador_pdeclaracion, $ID_PDECLARACION, $ID_TRABAJADOR[$i], $data_sum['sueldo']);
         //concepto_0605($id_trabajador_pdeclaracion, $monto);
     }//ENDFOR
+    }//Banderin 
 }
 
 /**
@@ -541,22 +582,21 @@ function concepto_0105($id, $monto = 0, $horas = 0) {
 
     $neto = $nuevo_sueldo_por_hora * $horas;
     $neto = roundTwoDecimal($neto);
-    
+
     //..............................................
     $minutos = $horas * 60;
-    
-    $hour=0;
-    $min =0;
-    while($minutos>=60){
+
+    $hour = 0;
+    $min = 0;
+    while ($minutos >= 60) {
         $hour = $hour + 1;
         $minutos = $minutos - 60;
     }
-    $min = $minutos;    
-    
+    $min = $minutos;
+
     $dao_tpd = new TrabajadorPdeclaracionDao();
     $dao_tpd->actualizarHoraMinuto($hour, $min, $id);
     //..............................................    
-    
     //registrar
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
@@ -575,34 +615,31 @@ function concepto_0106($id, $monto = 0, $horas = 0) {
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.35;
     $neto = $nuevo_sueldo_por_hora * $horas;
     $neto = roundTwoDecimal($neto);
-    
+
     // Consultamos si existe valores seteados en Bd H:mm
     $dao_tpd = new TrabajadorPdeclaracionDao();
     $data_time = $dao_tpd->selectHoraMinuto($id);
     $h = ($data_time['sobretiempo_hora']) ? $data_time['sobretiempo_hora'] : 0;
-    $m = ($data_time['sobretiempo_min']) ? (intval($data_time['sobretiempo_min'])/60) : 0;
+    $m = ($data_time['sobretiempo_min']) ? (intval($data_time['sobretiempo_min']) / 60) : 0;
     $hora_decimal_calc = $h + $m;
     //---------
-    
     //..............................................
-    $horas = $horas  + $hora_decimal_calc;
+    $horas = $horas + $hora_decimal_calc;
     $minutos = $horas * 60;
-    
-    $hour=0;
-    $min =0;
-    while($minutos>=60){
+
+    $hour = 0;
+    $min = 0;
+    while ($minutos >= 60) {
         $hour = $hour + 1;
         $minutos = $minutos - 60;
     }
-    $min = $minutos;    
-    
+    $min = $minutos;
 
-    
+
+
     //
     $dao_tpd->actualizarHoraMinuto($hour, $min, $id);
     //..............................................
-    
-
     //registrar
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
@@ -1031,7 +1068,7 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
      * 
      */
     if ($mes_periodo == '07' || $mes_periodo == '7') {
-        
+
         $fecha = getRangoJulio($anio_periodo);
         $fj_inicio = $fecha['inicio'];
         $fj_fin = $fecha['fin'];
@@ -1072,7 +1109,7 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             // 9% = tasa extraordinaria.   
             // 001 = SI dias feriados >=3 : se le suma todos los dias feriados trabajados /6
             $bextraordinario = ($monto_dias_feriados / 6);
-            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * (T_ESSALUD/100); /*0.09;*/
+            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * (T_ESSALUD / 100); /* 0.09; */
 
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
@@ -1098,29 +1135,26 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
 
             if (intval($diax) == 1) { //DIA EMPEZO 01-mes-anio = OK NORMAL
                 $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
-            } else if (intval($diax) > 1) { 
+            } else if (intval($diax) > 1) {
                 //SE CALCULA DEL SIGUIENTE MES.           
                 //asume que empezo diaz despues. .:. + 1 siguiente Mes
                 $mesx = intval($mesx) + 1;
-                
+
                 //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
                 //Existe un error cuando el mes es  6=06;
-                if($mesx ==(getFechaPatron($fj_fin, "m")) ){
+                if ($mesx == (getFechaPatron($fj_fin, "m"))) {
                     $mes_q_falta = 1;
-                }else{
+                } else {
                     $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
                 }
                 //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
-                
-                
             }
 
 
             $bextraordinario = 0.00;
             $bextraordinario = ($monto_dias_feriados / 6) * $mes_q_falta; //---------------------------------->mes q falta OK
-            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * (T_ESSALUD/100); // 0.09; // ESSALUD = 9%
+            $bextraordinario = ($bextraordinario + $monto_ingresos_junio) * (T_ESSALUD / 100); // 0.09; // ESSALUD = 9%
             //X1 -------------------------- 01 ---------------------------------
-
             //$model->setMonto_devengado($monto_ingresos_junio);
             //Calculo proporcional ->> a los meses q entroooo
             echo "\nUSTED EMPEZO A TRABAJAR DESPUES DE  $fj_inicio \n";
@@ -1181,26 +1215,26 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
         //|--------------------------------------------------------------------
         // GRATIFICACIONES DE FIESTAS PATRIAS – LEY 29351  -->ABAJO OK
         echo "\n\n\n\n !ENTRO EN CONDICION DE Diciembre.... \n\n\n";
-        echo "trabajador :: ".$trabajador['fecha_inicio'];
+        echo "trabajador :: " . $trabajador['fecha_inicio'];
         echo "\n....................................................\n";
-        
-        
+
+
         echo "FECHAS PARAMETRO";
         echo "<pre>";
         print_r($fecha);
         echo "</pre>";
-        
-        
-        
+
+
+
         if (($trabajador['fecha_inicio'] <= $fj_inicio ) && (($trabajador['fecha_fin'] >= $fj_fin) || ($trabajador['fecha_fin'] == null) )) {
             echo "\n\nINSERT -> 0406 = GRATIFICACION COMPLETA NAVIDAD\n\n";
             // falta el  9 %
             ECHO "\nALL INGRESOS DE NOVIEMBRE = " . $monto_ingresos_noviembre;
             echo"\n TRABAJADOR se Encuentra para GRATIFICACACION DE DICIEMBRE";
             echo "\n $fj_inicio  al $fj_fin o null";
-            
-            
-                        
+
+
+
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
             $model->setMonto_pagado($monto_ingresos_noviembre);
@@ -1215,11 +1249,11 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             // 9% = tasa extraordinaria.   
             // 001 = SI dias feriados >=3 : se le suma todos los dias feriados trabajados /6
             $bextraordinario = ($monto_dias_feriados / 6);
-            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * (T_ESSALUD/100);/*0.09;*/
-            
+            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * (T_ESSALUD / 100); /* 0.09; */
+
             echo "\nbonificacion extraordiraria 9% DE ESALUD es  =" . $bextraordinario;
-            
-            
+
+
             $model = new DeclaracionDconcepto();
             $model->setId_trabajador_pdeclaracion($id);
             $model->setMonto_pagado($bextraordinario);
@@ -1227,9 +1261,6 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
             //dao
             $dao = new DeclaracionDconceptoDao();
             $dao->registrar($model);
-            
-            
-            
         } else if ($trabajador['fecha_inicio'] > $fj_inicio) {
 
             echo "\n\n0407=GRATIFICACIONES PROPORCIONAL – LEY 29351\n\n";
@@ -1240,27 +1271,26 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
 
             $mes_q_falta = null;
             echo "\nanyes de pasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar   fecha fin partes = $fj_fin \n";
-            
-            
+
+
 
             if (intval($diax) == 1) { //DIA EMPEZO 01-mes-anio = OK NORMAL
                 $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
                 echo "\nEntro dia  = 1\n.";
                 echo "\nmes_q_falta = $mes_q_falta\n";
-            } else if (intval($diax) > 1) { 
-                 //SE CALCULA DEL SIGUIENTE MES.           
+            } else if (intval($diax) > 1) {
+                //SE CALCULA DEL SIGUIENTE MES.           
                 //asume que empezo diaz despues. .:. + 1 siguiente Mes
                 $mesx = intval($mesx) + 1;
-                
+
                 //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
                 //Existe un error cuando el mes es  11=11;
-                if($mesx ==(getFechaPatron($fj_fin, "m")) ){
+                if ($mesx == (getFechaPatron($fj_fin, "m"))) {
                     $mes_q_falta = 1;
-                }else{
+                } else {
                     $mes_q_falta = numMesQueFalta($mesx, getFechaPatron($fj_fin, "m"));
                 }
                 //++++++++++++++++++++ ARTILUGIO  NEED++++++++++++++++++++++++//
-                
             }
 
             echo "\nMES QUE FALTA = " . $mes_q_falta;
@@ -1274,8 +1304,8 @@ function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $m
 
             $bextraordinario = 0.00;
             $bextraordinario = ($monto_dias_feriados / 6) * $mes_q_falta;
-            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * (T_ESSALUD/100); /*0.09*/;
-            
+            $bextraordinario = ($bextraordinario + $monto_ingresos_noviembre) * (T_ESSALUD / 100); /* 0.09 */;
+
             $nuevo = ($monto_ingresos_noviembre / 6) * $mes_q_falta;
             //X1 
             $model = new DeclaracionDconcepto();
@@ -1327,13 +1357,13 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
 
     $dao = new PlameDeclaracionDao();
     $data_pd = $dao->buscar_ID($id_pdeclaracion);
-    $periodo = $data_pd['periodo'];    
-    
+    $periodo = $data_pd['periodo'];
+
     //====================================================  
-    $all_ingreso = get_AFP_Ingresos($id_pdeclaracion, $id_trabajador);    
+    $all_ingreso = get_AFP_Ingresos($id_pdeclaracion, $id_trabajador);
     //====================================================    
     //echo "all_ingreso =" . $all_ingreso;
-    
+
     $dao_afp = new ConfAfpDao();
     $afp = $dao_afp->vigenteAfp($cod_regimen_pensionario, $periodo);
     //----
@@ -1550,7 +1580,7 @@ function listar_trabajadorPdeclaracion() {
         $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_trabajador_pdeclaracion=" . $param . "&id_trabajador=" . $_01 . "','#detalle_declaracion_trabajador')";
 
 
-        $js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
+        $js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "',$_01)";
         $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar"   >
 		<a href="' . $js . '" class="divEditar" ></a>
@@ -2038,7 +2068,6 @@ function generarBoletaTxt($id_pdeclaracion) {
 }
 
 
-
 function generarBotletaTabla($fp,$id_trabajador_pdeclaracion,$cod_regimen_pensionario,$periodo,$BREAK,$BREAK2){
     
     //..............................................................................
@@ -2328,6 +2357,54 @@ endfor;
    fwrite($fp, $BREAK2); // ????
 
     
+    
+    
+}
+
+
+
+//FUNCTION ELIMINAR O LIMPIAR MES DE DATA
+
+function eliminarDatosMes(){
+    //var_dump($_REQUEST);
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $dao  = new TrabajadorPdeclaracionDao();
+    $rpta =  $dao->eliminarDatosMes($id_pdeclaracion);
+    return $rpta;
+}
+/**
+ *
+ * @return type 
+ * @var elimina solo por trabajador y declaracion registrada.
+ */
+function elimarEnCascada_trabajador_en_mes(){
+    //echoo($_REQUEST);
+    
+    $id_pdeclaracion  =$_REQUEST['id']; 
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $id_trabajador = $_REQUEST['id_trabajador'];
+    
+    //paso 01 Elimar trabajador_pdeclaracion
+    $dao_tpd = new TrabajadorPdeclaracionDao();
+    $r_1 = $dao_tpd->eliminar_idPdeclaracion($id_pdeclaracion,$id_trabajador);
+        
+    
+    //paso 02 Buscar ID_etapaPago
+    $dao_ep = new EtapaPagoDao();
+    $id_etapa_pago = $dao_ep->arrayIdEtapaPago($id_pdeclaracion);
+    
+    //echoo($id_etapa_pago);
+    
+    //paso 03 Eliminar -> Pagos x etapa_pago
+    $dao_p = new PagoDao();    
+    for($i=0;$i < count($id_etapa_pago);$i++){
+        //echo "i = $i         id_etapa_pago = $id_etapa_pago";
+        //echo "\n";
+        $r = $dao_p->eliminar_idEtapaPago($id_etapa_pago[$i]['id_etapa_pago'],$id_trabajador);        
+    }
+ 
+    
+    return true;
     
     
 }

@@ -280,7 +280,7 @@ console.log("---f1");
 	
 		if( ( f1.getTime() == f3.getTime() ) && (f1.getTime() == f5.getTime() ) && ( f1.getTime()==f7.getTime()) ){ 
 					console.log("f1 y f3 == consicion");
-			alert ("correcto11111");
+			console.log("correcto11111");
 			estado = true;
 			
 			//return true;
@@ -300,7 +300,7 @@ console.log("---f1");
 		console.log("no entro");
 			if( ( f3.getTime()>= f1.getTime() ) && (f5.getTime()>=f1.getTime() ) && ( f7.getTime()>=f1.getTime()) ){ 
 				//CORRECTO
-				alert("correcto2222");
+				console.log("correcto2222");
 				estado = true;
 				
 			}else{

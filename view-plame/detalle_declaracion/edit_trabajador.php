@@ -52,7 +52,8 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
 <table id="list_lineal">
 </table>
 
-<div style="width:150px; margin:0 0 0 500px; background: #FF0; ">
+<div class="resaltar_1" style="width:150px;
+    margin:0 0 0 500px;" >
   <a href="javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion_tab2.php','#detalle_declaracion_trabajador')">Cerrar Detalle</a>
 </div>
 
@@ -71,16 +72,16 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
 
 <div id="tabs3">
         <ul>
-            <li><a href="#tabs-3-1">Datos del Trabajador</a></li>
+            <!-- <li><a href="#tabs-3-1">Datos del Trabajador</a></li>-->
             <li><a href="#tabs-3-2">Jornada Laboral</a></li>	
             <li><a href="#tabs-3-3">Ingresos</a></li>	
             <li><a href="#tabs-3-4">Descuentos</a></li>
             <li><a href="#tabs-3-5">Tributos Y Aportes</a></li>	            	
 
         </ul>
-        <div id="tabs-3-1">
+        <!-- <div id="tabs-3-1">
         11111        
-        </div>
+        </div>-->
         <div id="tabs-3-2">
         22222        
         </div>
@@ -126,8 +127,9 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
 <p>
   <!-- Inicio-->
 </p>
-
+<div class="ocultar">
   <input type="button" name="button" id="button" value="Grabar" onclick="validarPtrabajadores()" />
+</div>
 </form>
 <div><br>
 

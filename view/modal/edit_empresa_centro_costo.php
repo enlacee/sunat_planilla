@@ -33,13 +33,17 @@ $data = listarEstablecimientoCentroCosto($id_establecimiento,"A");
 <form action="hola.php" method="get" name="formEditEmpresaCentroCosto"
 id="formEditEmpresaCentroCosto">
 
-<div class="oocultar">
+<div class="ocultar">
 <input name="oper" type="text" value="edit" />
 <input  type="text" name="id_establecimiento" id="id_establecimiento"
 value="<?php echo $id_establecimiento ?>" />
 </div>
 
   <table width="350" border="1" id="">
+ 
+ <?php
+ if(count($data)>0):
+ ?>
 
     <tr>
       <td width="35">ID</td>
@@ -48,6 +52,7 @@ value="<?php echo $id_establecimiento ?>" />
       onClick="estadoCheck(this,'formEditEmpresaCentroCosto')">
       Seleccione</td>
     </tr>
+ 
     
 <?php for($i=0; $i<count($data); $i++): ?>    
     
@@ -72,7 +77,14 @@ value="<?php echo $id_establecimiento ?>" />
       </td>
     </tr>
     
-<?php endfor; ?>    
+<?php 
+endfor;
+else:
+ echo "<h1>No existe Centro De costo</h1>";
+endif;
+
+
+ ?>    
     
     
   </table>

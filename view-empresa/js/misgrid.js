@@ -287,6 +287,7 @@
 				
 				jQuery("#list10_d").jqGrid('setCaption',"E.P.de : "+ids)
 				.trigger('reloadGrid');			
+ 				jQuery("#id_pdeclaracion").val(ids);
 			}
 		}	
 			
@@ -716,7 +717,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ 
 
 console.log("Cargandou..."+id_etapa_pago);
-alert("Cargando... "+id_etapa_pago);
+//alert("Cargando... "+id_etapa_pago);
 
 
 		var arreglo = new Array();
@@ -979,7 +980,7 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 //
 
 	function crearDialogoMasOp(){
-//alert('crearDialogoPersonaDireccion');
+
 	$("#dialog_editarPagoMasOP").dialog({ 
            
 			autoOpen: false,
@@ -1503,7 +1504,7 @@ function editarDiaNoLaborado(id_pago){
 }
 
 function crearDialogoDiaNoLaborado(){
-//alert('crearDialogoPersonaDireccion');
+
 	$("#dialog-dia-noLaborado").dialog({ 
            
 			autoOpen: false,
@@ -1668,14 +1669,17 @@ function eliminarPago(id){
 }
 }
 //---------------------------------
-function eliminarTrabajadorPdeclaracion(id){
-	var estado = confirm("Seguro que desea eliminar?");
+function eliminarTrabajadorPdeclaracion(id,id_trabajador){
 	
+    var id_pdeclaracion = $('#id_declaracion').val();
+    //alert("id_pdeclaracion = "+id_pdeclaracion);
+
+	var estado = confirm("Seguro que desea eliminar?");
 	if(estado == true){
 		$.ajax({
 	   type: "POST",
 	   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
-	   data: { oper: 'del', id : id },//Enviando a ediatarProducto.php vareiable=id_producto
+	   data: { oper: 'del', id : id, id_trabajador : id_trabajador, id_pdeclaracion : id_pdeclaracion },
 	   async:true,
 	   success: function(data){
 		console.log("Se elimino correctamente");

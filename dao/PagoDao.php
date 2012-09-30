@@ -106,6 +106,39 @@ VALUES (
         return true;
     }
 
+    //USO ALTERNATIVA PARA FILTRAR EN QUINCENAS!
+ public function listar_HIJO($id_etapa_pago) {
+
+        $query = "
+        SELECT
+            p.id_pago,
+            p.id_trabajador
+
+        FROM pagos AS p
+        INNER JOIN trabajadores AS t
+        ON p.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS per
+        ON t.id_persona = per.id_persona
+
+        INNER JOIN empresa_centro_costo AS ecc
+        ON p.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+
+        WHERE p.id_etapa_pago = ?     
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_etapa_pago);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;        
+
+        return $lista;
+    }    
+    
+    
+    //USO ESCLUSIVO PARA GRID
     public function listar($id_etapa_pago, $op=null) {
 
         $query = "
@@ -333,6 +366,26 @@ VALUES (
         $stm = null;
         
         return $lista[0];
+    }
+    
+    
+    //Elimado en casacada..
+        public function eliminar_idEtapaPago($id_etapa_pago,$id_trabajador){
+        $query = "
+        DELETE 
+        FROM pagos
+        WHERE id_etapa_pago = ?
+        AND id_trabajador = ?
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_etapa_pago);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();        
+        $stm = null;        
+        return  true;
+        
+        
+        
     }
 
 }

@@ -1,8 +1,6 @@
 <?php
-
 //session_start();
 //header("Content-Type: text/html; charset=utf-8");
-
 
 $op = $_REQUEST["oper"];
 if ($op) {
@@ -25,7 +23,6 @@ if ($op == "cargar_tabla") {
     echo cargarSelectCodigo();
 }
 
-//echo count($responce);
 echo (!empty($responce)) ? json_encode($responce) : '';
 
 
@@ -71,7 +68,7 @@ function comboTipoTrabajadorPorIdTipoEmpleador($id_tipo_empleador) {
     /**
      * * .:::SUNAT:::. 
       R�gimen laboral
-      El empleador deber� se�alar por cada uno de los trabajadores el r�gimen laboral que le resulta aplicable. Para los tipos de trabajador 23(Practicante Senati), 66 (Pescador y Procesador Artesanal Independiente), 71 (conductor de microempresa) y 98 (PS 4ta-5ta) no se habilita este dato, dado que no existe una relaci�n laboral de dependencia. Solo para efectos del aplicativo son incorporados bajo la categor�a Trabajador.
+      El empleador deber se�alar por cada uno de los trabajadores el r�gimen laboral que le resulta aplicable. Para los tipos de trabajador 23(Practicante Senati), 66 (Pescador y Procesador Artesanal Independiente), 71 (conductor de microempresa) y 98 (PS 4ta-5ta) no se habilita este dato, dado que no existe una relaci�n laboral de dependencia. Solo para efectos del aplicativo son incorporados bajo la categor�a Trabajador.
      *
      * Y TAMBOEN ELIMINAR PENSIONISTAS!! = 24)PENSIONISTA O CESANTE ,26)PENSIONISTA 20
      */

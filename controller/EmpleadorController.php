@@ -32,12 +32,10 @@ if ($op == "cargar_tabla") {
     $responce = buscaEmpleadorPorRuc($_REQUEST['txt_ruc']);
 } else if ($op == "existe-empleador") {
     $responce = existeEmpleadorBD($_REQUEST['ruc']);
-} else {
-    echo "<p>variable OPER no esta definido</p>";
 }
 
 
-echo json_encode($responce);
+echo  (!empty($responce)) ? json_encode($responce) : '';
 /* * **********categoria*************** */
 
 function nuevoEmpleador() {

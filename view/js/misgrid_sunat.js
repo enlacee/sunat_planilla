@@ -144,43 +144,41 @@
 		
 		
 //-----------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------
 //  intranet intranet intranet intranet intranet intranet intranet intranet
 
 function crearDialogoPersonaDireccion(){
-//alert('crearDialogoPersonaDireccion');
 	$("#dialog-form-editarDireccion").dialog({ 
            
 			autoOpen: false,
 			height: 310,
-			width: 860,
+			width: 830,
 			modal: true,
                         
 			buttons: {
-                   'Cancelar': function() {
+                'Cancelar': function() {
 					$(this).dialog('close');
-				},
+				}
+				,
 				'Guardar': function() {	
-				
-					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php					
+			
 					var estado_form = $("#form_direccion").valid();
 					if(estado_form){
-						var from_data =  $("#form_direccion").serialize();
-						//alert ("from_data = "+from_data);
-						//---------------------------
+						var from_data =  $("#form_direccion").serialize();						
+						
+						//-------
 						$.getJSON(
 							'sunat_planilla/controller/PersonaDireccionController.php?oper=edit&'+from_data,
 							function(data){
 								if(data){
 									jQuery("#list").trigger("reloadGrid");
-									alert("Registro Se guardo correctamente "+estado_form);	
+									alert("Registro Se guardo correctamente ");	
 									$("#dialog-form-editarDireccion").dialog('close');				
 								}else{
 									alert("Ocurrio un error, intente nuevamente");						
 								}
 							}
 						);	
-						//---------------------------			
+						//-------		
 						
 					}//ENDIF
 				
@@ -195,16 +193,18 @@ function crearDialogoPersonaDireccion(){
 
 
 
-function editarPersonaDireccion(id_persona_direccion){  //alert (".");
+function editarPersonaDireccion(id_persona_direccion){
+	crearDialogoPersonaDireccion();
+    $('#dialog-form-editarDireccion').dialog('open');
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view/modal/detalle_persona_direccion.php",
-   data: "id_persona_direccion="+id_persona_direccion,//Enviando a ediatarProducto.php vareiable=id_producto
+   data: {id_persona_direccion : id_persona_direccion },
    async:true,
    success: function(datos){
     $('#editarPersonaDireccion').html(datos);
     
-    $('#dialog-form-editarDireccion').dialog('open');
+    
    }
    }); 
 }
@@ -451,12 +451,13 @@ function bajaEstablecimiento(id){
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PersonaController.php?oper=cargar_tabla&estado='+arg,
             datatype: 'json',
-            colNames:['Id','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
+            colNames:['Id','Cat','tipo_doc','Numero Doc','Apellido Paterno',
                 'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
                 ,'Opciones'],
             colModel :[
                 {
-                    name:'id_persona', 
+                    name:'id_persona',
+                    key : true, 
                     editable:false, 
                     index:'id_persona',
                     search:false,
@@ -468,7 +469,7 @@ function bajaEstablecimiento(id){
                     index:'categoria',
                     search:false, 
                     editable:false,
-                    width:90, 
+                    width:50, 
                     align:'center'
                 },
                 {
@@ -483,23 +484,26 @@ function bajaEstablecimiento(id){
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:60,
+                    width:70,
                     align:'center'
-                },
+                },            
+                
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
                     align:'center'
+                 
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
                 },
+                
                 {
                     name:'nombres', 
                     index:'nombres',
@@ -511,7 +515,8 @@ function bajaEstablecimiento(id){
                     name:'fecha_nacimiento',
                     index:'fecha_nacimiento',
                     editable:true,
-                    width:100,  
+                    width:100,
+                    formatter:'date', datefmt:'d/m/Y',
                     align:'center'
                 },
                 {
@@ -542,13 +547,14 @@ function bajaEstablecimiento(id){
 		
             ],
             pager: '#pager',
+            rownumbers: true,
             //autowidth: true,
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_persona',
             sortorder: 'asc',
             viewrecords: true,
-            gridview: true,
+            /*gridview: true,*/
             caption: 'Lista de Personal',
             /*						multiselect: false,
                                     hiddengrid: true,*/
@@ -1098,7 +1104,6 @@ var c = (typeof config == 'undefined' ) ? '' : 'config='+config;
 //--------------------------------------------------------
 
 function crearDialogoAfectacion(){
-//alert('crearDialogoPersonaDireccion');
 	$("#dialog-form-editarAfectacion").dialog({ 
            
 			autoOpen: false,
@@ -1162,83 +1167,6 @@ function editarAfectacion(id){  //alert (".");
 
 
 
-
-/*
-//OOHOHOOHOHOO USANDO PARA VALIDAR DIRECCION
-
-function crearDialogoPersonaDireccion(){
-
-	$("#dialog-form-editarDireccion").dialog({ 
-           
-			autoOpen: false,
-			height: 310,
-			width: 860,
-			modal: true,                        
-			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
-				'Guardar': function() {					
-					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php
-					//estado_form = validarFormDireccion();	
-					estado_form = true;
-					//console.log("holaaa ="+estado_form);
-					
-					if(estado_form==true){
-						var from_data =  $("#form_direccion").serialize();
-						//---------------------------
-						$.getJSON(
-							'sunat_planilla/controller/PersonaDireccionController.php?oper=edit&'+from_data,
-							function(data){
-								if(data){
-									jQuery("#list").trigger("reloadGrid");
-									$("#dialog-form-editarDireccion").dialog('close');				
-								}else{
-									alert("Ocurrio un error, intente nuevamente");						
-								}
-							}
-						);	
-						//---------------------------			
-						
-					}//ENDIF
-				
-									
-				}
-                                
-			},
-			open: function() {},
-			close: function() {}
-	});
-}
-
-
-
-function editarPersonaDireccion(id_persona_direccion){  //alert (".");
-    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/view/modal/detalle_persona_direccion.php",
-   data: "id_persona_direccion="+id_persona_direccion,//Enviando a ediatarProducto.php vareiable=id_producto
-   async:true,
-   success: function(datos){
-    $('#editarPersonaDireccion').html(datos);
-    
-    $('#dialog-form-editarDireccion').dialog('open');
-   }
-   }); 
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
 //**************************************************************************************************
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
@@ -1287,6 +1215,7 @@ function crearDialogoEditEmpresaCentroCosto(){
 
 
 function editarEmpresaCentroCosto(id_establecimiento){  //alert (".");
+	$('#dialog-form-editarCentroCosto').dialog('open');
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view/modal/edit_empresa_centro_costo.php",
@@ -1295,13 +1224,14 @@ function editarEmpresaCentroCosto(id_establecimiento){  //alert (".");
    success: function(datos){
     $('#editarCentroCosto').html(datos);
     
-    $('#dialog-form-editarCentroCosto').dialog('open');
+    //$('#dialog-form-editarCentroCosto').dialog('open');
    }
    }); 
 }
 
 
 function newEmpresaCentroCosto(id){
+	$('#dialog-form-newCentroCosto').dialog('open');
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view/modal/new_empresa_centro_costo.php",
@@ -1310,7 +1240,7 @@ function newEmpresaCentroCosto(id){
    success: function(datos){
     $('#newCentroCosto').html(datos);
     
-    $('#dialog-form-newCentroCosto').dialog('open');
+    //$('#dialog-form-newCentroCosto').dialog('open');
    }
    }); 
 
@@ -1355,9 +1285,10 @@ function crearDialogoNewEmpresaCentroCosto(){
 }
 
 //---------------------------------------------------------
-//-----------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 //  intranet intranet intranet intranet intranet intranet intranet intranet
+
+/*
 function crearDialogoPersonaDireccion(){
 
 	$("#dialog-form-editarDireccion").dialog({ 
@@ -1370,12 +1301,8 @@ function crearDialogoPersonaDireccion(){
                    'Cancelar': function() {
 					$(this).dialog('close');
 				},
-				'Guardar': function() {					
-					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php
-					//estado_form = validarFormDireccion();	
-					estado_form = true;
-					//console.log("holaaa ="+estado_form);
-					
+				'Guardar': function() {	
+					estado_form = true;					
 					if(estado_form==true){
 						var from_data =  $("#form_direccion").serialize();
 						//---------------------------
@@ -1405,19 +1332,21 @@ function crearDialogoPersonaDireccion(){
 
 
 
-function editarPersonaDireccion(id_persona_direccion){  //alert (".");
+function editarPersonaDireccion(id_persona_direccion){
+	$('#dialog-form-editarDireccion').dialog('open');
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view/modal/detalle_persona_direccion.php",
-   data: "id_persona_direccion="+id_persona_direccion,//Enviando a ediatarProducto.php vareiable=id_producto
+   data: "id_persona_direccion="+id_persona_direccion,
    async:true,
    success: function(datos){
-    $('#editarPersonaDireccion').html(datos);
-    
-    $('#dialog-form-editarDireccion').dialog('open');
+    $('#editarPersonaDireccion').html(datos);    
+
    }
    }); 
 }
+
+*/
 
 
 //------------------------------------------------

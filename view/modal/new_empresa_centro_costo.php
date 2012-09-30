@@ -72,16 +72,20 @@ value="<?php echo $id_establecimiento;  ?>" />
 
   <table width="350" border="1">
 
-    <tr>
+    
+<?php
+ if(count($arreglo)>0):
+ ?>
+ 
+     <tr>
       <td width="34">ID</td>
       <td width="199">Descripcion</td>
-      <td width="95"> <input type="checkbox" name="checkbox" id="" 
-      onClick="estadoCheck(this,'formEmpresaCentroCosto')">
-      Estado</td>
+      <td width="95">    Estado</td>
     </tr>
 
-    
-<?php foreach($arreglo as $data):  //FOR 002 ?>   
+ 
+ <?php
+ foreach($arreglo as $data):  //FOR 002 ?>   
     
     <tr>
       <td><input name="id_empresa_centro_costo[]" type="text"  size="4"
@@ -105,7 +109,15 @@ value="<?php echo $id_establecimiento;  ?>" />
     </tr>
 
     
-<?php endforeach; //FOR 001?>    
+<?php 
+endforeach;
+
+else:
+
+echo "<h1>No existe Nuevos Centros de Costos.</h1>";
+
+endif;
+ //FOR 001?>    
     
   
 </table>

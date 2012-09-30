@@ -130,8 +130,6 @@ function habilitarBotonEliminarMes(){
             </h2>
             <p>&nbsp;</p>
             
-            <input type="checkbox" name="checkbox_data" id="checkbox_data" onclick="habilitarBotonEliminarMes()" />
-            <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button"  />
 
 
 
@@ -139,9 +137,6 @@ function habilitarBotonEliminarMes(){
 
    
    
-<div class="ocultar">   
-<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
-</div>
 <div class="section">
       <div class="article fila1">
 <table id="list">

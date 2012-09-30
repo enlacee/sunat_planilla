@@ -175,7 +175,7 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
               <input name="oper" type="hidden" value="add">
             <fieldset>
               <legend>Datos de Identificacion</legend>
-              <div>
+              <div class="ocultar">
               <label>Estado Empleador:</label>
               <input type="radio" name="rbtn_titular" id="rbtn_estado_empleador" value="titular" disabled="disabled" />
               <label for="rbtn_estado_empleador"></label>
@@ -317,14 +317,6 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 -->
       </div>
     </div>
-</div>
-
-<!-- -->
-
-<!-- -->
-
-<div id="dialog-form-editarDireccion" title="Editar Direccion">
-    <div id="editarPersonaDireccion" align="left"></div>
 </div>
 
 

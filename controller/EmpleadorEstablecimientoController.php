@@ -23,8 +23,6 @@ if ($op == "cargar_tabla") {
     $responce = cargar_tabla(); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
 } elseif ($op == "edit") {
     $responce = editar();
-} else {
-    echo "<p>variable OPER no esta definido</p>";
 }
 
 

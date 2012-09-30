@@ -34,8 +34,6 @@ if ($op == "cargar_tabla") {
     $response = existeRucDuplicado($_REQUEST['txt_ruc']);
 } elseif ($op == "validar_codigo") {
     $response = existeCodigoEstablecimiento();
-} else {
-    //echo "<p>variable OPER no esta definido</p>";
 }
 
 

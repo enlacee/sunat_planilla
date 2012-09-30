@@ -22,23 +22,6 @@ require_once('../controller/ComboController.php');
 require_once('../dao/ComboCategoriaDao.php');
 require_once('../controller/ComboCategoriaController.php');
 
-
-
-//-- INCLUDES 02
-//require_once('../dao/EmpleadorDao.php');
-//require_once('../dao/TrabajadorDao.php');
-//require_once('../controller/CategoriaTrabajadorController.php');
-
-
-//echo "<pre>";
-// print_r($cbo_estado_civil);
-//echo "</pre>";
-
-//---INCLUDE 02
-
-
-
-
 // COMBO 01
 $cbo_tipo_documento = comboTipoDocumento(); //var_dump($cbo_tipo_documento);
 
@@ -67,40 +50,16 @@ $obj_persona = new Persona();
 $obj_persona = buscarPersonaPorId($ID_PERSONA);
 
 
-
-
-
-
 ?>
 
 <script type="text/javascript" src="sunat_planilla/view/js/misvalidacion_pcategoria.js"></script>
-           
-
-           
-           
             <script >
 			//INICIO HISTORIAL
 			
 			//------------
 			$(document).ready(function(){
-				
-				
                		
-                    $( "#tabs").tabs();
-/*					$( "#accordion" ).accordion({
-						autoHeight: false,
-						navigation: true
-						}
-					);
-*/
-					crearDialogoPersonaDireccion();                    
-                    //$( "#tabs_2").tabs();
-				id_persona = document.form_edit_personal.id_persona.value;
-
-				cargarTablaPersonalDireccion(id_persona);	
-				
-				
-
+             $( "#tabs").tabs();
 			// -----------Validacion
 			$("#form_edit_personal").validate({
 			
@@ -172,8 +131,15 @@ $obj_persona = buscarPersonaPorId($ID_PERSONA);
 	//-------------------------------------------------------------------
 }); //End Ready
 	//-------------------------------------------------------------------
+	
+	
+	
 	var id = $("#id_persona").val();
-	var id2 = $("#id_trabajador").val();
+	var id2 = $("#id_trabajador").val();	
+	//id_persona = document.form_edit_personal.id_persona.value;
+	cargarTablaPersonalDireccion(id);		
+	
+	
 	var cod_situacion =<?php echo $COD_ESTADO; ?>;	
 	cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_persona='+id+'&id_trabajador='+id2+'&cod_situacion='+cod_situacion,'#tabs-2');
 	
@@ -372,10 +338,15 @@ function seleccionarOcupacionInputPorCombo(obj){
 
 
 
-		</script>
+
+
+
+
+</script>
 		
 	
 <style>
+/*
 	.ui-combobox {
 		position: relative;
 		display: inline-block;
@@ -386,40 +357,26 @@ function seleccionarOcupacionInputPorCombo(obj){
 		bottom: 0;
 		margin-left: -1px;
 		padding: 0;
-		/* adjust styles for IE 6/7 */
-		*height: 1.7em;
-		*top: 0.1em;
 	}
 	.ui-autocomplete-input {
 		margin: 0;
 		padding: 0.3em;
 	}
 	
-	
-	</style>		
+	*/
+</style>		
 
- <style type="text/css">
-
-.style1 { background-color:#999999;}
-.style2 {color: #FF0000}
-
-            </style>
 <div class="demo" align="left">
 
-
     <div id="tabs">
-  <div id="messageBox"> </div>	
-<?php 
-//echo "<pre>heellelelel";
-//print_r($cbo_ocupaciones);
-//echo "</pre>";
+  
 
-?>	
-    <form action="sunat_planilla/controller/PersonaController.php" method="get" name="form_edit_personal" id="form_edit_personal" novalidate="novalidate">
+<form action="sunat_planilla/controller/PersonaController.php" method="get" name="form_edit_personal" id="form_edit_personal" novalidate="novalidate">
                 
                 <input name="oper" type="hidden" value="edit">
-                <fieldset>
-                    <legend>Datos de Identificacion </legend>
+
+<fieldset>
+      <legend>Datos de Identificacion </legend>
                     <div class="ocultar">
                       id_persona
                       <input type="text" name="id_persona" id="id_persona" value="<?php echo $obj_persona->getId_persona() ?>" >
@@ -463,7 +420,7 @@ foreach ($cbo_tipo_documento as $indice) {
                     </div>
                     <div class="fila_input">
                         <label>País Emisor del Documento:</label>
-                        <select name="cbo_pais_emisor_documento" id="cbo_pais_emisor_documento">
+                        <select name="cbo_pais_emisor_documento" id="cbo_pais_emisor_documento" style="width:170px;">
                             <option value="">-</option>
 <?php
 
@@ -523,14 +480,13 @@ foreach ($cbo_estado_civil as $indice) {
 
 ?>
 						
-						</select>						
-					</div>
-                    <div class="fila_input">
-                        <label>Nacionalidad:</label>
-                        <select name="cbo_Nacionalidad">
-                            <option value="">-</option>
+</select>						
+</div>
+<div class="fila_input">
+<label>Nacionalidad:</label>
+<select name="cbo_Nacionalidad" style="width:170px;" >
+<option value="">-</option>
           <?php
-
 foreach ($cbo_nacionalidades as $indice) {
 	
 	if ($indice['cod_nacionalidad'] == $obj_persona->getCod_nacionalidad() ) {
@@ -544,16 +500,15 @@ foreach ($cbo_nacionalidades as $indice) {
 ?>
 
 </select>
-                  </div>
-                </fieldset>
+</div>
+</fieldset>
 
 <p></p>
 
-                <fieldset id=""><legend>datos opcionales</legend>
-                   <div>
-                        <label>Teléfono( código y número ): </label>
-                        <select name="cbo_telefono_codigo_nacional" >
-                            <!--<option value="">-</option>-->
+<fieldset id=""><legend>datos opcionales</legend>
+   <div>
+        <label>Teléfono( código y número ): </label>
+        <select name="cbo_telefono_codigo_nacional"  style="width:170px;">
 <?php
 foreach ($cbo_telefono_codigo_nacional as $indice) {
 	
@@ -589,64 +544,59 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 
 <div style="display:block; " id="DIV_GRID_DIRECCION">
 
-		
-            <table id="list"></table>
-            <div id="pager"></div>
-			
+<table id="list"></table>
+<div id="pager"></div>
+
 			
 </div>
 <p></p>				
 				
 				
-<!-- DIRECCION 2-->
 <input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar Persona">
 
   </form>
   
-  <!-- CATEGORIAS -->
+
   
     <fieldset><legend>Categoria</legend>
       <br />
   <ul>
             
-            <li ><a href="#tabs-2">Trabajador</a></li>			
+            <li ><a href="#tabs-2">Trabajador</a></li>
+            <!--		
             <li ><a href="#tabs-3">Pensionistas</a></li>
             <li><a href="#tabs-4">Personal en Formaci&oacute;n Laboral</a></li>			
             <li><a href="#tabs-5">Personal de Terceros</a></li>
+            -->
+            
         </ul>
 			
         
-        
-    <div id="tabs-2">
-<p class="style2"> CATEGORIA TRABAJADOR</p>
 
-  </div>
       
-
-
-        <div id="tabs-3">
-<p class="style2">CATEGORIA PENSIONISTA</p>
+<div id="tabs-2">
+<p class="style2"> CATEGORIA TRABAJADOR</p>
+</div>
+<!--  
+<div id="tabs-3">
+<p>CATEGORIA PENSIONISTA</p>
 </div>
 
-        <div id="tabs-4">
-<p class="style2">CATEGORIA PERSONA-EN-FORMACION</p>
-        </div>
+<div id="tabs-4">
+<p>CATEGORIA PERSONA-EN-FORMACION</p>
+</div>
 
-        <div id="tabs-5">
-<p class="style2">CATEGORIA PERSONA-DE-TERCEROS</p>
-        </div>
-
+<div id="tabs-5">
+<p>CATEGORIA PERSONA-DE-TERCEROS</p>
+</div>
+-->
 
     
 </fieldset>  
 </div>
 
 
-
-<!-- -->
-
-<!-- -->
-
 <div id="dialog-form-editarDireccion" title="Editar Direccion">
     <div id="editarPersonaDireccion" align="left"></div>
 </div>
+

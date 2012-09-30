@@ -875,7 +875,7 @@ alert("Cargando... "+id_etapa_pago);
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
 
-	$("#t_list").append($("#reporte15_01"));
+	//$("#t_list").append($("#reporte15_01"));
 	$("#t_list").append($("#reporte15_02"));
 	
 	$("#t_list").append($("#reporte15_mas"));
@@ -979,7 +979,7 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 //
 
 	function crearDialogoMasOp(){
-//alert('crearDialogoPersonaDireccion');
+
 	$("#dialog_editarPagoMasOP").dialog({ 
            
 			autoOpen: false,
@@ -1009,9 +1009,6 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				//alert(url);
 		
 				window.location.href = url;
-
-				
-				
 				
 				}
                                 
@@ -1506,7 +1503,7 @@ function editarDiaNoLaborado(id_pago){
 }
 
 function crearDialogoDiaNoLaborado(){
-//alert('crearDialogoPersonaDireccion');
+
 	$("#dialog-dia-noLaborado").dialog({ 
            
 			autoOpen: false,
@@ -1832,7 +1829,7 @@ function newRPC(id,tipo_concepto){
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/new_trabajador_rpc.php",
-   data: { cod_detalle_concepto : id },
+   data: { cod_detalle_concepto : id, tipo_concepto: tipo_concepto },
    async:true,
    success: function(datos){
     $('#new_trabajador_rpc').html(datos);
@@ -1866,6 +1863,30 @@ if(bandera){
 
 }
 
+
+
+function editar_EstadoRPCE(id,estado){
+    var str = (estado ==1) ? "ACTIVO" : "INACTIVO"; 
+    var bandera = confirm("Seguro de cambiar a : "+str);
+    
+if(bandera){
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/RegistroConceptoEController.php?oper=edit-estado",
+   data: { id : id, estado : estado },
+   async:true,
+   success: function(data){
+    if(data){
+        jQuery("#list").trigger("reloadGrid");
+    }else{
+        console.log("Ocurrio un Error");
+    }
+    
+    }
+   }); 
+}
+
+}
 
 
 

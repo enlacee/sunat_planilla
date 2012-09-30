@@ -13,10 +13,10 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 45269187    COPITAN NORABUENA ANIBAL                200.00   _______________
+  1 45269187    COPITAN NORABUENA ANIBAL                1000.00  _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS SAN ISIDRO                                 200.00
+TOTAL VENTAS SAN ISIDRO                                 1,000.00
 --------------------------------------------------------------------------------
 
 
@@ -31,25 +31,11 @@ TOTAL VENTAS SAN ISIDRO                                 200.00
 
 
 
-CAMUENTE S.A.                                       FECHA : 15/08/2012
-                                                              PAGINA :- -
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2012                       
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : ADMINISTRACION - GERENCIA
 
 
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
 
-  1 62562568    MORIA JARA MARIA GINA                   650.00   _______________
 
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - GERENCIA PUEBLO LIBRE            650.00
---------------------------------------------------------------------------------
+
 
 
 

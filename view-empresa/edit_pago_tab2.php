@@ -18,9 +18,6 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 		
 	});
 	
-	
-	cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/view_trabajador.php' ,'#tabs-2-1');
-
 
 	var ID_ESTAPA_PAGO = document.getElementById('id_etapa_pago').value;	
 	cargarTablaTrabajadoresPorEtapa(ID_ESTAPA_PAGO);
@@ -29,9 +26,6 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 
 <div align="left">
-    <div class="blue"> 
-	<?php //echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
-    </div>
     
 <div id="tabs2">
 
@@ -43,7 +37,44 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
         </ul>
         <div id="tabs-2-1">
-        11111        
+ 
+ 
+ 
+ 
+ 
+ 
+ <div id="detalle_declaracion_trabajador">
+
+
+  <h2>Lista de trabajadores</h2>
+<input type="hidden" name="reporte15_01" id="reporte15_01" value="01 Recibo Individual">
+<input type="button" name="reporte15_02" id="reporte15_02" value="02 Recibo Total" /> 
+<input type="button" name="reporte15_mas" id="reporte15_mas" value="mas op" />
+
+
+
+<br />
+
+<table id="list">
+</table>
+<div id="pager">
+</div>
+
+
+
+
+  
+  
+</div>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+       
         </div>
         <!--<div id="tabs-2-2">
         22222        

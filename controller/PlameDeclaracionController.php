@@ -476,7 +476,7 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
-        
+      /*  
         $js = "javascript:editarPtrabajador('" . $id_trabajador . "')";
         
         $opciones = '<div id="divEliminar_Editar">				
@@ -485,7 +485,7 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
         </span>				
         &nbsp;
         </div>';
-        
+        */
         
         
         //hereee

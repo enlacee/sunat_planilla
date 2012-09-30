@@ -84,7 +84,7 @@ alert(".... __ ---");
   <input type="hidden" name="cod_concepto" id="cod_concepto"  
 value="<?php echo $cod_concepto; ?>"/>
 <br />
-<div style="float:right; padding:0 40px 0 0; ">
+<div class="resaltar_1" style="float:right; padding:0 40px 0 0; ">
   <a href="javascript:cargar_pagina('sunat_planilla/view-plame/detalle/conceptos.php','#detalle_concepto')">Cerrar Detalle</a>
 </div>
 <br /><br />

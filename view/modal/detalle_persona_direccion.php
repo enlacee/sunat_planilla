@@ -74,24 +74,20 @@ $cbo_distrito = comboUbigeoReniec($data_ubigeo['cod_provincia']);/*$data_ubigeo[
     //-------------------------------------------------------------
     });
 
-    //******************************************************************************
-	// SCRIPT DETALLE_DIRECCION.PHP	 INICIO
-   //******************************************************************************
+//******************************************************************************
+// SCRIPT DETALLE_DIRECCION.PHP	 INICIO
+//******************************************************************************
 
 function LimpiarCombo(combo){ 
 console.log("INICIO LIMPIAR");
 
 $('#MiSelect').find('option').remove().end();
-	//console.log(combo.options[1].text);
-	//console.dir(combo);
 	var counteo = combo.length;
 	alert(counteo);	
 	for(i=0; i<counteo; i++){
 	console.log('entro -> '+i);
-	//console.log(combo.options[i].value)
 	console.log(combo.options[i]);
 	combo.options[i] = null;
-	//console.log("eliminado; = "+combo.options[i].value);
 	}
 	
 	console.log("FIN LIMPIAR");
@@ -108,13 +104,10 @@ function SeleccionandoCombo_1(cbo_depa, cbo_provin){
 	cbo_provin = document.getElementById(cbo_provin);	
 	if(cbo_depa.options[cbo_depa.selectedIndex].value >=1){
 	
-	//alert('entro a funcion LimpiarCombo');
+
 	$('#cbo_provincia').find('option').remove().end();
 	$('#cbo_distrito').find('option').remove().end();
-	//LimpiarCombo(cbo_provin); //console.log(145);
-		//cbo_depa.disabled = true;
-		//cbo_provin.disabled = true;
-		//$("#cbo_distrito").attr('disabled',true);
+
 		$.ajax({
 			type: 'get',
 			dataType: 'json',
@@ -127,8 +120,7 @@ function SeleccionandoCombo_1(cbo_depa, cbo_provin){
 				
 			}
 		});
-	}else if(cbo_depa.options[cbo_depa.selectedIndex].value == ""){		
-		//$("#cbo_provincia").attr('disabled',true);
+	}else if(cbo_depa.options[cbo_depa.selectedIndex].value == ""){	
 		$("#cbo_provincia").attr('disabled',true);
 		$("#cbo_distrito").attr('disabled',true);
 	}//endif
@@ -171,21 +163,18 @@ function actualizarRadioCentroEssalud(obj){
 
 </script>
 
-<div style=" border:2px solid #009; background-color:#FF9; display:block; " id="direccion_1">
-<?php
-		$cboDepartamentos = comboUbigeoDepartamentos(); 
-		
-		$cboVias = comboVias(); 
-		
-		$cboZonas = comboZonas();
+<div  id="direccion_1">
 
-/*echo "<pre>";
-print_r($obj_persona_direccion);
-echo "</pre>";*/
+<?php
+$cboDepartamentos = comboUbigeoDepartamentos(); 
+
+$cboVias = comboVias(); 
+
+$cboZonas = comboZonas();
 						
-						 ?>
-<form action="" method="get" name="form_direccion" id="form_direccion">
-<table width="500" height="218" border="0" cellpadding="0" cellspacing="0">
+?>
+<form action="" method="get" name="form_direccion" id="form_direccion" >
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="160"> Departamento 
       <input name="id_persona_direccion" type="hidden" id="id_persona_direccion"  value="<?php echo $_REQUEST['id_persona_direccion'];?>"/>
@@ -337,16 +326,8 @@ foreach ($cboZonas as  $indice) {
     <td>&nbsp;</td>
   </tr>
   
-  <?php 
-//  echo "<pre>";
-//  print_r($obj_persona_direccion);
-//  echo "</pre>";
   
-  
-  
-  ?>
-  
-  <tr <?php echo ($obj_persona_direccion->getEstado_direccion() == '1') ? 'class="ocultar"' : ''; ?> >
+  <tr <?php //echo ($obj_persona_direccion->getEstado_direccion() == '1') ? 'class="ocultar"' : ''; ?> >
     <td> Referente para Centro Asistencia EsSalud: </td>
     <td><input name="rbtn_ref_essalud" type="radio" value="1"
     onclick="actualizarRadioCentroEssalud(this)"
@@ -358,7 +339,7 @@ foreach ($cboZonas as  $indice) {
 onclick="actualizarRadioCentroEssalud(this);"
 		<?php echo ($obj_persona_direccion->getReferente_essalud() == '0') ? ' checked="checked"' : ''; ?> />
     No    
-    <input name="txt_radio_essalud" type="text" id="txt_radio_essalud" size="3" /></td>
+    <input name="txt_radio_essalud" type="hidden" id="txt_radio_essalud" size="3" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

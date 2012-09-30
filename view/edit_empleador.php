@@ -53,9 +53,6 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
 //print_r($obj_empleador);
 //echo "</pre>";
 
-/**
- * Cargando Combo Box
- */
 ?>
 <style type="text/css"> 
 #detalle_sub{
@@ -337,12 +334,14 @@ $cbo_telefono_codigo_nacional = comboTelefonoCodigoNacional();
               <label for="txt_estado_empleador"></label>
               <input name="txt_estado_empleador" type="text" id="txt_estado_empleador" 
 			  value="<?php  echo $obj_empleador->getEstado_empleador(); ?>" disabled="disabled" />
-            </div>
-              
-              <div style="clear:both" class="oocultar">                
+            
+<div style="clear:both" class="oocultar">                
                 <label>id e<span >mplead</span>or:</label>
                 <input type="text" name="id_empleador" id="id_empleador" value="<?php  echo $obj_empleador->getId_empleador(); ?>" readonly="" />
-              </div>
+              </div>            
+            </div>
+              
+              
               
               
 <div  style="clear:both">
@@ -394,9 +393,9 @@ foreach ($cbo_tipo_sociedad_comercial as $indice) {
                   </div>
 <div style="clear:both">
                         <label>Nombre Comercial:</label>
-                        <label for="txt_nombre_comercial"></label>
-        <input type="text" name="txt_nombre_comercial" id="txt_nombre_comercial"
-        value="<?php echo $obj_empleador->getNombre_comercial(); ?>" />
+            <label for="txt_nombre_comercial"></label>
+        <input name="txt_nombre_comercial" type="text" id="txt_nombre_comercial"
+        value="<?php echo $obj_empleador->getNombre_comercial(); ?>" size="30" />
 </div>
                     <div style="clear:both">
                         <label>Tipo de Actividad:</label>

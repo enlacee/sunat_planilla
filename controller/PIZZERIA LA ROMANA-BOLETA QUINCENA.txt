@@ -8,49 +8,11 @@ Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
 
 NOMBRES:copitan norabuena anibal                  NOMBRES:copitan norabuena anibal
 
-SUELDO: 200.00                                    SUELDO:   200.00
+SUELDO: 1000.00                                   SUELDO:  1000.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 19/09/2012                                 FECHA: 19/09/2012
-
-
-
-
-
-
-
-
-
-_______________               _______________     _______________               _______________
-      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
-                              DNI                                               DNI
-
-
-
-
-
-
-
-
-
-
-
-CAMUENTE S.A.                                     CAMUENTE S.A.
-
-         R E C I B O                                       R E C I B O
-         * * * * * *                                       * * * * * *
-
-ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
-
-NOMBRES:moria jara maria gina                     NOMBRES:moria jara maria gina
-
-SUELDO: 650.00                                    SUELDO:   650.00
-
-N. CTA:  -  -                                     N. CTA:     -  -
-
-FECHA: 19/09/2012                                 FECHA: 19/09/2012
+FECHA: 30/09/2012                                 FECHA: 30/09/2012
 
 
 

@@ -51,8 +51,6 @@ if ($op == "cargar_tabla") {
     validarCodigoProducto($codigo);
 } elseif ($op == "select_codigo") {
     echo cargarSelectCodigo();
-} else {
-    // echo "<p>variable OPER no esta definido</p>";
 }
 
 

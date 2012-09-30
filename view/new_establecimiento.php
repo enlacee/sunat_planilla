@@ -244,7 +244,7 @@ $cboZonas = comboZonas();
                     <div class="fila_input">
                         <label>Codigo Establecimiento</label>
                         <input name="txt_cod_establecimiento" type="text" id="txt_cod_establecimiento" 
-                               value="" />Ejem: 0000,0001,0003</div>
+                               value="" /><span style="font-size:10px;">Ejem: 0000,0001,0003</span></div>
                     <div style="clear:both">
                         <label>Tipo de Establecimiento: </label>
 
@@ -264,9 +264,7 @@ $cboZonas = comboZonas();
 
 
                         </select>
-
-
-                        cbo</div>
+                    </div>
                     <div class="fila_input ocultar">
                         <label>Actividad de Riesgo </label>
                         <input name="rbtn_actividad_riesgo" type="radio" value="1" />
@@ -452,16 +450,4 @@ $cboZonas = comboZonas();
     </div>
 </div>
 
-
-
-
-
-
-<!-- -->
-
-<!-- -->
-
-<div id="dialog-form-editarDireccion" title="Editar Direccion">
-    <div id="editarPersonaDireccion" align="left"></div>
-</div>
 

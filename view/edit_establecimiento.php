@@ -263,7 +263,8 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
                       <label>Codigo Establecimiento</label>
                       <input name="txt_cod_establecimiento" type="text" id="txt_cod_establecimiento" 
 					value="<?php echo $obj_establecimiento->getCod_establecimiento();?>"  />
-                      <span style="color:#09F;" id="txt_cod_establecimiento_error">d</span> Ejem: 0000,0001,0003</div>
+                      <span style="font-size:10px;">Ejem: 0000,0001,0003</span>
+                    </div>
                     <div class="fila_input" >
                     <label>Tipo de Establecimiento: </label>
 

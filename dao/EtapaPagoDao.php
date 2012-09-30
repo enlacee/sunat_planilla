@@ -190,8 +190,27 @@ class EtapaPagoDao extends AbstractDao {
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0]['id_etapa_pago'];
-    }
+    }    
 
+    
+    public function arrayIdEtapaPago($id_pdeclaracion){
+        
+        $query = "
+        SELECT  
+        id_etapa_pago      
+        FROM etapas_pagos
+	WHERE id_pdeclaracion = ?           
+           
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;   
+        
+    }
+    
 }
 
 ?>

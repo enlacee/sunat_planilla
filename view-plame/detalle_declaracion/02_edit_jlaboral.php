@@ -210,11 +210,11 @@ for ($i = 0; $i < $counteo; $i++):
         html +='<td>';	
         html += input_cdia;
         html += cerrarTD;
-
+/*
         html +='<td>';	
         html += span1;
         html += cerrarTD;
-
+*/
         html +='<td>';	
         html += span2;
         html += cerrarTD;
@@ -317,7 +317,7 @@ for ($i = 0; $i < $counteo; $i++):
 		//alert("max_dias_local = "+max_dias_local);
 		
 
-        for(var i= 1; i <= num_fila; i++){ console.log("ciclo iiii="+ i);
+        for(var i= 1; i <= num_fila; i++){ //console.log("ciclo iiii="+ i);
 	
             var cbo = document.getElementById('cbo_ds_tipo_suspension-'+i);
             var dia = document.getElementById('ds_cantidad_dia-'+i);		
@@ -416,7 +416,7 @@ for ($i = 0; $i < $counteo; $i++):
 
             function cargarSuspension_2(objCombo,ids){
 
-                console.dir(nosubs);
+                
                 var z =0;
                 //variables
                 var arreglo = new Array();
@@ -430,7 +430,7 @@ for ($i = 0; $i < $counteo; $i++):
                         if( nosubs[j].id == ids[i] ){ //ENCONTRO
                             //continue;				
                             eliminados = nosubs.splice(j,1);
-                            console.log(eliminados);
+                            
                         }	
 						
                     }//ENDFOR 2
@@ -528,11 +528,11 @@ for ($i = 0; $i < $counteo; $i++):
                 html +='<td>';	
                 html += input_cdia;
                 html += cerrarTD;
-
+/*
                 html +='<td>';	
                 html += span1;
                 html += cerrarTD;
-
+*/
                 html +='<td>';	
                 html += span2;
                 html += cerrarTD;

@@ -65,9 +65,10 @@ $conceptos= array('600','800');
 $ptaporte = view_listarConcepto(ID_EMPLEADOR_MAESTRO,$conceptos,0);
 
 //echo "<pre>";
-//print_r($calc_conceptos);
+//print_r($ptaporte);
 //echo "</pre>";
 
+//echoo($detalle_concepto);
 
 /*
 echo "<pre> lista a buscar detalle_concepto";
@@ -91,7 +92,7 @@ id_dcem_ptributo_aporte<input name="id_dcem_ptributo_aporte" type="text" readonl
 
     
     
-<table width="670" border="1">
+<table width="670" border="1" class="tabla_gris">
     <tr>
       <td width="14">&nbsp;</td>
       <td width="71">C&oacute;digo</td>
@@ -115,19 +116,17 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
 ?>
                   
     <tr>
-      <td><input name="ptta_id_dcem_ptributo_aporte[]" type="text" id="ptta_id_dcem_ptributo_aporte" size="5" 
+      <td><input name="ptta_id_dcem_ptributo_aporte[]" type="hidden" id="ptta_id_dcem_ptributo_aporte" size="5" 
       value="<?php echo $ptaporte[$i]['id_detalle_concepto_empleador_maestro']; ?>" /></td>
-      <td><label for="pt_codigo"></label>
-      <input name="ptta_cod_detalle_concepto[]" type="text" id="ptta_cod_detalle_concepto" size="5" 
-       value="<?php echo $ptaporte[$i]['cod_detalle_concepto'];?>"/>
-      <label for="id_ptrabajador"></label>
+      <td><?php echo $ptaporte[$i]['cod_detalle_concepto'];?>
+      
       <input name="id_ptrabajador" type="hidden" id="id_ptrabajador" size="5" />
       </td>
       <td><?php echo $ptaporte[$i]['descripcion'] ?></td>
       <td><label for="ptta_base"></label>
       <input name="ptta_base[]" type="hidden" id="ptta_base" size="8" /></td>
       
-      <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8"
+      <td><input name="ptta_monto[]" type="text" id="ptta_monto"
       value="<?php 
 	   for($x=0; $x<count($calc_conceptos); $x++):
 		   if($ptaporte[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
@@ -135,7 +134,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
 			   break;
 			endif;
 		endfor;
-	   ?>"
+	   ?>" size="8" readonly="readonly"
        /></td>
     </tr>
 <?php
@@ -155,7 +154,7 @@ endfor;
       <td>&nbsp;</td>
       <td colspan="2">TOTAL APORTES DEL TRABAJADOR:</td>
       <td><label for="pt_total_aporte_trabajador"></label>
-      <input name="pt_total_aporte_trabajador" type="text" id="pt_total_aporte_trabajador" size="8" /></td>
+      <input name="pt_total_aporte_trabajador" type="text" id="pt_total_aporte_trabajador" size="8" readonly="readonly" /></td>
     </tr>
   </table>
 <!-- HTML PIE FIN 0600 -->
@@ -182,7 +181,7 @@ endfor;
 <h3>Aportaciones del Empleador:</h3>
 <hr />
 
-<table width="670" border="1">
+<table width="670" border="1" class="tabla_gris">
   <tr>
     <td width="14">&nbsp;</td>
     <td width="71">C&oacute;digo</td>
@@ -203,17 +202,16 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //FILTR
 ?>
 <!-- CUERPO INICIO 0800 -->
     <tr>
-      <td><input name="ptta_id_dcem_ptributo_aporte[]" type="text" id="ptta_id_dcem_ptributo_aporte" size="5" 
+      <td><input name="ptta_id_dcem_ptributo_aporte[]" type="hidden" id="ptta_id_dcem_ptributo_aporte" size="5" 
       value="<?php echo $ptaporte[$i]['id_detalle_concepto_empleador_maestro']; ?>" /></td>
-      <td><label for="pt_codigo"></label>
-      <input name="ptta_cod_detalle_concepto[]" type="text" id="ptta_cod_detalle_concepto" size="5" 
-       value="<?php echo $ptaporte[$i]['cod_detalle_concepto'];?>"/>
+      <td>
+      <?php echo $ptaporte[$i]['cod_detalle_concepto'];?>
       </td>
       <td><?php echo $ptaporte[$i]['descripcion'] ?></td>
       <td><label for="ptta_base"></label>
       <input name="ptta_base[]" type="hidden" id="ptta_base" size="8" /></td>
       
-      <td><input name="ptta_monto[]" type="text" id="ptta_monto" size="8"
+      <td><input name="ptta_monto[]" type="text" id="ptta_monto"
       value="<?php 
 	   for($x=0; $x<count($calc_conceptos); $x++):
 		   if($ptaporte[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
@@ -221,7 +219,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //FILTR
 			   break;
 			endif;
 		endfor;
-	   ?>"
+	   ?>" size="8" readonly="readonly"
        /></td>
     </tr>
 <!-- CUERPO FIN 0800 -->
@@ -241,7 +239,7 @@ endfor;
     <td>&nbsp;</td>
     <td colspan="2">TOTAL APORTES DEL EMPLEADOR</td>
     <td><label for="pt_total_aporte_trabajador"></label>
-      <input name="pt_total_aporte_trabajador2" type="text" id="pt_total_aporte_trabajador" size="8" /></td>
+      <input name="pt_total_aporte_trabajador2" type="text" id="pt_total_aporte_trabajador" size="8" readonly="readonly" /></td>
   </tr>
 </table>
 <!-- HTML PIE FIN 0800 -->
@@ -258,9 +256,9 @@ endfor;
   
   
 
-<h3>Aportaciones del Empleador:</h3>
-<hr />
 <div class="ocultar">
+
+<hr />
 <table width="670" border="1">
   <tr>
     <td width="14">&nbsp;</td>
@@ -271,13 +269,13 @@ endfor;
   </tr>
   <tr>
     <td><input name="ptta_id_dcem_ptributo_aporte[]" type="text" id="ptta_id_dcem_ptributo_aporte" size="5" 
-      value="<?php  ?>" /></td>
+      value="" /></td>
     <td><label for="pt_codigo2"></label>
       <input name="pt_codigo2" type="text" id="pt_codigo2" size="5" /></td>
     <td><?php ?></td>
     <td><label for="pt_devengado2"></label>
-      <input name="pt_devengado2" type="text" id="pt_devengado2" size="8" /></td>
-    <td><input name="pt_pagado2" type="text" id="pt_pagado2" size="8" /></td>
+      <input name="pt_devengado2" type="text" id="pt_devengado2" size="8" readonly="readonly" /></td>
+    <td><input name="pt_pagado2" type="text" id="pt_pagado2" size="8" readonly="readonly" /></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -291,7 +289,7 @@ endfor;
     <td>&nbsp;</td>
     <td colspan="2">TOTAL APORTES DEL EMPLEADOR</td>
     <td><label for="pt_total_aporte_trabajador"></label>
-      <input name="pt_total_aporte_trabajador2" type="text" id="pt_total_aporte_trabajador" size="8" /></td>
+      <input name="pt_total_aporte_trabajador2" type="text" id="pt_total_aporte_trabajador" size="8" readonly="readonly" /></td>
   </tr>
 </table>
 

@@ -200,10 +200,10 @@ for(var id = 1; id<=data.length;id++){
   </div>
     <h3>Ingresos:  </h3>
     <hr />
-    <table width="670" border="1" id="tb_Pingreso">
+    <table width="670" border="1" id="tb_Pingreso" class="tabla_gris">
         <tr>
-            <td width="22">&nbsp;</td>
-            <td width="57">C&oacute;digo</td>
+          <td width="17">&nbsp;</td>
+          <td width="62">C&oacute;digo</td>
             <td width="266">Concepto</td>
             <td width="121">Devengado(S/.)</td>
             <td width="170">Pagado(S/.)</td>
@@ -225,14 +225,16 @@ for(var id = 1; id<=data.length;id++){
 
                 <tr>
                     <td>
-                    <input type="hidden" class="idd" name="id[]" size="1" />                    <?php echo $pingreso[$i]['id_detalle_concepto_empleador_maestro']; ?></td>
-                    <td><label for="pt_codigo"></label>
-                        <input name="pt_codigo" type="text" id="" size="4" 
-                               value="<?php echo $pingreso[$i]['cod_detalle_concepto']; //echo $pingreso[$i]['ID_TRABAJADOR_PDECLARACION'];   ?>"      />
-                      <label for="id_declaracion_dconcepto"></label>
-                        <input name="id_declaracion_dconcepto" type="hidden" id="id_declaracion_dconcepto" size="2"
-                       
-                        
+                    <input type="hidden" class="idd" name="id[]" size="1"
+                    value="<?php echo $pingreso[$i]['id_detalle_concepto_empleador_maestro']; ?>" />
+			    </td>
+                    <td>
+                        <input name="pt_codigo" type="hidden" id="" size="4" 
+                               value="<?php echo $pingreso[$i]['cod_detalle_concepto'];?>"/>
+                               <?php echo $pingreso[$i]['cod_detalle_concepto'];?>
+                      
+                      
+                      <input name="id_declaracion_dconcepto" type="hidden" id="id_declaracion_dconcepto" size="2"                        
                         value="<?php for($x=0; $x<count($calc_conceptos); $x++):
 								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
 									   echo $calc_conceptos[$x]['id_declaracion_dconcepto'];
@@ -245,8 +247,7 @@ for(var id = 1; id<=data.length;id++){
                     </td>
                     <td><?php echo $pingreso[$i]['descripcion']; ?></td>
                     <td><label for="pt_devengado"></label>
-                        <input name="pt_devengado" type="text" id="pt_devengado-<?php echo $ID;?>" size="8"
-                              maxlength="7" onkeyup="duplicarDatoDevengado(<?php echo $ID;?>)"
+                        <input name="pt_devengado" type="text" id="pt_devengado-<?php echo $ID;?>" onkeyup="duplicarDatoDevengado(<?php echo $ID;?>)"
                                value="<?php 							   
 							   for($x=0; $x<count($calc_conceptos); $x++):
 								   if($pingreso[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
@@ -254,11 +255,10 @@ for(var id = 1; id<=data.length;id++){
 									   break;
 									endif;
 								endfor;
-							   ?>" />
-                    </td>
-                    <td><input name="pt_pagado" type="text" id="pt_pagado-<?php echo $ID;?>" size="8"
-                               value="" maxlength="7" />
-                    </td>
+							   ?>" size="8"
+                              maxlength="7" readonly="readonly" />                    </td>
+                    <td><input name="pt_pagado" type="text" id="pt_pagado-<?php echo $ID;?>"
+                               value="" size="8" maxlength="7" readonly="readonly" />                    </td>
                 </tr>
 
                 <?php
@@ -278,8 +278,9 @@ for(var id = 1; id<=data.length;id++){
 
     </table>
     <br />
-    701 = adelanto = suma de todos los adelantos dentro del mes
-<p>&nbsp;</p>
+    <div class="ocultar">701 = adelanto = suma de todos los adelantos dentro del mes
+    </div>
+  <p>&nbsp;</p>
 
 
 

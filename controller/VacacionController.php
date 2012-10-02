@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
@@ -17,18 +16,19 @@ if ($op) {
     require_once '../controller/ideController.php';
 }
 
-$responce = NULL;
+$response = NULL;
 
 if ($op == "cargar_tabla_trabajador") {
     $ESTADO = $_REQUEST['estado'];
     //echo $ESTADO;
-    $responce = cargar_tabla_trabajador($ESTADO);
+    $response = cargar_tabla_trabajador($ESTADO);
 } else if ($op == "add") {
-    echoo($_REQUEST);
-    $responce = addVacacion();
+    $response = addVacacion();
+} else if ($op == "del") {
+    $response = delVacacion();
 }
 
-echo (!empty($responce)) ? json_encode($responce) : '';
+echo (!empty($response)) ? json_encode($response) : '';
 
 //DUPLICADO trabajador
 function cargar_tabla_trabajador($ESTADO) {
@@ -87,14 +87,14 @@ function cargar_tabla_trabajador($ESTADO) {
     $lista = $dao_trabajador->listarTrabajador(ID_EMPLEADOR_MAESTRO, $ESTADO, $WHERE, $start, $limit, $sidx, $sord);
 
 // CONTRUYENDO un JSON
-    $responce->page = $page;
-    $responce->total = $total_pages;
-    $responce->records = $count;
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
     $i = 0;
 
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
-        return $responce;  /* break; */
+        return $response;  /* break; */
     }
     //$lista = $lista[0];
     foreach ($lista as $rec) {
@@ -108,11 +108,11 @@ function cargar_tabla_trabajador($ESTADO) {
         $array_fecha = getFechaVacacionCalc($param);
         //echo $fecha_vacacion;  fecha_calc
         //--- ASK!
-       // $anio_futuro = date("Y");
-        
-     
-         
-     
+        // $anio_futuro = date("Y");
+
+
+
+
 
 
 
@@ -125,28 +125,27 @@ function cargar_tabla_trabajador($ESTADO) {
         $_05 = $rec["nombres"];
         //$_06 = $array_fecha['fecha_inicio'];
         $_07 = $array_fecha['fecha_calc'];
-        
-        
-        $name = "DNI : ".$rec["num_documento"]." ".$rec["apellido_paterno"]." ".$rec["apellido_materno"]." ".$rec["nombres"];
-        $js = "javascript:verVacacion('" . $param . "','".$name."')";
-         $opciones = '<div id="divEliminar_Editar">				
+
+
+        $name = "DNI : " . $rec["num_documento"] . " " . $rec["apellido_paterno"] . " " . $rec["apellido_materno"] . " " . $rec["nombres"];
+        $js = "javascript:verVacacion('" . $param . "','" . $name . "')";
+        $opciones = '<div id="divEliminar_Editar">				
           <span  title="Editar"  >
           <a class="divEditar" href="' . $js . '"></a>
           </span>
           &nbsp;
-          </div>';  
-        
+          </div>';
+
         //$_06 = $rec["fecha_nacimiento"];        
         //$_07 = $rec["estado"];
         //$js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "','#CapaContenedorFormulario')";
-        
         //$opciones_1 = '<a href="' . $js . '">Modificar</a>';
         //$opciones_2 = '<a href="' . $js2 . '">Eliminar</a>';
         //$opciones = $rec['reporte'];
         //hereee
 
-        $responce->rows[$i]['id'] = $param;
-        $responce->rows[$i]['cell'] = array(
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
             $param,
             $_01,
             $_02,
@@ -161,7 +160,7 @@ function cargar_tabla_trabajador($ESTADO) {
         $i++;
     }
 
-    return $responce;  //RETORNO A intranet.js
+    return $response;  //RETORNO A intranet.js
 }
 
 // Recursivo.
@@ -183,25 +182,25 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
     $daov = new VacacionDao();
     //NO todos han sido asignado a Vacacion
     $data_v = $daov->listarUltimaFechaVacacion($id_trabajador);
-/*    echo "\n\n**************\n\n";
-    
-    echo "Ultima fecha vacacionen Seteada";
-    echo "<pre>";
-    print_r($data_v);
-    echo "</pre>";
-    echo "\n\n**************\n\n\n";
-    var_dump($data_v['fecha']);
-*/
+    /*    echo "\n\n**************\n\n";
+
+      echo "Ultima fecha vacacionen Seteada";
+      echo "<pre>";
+      print_r($data_v);
+      echo "</pre>";
+      echo "\n\n**************\n\n\n";
+      var_dump($data_v['fecha']);
+     */
 //variables
     $fecha_i = null;
-    
 
 
-/**
- * SI NO HA SIDO REGISTRADO CON VACACIONES!
- * se realiza dentro el calculo. para una fecha año atras del actual
- * esto ocurre solo 1 vez xq el trabajador Nunca tubo vacaciones. 
- */
+
+    /**
+     * SI NO HA SIDO REGISTRADO CON VACACIONES!
+     * se realiza dentro el calculo. para una fecha año atras del actual
+     * esto ocurre solo 1 vez xq el trabajador Nunca tubo vacaciones. 
+     */
     if ($data_v['fecha'] == null) {
         // AUN NO SE HA REGISTRADO NINGUNO , establece trabajador
         // segun la fecha de ingreso.
@@ -228,20 +227,16 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
               echo $num_0;
               echo "\n\n\n";
              */
-
-            
         } else { // -->> $data['fecha_inicio'] FECHA ES MAYOR al 2012.
             //ES MAYOR !  eh igual.
             $fecha_i = $data['fecha_inicio']; //"FECHA ES MAYOR al 2012 ";
-
         }
-        
-        
+
+
 
         //$fecha_i = $data['fecha_inicio'];
     } else {
         $fecha_i = $data_v['fecha']; //fecha Calculada.. before insert.
-        
         //echo "\n\n\n<br>fecha calculada es entonses<br>";
         //echo "\n\n ===".$fecha_i;
     }
@@ -254,7 +249,7 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
     //echo "\nnum global = ".$num_global;
     // SE SUMA UN 1 dia // CAda 4 años = 366
     $rpta = array();
-    $rpta['fecha_inicio']= $data['fecha_inicio'];
+    $rpta['fecha_inicio'] = $data['fecha_inicio'];
     $rpta['fecha_calc'] = crearFecha($fecha_i, (365 + $num_global), 0, 0);
     //echo " \nRETURN  == ".$rpta;
     //echo "\n";
@@ -269,28 +264,39 @@ function addVacacion() {
     //$post = $_REQUEST;
     $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");
     $f_programado = null;
-    //$f_programado = getFechaPatron($post['fv_programado'], "Y-m-d");
+    $f_programado = getFechaPatron($_REQUEST['fv_programado'], "Y-m-d");
 
+    //fecha limite de vacacion es : 11 meses
+    $fecha_limite = crearFecha($f_calculado, 0, 11, 0);
+    echo "fecha_ programador :\n";
+    echoo($f_programado);
 
-    if (isset($_REQUEST['fv_programado'])) {
-        //echo "isset";
+    echo 'fecha limite es :    ';
+    echoo($fecha_limite);
+
+    if ($f_programado > $fecha_limite) {
+        //echo "f programada es mayor";
         $f_programado = $f_calculado;
     } else {
-        //echo "else";
-        $f_programado == null;
+        //echo "f programada es Menor";
     }
+    echo "\nfecha_programado es \n";
+    //echoo($f_programado);
 
     $dao = new VacacionDao();
     $dao->add($_REQUEST['id_trabajador'], $f_calculado, $f_programado);
-    /*
-      echo "FINALL\N";
-      echoo($f_calculado);
-      echo "dd";
-      echoo($f_programado);
-     */
+
     return true;
 }
 
-
+function delVacacion() {
+    if ($_REQUEST['id_vacacion']) {
+        $dao = new VacacionDao();
+        $dao->del($_REQUEST['id_vacacion']);
+        return true;
+    } else {
+        return false;
+    }
+}
 
 ?>

@@ -1947,6 +1947,7 @@ function crearDialogoVacacion(){
 
 function verVacacion(id,name){
 	crearDialogoVacacion();	
+    $('#dialog_view_vacacion').dialog('open');
 $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/view_vacaciones.php",
@@ -1955,7 +1956,7 @@ $.ajax({
    success: function(datos){
     $('#view_vacacion').html(datos);
     
-    $('#dialog_view_vacacion').dialog('open');
+    //$('#dialog_view_vacacion').dialog('open');
    }
    }); 
 	
@@ -1988,3 +1989,25 @@ $.ajax({
 }
 
 
+//---------------------
+function eliminarVacacion(id){
+
+$.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/VacacionController.php",
+   data: {oper : 'del',id_vacacion : id},
+   async:true,
+   success: function(data){
+	   if(data){
+	   	alert("Se Elimino Correctamente.");
+		jQuery("#list").trigger("reloadGrid");
+	   }else{
+		alert("Ocurrio un error.");  
+	   }
+	   $('#dialog_view_vacacion').dialog('close');
+	   
+   }
+   }); 
+
+
+}

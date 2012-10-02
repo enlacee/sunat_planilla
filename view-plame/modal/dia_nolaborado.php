@@ -38,20 +38,19 @@ calcDiaNoSubsidiado();
 
 
 <form action="" method="get" name="formDiaNoSubsidiado" id="formDiaNoSubsidiado">
-<div class="ocultar">
+
   <div class="ocultar">oper
     <input name="oper" type="text" value="dual" />
       <br />
     id_tpd
     <input type="text" name="id_pago" id="" value="<?php echo $id_pago; ?>" />
   </div>
-</div>
-<table width="450" border="1" id="tb_dnolaborado">
+
+<table width="394" border="1" id="tb_dnolaborado" class="tabla_gris">
       <tr>
             <td width="217">tipo desuspens&oacute;n</td>
             <td width="81">cantidad de dias</td>
-            <td width="88">Modificar</td>
-            <td width="74">Eliminar</td>
+<td width="74">Eliminar</td>
         </tr>
 
 
@@ -91,41 +90,21 @@ calcDiaNoSubsidiado();
                     echo $html;
                     }
                     ?>
-
-
-                </select>
-
-            </td>
+                </select>            </td>
             <td>
                 <input name="dns_cantidad_dia[]" id="dns_cantidad_dia-<?php echo $ID; ?>" size="7" type="text"
-                value="<?php echo $data[$i]->getCantidad_dia();?>"/>
-            </td>
-            <td>
-                <span title="editar"><a href="javascript:editar_dns_0('<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)"><img src="images/edit.png"></a></span>
-            </td>
-            <td>
-                <span title="editar">
-                    <a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
-                        <img src="images/cancelar.png"/></a></span>
-            </td>
-
+                value="<?php echo $data[$i]->getCantidad_dia();?>"/>            </td>
+<td>
+          <span title="editar">
+              <a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
+                  <img src="images/cancelar.png"/></a></span>        </td>
         </tr>
          
 
 
         <?php endfor; ?>
-
-
-
-
-
-
-
-
-
-
     </table>
-    <br>
+  <br>
     <div style="width:150px; margin:0 0 0 174px;">
       <label for="dns_total">TOTAL</label>
         <input name="dns_total" type="text" id="dns_total" size="7" readonly="readonly">

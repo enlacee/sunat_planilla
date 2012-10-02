@@ -102,7 +102,7 @@ for ($i = 0; $i < $counteo; $i++):
     function cargarSuspension_1(objCombo,ids){
 
         var counteo = 	subs.length;
-        console.dir(subs);
+        //console.dir(subs);
         var z =0;
         //variables
         var arreglo = new Array();
@@ -115,7 +115,7 @@ for ($i = 0; $i < $counteo; $i++):
                 if( subs[j].id == ids[i] ){ //ENCONTRO
                     //continue;			
                     eliminados = subs.splice(j,1);
-                    console.log(eliminados);
+                    //console.log(eliminados);
                 }	
 						
             }//ENDFOR 2
@@ -134,7 +134,8 @@ for ($i = 0; $i < $counteo; $i++):
 
 //validarNuevoInput_2
     function validarNuevoInput(){
-		
+        console.log("Desabilitado!");
+	/*	
         if(parseInt(dia_laborado)<=0){
             alert("No hay mas dias para ser subsidiados");
         }else{
@@ -145,6 +146,7 @@ for ($i = 0; $i < $counteo; $i++):
                 nuevoDiaSubsidiado();
             }
         }
+        */
 
     }
     //--------------------------------------------------------------------------------
@@ -278,7 +280,7 @@ for ($i = 0; $i < $counteo; $i++):
 			
 			document.getElementById('dia_subsidiado').value = num_dia_subsidiado;
 			document.getElementById('dia_laborado').value = dia_laborado;//dia_laborado - num_dia_subsidiado;				
-			alert("SESSION = La informacion se Guardo\nCorrectamente.");	
+			alert("La informacion se Guardo\nCorrectamente.");	
         //-----
         var data = $("#formDiaSubsidiado").serialize();
         $.ajax({
@@ -316,7 +318,7 @@ for ($i = 0; $i < $counteo; $i++):
 		//alert("max_dias_local = "+max_dias_local);
 		
 
-        for(var i= 1; i <= num_fila; i++){ console.log("ciclo iiii="+ i);
+        for(var i= 1; i <= num_fila; i++){ //console.log("ciclo iiii="+ i);
 	
             var cbo = document.getElementById('cbo_ds_tipo_suspension-'+i);
             var dia = document.getElementById('ds_cantidad_dia-'+i);		
@@ -415,7 +417,7 @@ for ($i = 0; $i < $counteo; $i++):
 
             function cargarSuspension_2(objCombo,ids){
 
-                console.dir(nosubs);
+                
                 var z =0;
                 //variables
                 var arreglo = new Array();
@@ -429,7 +431,7 @@ for ($i = 0; $i < $counteo; $i++):
                         if( nosubs[j].id == ids[i] ){ //ENCONTRO
                             //continue;				
                             eliminados = nosubs.splice(j,1);
-                            console.log(eliminados);
+                            
                         }	
 						
                     }//ENDFOR 2
@@ -451,7 +453,8 @@ for ($i = 0; $i < $counteo; $i++):
 
 
        function validarNuevoInput_2(){
-		
+        console.log("Desabilitado para no afectar plame Script");
+		/*
         if(parseInt(dia_laborado)<=0){
             alert("No hay mas dias para ser subsidiados");
         }else{
@@ -463,7 +466,7 @@ for ($i = 0; $i < $counteo; $i++):
                 nuevoDiaSubsidiado_2();
             }
         }	
-
+*/
             }
             //--------------------------------------------------------------------------------
 
@@ -639,7 +642,7 @@ for ($i = 0; $i < $counteo; $i++):
 		var num_dia_nosubsidiado_local=0;
 //------
 		
-        for(var i= 1; i <= num_fila; i++){ console.log("ciclo iiii="+ i);
+        for(var i= 1; i <= num_fila; i++){ //console.log("ciclo iiii="+ i);
 	
             var cbo = document.getElementById('cbo_dns_tipo_suspension-'+i);
             var dia = document.getElementById('dns_cantidad_dia-'+i);		
@@ -705,7 +708,7 @@ function grabarDiaNoSubsidiado(){
 			
 			document.getElementById('dia_nosubsidiado').value = num_dia_nosubsidiado;
 			document.getElementById('dia_laborado').value = dia_laborado;//dia_laborado - num_dia_subsidiado;				
-			alert("SESSION = La informacion se Guardo\nCorrectamente.");	
+			alert("La informacion se Guardo\nCorrectamente.");	
         //-----
         var data = $("#formDiaNoSubsidiado").serialize();
         $.ajax({

@@ -4,7 +4,7 @@ $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
     require_once '../util/funciones.php';
-    require_once '../dao/AbstractDao.php';
+    require_once '../dao/AbstractDao.php';    
     // IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
 
@@ -69,6 +69,8 @@ if ($op) {
     //reporte tabla
     //ZIP
     require_once '../util/zip/zipfile.inc.php';
+    
+    require_once '../dao/ConfAfpTopeDao.php';
 }
 
 
@@ -1367,11 +1369,15 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
     $dao_afp = new ConfAfpDao();
     $afp = $dao_afp->vigenteAfp($cod_regimen_pensionario, $periodo);
     //----
+    
+    // Configuracion de Tope Afp 02/10/2012
+    $dao_tafp = new ConfAfpTopeDao();
+    $monto_tope = $dao_tafp->vigenteAux($periodo);
+    
 
     $A_OBLIGATORIO = floatval($afp['aporte_obligatorio']);
     $COMISION = floatval($afp['comision']);
     $PRIMA_SEGURO = floatval($afp['prima_seguro']);
-
 
     // UNO = comision porcentual
     $_601 = (floatval($all_ingreso)) * ($COMISION / 100);
@@ -1381,6 +1387,11 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
 
     // TRES = aporte obligatorio
     $_608 = (floatval($all_ingreso)) * ($A_OBLIGATORIO / 100);
+    /*
+     *  Conficion Parametro Tope. Monto maximo a pagar por all las
+     *  afp segun el periodo  d/m/Y
+     */
+    $_608 = ($_608>$monto_tope) ? $monto_tope : $_608;
 
 
     // uno DAO

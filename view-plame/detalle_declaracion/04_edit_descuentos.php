@@ -47,12 +47,12 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
 </div>
 <h3>Descuentos:  </h3>
     <hr />
-  <table width="670" border="1" class="Pdescuento">
+  <table width="670" border="1" class="Pdescuento tabla_gris">
     <tr>
-      <td width="10">&nbsp;</td>
-      <td width="55">C&oacute;digo</td>
-      <td width="202">Concepto</td>
-      <td width="96">Monto(S/.)</td>
+      <td width="17">&nbsp;</td>
+      <td width="118">C&oacute;digo</td>
+      <td width="342">Concepto</td>
+      <td width="165">Monto(S/.)</td>
     </tr>
     
     
@@ -66,14 +66,15 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
     
     
     <tr>
-      <td><?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?></td>
-      <td><label for="pt_codigo"></label>
-      <input name="pt_codigo" type="text" id="pt_codigo" size="5" 
-      value="<?php echo $pdescuento[$i]['cod_detalle_concepto'];?>" />
+      <td>
+<input type="hidden" class="idd" name="id_2[]" size="1"
+value="<?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?>"/>	  
+	  </td>
+      <td><?php echo $pdescuento[$i]['cod_detalle_concepto'];?>
       </td>
       <td><?php echo $pdescuento[$i]['descripcion'];?></td>
       <td><label for="pt_monto"></label>
-      <input name="pt_monto" type="text" id="pt_monto" size="8" 
+      <input name="pt_monto" type="text" id="pt_monto" 
        value="<?php 
 	   for($x=0; $x<count($calc_conceptos); $x++):
 		   if($pdescuento[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
@@ -81,8 +82,7 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
 			   break;
 			endif;
 		endfor;
-	   ?>" />
-       </td>
+	   ?>" size="8" readonly="readonly" />       </td>
     </tr>
     
     

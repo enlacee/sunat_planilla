@@ -27,9 +27,9 @@ function getFechaPatron($fecha_es_us, $patron_date) {
 
 function echoo($obj) {
     if (is_null($obj)) {
-        echo "\nobj null\n";
+        echo "\n\n";
     } else {
-        echo "<pre>" . print_r($obj) . "</pre>";
+        echo "\n\n<pre>" . print_r($obj) . "</pre>";
     }
 }
 

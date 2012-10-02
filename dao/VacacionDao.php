@@ -2,25 +2,6 @@
 
 class VacacionDao extends AbstractDao {
 
-    // Contenedor Instancia de la Clase
-    private static $instance;
-
-    // A private constructor; previene creación de objetos vía new
-
-    /*
-      // EL método singleton
-      public static function singleton() {
-      if (!isset(self::$instance)) {
-      $c = __CLASS__;
-      self::$instance = new $c;
-      }
-
-      return self::$instance;
-      }
-     */
-    /*
-     * 
-     */
 
     function buscarVacacion() {
         
@@ -128,7 +109,19 @@ class VacacionDao extends AbstractDao {
         return $lista[0];
     }
 
-
+    public function del($id){
+        $query = "        
+        DELETE
+        FROM vacaciones
+        WHERE id_vacacion = ?;
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id);
+        $stm->execute();        
+        $stm = null;
+        return true;  
+        
+    }
 
 }
 

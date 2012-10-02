@@ -26,7 +26,7 @@ echo "</pre>";*/
 </script>
 <form action="" method="get" id="formDiaSubsidiado" name="formDiaSubsidiado">
 
-    <div class="tb" style="width:450px;" >
+    <div class="" style="width:450px;" >
 <div class="ocultar">oper
         <input name="oper" type="text" value="dual" />
         <br />
@@ -34,12 +34,11 @@ echo "</pre>";*/
         <label for="id_pago"></label>
         <input type="text" name="id_pago" id="" value="<?php echo $id_pago; ?>" />
 </div>
-<table width="450" border="1" id="tb_dsubsidiado">
+<table width="394" border="1" id="tb_dsubsidiado" class="tabla_gris">
             <tr>
                 <td width="217">tipo desuspens&oacute;n</td>
                 <td width="81">cantidad de dias</td>
-                <td width="88">Modificar</td>
-                <td width="74">Eliminar</td>
+<td width="74">Eliminar</td>
             </tr>
 
 
@@ -83,37 +82,20 @@ echo "</pre>";*/
                                 echo $html;
                             }
                             ?>
-
-                        </select>
-
-                    </td>
+                        </select>                    </td>
                     <td>
                         <input name="ds_cantidad_dia[]" id="ds_cantidad_dia-<?php echo $ID; ?>" size="7" onblur="calcDiaSubsidiado()" type="text"
-                               value="<?php echo $data[$i]->getCantidad_dia(); ?>" >
-                    </td>
-                    <td>
-                        <span title="editar">
-                            <a href="javascript:editar_ds_0('<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?>)">
-                                <img src="images/edit.png">
-                            </a>
-                        </span>
-                    </td>
-                    <td>
-                        <span title="editar">
-                            <a href="javascript:eliminar_ds_0( 'dia_subsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?> )">
-                                <img src="images/cancelar.png"></a></span>
-                    </td>
+                               value="<?php echo $data[$i]->getCantidad_dia(); ?>" >                    </td>
+<td>
+            <span title="editar">
+                <a href="javascript:eliminar_ds_0( 'dia_subsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?> )">
+                    <img src="images/cancelar.png"></a></span>          </td>
                 </tr>
 
                 <!-- -->
 
             <?php endfor; ?>
-
-
-
-
         </table>
-
     </div>
     <br>
     <div style="width:150px; margin:0 0 0 174px;">

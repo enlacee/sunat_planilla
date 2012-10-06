@@ -1616,8 +1616,16 @@ function generarDeclaracionPlanilla(id_pdeclaracion,obj,cadena){
    url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php"+cadena,
    data: { oper: 'generar_declaracion', id_pdeclaracion : id_pdeclaracion },//Enviando a ediatarProducto.php vareiable=id_producto
    async:true,
-   success: function(datos){	
-	console.log("Se Genero la planilla correctamente");
+   success: function(data){	
+
+        if(data){
+            alert("Se Genero la planilla correctamente");   
+        }else{
+            alert("Ocurrio un error");
+        }
+
+        cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
+
 		
 	
    }
@@ -1739,8 +1747,8 @@ function crearDialogoNewRPC(tipo_conceptos){
 			buttons: {
                    'Cancelar': function() {
 					$(this).dialog('close');
-				},
-				'Guardar': function() {	
+				    },
+				    'Guardar': function() {	
 				
 					//---	VALIDACION ECHA EN 	modal/detalle_persona_direccion.php	
 					var form = $("#nuevo_trabajador_rpc");
@@ -1830,6 +1838,9 @@ function validarNewRPC(obj){
 
 function newRPC(id,tipo_concepto){
 	crearDialogoNewRPC();
+
+    $('#dialog_new_trabajador_rpc').dialog('open');
+
     $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/new_trabajador_rpc.php",
@@ -1838,7 +1849,7 @@ function newRPC(id,tipo_concepto){
    success: function(datos){
     $('#new_trabajador_rpc').html(datos);
     
-    $('#dialog_new_trabajador_rpc').dialog('open');
+    
    }
    }); 
 }
@@ -2011,3 +2022,250 @@ $.ajax({
 
 
 }
+
+
+
+
+//------------------------------------------------------
+
+
+	function cargarTablaPrestamo(){
+
+		//var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
+	
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/PrestamoController.php?oper=cargar_tabla',
+            datatype: 'json',
+            colNames:['id','Numero Doc','Paterno',
+                'Materno','Nombres','Fecha Prestamo','Estado','Opciones'],
+            colModel :[
+                {
+                    name:'id_prestamo',
+                    key : true, 
+                    editable:false, 
+                    index:'id_prestamo',
+                    search:false,
+                    width:20,
+                    align:'center',
+					hidden:true
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    editable:false,
+                    width:70,
+                    align:'center'
+                },            
+                
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                 
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:80,
+                    align:'center',
+                },
+                
+                {
+                    name:'nombres', 
+                    index:'nombres',
+                    editable:true,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'fecha_inicio', 
+                    index:'fecha_inicio',
+                    editable:false,
+                    width:100,
+                    align:'center'
+                },				
+				
+                {
+                    name:'estado', 
+                    index:'estado',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },				
+                {
+                    name:'opciones',
+                    index:'opciones',
+                    search:false,
+                    editable:false,
+                    width:100, 
+                    align:'center'
+                }							
+
+		
+            ],
+            pager: '#pager',
+            //rownumbers: true,
+            //autowidth: true,
+            rowNum:10,
+            rowList:[10,20,30],
+            sortname: 'id_prestamo',
+            sortorder: 'asc',
+            viewrecords: true,
+            /*gridview: true,*/
+            caption: 'List',
+			//multiselect: false,
+			//hiddengrid: true,
+            onSelectRow: function(ids) {},
+            height:340,
+           // width:720
+        });
+        //--- PIE GRID
+        jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+					
+    }
+
+
+	function cargarTablaParaTiFamilia(){
+
+		//var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
+	
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/ParatiFamiliaController.php?oper=cargar_tabla',
+            datatype: 'json',
+            colNames:['id','Numero Doc','Paterno',
+                'Materno','Nombres','Descripcion','Estado','Opciones'],
+            colModel :[
+                {
+                    name:'id_para_ti_familia',
+                    key : true, 
+                    editable:false, 
+                    index:'id_para_ti_familia',
+                    search:false,
+                    width:20,
+                    align:'center',
+					hidden:false
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    editable:false,
+                    width:70,
+                    align:'center'
+                },            
+                
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                 
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:80,
+                    align:'center',
+                },
+                {
+                    name:'nombres', 
+                    index:'nombres',
+                    editable:true,
+                    width:80,
+                    align:'center'
+                },
+				
+                {
+                    name:'descripcion', 
+                    index:'descripcion',
+                    editable:false,
+                    width:120,
+                    align:'center'
+                },				
+				
+                {
+                    name:'estado', 
+                    index:'estado',
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },				
+                {
+                    name:'opciones',
+                    index:'opciones',
+                    search:false,
+                    editable:false,
+                    width:100, 
+                    align:'center'
+                }							
+
+		
+            ],
+            pager: '#pager',
+            //rownumbers: true,
+            //autowidth: true,
+            rowNum:10,
+            rowList:[10],
+            sortname: 'id_para_ti_familia',
+            sortorder: 'asc',
+            viewrecords: true,
+            /*gridview: true,*/
+            caption: 'List',
+			//multiselect: false,
+			//hiddengrid: true,
+            onSelectRow: function(ids) {},
+            height:340,
+           // width:720
+        });
+        //--- PIE GRID
+        jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+					
+    }
+
+
+//--------------------------------------------------------------------------------------
+
+function grabarParaTiFamilia(obj){
+	
+var id_trabajador = document.getElementById('id_trabajador').value;
+
+if(id_trabajador != ''){
+	
+
+var from_data =  $("#FrmParaTiFamilia").serialize();
+
+//-----	
+$.ajax({
+	type: 'post',
+	dataType: 'json',
+	url: 'sunat_planilla/controller/ParatiFamiliaController.php?'+from_data,
+	data: {},
+	success: function(data){
+					
+		if(data){
+			alert("Se registro correctamente");
+			javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php','#CapaContenedorFormulario')
+			//javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
+		}else{
+			alert("Ocurrio un error.");
+		}		
+	}
+});
+//-------
+}else{
+	alert("Ingrese datos validos");	
+}
+
+}
+
+
+
+
+
+

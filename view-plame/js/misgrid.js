@@ -319,6 +319,10 @@
     $("#t_list").append($("#reporte30_02"));
     $("#t_list").append($("#reporte30_mas"));
 	$("#t_list").append($("#reporte_plame"));
+
+    $("#t_list").append($("#break"));
+    $("#t_list").append($("#reporte_emp_01"));    
+
 	
 
 	

@@ -132,6 +132,10 @@ if ($op == "cargar_tabla") {
      *  internamente agrupa las etapas 1 y 2 quincenas
      */
     $response = listarTrabajadoresPorDeclaracionEtapas($_REQUEST['id_pdeclaracion']);
+}else if($op == "del-id_pdeclaracion"){
+    
+    $response = del_pdeclaracion();
+    
 }
 
 
@@ -142,6 +146,14 @@ echo (!empty($response)) ? json_encode($response) : '';
   $dao->existeDeclaracion();
   }*/
 
+
+
+function del_pdeclaracion(){
+    
+    $dao = new PlameDeclaracionDao();
+    return $dao->del($_REQUEST['id_pdeclaracion']);    
+    
+}
 
 function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclaraciones
     $page = $_GET['page'];

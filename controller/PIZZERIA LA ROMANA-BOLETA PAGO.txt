@@ -6,27 +6,58 @@ AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 45269187               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: copitan norabuena anibal                                            
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/01/2011                  
                                                  NRO.CARNET AFP : 12345678914                A.F.P. : SPP INTEGRA                        
-MES : ENERO DE : 01.2012                         CARGO : DIRECTOR GENERAL, ORGANIZACION/ CAZASECCION : ventas                            
+MES : AGOSTO DE : 01.2012                        CARGO : DIRECTOR GENERAL, ORGANIZACION/ CAZASECCION : ventas                            
 31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :                                                                             
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 *   SUELDO BASICO                 2,000.00   *   ADELANTO                      1,000.00   *   ESSALUD                        180.00   *
-*                                            *   COMISION AFP 1.80%               36.00   *                                           *
+*   (HORAS EXTRAS) 25%               20.83   *   OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE    250.00   *                                           *
+*   (HORAS EXTRAS) 35%               33.74   *   COMISION AFP 1.80%               36.00   *                                           *
 *                                            *   PRIMA DE SEGURO 1.16%            23.20   *                                           *
 *                                            *   JUBILACION SPP 10.00%           200.00   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA            30.63   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
 *                                            *                                            *                                           *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES          2,000.00   *   TOTAL RETENC./DESCUENTOS      1,289.83   *   TOTAL APORTACIONES             180.00   *
+*   TOTAL REMUNERACIONES          2,054.57   *   TOTAL RETENC./DESCUENTOS      1,509.20   *   TOTAL APORTACIONES             180.00   *
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+* REDONDEO     :      -0.37 *
+-----------------------------
+* NETO A PAGAR :     545.00 *                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+
+CAMUENTE S.A.
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 12345678                            DNI: 12345678                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: APELLIDO APELLIDOS PEPE JUAN                                        
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 03/02/2012                  
+                                                                                             R.P. : DL 19990 - SIST NAC DE PENS - ONP    
+MES : AGOSTO DE : 01.2012                        CARGO : SUPER INTENDENTE DE PLANTA          SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE DC 96 ICA-ICA-PARCONA                                                
+---------------------------------------------------------------------------------------------------------------------------------------
+*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
+*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   SUELDO BASICO                 2,500.00   *   ADELANTO                      1,250.00   *   ESSALUD                        225.00   *
+*                                            *   OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE      0.00   *                                           *
+*                                            *   ONP                             325.00   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
+*                                            *                                            *                                           *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   TOTAL REMUNERACIONES          2,500.00   *   TOTAL RETENC./DESCUENTOS      1,575.00   *   TOTAL APORTACIONES             225.00   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 -----------------------------
-* REDONDEO     :      -0.17 *
+* REDONDEO     :          0 *
 -----------------------------
-* NETO A PAGAR :     710.00 *                            _________________________                  _________________________
+* NETO A PAGAR :     925.00 *                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
 

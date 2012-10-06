@@ -33,19 +33,26 @@ function registrarRPC() {
     $num_documento = $_REQUEST['num_documento'];
     $cod_tipo_documento = $_REQUEST['tipoDoc'];
     $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
-
-    $dao_tra = new TrabajadorDao();
-
+    /**
+     * Retornar ID_TRABAJADOR OK.  
+     */
+    //echo "\nID_EMPLEADOR =".ID_EMPLEADOR;
+    //echo "\nnum_documento = ".$num_documento;
+    //echo "\ncod_tipo_documento = ".$cod_tipo_documento;
+    
     $dao_tra = new TrabajadorDao();
     $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento,ID_EMPLEADOR);
     
 
     if (isset($data['id_trabajador'])) {
 
-        //Pregunta si esta registrado en  :: registros_por_conceptos
+        /**
+         * Pregunta si esta registrado en  :: registros_por_conceptos
+         * verifica. No hay Duplicado.
+         */
         $dao = new RegistroPorConceptoDao();
         $datax = $dao->buscar_ID_trabajador($data['id_trabajador'], $cod_detalle_concepto);
-        //var_dump($datax);
+        
 
         if (is_null($datax['id_registro_por_concepto'])) {
 
@@ -54,8 +61,9 @@ function registrarRPC() {
             $model->setId_trabajador($data['id_trabajador']);
             $model->setFecha_creacion(date("Y-m-d  H:i:s"));
 
-            $dao = new RegistroPorConceptoDao();
+            //$dao = new RegistroPorConceptoDao();
             $rpta->estado = $dao->add($model);
+            
         } else if (isset($datax['id_registro_por_concepto'])) {
 
             //trabajador ya esta registrado..
@@ -142,6 +150,7 @@ function listarRPC() {
     foreach ($lista as $rec) {
 
         $param = $rec["id_registro_por_concepto"];
+        $_00 = $rec['id_trabajador'];
         $_01 = $rec['cod_tipo_documento'];
         $_02 = $rec['num_documento'];
         $_03 = $rec['apellido_paterno'];
@@ -149,7 +158,8 @@ function listarRPC() {
         $_05 = $rec['nombres'];
         $_06 = $rec['valor'];
         $_07 = $rec['estado'];
-
+        
+        //echo "\n $_00\n\n";
         // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
 
         $opciones = null;

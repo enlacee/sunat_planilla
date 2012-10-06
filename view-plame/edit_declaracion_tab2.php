@@ -66,6 +66,20 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 	});
 
 	
+	//04 =
+	$("#reporte_emp_01").click(function(){	console.log("ENTRO EN  reporte_emp_01");
+		
+		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
+		url +="?oper=reporte_emp_01&id_pdeclaracion="+ID_DECLARACION
+		url +="&todo=todo";	
+		
+		window.location.href = url;
+				
+
+	});
+	 
+	
+	
 	
 	
 	//------------------- funciones
@@ -160,7 +174,8 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 <input type="button" name="reporte30_02" id="reporte30_02" value="Reporte Mensual Total" />
 <input type="button" name="reporte30_mas" id="reporte30_mas" value="Mas op" />
 <input type="button" name="reporte_plame" id="reporte_plame" value="PDT PLAME"  />
-  
+<span  id="break" style="padding:0 10px; margin:0 2px; background-color:#FCF"></span>
+<input type="submit" name="reporte_emp_01" id="reporte_emp_01" value="|planilla unica pagos|" />
 <table id="list">
 </table>
 <div id="pager">

@@ -1,0 +1,11 @@
+CAMUENTE S.A.                                     
+DIRECCION                                         PLANILLA UNICA DE PAGOS - TRABAJADORES                                                                   
+                                                  AGOSTO - 2012                                                                                                                                                                                                
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                 R E M U N E R A C I O N E S                                  ³                          D E S C U E N T O S                           ³       A P O R T A C I O N E S        ³            NETO
+#   COD APELLIDOS Y NOMBRE                    DNI       DIAS   HORAS   HABER   ASIG.  RIESGO.  ASIG.    TRAB   HORAS   TOTAL  ³ S.N.P.   5TA    A.F.P.   ADEL   DESC.   DESC.   DESC.   OTROS.  TOTAL. ³ESSALUD. OTROS.  OTROS.               ³  RND.        A.
+                                                        TRAB    TRAB   BASICO  FAMIL    CAJA   TRANSP FERIADO  EXTRAS         ³         CATEG          QUINCEN PRESTAM P.T.FAML JUDIC.  DESC.          ³         DESC.    DESC                ³           PAGAR
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1   copitannorabuenaanibal                  45269187     31     240   2000.00    0       0       0       0     54.57  2054.57 ³   0      0.00   259.2  1000.00  250.00    0       0       0     1509.2 ³ 180.00  OTROS.  180.00               ³ -0.37   545.00 
+2   APELLIDOAPELLIDOSPEPE JUAN              12345678     31     240   2500.00    0       0       0       0       0      2500  ³ 325.00   0.00     0    1250.00    0       0       0       0      1575  ³ 225.00  OTROS.  225.00               ³   0     925.00 

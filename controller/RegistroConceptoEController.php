@@ -56,6 +56,13 @@ function registrarRPCE() {
 
     $dao_tra = new TrabajadorDao();
     //echo "ID_EMPLEADOR ".ID_EMPLEADOR;
+    /**
+     * Retornar ID_TRABAJADOR OK.  
+     */
+    echo "\nID_EMPLEADOR =".ID_EMPLEADOR;
+    echo "\nnum_documento = ".$num_documento;
+    echo "\ncod_tipo_documento = ".$cod_tipo_documento;
+    
     $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento,ID_EMPLEADOR);
     
 

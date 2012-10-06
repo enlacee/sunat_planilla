@@ -421,3 +421,34 @@ function estadoCheckGlobal(obj,IDFORM){
 	alert(obj.checked);
 
 }
+
+//------------------------------------------------------------------------------//
+//---------------------------- Funciones Personalizadas ------------------------//
+// de prosic_erp contabilidad.
+
+function modalshow_anb(pag){
+	console.log('modalshow');
+	window.open(pag, "Modal", ' width=500, height=300 , top=300,left=200 ,scrollbars=YES');
+} 
+
+
+function return_modal_anb_prestamo(id, code, name){
+	console.log('return_modal');
+	window.opener.document.FrmPrestamo.id_trabajador.value = id;
+	window.opener.document.FrmPrestamo.dni.value = code;
+	window.opener.document.FrmPrestamo.nombre.value = name;
+	//window.opener.document.FrmPrestamo.valor.focus();
+	self.close();
+	//window.close();
+} 
+
+function return_modal_anb_paraTifamilia(id, code, name){
+	console.log('return_modal 2');
+	window.opener.document.FrmParaTiFamilia.id_trabajador.value = id;
+	window.opener.document.FrmParaTiFamilia.dni.value = code;
+	window.opener.document.FrmParaTiFamilia.nombre.value = name;
+	//window.opener.document.FrmParaTiFamilia.valor.focus();
+	self.close();
+	//window.close();
+} 
+

@@ -21,16 +21,19 @@ require_once('../view/ide.php');
                   
         $( "#tabs").tabs();
 		//cargarTablaLiquidaciones();
-		cargarTablaPdeclaracionEmpresa();
+		cargarTablaPdeclaracionEmpresa();	
 		
-		
-		$("#eliminar_datos_mes").click(function(){
-			
-			
-		var id_pdeclaracion = $("#id_pdeclaracion").val();
+	});
+	
+	//--------------------------------------
+	
+$("#eliminar_datos_mes").click(function(){
 	
 	
-		var boton = $(this);
+var id_pdeclaracion = $("#id_pdeclaracion").val();
+
+
+var boton = $(this);
 		
 				
 if(id_pdeclaracion!=""){		
@@ -61,11 +64,7 @@ alert("Debe seleccionar un periodo.\n");
 }
 
 });
-		
-		
-		
-		
-	});
+	
 	
 //cargarTablaLiquidaciones();
 cargarTablaPdeclaracionEmpresa();
@@ -99,15 +98,60 @@ function habilitarBotonEliminarMes(){
 	
 	if(obj.checked == true){ //alert("entro true");
 	console.log("true");
-		$("#eliminar_datos_mes").removeAttr('disabled');
+		//$("#eliminar_datos_mes").removeAttr('disabled');
+		$(".button-del").removeAttr('disabled');
+		
+		
 			console.log("true");
 	}else{
-		$("#eliminar_datos_mes").attr('disabled','disabled');		
-		
+		//$("#eliminar_datos_mes").attr('disabled','disabled');		
+		$(".button-del").attr('disabled','disabled');	
 	}
 
 }
 	habilitarBotonEliminarMes();
+	
+	
+	//---------------------------------------------------------
+	
+	
+	$('#eliminar_declaracion').click(function(){
+		
+			var id_pdeclaracion = $("#id_pdeclaracion").val();
+			var boton = $(this);
+					
+							
+			if(id_pdeclaracion!=""){		
+			//------
+				boton.val("Procesando...");
+			   $.ajax({
+			   type: "POST",
+			   url: "sunat_planilla/controller/PlameDeclaracionController.php",
+			   data: {id_pdeclaracion : id_pdeclaracion,oper : 'del-id_pdeclaracion'},
+			   async:true,
+			   success: function(datos){
+			
+					if(datos){
+						alert("Se borraron los datos correctamente");
+						jQuery("#list").trigger('reloadGrid');
+						//jQuery("#list10_d").trigger('reloadGrid');
+						boton.val('Eliminar Datos del Mes');
+					}else{
+						boton.val('Eliminar Datos del Mes');
+						alert("Existio un error");
+					}
+					
+					
+			   }
+			   }); 
+			//------			
+			}else{
+			alert("Debe seleccionar un periodo.\n");
+			}
+		
+	});
+	
+	
 </script>
 
 
@@ -131,16 +175,10 @@ function habilitarBotonEliminarMes(){
             <p>&nbsp;</p>
             
             <input type="checkbox" name="checkbox_data" id="checkbox_data" onclick="habilitarBotonEliminarMes()" />
-            <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button"  />
-
-
-
-
-
-   
-   
+            <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button" class="button-del"  />
+            <input type="hidden" name="eliminar_declaracion" id="eliminar_declaracion" value="Elimina Declaracion" class="button-del" />
 <div class="ocultar">   
-<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
+  <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
 </div>
 <div class="section">
       <div class="article fila1">

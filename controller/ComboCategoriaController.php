@@ -715,5 +715,11 @@ function comboCentroCosto(){
     
 }
 
+//--- 04/10/2012
+function comboTipoParaTiFamilia(){
+    $dao = new ComboCategoriaDao();
+    return $dao->comboTipoParaTiFamilia();
+}
+
 
 ?>

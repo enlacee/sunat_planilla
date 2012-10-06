@@ -144,16 +144,28 @@ function cargar_tabla_ConceptoEEmpleador() {
 
         $param = $rec["id_concepto_e_empleador"];
         $_01 = $rec['id_concepto_e'];
-        $_02 = $rec["descripcion"]; 
+        $_02 = $rec["descripcion"];
+       // echo $_01."\n";
         
         
-        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_concepto_e.php?id_concepto_e=$_01&id_concepto_e_empleador=$param','#CapaContenedorFormulario')";
+        // diferentes vistas ::: segun concepto.
+            $js = '#';
+        if($_01=='1'){ // Prestamo
+            $js ="javascript:cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php','#CapaContenedorFormulario')";
+            //new_cprestamo
+        }else if($_01=='2'){ // PARA TI FAMILIA
+           $js ="javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php','#CapaContenedorFormulario')"; 
+            
+        }else{
+           // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_concepto_e.php?id_concepto_e=$_01&id_concepto_e_empleador=$param','#CapaContenedorFormulario')";
+        }
+        
+        
         //$js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
         $opciones = '<div id="divEliminar_Editar">				
         <span  title="Editar"   >
         <a href="' . $js . '" class="divEditar" ></a>
-        </span>   
-
+        </span> 
         </div>';
         $responce->rows[$i]['id'] = $param;
         $responce->rows[$i]['cell'] = array(

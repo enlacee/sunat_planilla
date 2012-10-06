@@ -27,7 +27,7 @@ function getFechaPatron($fecha_es_us, $patron_date) {
 
 function echoo($obj) {
     if (is_null($obj)) {
-        echo "\n\n";
+        var_dump($obj)."\n\n";
     } else {
         echo "\n\n<pre>" . print_r($obj) . "</pre>";
     }
@@ -376,7 +376,7 @@ function number_format_var($number) {
 
 // NUM = 1950.24
 function roundFaborContra($num) {
-
+    $numero = array();
 
     $roundFC = (float) 0.00;
     if (is_float($num)) {
@@ -389,15 +389,18 @@ function roundFaborContra($num) {
         //CONDICION        
         if (intval($decimal) < 50) {
             $roundFC = $decimal * (-1);
+            $numero['numero'] = intval($num);
         } else {
             $roundFC = 100 - $decimal;
+            $numero['numero'] = intval($num)+1;
         }
 
         $roundFC = $roundFC / 100;
     }
 
-    $numero = array();
-    $numero['numero'] = intval($num);
+    
+    $numero['valor'] = $num;
+    //$numero['numero'] = intval($num);
     $numero['decimal'] = $roundFC;
 
     return $numero;
@@ -405,7 +408,8 @@ function roundFaborContra($num) {
 
 /*
   $num = 590.59;
-  var_dump (roundFaborContra($num));
+  $num2 = 590.25;
+  var_dump (roundFaborContra($num2));
  */
 
 function getNumMayor($a, $b, $c) {

@@ -501,6 +501,24 @@ class ComboCategoriaDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+    
+    
+    public function comboTipoParaTiFamilia(){
+        
+        $query = "
+        SELECT
+        id_tipo_para_ti_familia,
+        descripcion,
+        valor
+        FROM tipo_para_ti_familia        
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;     
+        
+    }
 
 }
 

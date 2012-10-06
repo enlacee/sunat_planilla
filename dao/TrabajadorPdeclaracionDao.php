@@ -459,6 +459,45 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         
     }
     
+    
+    //->new uso para reportes    
+    public function listar_3($id_pdeclaracion){
+        
+        $query="
+        SELECT
+          tpd.id_trabajador_pdeclaracion,          
+          tpd.id_trabajador,
+          tpd.dia_laborado,
+          tpd.ordinario_hora,
+          tpd.sobretiempo_hora,        
+          -- persona
+          p.id_persona,
+          p.apellido_materno,
+          p.apellido_paterno,
+          p.nombres ,
+          p.num_documento
+
+        FROM trabajadores_pdeclaraciones AS tpd
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona        
+
+        WHERE tpd.id_pdeclaracion = ?
+";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+    
+        return $lista;
+        
+        
+    }
 
     //------------------------------------------------------------------------//
     // ------------- FUNCION ESTRUTURAS---------------------------------------//

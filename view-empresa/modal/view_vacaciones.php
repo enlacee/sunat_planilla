@@ -48,7 +48,9 @@ $dia_calc = $now_dia - $dia;
 		$("#fv_programado").datepicker({ 
 			changeMonth: true,
 			changeYear: true,
+			dateFormat: 'mm/yy',
 			minDate: <?php echo "-".$dia_calc; ?>
+			
 			//maxDate: "+11M +0D"
 			
 		});

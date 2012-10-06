@@ -54,7 +54,20 @@ class PlameDeclaracionDao extends AbstractDao {
         $stm = null;
         return true;
     }
-
+    
+    public function del($id_pdeclaracion){
+        
+        $query ="
+            DELETE
+            FROM pdeclaraciones
+            WHERE id_pdeclaracion = ?
+            ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);        
+        $stm->execute();       
+        $stm = null;
+        return true; 
+    }
     /**
      *
      * @param type $id_empleador_maestro

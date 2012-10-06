@@ -263,24 +263,27 @@ function addVacacion() {
 
     //$post = $_REQUEST;
     $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");
-    $f_programado = null;
-    $f_programado = getFechaPatron($_REQUEST['fv_programado'], "Y-m-d");
+   
+    
+    $fecha_pro_request = "01/".$_REQUEST['fv_programado']; // d/m/Y
+    
+    $f_programado = getFechaPatron($fecha_pro_request, "Y-m-d");
 
     //fecha limite de vacacion es : 11 meses
     $fecha_limite = crearFecha($f_calculado, 0, 11, 0);
-    echo "fecha_ programador :\n";
-    echoo($f_programado);
+//    echo "fecha_ programador :\n";
+//    echoo($f_programado);
 
-    echo 'fecha limite es :    ';
-    echoo($fecha_limite);
+    //echo 'fecha limite es :    ';
+    //echoo($fecha_limite);
 
     if ($f_programado > $fecha_limite) {
         //echo "f programada es mayor";
         $f_programado = $f_calculado;
-    } else {
-        //echo "f programada es Menor";
+    } else {        
+        //echo "f programada es Menor"; js
     }
-    echo "\nfecha_programado es \n";
+    //echo "\nfecha_programado es \n";
     //echoo($f_programado);
 
     $dao = new VacacionDao();

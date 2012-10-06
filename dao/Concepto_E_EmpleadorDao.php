@@ -28,9 +28,9 @@ class Concepto_E_EmpleadorDao extends AbstractDao {
 
         $query = "
         SELECT
-          cee.id_concepto_e_empleador,
-          cee.id_concepto_e,
+          cee.id_concepto_e_empleador,          
           cee.seleccionado,
+          ce.id_concepto_e,
           ce.descripcion
         FROM conceptos_e_empleadores AS cee
         INNER JOIN conceptos_e AS ce

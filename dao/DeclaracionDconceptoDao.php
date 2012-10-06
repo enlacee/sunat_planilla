@@ -150,6 +150,31 @@ class DeclaracionDconceptoDao extends AbstractDao {
         return $lista;
     }
     
+    //uSADO en reporte empresa  txt.
+ public function buscar_ID_TrabajadorPdeclaracion_3($id_trabajador_pdeclaracion) {
+        // id_trabajador_pdeclaracion
+
+        $query = "
+        SELECT
+            ddc.id_declaracion_dconcepto,            
+            ddc.cod_detalle_concepto,            
+            ddc.monto_pagado,
+            -- detalle
+            dc.descripcion            
+        FROM declaraciones_dconceptos AS ddc
+
+        INNER JOIN detalles_conceptos AS dc
+        ON   ddc.cod_detalle_concepto = dc.cod_detalle_concepto   
+        WHERE id_trabajador_pdeclaracion = ?          
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }    
 
     //---------------------------------------------------------------
     // Funcion utilizada x Renta 5ta Categoria - controller u ONP U ESSALUD ++

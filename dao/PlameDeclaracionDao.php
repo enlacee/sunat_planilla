@@ -75,6 +75,25 @@ class PlameDeclaracionDao extends AbstractDao {
      * @return type 
      * Pregunta si existe periodo registrado.
      */
+    public function baja($id_pdeclaracion){
+//        echo "---------";
+//        echo($id_pdeclaracion);
+//        echo "---------";
+        $query = "
+        UPDATE pdeclaraciones
+        SET
+          estado = 0
+        WHERE (id_pdeclaracion = ? );            
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);        
+        $stm->execute();
+        $stm = null;
+        return true;   
+    }
+    
+    
+    
     public function existeDeclaracion($id_empleador_maestro, $periodo) { //paso 01
         $query = "
         SELECT
@@ -156,18 +175,58 @@ class PlameDeclaracionDao extends AbstractDao {
         return $lista;
     }
 
-    public function listar($id_empleador_maestro, $anio) {
+    
+    
+    
+        public function listarGrid($id_empleador_maestro, $anio,$WHERE, $start, $limit, $sidx, $sord) {
+            
+        $cadena = null;
+        if (is_null($start)) {
+            $cadena = "";
+        } else {
+            $cadena = " , $sidx $sord LIMIT $start,  $limit";
+        }
+        
         $query = "
         SELECT 
         id_pdeclaracion,
         periodo,
-        fecha_modificacion
+        fecha_modificacion,
+        estado
 
         FROM pdeclaraciones AS pd
         INNER JOIN empleadores_maestros AS em
         ON pd.id_empleador_maestro = em.id_empleador_maestro
 
         WHERE(em.id_empleador_maestro= ? AND YEAR(pd.periodo) = ?)
+        
+        ORDER BY periodo ASC $cadena       
+        ";
+//echoo($query);
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+    
+       
+    // funcional renta quinta        
+    public function listar($id_empleador_maestro, $anio) {
+        $query = "
+        SELECT 
+        id_pdeclaracion,
+        periodo,
+        fecha_modificacion,
+        estado
+
+        FROM pdeclaraciones AS pd
+        INNER JOIN empleadores_maestros AS em
+        ON pd.id_empleador_maestro = em.id_empleador_maestro
+
+        WHERE(em.id_empleador_maestro= ? AND YEAR(pd.periodo) = ?)        
         ORDER BY periodo ASC
         ";
 
@@ -183,8 +242,42 @@ class PlameDeclaracionDao extends AbstractDao {
     /*
      * Lista 1 Declaracion y 2 etapas = 2quincenas
      */
+    /*
+ public function listarDeclaracionEtapaCount($id_declaracion, $WHERE) {
+        
+        $query = "
+        SELECT 
+        count(*) AS counteo
 
-    public function listarDeclaracionEtapa($id_declaracion, $WHERE = null) {
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        inner join trabajadores as t
+        on pg.id_trabajador = t.id_trabajador
+        inner join personas as p
+        on t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion= ?
+        -- new 
+        $WHERE
+        GROUP BY t.id_trabajador
+        
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_declaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['counteo'];
+    }
+  */  
+    
+    public function listarDeclaracionEtapa($id_declaracion, $WHERE/*,$start, $limit, $sidx, $sord*/) {
+        
         $query = "
         SELECT 
         -- pago
@@ -212,8 +305,12 @@ class PlameDeclaracionDao extends AbstractDao {
         on t.id_persona = p.id_persona
         -- tra
         WHERE pd.id_pdeclaracion= ?
+        -- new 
         $WHERE
-        GROUP BY id_trabajador
+        GROUP BY t.id_trabajador
+        -- new
+        -- ORDER BY $sidx $sord LIMIT $start,  $limit
+        
         ";
 
         $stm = $this->pdo->prepare($query);
@@ -307,6 +404,7 @@ class PlameDeclaracionDao extends AbstractDao {
          id_pdeclaracion,
          id_empleador_maestro,
          periodo,
+         estado,
          fecha_creacion,
          fecha_modificacion
         FROM pdeclaraciones 

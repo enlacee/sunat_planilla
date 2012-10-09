@@ -98,7 +98,7 @@ value="<?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?>"/
   </table>
   <p>&nbsp;</p>
 </div>
-<table width="670" border="1" class="tb">
+<table width="670" border="1" class="tb ocultar">
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

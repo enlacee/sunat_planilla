@@ -451,8 +451,8 @@ function bajaEstablecimiento(id){
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PersonaController.php?oper=cargar_tabla&estado='+arg,
             datatype: 'json',
-            colNames:['Id','Cat','tipo_doc','Numero Doc','Apellido Paterno',
-                'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
+            colNames:['IdP','Cat','tipo_doc','Numero Doc','A.Paterno',
+                'A.Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
                 ,'Opciones'],
             colModel :[
                 {
@@ -462,7 +462,8 @@ function bajaEstablecimiento(id){
                     index:'id_persona',
                     search:false,
                     width:20,
-                    align:'center'
+                    align:'center',
+                    hidden:false,
                 },		
                 {
                     name:'categoria',
@@ -470,38 +471,53 @@ function bajaEstablecimiento(id){
                     search:false, 
                     editable:false,
                     width:50, 
-                    align:'center'
+                    align:'center',
+                    hidden:true,
                 },
                 {
                     name:'nombre_tipo_documento', 
                     index:'nombre_tipo_documento',
                     search:false,
                     editable:false,
-                    width:90,
+                    width:80,
                     align:'center'
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:70,
-                    align:'center'
+                    width:100,
+                    align:'left',
+					cellattr: function(rowId, value, rowObject, colModel, arrData) {
+						return ' colspan=4';
+					},
+                    formatter : function(value, options, rData){4
+                    	return ": "+value + " - "+rData['4']+" "+rData['5']+" "+rData['6'] ;
+                    }
+
+
                 },            
                 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
-                    width:80,
-                    align:'center'
+                    width:90,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
                  
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
-                    width:80,
+                    width:90,
                     align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
                 },
                 
                 {
@@ -509,7 +525,10 @@ function bajaEstablecimiento(id){
                     index:'nombres',
                     editable:true,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
                 },
                 {
                     name:'fecha_nacimiento',
@@ -532,7 +551,7 @@ function bajaEstablecimiento(id){
                     index:'estado',
                     editable:true,
                     search:false,
-                    width:100, 
+                    width:80, 
                     align:'center'
                 },
                 {
@@ -559,7 +578,7 @@ function bajaEstablecimiento(id){
             /*						multiselect: false,
                                     hiddengrid: true,*/
             onSelectRow: function(ids) {},
-            height:340,
+            height:320,
            // width:720
         });
         //--- PIE GRID

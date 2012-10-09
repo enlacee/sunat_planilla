@@ -101,31 +101,19 @@ function calcularPingreso(){
 //--------------------
 calcularPingreso();
 
-//---------------------
-/*
-function duplicarDevengado(''){
-	var document.getElementById('');
-	var document.getElementById('');
 
-}
-*/
 
 ///------------------------------------------------------------------------------------
 
 
 $(document).ready(function() {
-	//generate_code( $("#text_form").val() );	
-	
-	alert("refy");
+
+	//alert("refy");
 	
 	$("#text_form").keyup(function() {
 		generate_code( $("#text_form").val() );	//le pasa el caracter A la funcion
 	});
 	
-	/*$(".opt").change(function() {
-		if ( $("#text_form").val() != "" )					  
-			generate_code( $("#text_form").val() );						  
-	});*/
 
 });
 
@@ -158,8 +146,6 @@ function duplicarDatoDevengado(id){ console.log(id);
 
 
 
-
-
 function generate_code(text,txt_id) {
 	var str = "";
 	
@@ -179,11 +165,11 @@ function inicioCalc(){
 //console.log("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn n n nn   n n n");
 var data = $(".idd");
 for(var id = 1; id<=data.length;id++){
-	console.log("entro "+id);
+	//console.log("entro "+id);
 	var d = document.getElementById('pt_devengado-'+id);
 	var p = document.getElementById('pt_pagado-'+id);
-	console.log(id+" "+d.value);
-	console.log(id+" "+p.value);
+	//console.log(id+" "+d.value);
+	//console.log(id+" "+p.value);
 	p.value=d.value;
 }
 //console.log(data);
@@ -302,7 +288,7 @@ for(var id = 1; id<=data.length;id++){
 
 
 
-<table width="670" border="1" class="tb">
+<table width="670" border="1" class="tb ocultar">
     <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>

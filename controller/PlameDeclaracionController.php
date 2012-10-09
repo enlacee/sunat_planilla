@@ -136,6 +136,13 @@ if ($op == "cargar_tabla") {
     
     $response = del_pdeclaracion();
     
+}else if($op == "baja"){
+    //echoo($_REQUEST);
+    $dao = new PlameDeclaracionDao();
+    
+    
+    $response = $dao->baja($_REQUEST['id_pdeclaracion']);   
+    
 }
 
 
@@ -295,7 +302,7 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
         $sidx = 1;
 
     $lista = array();
-    $lista = $dao->listar($id_empleador_maestro, $anio);
+    $lista = $dao->listarGrid($id_empleador_maestro, $anio,$WHERE, $start, $limit, $sidx, $sord);
 
     $count = count($lista);
 
@@ -331,33 +338,27 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
     foreach ($lista as $rec) {
 
         $param = $rec["id_pdeclaracion"];
-        $_01 = $rec['periodo'];
-
-
-       
+        $_01 = getFechaPatron($rec['periodo'], "m/Y");
+        $_02 = $rec['estado'];
+                
+        if($_02 == '1'){
+            $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $_01 . '\',\'#CapaContenedorFormulario\')"title = "Operaciones">Oper</a>';
+        } 
         
-        $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $_01 . '\',\'#CapaContenedorFormulario\')"title = "Operaciones">Oper</a>';
-
-         $js ="javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_declaracion=".$param."&periodo=".$_01."','#CapaContenedorFormulario')";
-        //$js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
+         $js ="javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_declaracion=".$param."&periodo=".$_01."&estado=".$_02."','#CapaContenedorFormulario')";
         $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar"   >
 		<a href="' . $js . '" class="divEditar" ></a>
 		</span>              
 
 		</div>';        
-        
-        
-        
-        
-
-        $periodo = getFechaPatron($_01, "m/Y");
 
         //hereee
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
             $param,
-            $periodo,
+            $_01,
+            $_02,
             $opciones,
             $_03
         );
@@ -443,12 +444,11 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
 
     if (!$sidx)
         $sidx = 1;
-
     $lista = array();
     $lista = $dao->listarDeclaracionEtapa($ID_PDECLARACION, $WHERE);
 
     $count = count($lista);
-
+    //echoo($count);
     // $count = $count['numfilas'];
     if ($count > 0) {
         $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
@@ -471,6 +471,7 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
     $response->total = $total_pages;
     $response->records = $count;
     $i = 0;
+    
 
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {

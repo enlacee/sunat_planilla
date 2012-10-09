@@ -67,7 +67,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $stm->bindValue(13, $model->getCod_regimen_pensionario());
             $stm->bindValue(14, $model->getCod_regimen_aseguramiento_salud());
             $stm->bindValue(15, $model->getCod_situacion());
-            
+
             $stm->bindValue(16, $model->getCod_ocupacion_p());
             $stm->bindValue(17, $model->getId_empresa_centro_costo());
             $stm->execute();
@@ -128,11 +128,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return true;
     }
 
-    
-    
     //actulizar horas y minutos sobretiempo 23/09/2012
-    public function actualizarHoraMinuto($sobretiempo_hora,$sobretiempo_min,$id_trabajador_pdeclaracion){
-        
+    public function actualizarHoraMinuto($sobretiempo_hora, $sobretiempo_min, $id_trabajador_pdeclaracion) {
+
         $query = "
     UPDATE trabajadores_pdeclaraciones
     SET       
@@ -148,13 +146,10 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm->execute();
         $stm = null;
 
-        return true;   
-        
-        
+        return true;
     }
-    
-    
-    public function selectHoraMinuto($id_trabajador_pdeclaracion){
+
+    public function selectHoraMinuto($id_trabajador_pdeclaracion) {
         $query = "
         SELECT 
         sobretiempo_hora,
@@ -170,9 +165,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm = null;
 
         return $lista[0];
-        
     }
-    
+
     public function eliminar($id_trabajador_pdeclaracion) {
 
         $query = "		
@@ -234,9 +228,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return $lista[0];
     }
 
-    
     public function buscar_ID($id) {
-      $query = "
+        $query = "
         SELECT
           id_trabajador_pdeclaracion,
           id_pdeclaracion,
@@ -262,18 +255,49 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         FROM trabajadores_pdeclaraciones
         WHERE id_trabajador_pdeclaracion = ?
       ";
-      $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $id);
-      $stm->execute();
-      $lista = $stm->fetchAll();
-      $stm = null;
-      return $lista[0];
-      }
-     
-    
-      
-      
-    function listar($id_pdeclaracion, $op=null, $WHERE=null) {
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0];
+    }
+
+    function listarCount($id_pdeclaracion, $WHERE) {
+
+        $query = "
+        SELECT
+        count(*) as counteo
+
+        FROM  trabajadores_pdeclaraciones AS tpd
+
+        INNER JOIN trabajadores AS t
+        ON tpd.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS per
+        ON t.id_persona = per.id_persona        
+        $WHERE
+
+        WHERE tpd.id_pdeclaracion = ?            
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['counteo'];
+    }
+
+    function listar($id_pdeclaracion, $WHERE, $start, $limit, $sidx, $sord) {
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+
 
         $query = "
         SELECT
@@ -300,10 +324,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         INNER JOIN personas AS per
         ON t.id_persona = per.id_persona
+        WHERE tpd.id_pdeclaracion = ?
+        $cadena
         
-        $WHERE
-
-        WHERE tpd.id_pdeclaracion = ?            
 ";
 
         $stm = $this->pdo->prepare($query);
@@ -348,8 +371,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
-    
-    
+
     public function buscar_ID_GRID_LINEAL($id_trabajadorpdeclaracion) {
 
         $query = "
@@ -389,14 +411,12 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista;
-       
     }
 
-    
     //->new uso para reportes    
-    public function listar_2($id_pdeclaracion, $id_establecimiento, $id_empresa_centro_costo){
-        
-        $query="
+    public function listar_2($id_pdeclaracion, $id_establecimiento, $id_empresa_centro_costo) {
+
+        $query = "
         SELECT
           tpd.id_trabajador_pdeclaracion,
           tpd.id_pdeclaracion,
@@ -444,7 +464,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         AND t.id_establecimiento = ?
         AND ecc.id_empresa_centro_costo = ?              
 ";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->bindValue(2, $id_establecimiento);
@@ -453,17 +473,14 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
+
         return $lista;
-        
-        
     }
-    
-    
+
     //->new uso para reportes    
-    public function listar_3($id_pdeclaracion){
-        
-        $query="
+    public function listar_3($id_pdeclaracion) {
+
+        $query = "
         SELECT
           tpd.id_trabajador_pdeclaracion,          
           tpd.id_trabajador,
@@ -486,46 +503,40 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         WHERE tpd.id_pdeclaracion = ?
 ";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
 
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
+
         return $lista;
-        
-        
     }
 
     //------------------------------------------------------------------------//
     // ------------- FUNCION ESTRUTURAS---------------------------------------//
-    
     // USADO en Estructuras
-    public function listar_ID_Trabajador($id_pdeclaracion){
-       
+    public function listar_ID_Trabajador($id_pdeclaracion) {
+
         $query = "
         SELECT
         id_trabajador_pdeclaracion,        
         id_trabajador
         FROM trabajadores_pdeclaraciones
         WHERE id_pdeclaracion = ?
-    ";  
+    ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
-        return $lista;    
-        
+
+        return $lista;
     }
-    
-    
-    
-     public function estrutura_14($id_pdeclaracion,$id_trabajador){
-        
+
+    public function estrutura_14($id_pdeclaracion, $id_trabajador) {
+
         $query = "
         SELECT  
         tpd.ordinario_hora,
@@ -545,21 +556,19 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         ON t.id_persona = p.id_persona
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.id_trabajador = ?
-    ";        
+    ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
-        return $lista[0];        
-        
-    }
-    
 
-     public function estrutura_15_a($id_pdeclaracion,$id_trabajador){
-        
+        return $lista[0];
+    }
+
+    public function estrutura_15_a($id_pdeclaracion, $id_trabajador) {
+
         $query = "
         SELECT 
         ds.cod_tipo_suspen_relacion_laboral,
@@ -579,27 +588,24 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         ON tpd.id_trabajador_pdeclaracion = ds.id_trabajador_pdeclaracion
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.id_trabajador = ?
-    ";  
-        
+    ";
+
         // OJO 
         // INNER JOIN dias_subsidiados AS ds  = LEFT JOIN
         // Si quires imprimir Vacios  OPcional revisar SQL. ARRIVA.    
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
-        return $lista;        
-        
-    }    
-    
-    
-    
-     public function estrutura_15_b($id_pdeclaracion,$id_trabajador){
-        
+
+        return $lista;
+    }
+
+    public function estrutura_15_b($id_pdeclaracion, $id_trabajador) {
+
         $query = "
         SELECT 
         dns.cod_tipo_suspen_relacion_laboral,
@@ -619,27 +625,24 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         ON tpd.id_trabajador_pdeclaracion = dns.id_trabajador_pdeclaracion
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.id_trabajador = ?
-    ";       
-        
+    ";
+
         // OJO 
         // INNER JOIN dias_nosubsidiados AS dns  = LEFT JOIN
         // Si quires imprimir Vacios  OPcional revisar SQL. ARRIVA.
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
-        return $lista;        
-        
-    }      
-    
-    
-    
-     public function estrutura_18($id_pdeclaracion,$id_trabajador){
-        
+
+        return $lista;
+    }
+
+    public function estrutura_18($id_pdeclaracion, $id_trabajador) {
+
         $query = "
         SELECT 
 	tpd.id_trabajador_pdeclaracion,
@@ -663,23 +666,22 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.id_trabajador = ?;
-    ";        
+    ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
-        return $lista;        
-        
-    }     
-    
+
+        return $lista;
+    }
+
     //Utilizado para limpiar periodo del mes. utilizado full 2 tablas 27/09/2012
     //
-    public function eliminarDatosMes($id_pdeclaracion=null){
-    //SELECT *FROM etapas_pagos
-    //SELECT *FROM trabajadores_pdeclaraciones        
+    public function eliminarDatosMes($id_pdeclaracion=null) {
+        //SELECT *FROM etapas_pagos
+        //SELECT *FROM trabajadores_pdeclaraciones        
         $query = "
     DELETE etapas_pagos,trabajadores_pdeclaraciones
     FROM pdeclaraciones
@@ -690,37 +692,34 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
     WHERE pdeclaraciones.id_pdeclaracion=  ?     
 ";
-        
-    $stm = $this->pdo->prepare($query);
-    $stm->bindValue(1, $id_pdeclaracion);
-    $stm->execute();
-    //$lista = $stm->fetchAll();
-    $stm = null;
 
-    return true;         
-        
-        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        $stm = null;
+
+        return true;
     }
-    
-    public function eliminar_idPdeclaracion($id_pdeclaracion,$id_trabajador){
-    $query = "
+
+    public function eliminar_idPdeclaracion($id_pdeclaracion, $id_trabajador) {
+        $query = "
         DELETE
         FROM trabajadores_pdeclaraciones
         WHERE id_pdeclaracion = ? 
         AND id_trabajador = ?
     ";
-        
-    $stm = $this->pdo->prepare($query);
-    $stm->bindValue(1, $id_pdeclaracion);
-    $stm->bindValue(2, $id_trabajador);
-    $stm->execute();
-    //$lista = $stm->fetchAll();
-    $stm = null;
 
-    return true;    
-        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        $stm = null;
+
+        return true;
     }
-    
+
 }
 
 ?>

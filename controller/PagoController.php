@@ -15,6 +15,7 @@ if ($op) {
     //PAGO
     require_once '../dao/PagoDao.php';
     require_once '../model/Pago.php';
+    require_once '../dao/EtapaPagoDao.php';
 
 
     //CALCULO DE DIAS controller
@@ -677,12 +678,24 @@ function generarRecibo15_txt() {
     $dao = new PlameDeclaracionDao();
     $data_pd = $dao->buscar_ID($id_pdeclaracion);
     $fecha = $data_pd['periodo'];
-
+    
+    //---
+    $dao_ep = new EtapaPagoDao();
+    $data_ep = $dao_ep->buscar_ID($id_etapa_pago);;
+    
+    $_name_15 = "error";
+    if($data_ep['tipo'] == 1):
+        $_name_15 = "1RA QUINCENA";    
+    elseif($data_ep['tipo'] == 2):
+        $_name_15 = "2DA QUINCENA";            
+    endif;
+    
+    
     $nombre_mes = getNameMonth(getFechaPatron($fecha, "m"));
     $anio = getFechaPatron($fecha, "Y");
 
 
-    $file_name = NAME_COMERCIAL . '-1RA QUINCENA.txt';
+    $file_name = NAME_COMERCIAL . '-'.$_name_15.'.txt';
     $file_name2 = NAME_COMERCIAL . '-BOLETA QUINCENA.txt';
     $fpx = fopen($file_name2, 'w');
 
@@ -774,7 +787,7 @@ function generarRecibo15_txt() {
                         fwrite($fp, str_pad($descripcion2, 0, " ", STR_PAD_LEFT));
                         fwrite($fp, $BREAK);
 
-                        fwrite($fp, str_pad("1RA QUINCENA", 80, " ", STR_PAD_BOTH));
+                        fwrite($fp, str_pad($_name_15/*"1RA QUINCENA"*/, 80, " ", STR_PAD_BOTH));
                         fwrite($fp, $BREAK);
 
                         fwrite($fp, str_pad("PLANILLA DEL MES DE " . strtoupper($nombre_mes) . " DEL " . $anio, 80, " ", STR_PAD_BOTH));

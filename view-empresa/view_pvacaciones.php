@@ -84,6 +84,7 @@
                     index:'fecha_vacacion_proxima',
                     editable:true,
                     search:false,
+					sortorder:false,
                     width:100, 
                     align:'center',
 					formatter:'date'
@@ -99,17 +100,18 @@
 
 
             ],
-            pager: '#pager-2',
+            pager: '#pager',
+			rownumbers: true,
             //autowidth: true,
 			//width: '',
-			height:380,
+			height:320,
             rowNum:10,
-            rowList:[15,30,45],
+            rowList:[10,20],
             sortname: 'id_trabajador',
             sortorder: 'asc',
             viewrecords: true,
             gridview: true,
-            //caption: 'Lista de Trabajadores Activos',
+            caption: 'List',
             //toolbar: [true,"top"],
             //multiselect: true,
             hiddengrid: false,
@@ -118,9 +120,9 @@
 			gridComplete    : function(){  //alert("grid okD");
 		
 				var ids = $("#list").getDataIDs();
-				console.log("-ids-");
-				console.dir(ids);
-				console.log("-ids-");
+				//console.log("-ids-");
+				//console.dir(ids);
+				//console.log("-ids-");
 				var act;
 				var name_space = '';
 				for(var i=0;i<ids.length;i++){
@@ -143,6 +145,7 @@
 		
 		
         //--- PIE GRID
+	//jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
 	
@@ -168,7 +171,8 @@
           <h2>Lista de Trabajadores con vacaciones proximas</h2>
           <table id="list">
           </table>
-<div id="pager"></div>
+        <div id="pager">
+        </div>
 <p></p>
 <p>&nbsp;</p> 
 

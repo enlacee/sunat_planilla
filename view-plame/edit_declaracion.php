@@ -58,6 +58,47 @@ var ID_DECLARACION = '<?php echo $ID_DECLARACION; ?>';
 
 
 //functiones GRID
+
+$("#chk_cerrar_mes").click(function(){
+	
+	if(this.checked == true){
+		$("#btn_cerrar_mes").removeAttr('disabled');
+	}else{
+		$("#btn_cerrar_mes").attr('disabled','disabled');
+	}	
+});
+
+
+$("#btn_cerrar_mes").click(function(){
+	// Cerrar periodo o declaracion // Imposible editar algo o mover.
+	var $id_pdeclaracion = $("#id_declaracion").val();
+	console.log($id_pdeclaracion);
+
+$.ajax({
+	async:true,
+	type: "POST",
+	dataType: "json",
+	contentType: "application/x-www-form-urlencoded",
+	url:"sunat_planilla/controller/PlameDeclaracionController.php",
+	data:{oper:'baja', id_pdeclaracion : $id_pdeclaracion },
+	success:function(data){
+    console.log(data);
+		if(data==true){
+			alert("Mes fue Cerrado Correctamente");
+			cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')			
+			
+		}else{
+			alert("Ocurrio un error");	
+		}
+	}
+
+});//ENDAJAX 	
+	
+
+	
+});
+
+
 	
 </script>
 
@@ -122,7 +163,17 @@ No </p>
                 <input type="text" name="dfcreacion" id="dfcreacion" />
               </p>
 		    </div>
-		    <p>&nbsp;</p>
+            
+           
+ 
+ <?php  if($_REQUEST['estado'] == '1'): // Condicion Datos?>           
+		    <h2 >Cerrar Mes Definitivamente:		    
+		      <input type="checkbox" name="chk_cerrar_mes" id="chk_cerrar_mes"  />
+		      <input type="button" name="btn_cerrar_mes" id="btn_cerrar_mes" value="Cerrar Mes"  disabled="disabled"/>
+		    </h2>
+           
+<?php endif;?>            
+            
 		    <p>&nbsp;</p>
 		    <p>&nbsp;</p>
             

@@ -290,21 +290,22 @@
                     index:'opciones',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:100,
                     align:'center'
                 }											
 
 
             ],
             pager: '#pager',
-			heigth:'250px',
-            rowNum:9,
-            rowList:[9,18,36],
+            rownumbers: true,			
+            height:320,            
+            rowNum:10,
+            rowList:[10,20,30],
             sortname: 'id_trabajador_pdeclaracion',
             sortorder: 'asc',
             viewrecords: true,
             gridview: true,
-            //caption: 'Trabajadores Activos',
+            caption: 'List',
             toolbar: [true,"top"],
             //multiselect: true,
             hiddengrid: false,

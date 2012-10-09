@@ -170,6 +170,7 @@ function habilitarBotonEliminarMes(){
               <select name="anio" id="anio" onchange="cargarTablaPdeclaracionEmpresa()">
                 <option value="2011">2011</option>
                 <option value="2012" selected="selected">2012</option>
+                <option value="2013">2013</option>
               </select>
             </h2>
             <p>&nbsp;</p>

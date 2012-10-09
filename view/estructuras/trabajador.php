@@ -29,8 +29,8 @@ require_once('../ide2.php');
         $("#list-1").jqGrid({
             url:'sunat_planilla/controller/CategoriaTrabajadorController.php?oper=cargar_tabla_trabajador&estado=1',
             datatype: 'json',
-            colNames:['ID','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
-                'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
+            colNames:['ID','Categoria','tipo doc','Numero Doc','A.Paterno',
+                'A.Materno','Nombres','F.Nacimiento','Sexo','Estado'
                 ,'Reportado'],
             colModel :[
                 {
@@ -47,7 +47,8 @@ require_once('../ide2.php');
                     search:false, 
                     editable:false,
                     width:70, 
-                    align:'center' 
+                    align:'center',
+                    hidden:true,
                 },
                 {
                     name:'nombre_tipo_documento', 
@@ -61,29 +62,46 @@ require_once('../ide2.php');
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:90,
-                    align:'center'
-                },
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['4']+" "+rData['5']+" "+rData['6'] ;
+                    }
+                }, 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
+                 
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
                 },
+                
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:true,
-                    width:100,
-                    align:'center'
+                    width:80,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
                 },
                 {
                     name:'fecha_nacimiento',
@@ -284,8 +302,8 @@ if(news.length > 0){
         $("#list-2").jqGrid({
             url:'sunat_planilla/controller/CategoriaTrabajadorController.php?oper=cargar_tabla_trabajador&estado=0',
             datatype: 'json',
-            colNames:['ID','Categoria','Ttipo_doc','Numero Doc','Apellido Paterno',
-                'Apellido Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
+            colNames:['ID','Categoria','tipo doc','Numero Doc','A.Paterno',
+                'A.Materno','Nombres','F.Nacimiento','Sexo','Estado'
                 ,'Opciones'],
             colModel :[
                 {
@@ -302,7 +320,8 @@ if(news.length > 0){
                     search:false, 
                     editable:false,
                     width:70, 
-                    align:'center' 
+                    align:'center',
+                    hidden:true,
                 },
                 {
                     name:'nombre_tipo_documento', 
@@ -316,31 +335,47 @@ if(news.length > 0){
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:80,
-                    align:'center'
-                },
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['4']+" "+rData['5']+" "+rData['6'] ;
+                    }
+                }, 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
+                 
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
                 },
+                
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:true,
-                    width:90,
-                    align:'center'
-                },
-                {
+                    width:80,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },                {
                     name:'fecha_nacimiento',
                     index:'fecha_nacimiento',
                     editable:true,

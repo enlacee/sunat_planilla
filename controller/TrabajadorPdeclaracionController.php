@@ -109,7 +109,7 @@ if ($op == "add") {
 } else if ($op == "del") {
 
     // Primera Alternativa
-    //$response = elimarEnCascada_trabajador_en_mes();
+    $response = elimarEnCascada_trabajador_en_mes();
 } else if ($op == "recibo30") {
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     $estado = generarConfiguracion($ID_PDECLARACION);
@@ -1621,6 +1621,13 @@ function listar_trabajadorPdeclaracion() {
 
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
 
+    // variable Integridad de datos
+    $dao_pd = new PlameDeclaracionDao();
+    $data_pdecla = $dao_pd->buscar_ID($ID_PDECLARACION);
+    //echoo($data_pdecla);
+    
+    
+    
     $dao = new TrabajadorPdeclaracionDao();
 
     $page = $_GET['page'];
@@ -1649,12 +1656,7 @@ function listar_trabajadorPdeclaracion() {
     if (!$sidx)
         $sidx = 1;
 
-    $lista = array();
-    $lista = $dao->listar($ID_PDECLARACION, null, $WHERE);
-//echo "<pre>";
-//var_dump($lista);
-//echo "</pre>";
-    $count = count($lista);
+    $count =  $dao->listarCount($ID_PDECLARACION, $WHERE);//count($lista);
 
     // $count = $count['numfilas'];
     if ($count > 0) {
@@ -1678,7 +1680,9 @@ function listar_trabajadorPdeclaracion() {
     $response->total = $total_pages;
     $response->records = $count;
     $i = 0;
-
+    
+    $lista = array();
+    $lista = $dao->listar($ID_PDECLARACION,$WHERE, $start, $limit, $sidx, $sord);
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
         return $response;
@@ -1697,26 +1701,24 @@ function listar_trabajadorPdeclaracion() {
         $_06 = $rec['nombres'];
         $_07 = $rec['dia_laborado'];
         $_08 = $rec['sueldo'];
-
-
-
-
-
         // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_etapa_pago=" . $param . "&id_pdeclaracion=" . $_00 . "','#CapaContenedorFormulario')";
 
         $js = "javascript:cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/edit_trabajador.php?id_trabajador_pdeclaracion=" . $param . "&id_trabajador=" . $_01 . "','#detalle_declaracion_trabajador')";
 
-
-        $js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "',$_01)";
+        if($data_pdecla['estado'] == '0'){
+           $js2 = null;
+        }else{
+           $js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "',$_01)"; 
+           $js2_html = ' <span  title="Editar"   >
+		<a href="' . $js2 . '" class="divEliminar" ></a>
+		</span>';
+        }
+        
         $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar"   >
 		<a href="' . $js . '" class="divEditar" ></a>
-		</span>              
-                
-		<span  title="Editar"   >
-		<a href="' . $js2 . '" class="divEliminar" ></a>
-		</span>
-
+		</span>'.$js2_html.'
+                    
 		</div>';
 
         $response->rows[$i]['id'] = $param;
@@ -2347,7 +2349,12 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
         fwrite($fp, $PUNTO);
         fwrite($fp, $BORDE_R);
         $descripcion_1 = ($ingresos[$i]['descripcion_abreviada'] == "") ? $ingresos[$i]['descripcion'] : $ingresos[$i]['descripcion_abreviada'];
-
+                
+        if(strlen($descripcion_1) > 29):
+            $descripcion_1 = substr($descripcion_1, 0,26);
+            $descripcion_1.= "..."; 
+        endif;
+        
         fwrite($fp, str_pad($descripcion_1, 29, " ", STR_PAD_RIGHT));
         $ingreso_boo = ($ingresos[$i]['monto_pagado']) ? number_format_var($ingresos[$i]['monto_pagado']) : '';
         fwrite($fp, str_pad($ingreso_boo, 9, " ", STR_PAD_LEFT));
@@ -2374,6 +2381,11 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
         }
         //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,   
         //$descripcion_2 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+       if(strlen($descripcion_2) > 29):
+            $descripcion_2 = substr($descripcion_2, 0,26);
+            $descripcion_2.= "..."; 
+        endif;
+        
         fwrite($fp, str_pad($descripcion_2, 29, " ", STR_PAD_RIGHT));
         $descuento_boo = ($descuentos[$i]['monto_pagado']) ? number_format_var($descuentos[$i]['monto_pagado']) : '';
         fwrite($fp, str_pad($descuento_boo, 9, " ", STR_PAD_LEFT));
@@ -2383,6 +2395,11 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
         fwrite($fp, $BORDE_R);
         $descripcion_3 = ($aportes[$i]['descripcion_abreviada'] == "") ? $aportes[$i]['descripcion'] : $aportes[$i]['descripcion_abreviada'];
 //   $descripcion_3 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        
+       if(strlen($descripcion_3) > 28):
+            $descripcion_3 = substr($descripcion_3, 0,25);
+            $descripcion_3.= "..."; 
+        endif;  
         fwrite($fp, str_pad($descripcion_3, 28, " ", STR_PAD_RIGHT));
         $aporte_boo = ($aportes[$i]['monto_pagado']) ? number_format_var($aportes[$i]['monto_pagado']) : '';
         fwrite($fp, str_pad($aporte_boo, 9, " ", STR_PAD_LEFT));
@@ -2514,6 +2531,16 @@ function elimarEnCascada_trabajador_en_mes() {
         //echo "\n";
         $r = $dao_p->eliminar_idEtapaPago($id_etapa_pago[$i]['id_etapa_pago'], $id_trabajador);
     }
+    
+    //Eliminar PagoPrestamo
+    // Elimina pagos del prestamo segun el mes = id_pdeclaracion
+    $dao_ppago = new PpagoDao();
+    $dao_ppago->delInnerPdeclaracion($id_pdeclaracion,$id_trabajador);
+       
+    
+    //Eliminar Pago Para ti familia
+    $dao_ptfpago = new PtfPagoDao();
+    $dao_ptfpago->delInnerPdeclaracion($id_pdeclaracion,$id_trabajador);
 
 
     return true;
@@ -2675,7 +2702,7 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
             fwrite($fp, str_pad($_16/*ESSALUD*/, 8, " ", STR_PAD_BOTH));
             
             //$_17 = 0.00;
-            fwrite($fp, str_pad('OTROS.'/* DESC. */, 8, " ", STR_PAD_BOTH));
+            fwrite($fp, str_pad('-'/* DESC. */, 8, " ", STR_PAD_BOTH));
 
             $_18 = $_16;
             fwrite($fp, str_pad($_18/* TOTAL. */, 8, " ", STR_PAD_BOTH));
@@ -2815,7 +2842,7 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, str_pad('OTROS.'/* DESC. */, 8, " ", STR_PAD_BOTH));
 
-    fwrite($fp, str_pad('OTROS.'/* DESC. */, 8, " ", STR_PAD_BOTH));
+    fwrite($fp, str_pad('TOTAL.'/* DESC. */, 8, " ", STR_PAD_BOTH));
 
     fwrite($fp, str_pad('', 14, " ", STR_PAD_BOTH));
 
@@ -2881,7 +2908,7 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, str_pad('DESC.', 8, " ", STR_PAD_BOTH));
 
-    fwrite($fp, str_pad('DESC', 8, " ", STR_PAD_BOTH));
+    fwrite($fp, str_pad('', 8, " ", STR_PAD_BOTH));
 
     fwrite($fp, str_pad('', 14, " ", STR_PAD_BOTH));
 

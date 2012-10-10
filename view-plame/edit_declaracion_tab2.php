@@ -111,9 +111,6 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 			width: 280,
 			modal: true,                        
 			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
 				'Generar': function() {	
 				var id_pdeclaracion = document.getElementById('id_declaracion').value;				
 				
@@ -131,9 +128,13 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 				url += "&cboCentroCosto="+cboCentroCosto;
 				//alert(url);
 		
-				window.location.href = url;
-				
-				}
+				window.location.href = url;				
+				},
+				'Cancelar': function() {
+				$(this).dialog('close');
+				},
+
+
                                 
 			},			
 			open: function() {},

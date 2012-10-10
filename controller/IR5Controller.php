@@ -936,13 +936,19 @@ function get_SNP_Ingresos($id_pdeclaracion, $id_trabajador) {
 function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
 
     $conceptos_afectos = arrayConceptosAfectos_a('09');
+    //echo "*********************** - -;";
+    //echoo ($conceptos_afectos);
+    //echo "*********************** - -;";    
 
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
 
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
+            //echo "pregunta  ? si es afecto = ".$data_dconcepto[$z]['monto_pagado'];
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
+            //echo "\nEncontro = ".$data_dconcepto[$z]['monto_pagado'];
+            
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
     }

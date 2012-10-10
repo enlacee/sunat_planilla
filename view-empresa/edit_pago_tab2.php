@@ -88,3 +88,13 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 </div>
 
+
+
+
+<!--  -->
+
+<div id="dialog_editarPagoMasOP" title="Mas Opciones">
+
+    <div id="data_editarPagoMasOP" align="left"></div>
+    
+</div>

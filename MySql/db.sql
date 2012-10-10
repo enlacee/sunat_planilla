@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 06, 2012 at 07:41 p.m.
+-- Generation Time: Oct 10, 2012 at 12:21 p.m.
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `conf_sueldo_basico` (
   `fecha` date DEFAULT NULL COMMENT 'fecha que se establecio el sueldo basico',
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id_conf_sueldo_basico`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `conf_sueldo_basico`
@@ -317,7 +317,8 @@ CREATE TABLE IF NOT EXISTS `conf_sueldo_basico` (
 INSERT INTO `conf_sueldo_basico` (`id_conf_sueldo_basico`, `valor`, `fecha`, `fecha_creacion`) VALUES
 (1, '750.000', '2012-06-01', '2012-08-20'),
 (2, '675.000', '2011-08-15', '2012-08-28'),
-(3, '600.000', '2011-02-01', '2012-08-28');
+(3, '600.000', '2011-02-01', '2012-08-28'),
+(4, '580.000', '2010-12-01', '2012-10-09');
 
 -- --------------------------------------------------------
 
@@ -12958,110 +12959,32 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos` (
   PRIMARY KEY (`id_declaracion_dconcepto`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=327 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=880 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos`
 --
 
 INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
-(28, 31, '0121', '2000.00', '2000.00'),
-(29, 31, '0701', '1000.00', '1000.00'),
-(30, 31, '0706', NULL, '0.00'),
-(31, 31, '0804', NULL, '180.00'),
-(32, 31, '0601', NULL, '36.00'),
-(33, 31, '0606', NULL, '23.20'),
-(34, 31, '0608', NULL, '200.00'),
-(35, 31, '0605', NULL, '30.63'),
-(36, 32, '0121', '1300.00', '1300.00'),
-(37, 32, '0701', '650.00', '650.00'),
-(38, 32, '0706', NULL, '0.00'),
-(39, 32, '0804', NULL, '117.00'),
-(40, 32, '0607', NULL, '169.00'),
-(41, 32, '0605', NULL, '0.00'),
-(161, 47, '0121', '2000.00', '2000.00'),
-(162, 47, '0701', '1000.00', '1000.00'),
-(163, 47, '0706', NULL, '250.00'),
-(164, 47, '0804', NULL, '180.00'),
-(165, 47, '0601', NULL, '36.00'),
-(166, 47, '0606', NULL, '23.20'),
-(167, 47, '0608', NULL, '200.00'),
-(168, 47, '0105', '20.83', '20.83'),
-(169, 47, '0106', '33.74', '33.74'),
-(170, 47, '0605', NULL, '0.00'),
-(171, 48, '0121', '2500.00', '2500.00'),
-(172, 48, '0701', '1250.00', '1250.00'),
-(173, 48, '0706', NULL, '0.00'),
-(174, 48, '0804', NULL, '225.00'),
-(175, 48, '0607', NULL, '325.00'),
-(176, 48, '0605', NULL, '0.00'),
-(244, 57, '0121', '2000.00', '2000.00'),
-(245, 57, '0701', '1000.00', '1000.00'),
-(246, 57, '0706', NULL, '250.00'),
-(247, 57, '0804', NULL, '180.00'),
-(248, 57, '0601', NULL, '36.00'),
-(249, 57, '0606', NULL, '23.20'),
-(250, 57, '0608', NULL, '200.00'),
-(251, 57, '0105', '20.83', '20.83'),
-(252, 57, '0106', '33.74', '33.74'),
-(253, 57, '0605', NULL, '0.00'),
-(254, 58, '0121', '2500.00', '2500.00'),
-(255, 58, '0701', '1250.00', '1250.00'),
-(256, 58, '0706', NULL, '0.00'),
-(257, 58, '0804', NULL, '225.00'),
-(258, 58, '0607', NULL, '325.00'),
-(259, 58, '0605', NULL, '0.00'),
-(276, 61, '0118', '2000.00', '2000.00'),
-(277, 61, '0706', NULL, '305.00'),
-(278, 61, '0804', NULL, '180.00'),
-(279, 61, '0601', NULL, '34.80'),
-(280, 61, '0606', NULL, '23.20'),
-(281, 61, '0608', NULL, '200.00'),
-(282, 61, '0105', '20.83', '20.83'),
-(283, 61, '0106', '33.74', '33.74'),
-(284, 61, '0605', NULL, '0.00'),
-(285, 62, '0121', '2500.00', '2500.00'),
-(286, 62, '0701', '1250.00', '1250.00'),
-(287, 62, '0706', NULL, '125.00'),
-(288, 62, '0804', NULL, '225.00'),
-(289, 62, '0607', NULL, '325.00'),
-(290, 62, '0605', NULL, '0.00'),
-(291, 63, '0121', '2000.00', '2000.00'),
-(292, 63, '0701', '1000.00', '1000.00'),
-(293, 63, '0706', NULL, '5.00'),
-(294, 63, '0804', NULL, '180.00'),
-(295, 63, '0601', NULL, '34.80'),
-(296, 63, '0606', NULL, '23.20'),
-(297, 63, '0608', NULL, '200.00'),
-(298, 63, '0105', '20.83', '20.83'),
-(299, 63, '0106', '33.74', '33.74'),
-(300, 63, '0605', NULL, '0.00'),
-(301, 64, '0121', '2500.00', '2500.00'),
-(302, 64, '0701', '1250.00', '1250.00'),
-(303, 64, '0706', NULL, '135.00'),
-(304, 64, '0804', NULL, '225.00'),
-(305, 64, '0607', NULL, '325.00'),
-(306, 64, '0605', NULL, '0.00'),
-(307, 65, '0121', '2000.00', '2000.00'),
-(308, 65, '0701', '1000.00', '1000.00'),
-(309, 65, '0706', NULL, '5.00'),
-(310, 65, '0804', NULL, '180.00'),
-(311, 65, '0601', NULL, '34.80'),
-(312, 65, '0606', NULL, '23.20'),
-(313, 65, '0608', NULL, '200.00'),
-(314, 65, '0105', '20.83', '20.83'),
-(315, 65, '0106', '33.74', '33.74'),
-(316, 65, '0406', NULL, '2054.57'),
-(317, 65, '0312', NULL, '184.91'),
-(318, 65, '0605', NULL, '30.63'),
-(319, 66, '0121', '2500.00', '2500.00'),
-(320, 66, '0701', '1250.00', '1250.00'),
-(321, 66, '0706', NULL, '10.00'),
-(322, 66, '0804', NULL, '225.00'),
-(323, 66, '0607', NULL, '325.00'),
-(324, 66, '0406', NULL, '2500.00'),
-(325, 66, '0312', NULL, '225.00'),
-(326, 66, '0605', NULL, '0.00');
+(861, 116, '0121', '750.00', '750.00'),
+(862, 116, '0701', '375.00', '375.00'),
+(863, 116, '0706', NULL, '0.00'),
+(864, 116, '0804', NULL, '67.50'),
+(865, 116, '0605', NULL, '0.00'),
+(866, 116, '0601', NULL, '16.05'),
+(867, 116, '0606', NULL, '10.65'),
+(868, 116, '0608', NULL, '75.00'),
+(869, 117, '0121', '2690.00', '2690.00'),
+(870, 117, '0701', '1479.50', '1479.50'),
+(871, 117, '0706', NULL, '0.00'),
+(872, 117, '0201', '67.50', '67.50'),
+(873, 117, '0804', NULL, '248.18'),
+(874, 117, '0304', '230.00', '230.00'),
+(875, 117, '0909', '155.00', '155.00'),
+(876, 117, '0605', NULL, '230.56'),
+(877, 117, '0601', NULL, '63.93'),
+(878, 117, '0606', NULL, '42.42'),
+(879, 117, '0608', NULL, '298.75');
 
 -- --------------------------------------------------------
 
@@ -15787,21 +15710,15 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimiento` (
   PRIMARY KEY (`id_detalle_establecimiento`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_establecimiento` (`id_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `detalle_establecimiento`
 --
 
 INSERT INTO `detalle_establecimiento` (`id_detalle_establecimiento`, `id_trabajador`, `id_establecimiento`) VALUES
-(27, 1, 1),
-(30, 4, 2),
-(31, 5, 4),
-(32, 6, 4),
-(33, 7, 4),
-(34, 8, 4),
-(35, 9, 0),
-(36, 10, 1);
+(41, 3, 1),
+(51, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -15860,21 +15777,15 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=91 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=106 ;
 
 --
 -- Dumping data for table `detalle_periodos_laborales`
 --
 
 INSERT INTO `detalle_periodos_laborales` (`id_detalle_periodo_laboral`, `id_trabajador`, `cod_motivo_baja_registro`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
-(81, 1, '0', '2011-01-01', NULL, 1),
-(84, 4, '01', '2012-01-01', '2012-02-10', 5),
-(85, 5, '0', '2001-08-01', NULL, 6),
-(86, 6, '0', '2002-02-01', NULL, 7),
-(87, 7, '0', '2005-02-01', NULL, 8),
-(88, 8, '0', '2007-04-01', NULL, 9),
-(89, 9, '0', NULL, NULL, 10),
-(90, 10, '0', '2012-02-03', NULL, 11);
+(95, 3, '0', '2003-03-16', NULL, 3),
+(105, 13, '0', '2003-08-16', NULL, 14);
 
 -- --------------------------------------------------------
 
@@ -15916,21 +15827,15 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_pensionarios` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `detalle_regimenes_pensionarios`
 --
 
 INSERT INTO `detalle_regimenes_pensionarios` (`id_detalle_regimen_pensionario`, `id_trabajador`, `cod_regimen_pensionario`, `cuspp`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
-(27, 1, '21', '12345678914', '2011-01-01', NULL, 1),
-(30, 4, '02', '', '2012-01-01', '2012-02-10', 5),
-(31, 5, '23', '229391LSMAU9', '2001-08-01', NULL, 6),
-(32, 6, '02', '', '2002-02-01', NULL, 7),
-(33, 7, '02', '', '2005-02-01', NULL, 8),
-(34, 8, '22', '576571DFRNA1', '2007-04-01', NULL, 9),
-(35, 9, '0', NULL, NULL, NULL, 10),
-(36, 10, '02', '', '2012-02-03', NULL, 11);
+(41, 3, '23', '186331MZMOO5', '2003-08-13', NULL, 3),
+(51, 13, '23', '570060CFMNI1', '2003-08-16', NULL, 14);
 
 -- --------------------------------------------------------
 
@@ -15951,21 +15856,15 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_salud` (
   KEY `cod_regimen_aseguramiento_salud` (`cod_regimen_aseguramiento_salud`),
   KEY `cod_eps` (`cod_eps`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=77 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
 
 --
 -- Dumping data for table `detalle_regimenes_salud`
 --
 
 INSERT INTO `detalle_regimenes_salud` (`id_detalle_regimen_salud`, `id_trabajador`, `cod_regimen_aseguramiento_salud`, `fecha_inicio`, `fecha_fin`, `cod_eps`, `id_persona`) VALUES
-(67, 1, '00', '2011-01-01', NULL, '0', 1),
-(70, 4, '00', '2012-01-01', '2012-02-10', '0', 5),
-(71, 5, '00', '2001-08-01', NULL, '0', 6),
-(72, 6, '00', '2002-02-01', NULL, '0', 7),
-(73, 7, '00', '2005-02-01', NULL, '0', 8),
-(74, 8, '00', '2007-04-01', NULL, '0', 9),
-(75, 9, '0', NULL, NULL, '0', 10),
-(76, 10, '00', '2012-02-03', NULL, '0', 11);
+(81, 3, '00', '2003-08-16', NULL, '0', 3),
+(91, 13, '00', '2003-08-16', NULL, '0', 14);
 
 -- --------------------------------------------------------
 
@@ -15984,21 +15883,15 @@ CREATE TABLE IF NOT EXISTS `detalle_tipos_trabajadores` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_tipo_trabajador` (`cod_tipo_trabajador`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `detalle_tipos_trabajadores`
 --
 
 INSERT INTO `detalle_tipos_trabajadores` (`id_detalle_tipo_trabajador`, `id_trabajador`, `cod_tipo_trabajador`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
-(27, 1, '21', '2011-01-01', NULL, 1),
-(30, 4, '19', '2012-01-01', '2012-02-10', 5),
-(31, 5, '21', '2001-08-01', NULL, 6),
-(32, 6, '21', '2002-02-01', NULL, 7),
-(33, 7, '21', '2005-02-01', NULL, 8),
-(34, 8, '21', '2007-04-01', NULL, 9),
-(35, 9, '0', NULL, NULL, 10),
-(36, 10, '21', '2012-02-03', NULL, 11);
+(41, 3, '21', '2003-08-16', NULL, 3),
+(51, 13, '21', '2003-08-16', NULL, 14);
 
 -- --------------------------------------------------------
 
@@ -16117,7 +16010,7 @@ CREATE TABLE IF NOT EXISTS `empleadores` (
 
 INSERT INTO `empleadores` (`id_empleador`, `id_tipo_empleador`, `cod_telefono_codigo_nacional`, `ruc`, `razon_social`, `id_tipo_sociedad_comercial`, `nombre_comercial`, `cod_tipo_actividad`, `telefono`, `correo`, `empresa_dedica`, `senati`, `remype`, `remype_tipo_empresa`, `trabajador_sin_rp`, `actividad_riesgo_sctr`, `trabajadores_sctr`, `persona_discapacidad`, `agencia_empleo`, `desplaza_personal`, `terceros_desplaza_usted`, `estado_empleador`, `fecha_creacion`) VALUES
 (0, 1, '0', NULL, NULL, 1, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(1, 1, '1', '20100338611', 'CAMUENTE', 1, 'PIZZERIA LA ROMANA', '55205', '12223859', 'laromana@terra.com.pe', 'NINGUNA', 0, 0, NULL, 1, 0, 0, 0, 0, 0, '0', 'ACTIVO', NULL),
+(1, 1, '1', '20100338611', 'CAMUENTE', 1, 'PIZZERIA LA ROMANA', '55205', '12223859', 'laromana@terra.com.pe', 'NINGUNA', 0, 0, NULL, 1, 1, 0, 0, 0, 0, '0', 'ACTIVO', NULL),
 (2, 1, '0', '20469663681', 'EL GOL MARINO RS', 2, 'EL GOL MARINO', '92413', '25151524', 'empresa@gmail.com', '0', 0, 0, NULL, 0, 0, 0, 0, 0, 0, '0', 'ACTIVO', '2012-07-14');
 
 -- --------------------------------------------------------
@@ -16408,28 +16301,15 @@ CREATE TABLE IF NOT EXISTS `etapas_pagos` (
   PRIMARY KEY (`id_etapa_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`,`cod_periodo_remuneracion`),
   KEY `cod_periodo_remuneracion` (`cod_periodo_remuneracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=69 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `etapas_pagos`
 --
 
 INSERT INTO `etapas_pagos` (`id_etapa_pago`, `id_pdeclaracion`, `cod_periodo_remuneracion`, `fecha_inicio`, `fecha_fin`, `fecha_creacion`, `tipo`, `glosa`) VALUES
-(6, 4, 2, '2012-03-01', '2012-03-15', '2012-09-28', 1, 'Primera Quincena'),
-(22, 1, 2, '2012-01-01', '2012-01-15', '2012-10-02', 1, 'Primera Quincena'),
-(23, 1, 2, '2012-01-16', '2012-01-31', '2012-10-02', 2, 'Segunda Quincena'),
-(24, 3, 2, '2012-02-01', '2012-02-15', '2012-10-02', 1, 'Primera Quincena'),
-(25, 3, 2, '2012-02-16', '2012-02-29', '2012-10-02', 2, 'Segunda Quincena'),
-(49, 9, 2, '2012-08-01', '2012-08-15', '2012-10-06', 1, 'Primera Quincena'),
-(50, 9, 2, '2012-08-16', '2012-08-31', '2012-10-06', 2, 'Segunda Quincena'),
-(59, 23, 2, '2012-09-01', '2012-09-15', '2012-10-06', 1, 'Primera Quincena'),
-(60, 23, 2, '2012-09-16', '2012-09-30', '2012-10-06', 2, 'Segunda Quincena'),
-(63, 24, 2, '2012-10-01', '2012-10-15', '2012-10-06', 1, 'Primera Quincena'),
-(64, 24, 2, '2012-10-16', '2012-10-31', '2012-10-06', 2, 'Segunda Quincena'),
-(65, 25, 2, '2012-11-01', '2012-11-15', '2012-10-06', 1, 'Primera Quincena'),
-(66, 25, 2, '2012-11-16', '2012-11-30', '2012-10-06', 2, 'Segunda Quincena'),
-(67, 27, 2, '2012-12-01', '2012-12-15', '2012-10-06', 1, 'Primera Quincena'),
-(68, 27, 2, '2012-12-16', '2012-12-31', '2012-10-06', 2, 'Segunda Quincena');
+(15, 1, 2, '2012-01-01', '2012-01-15', '2012-10-10', 1, 'Primera Quincena'),
+(16, 1, 2, '2012-01-16', '2012-01-31', '2012-10-10', 2, 'Segunda Quincena');
 
 -- --------------------------------------------------------
 
@@ -26384,37 +26264,17 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   KEY `id_trabajador` (`id_trabajador`,`id_etapa_pago`,`id_empresa_centro_costo`),
   KEY `id_etapa_pago` (`id_etapa_pago`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=136 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `pagos`
 --
 
 INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`) VALUES
-(64, 1, 22, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-05 15:55:45', NULL, 1),
-(65, 4, 22, 15, NULL, NULL, 15, '1300.00', '650.00', NULL, '650.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-05 15:55:45', NULL, 2),
-(66, 1, 23, 16, NULL, NULL, 16, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-05 15:55:57', NULL, 1),
-(67, 4, 23, 16, NULL, NULL, 16, '1300.00', '650.00', NULL, '650.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-05 15:55:57', NULL, 2),
-(96, 1, 49, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:08:41', NULL, 1),
-(97, 10, 49, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:08:41', NULL, 1),
-(98, 1, 50, 16, NULL, NULL, 16, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:08:52', NULL, 1),
-(99, 10, 50, 16, NULL, NULL, 16, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:08:52', NULL, 1),
-(116, 1, 59, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:18:33', NULL, 1),
-(117, 10, 59, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:18:33', NULL, 1),
-(118, 1, 60, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:18:50', NULL, 1),
-(119, 10, 60, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:18:50', NULL, 1),
-(124, 1, 63, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:18', NULL, 1),
-(125, 10, 63, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:18', NULL, 1),
-(126, 1, 64, 16, NULL, NULL, 16, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:28', NULL, 1),
-(127, 10, 64, 16, NULL, NULL, 16, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:28', NULL, 1),
-(128, 1, 65, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:35', NULL, 1),
-(129, 10, 65, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:35', NULL, 1),
-(130, 1, 66, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:43', NULL, 1),
-(131, 10, 66, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:20:43', NULL, 1),
-(132, 1, 67, 15, NULL, NULL, 15, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:22:10', NULL, 1),
-(133, 10, 67, 15, NULL, NULL, 15, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:22:10', NULL, 1),
-(134, 1, 68, 16, NULL, NULL, 16, '2000.00', '1000.00', NULL, '1000.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:22:21', NULL, 1),
-(135, 10, 68, 16, NULL, NULL, 16, '2500.00', '1250.00', NULL, '1250.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-06 16:22:21', NULL, 1);
+(17, 3, 15, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-10 10:55:41', NULL, 1),
+(18, 13, 15, 15, NULL, NULL, 15, '2690.00', '1479.50', NULL, '1479.50', 120, NULL, NULL, NULL, '0', NULL, '2012-10-10 10:55:41', NULL, 2),
+(19, 3, 16, 16, NULL, NULL, 16, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-10 10:55:50', NULL, 1),
+(20, 13, 16, 16, NULL, NULL, 16, '2690.00', '1210.50', NULL, '1210.50', 120, NULL, NULL, NULL, '0', NULL, '2012-10-10 10:55:50', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -26698,15 +26558,12 @@ CREATE TABLE IF NOT EXISTS `para_ti_familia` (
   KEY `id_tipo_para_ti_familia` (`id_tipo_para_ti_familia`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_trabajador` (`id_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='valor = valor a descuento de Sueldo mensual del trabajador\r\n' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='valor = valor a descuento de Sueldo mensual del trabajador\r\n' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `para_ti_familia`
 --
 
-INSERT INTO `para_ti_familia` (`id_para_ti_familia`, `id_empleador`, `id_trabajador`, `id_tipo_para_ti_familia`, `estado`, `fecha_inicio`, `fecha_creacion`) VALUES
-(1, 1, 1, 1, 1, '2012-10-01', '2012-10-05'),
-(2, 1, 10, 2, 1, '2012-11-01', '2012-10-05');
 
 -- --------------------------------------------------------
 
@@ -26720,6 +26577,7 @@ CREATE TABLE IF NOT EXISTS `pdeclaraciones` (
   `periodo` date DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
   `fecha_modificacion` date DEFAULT NULL,
+  `estado` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id_pdeclaracion`),
   KEY `id_empleador_maestro` (`id_empleador_maestro`),
   KEY `id_empleador_maestro_2` (`id_empleador_maestro`)
@@ -26729,27 +26587,27 @@ CREATE TABLE IF NOT EXISTS `pdeclaraciones` (
 -- Dumping data for table `pdeclaraciones`
 --
 
-INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `periodo`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(1, 2, '2012-01-01', '2012-08-15', '2012-08-15'),
-(2, 2, '2012-04-01', '2012-08-17', '2012-08-17'),
-(3, 2, '2012-02-01', '2012-08-20', '2012-08-20'),
-(4, 2, '2012-03-01', '2012-09-03', '2012-09-03'),
-(5, 1, '2012-01-01', '2012-09-05', '2012-09-05'),
-(6, 2, '2012-05-01', '2012-09-11', '2012-09-11'),
-(7, 2, '2012-06-01', '2012-09-11', '2012-09-11'),
-(8, 2, '2012-07-01', '2012-09-11', '2012-09-11'),
-(9, 2, '2012-08-01', '2012-09-11', '2012-09-11'),
-(14, 1, '2012-02-01', '2012-09-14', '2012-09-14'),
-(15, 1, '2012-03-01', '2012-09-14', '2012-09-14'),
-(16, 1, '2012-04-01', '2012-09-14', '2012-09-14'),
-(17, 1, '2012-05-01', '2012-09-14', '2012-09-14'),
-(18, 1, '2012-06-01', '2012-09-14', '2012-09-14'),
-(19, 1, '2012-07-01', '2012-09-14', '2012-09-14'),
-(20, 1, '2012-08-01', '2012-09-14', '2012-09-14'),
-(23, 2, '2012-09-01', '2012-09-28', '2012-09-28'),
-(24, 2, '2012-10-01', NULL, NULL),
-(25, 2, '2012-11-01', NULL, NULL),
-(27, 2, '2012-12-01', NULL, NULL);
+INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `periodo`, `fecha_creacion`, `fecha_modificacion`, `estado`) VALUES
+(1, 2, '2012-01-01', '2012-08-15', '2012-08-15', 1),
+(2, 2, '2012-04-01', '2012-08-17', '2012-08-17', 1),
+(3, 2, '2012-02-01', '2012-08-20', '2012-08-20', 1),
+(4, 2, '2012-03-01', '2012-09-03', '2012-09-03', 1),
+(5, 1, '2012-01-01', '2012-09-05', '2012-09-05', 1),
+(6, 2, '2012-05-01', '2012-09-11', '2012-09-11', 1),
+(7, 2, '2012-06-01', '2012-09-11', '2012-09-11', 1),
+(8, 2, '2012-07-01', '2012-09-11', '2012-09-11', 1),
+(9, 2, '2012-08-01', '2012-09-11', '2012-09-11', 1),
+(14, 1, '2012-02-01', '2012-09-14', '2012-09-14', 1),
+(15, 1, '2012-03-01', '2012-09-14', '2012-09-14', 1),
+(16, 1, '2012-04-01', '2012-09-14', '2012-09-14', 1),
+(17, 1, '2012-05-01', '2012-09-14', '2012-09-14', 1),
+(18, 1, '2012-06-01', '2012-09-14', '2012-09-14', 1),
+(19, 1, '2012-07-01', '2012-09-14', '2012-09-14', 1),
+(20, 1, '2012-08-01', '2012-09-14', '2012-09-14', 1),
+(23, 2, '2012-09-01', '2012-09-28', '2012-09-28', 1),
+(24, 2, '2012-10-01', NULL, NULL, 1),
+(25, 2, '2012-11-01', NULL, NULL, 1),
+(27, 2, '2012-12-01', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -26958,21 +26816,136 @@ CREATE TABLE IF NOT EXISTS `personas` (
   KEY `cod_telefono_codigo_nacional` (`cod_telefono_codigo_nacional`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_estado_civil` (`id_estado_civil`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `personas`
 --
 
 INSERT INTO `personas` (`id_persona`, `id_empleador`, `cod_pais_emisor_documento`, `cod_tipo_documento`, `cod_nacionalidad`, `num_documento`, `fecha_nacimiento`, `apellido_paterno`, `apellido_materno`, `nombres`, `sexo`, `id_estado_civil`, `cod_telefono_codigo_nacional`, `telefono`, `correo`, `tabla_trabajador`, `tabla_pensionista`, `tabla_personal_formacion_laboral`, `tabla_personal_terceros`, `estado`, `fecha_creacion`, `fecha_modificacion`, `fecha_baja`) VALUES
-(1, 1, '604', '01', '9589', '45269187', '1988-01-01', 'copitan', 'norabuena', 'anibal', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-08-20', NULL, NULL),
-(5, 1, '604', '01', '9589', '62562568', '1988-02-01', 'moria', 'jara', 'maria gina', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-08-20', NULL, NULL),
-(6, 2, '604', '01', '9589', '45269188', '1962-10-22', 'SALAZAR', 'MAGUIÑA', 'nombre', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-05', '2012-09-06', NULL),
-(7, 2, '604', '01', '9589', '10193135', '1973-12-01', 'COTRINA ', 'GONZALES', 'ROY ULISES', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-05', NULL, NULL),
-(8, 2, '604', '01', '9589', '07933866', '1965-12-01', 'CANO', 'RODRIGUEZ', 'ORIETA DEL', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-05', NULL, NULL),
-(9, 2, '604', '01', '9589', '33959486', '1975-09-22', 'FERNANDEZ', 'RIVA', 'DANY', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-05', NULL, NULL),
-(10, 2, '604', '01', '9589', '12345678', '1988-01-01', 'paterno', 'materno', 'lucho', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
-(11, 1, '604', '01', '9589', '12345678', '1977-01-01', 'APELLIDO', 'APELLIDOS', 'PEPE JUAN', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-19', NULL, NULL);
+(1, 1, '604', '01', '9589', '07951545', '1962-10-02', 'CHIPANA', 'FLORES', 'ELENA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(2, 1, '604', '01', '9589', '25809433', '1971-08-28', 'OLAYA', 'GONZALES', 'LUIS HELBERT', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', '2012-09-12', NULL),
+(3, 1, '604', '01', '9589', '10389776', '1951-01-07', 'ZAMORA', 'MEGO', 'MELQUIADES', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(4, 1, '604', '01', '9589', '07971134', '1969-08-29', 'CANO', 'RODRIGUEZ', 'LUIS ENRIQUE', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(5, 1, '604', '01', '9589', '08438708', '1957-10-14', 'ESPINOZA', 'FARFAN', 'LUIS ALBERTO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(6, 1, '604', '01', '9589', '10285430', '1967-11-13', 'SOLANO', 'CALDUA', 'NICOLAS VICTOR', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(7, 1, '604', '01', '9589', '09570841', '1970-09-16', 'TANTALEAN', 'AREVALO', 'CARLOS ALBERTO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(8, 1, '604', '01', '9589', '08007436', '1962-09-20', 'ESPINOZA', 'HUANCAS', 'FAUSTO ENRIQUE', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(9, 1, '604', '01', '9589', '09886536', '1971-11-30', 'ZAMORA', 'MEGO', 'OLEGARIO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(11, 1, '604', '01', '9589', '09035048', '1952-05-16', 'ROJAS', 'PAJUELO', 'JUAN VENANCIO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(12, 1, '604', '01', '9589', '25565139', '1950-03-17', 'HERNANDEZ', 'ROMAN', 'CARLOS ', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(13, 1, '604', '01', '9589', '07448164', '1955-06-21', 'CASANOVA', 'RAMIREZ', 'MARIA LUISA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(14, 1, '604', '01', '9589', '09716287', '1973-12-10', 'FERNANDEZ', 'MERINO', 'CARMEN IMELDA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(15, 1, '604', '01', '9589', '10731895', '1978-09-03', 'GARGATE', 'LOPEZ', 'BENJAMIN', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(16, 1, '604', '01', '9589', '09738210', '1968-06-28', 'ALIAGA', 'COTRINA', 'HILDEBRANDO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(17, 1, '604', '01', '9589', '07950684', '1952-07-20', 'BERNAL', 'ZURITA', 'SONIA MAGDALENA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(18, 1, '604', '01', '9589', '08510319', '1961-07-06', 'CHAVEZ', 'PALACIOS', 'ANTONIO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(19, 1, '604', '01', '9589', '07966569', '1964-01-25', 'CUPE', 'FLORES', 'ALFONSO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(20, 1, '604', '01', '9589', '08305295', '1964-10-01', 'DIAZ', 'HURTADO', 'ROSARIO OSVALDO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(21, 1, '604', '01', '9589', '07627656', '1972-10-18', 'HERRERA', 'ROJAS', 'MARIBEL ALBINA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(22, 1, '604', '01', '9589', '21542718', '1975-08-11', 'HUAMAN', 'CUSTODIO', 'JULIO ANGEL', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(23, 1, '604', '01', '9589', '08274953', '1968-09-20', 'LOPEZ', 'VASQUEZ', 'ALEJANDRO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(24, 1, '604', '01', '9589', '09700349', '1946-08-19', 'MORALES', 'PEREZ', 'JULIA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(25, 1, '604', '01', '9589', '10436222', '1971-01-10', 'NAVARRO', 'CAUTI', 'NIEVES HERLINDA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(26, 1, '604', '01', '9589', '06633418', '1941-05-30', 'NORIEGA', 'GALVEZ', 'JOSE LUIS', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-12', NULL, NULL),
+(27, 1, '604', '01', '9589', '07948158', '1961-06-13', 'QUISPE', 'CHIPANA', 'ANTONIA GRACIELA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-13', NULL, NULL),
+(28, 1, '604', '01', '9589', '08634028', '1956-07-01', 'ROJAS', 'PAJUELO', 'CESAR JAVIER', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-13', NULL, NULL),
+(29, 1, '604', '01', '9589', '06107239', '1960-12-12', 'SANCHEZ', 'GARGATE', 'NOEMI MARINA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-13', NULL, NULL),
+(30, 1, '604', '01', '9589', '08236571', '1957-06-29', 'SANDOVAL', 'TORIBIO', 'SANTA BENEDICTA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-13', NULL, NULL),
+(31, 1, '604', '01', '9589', '07939005', '1964-08-24', 'ESPINOZA', 'BAUTISTA', 'JORGINA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(32, 1, '604', '01', '9589', '21863249', '1973-02-07', 'CHIA', 'LUY JON ', 'CARLOS ALONZO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(33, 1, '604', '01', '9589', '25780120', '1974-09-09', 'MIRANDA', 'YBAÑEZ', 'SONIA MARITZA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(34, 1, '604', '01', '9589', '42774098', '1979-08-13', 'GONZALES', 'HUARANGA', 'AMPARO MILAGROS', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(35, 1, '604', '01', '9589', '40066138', '1977-09-24', 'QUISPE', 'MATAMOROS', 'HILDA VILMA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(36, 1, '604', '01', '9589', '09669769', '1965-11-23', 'MARTINEZ ', 'CASTILLO', 'FLOR DE MARIA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(37, 1, '604', '01', '9589', '10165095', '1969-12-25', 'MEGO', 'SILVA', 'ARTURO JAMER', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(38, 1, '604', '01', '9589', '08674299', '1968-01-27', 'ARAUJO', 'QUISPE', 'OSCAR IVAN', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(39, 1, '604', '01', '9589', '80167058', '1976-11-28', 'BENITES', 'CARBAJAL', 'INES SILVIA ', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(40, 1, '604', '01', '9589', '41801598', '1983-04-05', 'MEGO', 'FERNANDEZ', 'VICTOR RAUL', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(41, 1, '604', '01', '9589', '40624077', '1980-02-14', 'CALLE', 'JERONIMO', 'EDWIN ALVICE', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(42, 1, '604', '01', '9589', '10725806', '1976-11-02', 'PINCCILOTTI', 'PALLAROSO', 'ALEJANDRO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(43, 1, '604', '01', '9589', '32130570', '1975-09-29', 'RAMIREZ', 'MARCELO', 'GABRIELA AMPARO', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(44, 1, '604', '01', '9589', '40826130', '1979-09-22', 'ABAD', 'GUERRERO', 'FROILAN', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(45, 1, '604', '01', '9589', '10132707', '1968-12-06', 'MEGO', 'SILVA', 'RONAL', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(46, 1, '604', '01', '9589', '06202755', '1959-05-26', 'BLAS', 'SANCHEZ', 'GLADYS LUZ', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(47, 1, '604', '01', '9589', '43152817', '1983-07-23', 'RODRIGUEZ', 'ROJAS', 'HEBER ARGENIS', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(48, 1, '604', '01', '9589', '07859492', '1966-08-27', 'BACA', 'CARBAJAL', 'JOSE JESUS', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(49, 1, '604', '01', '9589', '41901906', '1983-03-10', 'RIMARACHIN ', 'BACA', 'DAVID ISRAEL', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-14', NULL, NULL),
+(50, 1, '604', '01', '9589', '23977386', '1975-09-19', 'PUMA', 'HUILLCA', 'AMILCAR', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(51, 1, '604', '01', '9589', '10283250', '1976-08-16', 'MACHUCA', 'PAREDES', 'JESSICA ZULEMA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(52, 1, '604', '01', '9589', '22862765', '1966-03-01', 'ESPINOZA', 'CESPEDES', 'MERCEDES EVA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(53, 1, '604', '01', '9589', '33345635', '1975-05-29', 'LEON ', 'CARRANZA', 'EMILIANO ALEJANDRO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(54, 1, '604', '01', '9589', '43697662', '1986-03-17', 'INGA', 'CHUQUIPA', 'ELBIA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(55, 1, '604', '01', '9589', '10285230', '1969-03-27', 'CHIPANA', 'FLORES', 'LIDIA JUANA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(56, 1, '604', '01', '9589', '44100041', '1987-02-21', 'HUAMANI', 'MENDOZA', 'RONALD PEDRO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(57, 1, '604', '01', '9589', '06723942', '1966-10-15', 'BECERRA', 'SALAS', 'CESAR AUGUSTO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(58, 1, '604', '01', '9589', '08704625', '1962-04-22', 'ZAMBRANO', 'CUENCA', 'DANIEL ALFREDO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(59, 1, '604', '01', '9589', '07644248', '1977-08-09', 'GUERRA', 'CHAUCA', 'SANDRA ISABEL', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(60, 1, '604', '01', '9589', '42295617', '1984-03-19', 'LOAYZA', 'ALMONACIN', 'JOSE VICTOR', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-15', NULL, NULL),
+(61, 1, '604', '01', '9589', '40199272', '1979-07-03', 'QUISPE', 'MATAMOROS', 'SONIA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-28', NULL, NULL),
+(62, 1, '604', '01', '9589', '44487341', '1986-12-13', 'ZURITA', 'CARRASCO', 'ALEXIS', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-28', NULL, NULL),
+(63, 1, '604', '01', '9589', '44052923', '1987-01-17', 'MEZA', 'GARCIA', 'MANUEL ALEJANDRO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-28', NULL, NULL),
+(64, 1, '604', '01', '9589', '43297418', '1985-11-26', 'MEGO', 'DIAZ', 'JOSE YOMAR', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-28', NULL, NULL),
+(65, 1, '604', '01', '9589', '44989567', '1988-02-03', 'ARAUJO', 'HERRERA', 'ITALO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(66, 1, '604', '01', '9589', '40070442', '1975-11-07', 'ANDIA ', 'CARRASCO', 'JAVIER', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(67, 1, '604', '01', '9589', '09433554', '1969-12-28', 'NAVARRO', 'CAUTI', 'MARY LUZ ', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(68, 1, '604', '01', '9589', '40391187', '1979-12-21', 'YOVERA', 'ATARAMA', 'ARACELY', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(69, 1, '604', '01', '9589', '10562806', '1976-10-05', 'PELAYO', 'ROBLES', 'DINA ELENA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(70, 1, '604', '01', '9589', '41224193', '1977-03-16', 'GARCIA', 'CASANA', 'LUIS ALEJANDRO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(71, 1, '604', '01', '9589', '42343596', '1984-04-21', 'QUISPE', 'QUISPE', 'GILBERTO PEDRO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(72, 1, '604', '01', '9589', '43907244', '1981-02-28', 'ESPINOZA', 'ESTEBAN', 'CICILIO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(73, 1, '604', '01', '9589', '07392035', '1955-03-24', 'DE LA TORRE', 'CASANOVA', 'ANGELICA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(74, 1, '604', '01', '9589', '07546364', '1965-05-28', 'HUAMAN', 'OVALLE', 'JOSE LUIS', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-09-29', NULL, NULL),
+(75, 1, '604', '01', '9589', '40953862', '1978-10-31', 'GALLOZA', 'PALLAROSO', 'CARMEN MILAGROS', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(76, 1, '604', '01', '9589', '43662417', '1985-11-16', 'DOMINGUEZ', 'LOPEZ', 'CHADWICK HANNS', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(77, 1, '604', '01', '9589', '09708383', '1968-10-18', 'TENORIO', 'LOAYZA', 'LUCAS HERNANDO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(78, 1, '604', '01', '9589', '40167192', '1978-03-12', 'FERNANDEZ', 'HURTADO', 'JOSE DONATO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(79, 1, '604', '01', '9589', '10543446', '1977-06-30', 'REUVEN', 'GOMEZ', 'MICHAEL ', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(80, 1, '604', '01', '9589', '46589552', '1990-10-18', 'SANTOS ', 'VILLACORTA', 'JHON ANDERSON', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(81, 1, '604', '01', '9589', '46967693', '1990-11-07', 'CORDOVA', 'CALLE', 'SANTOS', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(82, 1, '604', '01', '9589', '71813971', '1992-02-11', 'DIAZ', 'MEGO', 'OSWALDO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(83, 1, '604', '01', '9589', '07941099', '1938-01-10', 'CANO', 'MUENTE', 'JOSE NESTOR', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(84, 1, '604', '01', '9589', '42972458', '1981-09-28', 'SANTILLAN', 'MELENDEZ', 'CHRISTIAN', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(85, 1, '604', '01', '9589', '40827219', '1981-01-08', 'NOLE ', 'CAMUS', 'IRIS EDITA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(86, 1, '604', '01', '9589', '09678603', '1974-02-24', 'CAQUI', 'GARGATE', 'GILDER MOISES', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(87, 1, '604', '01', '9589', '07635669', '1971-07-08', 'CASTILLO', 'REYNOSO ', 'PEDRO LUIS', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(88, 1, '604', '01', '9589', '46767275', '1990-12-12', 'CHAVEZ', 'GOMEZ', 'CRISTIAN', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(89, 1, '604', '01', '9589', '44084183', '1987-01-15', 'PUMA', 'HUILLCA', 'HERMITAÑO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(90, 1, '604', '01', '9589', '45780533', '1989-05-21', 'VILLARROEL', 'CORDOVA', 'RODIY JEYSSON', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(91, 1, '604', '01', '9589', '46329096', '1981-05-01', 'AQUINO', 'ROJAS', 'HUGO PERCY ', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(92, 1, '604', '01', '9589', '47004326', '1992-01-24', 'MAREYRA', 'ESPINOZA', 'SANDRA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(93, 1, '604', '01', '9589', '07371736', '1965-05-20', 'CASTILLA', 'SALAZAR', 'EMMA LILIANA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(94, 1, '604', '01', '9589', '45711545', '1989-01-03', 'NAVARRETE', 'GUEVARA', 'ADRIAN ALI', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(95, 1, '604', '01', '9589', '08172801', '1974-08-18', 'CHINCHAY ', 'VALLADARES', 'MELQUIADES', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-04', NULL, NULL),
+(96, 1, '604', '01', '9589', '70509443', '1992-07-19', 'QUISPE', 'BALCAZAR', 'YORMAN ANDRE', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(97, 1, '604', '01', '9589', '80376047', '1979-07-14', 'NORES', 'ESPINOZA', 'SANDRO ERNESTO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(98, 1, '604', '01', '9589', '47136383', '1991-10-07', 'MEZA', 'VALENCIA', 'YOEL ALFREDO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(99, 1, '604', '01', '9589', '41967126', '1983-07-18', 'POMA', 'MURGA', 'LIVIA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(100, 1, '604', '01', '9589', '41220291', '1982-03-21', 'QUISPE ', 'QUIPSE', 'ELMA VICTORIA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(101, 1, '604', '01', '9589', '10196620', '1974-08-04', 'GRANDEZ', 'AGUILAR', 'PERCY RICHARD', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(102, 1, '604', '01', '9589', '41722946', '1982-03-05', 'PEREZ', 'HINOSTROZA', 'PEDRO ARMANDO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(103, 1, '604', '01', '9589', '09702338', '1968-08-24', 'SOLORZANO', 'MORALES', 'NORA CELIA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(104, 1, '604', '01', '9589', '07966762', '1940-05-08', 'CANO', 'MUENTE', 'CARLOS ALBERTO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(105, 1, '604', '01', '9589', '07322252', '1965-06-03', 'BROCOS', 'CASANOVA', 'CLOTILDE', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(106, 1, '604', '01', '9589', '42063882', '1983-11-07', 'COLLAZOS', 'BARDALES', 'IRMA', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(107, 1, '604', '01', '9589', '40988733', '1981-07-06', 'INGA', 'CHUQUIPA', 'LUZ FELINDA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(108, 1, '604', '01', '9589', '40484310', '1977-08-16', 'RIOS', 'DIAZ', 'JIMY ORLANDO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(109, 1, '604', '01', '9589', '45486798', '1989-01-06', 'CORNEJO', 'GUEVARA', 'SERGIO JORGE', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(110, 1, '604', '01', '9589', '46827908', '1990-10-01', 'HILARIO', 'HUETE', 'ALAN ANIBAL', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(111, 1, '604', '01', '9589', '28116618', '1974-08-31', 'MEGO ', 'SILVA', 'HUMBERTO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(112, 1, '604', '01', '9589', '44943430', '1987-01-26', 'PAREDES', 'VILELA', 'CARLOS HUMBERTO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(113, 1, '604', '01', '9589', '48350296', '1994-04-15', 'CCORIMANYA', 'INGA', 'EDWARD', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(114, 1, '604', '01', '9589', '47707022', '1993-01-24', 'HUERTA', 'CARLOS', 'MAX JOUSTON', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(115, 1, '604', '01', '9589', '44867935', '1981-11-18', 'MEGO ', 'ZAMORA', 'JUANITO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(116, 1, '604', '01', '9589', '45781644', '1989-06-21', 'ALVA', 'LOPEZ', 'JUNIOR DARLYN', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(117, 1, '604', '01', '9589', '09671735', '1972-09-20', 'OBANDO', 'TEJADA', 'FRANCISCO', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(118, 1, '604', '01', '9589', '42616604', '1984-08-11', 'BUSTAMANTE', 'MANRIQUE', 'JOSE LUIS', '1', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(119, 1, '604', '01', '9589', '44800604', '1983-01-30', 'RAMIREZ ', 'URETA', 'AMEC JOAB', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(120, 1, '604', '01', '9589', '43937550', '1986-10-31', 'SUAREZ', 'MAGUIÑA', 'JOSE ANTONIO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(121, 1, '604', '01', '9589', '45619512', '1989-02-25', 'PEÑA', 'MAMANI', 'JESUS EDUARDO', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-05', NULL, NULL),
+(122, 1, '604', '01', '9589', '45347323', '1988-07-13', 'GARGATE', 'ROSALES', 'JONATHAN', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-06', NULL, NULL),
+(123, 1, '604', '01', '9589', '42070522', '1978-03-01', 'AQUINO', 'ROJAS', 'MARIBEL', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-06', NULL, NULL),
+(124, 1, '604', '01', '9589', '76608802', '1994-08-01', 'QUISPE', 'FLORES', 'JUAN DANIEL', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-06', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -27004,29 +26977,259 @@ CREATE TABLE IF NOT EXISTS `personas_direcciones` (
   KEY `cod_zona` (`cod_zona`),
   KEY `id_persona` (`id_persona`),
   KEY `cod_ubigeo_reniec` (`cod_ubigeo_reniec`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=283 ;
 
 --
 -- Dumping data for table `personas_direcciones`
 --
 
 INSERT INTO `personas_direcciones` (`id_persona_direccion`, `id_persona`, `cod_ubigeo_reniec`, `cod_via`, `nombre_via`, `numero_via`, `departamento`, `interior`, `manzana`, `lote`, `kilometro`, `block`, `etapa`, `cod_zona`, `nombre_zona`, `referencia`, `referente_essalud`, `estado_direccion`) VALUES
-(13, 1, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, 1, 1),
-(14, 1, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(19, 5, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, 1, 1),
-(20, 5, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(21, 6, '140136', '04', 'ST.ISABEL', '2515', '', '', 'I', '6', '', '', '', '0', '', '', 1, 1),
-(22, 6, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(23, 7, '140142', '04', 'PS', '', '', '', '22', '5', '', '', '', '01', 'PREVI', '', 1, 1),
-(24, 7, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(25, 8, '140117', '0', '', '', '', '', '', '', '', '', '', '0', '', '', 1, 1),
-(26, 8, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(27, 9, '140141', '04', ' SECT', '', '', '', 'O', '23', '', '', '', '01', 'X', '', 1, 1),
-(28, 9, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(29, 10, '140101', '01', 'via', '25', '', '', '', '', '', '', '', '0', '', '', 1, 1),
-(30, 10, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
-(31, 11, '100104', '03', 'DC', '96', '', '', '', '', '', '', '', '0', '', '', 1, 1),
-(32, 11, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
+(37, 1, '140117', '02', 'TORRE TAGLE', '2251', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(38, 1, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(39, 2, '140137', '02', 'QUILLABAMBA', '189', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(40, 2, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(41, 3, '140106', '03', 'GREGORIO APAZA', '232', '', '', '', '', '', '', '', '01', 'SANTA LUZMILA', '', 1, 1),
+(42, 3, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(43, 4, '140117', '02', 'TUPAC AMARU', '217', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(44, 4, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(45, 5, '140137', '03', 'LOS MEDICOS', '3849', '', '', '', '', '', '', '', '06', 'HUANCAYO', '', 1, 1),
+(46, 5, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(47, 6, '140126', '0', '', '', '', '', 'F', '34', '', '', '', '01', 'SAN FRANCISCO', '', 1, 1),
+(48, 6, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(49, 7, '140137', '02', 'LOS LINOS', '633', '', '', '', '', '', '', '', '01', 'SAN HILARION', '', 1, 1),
+(50, 7, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(51, 8, '140122', '02', 'EL ALTILLO ', '', '', '', 'A', '18', '', '', '', '01', 'CIUDAD Y CAMPO', '', 1, 1),
+(52, 8, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(53, 9, '140126', '0', '', '', '', '', 'K1', '10', '', '', '', '01', 'LOS JAZMINES DE NARA', '', 1, 1),
+(54, 9, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(55, 11, '140134', '03', 'LAS VIOLETAS', '196', '', '', '', '', '', '', '', '01', 'HERMITAÑO', '', 1, 1),
+(56, 11, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(57, 12, '140101', '02', 'PARAGUAY', '220', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(58, 12, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(59, 13, '140109', '04', 'PISAGUA ', '286', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(60, 13, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(61, 14, '140133', '01', 'HUSARES DE JUNIN', '1119', '302', '', '', '', '', '', '', '0', '', '', 1, 1),
+(62, 14, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(63, 15, '140101', '02', 'MARIANO ANGULO', '2217', '', '', '', '', '', '', '', '01', 'MIRONES', '', 1, 1),
+(64, 15, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(65, 16, '140106', '02', 'SAN MARTIN', '165', '', '', '', '', '13', '', '', '0', '', '', 1, 1),
+(66, 16, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(67, 17, '140117', '01', 'MARIANO PASTOR', '198', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(68, 17, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(69, 18, '140117', '0', '', '', '', '', 'B', '14', '', '', '', '01', 'ASOC.VALLE CHILLON', '', 1, 1),
+(70, 18, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(71, 19, '140105', '02', 'LIMA', '631', '', '', '', '', '', '', '', '01', 'RAUL PORRAS B.', '', 1, 1),
+(72, 19, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(73, 20, '140137', '0', '', '', '', '', 'N', '20', '', '', '', '01', 'SANTA ELISA 2DA.ETAP', '', 1, 1),
+(74, 20, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(75, 21, '140111', '01', 'CANEVARO', '537', '', 'F1', '', '', '', '', '', '0', '', '', 1, 1),
+(76, 21, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(77, 22, '140101', '0', '', '', '', '', 'U', '14', '', '', '', '01', 'CALLAO', 'EL CONDOR', 1, 1),
+(78, 22, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(79, 23, '140137', '0', '', '', '', '', 'D40', 'H', '', '', '', '01', 'CANTO BELLO LOS ROBL', '', 1, 1),
+(80, 23, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(81, 24, '140132', '01', 'JOSE DE SAN MARTIN', '1645', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(82, 24, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(83, 25, '140101', '02', 'VILLA MARIA', '948', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(84, 25, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(85, 26, '140125', '02', 'CARLOS ARRIETA', '239', '', 'A', '', '', '', '', '', '0', '', '', 1, 1),
+(86, 26, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(87, 27, '140101', '0', '', '', '', '', 'E', '17', '', '', '', '05', 'VENTANILLA ALTA', '', 1, 1),
+(88, 27, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(89, 28, '140119', '0', '', '', '', '', 'F', '5', '', '', '', '01', 'LOS SAUCES', '', 1, 1),
+(90, 28, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(91, 29, '140101', '01', 'MORALES DUAREZ', '2495', '', '', '', '', '', '', '', '01', 'MIRONES BAJO', '', 1, 1),
+(92, 29, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(93, 30, '140124', '01', 'AREQUIPA', '3743', '', '11', '', '', '', '', '', '0', '', '', 1, 1),
+(94, 30, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(95, 31, '140117', '01', 'LA MAR', '1192', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(96, 31, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(97, 32, '140131', '01', 'ANGAMOS ESTE ', '420', '202', '', '', '', '', '', '', '0', '', '', 1, 1),
+(98, 32, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(99, 33, '140101', '0', '', '', '', '', 'A', '13', '', '', '', '05', 'GAMBETA BAJA', '', 1, 1),
+(100, 33, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(101, 34, '140132', '01', 'FERROCARRIL', '230', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(102, 34, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(103, 35, '140137', '0', '', '', '', '', 'Z', '26', '', '', '', '01', 'ASOC.LOS CEDROS', '', 1, 1),
+(104, 35, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(105, 36, '140126', '0', '', '', '', '', 'F', '24', '', '', '', '01', 'STA. PATRICIA 1RA.ET', '', 1, 1),
+(106, 36, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(107, 37, '140106', '02', 'SAN JUSTO ', '248', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(108, 37, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(109, 38, '140126', '02', 'ANCASH', '4163', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(110, 38, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(111, 39, '140117', '01', 'LA MAR', '1192', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(112, 39, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(113, 40, '140137', '02', 'NEVADO COROPUNA', '375', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(114, 40, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(115, 41, '140101', '0', '', '', '', '', 'E', '19', '', '', '', '02', 'JOSE BOTERIN', '', 1, 1),
+(116, 41, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(117, 42, '140101', '01', 'COLONIAL', '587', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(118, 42, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(119, 43, '140104', '04', '3', '131', '', '3', '', '', '', '', '', '0', '', '', 1, 1),
+(120, 43, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(121, 44, '140125', '01', '325', '', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(122, 44, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(123, 45, '140106', '0', '', '', '', '', 'K', '15', '', '', '', '01', 'LOS AMAPOLOS DEL PIL', '', 1, 1),
+(124, 45, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(125, 46, '140122', '03', 'MONITOR HUASCAR', '588', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(126, 46, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(127, 47, '140126', '02', 'ANCASH', '3285', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(128, 47, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(129, 48, '140126', '02', 'VILLARRICA', '541', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(130, 48, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(131, 49, '140101', '01', 'LOS EUCALIPTOS', '508', '', '', '', '', '', '', '', '01', 'SATELITE', '', 1, 1),
+(132, 49, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(133, 50, '140137', '0', '', '', '', '', 'I', '8', '', '', '', '01', 'LOS PINOS ', '', 1, 1),
+(134, 50, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(135, 51, '140117', '04', 'KENKO', '', '', '', 'H', '3', '', '', '', '0', '', '', 1, 1),
+(136, 51, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(137, 52, '140126', '01', 'TANTA MAYO', '', '', '', 'A', '24', '', '', '', '0', '', '', 1, 1),
+(138, 52, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(139, 53, '140134', '0', '', '', '', '', 'F', '2', '', '', '', '05', '4 DE DICIEMBRE II ET', '', 1, 1),
+(140, 53, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(141, 54, '140126', '01', 'TANAYO', '', '', '', '', '22', '', '', '', '01', 'MONTERRICO', '', 1, 1),
+(142, 54, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(143, 55, '140126', '0', '', '', '', '', 'E', '2', '', '', '', '01', 'SANTA MARIA', '', 1, 1),
+(144, 55, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(145, 56, '140142', '0', '', '', '', '', 'I10', '22', '', '', '', '01', 'ENRIQUE MILLA OCHOA', '', 1, 1),
+(146, 56, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(147, 57, '140104', '02', 'CASTRO VIRREYNA', '471', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(148, 57, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(149, 58, '140133', '02', 'HUIRACOCHA', '1730', '6', '', '', '', '', '', '', '0', '', '', 1, 1),
+(150, 58, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(151, 59, '140111', '01', 'JOSE LEAL ', '1076', '', '8', '', '', '', '', '', '0', '', '', 1, 1),
+(152, 59, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(153, 60, '140122', '0', '', '', '', '', '4', '18', '', '', '', '0', '', '', 1, 1),
+(154, 60, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(155, 61, '140116', '0', '', '', '', '', 'C', '5', '', '', '', '01', 'HUERTOS DE MANCHAY', '', 1, 1),
+(156, 61, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(157, 62, '140137', '0', '', '', '', '', '40', '7', '', '', '', '05', '3RA.ZONA DE BAYOVAR', '', 1, 1),
+(158, 62, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(159, 63, '140101', '02', 'CARRILLO ALBORNOZ ', '', '', '', 'B', '7', '', '', '', '0', '', '', 1, 1),
+(160, 63, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(161, 64, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, 1, 1),
+(162, 64, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(163, 65, '140104', '02', 'PASTAZA', '1387', '201', '', '', '', '', '', '', '0', '', '', 1, 1),
+(164, 65, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(165, 66, '140134', '0', '', '', '', '', 'G', '1', '', '', '', '05', 'VILLA CHILCAS ', '', 1, 1),
+(166, 66, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(167, 67, '140101', '0', '', '', '', '', 'I', '5', '', '', '', '09', '26 SETOR 1', '', 1, 1),
+(168, 67, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(169, 68, '240101', '0', '', '', '', '', 'E', '24', '', '', '', '01', 'JOSE MOTERIN', '', 1, 1),
+(170, 68, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(171, 69, '140126', '0', '', '', '', '', 'C', '8', '', '', '', '99', 'ASOCIAC.LAS MARGARIT', '', 1, 1),
+(172, 69, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(173, 70, '140108', '04', 'MUJICA CARRANZA', '167', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(174, 70, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(175, 71, '140103', '0', '', '', '', '', 'J', '5', '', '', '', '05', 'SANTA MARIA ', '', 1, 1),
+(176, 71, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(177, 72, '140130', '03', 'MARIA REICHE ', '192', '', '', '', '', '', '', '', '01', 'HIGUERETA', '', 1, 1),
+(178, 72, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(179, 73, '140138', '02', 'RIO PIURA', '601', '504', '1', '', '', '', '', '', '0', '', '', 1, 1),
+(180, 73, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(181, 74, '140116', '02', 'PUNTA ARENAS', '', '', '', 'F', '26', '', '', '', '01', 'SOL DE LA MOLINA', '', 1, 1),
+(182, 74, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(183, 75, '140141', '0', '', '', '', '', 'L', '18', '', '', '', '09', 'SECT.2 24 A', '', 1, 1),
+(184, 75, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(185, 76, '140106', '03', 'RIO CHIRA', '', '', '', 'E', '16', '', '', '', '0', '', '', 1, 1),
+(186, 76, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(187, 77, '140132', '02', 'INTI RAYMI', '187', '', '', '', '', '', '', '', '01', 'JOSE CARLOS MARIATEG', '', 1, 1),
+(188, 77, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(189, 78, '0', '0', '', '', '', '', 'F2', '38', '', '', '', '01', 'S.F. ASIS DE CAYAN ', '', 1, 1),
+(190, 78, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(191, 79, '140111', '01', 'JOSE LEAL', '1511', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(192, 79, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(193, 80, '140132', '01', 'TINGO MARIA', '', '', '', 'H', '6', '', '', '', '01', 'EL VALLECITO', '', 1, 1),
+(194, 80, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(195, 81, '140142', '01', 'ALFREDO MENDIOLA', '5885', '', '', '', '', '', '', '', '01', 'VILLA SOL', '', 1, 1),
+(196, 81, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(197, 82, '140137', '0', '', '', '', '', 'N', '20B', '', '', '', '01', 'STA. ELIZABETH ', '', 1, 1),
+(198, 82, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(199, 83, '140117', '02', 'TUPAC AMARU', '217', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(200, 83, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(201, 84, '140130', '02', 'CIUDAD REAL', '230', '', '', '', '', '', '', '', '01', 'HIGUERETA', '', 1, 1),
+(202, 84, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(203, 85, '140143', '03', 'FORTALEZA', '263', '', '', '', '', '', '', '', '06', 'ANDAHUAYLAS', '', 1, 1),
+(204, 85, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(205, 86, '140116', '0', '', '', '', '', 'L', '6', '', '', '', '01', 'HUERTOS DE MANCHAY', '', 1, 1),
+(206, 86, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(207, 87, '140106', '03', 'FERNANDO LOPEZ ', '260', '', '', '', '', '', '', '', '01', 'STA. LUZMILA ', '', 1, 1),
+(208, 87, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(209, 88, '140133', '03', 'CAYETANO HEREDIA', '661', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(210, 88, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(211, 89, '140137', '0', '', '', '', '', 'D', '17', '', '', '', '01', 'VILLA MERCEDES', '', 1, 1),
+(212, 89, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(213, 90, '140142', '01', 'ALFREDO MENDIOLA', '5885', '', '', '', '', '', '', '', '01', 'VILLA SOL', '', 1, 1),
+(214, 90, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(215, 91, '140137', '01', 'JORGE BASADRE', '', '', '', 'P', '7', '', '', '', '0', '', '', 1, 1),
+(216, 91, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(217, 92, '140133', '01', 'BRASIL', '1229', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(218, 92, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(219, 93, '140131', '01', 'REPUBLICA DE PANAMA', '187', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(220, 93, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(221, 94, '140137', '0', '', '', '', '', 'I5', '33', '', '', '', '01', 'MARISCAL CACERES', '', 1, 1),
+(222, 94, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(223, 95, '140105', '02', 'JOSE OLAYA', '', '', '', '6A', '5A', '', '', '', '0', '', '', 1, 1),
+(224, 95, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(225, 96, '140137', '0', '', '', '', '', 'C', '5', '', '', '', '09', 'EX COUNTRY CLUB ', '', 1, 1),
+(226, 96, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(227, 97, '240101', '0', '', '', '', '', '', '', '', '2-11', '', '01', 'STA. MARINA', '', 1, 1),
+(228, 97, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(229, 98, '140133', '03', 'DIEGO DE ALMAGRO', '207', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(230, 98, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(231, 99, '140111', '01', 'CANEVARO', '555', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(232, 99, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(233, 100, '140103', '0', '', '', '', '', 'J', '5', '', '', '', '05', 'STA. MARIA DE VITART', '', 1, 1),
+(234, 100, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(235, 101, '140142', '0', '', '', '', '', 'R1', '47', '', '', '', '01', 'SAN DIEGO', '', 1, 1),
+(236, 101, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(237, 102, '140142', '02', 'AZAFRAN', '908', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(238, 102, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(239, 103, '140137', '0', '', '', '', '', 'S4', '3', '', '', '', '01', 'MARISCAL CACERES', '', 1, 1),
+(240, 103, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(241, 104, '140117', '01', 'LA MAR', '1192', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(242, 104, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(243, 105, '140109', '03', 'HUAMANGA', '547', '', '27', '', '', '', '', '', '0', '', '', 1, 1),
+(244, 105, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(245, 106, '140126', '03', 'LAS MARGARITAS', '', '', '', 'A', '24', '', '', '', '0', '', '', 1, 1),
+(246, 106, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(247, 107, '140106', '04', 'MUSGA', '', '', '', 'B', '22', '', '', '', '03', 'LA PAZ', '', 1, 1),
+(248, 107, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(249, 108, '140134', '01', 'HUAMACHUCO', '', '', '', 'G', '11', '', '', '', '01', 'V.R.HAYA DE LA TORRE', '', 1, 1),
+(250, 108, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(251, 109, '140127', '03', 'FIDEL TUBINO', '215', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(252, 109, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(253, 110, '140119', '0', '', '', '', '', 'J1', '34', '', '', '', '01', 'LOS JARDINES DE SHAN', '', 1, 1),
+(254, 110, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(255, 111, '140126', '01', 'TANTAMAYO', '', '', '', 'A', '6', '', '', '', '0', '', '', 1, 1),
+(256, 111, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(257, 112, '140101', '03', 'SEBASTIAN LORENTE', '899', '', '', '', '', '', '', '', '0', 'CERCADO', '', 1, 1),
+(258, 112, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(259, 113, '140137', '01', 'CENTRAL', '', '', '', 'G', '25', '', '', '', '0', '', '', 1, 1),
+(260, 113, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(261, 114, '140134', '0', '', '', '', '', 'G', '4', '', '', '', '05', '4 DE DICIEMBRE ', '', 1, 1),
+(262, 114, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(263, 115, '140106', '03', 'LOS GERANIOS', '', '', '', 'B', '17', '', '', '', '0', '', '', 1, 1),
+(264, 115, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(265, 116, '140106', '03', 'RIO CHIRA', '', '', '', 'E', '16', '', '', '', '01', 'SANTA ISOLINA', '', 1, 1),
+(266, 116, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(267, 117, '140117', '02', 'ABRAHAM BALDELOMAR', '780', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(268, 117, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(269, 118, '140143', '0', '', '', '', '', 'M', '17', '', '', '', '01', 'SOL DE STA. ANITA', '', 1, 1),
+(270, 118, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(271, 119, '140132', '01', 'EL SOL', '1875', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(272, 119, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(273, 120, '140137', '0', '', '', '', '', 'I-5', '33', '', '', '', '01', 'MARISCAL CACERES', '', 1, 1),
+(274, 120, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(275, 121, '140137', '02', 'LOS TOMILLOS', '336', '', '', '', '', '', '', '', '0', '', '', 1, 1),
+(276, 121, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(277, 122, '140134', '0', '', '', '', '', 'A', '13', '', '', '', '05', 'JUAN VELASCO', '', 1, 1),
+(278, 122, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(279, 123, '140137', '0', '', '', '', '', 'J2', '29', '', '', '', '05', 'MIGUEL N. VENECIA', '', 1, 1),
+(280, 123, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(281, 124, '140109', '03', 'MANUEL CISNEROS', '748', '20', '', '', '', '', '', '', '0', '', '', 1, 1),
+(282, 124, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -27044,18 +27247,12 @@ CREATE TABLE IF NOT EXISTS `ppagos` (
   KEY `id_prestamo` (`id_prestamo`),
   KEY `id_prestamo_2` (`id_prestamo`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='prestamos pagos' AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='prestamos pagos' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ppagos`
 --
 
-INSERT INTO `ppagos` (`id_pago`, `id_prestamo`, `id_pdeclaracion`, `valor`, `fecha`) VALUES
-(2, 1, 9, '250.00', '2012-10-06'),
-(6, 1, 23, '250.00', '2012-10-06'),
-(9, 3, 24, '300.00', '2012-10-06'),
-(10, 2, 24, '125.00', '2012-10-06'),
-(11, 2, 25, '125.00', '2012-10-06');
 
 -- --------------------------------------------------------
 
@@ -27128,16 +27325,12 @@ CREATE TABLE IF NOT EXISTS `prestamos` (
   PRIMARY KEY (`id_prestamo`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_trabajador` (`id_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `prestamos`
 --
 
-INSERT INTO `prestamos` (`id_prestamo`, `id_empleador`, `id_trabajador`, `valor`, `num_cuota`, `fecha_inicio`, `estado`, `fecha_creacion`) VALUES
-(1, 1, 1, '500.00', 2, '2012-08-01', 1, '2012-10-06'),
-(2, 1, 10, '250.00', 2, '2012-10-01', 0, '2012-10-06'),
-(3, 1, 1, '300.00', 1, '2012-10-01', 0, '2012-10-06');
 
 -- --------------------------------------------------------
 
@@ -27154,18 +27347,12 @@ CREATE TABLE IF NOT EXISTS `ptf_pagos` (
   PRIMARY KEY (`id_ptf_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`),
   KEY `id_para_ti_familia` (`id_para_ti_familia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ptf_pagos`
 --
 
-INSERT INTO `ptf_pagos` (`id_ptf_pago`, `id_para_ti_familia`, `id_pdeclaracion`, `valor`, `fecha`) VALUES
-(8, 1, 24, '5.00', '2012-10-06'),
-(9, 1, 25, '5.00', '2012-10-06'),
-(10, 2, 25, '10.00', '2012-10-06'),
-(11, 1, 27, '5.00', '2012-10-06'),
-(12, 2, 27, '10.00', '2012-10-06');
 
 -- --------------------------------------------------------
 
@@ -27319,8 +27506,10 @@ CREATE TABLE IF NOT EXISTS `registros_por_conceptos` (
 --
 
 INSERT INTO `registros_por_conceptos` (`id_registro_por_concepto`, `id_trabajador`, `cod_detalle_concepto`, `valor`, `estado`, `fecha_creacion`, `cod_situacion`) VALUES
-(6, 1, '0105', '2.00', 1, '2012-10-05', NULL),
-(7, 1, '0106', '3.00', 1, '2012-10-05', NULL);
+(2, 13, '0201', '1.00', 1, '2012-10-09', NULL),
+(4, 13, '0909', '155.00', 1, '2012-10-09', NULL),
+(5, 13, '0304', '230.00', 1, '2012-10-09', NULL),
+(7, 13, '0701', '55.00', 1, '2012-10-09', NULL);
 
 -- --------------------------------------------------------
 
@@ -28090,6 +28279,7 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   `cod_situacion` char(1) NOT NULL,
   `estado` char(10) DEFAULT NULL COMMENT 'sistema:\r\n1 = activo\r\n2 = inactivo',
   `id_empresa_centro_costo` int(10) unsigned DEFAULT NULL,
+  `estado_asignacion_familiar` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_trabajador`),
   KEY `cod_regimen_laboral` (`cod_regimen_laboral`),
   KEY `cod_nivel_educativo` (`cod_nivel_educativo`),
@@ -28105,21 +28295,15 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   KEY `cod_situacion` (`cod_situacion`),
   KEY `id_monto_remuneracion` (`id_monto_remuneracion`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `trabajadores`
 --
 
-INSERT INTO `trabajadores` (`id_trabajador`, `id_persona`, `cod_regimen_laboral`, `cod_nivel_educativo`, `cod_categorias_ocupacionales`, `id_ocupacion_2`, `cod_ocupacion_p`, `cod_tipo_contrato`, `cod_tipo_pago`, `cod_periodo_remuneracion`, `monto_remuneracion`, `id_monto_remuneracion`, `id_establecimiento`, `jornada_laboral`, `situacion_especial`, `discapacitado`, `sindicalizado`, `percibe_renta_5ta_exonerada`, `aplicar_convenio_doble_inposicion`, `cod_convenio`, `cod_situacion`, `estado`, `id_empresa_centro_costo`) VALUES
-(1, 1, '01', '14', '03', '0', 121008, '21', '1', 2, '2000.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1),
-(4, 5, '01', '14', '01', '0', 115001, '01', '1', 3, '1300.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '0', 'BSI', 2),
-(5, 6, '01', '15', '03', '0', 252001, '0', '0', 3, '750.00', 0, 4, '', '0', 0, 0, 0, 0, 0, '1', NULL, 2),
-(6, 7, '01', '01', '03', '0', 523002, '06', '1', 2, '750.00', 0, 4, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1),
-(7, 8, '01', '01', '03', '0', 269007, '06', '1', 3, '750.00', 0, 4, '', '0', 0, 0, 0, 0, 0, '1', NULL, 2),
-(8, 9, '01', '01', '03', '0', 523003, '06', '1', 1, '750.00', 0, 4, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1),
-(9, 10, '0', '0', '0', '0', 0, '0', '0', 0, NULL, 0, 0, '0', '0', 0, 0, 0, 0, 0, '1', NULL, NULL),
-(10, 11, '01', '01', '03', '0', 129007, '02', '1', 1, '2500.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1);
+INSERT INTO `trabajadores` (`id_trabajador`, `id_persona`, `cod_regimen_laboral`, `cod_nivel_educativo`, `cod_categorias_ocupacionales`, `id_ocupacion_2`, `cod_ocupacion_p`, `cod_tipo_contrato`, `cod_tipo_pago`, `cod_periodo_remuneracion`, `monto_remuneracion`, `id_monto_remuneracion`, `id_establecimiento`, `jornada_laboral`, `situacion_especial`, `discapacitado`, `sindicalizado`, `percibe_renta_5ta_exonerada`, `aplicar_convenio_doble_inposicion`, `cod_convenio`, `cod_situacion`, `estado`, `id_empresa_centro_costo`, `estado_asignacion_familiar`) VALUES
+(3, 3, '01', '07', '03', '0', 523003, '01', '1', 2, '750.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
+(13, 14, '01', '11', '03', '0', 413011, '01', '1', 2, '2690.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -28156,25 +28340,15 @@ CREATE TABLE IF NOT EXISTS `trabajadores_pdeclaraciones` (
   KEY `id_pdeclaracion_2` (`id_pdeclaracion`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`),
   KEY `cod_ocupacion_p` (`cod_ocupacion_p`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=118 ;
 
 --
 -- Dumping data for table `trabajadores_pdeclaraciones`
 --
 
 INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pdeclaracion`, `id_trabajador`, `dia_laborado`, `dia_total`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `sueldo`, `sueldo_neto`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cod_regimen_aseguramiento_salud`, `cod_situacion`, `id_empresa_centro_costo`, `cod_ocupacion_p`) VALUES
-(31, 1, 1, 31, 31, 240, NULL, NULL, NULL, '2000.00', '2000.00', 0, NULL, '2012-10-05 15:55:57', NULL, 0, '21', '21', '00', '1', 1, 121008),
-(32, 1, 4, 31, 31, 240, NULL, NULL, NULL, '1300.00', '1300.00', 0, NULL, '2012-10-05 15:55:58', NULL, 0, '19', '02', '00', '0', 2, 115001),
-(47, 9, 1, 31, 31, 240, NULL, 5, 0, '2000.00', '2000.00', 0, NULL, '2012-10-06 16:08:52', NULL, 0, '21', '21', '00', '1', 1, 121008),
-(48, 9, 10, 31, 31, 240, NULL, NULL, NULL, '2500.00', '2500.00', 0, NULL, '2012-10-06 16:08:52', NULL, 0, '21', '02', '00', '1', 1, 129007),
-(57, 23, 1, 30, 30, 240, NULL, 5, 0, '2000.00', '2000.00', 0, NULL, '2012-10-06 16:18:50', NULL, 0, '21', '21', '00', '1', 1, 121008),
-(58, 23, 10, 30, 30, 240, NULL, NULL, NULL, '2500.00', '2500.00', 0, NULL, '2012-10-06 16:18:51', NULL, 0, '21', '02', '00', '1', 1, 129007),
-(61, 24, 1, 31, 31, 240, NULL, 5, 0, '2000.00', '2000.00', 0, NULL, '2012-10-06 16:20:28', NULL, 0, '21', '21', '00', '1', 1, 121008),
-(62, 24, 10, 31, 31, 240, NULL, NULL, NULL, '2500.00', '2500.00', 0, NULL, '2012-10-06 16:20:28', NULL, 0, '21', '02', '00', '1', 1, 129007),
-(63, 25, 1, 30, 30, 240, NULL, 5, 0, '2000.00', '2000.00', 0, NULL, '2012-10-06 16:20:43', NULL, 0, '21', '21', '00', '1', 1, 121008),
-(64, 25, 10, 30, 30, 240, NULL, NULL, NULL, '2500.00', '2500.00', 0, NULL, '2012-10-06 16:20:43', NULL, 0, '21', '02', '00', '1', 1, 129007),
-(65, 27, 1, 31, 31, 240, NULL, 5, 0, '2000.00', '2000.00', 0, NULL, '2012-10-06 16:22:21', NULL, 0, '21', '21', '00', '1', 1, 121008),
-(66, 27, 10, 31, 31, 240, NULL, NULL, NULL, '2500.00', '2500.00', 0, NULL, '2012-10-06 16:22:21', NULL, 0, '21', '02', '00', '1', 1, 129007);
+(116, 1, 3, 31, 31, 240, NULL, NULL, NULL, '750.00', '750.00', 0, NULL, '2012-10-10 10:55:50', NULL, 0, '21', '23', '00', '1', 1, 523003),
+(117, 1, 13, 31, 31, 240, NULL, NULL, NULL, '2690.00', '2690.00', 0, NULL, '2012-10-10 10:55:50', NULL, 0, '21', '23', '00', '1', 2, 413011);
 
 -- --------------------------------------------------------
 
@@ -30549,14 +30723,12 @@ CREATE TABLE IF NOT EXISTS `vacaciones` (
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id_vacacion`),
   KEY `id_trabajador` (`id_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `vacaciones`
 --
 
-INSERT INTO `vacaciones` (`id_vacacion`, `id_trabajador`, `fecha`, `fecha_programada`, `estado`, `fecha_creacion`) VALUES
-(11, 1, '2012-01-02', '2012-10-01', NULL, '2012-10-04');
 
 -- --------------------------------------------------------
 

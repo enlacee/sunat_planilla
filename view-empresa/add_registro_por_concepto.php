@@ -272,7 +272,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 
             ],
             pager: '#pager',
-			//height:200,
+			//rownumbers :true,
+			height:320,
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_registro_por_concepto',
@@ -312,15 +313,43 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 <h2>
   <?php echo $data_detalle_concepto['cod_detalle_concepto'] ." - ". $data_detalle_concepto['descripcion'] ?>
 </h2>
+<p>
+
+  <!--I.Buscador-->
 <div class="ocultar">
-oper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table id="list-buscar">
+</table>
+<div id="pager-buscar"></div>  
+
+<a href="#">link ver</a></p>
+</div>
+<!--F.Buscador-->
+
+<p>
+  oper
   <input type="text" name="oper" id="oper" value="add" />
   <br />
 cod_detalle_concepto
 <label for="cod_detalle_concepto"></label>
   <input type="text" name="cod_detalle_concepto" id="cod_detalle_concepto" 
   value="<?php echo $cod_detalle_concepto; ?>" />
-</div>
+</p>
 <p>Registrar
   <input name="addNuevoRPC" type="button" value="nuevo rpc" onclick="newRPC('<?php echo $cod_detalle_concepto;?>')" />
   

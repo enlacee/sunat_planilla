@@ -173,7 +173,7 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
         $sidx = 1;
 
 
-    $count= $dao_plame->listarTrabajadoresPorPeriodo_globalCount(ID_EMPLEADOR_MAESTRO, $FECHA['inicio'], $FECHA['fin'], $WHERE);
+    $count= $dao_plame->listarTrabajadoresPorPeriodo_global_grid_Count(ID_EMPLEADOR_MAESTRO, $FECHA['inicio'], $FECHA['fin'], $WHERE);
 
     // $count = $count['numfilas'];
     if ($count > 0) {
@@ -201,7 +201,7 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
     
         //llena en al array
     $lista = array();
-    $lista = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $FECHA['inicio'], $FECHA['fin'], $WHERE, $start, $limit, $sidx, $sord);
+    $lista = $dao_plame->listarTrabajadoresPorPeriodo_global_grid(ID_EMPLEADOR_MAESTRO, $FECHA['inicio'], $FECHA['fin'], $WHERE, $start, $limit, $sidx, $sord);
 
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {

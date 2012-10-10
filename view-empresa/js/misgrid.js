@@ -374,12 +374,12 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 								
 				//---------
 							
-				if(data=='true'){
-					//cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
+				if(data){
+					cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
 					alert("Se registro correctamente el Periodo");
 					javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
-				}else if(data =='false'){
-					alert("Periodo ya se encuentra Registrado!\nO no existe ningun trabajador en el periodo: ."+input_inicio.value);
+				}else{
+					alert("Ocurrio un error.");
 				}
 				
 				
@@ -977,16 +977,18 @@ console.log("Cargandou..."+id_etapa_pago);
 	//---- new 06/09/2012
 function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 	crearDialogoMasOp();
-	
+
+   $('#dialog_editarPagoMasOP').dialog('open');
+
    $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/edit_mas_opciones.php",
    data: {id_pdeclaracion : id_pdeclaracion, id_etapa_pago : id_etapa_pago},
    async:true,
    success: function(datos){
-    $('#dialog_editarPagoMasOP').html(datos);
+    $('#data_editarPagoMasOP').html(datos);
     
-    $('#dialog_editarPagoMasOP').dialog('open');
+    
    }
    }); 
 }
@@ -1002,9 +1004,6 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 			width: 280,
 			modal: true,                        
 			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
 				'Generar': function() {	
 				var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 				var id_etapa_pago =  document.getElementById('id_etapa_pago').value;
@@ -1023,9 +1022,13 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				url += "&cboCentroCosto="+cboCentroCosto;
 				//alert(url);
 		
-				window.location.href = url;
-				
-				}
+				window.location.href = url;				
+				},
+                'Cancelar': function() {
+                    $(this).dialog('close');
+                },
+
+
                                 
 			},			
 			open: function() {},
@@ -1561,12 +1564,7 @@ function crearDialogoPtrabajador(){
 			modal: true,
                         
 			buttons: {
-                   'Cancelar': function() {
-					$(this).dialog('close');
-				},
-				'Guardar': function() {	
-				
-
+				'Guardar': function() {
 					if(true){
 						var from_data =  $("#frmPtrabajador").serialize();
 						//alert ("from_data = "+from_data);
@@ -1585,10 +1583,14 @@ function crearDialogoPtrabajador(){
 						);	
 						//---------------------------			
 						
-					}//ENDIF
-				
-									
-				}
+					}//ENDIF		
+				},
+                'Cancelar': function() {
+                $(this).dialog('close');
+                },                
+
+
+
                                 
 			},
 			open: function() {},

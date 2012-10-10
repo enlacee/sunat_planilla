@@ -1,44 +1,12 @@
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 07951545                            DNI: 07951545                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES ELENA                                                
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
                                                  NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                             
----------------------------------------------------------------------------------------------------------------------------------------
-*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
-*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
----------------------------------------------------------------------------------------------------------------------------------------
-*   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
-*                                            *   OTROS DESCUENTOS NO DEDUCI...    95.00   *                                           *
-*                                            *   COMISION AFP 2.14%               16.05   *                                           *
-*                                            *   PRIMA DE SEGURO 1.42%            10.65   *                                           *
-*                                            *   JUBILACION SPP 10.00%            75.00   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
-*                                            *                                            *                                           *
----------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        571.70   *   TOTAL APORTACIONES              67.50   *
----------------------------------------------------------------------------------------------------------------------------------------
-
------------------------------
-* REDONDEO     :       -0.3 *
------------------------------
-* NETO A PAGAR :     178.00 *                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10389776                            DNI: 10389776                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ZAMORA MEGO MELQUIADES                                              
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/03/2003                  
-                                                 NRO.CARNET AFP : 186331MZMOO5               A.F.P. : SPP PROFUTURO                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE GREGORIO APAZA 232URB. URBANIZACIÓN SANTA LUZMILA LIMA-LIMA-COMAS   
+MES : ENERO DE : 01.2012                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                             
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -62,45 +30,73 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                   
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10285430                            DNI: 10285430                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: SOLANO CALDUA NICOLAS VICTOR                                        
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
-                                                 NRO.CARNET AFP : 247871NSCAD1               A.F.P. : SPP INTEGRA                        
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN SAN FRANCISCO MZA. F LOTE. 34 LIMA-LIMA-SAN MARTIN DE PORRES
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10389776                            DNI: 10389776                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ZAMORA MEGO MELQUIADES                                              
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/03/2003                  
+                                                 NRO.CARNET AFP : 186331MZMOO5               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE GREGORIO APAZA 232URB. URBANIZACIÓN SANTA LUZMILA LIMA-LIMA-COMAS   
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 *   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
 *                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
-*                                            *   COMISION AFP 1.74%               13.05   *                                           *
+*                                            *   COMISION AFP 2.14%               16.05   *                                           *
+*                                            *   PRIMA DE SEGURO 1.42%            10.65   *                                           *
+*                                            *   JUBILACION SPP 10.00%            75.00   *                                           *
+*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
+*                                            *                                            *                                           *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        476.70   *   TOTAL APORTACIONES              67.50   *
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+* REDONDEO     :       -0.3 *
+-----------------------------
+* NETO A PAGAR :     273.00 *                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10285430                            DNI: 10285430                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: SOLANO CALDUA NICOLAS VICTOR                                        
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 247871NSCAD1               A.F.P. : SPP INTEGRA                        
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN SAN FRANCISCO MZA. F LOTE. 34 LIMA-LIMA-SAN MARTIN DE PORRES
+---------------------------------------------------------------------------------------------------------------------------------------
+*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
+*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
+---------------------------------------------------------------------------------------------------------------------------------------
+*   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
+*                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
+*                                            *   COMISION AFP 1.80%               13.50   *                                           *
 *                                            *   PRIMA DE SEGURO 1.16%             8.70   *                                           *
 *                                            *   JUBILACION SPP 10.00%            75.00   *                                           *
 *                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
 *                                            *                                            *                                           *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        471.75   *   TOTAL APORTACIONES              67.50   *
+*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        472.20   *   TOTAL APORTACIONES              67.50   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------
-* REDONDEO     :      -0.25 *
+* REDONDEO     :        0.2 *
 -----------------------------
 * NETO A PAGAR :     278.00 *                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 09886536                            DNI: 09886536                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ZAMORA MEGO OLEGARIO                                                
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
                                                  NRO.CARNET AFP : 562651OZM009               A.F.P. : SPP PROFUTURO                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN LOS JAZMINES DE NARA MZA. K1 LOTE. 10 LIMA-LIMA-SAN MARTIN DE PORRES
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN LOS JAZMINES DE NARA MZA. K1 LOTE. 10 LIMA-LIMA-SAN MARTIN DE PORRES
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -124,14 +120,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                   
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 25780120                            DNI: 25780120                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: MIRANDA YBAÑEZ SONIA MARITZA                                       
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
                                                  NRO.CARNET AFP : 572790SMYAN3               A.F.P. : SPP PRIMA                          
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : A.H. ASENTAMIENTO HUMANO GAMBETA BAJA MZA. A LOTE. 13 LIMA-LIMA-LIMA        
+MES : ENERO DE : 01.2012                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : A.H. ASENTAMIENTO HUMANO GAMBETA BAJA MZA. A LOTE. 13 LIMA-LIMA-LIMA        
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -155,14 +150,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO               
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 41801598                            DNI: 41801598                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: MEGO FERNANDEZ VICTOR RAUL                                          
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/05/2005                  
                                                  NRO.CARNET AFP : 604091VMFON4               A.F.P. : SPP PROFUTURO                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN NEVADO COROPUNA 375 LIMA-LIMA-SAN JUAN DE LURIGANCHO                
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN NEVADO COROPUNA 375 LIMA-LIMA-SAN JUAN DE LURIGANCHO                
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -186,14 +180,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                   
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 40624077                            DNI: 40624077                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CALLE JERONIMO EDWIN ALVICE                                         
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/11/2006                  
                                                  NRO.CARNET AFP : 592631ECJLO8               A.F.P. : SPP PRIMA                          
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO, CHEF                      SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : P.J. PUEBLO JOVEN JOSE BOTERIN MZA. E LOTE. 19 LIMA-LIMA-LIMA               
+MES : ENERO DE : 01.2012                         CARGO : COCINERO, CHEF                      SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : P.J. PUEBLO JOVEN JOSE BOTERIN MZA. E LOTE. 19 LIMA-LIMA-LIMA               
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -217,14 +210,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO, CHEF         
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10132707                            DNI: 10132707                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: MEGO SILVA RONAL                                                    
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/11/2006                  
                                                  NRO.CARNET AFP : 251761RMSOV7               A.F.P. : SPP HORIZONTE                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN LOS AMAPOLOS DEL PIL MZA. K LOTE. 15 LIMA-LIMA-COMAS     
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN LOS AMAPOLOS DEL PIL MZA. K LOTE. 15 LIMA-LIMA-COMAS     
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -248,14 +240,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                   
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 22862765                            DNI: 22862765                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ESPINOZA CESPEDES MERCEDES EVA                                      
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/11/2008                  
                                                                                              R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA TANTA MAYO MZA. A LOTE. 24 LIMA-LIMA-SAN MARTIN DE PORRES          
+MES : ENERO DE : 01.2012                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA TANTA MAYO MZA. A LOTE. 24 LIMA-LIMA-SAN MARTIN DE PORRES          
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -279,45 +270,43 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO               
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10285230                            DNI: 10285230                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES LIDIA JUANA                                          
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/04/2009                  
                                                  NRO.CARNET AFP : 249220LCFPR1               A.F.P. : SPP INTEGRA                        
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN SANTA MARIA MZA. E LOTE. 2 LIMA-LIMA-SAN MARTIN DE PORRES
+MES : ENERO DE : 01.2012                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN SANTA MARIA MZA. E LOTE. 2 LIMA-LIMA-SAN MARTIN DE PORRES
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 *   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
 *                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
-*                                            *   COMISION AFP 1.74%               13.05   *                                           *
+*                                            *   COMISION AFP 1.80%               13.50   *                                           *
 *                                            *   PRIMA DE SEGURO 1.16%             8.70   *                                           *
 *                                            *   JUBILACION SPP 10.00%            75.00   *                                           *
 *                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
 *                                            *                                            *                                           *
 ---------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        471.75   *   TOTAL APORTACIONES              67.50   *
+*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        472.20   *   TOTAL APORTACIONES              67.50   *
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------
-* REDONDEO     :      -0.25 *
+* REDONDEO     :        0.2 *
 -----------------------------
 * NETO A PAGAR :     278.00 *                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 07644248                            DNI: 07644248                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: GUERRA CHAUCA SANDRA ISABEL                                         
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/07/2009                  
                                                                                              R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA JOSE LEAL  1076 8 LIMA-LIMA-LINCE                                  
+MES : ENERO DE : 01.2012                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA JOSE LEAL  1076 8 LIMA-LIMA-LINCE                                  
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -341,14 +330,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO               
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 44052923                            DNI: 44052923                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: MEZA GARCIA MANUEL ALEJANDRO                                        
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/10/2009                  
                                                                                              R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN CARRILLO ALBORNOZ  MZA. B LOTE. 7 LIMA-LIMA-LIMA                    
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN CARRILLO ALBORNOZ  MZA. B LOTE. 7 LIMA-LIMA-LIMA                    
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -372,14 +360,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                   
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 42972458                            DNI: 42972458                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: SANTILLAN MELENDEZ CHRISTIAN                                        
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/09/2010                  
                                                  NRO.CARNET AFP : 598551CSMTE0               A.F.P. : SPP HORIZONTE                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN CIUDAD REAL 230URB. URBANIZACIÓN HIGUERETA LIMA-LIMA-SANTIAGO DE SURCO
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN CIUDAD REAL 230URB. URBANIZACIÓN HIGUERETA LIMA-LIMA-SANTIAGO DE SURCO
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -403,14 +390,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                   
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 40827219                            DNI: 40827219                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: NOLE  CAMUS IRIS EDITA                                              
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/09/2010                  
                                                  NRO.CARNET AFP : 595920INCEU2               A.F.P. : SPP PRIMA                          
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE FORTALEZA 263COO. COOPERATIVA ANDAHUAYLAS LIMA-LIMA-SANTA ANITA      
+MES : ENERO DE : 01.2012                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE FORTALEZA 263COO. COOPERATIVA ANDAHUAYLAS LIMA-LIMA-SANTA ANITA      
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -434,14 +420,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO               
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 46767275                            DNI: 46767275                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHAVEZ GOMEZ CRISTIAN                                               
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 11/01/2011                  
                                                                                              R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR                          SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE CAYETANO HEREDIA 661 LIMA-LIMA-JESUS MARIA                           
+MES : ENERO DE : 01.2012                         CARGO : REPARTIDOR                          SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE CAYETANO HEREDIA 661 LIMA-LIMA-JESUS MARIA                           
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -465,14 +450,13 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR             
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
-
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 45711545                            DNI: 45711545                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: NAVARRETE GUEVARA ADRIAN ALI                                        
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/09/2011                  
                                                  NRO.CARNET AFP : 625091ANGAV8               A.F.P. : SPP HORIZONTE                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR                          SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN MARISCAL CACERES MZA. I5 LOTE. 33 LIMA-LIMA-SAN JUAN DE LURIGANCHO
+MES : ENERO DE : 01.2012                         CARGO : REPARTIDOR                          SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN MARISCAL CACERES MZA. I5 LOTE. 33 LIMA-LIMA-SAN JUAN DE LURIGANCHO
 ---------------------------------------------------------------------------------------------------------------------------------------
 *        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
 *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
@@ -492,130 +476,6 @@ MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR             
 * REDONDEO     :      -0.17 *
 -----------------------------
 * NETO A PAGAR :     275.00 *                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 47707022                            DNI: 47707022                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: HUERTA CARLOS MAX JOUSTON                                           
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/05/2012                  
-                                                                                             R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR                          SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : A.H. ASENTAMIENTO HUMANO 4 DE DICIEMBRE  MZA. G LOTE. 4 LIMA-LIMA-INDEPENDENCIA
----------------------------------------------------------------------------------------------------------------------------------------
-*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
-*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
----------------------------------------------------------------------------------------------------------------------------------------
-*   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
-*                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
-*                                            *   ONP                              97.50   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
-*                                            *                                            *                                           *
----------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        472.50   *   TOTAL APORTACIONES              67.50   *
----------------------------------------------------------------------------------------------------------------------------------------
-
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
------------------------------
-* REDONDEO     :        0.5 *
------------------------------
-* NETO A PAGAR :     278.00 *                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 42616604                            DNI: 42616604                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: BUSTAMANTE MANRIQUE JOSE LUIS                                       
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/06/2012                  
-                                                 NRO.CARNET AFP : 609031JBMTR3               A.F.P. : SPP PRIMA                          
-MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR                          SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN SOL DE STA. ANITA MZA. M LOTE. 17 LIMA-LIMA-SANTA ANITA  
----------------------------------------------------------------------------------------------------------------------------------------
-*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
-*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
----------------------------------------------------------------------------------------------------------------------------------------
-*   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
-*                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
-*                                            *   COMISION AFP 1.75%               13.13   *                                           *
-*                                            *   PRIMA DE SEGURO 1.29%             9.68   *                                           *
-*                                            *   JUBILACION SPP 10.00%            75.00   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
-*                                            *                                            *                                           *
----------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        472.81   *   TOTAL APORTACIONES              67.50   *
----------------------------------------------------------------------------------------------------------------------------------------
-
------------------------------
-* REDONDEO     :      -0.19 *
------------------------------
-* NETO A PAGAR :     277.00 *                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 42070522                            DNI: 42070522                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: AQUINO ROJAS MARIBEL                                                
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/08/2012                  
-                                                                                             R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : A.H. ASENTAMIENTO HUMANO MIGUEL N. VENECIA MZA. J2 LOTE. 29 LIMA-LIMA-SAN JUAN DE LURIGANCHO
----------------------------------------------------------------------------------------------------------------------------------------
-*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
-*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
----------------------------------------------------------------------------------------------------------------------------------------
-*   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
-*                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
-*                                            *   ONP                              97.50   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
-*                                            *                                            *                                           *
----------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        472.50   *   TOTAL APORTACIONES              67.50   *
----------------------------------------------------------------------------------------------------------------------------------------
-
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
------------------------------
-* REDONDEO     :        0.5 *
------------------------------
-* NETO A PAGAR :     278.00 *                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 76608802                            DNI: 76608802                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: QUISPE FLORES JUAN DANIEL                                           
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 01/08/2012                  
-                                                                                             R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : NOVIENBRE DE : 01.2012                     CARGO : REPARTIDOR                          SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE MANUEL CISNEROS 748 20 LIMA-LIMA-LA VICTORIA                         
----------------------------------------------------------------------------------------------------------------------------------------
-*        R E M U N E R A C I O N E S         *R E T E N C I O N E S / D E S C U E N T O S *          A P O R T A C I O N E S          *
-*   DESCRIPCION                    IMPORTE   *   DESCRIPCION                    IMPORTE   *   DESCRIPCION                   IMPORTE   *
----------------------------------------------------------------------------------------------------------------------------------------
-*   SUELDO BASICO                   750.00   *   ADELANTO                        375.00   *   ESSALUD                         67.50   *
-*                                            *   OTROS DESCUENTOS NO DEDUCI...     0.00   *                                           *
-*                                            *   ONP                              97.50   *                                           *
-*                                            *   IMPTO. 5TA. CATEGORIA             0.00   *                                           *
-*                                            *                                            *                                           *
----------------------------------------------------------------------------------------------------------------------------------------
-*   TOTAL REMUNERACIONES            750.00   *   TOTAL RETENC./DESCUENTOS        472.50   *   TOTAL APORTACIONES              67.50   *
----------------------------------------------------------------------------------------------------------------------------------------
-
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
------------------------------
-* REDONDEO     :        0.5 *
------------------------------
-* NETO A PAGAR :     278.00 *                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
 

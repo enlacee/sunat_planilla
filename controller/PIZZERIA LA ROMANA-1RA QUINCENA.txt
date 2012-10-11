@@ -1,8 +1,8 @@
 
-CAMUENTE S.A.                                       FECHA : 15/08/2012
+CAMUENTE S.A.                                       FECHA : 28/09/2012
                                                               PAGINA :- -
                                   1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2012                       
+                    PLANILLA DEL MES DE SEPTIEMBRE DEL 2012                     
 
 LOCALIDAD : SAN ISIDRO
 
@@ -13,13 +13,13 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    375.00   _______________
+  1 07951545    CHIPANA FLORES ELENA                    225.00   _______________
 
-  2 10389776    ZAMORA MEGO MELQUIADES                  375.00   _______________
+  2 10389776    ZAMORA MEGO MELQUIADES                  225.00   _______________
 
-  3 10285430    SOLANO CALDUA NICOLAS VICTOR            375.00   _______________
+  3 10285430    SOLANO CALDUA NICOLAS VICTOR            225.00   _______________
 
-  4 09886536    ZAMORA MEGO OLEGARIO                    375.00   _______________
+  4 09886536    ZAMORA MEGO OLEGARIO                    225.00   _______________
 
   5 25780120    MIRANDA YBAÑEZ SONIA MARITZA           375.00   _______________
 
@@ -45,8 +45,16 @@ CENTRO DE COSTO : VENTAS
 
  16 45711545    NAVARRETE GUEVARA ADRIAN ALI            375.00   _______________
 
+ 17 47707022    HUERTA CARLOS MAX JOUSTON               375.00   _______________
+
+ 18 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           375.00   _______________
+
+ 19 42070522    AQUINO ROJAS MARIBEL                    375.00   _______________
+
+ 20 76608802    QUISPE FLORES JUAN DANIEL               375.00   _______________
+
 --------------------------------------------------------------------------------
-TOTAL VENTAS SAN ISIDRO                                 6,028.00
+TOTAL VENTAS SAN ISIDRO                                 6,928.00
 --------------------------------------------------------------------------------
 
 

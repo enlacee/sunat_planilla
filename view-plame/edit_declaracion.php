@@ -80,11 +80,11 @@ $.ajax({
 	dataType: "json",
 	contentType: "application/x-www-form-urlencoded",
 	url:"sunat_planilla/controller/PlameDeclaracionController.php",
-	data:{oper:'baja', id_pdeclaracion : $id_pdeclaracion },
+	data:{oper:'baja-cerrar_mes', id_pdeclaracion : $id_pdeclaracion },
 	success:function(data){
     console.log(data);
-		if(data==true){
-			alert("Mes fue Cerrado Correctamente");
+		if(data.estado){
+			alert("Mes fue Cerrado Correctamente\n"+data.mensaje);
 			cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')			
 			
 		}else{

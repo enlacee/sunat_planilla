@@ -58,7 +58,8 @@ class RegistroConceptoEDao extends AbstractDao {
 
     // -- funcion lista trabajadores por concepto para realizar calculo segun
     // corresponda. usando 04/10/2012 ONLY EN DAO...
-    // SOLO USADO EN CONTROLLER calc.
+    // SOLO USADO EN CONTROLLER calc. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     function buscar_RPC_PorTrabajador($id_trabajador, $cod_detalle_concepto, $estado = 1) {
         
         if (is_array($cod_detalle_concepto) && count($cod_detalle_concepto) >= 1) {

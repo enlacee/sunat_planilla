@@ -385,6 +385,68 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         return $lista;
     }
 
+    
+    //-------
+    // Funcion util para listar codigo detalle  de conceptos seleccionados 10/09/2012
+    // 0200 = 201,202,203
+    // 0100 = 101,102,103
+       public function view_listarCod_Concepto($id_empleador_maestro, $cod_concepto, $seleccionado) {
+
+        if (is_array($cod_concepto) && count($cod_concepto) >= 1) {
+            $sql = " ";
+            for ($i = 0; $i < count($cod_concepto); $i++) {
+                $sql .= $cod_concepto[$i];
+                if ($i == (count($cod_concepto)) - 1) {
+                    //null                    
+                } else {
+                    $sql .= ",";
+                }
+            }
+        }else{
+            $sql = $cod_concepto;
+        }
+        
+        if(is_array($seleccionado)&& count($seleccionado) >= 1 ){
+           $sql_seleccionado = " ";
+            for ($i = 0; $i < count($seleccionado); $i++) {
+                $sql_seleccionado .= $seleccionado[$i];
+                if ($i == (count($seleccionado)) - 1) {
+                    //null                    
+                } else {
+                    $sql_seleccionado .= ",";
+                }
+            } 
+        }else{
+            $sql_seleccionado = $seleccionado;
+        }
+        $query = "
+        SELECT
+          -- dce.id_detalle_concepto_empleador_maestro,          
+          dce.cod_detalle_concepto
+          -- dce.seleccionado,          
+          -- dc.descripcion,
+          -- c.cod_concepto  
+        FROM detalles_conceptos_empleadores_maestros AS dce
+        INNER JOIN detalles_conceptos AS dc
+        ON dce.cod_detalle_concepto = dc.cod_detalle_concepto
+        INNER JOIN conceptos AS c
+        ON dc.cod_concepto = c.cod_concepto
+
+        WHERE (dce.id_empleador_maestro = 1)
+        AND c.cod_concepto IN ($sql) 
+        AND dce.seleccionado IN ($sql_seleccionado)      
+        
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);  
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+    
+    
 }
 
 ?>

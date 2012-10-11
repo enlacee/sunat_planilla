@@ -14,7 +14,6 @@ $tipo_concepto = $_REQUEST['tipo_concepto'];
     <input name="oper" type="text" id="oper" value="add" size="10" />
     <br />
     cod_detalle_concepto
-<label for="cod_detalle_concepto"></label>
     <input type="text" name="cod_detalle_concepto" id="cod_detalle_concepto"
      value="<?php echo $cod_detalle_concepto; ?>"  />
     <br />

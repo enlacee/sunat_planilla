@@ -20,9 +20,19 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
         $( "#tabs").tabs();
 		
 	});
-	var cod_detalle_concepto = document.getElementById('cod_detalle_concepto').value;
-	cargarTablaRPC(cod_detalle_concepto);
 	
+	
+	var cod_detalle_concepto = document.getElementById('cod_detalle_concepto').value;
+	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	//---------------- inicio --------------//
+	
+		
+	cargarTablaRPC(cod_detalle_concepto,id_pdeclaracion);
+	
+	cargar_tabla_rpc_buscar(id_pdeclaracion);
+	
+	
+	//---------------- inicio --------------//
 	function validarGrid_RPC(value, colname) {
 		console.log("value = "+ value);
 		console.log("colname = "+ colname);
@@ -180,10 +190,10 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 
 	
 	
-    function cargarTablaRPC(cod_detalle_concepto){
+    function cargarTablaRPC(cod_detalle_concepto,id_pdeclaracion){
 
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/RegistroPorConceptoController.php?oper=cargar_tabla&cod_detalle_concepto='+cod_detalle_concepto,
+            url:'sunat_planilla/controller/RegistroPorConceptoController.php?oper=cargar_tabla&cod_detalle_concepto='+cod_detalle_concepto+'&id_pdeclaracion='+id_pdeclaracion,
             datatype: 'json',
             colNames:['','Id','Tipo Doc','N. Doc','A.Paterno','A.Materno','Nombres','Valor','Activo'],
             colModel :[
@@ -286,9 +296,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
             //hiddengrid: false,
 			//jsonReader: {
 			//repeatitems : false
-			//},
-
-			
+			//},			
         });
 		
 	
@@ -299,6 +307,196 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 	
     }
 
+	
+	//-------------------------------------------------------------------------------
+	
+	
+//--
+// Funcion para lista de trabajadores :: Mes 01/01/2012 a 31/01/2012
+function cargar_tabla_rpc_buscar(id_pdeclaracion){
+	
+	//var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+		//console.log("mensaje grid");
+		//console.log(id_pdeclaracion);
+		
+
+        //$("#list-buscar").jqGrid('GridUnload');
+        $("#list-buscar").jqGrid({
+            url:'sunat_planilla/controller/EtapaPagoController.php?oper=trabajador_por_mes&id_pdeclaracion='+id_pdeclaracion,
+            datatype: 'json',
+            colNames:['Id','tipo_doc','Numero Doc','APaterno',
+                'AMaterno', 'Nombres','F inicio','F fin', 'Opciones'],
+            colModel :[
+                {
+                    name:'id_trabajador', 
+                    editable:false, 
+                    index:'id_trabajador',
+                    search:false,
+                    width:20,
+                    align:'center'
+                },      
+                {
+                    name:'cod_tipo_documento',
+                    index:'cod_tipo_documento',
+                    search:false, 
+                    editable:false,
+                    width:30, 
+                    align:'center' 
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    editable:false,
+                    width:100,
+                    align:'left',
+					cellattr: function(rowId, value, rowObject, colModel, arrData) {
+						return ' colspan=4';
+					},
+                    formatter : function(value, options, rData){4
+                    	return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
+
+
+                },
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:80,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:90,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+                },
+                {
+                    name:'nombres', 
+                    index:'nombres',
+                    editable:false,
+                    width:90,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+                },
+                {
+                    name:'fecha_inicio', 
+                    index:'fecha_inicio',
+                    editable:false,
+                    search:false,
+					hideen:true,
+                    width:90,
+                    align:'center'
+                },
+                 {
+                    name:'fecha_fin', 
+                    index:'fecha_fin',
+                    editable:false,
+                    search:false,
+                    width:90,
+                    align:'center'
+                },
+                 {
+                    name:'opciones', 
+                    index:'opciones',
+                    editable:false,
+                    search:false,
+                    width:90,
+                    align:'center'
+                },				
+
+            ],
+            pager: '#pager-buscar',
+            rownumbers: true,
+            //height:320,
+            rowNum:10,
+            rowList:[10,20],
+            sortname: 'id_trabajador',
+            sortorder: 'asc',
+            viewrecords: true,
+            gridview: true,
+            //caption: 'list',
+            //toolbar: [true,"top"],
+            multiselect: false,
+            hiddengrid: false,
+        });
+		
+     //--- PIE GRID
+	jQuery("#list-buscar").jqGrid('navGrid','#pager-buscar',{add:false,edit:false,del:false,search:true});
+	//---------
+		
+		
+
+
+}
+//--	
+	
+	
+//---------------------------------------------------------------------------------------	
+// function Agreagar()
+
+function agregarTrabajador_rpc(id_trabajador){
+	
+	var estado =confirm('Realmente quiere agregar al Trabajador');
+	
+	//console.log(estado);
+	
+	if(estado){
+	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	var cod_detalle_concepto = document.getElementById('cod_detalle_concepto').value;
+	
+	//ajax (Preguntar si ya existe trabajador.)
+	$.ajax({
+	type: "POST",
+	dataType:'json',
+	url: "sunat_planilla/controller/RegistroPorConceptoController.php",
+	data: {
+		 oper : 'add',
+		 id_pdeclaracion : id_pdeclaracion,
+		 cod_detalle_concepto : cod_detalle_concepto,
+		 id_trabajador : id_trabajador
+		 },
+	async:true,	
+	success: function(data){		
+		if(data.estado){
+			
+			alert("Se Guardo correctamente.");
+			//$("#list").jqGrid('GridUnload');
+			jQuery("#list").trigger("reloadGrid");
+			
+		}else{
+			alert(data.mensaje);
+		}
+		
+			
+	
+	}
+	}); 
+   //---	
+	}
+	
+
+	
+}
+
+
+//-------------
+$("#nuevo_trabajador").click(function(){
+	console.log("click");
+
+$("#trabajador").fadeToggle("slow", "linear");
+				
+
+});	
 	
 </script>
 
@@ -315,46 +513,39 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 </h2>
 <p>
 
+
+
+
   <!--I.Buscador-->
-<div class="ocultar">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="trabajador" class="trabajador" style="display:none">
+<div class="ocultar">id_pdeclaracion :
+  <label for="id_pdeclaracion"></label>
+  <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+  value="<?php echo $_REQUEST['id_pdeclaracion'] ?>" />
+  <br />
+  cod_detalle_concepto
+  <input type="text" name="cod_detalle_concepto" id="cod_detalle_concepto"
+     value="<?php echo $cod_detalle_concepto; ?>"  />
+  <br /> 
+</div>
+<h3>  
+  Lista de Trabajadores activos: por Declaracion o mes  
+</h3>
 <table id="list-buscar">
 </table>
-<div id="pager-buscar"></div>  
-
-<a href="#">link ver</a></p>
+<div id="pager-buscar"></div> 
 </div>
-<!--F.Buscador-->
+<a href="#" id="nuevo_trabajador" class="red">Agregar Nuevo</a></p>
 
-<p>
-  oper
-  <input type="text" name="oper" id="oper" value="add" />
-  <br />
-cod_detalle_concepto
-<label for="cod_detalle_concepto"></label>
-  <input type="text" name="cod_detalle_concepto" id="cod_detalle_concepto" 
-  value="<?php echo $cod_detalle_concepto; ?>" />
-</p>
-<p>Registrar
-  <input name="addNuevoRPC" type="button" value="nuevo rpc" onclick="newRPC('<?php echo $cod_detalle_concepto;?>')" />
-  
-  
-</p>
+
+
+
+
+
+
+<!--F.Buscador-->
 <table id="list">
 </table>
 <div id="pager"></div>  

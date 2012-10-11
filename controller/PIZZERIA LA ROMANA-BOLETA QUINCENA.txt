@@ -4,15 +4,15 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:CHIPANA FLORES ELENA                      NOMBRES:CHIPANA FLORES ELENA
 
-SUELDO: 375.00                                    SUELDO:   375.00
+SUELDO: 225.00                                    SUELDO:   225.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -42,15 +42,15 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:ZAMORA MEGO MELQUIADES                    NOMBRES:ZAMORA MEGO MELQUIADES
 
-SUELDO: 375.00                                    SUELDO:   375.00
+SUELDO: 225.00                                    SUELDO:   225.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -80,15 +80,15 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:SOLANO CALDUA NICOLAS VICTOR              NOMBRES:SOLANO CALDUA NICOLAS VICTOR
 
-SUELDO: 375.00                                    SUELDO:   375.00
+SUELDO: 225.00                                    SUELDO:   225.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -118,15 +118,15 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:ZAMORA MEGO OLEGARIO                      NOMBRES:ZAMORA MEGO OLEGARIO
 
-SUELDO: 375.00                                    SUELDO:   375.00
+SUELDO: 225.00                                    SUELDO:   225.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -156,7 +156,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:MIRANDA YBAÑEZ SONIA MARITZA             NOMBRES:MIRANDA YBAÑEZ SONIA MARITZA
 
@@ -164,7 +164,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -194,7 +194,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:MEGO FERNANDEZ VICTOR RAUL                NOMBRES:MEGO FERNANDEZ VICTOR RAUL
 
@@ -202,7 +202,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -232,7 +232,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:CALLE JERONIMO EDWIN ALVICE               NOMBRES:CALLE JERONIMO EDWIN ALVICE
 
@@ -240,7 +240,7 @@ SUELDO: 403.00                                    SUELDO:   403.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -270,7 +270,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:MEGO SILVA RONAL                          NOMBRES:MEGO SILVA RONAL
 
@@ -278,7 +278,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -308,7 +308,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:ESPINOZA CESPEDES MERCEDES EVA            NOMBRES:ESPINOZA CESPEDES MERCEDES EVA
 
@@ -316,7 +316,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -346,7 +346,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:CHIPANA FLORES LIDIA JUANA                NOMBRES:CHIPANA FLORES LIDIA JUANA
 
@@ -354,7 +354,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -384,7 +384,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:GUERRA CHAUCA SANDRA ISABEL               NOMBRES:GUERRA CHAUCA SANDRA ISABEL
 
@@ -392,7 +392,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -422,7 +422,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:MEZA GARCIA MANUEL ALEJANDRO              NOMBRES:MEZA GARCIA MANUEL ALEJANDRO
 
@@ -430,7 +430,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -460,7 +460,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:SANTILLAN MELENDEZ CHRISTIAN              NOMBRES:SANTILLAN MELENDEZ CHRISTIAN
 
@@ -468,7 +468,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -498,7 +498,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:NOLE  CAMUS IRIS EDITA                    NOMBRES:NOLE  CAMUS IRIS EDITA
 
@@ -506,7 +506,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -536,7 +536,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:CHAVEZ GOMEZ CRISTIAN                     NOMBRES:CHAVEZ GOMEZ CRISTIAN
 
@@ -544,7 +544,7 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
@@ -574,7 +574,7 @@ CAMUENTE S.A.                                     CAMUENTE S.A.
          * * * * * *                                       * * * * * *
 
 ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2012                          Al MES DE ENERO DEL 2012
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
 
 NOMBRES:NAVARRETE GUEVARA ADRIAN ALI              NOMBRES:NAVARRETE GUEVARA ADRIAN ALI
 
@@ -582,7 +582,159 @@ SUELDO: 375.00                                    SUELDO:   375.00
 
 N. CTA:  -  -                                     N. CTA:     -  -
 
-FECHA: 09/10/2012                                 FECHA: 09/10/2012
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
+
+
+
+
+
+
+
+
+
+_______________               _______________     _______________               _______________
+      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
+                              DNI                                               DNI
+
+
+
+
+
+
+
+
+
+
+
+CAMUENTE S.A.                                     CAMUENTE S.A.
+
+         R E C I B O                                       R E C I B O
+         * * * * * *                                       * * * * * *
+
+ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
+
+NOMBRES:HUERTA CARLOS MAX JOUSTON                 NOMBRES:HUERTA CARLOS MAX JOUSTON
+
+SUELDO: 375.00                                    SUELDO:   375.00
+
+N. CTA:  -  -                                     N. CTA:     -  -
+
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
+
+
+
+
+
+
+
+
+
+_______________               _______________     _______________               _______________
+      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
+                              DNI                                               DNI
+
+
+
+
+
+
+
+
+
+
+
+CAMUENTE S.A.                                     CAMUENTE S.A.
+
+         R E C I B O                                       R E C I B O
+         * * * * * *                                       * * * * * *
+
+ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
+
+NOMBRES:BUSTAMANTE MANRIQUE JOSE LUIS             NOMBRES:BUSTAMANTE MANRIQUE JOSE LUIS
+
+SUELDO: 375.00                                    SUELDO:   375.00
+
+N. CTA:  -  -                                     N. CTA:     -  -
+
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
+
+
+
+
+
+
+
+
+
+_______________               _______________     _______________               _______________
+      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
+                              DNI                                               DNI
+
+
+
+
+
+
+
+
+
+
+
+CAMUENTE S.A.                                     CAMUENTE S.A.
+
+         R E C I B O                                       R E C I B O
+         * * * * * *                                       * * * * * *
+
+ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
+
+NOMBRES:AQUINO ROJAS MARIBEL                      NOMBRES:AQUINO ROJAS MARIBEL
+
+SUELDO: 375.00                                    SUELDO:   375.00
+
+N. CTA:  -  -                                     N. CTA:     -  -
+
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
+
+
+
+
+
+
+
+
+
+_______________               _______________     _______________               _______________
+      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
+                              DNI                                               DNI
+
+
+
+
+
+
+
+
+
+
+
+CAMUENTE S.A.                                     CAMUENTE S.A.
+
+         R E C I B O                                       R E C I B O
+         * * * * * *                                       * * * * * *
+
+ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE SEPTIEMBRE DEL 2012                     Al MES DE SEPTIEMBRE DEL 2012
+
+NOMBRES:QUISPE FLORES JUAN DANIEL                 NOMBRES:QUISPE FLORES JUAN DANIEL
+
+SUELDO: 375.00                                    SUELDO:   375.00
+
+N. CTA:  -  -                                     N. CTA:     -  -
+
+FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 

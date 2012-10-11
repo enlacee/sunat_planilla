@@ -48,7 +48,8 @@ if($premunerativo == 2){ //quincena 2
 	
 	var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
 	var id_declaracion = document.getElementById('id_declaracion').value;
-cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion);
+	
+	cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion);
     //--------------------------
 	
     function atrasEtapa02(){

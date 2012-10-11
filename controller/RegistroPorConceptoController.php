@@ -3,6 +3,7 @@
 $op = $_REQUEST["oper"];
 if ($op) {
     session_start();
+    require_once '../util/funciones.php';
     require_once '../dao/AbstractDao.php';
     require_once '../dao/RegistroPorConceptoDao.php';
     require_once '../model/RegistroPorConcepto.php';
@@ -27,41 +28,35 @@ if ($op == "add") {
 echo (!empty($response)) ? json_encode($response) : '';
 
 function registrarRPC() {
-    //???
+    
     $rpta->estado = "default";
     // 01 
-    $num_documento = $_REQUEST['num_documento'];
-    $cod_tipo_documento = $_REQUEST['tipoDoc'];
+    //echoo($_REQUEST);
     $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
-    /**
-     * Retornar ID_TRABAJADOR OK.  
-     */
-    //echo "\nID_EMPLEADOR =".ID_EMPLEADOR;
-    //echo "\nnum_documento = ".$num_documento;
-    //echo "\ncod_tipo_documento = ".$cod_tipo_documento;
-    
-    $dao_tra = new TrabajadorDao();
-    $data = $dao_tra->buscarTrabajador($num_documento, $cod_tipo_documento,ID_EMPLEADOR);
-    
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $id_trabajador = $_REQUEST['id_trabajador'];
 
-    if (isset($data['id_trabajador'])) {
+    if (isset($id_trabajador)) {
 
         /**
          * Pregunta si esta registrado en  :: registros_por_conceptos
          * verifica. No hay Duplicado.
          */
         $dao = new RegistroPorConceptoDao();
-        $datax = $dao->buscar_ID_trabajador($data['id_trabajador'], $cod_detalle_concepto);
+        $datax = $dao->buscar_ID_trabajador($id_trabajador,$id_pdeclaracion ,$cod_detalle_concepto);
         
 
         if (is_null($datax['id_registro_por_concepto'])) {
 
             $model = new RegistroPorConcepto();
+            $model->setId_pdeclaracion($id_pdeclaracion);
             $model->setCod_detalle_concepto($cod_detalle_concepto);
-            $model->setId_trabajador($data['id_trabajador']);
+            $model->setId_trabajador($id_trabajador);
             $model->setFecha_creacion(date("Y-m-d  H:i:s"));
-
-            //$dao = new RegistroPorConceptoDao();
+           
+            //echo "\nADD\n";
+            //echoo($model);
+            //$rpta->estado =true;
             $rpta->estado = $dao->add($model);
             
         } else if (isset($datax['id_registro_por_concepto'])) {
@@ -79,11 +74,12 @@ function registrarRPC() {
     }
     //var_dump( $rpta);    
     //echo "=".$rpta;
-    return $rpta;//($rpta == true) ? "true" : "false";
+    return $rpta;
 }
 
 function listarRPC() {
     $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
 
     $dao = new RegistroPorConceptoDao();
 
@@ -113,11 +109,7 @@ function listarRPC() {
     if (!$sidx)
         $sidx = 1;
 
-    $lista = array();
-
-    $lista = $dao->listar2($cod_detalle_concepto,ID_EMPLEADOR);
-
-    $count = count($lista);
+    $count = $dao->listar2_count($cod_detalle_concepto, $id_pdeclaracion, $WHERE);
 
     // $count = $count['numfilas'];
     if ($count > 0) {
@@ -141,6 +133,9 @@ function listarRPC() {
     $response->records = $count;
     $i = 0;
 
+    $lista = array();
+    $lista = $dao->listar2( $cod_detalle_concepto,$id_pdeclaracion,$WHERE, $start, $limit, $sidx, $sord);
+    
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
         return $response;

@@ -240,7 +240,7 @@ function calcularSegudaQuincena($ID_PDECLARACION, $ids_REQUEST) {
         $id_etapa_pago = $dao->registrar($model);
     }
     //--------------------------------
-    return registrar_15($id_etapa_pago, $id_etapa_pago_antes, $FECHA['inicio'], $FECHA['fin'], $ids_REQUEST);
+    return registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FECHA['inicio'], $FECHA['fin'], $ids_REQUEST);
 }
 
 function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
@@ -438,7 +438,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
             //Asignacion familiar
             ECHO "ASIGNACION FAMILIAR";
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C201);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C201);
             ECHO "\nID_TRABAJADOR[$i] = " . $ID_TRABAJADOR[$i];
             ECHO "id_trabajador_pdeclaracion = $id_trabajador_pdeclaracion     ";
             echo "ASIGNACION FAMILIAR";
@@ -463,21 +463,21 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
             //Otra utilidades
             // ESSALUD_MAS
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C604);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C604);
             if (intval($data_val['valor']) == 1) {
                 concepto_0604($id_trabajador_pdeclaracion);
             }
 
             //ASEGURA PENSION_MAS
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C612);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C612);
             if (intval($data_val['valor']) == 1) {
                 concepto_0612($id_trabajador_pdeclaracion);
             }
             //-----------------------------------------------------------
             // 0105 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 25%
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C105);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C105);
             if (isset($data_val['valor'])) {
                 concepto_0105($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
             }
@@ -485,7 +485,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
             // 0106 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 35%
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C106);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C106);
             if (isset($data_val['valor'])) {
                 concepto_0106($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
             }
@@ -493,14 +493,14 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
             // 0107 = TRABAJO EN DÍA FERIADO O DÍA DE DESCANSO
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C107);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C107);
             if (isset($data_val['valor'])) {
                 concepto_0107($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
             }
 
             // 0115 = REMUNERACIÓN DÍA DE DESCANSO Y FERIADOS (INCLUIDA LA DEL 1° DE MAYO)
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C115);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C115);
             $estado = intval($data_val['valor']);
 
             echo "ESTADO*-*-*-*-*-*-*--*-- =[" . $estado . "]*-*-*-*-*-*-*--*--";
@@ -512,7 +512,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
             // 0304 = BONIFICACIÓN POR RIESGO DE CAJA
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C304);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C304);
 
             if (isset($data_val['valor'])) {
                 concepto_0304($id_trabajador_pdeclaracion, $data_val['valor']);
@@ -521,7 +521,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
             // 0703 = DESCUENTO AUTORIZADO U ORDENADO POR MANDATO JUDICIAL
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C703);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C703);
             if (isset($data_val['valor'])) {
                 concepto_0703($id_trabajador_pdeclaracion, $data_val['valor']);
             }
@@ -529,14 +529,14 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
             // 0704 = TARDANZAS
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C704);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C704);
             if (isset($data_val['valor'])) {
                 concepto_0704($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
             }
 
             // 0705 = INASISTENCIAS
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C705);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C705);
             if (isset($data_val['valor'])) {
                 concepto_0705($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
             }
@@ -544,7 +544,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION) {
 
             // 0909 = MOVILIDAD SUPEDITADA A ASISTENCIA Y QUE CUBRE SÓLO EL TRASLADO
             $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_TRABAJADOR[$i], C909);
+            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION,$ID_TRABAJADOR[$i], C909);
             if (isset($data_val['valor'])) {
                 concepto_0909($id_trabajador_pdeclaracion, $data_val['valor']);
             }
@@ -2053,7 +2053,8 @@ function generarBoletaTxt($id_pdeclaracion) {
                         fwrite($fpx, $LINEA);
                         fwrite($fpx, $BREAK);
                         // .......................final Cabecera  $fpx ........                        
-
+                        
+                        $contador_break = 0;
                         for ($k = 0; $k < count($data_tra); $k++) {
 
 
@@ -2185,8 +2186,19 @@ function generarBoletaTxt($id_pdeclaracion) {
 
                             fwrite($fp, $BREAK);
 
+
                             $neto_pagar = generarBotletaTabla($fp, $data_tra[$k]['id_trabajador_pdeclaracion'], $data_tra[$k]['cod_regimen_pensionario'], $data_pd['periodo'], $BREAK, $BREAK2);
 
+                            //++
+                            $contador_break = $contador_break + 1;
+                            if($contador_break == 2){                               
+                                fwrite($fp,chr(12));
+                                //fwrite($fp,"-ANB-");
+                                $contador_break =0;
+                            }
+                            //++                            
+                            
+                            
                             // Generar Boleta...
                             $data = array();
                             $data = $data_tra[$k];
@@ -2258,7 +2270,7 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
 
     $LINEA = str_repeat('-', 135);
     $VACIO = str_repeat('Í', 135);
-    $PUNTO = "*";
+    $PUNTO = "|";
     $BORDE_R = str_pad('', 3, " ", STR_PAD_RIGHT); // $BORDER
     $BORDE_L = str_pad('', 3, " ", STR_PAD_LEFT); // $BORDER
     fwrite($fp, $LINEA);
@@ -2660,13 +2672,11 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
 
         $dao_ddc = new DeclaracionDconceptoDao();
         //$xd = 0;
+        
         for ($k = 0; $k < count($data_tra); $k++) {
-            /* $xd = $xd + $k;
-              if ($xd == 47):
-              fwrite($fp, $BREAK2 . $BREAK2);
-              helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2,$PUNTO);
-              $xd = 0;
-              endif; */
+            
+            
+
             //..............................................................................
             $cod_conceptos_ingresos = array('100', '200', '300', '400', '500', '900');
 
@@ -2677,8 +2687,6 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
             //conceptos calculados base
             $calc = array();
             $calc = $dao_ddc->buscar_ID_TrabajadorPdeclaracion_3($data_tra[$k]['id_trabajador_pdeclaracion']);
-
-
 
 
             //-------------------------------- I PINTANDO LINEA --------------------------------//        

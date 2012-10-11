@@ -836,7 +836,7 @@ class TrabajadorDao extends AbstractDao {
 // Categoria = 5
 //------------------------------------------------------------------------------
 
-// new 03/09/2012
+// new 03/09/2012 _fuck utilizado en RegistroE _>eliminar!!! DELETE
     function buscarTrabajador($num_documento, $cod_tipo_documento,$id_empleador) {
         
         $query ="
@@ -847,7 +847,8 @@ class TrabajadorDao extends AbstractDao {
         INNER JOIN trabajadores AS t
         ON p.id_persona = t.id_persona
 
-        WHERE (p.num_documento = ? AND p.cod_tipo_documento = ?)
+        WHERE (p.num_documento = ? )
+        AND p.cod_tipo_documento = ?
         AND p.id_empleador = ?
         
         AND t.cod_situacion = 1
@@ -862,6 +863,8 @@ class TrabajadorDao extends AbstractDao {
         $data = $stm->fetchAll();
         return $data[0];
     }
+    
+    
 
 }
 

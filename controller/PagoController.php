@@ -647,6 +647,8 @@ function generarRecibo15() {
 function generarRecibo15_txt() {
     // id de trabajador a generar recibo x quincena.
     //null
+    //echoo($_REQUEST);
+    
     $ids = $_REQUEST['ids'];
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $id_etapa_pago = $_REQUEST['id_etapa_pago'];

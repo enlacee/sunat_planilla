@@ -14,11 +14,14 @@ require_once('../view/ide.php');
 	cargarTablaConceptosRPC();
 	
 	
+	
+	
+	
     function cargarTablaConceptosRPC(){
-
+		var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PlameConceptoController.php?oper=cargar_registro_por_concepto',
+            url:'sunat_planilla/controller/PlameConceptoController.php?oper=cargar_registro_por_concepto&id_pdeclaracion='+id_pdeclaracion,
             datatype: 'json',
             colNames:['Id','Codigo','Concepto','Opciones'],
             colModel :[
@@ -91,13 +94,19 @@ require_once('../view/ide.php');
 
         </ul>
         <div id="tabs-1">
-        
-Lista de conceptos utilizados        
-<table id="list">
-</table>
+        id_pdeclaracion :
+  <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+           value="<?php echo $_REQUEST['id_declaracion']; ?>" />
+          <br />
+ <h3>         
+          Lista de conceptos utilizados
+          
+        </h3>
+        <table id="list">
+        </table>
 <div id="pager"></div>        
         
-        </div>
+      </div>
 </div>
 
 </div>

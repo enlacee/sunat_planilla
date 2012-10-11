@@ -40,6 +40,11 @@ $response = NULL;
 
 if ($op == "trabajador_por_etapa") {
     $response = listarTrabajadoresPorEtapa();
+}else if($op == "trabajador_por_mes"){
+    // Re-comentado
+    //      lista de trabajadores dentro del mes:
+    $response = listar_15_Mes();
+
 } else if ($op == "registrar_etapa") {
 
     $response = registrarTrabajadoresPorEtapa();
@@ -114,7 +119,7 @@ function registrarTrabajadoresPorEtapa() {
                 $id_etapa_pago = $dao->registrar($model);
             }
             //--------------------------------
-            registrar_15($id_etapa_pago, null, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
+            registrar_15($ID_DECLARACION,$id_etapa_pago, null, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
         } else {
             echo "UN CASO INCONTROLABLE QUINCENA! En tabla Etapa de PAGO";
         }
@@ -283,7 +288,139 @@ function listar_15($tipo, $ID_DECLARACION, $COD_PERIODO_REMUNERACION) {
     return $response;
 }
 
-function registrar_15($id_etapa_pago, $id_etapa_pago_antes, $FECHA_INICIO, $FECHA_FIN, $ids) {
+
+
+
+// GRID personal por mes = similar a listar_15()
+function listar_15_Mes() {
+    
+    //========================================================================//
+    //echoo($_REQUEST);
+    $ID_DECLARACION = $_REQUEST['id_pdeclaracion'];
+    
+    $dao = new PlameDeclaracionDao();
+    $data_d = $dao->buscar_ID($ID_DECLARACION);
+    //echoo($data_d);
+    //id_pdeclaracion
+    
+    
+    $FECHA = array();
+    $FECHA = getFechasDePago($data_d['periodo']);
+    
+    //echoo($FECHA);
+
+    //$FECHA['first_day'];
+    //$FECHA['last_day'];
+
+    $dao_plame = new PlameDao();
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
+    $sord = $_GET['sord']; // get the direction
+    $WHERE = "";
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $count = $dao_plame->listarTrabajadoresPorPeriodo_global_grid_Mes_Count(ID_EMPLEADOR_MAESTRO, $FECHA['first_day'], $FECHA['last_day'], $WHERE);
+
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); 
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; 
+    //valida
+    if ($start < 0)
+        $start = 0;
+    //$dao_plame->actualizarStock();
+// CONTRUYENDO un JSON
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+
+
+    $i = 0;
+    
+        //llena en al array
+    $lista = array();
+    $lista = $dao_plame->listarTrabajadoresPorPeriodo_global_grid_Mes(ID_EMPLEADOR_MAESTRO, $FECHA['first_day'], $FECHA['last_day'], $WHERE, $start, $limit, $sidx, $sord);
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return null;
+    }
+    foreach ($lista as $rec) {
+        //echo "enntro en for each   ".$rec['id_trabajador'];
+        $param = $rec["id_trabajador"];
+        $_01 = $rec["cod_tipo_documento"];
+        $_02 = $rec["num_documento"];
+        $_03 = $rec["apellido_paterno"];
+        $_04 = $rec["apellido_materno"];
+        $_05 = $rec["nombres"];
+        $_06 = $rec["fecha_inicio"];
+        $_07 = $rec["fecha_fin"];
+        // function = agregarTrabajador_rpc(id_pdeclaracion, id_trabajador, cod_detalle_concepto);
+        // 
+        //$js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
+        $js = "javascript:agregarTrabajador_rpc('" . $param . "')";
+        $opciones = '<div class="red">
+          <span  title="Editar" >
+          <a href="' . $js . '">seleccionar</a>
+          </span>
+          </div>';;
+
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            $_01,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $_06,
+            $_07,
+            $opciones
+                //utf8_encode($opciones),
+                //$_06
+        );
+        $i++;
+    }
+    return $response;
+}
+
+
+
+
+
+
+
+
+
+function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FECHA_INICIO, $FECHA_FIN, $ids) {
+
+    //   $_REQUEST['id_declaracion']   =======THIS EXISTES rpc nedd
+
     $rpta = false;
     // DAO
     $dao_plame = new PlameDao();
@@ -460,8 +597,8 @@ function registrar_15($id_etapa_pago, $id_etapa_pago_antes, $FECHA_INICIO, $FECH
                 //$datax = $daopt->buscar_ID($id_ptrabajador);
                 $dao_rpc = new RegistroPorConceptoDao();
 
-                //??????????? 
-                $datax = $dao_rpc->buscar_RPC_PorTrabajador($data_tra[$i]['id_trabajador'], C701, 1);
+                //new ????
+                $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701, 1);
                 echo "<pre>dataxXx DE CONCEPTO ADELANTO";
                 print_r($datax);
                 echo "</pre>";

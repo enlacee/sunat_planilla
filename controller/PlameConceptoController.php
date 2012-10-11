@@ -5,7 +5,7 @@ $op = $_REQUEST["oper"];
 
 if ($op) {
     session_start();
-
+    require_once '../util/funciones.php';
     require_once '../dao/AbstractDao.php';
     // Identidicando Caracteristicas del Empleador    
     require_once ('../dao/EmpleadorDao.php');
@@ -36,6 +36,10 @@ if ($op == "cargar_tabla") {
 
     $conceptos = array('100', '200', '300', '400', '500','600', '700', '900');
     $responce = cargar_tabla_RegistrosPorConcepto(ID_EMPLEADOR_MAESTRO, $conceptos);
+}
+else if($op == "cerrar_mes"){
+    $conceptos = array('100', '200', '300', '400', '500','600', '700', '900');
+    cerrarMes($conceptos);
 }
 
 
@@ -182,7 +186,8 @@ function buscar_concepto_por_id($cod_concepto) {
 }
 
 function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
-
+    
+    //echoo($_REQUEST);
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
 
     $page = $_GET['page'];
@@ -261,7 +266,7 @@ function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
         if (in_array($_01, $conceptos_workers)) {
             //echo "<<<$_01 ===encontro===$conceptos_workers>>>";
 
-            $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_por_concepto.php?cod_detalle_concepto=$_01','#CapaContenedorFormulario')";
+            $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_por_concepto.php?cod_detalle_concepto=$_01&id_pdeclaracion=$ID_PDECLARACION','#CapaContenedorFormulario')";
             //$js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
             $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar"   >
@@ -291,4 +296,93 @@ function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
     return $response;
 }
 
+
+
+
+
+
+
+/**
+ * Plame concepto controller
+ * 
+ * THIS lista de cod 
+ */
+function cerrarMes($conceptos){ //?????
+    
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    
+    // paso 01
+    // Listado de codigo concepto detalle SELECCIONADOS admin : 101,102...201,202
+    $dao = new PlameDetalleConceptoEmpleadorMaestroDao();
+    $data = array();
+    $data = $dao->view_listarCod_Concepto(ID_EMPLEADOR_MAESTRO, $conceptos, 1);
+    
+    
+    // paso 02
+    //Buscar(id_pdeclaracion = mes - anio ) SINO  Registra un nuevo 
+    $dao_pd = new PlameDeclaracionDao(); 
+    $data_pd_hoy = $dao_pd->buscar_ID($id_pdeclaracion);
+    $periodo_hoy = null;
+    $periodo_futuro = null;
+    
+    $id_pdeclaracion_futuro = null;
+    
+    if($data_pd_hoy['id_pdeclaracion']){
+        
+        $periodo_hoy = $data_pd_hoy['periodo'];
+        
+        $periodo_futuro = crearFecha($periodo_hoy,0,1,0); //añade un mes
+        
+        echoo($periodo_futuro);
+        
+        //Dar de baja Pdeclaracion
+        //$dao = new PlameDeclaracionDao();
+        //$response = $dao->baja($_REQUEST['id_pdeclaracion']);  
+        
+        /*
+        $data_pd_fut =array();
+        $data_pd_fut = $dao_pd->Buscar_IDPeriodo(ID_EMPLEADOR_MAESTRO, $periodo_futuro);
+        
+        //DECISION BINARIA.
+        if($data_pd_fut['id_pdeclaracion']){ //existe declaracion
+             $id_pdeclaracion_futuro =  $data_pd_fut['id_pdeclaracion']; 
+             
+        }else{ //no existe Y INSERT
+            
+            $id_pdeclaracion_futuro = $dao_pd->registrar(ID_EMPLEADOR_MAESTRO, $periodo_futuro);
+        }*/
+        
+        
+   /*     
+        //----------------------------------------------------------------------        
+    //paso 03
+    //listar si existen en trabajadores registrados en  : registros_por_conceptos
+    for($i=0;$i<count($data);$i++){
+        $dao_rpc = new RegistroPorConceptoDao();
+        $data_rpc = $dao_rpc->listarTrabajador($id_pdeclaracion, $data[$i]['cod_detalle_concepto']);
+        
+        if(!is_null($data_rpc)):
+            for($j=0;$j<count($data_rpc);$j++):
+                // insert all la data  al siguiente periodo.
+                $obj_rpc = new RegistroPorConcepto();
+                $obj_rpc->setId_pdeclaracion($id_pdeclaracion_futuro);
+                $obj_rpc->setId_trabajador($data_rpc[$j]['id_trabajador']);
+                $obj_rpc->setId_registro_por_concepto($data_rpc[$j]['cod_detalle_concepto']);
+                $obj_rpc->setValor($data_rpc[$j]['valor']);
+                $obj_rpc->setEstado($data_rpc[$j]['estado']);
+                       
+                // INSERT
+                $dao_rpc->add($obj_rpc);
+                
+            endfor;
+            
+        endif;
+    }        
+       */ 
+        
+    }
+    
+    
+    
+}
 ?>

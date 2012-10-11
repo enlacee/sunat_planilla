@@ -13,34 +13,162 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    273.00   _______________
+  1 10389776    ZAMORA MEGO MELQUIADES                  273.00   _______________
 
-  2 10389776    ZAMORA MEGO MELQUIADES                  273.00   _______________
+  2 12345678    JUALI NORMIL LIZO JUAN                  979.00   _______________
 
-  3 10285430    SOLANO CALDUA NICOLAS VICTOR            278.00   _______________
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
 
-  4 09886536    ZAMORA MEGO OLEGARIO                    273.00   _______________
+LOCALIDAD : SAN ISIDRO
 
-  5 25780120    MIRANDA YBAÑEZ SONIA MARITZA           277.00   _______________
+CENTRO DE COSTO : ADMINISTRACION - GERENCIA
 
-  6 41801598    MEGO FERNANDEZ VICTOR RAUL              273.00   _______________
 
-  7 40624077    CALLE JERONIMO EDWIN ALVICE             298.00   _______________
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
 
-  8 10132707    MEGO SILVA RONAL                        275.00   _______________
+  1 09716287    FERNANDEZ MERINO CARMEN IMELDA          829.00   _______________
 
-  9 22862765    ESPINOZA CESPEDES MERCEDES EVA          278.00   _______________
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
 
- 10 10285230    CHIPANA FLORES LIDIA JUANA              278.00   _______________
+LOCALIDAD : SAN ISIDRO
 
- 11 07644248    GUERRA CHAUCA SANDRA ISABEL             278.00   _______________
+CENTRO DE COSTO : ADMINISTRACION - CAJA
 
- 12 44052923    MEZA GARCIA MANUEL ALEJANDRO            278.00   _______________
 
- 13 42972458    SANTILLAN MELENDEZ CHRISTIAN            275.00   _______________
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
 
- 14 40827219    NOLE  CAMUS IRIS EDITA                  277.00   _______________
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
 
- 15 46767275    CHAVEZ GOMEZ CRISTIAN                   278.00   _______________
+LOCALIDAD : SAN ISIDRO
 
- 16 45711545    NAVARRETE GUEVARA ADRIAN ALI            275.00   _______________
+CENTRO DE COSTO : PRODUCCION
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN ISIDRO
+
+CENTRO DE COSTO : OFICINA
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : PUEBLO LIBRE
+
+CENTRO DE COSTO : VENTAS
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : PUEBLO LIBRE
+
+CENTRO DE COSTO : ADMINISTRACION - CAJA
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN BORJA
+
+CENTRO DE COSTO : VENTAS
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN BORJA
+
+CENTRO DE COSTO : ADMINISTRACION - CAJA
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN BORJA
+
+CENTRO DE COSTO : PRODUCCION
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : MIRAFLORES
+
+CENTRO DE COSTO : VENTAS
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                       FECHA : 15/08/2012
+                                                              PAGINA :- -
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : MIRAFLORES
+
+CENTRO DE COSTO : ADMINISTRACION - CAJA
+
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------

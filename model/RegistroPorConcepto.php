@@ -2,6 +2,7 @@
 class RegistroPorConcepto {
     //put your code here
     private $id_registro_por_concepto;
+    private $id_pdeclaracion;
     private $id_trabajador;
     private $cod_detalle_concepto;
     private $valor;
@@ -11,6 +12,7 @@ class RegistroPorConcepto {
     
     function __construct() {
      $this->id_registro_por_concepto=null;
+     $this->id_pdeclaracion=null;
      $this->id_trabajador=null;
      $this->cod_detalle_concepto=null;
      $this->valor=null;
@@ -24,6 +26,14 @@ class RegistroPorConcepto {
 
     public function setId_registro_por_concepto($id_registro_por_concepto) {
         $this->id_registro_por_concepto = $id_registro_por_concepto;
+    }
+
+    public function getId_pdeclaracion() {
+        return $this->id_pdeclaracion;
+    }
+
+    public function setId_pdeclaracion($id_pdeclaracion) {
+        $this->id_pdeclaracion = $id_pdeclaracion;
     }
 
     public function getId_trabajador() {
@@ -66,6 +76,9 @@ class RegistroPorConcepto {
         $this->fecha_creacion = $fecha_creacion;
     }
 
+
+    
+    
 
     
     

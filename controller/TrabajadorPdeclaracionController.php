@@ -2573,8 +2573,11 @@ function eliminarDatosMes() {
     //var_dump($_REQUEST);
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $dao = new TrabajadorPdeclaracionDao();
-    $rpta = $dao->eliminarDatosMes($id_pdeclaracion);
-
+    $rpta_1 = $dao->eliminarDatosMes($id_pdeclaracion);
+    
+    if($rpta_1>=0){
+        $rpta = $dao->del_idpdeclaracion($id_pdeclaracion);
+    }
     //eliminar prestamos - pagos 
     $dao_pp = new PpagoDao;
     $dao_pp->del_idpdeclaracion($id_pdeclaracion);

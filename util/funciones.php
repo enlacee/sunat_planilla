@@ -430,4 +430,31 @@ function getNumMayor($a, $b, $c) {
     return $cout;
 }
 
+
+function getRendondeoEnSoles($num){
+    $numero = array();
+    
+    if (is_float($num)) {
+    $valor = number_format($num, 2); //Redondeo        
+    $aux = (string) $valor;
+    $decimal = substr($aux, strpos($aux, "."));
+    //quitar el punto decimal
+    $decimal = str_replace('.', '', $decimal);
+    
+    //CONDICION        
+    if (intval($decimal) > 0){
+        $roundFC = $decimal;
+    }
+        $roundFC = $roundFC / 100;
+    }
+    $numero['valor'] = $num;
+    $numero['numero'] = intval($num);
+    $numero['decimal'] = $roundFC;   
+    
+    return $numero;
+}
+
+//$monto = 1837;
+//echoo(getRendondeoEnSoles($monto));
+
 ?>

@@ -350,6 +350,8 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
             
             $_03 .= " ".$_04;
             
+       }else{
+           $_03=null;
        } 
         
          $js ="javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_declaracion=".$param."&periodo=".$_01."&estado=".$_02."','#CapaContenedorFormulario')";
@@ -531,7 +533,7 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
 function cerrarMes($conceptos){ 
     
     $rpta->estado = false;
-    
+    //echoo($_REQUEST);
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     
     // paso 01
@@ -556,6 +558,8 @@ function cerrarMes($conceptos){
         //echo "\n\n";
         
         //$dao_pd = new PlameDeclaracionDao();
+        //echo "baja  : id_pdeclaracion =".$id_pdeclaracion;
+        
         $dao_pd->baja($id_pdeclaracion); 
         
         
@@ -567,11 +571,11 @@ function cerrarMes($conceptos){
              $id_pdeclaracion_futuro =  $data_pd_fut['id_pdeclaracion']; 
              
         }else{ //no existe Y INSERT
-            //echo "\nno encontro nada INSERT\n";
+            echo "\nno encontro nada INSERT\n";
             $id_pdeclaracion_futuro = $dao_pd->registrar(ID_EMPLEADOR_MAESTRO, $periodo_futuro);
         }
         
-   
+        
        
     //----------------------------------------------------------------------        
 
@@ -609,7 +613,7 @@ function cerrarMes($conceptos){
                 $obj_rpc->setId_trabajador($data_rpc[$j]['id_trabajador']);
                 $obj_rpc->setCod_detalle_concepto($data_rpc[$j]['cod_detalle_concepto']);
                 $c = $data_rpc[$j]['cod_detalle_concepto'];
-                echo "cod_detalle_concepto  c= $c\n";
+                //echo "cod_detalle_concepto  c= $c\n";
                 
                 if( $c == '0201' || $c == '0304' || $c == '0909'|| $c =='0701'){
                     //echo "\n c = $c\n";

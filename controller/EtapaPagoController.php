@@ -600,7 +600,8 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
                 //new ????
                 $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701, 1);
                 echo "<pre>dataxXx DE CONCEPTO ADELANTO";
-                print_r($datax);
+                //print_r($datax);
+                echo "descto % ".$datax['valor']." = a = ".$data_tra[$i]['id_trabajador'];
                 echo "</pre>";
                 $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
 
@@ -622,7 +623,17 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
                         $DESCTO = ($SUELDO / 30) * $dia_no_laborado;
                         $SUELDO_CAL = $SUELDO * (50 / 100); // 50%
                         $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
+                    }                    
+                    //..........................................................
+                    // Solo en primera quincena se redondea:
+                    $round_sueldo = array();
+                    $round_sueldo = getRendondeoEnSoles($SUELDO_CAL);
+                    
+                    if($round_sueldo['decimal']> 0){
+                        $dao_plame->editMontoDevengadoTrabajador($data_tra[$i]['id_trabajador'], $round_sueldo['decimal']);
+                        $SUELDO_CAL = $round_sueldo['numero'];
                     }
+                    //..........................................................
 
                     ECHO "\nMONTO A PAGAR ES = " . $SUELDO_CAL;
                 } else {// 2 QUINCENA HAY DESCUENTO
@@ -643,6 +654,16 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
                     //CALC
                     //$SUELDO_CAL = $SUELDO_CAL - $DESCTO;
                     //$DESCTO = ($SUELDO / 30) * $dia_no_laborado;
+                    
+                    //..........................................................
+                    // Toma en cuenta si hay devengado para sumar a sueldo.
+                    if( $data_tra[$i]['monto_devengado'] > 0){
+                        
+                        $SUELDO_CAL = $SUELDO_CAL + $data_tra[$i]['monto_devengado'];
+                        // devengado a cero
+                        $dao_plame->editMontoDevengadoTrabajador($data_tra[$i]['id_trabajador'], 0.00);                        
+                    }
+                    //..........................................................
                 }
 
 

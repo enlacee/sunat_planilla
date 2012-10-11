@@ -298,7 +298,8 @@ class PlameDao extends AbstractDao {
         -- detalle        
         t.id_trabajador,
 	t.cod_periodo_remuneracion,
-	t.monto_remuneracion,    
+	t.monto_remuneracion,
+        t.monto_devengado,
         
         dpl.fecha_inicio,
         dpl.fecha_fin,
@@ -345,6 +346,24 @@ class PlameDao extends AbstractDao {
         return $lista;
     }
 
+    public function editMontoDevengadoTrabajador($id_trabajador,$monto_devengado){
+        $query="
+        UPDATE trabajadores
+        SET 
+        monto_devengado = ?
+        WHERE id_trabajador = ?; 
+    ";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $monto_devengado);
+        $stm->bindValue(2, $id_trabajador); 
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        //$stm = null;
+        return true;        
+                
+    }
+    
     //new 10/09/2012
     public function listarTrabajadorPeriodo($id_empleador_maestro, $id_trabajador) {
 

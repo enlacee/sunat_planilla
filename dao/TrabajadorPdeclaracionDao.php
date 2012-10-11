@@ -697,9 +697,27 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
         //$lista = $stm->fetchAll();
+        $count = $stm->rowCount();
         $stm = null;
 
+        return $count;
+    }
+    
+    public function del_idpdeclaracion($id_pdeclaracion){      
+    $query = "
+            DELETE
+            FROM trabajadores_pdeclaraciones
+            WHERE id_pdeclaracion = ?;  
+    ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        //$count = $stm->rowCount();
+        $stm = null;
         return true;
+        
     }
 
     public function eliminar_idPdeclaracion($id_pdeclaracion, $id_trabajador) {

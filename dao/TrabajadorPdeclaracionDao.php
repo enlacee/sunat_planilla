@@ -18,7 +18,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                     sueldo,
                     sueldo_neto,
                     estado,
-                    fecha_creacion,                         
+                    fecha_creacion,
+                    fecha_modificacion,
                     ingreso_5ta_categoria,
                     cod_tipo_trabajador,
                     cod_regimen_pensionario,
@@ -29,6 +30,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                          
                             )
             VALUES (
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -62,14 +64,17 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $stm->bindValue(8, $model->getSueldo_neto());
             $stm->bindValue(9, $model->getEstado());
             $stm->bindValue(10, $model->getFecha_creacion());
-            $stm->bindValue(11, $model->getIngreso_5ta_categoria());
-            $stm->bindValue(12, $model->getCod_tipo_trabajador());
-            $stm->bindValue(13, $model->getCod_regimen_pensionario());
-            $stm->bindValue(14, $model->getCod_regimen_aseguramiento_salud());
-            $stm->bindValue(15, $model->getCod_situacion());
+            
+            $stm->bindValue(11, $model->getFecha_modificacion());
+            
+            $stm->bindValue(12, $model->getIngreso_5ta_categoria());
+            $stm->bindValue(13, $model->getCod_tipo_trabajador());
+            $stm->bindValue(14, $model->getCod_regimen_pensionario());
+            $stm->bindValue(15, $model->getCod_regimen_aseguramiento_salud());
+            $stm->bindValue(16, $model->getCod_situacion());
 
-            $stm->bindValue(16, $model->getCod_ocupacion_p());
-            $stm->bindValue(17, $model->getId_empresa_centro_costo());
+            $stm->bindValue(17, $model->getCod_ocupacion_p());
+            $stm->bindValue(18, $model->getId_empresa_centro_costo());
             $stm->execute();
 
             // id Comerico
@@ -665,7 +670,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         ON t.id_persona = p.id_persona
 
         WHERE tpd.id_pdeclaracion = ?
-        AND tpd.id_trabajador = ?;
+        AND tpd.id_trabajador = ?
+        -- ojo plame sale error
+        AND ddc.cod_detalle_concepto != '0804';
     ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);

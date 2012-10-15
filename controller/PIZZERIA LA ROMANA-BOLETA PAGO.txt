@@ -1,125 +1,33 @@
-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10389776                            DNI: 10389776                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ZAMORA MEGO MELQUIADES                                              
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/03/2003                  
-                                                 NRO.CARNET AFP : 186331MZMOO5               A.F.P. : SPP PROFUTURO                      
-MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
-31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE GREGORIO APAZA 232URB. URBANIZACIÓN SANTA LUZMILA LIMA-LIMA-COMAS   
----------------------------------------------------------------------------------------------------------------------------------------
-|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
-|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
----------------------------------------------------------------------------------------------------------------------------------------
-|   SUELDO BASICO                   750.00   |   ADELANTO                        375.00   |   ESSALUD                         67.50   |
-|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
-|                                            |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
-|                                            |   COMISION AFP 2.14%               16.05   |                                           |
-|                                            |   PRIMA DE SEGURO 1.42%            10.65   |                                           |
-|                                            |   JUBILACION SPP 10.00%            75.00   |                                           |
-|                                            |                                            |                                           |
----------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        476.70   |   TOTAL APORTACIONES              67.50   |
----------------------------------------------------------------------------------------------------------------------------------------
-
------------------------------
-| REDONDEO     :       -0.3 |
------------------------------
-| NETO A PAGAR :     273.00 |                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
                                                              BOLETA DE PAGO                                                             
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
 CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 12345678                            DNI: 12345678                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: juali normil lizo juan                                              
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 05/01/2012                  
-                                                                                             R.P. : DL 19990 - SIST NAC DE PENS - ONP    
-MES : ENERO DE : 01.2012                         CARGO : DIRIGENTE, PARTIDO POLITICO         SECCION : ventas                            
-27 DIAS TRAB. 208 HORAS TRAB.                    DIRECCION :  JIRÓN LOS MI 251 AMAZONAS-CHACHAPOYAS-CHACHAPOYAS                         
----------------------------------------------------------------------------------------------------------------------------------------
-|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
-|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
----------------------------------------------------------------------------------------------------------------------------------------
-|   SUELDO BASICO                 2,426.67   |   ADELANTO                      1,026.67   |   ESSALUD                        218.40   |
-|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
-|                                            |   IMPTO. 5TA. CATEGORIA           105.29   |                                           |
-|                                            |   ONP                             315.47   |                                           |
-|                                            |                                            |                                           |
----------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES          2,426.67   |   TOTAL RETENC./DESCUENTOS      1,447.43   |   TOTAL APORTACIONES             218.40   |
----------------------------------------------------------------------------------------------------------------------------------------
-
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
-ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
------------------------------
-| REDONDEO     :      -0.24 |
------------------------------
-| NETO A PAGAR :     979.00 |                            _________________________                  _________________________
------------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
--ANB-                                                             BOLETA DE PAGO                                                             
-                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
-CAMUENTE S.A.
-AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 09716287                            DNI: 09716287                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: FERNANDEZ MERINO CARMEN IMELDA                                      
+CALLE BARTOLOME FIGARI 193 - PUEBLO LIBRE        CODIGO: 07971134                            DNI: 07971134                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CANO RODRIGUEZ LUIS ENRIQUE                                         
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
-                                                 NRO.CARNET AFP : 570060CFMNI1               A.F.P. : SPP PROFUTURO                      
-MES : ENERO DE : 01.2012                         CARGO : SECRETARIA, COMERCIAL               SECCION : administracion - gerencia         
-31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA HUSARES DE JUNIN 1119 302 LIMA-LIMA-JESUS MARIA                    
+                                                 NRO.CARNET AFP : 254421LCROR2               A.F.P. : SPP PRIMA                          
+MES : OCTUBRE DE : 01.2012                       CARGO : JEFE DE PERSONAL ADMINISTRATIVO     SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN TUPAC AMARU 217 LIMA-LIMA-PUEBLO LIBRE                              
 ---------------------------------------------------------------------------------------------------------------------------------------
 |        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
 |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   SUELDO BASICO                 2,690.00   |   ADELANTO                      1,345.00   |   ESSALUD                        242.10   |
-|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
-|                                            |   IMPTO. 5TA. CATEGORIA           151.38   |                                           |
-|                                            |   COMISION AFP 2.14%               57.57   |                                           |
-|                                            |   PRIMA DE SEGURO 1.42%            38.20   |                                           |
-|                                            |   JUBILACION SPP 10.00%           269.00   |                                           |
+|   SUELDO BASICO                 3,910.00   |   ADELANTO                      1,837.00   |   ESSALUD                        358.65   |
+|   ASG. FAMILIAR                    75.00   |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|   MOVILIDAD                       400.00   |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
+|                                            |   COMISION AFP 1.75%               69.74   |                                           |
+|                                            |   PRIMA DE SEGURO 1.29%            51.41   |                                           |
+|                                            |   JUBILACION SPP 10.00%           398.50   |                                           |
 |                                            |                                            |                                           |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES          2,690.00   |   TOTAL RETENC./DESCUENTOS      1,861.15   |   TOTAL APORTACIONES             242.10   |
+|   TOTAL REMUNERACIONES          4,385.00   |   TOTAL RETENC./DESCUENTOS      2,356.65   |   TOTAL APORTACIONES             358.65   |
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------
-| REDONDEO     :       0.15 |
+| REDONDEO     :      -0.35 |
 -----------------------------
-| NETO A PAGAR :     829.00 |                            _________________________                  _________________________
+| NETO A PAGAR :   2,028.00 |                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

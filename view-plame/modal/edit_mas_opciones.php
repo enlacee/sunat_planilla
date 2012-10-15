@@ -22,6 +22,58 @@ $estableciento = listarEstablecimientoDestaque($id_empleador);
 
 
 ?>
+
+<script type="text/javascript">
+
+function X2(oCombo){ console.log("usando ....");
+	console.log("combo x padre");
+
+	
+	var aguja = oCombo.value;
+
+	var partes = aguja.split("|");	
+	
+	var id_establecimiento = partes[0];	
+	var codigo_establecimiento = partes[2];
+
+
+	//cargarEstablecimientoLocalesCCostoX(id_establecimiento );
+	
+var objComboox= document.getElementById('cboCentroCosto');
+
+	//-----
+
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
+		data: {id_establecimiento: id_establecimiento, oper: 'lista_centrocosto'},		
+		success: function(json){			
+			//console.log(json);
+			if(json == null || json.length<1 ){
+				var mensaje = "No Existen Establecimientos Registrados\n";
+				mensaje += "Registe los establecimientos correspondientes para el Empleador";
+				
+				//limpiarComboGlobal(objCombo);
+				objComboox.disabled =true;
+				alert(mensaje);	
+			}else{
+				console.log("entro ah llenar combo  x2222");
+				
+				objComboox.disabled =false;
+				llenarComboDinamico(json,objComboox);
+			}
+		}
+	});
+	//-----	
+
+
+
+
+	
+}
+
+</script>
 <h2>Planilla Mensual:</h2>
 <div class="ocultar">
   <p>
@@ -38,9 +90,9 @@ $estableciento = listarEstablecimientoDestaque($id_empleador);
   </p>
 </div>
 <p>
-  Establecimientos 
+  Establecimientos
   <select name="id_establecimientos" id="id_establecimientos" style="width:180px;" 
-  onchange="seleccionarLocalDinamico(this)"  >
+  onchange="X2(this)"  >
     <option value="0" selected="selected">-</option>
  <?php for($i=0;$i<count($estableciento);$i++):
 	

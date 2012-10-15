@@ -1,19 +1,20 @@
-CAMUENTE S.A.                                     CAMUENTE S.A.
+
+CAMUENTE S.A.                                CAMUENTE S.A.
 
-         R E C I B O                                       R E C I B O
-         * * * * * *                                       * * * * * *
+         R E C I B O                                  R E C I B O
+         ***********                                  ***********
 
-ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE OCTUBRE DEL 2012                        Al MES DE OCTUBRE DEL 2012
 
-NOMBRES:FERNANDEZ MERINO CARMEN IMELDA            NOMBRES:FERNANDEZ MERINO CARMEN IMELDA
+ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE OCTUBRE DEL 2012                   Al MES DE OCTUBRE DEL 2012
 
-SUELDO: 1479.00                                   SUELDO:  1479.00
+NOMBRES  : FERNANDEZ MERINO CARMEN           NOMBRES  : FERNANDEZ MERINO CARMEN  
 
-N. CTA:  -  -                                     N. CTA:     -  -
+CANTIDAD : S/  1479.00                       CANTIDAD : S/   1479.00
 
-FECHA: 11/10/2012                                 FECHA: 11/10/2012
+N. CTA   : -  -                              N. CTA   : -  -                     
 
+FECHA    : 14/10/2012                        FECHA    : 14/10/2012               
 
 
 
@@ -21,132 +22,8 @@ FECHA: 11/10/2012                                 FECHA: 11/10/2012
 
 
 
-
-_______________               _______________     _______________               _______________
-      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
-                              DNI                                               DNI
-
-
-
-
-
-
-
-
-
-
-
-CAMUENTE S.A.                                     CAMUENTE S.A.
-
-         R E C I B O                                       R E C I B O
-         * * * * * *                                       * * * * * *
-
-ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE OCTUBRE DEL 2012                        Al MES DE OCTUBRE DEL 2012
-
-NOMBRES:CANO RODRIGUEZ LUIS ENRIQUE               NOMBRES:CANO RODRIGUEZ LUIS ENRIQUE
-
-SUELDO: 1837.00                                   SUELDO:  1837.00
-
-N. CTA:  -  -                                     N. CTA:     -  -
-
-FECHA: 11/10/2012                                 FECHA: 11/10/2012
-
-
-
-
-
-
-
-
-
-_______________               _______________     _______________               _______________
-      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
-                              DNI                                               DNI
-
-
-
-
-
-
-
-
-
-
-
-CAMUENTE S.A.                                     CAMUENTE S.A.
-
-         R E C I B O                                       R E C I B O
-         * * * * * *                                       * * * * * *
-
-ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE OCTUBRE DEL 2012                        Al MES DE OCTUBRE DEL 2012
-
-NOMBRES:ESPINOZA HUANCAS FAUSTO ENRIQUE           NOMBRES:ESPINOZA HUANCAS FAUSTO ENRIQUE
-
-SUELDO: 225.00                                    SUELDO:   225.00
-
-N. CTA:  -  -                                     N. CTA:     -  -
-
-FECHA: 11/10/2012                                 FECHA: 11/10/2012
-
-
-
-
-
-
-
-
-
-_______________               _______________     _______________               _______________
-      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
-                              DNI                                               DNI
-
-
-
-
-
-
-
-
-
-
-
-CAMUENTE S.A.                                     CAMUENTE S.A.
-
-         R E C I B O                                       R E C I B O
-         * * * * * *                                       * * * * * *
-
-ADELANTO DE QUINCENA CORRESPONDIENTE              ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE OCTUBRE DEL 2012                        Al MES DE OCTUBRE DEL 2012
-
-NOMBRES:CASANOVA RAMIREZ MARIA LUISA              NOMBRES:CASANOVA RAMIREZ MARIA LUISA
-
-SUELDO: 375.00                                    SUELDO:   375.00
-
-N. CTA:  -  -                                     N. CTA:     -  -
-
-FECHA: 11/10/2012                                 FECHA: 11/10/2012
-
-
-
-
-
-
-
-
-
-_______________               _______________     _______________               _______________
-      Vo.Bo.                  RECIBI CONFORME           Vo.Bo.                  RECIBI CONFORME
-                              DNI                                               DNI
-
-
-
-
-
-
-
-
-
+_______________     _______________         _______________     _______________
+     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
+                    DNI. 09716287                               DNI. 09716287
 
 

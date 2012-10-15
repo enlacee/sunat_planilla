@@ -453,10 +453,9 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
 
     if (!$sidx)
         $sidx = 1;
-    $lista = array();
-    $lista = $dao->listarDeclaracionEtapa($ID_PDECLARACION, $WHERE);
 
-    $count = count($lista);
+
+    $count = $dao->listarDeclaracionEtapa_2da15Count($ID_PDECLARACION, $WHERE);
     //echoo($count);
     // $count = $count['numfilas'];
     if ($count > 0) {
@@ -481,7 +480,8 @@ function listarTrabajadoresPorDeclaracionEtapas($ID_PDECLARACION) {
     $response->records = $count;
     $i = 0;
     
-
+    $lista = array();
+    $lista = $dao->listarDeclaracionEtapa_2da15($ID_PDECLARACION, $WHERE, $start, $limit, $sidx, $sord);
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
         return $response;

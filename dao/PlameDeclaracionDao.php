@@ -276,8 +276,91 @@ class PlameDeclaracionDao extends AbstractDao {
     }
   */  
     
-    public function listarDeclaracionEtapa($id_declaracion, $WHERE/*,$start, $limit, $sidx, $sord*/) {
+ public function listarDeclaracionEtapa_2da15Count($id_declaracion, $WHERE) {
+       
+        $query = "
+        SELECT 
+        count(*) as counteo
+
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        inner join trabajadores as t
+        on pg.id_trabajador = t.id_trabajador
+        inner join personas as p
+        on t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion= ?
+        AND ep.tipo = 1
+        $WHERE       
+        ";   
         
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_declaracion);
+        
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['counteo'];
+    }      
+    
+ public function listarDeclaracionEtapa_2da15($id_declaracion, $WHERE, $start, $limit, $sidx, $sord) {
+    
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+        
+        $query = "
+        SELECT 
+        -- pago
+        pg.id_pago,
+        pg.id_trabajador,
+        -- pago
+        -- persona
+        p.id_persona,
+        p.num_documento,
+        p.cod_tipo_documento,
+        p.apellido_paterno,
+        p.apellido_materno,
+        p.nombres
+        -- persona
+
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        inner join trabajadores as t
+        on pg.id_trabajador = t.id_trabajador
+        inner join personas as p
+        on t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion= ?
+        AND ep.tipo = 1
+        $cadena       
+        ";   
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_declaracion);
+        
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }    
+    
+    
+    //usado en funciones fuera de grid! ok
+    public function listarDeclaracionEtapa($id_declaracion, $WHERE/*,$start, $limit, $sidx, $sord*/) {
+    
+        //query Antigua ->no permite busqueda.        
         $query = "
         SELECT 
         -- pago
@@ -309,9 +392,10 @@ class PlameDeclaracionDao extends AbstractDao {
         $WHERE
         GROUP BY t.id_trabajador
         -- new
-        -- ORDER BY $sidx $sord LIMIT $start,  $limit
+        -- ORDER BY $sidx $sord LIMIT $start,  $limit        
+        ";   
         
-        ";
+     
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_declaracion);

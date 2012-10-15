@@ -104,6 +104,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 
 	function crearDialogoTDMasOp(){
+		console.log("utilizado en combo LOAD similar PERO ESTO EN MESS!!!!!!!");
 	$("#dialog_editarTDMasOP").dialog({ 
            
 			autoOpen: false,

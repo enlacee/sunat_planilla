@@ -618,7 +618,8 @@ function cargarEstablecimientoLocalesCCosto(idComboPadre){ //alert(idComboPadre.
 	
 	
 	//alert("id_empleador "+ valor);
-	var objCombo = document.getElementById('cboCentroCosto');
+	console.log("modificado..... idComboPadre ");
+	var objCombo = document.getElementById(idComboPadre/*'cboCentroCosto'*/);
 	//cbo_depa.options[cbo_depa.selectedIndex].value
 	if(valor=='0'){
 		//objCombo.disabled = true;

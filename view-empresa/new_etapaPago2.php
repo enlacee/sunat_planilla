@@ -72,7 +72,7 @@ if($premunerativo == 2){ //quincena 2
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Etapa Declaracion</a></li>			
+            <li><a href="#tabs-1">Operacion Quincena</a></li>			
 
         </ul>
         <div id="tabs-1">
@@ -85,23 +85,27 @@ if($premunerativo == 2){ //quincena 2
   periodo
   <input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>" />
 </div>
-<h2>Adelanto 
-          <input name="adelanto" type="text" id="adelanto" 
-                       value="<?php echo getNameMonth($mes); ?>" size="10" />
-                del 
-                <input name="anio" type="text" id="anio" value="<?php echo $anio; ?>" size="5" />
+<h2>ADELANTO 
+<?php echo getNameMonth($mes); ?>
+ DEL 
+<?php echo $anio; ?>
 </h2>
-          <h2>03 Seleccionde Operacion</h2>
             
-            
+   <div class="help ayuda">
+    
+   <strong>01 Adelanto individual :</strong>
+   <br />
+   Genera el adelanto quincenal de los trabajadores seleccionados.
+   <p><strong>02 Adelanto total :</strong><br />
+     Genera el adelanto de todos los trabajadores comprendidos en el mes.   </p>
+   </div>         
             
             
             
           <p><!--  onclick="registrarEtapa()" -->
             <input type="button" name="adelanto_01" id="adelanto_01" value="01 Adelanto Individual">
             <input type="button" name="adelanto_02" id="adelanto_02" value="02 Adelanto Total" />
-            <br />
-            lista de trabajadores dentro del periodo: centro costo.          </p>
+            <br /></p>
           <table id="list">
             </table>
             <div id="pager">          

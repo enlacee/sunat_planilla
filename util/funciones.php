@@ -27,9 +27,9 @@ function getFechaPatron($fecha_es_us, $patron_date) {
 
 function echoo($obj) {
     if (is_null($obj)) {
-        var_dump($obj)."\n\n";
+        //var_dump($obj)."\n\n";
     } else {
-        echo "\n\n<pre>" . print_r($obj) . "</pre>";
+        echo "\n<pre>" . print_r($obj) . "</pre>";
     }
 }
 
@@ -350,13 +350,12 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
  * @param type $num
  * @return Decimal Numero Redondeado a dos Decimales
  */
-function roundTwoDecimal($num) { //SIN REDONDEO
-    $valor = number_format($num, 4);
-
+function roundTwoDecimal($num) { //SIN REDONDEO OK number_format =redondea a 2 :D
+    $valor = number_format($num, 4);    
     $redondeo = round(($valor * 100));
-
-    return $redondeo / 100;
+    return ($redondeo / 100);
 }
+
 
 /*
   function roundTwoDecimal($num) {
@@ -457,4 +456,32 @@ function getRendondeoEnSoles($num){
 //$monto = 1837;
 //echoo(getRendondeoEnSoles($monto));
 
+function textoaMedida($num_limite,$texto){    
+    //return sizeof(explode(" ", $texto));  
+    $num_palabra = str_word_count($texto);
+    $num_len = strlen($texto);        
+            
+    $txt  =str_replace(" ", ",", $texto);
+    $arreglo_txt = (str_getcsv($txt, ","));
+    
+    $cadena = null;
+    $count_leng = 0;
+    for($i=0;$i<count($arreglo_txt);$i++){
+
+        $count_leng = $count_leng + intval(strlen($arreglo_txt[$i]));
+        if($count_leng <= $num_limite){
+            if($i==0):
+               $cadena .= $arreglo_txt[$i]; 
+            else:
+               $cadena .= " ".$arreglo_txt[$i]; 
+               $count_leng = $count_leng + 1; //sum espacio
+            endif;
+                       
+        }else{
+            break;
+        }
+        
+    }    
+    return $cadena;
+}
 ?>

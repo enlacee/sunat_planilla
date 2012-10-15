@@ -1,13 +1,12 @@
 
-CAMUENTE S.A.                                       FECHA : 31/12/1969
-                                                              PAGINA :- -
+CAMUENTE S.A.                                                FECHA :  10/10/2012
+                                                             PAGINA :          1
                                   1RA QUINCENA                                  
                       PLANILLA DEL MES DE OCTUBRE DEL 2012                      
 
 LOCALIDAD : SAN ISIDRO
 
 CENTRO DE COSTO : ADMINISTRACION - GERENCIA
-
 
 --------------------------------------------------------------------------------
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
@@ -18,69 +17,5 @@ CENTRO DE COSTO : ADMINISTRACION - GERENCIA
 --------------------------------------------------------------------------------
 TOTAL ADMINISTRACION - GERENCIA SAN ISIDRO              1,479.00
 --------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-CAMUENTE S.A.                                       FECHA : 31/12/1969
-                                                              PAGINA :- -
-                                  1RA QUINCENA                                  
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : VENTAS
-
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             1837.00  _______________
-
-  2 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         225.00   _______________
-
-  3 07448164    CASANOVA RAMIREZ MARIA LUISA            375.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS PUEBLO LIBRE                               2,437.00
---------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+
 

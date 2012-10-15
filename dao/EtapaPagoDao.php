@@ -101,7 +101,8 @@ class EtapaPagoDao extends AbstractDao {
         FROM etapas_pagos AS ep
         INNER JOIN periodos_remuneraciones AS pr
         ON ep.cod_periodo_remuneracion = pr.cod_periodo_remuneracion
-        WHERE (id_pdeclaracion= ?)      
+        WHERE (ep.id_pdeclaracion= ?) 
+        -- AND ep.tipo = 1
 ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);

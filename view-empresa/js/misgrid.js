@@ -1008,8 +1008,11 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 				var id_etapa_pago =  document.getElementById('id_etapa_pago').value;
 				
-				var id_establecimientos = document.getElementById('id_establecimientos').value;				
-				var cboCentroCosto = document.getElementById('cboCentroCosto').value;
+				var id_establecimientos = document.getElementById('id_establecimientos').value;		
+                //var id_establecimientos = document.getElementById('cbo_establecimiento_local').value;    
+                console.log("error carga de combo dinamico centro costo ??"); 
+                		
+				var cboCentroCosto = document.getElementById('cboCentroCostoX').value;
 				
 				var id = id_establecimientos.split('|');
 		
@@ -1286,7 +1289,9 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                     search:true, 
                     editable:false,
                     width:90, 
-                    align:'center' 
+                    align:'center',
+                    search:false,
+
                 },
                 {
                     name:'num_documento', 
@@ -1325,7 +1330,8 @@ function cargarTablaPagoGrid_Lineal(id_pago){
                     search:false,
                     editable:false,
                     width:100,
-                    align:'center'
+                    align:'center',
+                    search:false,
                 }											
 
 
@@ -1390,7 +1396,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 		
 		
         //--- PIE GRID
-	//jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 
 	//------------------------------------------
 

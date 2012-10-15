@@ -23,7 +23,7 @@ $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
 <div class="demo" align="left" >
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Declaracion</a>
+            <li><a href="#tabs-1">Operacion Mensual</a>
               </li></ul><div id="tabs-1">
               
               <div class="ocultar">
@@ -32,21 +32,15 @@ $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
               
                </div>
               
-<div class="blue">        
-             RUC: <?php echo $data['ruc']. " - ". $data['razon_social_concatenado']; ?>
-          </div>
-        
-        
 
 
-
-           <h2>Paso 01 : Lista de trabajadores por etapas:</h2>
-          <ol>
-          <li>1ERA QUINCENA</li>
-          <li>2DA QUINCENA</li>
-          </ol>
-          
-            <input type="button" name="adelanto_01" id="adelanto_mes_01" value="01 Mensual Individual">
+           <h2>Mensual:</h2>
+           <div class="help ayuda"><strong>01 Mensual Individual :</strong><br />
+             Genera la planilla mensual de los trabajadores seleccionados.
+               <p><strong>02 Mensual Total :</strong><br />
+               Genera la planilla mensual de todos los trabajadores  comprendidos en el mes. </p>
+           </div>
+           <input type="button" name="adelanto_01" id="adelanto_mes_01" value="01 Mensual Individual">
             <input type="button" name="adelanto_02" id="adelanto_mes_02" value="02 Mensual Total" />
           
           
@@ -64,28 +58,9 @@ $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
 coinciden con los trabajadores que realmente desea Declarar<br />
 en Planilla Mensual. 'PDT-PLANILLA'.</p>
 <p>
--Los calculos que se realizaran, se  muestran en la Cinta : 'CONFIGURACION >> Formulas'.<br />
-</p>
-<p>
--Esta operacion puede tardar segun el numero de trabajadores que tenga en la (Lista).
-</p>
+-Esta operacion puede tardar segun el numero de trabajadores que tenga en la (Lista).</p>
 </div>
-<p>
-  <input type="button" name="button3" id="button3" value="GENERAR PLANILLA MENSUAL"
-  onclick="generarDeclaracionPlanilla('<?php echo $ID_PDECLARACION; ?>',this)" />
-</p>
-                <div class="paginadores ocultar">
-  <input type="button" name="button" id="button" value="&lt;&lt; ANTERIOR" />
-  <input type="button" name="button2" id="button2" value="SIGUIENTE &gt;&gt;" />
-        </div>
-
-              
-              
-              
-              
-              
-              
-            </div>
+              </div>
         
         
         

@@ -424,36 +424,51 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
                     search:false, 
                     editable:false,
                     width:30, 
-                    align:'center' 
+                    align:'center',
+                    hidden:true,
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
-                    search:true,
                     editable:false,
-                    width:80,
-                    align:'center'
-                },
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
+                }, 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
 				{
                     name:'fecha_inicio', 
@@ -740,7 +755,7 @@ console.log("Cargandou..."+id_etapa_pago);
             url:'sunat_planilla/controller/PagoController.php?oper=cargar_tabla&id_etapa_pago='+id_etapa_pago,
             datatype: 'json',
             colNames:['Id','Tipo doc','Numero Doc','APaterno',
-                'AMaterno', 'Nombres','dias T.','Sueldo.','Ccosto','Estado','Opciones'],
+                'AMaterno', 'Nombres','dias T.','Sueldo.','Ccosto','Opciones'],
             colModel :[
                 {
                     name:'id_pago', 
@@ -756,36 +771,53 @@ console.log("Cargandou..."+id_etapa_pago);
                     search:false, 
                     editable:false,
                     width:70, 
-                    align:'center' 
+                    align:'center',
+                    hidden:true,
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
-                    search:true,
                     editable:false,
-                    width:90,
-                    align:'center'
-                },
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
+
+
+                },  
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'dia_total',
@@ -811,15 +843,7 @@ console.log("Cargandou..."+id_etapa_pago);
                     editable:false,
                     width:60,
                     align:'center'
-                },
-                {
-                    name:'estado',
-                    index:'estado',
-                    search:false,
-                    editable:false,
-                    width:60,
-                    align:'center'
-                },											
+                },										
                 {
                     name:'opciones',
                     index:'opciones',
@@ -830,7 +854,7 @@ console.log("Cargandou..."+id_etapa_pago);
                 }	
             ],
             pager: '#pager',
-			//height:100,
+			height:320,
             rowNum:9,
             rowList:[15,30,45],
             sortname: 'id_pago',

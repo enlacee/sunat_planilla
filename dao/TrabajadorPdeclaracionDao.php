@@ -202,6 +202,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                 t.cod_situacion,
                 t.cod_ocupacion_p,
                 t.id_empresa_centro_costo,
+                t.monto_remuneracion,
                 -- p.nombres,
                 -- drs.id_detalle_regimen_salud,
                 drs.cod_regimen_aseguramiento_salud,

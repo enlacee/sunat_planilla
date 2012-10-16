@@ -137,10 +137,45 @@ VALUES (
         return $lista;
     }    
     
+    //USO ESCLUSIVO PARA GRID
+    public function listarCount($id_etapa_pago,$WHERE) {
+
+        $query = "
+        SELECT
+        count(*) as counteo
+        FROM pagos AS p
+
+        INNER JOIN trabajadores AS t
+        ON p.id_trabajador = t.id_trabajador
+
+        INNER JOIN personas AS per
+        ON t.id_persona = per.id_persona
+
+        INNER JOIN empresa_centro_costo AS ecc
+        ON p.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+
+        WHERE p.id_etapa_pago = ?
+        $WHERE
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_etapa_pago);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['counteo'];
+    }    
     
     //USO ESCLUSIVO PARA GRID
-    public function listar($id_etapa_pago, $op=null) {
+    public function listar($id_etapa_pago,$WHERE, $start, $limit, $sidx, $sord) {
 
+        $cadena = null;
+        if(is_null($WHERE)){
+           $cadena = $WHERE;
+        }else{
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+        
         $query = "
         SELECT
             p.id_pago,
@@ -169,23 +204,23 @@ VALUES (
         INNER JOIN empresa_centro_costo AS ecc
         ON p.id_empresa_centro_costo = ecc.id_empresa_centro_costo
 
-        WHERE p.id_etapa_pago = ?     
+        WHERE p.id_etapa_pago = ?
+        $cadena
         ";
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_etapa_pago);
-
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
+        /*
         if ($op == 'id_trabajador') { // ['id_trabajador']
             $new = array();
             for ($i = 0; $i < count($lista); $i++) {
                 $new[]['id_trabajador'] = $lista[$i]['id_trabajador'];
             }
             return $new;
-        }
-
+        }*/
         return $lista;
     }
     
@@ -223,7 +258,8 @@ VALUES (
 
         WHERE p.id_etapa_pago = ? 
         AND t.id_establecimiento = ?
-        AND ecc.id_empresa_centro_costo = ?   
+        AND ecc.id_empresa_centro_costo = ?
+        AND p.sueldo IS NOT NULL
         ";
 
         $stm = $this->pdo->prepare($query);

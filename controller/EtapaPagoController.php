@@ -16,7 +16,9 @@ if ($op) {
 
     require_once '../dao/PlameDeclaracionDao.php';
     require_once '../dao/PlameDao.php';
-
+    //15cena no genera xq tiene vacacion
+    require_once '../dao/VacacionDao.php';
+    
     //PAGO
     require_once '../dao/PagoDao.php';
     require_once '../model/Pago.php';
@@ -489,18 +491,18 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
     $data_id_tra_db = $dao_pago->listar_HIJO($id_etapa_pago);
     //print_r($data_id_tra_db);
 
-    if (count($data_id_tra_db) > 0) {
+    if (count($data_id_tra_db) > 0) { // =============== MEJORAR ->buesqueda binariaaaaaaaaaaaaaaaaaaa!
         $data_tra_ref = $data_tra;
 
         for ($i = 0; $i < count($data_id_tra_db); $i++):
 
             for ($j = 0; $j < count($data_tra_ref); $j++):
-                echo "<< ";
-                echo "i = $i : j = $j ";
-                echo " >>\n";
+                //echo "<< ";
+                //echo "i = $i : j = $j ";
+                //echo " >>\n";
                 if ($data_id_tra_db[$i]['id_trabajador'] == $data_tra_ref[$j]['id_trabajador']):
                     $data_tra_ref[$j]['id_trabajador'] = null;
-                    echo "encontro trabajador Y  BREAK;";
+                    //echo "encontro trabajador Y  BREAK;";
                     break;
                 endif;
             endfor;
@@ -511,19 +513,56 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
     }
 
 
-    echo "DATA CON id_trabajador NULL Y SIN NULL ";
-    print_r($data_tra);
-    echo "FINNN NULL";
+    //echo "DATA CON id_trabajador NULL Y SIN NULL ";
+    //print_r($data_tra);
+    //echo "FINNN NULL";
 
-
-
+//-------------------------------------------------------------------
+    $dao_pd =new PlameDeclaracionDao();
+    $data_pd = $dao_pd->buscar_ID($ID_PDECLARACION);
+    
+    $dao_vac = new VacacionDao();
+    $data_tra_vacaciones = $dao_vac->listaIdsTraVacaciones($data_pd['periodo']);
+    
+    $ids_tra_vacaciones = array();    
+    for($a=0;$a<count($data_tra_vacaciones);$a++):
+       $ids_tra_vacaciones[$a]= $data_tra_vacaciones[$a]['id_trabajador'];
+    endfor;
+    
 //-------------------------------------------------------------------
 
 
     if (count($data_tra) >= 1) {
         for ($i = 0; $i < count($data_tra); $i++) {
             if ($data_tra[$i]['id_trabajador'] != null) {
-                ECHO "INYECTAR A BD";
+                
+                // veridicamos si se encuentra el los IDS_VACACIONES...
+            if (in_array($data_tra[$i]['id_trabajador'], $ids_tra_vacaciones)) {
+                //null
+                //echo "\n\n\n";
+                //echo "TRABAJADOR TIENE VACACION!! [encontrado en Array]";
+                //echo "\n\n = id_trabajador = ".$data_tra[$i]['id_trabajador'];
+                //echo "\n\n\n";
+                
+                $model = new Pago();
+                $model->setId_trabajador($data_tra[$i]['id_trabajador']);
+                $model->setId_etapa_pago($id_etapa_pago);
+                $model->setDia_laborado(null);
+                $model->setDia_total(null);
+                $model->setSueldo_base(null);  
+                $model->setSueldo(null);
+                $model->setSueldo_neto(null);
+                $model->setOrdinario_hora(null);
+                $model->setEstado(null);
+                $model->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
+                $model->setFecha_creacion(date("Y-m-d H:i:s"));
+                
+                $dao = new PagoDao();
+                $dao->registrar($model);  //true
+                
+            }else{
+                
+               // ECHO "INYECTAR A BD";
                 //---            
                 if ($data_tra[$i]['fecha_inicio'] > $FECHA_INICIO) {
                     //default
@@ -577,10 +616,12 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
                 $dia_no_laborado = $data_tra[$i]['dia_no_laborado'];
 
 
-                echo "<pre> -_-DATOS A COSULTAR PARA CONCEPTO DE ADELANTO";
-                echo "AFTER ANIBAL 01";
-                print_r($data_tra);
-                echo "</pre>";
+                echo "<pre> -_-DATOS A COSULTAR PARA CONCEPTO DE ADELANTO</pre>";
+                //echo "AFTER ANIBAL 01";
+                //print_r($data_tra);
+                //echo "</pre>";
+
+
 // 01 Registrar Epagos_trabajadores
 //02 Registrar Pagos               
                 $model = new Pago();
@@ -599,10 +640,6 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
 
                 //new ????
                 $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701, 1);
-                echo "<pre>dataxXx DE CONCEPTO ADELANTO";
-                //print_r($datax);
-                echo "descto % ".$datax['valor']." = a = ".$data_tra[$i]['id_trabajador'];
-                echo "</pre>";
                 $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
 
                 $numero = number_format($dataxx, 2);
@@ -676,7 +713,6 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
                 //--------------------------------------------
                 echo "SUELDO = " . $SUELDO;
                 echo "percent  despues = " . $percent;
-
                 echo "DESCTO = " . $DESCTO;
                 echo "SUELDO_CAL  definitivo= " . $SUELDO_CAL;
 
@@ -694,8 +730,15 @@ function registrar_15($ID_PDECLARACION,$id_etapa_pago, $id_etapa_pago_antes, $FE
                 $dao->registrar($model);
 
                 $rpta = true;
+                
+                
+                }//End trabajador Vacacion
+                
             }
+            
+            
         }
+        
     }
 
 

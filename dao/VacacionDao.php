@@ -34,7 +34,7 @@ class VacacionDao extends AbstractDao {
     }
     
     
-    public function fechaVacacionProgramada($id_trabajador, $anio){
+    public function fechaVacacionProgramada($id_trabajador, $anio,$mes){
         
         $query = "
         SELECT
@@ -46,16 +46,42 @@ class VacacionDao extends AbstractDao {
         fecha_creacion
         FROM vacaciones
         WHERE id_trabajador = ?
-        AND YEAR(fecha_programada) = ?       
+        AND YEAR(fecha_programada) = $anio  
+        AND MONTH(fecha_programada) = $mes;
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);
-        $stm->bindValue(2, $anio);
+        //$stm->bindValue(2, $anio);
+        //$stm->bindValue(3, $mes);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         
         return $lista[0];        
+    }
+    
+    // UTIL en 1era y 2da quincena!..
+    function listaIdsTraVacaciones($periodo){
+        
+        $anio = getFechaPatron($periodo, "Y");
+        $mes = getFechaPatron($periodo, "m");
+        
+        $query = "
+        SELECT        
+        id_trabajador
+        FROM vacaciones
+        WHERE YEAR(fecha_programada) = ?  
+        AND MONTH(fecha_programada) = ?;
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $anio);
+        $stm->bindValue(2, $mes);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        
+        return $lista;  
+        
     }
     
 

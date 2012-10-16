@@ -25,9 +25,7 @@ $estado = "anio mayor";
 }else{
 $estado = "anio menor";
 }
-//var_dump($estado);
-//echo "estado es ";
-//echoo($estado);
+
 $now_dia = getDayThatYear(date("Y-m-d"));
 //echoo($data_fecha);
 
@@ -38,37 +36,74 @@ $dia_calc = $now_dia - $dia;
 //echo "now_dia =".$now_dia;
 //echo "\ndia = ".$dia;
 
-
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
-		//$("#fv_calculado").datepicker();
-		
+		//$("#fv_calculado").datepicker();		
 		//$( "#fv_programado" )datepicker.({ minDate: -20, maxDate: "+1M +10D" });
-		$("#fv_programado").datepicker({ 
+		/*$("#fv_programado").datepicker({ 
 			changeMonth: true,
 			changeYear: true,
 			dateFormat: 'mm/yy',
 			minDate: <?php echo "-".$dia_calc; ?>
-			
-			//maxDate: "+11M +0D"
-			
-		});
-		
-		/*
+		});		
 		* Siempre Toleracia 11 meses . OK
 		*/
-		 });
+	 });
 		 
-		 function cambiarCheck(obj){
-		 	
-			//alert estadoCheckGlobal(obj);
-			
+		 function cambiarCheck(obj){		 	
+			//alert estadoCheckGlobal(obj);			
 		 }
 		 
 		 
-</script>
+<?php 
+//$data_fecha['fecha_calc'] = "2011-02-05";
+ $date_anio = getFechaPatron($data_fecha['fecha_calc'],"Y");
+ $date_mes  = getFechaPatron($data_fecha['fecha_calc'],"m");
+ $date_mes_js = $date_mes - 1;
+ $date_dia  = getFechaPatron($data_fecha['fecha_calc'],"d");
+ 
+ $date_inicio = $date_anio.','.$date_mes_js.','.$date_dia;
+ 
+ $fecha_final =  crearFecha($data_fecha['fecha_calc'],0,11,0);
 
+ //echoo($date_fin);
+ 
+ $date_anio_f = getFechaPatron($fecha_final,'Y');
+ $date_mes_f = getFechaPatron($fecha_final,'m');
+ $date_mes_f_js = $date_mes_f - 1;
+ $date_dia_f = getFechaPatron($fecha_final,'d');
+ 
+ $date_fin = $date_anio_f.','.$date_mes_f_js.','.$date_dia_f;
+ 
+ 
+?>
+//alert("fin es : <?php echo $date_inicio; ?>"); 
+			//.calendar
+		 $( "#fv_programado" ).datepicker({
+			changeMonth: true,
+			changeYear: true, 
+		 	firstDay:0,
+			dateFormat: 'mm/yy',			
+			numberOfMonths: 2, //16/08/2012
+			minDate: new Date(<?php echo $date_inicio; ?>),
+			maxDate: new Date(<?php echo $date_fin; ?>),
+			showOn: 'both',
+			buttonText: 'Selecciona una fecha',
+			buttonImageOnly:true,
+			buttonImage: 'images/calendar.gif',
+			//minDate: new Date(2010, 10, 1),
+			//maxDate: new Date(2010, 10, 15), 
+/*			showOn: 'button',
+			buttonText: "Seleccionar",			
+			
+			yearRange: '2010:2012',*/
+		 
+		 });
+
+		 
+		 
+</script>
 <div class="ocultar">id_trabajador 
   <input name="id_trabajador" id="id_trabajador"  type="text"
   value="<?php echo $ID_TRABAJADOR;?>" >
@@ -102,14 +137,14 @@ $dia_calc = $now_dia - $dia;
   <tbody>
     <tr>
 <td width="8">#</td>
-      <td width="197"><input name="fv_calculado" type="text" id="fv_calculado" size="15" 
+      <td width="204"><input name="fv_calculado" type="text" id="fv_calculado" size="15" 
       value="<?php echo getFechaPatron($data_fecha['fecha_calc'],"d/m/Y");?>"  readonly="readonly" /></td>
-      <td width="131"><input name="fv_programado" type="text" id="fv_programado" size="15"
+      <td width="148"><input name="fv_programado" type="text" id="fv_programado" size="15"
        <?php echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?>
        />
         <!--<input type="checkbox" name="chk_estado" id="chk_estado" onclick="cambiarCheck(this)"  />-->
       <label for="chk_estado"></label></td>
-      <td width="86">
+      <td width="62">
       <input type="button" name="btnAprovar" id="btnAprovar" value="Aprobar"
       class "red"
       onclick="guardarVacacionProgramada()" <?php echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?> /></td>
@@ -117,7 +152,7 @@ $dia_calc = $now_dia - $dia;
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td><input type="hidden" name="textfield" id="textfield" class="calendar" /></td>
       <td>&nbsp;</td>
     </tr>
   </tbody>
@@ -126,16 +161,16 @@ $dia_calc = $now_dia - $dia;
 <table width="450" border="1" class="tabla_gris">
   <?php for($i=0;$i<count($data);$i++): ?>
   <tr>
-    <td width="23"><input name="id_vacacion" type="text" id="id_vacacion" size="4"
+    <td width="24"><input name="id_vacacion" type="hidden" id="id_vacacion" size="4"
     value="<?php echo $data[$i]['id_vacacion'];?>"
      />
       #</td>
-    <td width="182"><input name="fecha_i_pasada" type="text" id="fecha_i_pasada"
+    <td width="164"><input name="fecha_i_pasada" type="text" id="fecha_i_pasada"
     value="<?php echo getFechaPatron($data[$i]['fecha'],"d/m/Y"); ?>" size="15" readonly="readonly"
      /></td>
-    <td width="131"><input name="fecha_f_pasada" type="text" id="fecha_f_pasada" 
+    <td width="147"><input name="fecha_f_pasada" type="text" id="fecha_f_pasada" 
     value="<?php echo getFechaPatron($data[$i]['fecha_programada'],"d/m/Y");?>" size="15" readonly="readonly" /></td>
-    <td width="86">
+    <td width="87">
     <span title="Editar" class="ocultar">
 		<a class="divEditar" 
         href="javascript:editarVacacion()">
@@ -152,7 +187,7 @@ $dia_calc = $now_dia - $dia;
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td><label for="textfield"></label></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>

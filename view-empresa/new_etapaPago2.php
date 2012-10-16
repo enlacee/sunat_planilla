@@ -93,19 +93,19 @@ if($premunerativo == 2){ //quincena 2
             
    <div class="help ayuda">
     
-   <strong>01 Adelanto individual :</strong>
+   <strong> Adelanto individual :</strong>
    <br />
    Genera el adelanto quincenal de los trabajadores seleccionados.
-   <p><strong>02 Adelanto total :</strong><br />
+   <p><strong>Adelanto total :</strong><br />
      Genera el adelanto de todos los trabajadores comprendidos en el mes.   </p>
    </div>         
             
             
             
           <p><!--  onclick="registrarEtapa()" -->
-            <input type="button" name="adelanto_01" id="adelanto_01" value="01 Adelanto Individual">
-            <input type="button" name="adelanto_02" id="adelanto_02" value="02 Adelanto Total" />
-            <br /></p>
+            <input type="button" name="adelanto_01" id="adelanto_01" value="Individual">
+            <input type="button" name="adelanto_02" id="adelanto_02" value="Total" />
+          <br /></p>
           <table id="list">
             </table>
             <div id="pager">          

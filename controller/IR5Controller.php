@@ -435,10 +435,11 @@ function recursiva($id_trabajador, $num_mes, $periodo) {
 
     $arreglo = get_IR5_DivisorDelImpuestoRenta($periodo_lab); //OJO
 
-    echo "<pre> this vale FOR";
-    print_r($arreglo);
-    echo "</pre>";
-    ECHO "\n\n\n";
+    //echo "<pre> this vale FOR";
+    //print_r($arreglo);
+    //echo "</pre>";
+    //ECHO "\n\n\n";
+
     $meses_cal = $arreglo['hijo'];
 
     //Armnado periodos
@@ -449,10 +450,10 @@ function recursiva($id_trabajador, $num_mes, $periodo) {
     }
 
 
-    echo "<hr>Periodo Armado";
-    echo "<pre>";
-    print_r($perido_armado);
-    echo "</pre>";
+    //echo "<hr>Periodo Armado";
+    //echo "<pre>";
+    //print_r($perido_armado);
+    //echo "</pre>";
 
 
 
@@ -470,10 +471,10 @@ function recursiva($id_trabajador, $num_mes, $periodo) {
         }
     }
 
-    echo "<hr>id_pdeclaracion_lab";
-    echo "<pre>";
-    print_r($id_pdeclaracion_lab);
-    echo "</pre>";
+    //echo "<hr>id_pdeclaracion_lab";
+    //echo "<pre>";
+    //print_r($id_pdeclaracion_lab);
+    //echo "</pre>";
 
 
 //..............................................................................
@@ -498,10 +499,10 @@ function recursiva($id_trabajador, $num_mes, $periodo) {
     }
 
 
-    echo "<hr>sum";
-    echo "<pre>";
-    print_r($sum);
-    echo "</pre>";
+    //echo "<hr>sum";
+    //echo "<pre>";
+    //print_r($sum);
+    //echo "</pre>";
 
     //-------   
     return $sum;
@@ -881,15 +882,15 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
         }
     }
 
-    echo "<pre>\n\nLABORATORIAO id_pdeclaracion_lab";
-    print_r($id_pdeclaracion_lab);
-    echo "</pre>";
+    //echo "<pre>\n\nLABORATORIAO id_pdeclaracion_lab";
+    //print_r($id_pdeclaracion_lab);
+    //echo "</pre>";
 
     //sum por declaraciones
     $var_07 = 0.00;
     for ($i = 0; $i < count($id_pdeclaracion_lab); $i++) {
         $monto = get_IR5_Ingresos($id_pdeclaracion_lab[$i], $id_trabajador);
-        echo "monto dentro for [$i] =" . $monto;
+        //echo "monto dentro for [$i] =" . $monto;
         $var_07 = $var_07 + $monto;
     }
 

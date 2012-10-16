@@ -242,31 +242,46 @@
                 },
                 {
                     name:'num_documento', 
-                    index:'num_documento',                    
+                    index:'num_documento',
                     editable:false,
-                    width:90,
-                    align:'center'
-                },
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
+                }, 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'dia_laborado',
@@ -359,31 +374,45 @@ function cargarTablaTrabajadorPdeclaracionGrid_Lineal(id){
                 {
                     name:'num_documento', 
                     index:'num_documento',
-                    search:false,
                     editable:false,
-                    width:90,
-                    align:'center'
-                },
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
+                }, 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                      
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                      
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:false,
                     width:90,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                      
                 },
                 {
                     name:'dias',

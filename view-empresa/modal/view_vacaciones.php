@@ -84,7 +84,7 @@ $dia_calc = $now_dia - $dia;
 			changeMonth: true,
 			changeYear: true, 
 		 	firstDay:0,
-			dateFormat: 'mm/yy',			
+			dateFormat: 'dd/mm/yy',			
 			numberOfMonths: 2, //16/08/2012
 			minDate: new Date(<?php echo $date_inicio; ?>),
 			maxDate: new Date(<?php echo $date_fin; ?>),
@@ -115,13 +115,13 @@ $dia_calc = $now_dia - $dia;
 </div>
 <br/>
 
-<table width="450" border="1" class="tabla_gris">
+<table width="500" border="1" class="tabla_gris">
   <thead>
     <tr>
-      <th width="14">#</th>
-      <th width="177">F. Calculado(12 m)</th>
-      <th width="141">F. Programada</th>
-      <th width="90">Estado</th>
+      <th width="16">#</th>
+      <th width="197">F. Calculado(12 m)</th>
+      <th width="194">F. Programada</th>
+      <th width="65">Estado</th>
     </tr>
   </thead>
   <tfoot>
@@ -131,20 +131,26 @@ $dia_calc = $now_dia - $dia;
 </table>
 <p><strong> Proxima Vacacion:</strong></p>
 
-<table width="450" border="1" class="tabla_gris">
+<form id="FrmVacacion" name="FrmVacacion" method="post" action="">
+
+<table width="500" border="1" class="tabla_gris">
   <tfoot>
   </tfoot>
   <tbody>
     <tr>
-<td width="8">#</td>
+<td width="9">#</td>
       <td width="204"><input name="fv_calculado" type="text" id="fv_calculado" size="15" 
       value="<?php echo getFechaPatron($data_fecha['fecha_calc'],"d/m/Y");?>"  readonly="readonly" /></td>
-      <td width="148"><input name="fv_programado" type="text" id="fv_programado" size="15"
-       <?php echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?>
+      <td width="188"><input name="fv_programado" type="text" id="fv_programado" size="15" 
+       <?php echo  ($estado == 'anio mayor') ? ' readonly="readonly"' : ''; ?>
        />
         <!--<input type="checkbox" name="chk_estado" id="chk_estado" onclick="cambiarCheck(this)"  />-->
-      <label for="chk_estado"></label></td>
-      <td width="62">
+      <label for="chk_estado"><br />
+        <input type="radio" name="tipo_vacacion" value="1" checked="checked" />
+        mes[30]
+        <input type="radio" name="tipo_vacacion" value="2" />
+        dias[15]     </label></td>
+      <td width="71">
       <input type="button" name="btnAprovar" id="btnAprovar" value="Aprobar"
       class "red"
       onclick="guardarVacacionProgramada()" <?php echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?> /></td>
@@ -152,25 +158,32 @@ $dia_calc = $now_dia - $dia;
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td><input type="hidden" name="textfield" id="textfield" class="calendar" /></td>
+      <td><input type="hidden" name="textfield" id="textfield"  class="calendar" /></td>
       <td>&nbsp;</td>
     </tr>
   </tbody>
 </table>
+</form>
+
+
 <p><strong>Historial:</strong></p>
-<table width="450" border="1" class="tabla_gris">
+<table width="500" border="1" class="tabla_gris">
   <?php for($i=0;$i<count($data);$i++): ?>
   <tr>
-    <td width="24"><input name="id_vacacion" type="hidden" id="id_vacacion" size="4"
+    <td width="27"><input name="id_vacacion" type="hidden" id="id_vacacion" size="4"
     value="<?php echo $data[$i]['id_vacacion'];?>"
      />
       #</td>
-    <td width="164"><input name="fecha_i_pasada" type="text" id="fecha_i_pasada"
+    <td width="183"><input name="fecha_i_pasada" type="text" id="fecha_i_pasada"
     value="<?php echo getFechaPatron($data[$i]['fecha'],"d/m/Y"); ?>" size="15" readonly="readonly"
      /></td>
-    <td width="147"><input name="fecha_f_pasada" type="text" id="fecha_f_pasada" 
-    value="<?php echo getFechaPatron($data[$i]['fecha_programada'],"d/m/Y");?>" size="15" readonly="readonly" /></td>
-    <td width="87">
+    <td width="189"> inicio: <span class="blue">[<?php echo getFechaPatron($data[$i]['fecha_programada'],"d/m/Y");?>]</span>
+      <br />
+       final:    
+      [<?php echo getFechaPatron($data[$i]['fecha_programada_fin'],"d/m/Y");?>]<br />
+    tipo : 
+    [<?php echo ($data[$i]['tipo_vacacion'] == 1)? 'Mes 30' : 'Dias 15'; ?></td>
+    <td width="73">
     <span title="Editar" class="ocultar">
 		<a class="divEditar" 
         href="javascript:editarVacacion()">

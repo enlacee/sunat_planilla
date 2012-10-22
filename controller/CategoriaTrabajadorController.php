@@ -361,11 +361,7 @@ function editarTrabajador() {
         }
     }   //END FOR
 
-    if ($contador) {
-        $dao_tra->actualizarCodigoSituacion($ID_TRA, 0);
-        $dao_rc->bajaCodSituacion($ID_TRA, 0);
-    }
-
+ 
 
 	//DAO trabajador
     $dao_tra->actualizarTrabajador($tra);

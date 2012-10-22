@@ -1,7 +1,7 @@
 <?php
 
 abstract class AbstractDao extends PDO {
-
+/*
     // singleton
     private static $instancia = null;
 
@@ -15,6 +15,7 @@ abstract class AbstractDao extends PDO {
         }
         return self::$instancia;
     }
+    */
     // singleton   
     
     protected $pdo = null;
@@ -29,8 +30,7 @@ abstract class AbstractDao extends PDO {
         parent::__construct($dsn, $username, $passwd, $options);
         $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $this->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-        
+        $this->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);        
         */
         //--- before
         $this->pdo = new PDO("mysql:host=localhost;dbname=db", "root", "",

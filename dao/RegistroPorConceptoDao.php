@@ -40,9 +40,7 @@ class RegistroPorConceptoDao extends AbstractDao {
         return true;
     }
 
-    function del() {
-        
-    }
+
 
     function edit($obj) {
 
@@ -249,17 +247,18 @@ class RegistroPorConceptoDao extends AbstractDao {
      * @param type $codigo Situacion 0 OR 1
      * @return boolean 
      */
-    function bajaCodSituacion($id_trabajador, $cod_situacion = 0) {
+    function baja($id_trabajador,$id_pdeclaracion) {
         $query = "
         UPDATE registros_por_conceptos
         SET  
-        cod_situacion = ?       
-        WHERE id_trabajador = ?       
+        estado = 0       
+        WHERE id_trabajador = ?
+        AND id_pdeclaracion = ?
         ";
 
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $cod_situacion);
-        $stm->bindValue(2, $id_trabajador);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $id_pdeclaracion);
 
         $stm->execute();
         $stm = null;

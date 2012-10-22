@@ -1,10 +1,10 @@
 <?php
 
-require_once '../util/funciones.php';
-require_once '../dao/AbstractDao.php';
-require_once '../dao/PlameDeclaracionDao.php';
-require_once '../dao/DeclaracionDconceptoDao.php';
-require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
+//require_once '../util/funciones.php';
+//require_once '../dao/AbstractDao.php';
+//require_once '../dao/PlameDeclaracionDao.php';
+//require_once '../dao/DeclaracionDconceptoDao.php';
+//require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 
 function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $sueldo) {
 
@@ -999,11 +999,6 @@ function arrayConceptosAfectos_a($cod_afectacion) {
 }
 
 //------------------------------------------------------------------------------
-
-function listaPdeclaraciones() {
-    $dao = new PlameDeclaracionDao();
-    return $dao->listar($id_empleador_maestro, $anio);
-}
 
 /**
  * Si el mes es 7 = julio devuelve : 2

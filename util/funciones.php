@@ -28,8 +28,11 @@ function getFechaPatron($fecha_es_us, $patron_date) {
 function echoo($obj) {
     if (is_null($obj)) {
         //var_dump($obj)."\n\n";
+        echo "nullo!";
     } else {
-        echo "\n<pre>" . print_r($obj) . "</pre>";
+        echo "<pre>";
+        print_r($obj);
+        echo "</pre>";
     }
 }
 
@@ -38,18 +41,16 @@ function echoo($obj) {
  * @param array $arreglo 
  * @return array devuelve un arreglo unico y ordenado 
  */
-function array_unique_ordenado($arreglo) {
-
-    $array_unico = array_unique($arreglo);
-
-    $array = array();
-
-    foreach ($array_unico as $key) {
-
-        $array[] = $key;
+function array_unico_ordenado($id1, $id2) {
+    $return = null;
+    
+    if (is_array($id1) && is_array($id2)) {
+        $array = array_merge($id1, $id2);
+        $inputarray = array_unique($array);
+        $return = array_values($inputarray);
     }
-
-    return $array;
+    
+    return $return;
 }
 
 /**
@@ -270,6 +271,53 @@ function getFechasDePago($fecha) {
     return $rpta;
 }
 
+//-------------------------19/octubre 2012
+
+function getFechasDePago2($anio, $mes) {
+
+    if (intval($mes) > 12) {
+        if ($mes >= 14) {
+            throw new Exception('Error fatal ANB!');
+        } else {
+            $anio = intval($anio) + 1;
+            $mes = intval($mes) - 12;
+        }
+    }
+
+    $fecha_construida = "$anio-$mes-01";
+
+    $format_fecha = getFechaPatron($fecha_construida, "Y-m-d");
+
+    $fff = strtotime($format_fecha);
+    $fecha_string = date("l d F Y", $fff);
+
+    // data 1
+    $dos_sem_seg = strtotime($fecha_string . "second weeks");
+    $dos_sem = date("Y-m-d", $dos_sem_seg);
+    //segunda semana + 1 dia
+    $DOS_SEM_MAS_SEG = date("Y-m-d", strtotime("$dos_sem + 1 day"));
+//-----------
+//$hoy= date("Y-m-d");
+//echo date("Y-m-d", strtotime( "$hoy + 1 day")) ; 	
+//-----------	
+    $mes_inicio_seg = strtotime($fecha_string . "first day");
+    $mes_inicio = date("Y-m-d", $mes_inicio_seg);
+    //
+    $mes_fin_seg = strtotime($fecha_string . "last day");
+    $mes_fin = date("Y-m-d", $mes_fin_seg);
+
+    //echo  date("Y-m-d", $f);
+    //return
+    $rpta = array("fecha" => $fecha_string,
+        "second_weeks" => $dos_sem,
+        "second_weeks_mas1" => $DOS_SEM_MAS_SEG,
+        "first_day" => $mes_inicio,
+        "last_day" => $mes_fin
+    );
+
+    return $rpta;
+}
+
 function getTipoMonedaPago($valor) {
     $tipoVal = array("%", "$");
 
@@ -321,8 +369,6 @@ function numMesQueFalta($mes_inicio, $mes_fin) {
 //echo numMesQueFalta(11, 11);
 //echo numMesQueFalta(06, 06);
 
-
-
 /**
  *
  * @param type $fecha
@@ -340,7 +386,7 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
     $dia = date("d", strtotime($fecha));
     $anio = date("Y", strtotime($fecha));
 
-    $str_time = mktime(0, 0, 0, ($mes + $month), ($dia + $day), ($anio + $year));
+    $str_time = mktime(0, 0, 0, (intval($mes) + $month), ($dia + $day), ($anio + $year));
 
     return date("Y-m-d", $str_time);
 }
@@ -351,11 +397,10 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
  * @return Decimal Numero Redondeado a dos Decimales
  */
 function roundTwoDecimal($num) { //SIN REDONDEO OK number_format =redondea a 2 :D
-    $valor = number_format($num, 4);    
+    $valor = number_format($num, 4);
     $redondeo = round(($valor * 100));
     return ($redondeo / 100);
 }
-
 
 /*
   function roundTwoDecimal($num) {
@@ -391,13 +436,13 @@ function roundFaborContra($num) {
             $numero['numero'] = intval($num);
         } else {
             $roundFC = 100 - $decimal;
-            $numero['numero'] = intval($num)+1;
+            $numero['numero'] = intval($num) + 1;
         }
 
         $roundFC = $roundFC / 100;
     }
 
-    
+
     $numero['valor'] = $num;
     //$numero['numero'] = intval($num);
     $numero['decimal'] = $roundFC;
@@ -429,59 +474,78 @@ function getNumMayor($a, $b, $c) {
     return $cout;
 }
 
-
-function getRendondeoEnSoles($num){
+function getRendondeoEnSoles($num) {
     $numero = array();
-    
+
     if (is_float($num)) {
-    $valor = number_format($num, 2); //Redondeo        
-    $aux = (string) $valor;
-    $decimal = substr($aux, strpos($aux, "."));
-    //quitar el punto decimal
-    $decimal = str_replace('.', '', $decimal);
-    
-    //CONDICION        
-    if (intval($decimal) > 0){
-        $roundFC = $decimal;
-    }
+        $valor = number_format($num, 2); //Redondeo        
+        $aux = (string) $valor;
+        $decimal = substr($aux, strpos($aux, "."));
+        //quitar el punto decimal
+        $decimal = str_replace('.', '', $decimal);
+
+        //CONDICION        
+        if (intval($decimal) > 0) {
+            $roundFC = $decimal;
+        }
         $roundFC = $roundFC / 100;
     }
     $numero['valor'] = $num;
     $numero['numero'] = intval($num);
-    $numero['decimal'] = $roundFC;   
-    
+    $numero['decimal'] = $roundFC;
+
     return $numero;
 }
 
 //$monto = 1837;
 //echoo(getRendondeoEnSoles($monto));
 
-function textoaMedida($num_limite,$texto){    
+function textoaMedida($num_limite, $texto) {
     //return sizeof(explode(" ", $texto));  
     $num_palabra = str_word_count($texto);
-    $num_len = strlen($texto);        
-            
-    $txt  =str_replace(" ", ",", $texto);
+    $num_len = strlen($texto);
+
+    $txt = str_replace(" ", ",", $texto);
     $arreglo_txt = (str_getcsv($txt, ","));
-    
+
     $cadena = null;
     $count_leng = 0;
-    for($i=0;$i<count($arreglo_txt);$i++){
+    for ($i = 0; $i < count($arreglo_txt); $i++) {
 
         $count_leng = $count_leng + intval(strlen($arreglo_txt[$i]));
-        if($count_leng <= $num_limite){
-            if($i==0):
-               $cadena .= $arreglo_txt[$i]; 
+        if ($count_leng <= $num_limite) {
+            if ($i == 0):
+                $cadena .= $arreglo_txt[$i];
             else:
-               $cadena .= " ".$arreglo_txt[$i]; 
-               $count_leng = $count_leng + 1; //sum espacio
+                $cadena .= " " . $arreglo_txt[$i];
+                $count_leng = $count_leng + 1; //sum espacio
             endif;
-                       
-        }else{
+        }else {
             break;
         }
-        
-    }    
+    }
     return $cadena;
 }
+
+//Funcion sumar 30 o 15 dias a la fecha
+//fech inicio y fech fin
+
+function tipoFechaVacacionMasDias($fecha, $tipo) {
+
+    $data = array();
+    $data['fecha_inicio'] = $fecha;
+    $data['fecha_fin'] = null;
+
+    if ($tipo == 1) { // MES
+        $data['fecha_fin'] = crearFecha($fecha, 29, 0, 0);
+    } else if ($tipo == 2) {// quincena
+        $data['fecha_fin'] = crearFecha($fecha, 14, 0, 0);
+    }
+
+    return $data;
+}
+
+//echo "<pre>";
+//print_r(getMesInicioYfin('2012-05-05'));
+//echo "<pre>";
 ?>

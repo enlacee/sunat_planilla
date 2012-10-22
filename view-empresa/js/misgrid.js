@@ -1364,8 +1364,8 @@ function cargarTablaPagoGrid_Lineal(id_pago){
             //rownumbers: true,
 			height:320,
 			//width :390,
-            rowNum:10,
-            rowList:[10,20],
+            rowNum:50,
+            rowList:[50],
             sortname: 'id_pago',
             sortorder: 'asc',
             viewrecords: true,
@@ -2024,18 +2024,24 @@ $.ajax({
 //--------------------------
 function guardarVacacionProgramada(){
 	var id_trabajador = document.getElementById('id_trabajador').value;
+    /*
 	var fv_calculado = document.getElementById('fv_calculado').value;
 	var fv_programado = document.getElementById('fv_programado').value;
-	
+    var tipo_vacacion = document.getElementById('tipo_vacacion').value;
+	*/
+    $data = $('#FrmVacacion').serialize();
+
 $.ajax({
    type: "POST",
-   url: "sunat_planilla/controller/VacacionController.php",
+   url: "sunat_planilla/controller/VacacionController.php?"+$data,
    data: {
 	   oper : 'add',
-	   id_trabajador : id_trabajador,
+	   id_trabajador : id_trabajador/*,
 	   fv_calculado : fv_calculado,
-	   fv_programado: fv_programado
+	   fv_programado: fv_programado,
+       tipo_vacacion: tipo_vacacion*/
 	    },//Enviando a ediatarProducto.php vareiable=id_producto
+        
    async:true,
    success: function(data){
 	   alert("Se Registro Correctamente.");

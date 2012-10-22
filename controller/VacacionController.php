@@ -14,6 +14,8 @@ if ($op) {
     require_once '../dao/VacacionDao.php';
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
+    
+    require_once '../model/Vacacion.php';
 }
 
 $response = NULL;
@@ -260,35 +262,37 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
 }
 
 function addVacacion() {
+    echoo($_REQUEST);
 
-    //$post = $_REQUEST;
-    $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");
-   
     
-    $fecha_pro_request = "01/".$_REQUEST['fv_programado']; // d/m/Y
+    $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");       
+     
+    $f_programado = getFechaPatron($_REQUEST['fv_programado'], "Y-m-d");    
     
-    $f_programado = getFechaPatron($fecha_pro_request, "Y-m-d");
-
+    $data = tipoFechaVacacionMasDias($f_programado, $_REQUEST['tipo_vacacion']);
+    echoo($data);
+    $f_programado_fin = $data['fecha_fin'];
+    
+    $obj = new Vacacion();
+    $obj->setId_trabajador($_REQUEST['id_trabajador']);
+    $obj->setFecha($f_calculado);
+    $obj->setFecha_programada($f_programado);
+    $obj->setFecha_prograda_fin($f_programado_fin);
+    $obj->setTipo_vacacion($_REQUEST['tipo_vacacion']);
+    
+    
+    $dao = new VacacionDao();    
+    $dao->add($obj);   
+    
+//..............................................................................
+// this no pasa xq javacript lo tiene controlado    
     //fecha limite de vacacion es : 11 meses
-    $fecha_limite = crearFecha($f_calculado, 0, 11, 0);
-//    echo "fecha_ programador :\n";
-//    echoo($f_programado);
-
-    //echo 'fecha limite es :    ';
-    //echoo($fecha_limite);
-
-    if ($f_programado > $fecha_limite) {
-        //echo "f programada es mayor";
+    /*$fecha_limite = crearFecha($f_calculado, 0, 11, 0);        
+    if ($f_programado > $fecha_limite) {        
         $f_programado = $f_calculado;
-    } else {        
-        //echo "f programada es Menor"; js
-    }
-    //echo "\nfecha_programado es \n";
-    //echoo($f_programado);
-
-    $dao = new VacacionDao();
-    $dao->add($_REQUEST['id_trabajador'], $f_calculado, $f_programado);
-
+    }*/    
+//..............................................................................
+   
     return true;
 }
 

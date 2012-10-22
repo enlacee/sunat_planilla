@@ -1,5 +1,4 @@
 <?php
-
 class PlameDetalleConceptoAfectacionDao extends AbstractDao {
 
     // USANDO PARA CARGA ONLY DEVELOPER usando ??? FUCK!

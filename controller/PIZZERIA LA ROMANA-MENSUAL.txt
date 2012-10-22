@@ -1,10 +1,10 @@
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          2
+                                                             PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
-LOCALIDAD : PUEBLO LIBRE
+LOCALIDAD : SAN ISIDRO
 
 CENTRO DE COSTO : VENTAS
 
@@ -12,9 +12,9 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             2,028.00 _______________
+  1 10389776    ZAMORA MEGO MELQUIADES                  648.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            2,028.00
+TOTAL VENTAS                                            648.00
 --------------------------------------------------------------------------------
 

@@ -6,25 +6,18 @@
 //require_once '../dao/DeclaracionDconceptoDao.php';
 //require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 
-function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $sueldo) {
+function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $PERIODO) {
+    echo "<pre>\n ***INICIO*** RENTA DE 5TA ---$PERIODO--</pre>";
 
     //|--- Config Posible Cambio ----------------------------------------|
     //| UIT = 
     //|
     //|------------------------------------------------------------------|
+    $periodo = $PERIODO;
     $_7_UIT = 7;
 
-
-
-
-    // Dao pdeclaracion
-    $dao = new PlameDeclaracionDao();
-    $data_pd = $dao->buscar_ID($ID_PDECLARACION);
-    echo "<pre> -------------------- HOLA  = IR 5TA --------------------";
-    print_r($data_pd);
-    echo "</pre>";
-
-    $periodo = $data_pd['periodo']; //"2012-01-01"; //  Enero 2012
+    //"2012-01-01"; //  Enero 2012    
+        
     $mes_periodo = intval(getFechaPatron($periodo, 'm'));
     $anio_periodo = intval(getFechaPatron($periodo, 'Y'));
 //| -----------------------------------------------------
@@ -146,17 +139,21 @@ function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $suel
 // 24 : Retenciones(2)
 
     $_24 = 0;
+    echo "\n24 = $_24";
     if ($mes_periodo == 12) { // Recalcular toma en cuenta todos los meses R5TA       
-        $_24 = get_IR5_ImpuestoARetenerAnteriores( $id_trabajador, $periodo);        
+        $_24 = get_IR5_ImpuestoARetenerAnteriores( $id_trabajador, $periodo); 
+        echo "\n24 solo ocurre 12=diciembre = $_24";
     }else{
+        echo "\n24 solo ocurre 1,2,3,..11  = $_24";
         $_24 = Retenciones($id_trabajador, $ID_PDECLARACION, $periodo);  
     }
-
+    echo "\n24 = $_24";
 
 // 25 : Impuesto a pagar
     $_25 = ($mes_periodo == 12) ? ($_24-$_23) : ($_23-$_24) ;    
 //$_25 = $_23 - $_24;
-    
+    echo "\n25 = MES = 12 ->(24 - 23)  O 23 -24 \n";
+    echo "\n25 = $_25";
 
 // 26 : Divisor del impuesto a la renta(3)
 
@@ -168,7 +165,8 @@ function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $suel
     $_27 = ($_25 / $_26);
 
 
-    ECHO "\nImpuesto a retener mensual = " . $_27;
+    ECHO "\n\nIMP. a retener mensual [$id_trabajador] = " . $_27;
+    echo "\n\n<br>";
 
 
 
@@ -276,11 +274,7 @@ function get_IR5_SumaImpuestoRetenidosMensuales($id_trabajador, $id_pdeclaracion
     // padre['hijo'] =;
     if (is_array($arreglo_mes)) { //consultar a base datos        
 
-        /* echo "<pre> ";
-          print_r($arreglo_mes['hijo']);
-          echo "</pre>"; */
-        //$dao_dconcepto = new DeclaracionDconceptoDao();
-        //$data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+
     }
 }
 
@@ -314,9 +308,9 @@ function Retenciones($id_trabajador, $id_pdeclaracion, $periodo) {
 //$fecha = '2012-01-01';
     $data = get_IR5_DivisorDelImpuestoRenta($periodo);
 
-    echo "<pre>";
-    print_r($data);
-    echo "</pre>";
+    //echo "<pre>";
+    //print_r($data);
+    //echo "</pre>";
 
 //CLAVES R5
     if ($num_mes == 4) {

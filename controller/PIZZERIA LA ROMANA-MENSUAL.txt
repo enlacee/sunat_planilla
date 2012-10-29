@@ -1,8 +1,8 @@
 
-CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          1
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          0
                                     MENSUAL                                     
-                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
 
 LOCALIDAD : SAN ISIDRO
 
@@ -12,9 +12,106 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 10389776    ZAMORA MEGO MELQUIADES                  648.00   _______________
+  1 10389776    ZAMORA MEGO MELQUIADES                  798.00   _______________
+
+  2 10285430    SOLANO CALDUA NICOLAS VICTOR            278.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            648.00
+TOTAL VENTAS                                            1,076.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          1
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN ISIDRO
+
+CENTRO DE COSTO : ADMINISTRACION - GERENCIA
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 09716287    FERNANDEZ MERINO CARMEN IMELDA          829.00   _______________
+
+--------------------------------------------------------------------------------
+TOTAL ADMINISTRACION - GERENCIA                         829.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          0
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : PUEBLO LIBRE
+
+CENTRO DE COSTO : VENTAS
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         277.00   _______________
+
+--------------------------------------------------------------------------------
+TOTAL VENTAS                                            277.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          1
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : PUEBLO LIBRE
+
+CENTRO DE COSTO : ADMINISTRACION - CAJA
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             1,080.00 _______________
+
+--------------------------------------------------------------------------------
+TOTAL ADMINISTRACION - CAJA                             1,080.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          0
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN BORJA
+
+CENTRO DE COSTO : VENTAS
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            273.00   _______________
+
+--------------------------------------------------------------------------------
+TOTAL VENTAS                                            273.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          1
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : MIRAFLORES
+
+CENTRO DE COSTO : VENTAS
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 09570841    TANTALEAN AREVALO CARLOS ALBERTO        278.00   _______________
+
+--------------------------------------------------------------------------------
+TOTAL VENTAS                                            278.00
 --------------------------------------------------------------------------------
 

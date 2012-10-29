@@ -86,11 +86,15 @@ echo "</pre>";*/
                     <td>
                         <input name="ds_cantidad_dia[]" id="ds_cantidad_dia-<?php echo $ID; ?>" size="7" onblur="calcDiaSubsidiado()" type="text"
                                value="<?php echo $data[$i]->getCantidad_dia(); ?>" >                    </td>
-<td>
-            <span title="editar">
-                <a href="javascript:eliminar_ds_0( 'dia_subsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?> )">
-                    <img src="images/cancelar.png"></a></span>          </td>
-                </tr>
+
+<span title="editar">
+<a href="javascript:eliminar_ds_0( 'dia_subsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_subsidiado(); ?> )">
+<img src="images/cancelar.png"></a>
+</span>
+
+
+</td>
+</tr>
 
                 <!-- -->
 

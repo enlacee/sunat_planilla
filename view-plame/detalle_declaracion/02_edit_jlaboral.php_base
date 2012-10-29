@@ -39,8 +39,8 @@ $obj_tpd = buscar_ID_TrabajadorPdeclaracion($ID);
 /*
 echo "<pre>TPD";
 print_r($obj_tpd);
-echo "</pre>";*/
-
+echo "</pre>";
+*/
 $data_ds = buscarDiaSPor_IdTrabajadorPdeclaracion($obj_tpd->getId_trabajador_pdeclaracion());
 $data_dns = buscarDiaNoSPor_IdTrabajadorPdeclaracion($obj_tpd->getId_trabajador_pdeclaracion());
 
@@ -828,8 +828,8 @@ calcHoraLaborada();
             <hr />
             <p>
                 <label for="dia_laborado">Laborados</label>
-                <input name="dia_laborado" type="text" id="dia_laborado"
-                       value="<?php echo $dia_laborado_calc; ?>" size="4" readonly="readonly" />
+                <input name="dia_laborado" type="text" id="dia_laborado" size="4" readonly="readonly"
+                       value="<?php echo $dia_laborado_calc; ?>" />
             </p>
         <p>
               <label for="dia_subsidiado">Subsidiados</label>

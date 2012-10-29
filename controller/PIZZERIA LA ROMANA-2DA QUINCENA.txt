@@ -1,21 +1,21 @@
 
-CAMUENTE S.A.                                                FECHA :  10/10/2012
+CAMUENTE S.A.                                                FECHA :  20/08/2012
                                                              PAGINA :          1
                                   2DA QUINCENA                                  
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                      PLANILLA DEL MES DE FEBRERO DEL 2012                      
 
 LOCALIDAD : SAN ISIDRO
 
-CENTRO DE COSTO : ADMINISTRACION - GERENCIA
+CENTRO DE COSTO : VENTAS
 
 --------------------------------------------------------------------------------
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 09716287    FERNANDEZ MERINO CARMEN IMELDA          1211.00  _______________
+  1 10389776    ZAMORA MEGO MELQUIADES                  337.50   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - GERENCIA SAN ISIDRO              1,211.00
+TOTAL VENTAS SAN ISIDRO                                 337.50
 --------------------------------------------------------------------------------
 
 

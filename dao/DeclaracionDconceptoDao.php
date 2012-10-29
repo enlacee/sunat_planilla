@@ -2,7 +2,6 @@
 
 class DeclaracionDconceptoDao extends AbstractDao {
 
-//????
     public function registrar($obj) {
         $model = new DeclaracionDconcepto();
         $model = $obj;
@@ -17,7 +16,7 @@ class DeclaracionDconceptoDao extends AbstractDao {
                 ?,
                 ?,
                 ?,
-                ?);      
+                ?);     
         ";
         try {
 
@@ -70,30 +69,8 @@ class DeclaracionDconceptoDao extends AbstractDao {
         return true;
     }
 
-    /*   public function eliminar($id_pdia_subsidiado) {
 
-      $query = "
-      ";
 
-      $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $id_pdia_subsidiado);
-
-      $stm->execute();
-      //$lista = $stm->fetchAll();
-      $stm = null;
-      return true;
-      } */
-
-    public function buscar_ID() {
-        $query = "		
-
-		";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador_pdeclaracion);
-        $stm->execute();
-        $stm = null;
-        return true;
-    }
 
     /*
      * Lista todos los conceptos del trabajador Pagados o Emitidos

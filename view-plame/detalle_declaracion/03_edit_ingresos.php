@@ -66,11 +66,9 @@ function calcularPingreso(){
 	var d_total = document.getElementById('pt_total_devengado');
 	var p_total = document.getElementById('pt_total_pagado');
 	
-	console.log("***********************************");
-	console.log("***********INICIOOO****************");
-	console.log("***********************************");
-//	console.log("num_fila_tabla "+ num_fila_tabla);
-//	console.log("ID "+ ID);
+
+	console.log("num_fila_tabla "+ num_fila_tabla);
+	console.log("ID "+ ID);
 	
 	var d_suma = 0;
 	var p_suma = 0;
@@ -80,8 +78,8 @@ function calcularPingreso(){
 		var d_num = document.getElementById('pt_devengado-'+i).value;
 		var p_num = document.getElementById('pt_pagado-'+i).value;
 		
-		d_num = (parseInt(d_num)>0) ? parseInt(d_num) : 0; 		
-		p_num = (parseInt(p_num)>0) ? parseInt(p_num) : 0;
+		d_num = (parseFloat(d_num)>0) ? parseFloat(d_num) : 0; 		
+		p_num = (parseFloat(p_num)>0) ? parseFloat(p_num) : 0;
 //			console.log("----"+i+"----");	
 //			console.log("d_num "+d_num);
 //			console.log("p_num "+p_num);
@@ -134,7 +132,7 @@ function duplicarDatoDevengado(id){ console.log(id);
 	
 	p.value = string;
 
-	console.log("string "+string);
+	//console.log("string "+string);
 	
 /*
 	$("#"+id_text_devengado).keyup(function() {
@@ -288,15 +286,15 @@ for(var id = 1; id<=data.length;id++){
 
 
 
-<table width="670" border="1" class="tb ocultar">
+<table width="670" border="1" class="tb">
     <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>TOTAL INGRESOS:
-        <input type="button" name="btncalc" id="btncalc" value="Calcular"  onclick="calcularPingreso()"/></td>
-        <td><label for="pt_total_devengado"></label>
-            <input name="pt_total_devengado" type="text" id="pt_total_devengado" value="0.00" size="8" /></td>
-        <td><input name="pt_total_pagado" type="text" id="pt_total_pagado" value="0.00" size="8" /></td>
+        <td width="13">&nbsp;</td>
+        <td width="13">&nbsp;</td>
+        <td width="320">TOTAL INGRESOS:
+        </td>
+        <td width="121"><label for="pt_total_devengado"></label>
+            <input name="pt_total_devengado" type="text" id="pt_total_devengado" value="0.00" size="8" readonly="readonly" /></td>
+        <td width="169"><input name="pt_total_pagado" type="text" id="pt_total_pagado" value="0.00" size="8" readonly="readonly" /></td>
     </tr>
 </table>
 <p id="text_display">&nbsp;</p>

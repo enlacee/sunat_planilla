@@ -41,6 +41,43 @@ echo "</pre>";
 */
 
 ?>
+<script>
+
+//alert("hello word!!!");
+var tabla = document.getElementById("Pdescuento");
+var num_fila_tabla = contarTablaFila(tabla);
+
+num_fila_tabla = num_fila_tabla - 1; //Descuento de Cabecera.
+
+var ID =  num_fila_tabla; //+ 1;
+
+console.log("Pdescuento  = id = "+ID);
+alert("ID = "+ID);
+
+function calcularDescuento(){	
+	// d = descuento
+	var d_total = document.getElementById('pt_total_dscto');
+	
+	var d_suma = 0;
+	
+
+	for(var i=1;i<=parseInt(ID);i++){
+		var d_num = document.getElementById('pt_monto-'+i).value;
+		d_num = (parseFloat(d_num)>0) ? parseFloat(d_num) : 0; 	
+//			console.log("----"+i+"----");	
+		d_suma = d_suma + d_num;
+	}
+	//----	
+	d_total.value = d_suma;	
+	//----
+	
+
+}
+//-------------------
+//--------------------
+calcularDescuento();
+
+</script>
 <div class="ptrabajador">
 <div class="ocultar">
 id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="readonly"/>
@@ -58,8 +95,11 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
     
         <?php
         if (count($pdescuento) >= 1):
+			//ID
+			$ID = 0;
 
             for ($i = 0; $i < count($pdescuento); $i++):
+			$ID++
                 ?>  
     
     
@@ -74,7 +114,7 @@ value="<?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?>"/
       </td>
       <td><?php echo $pdescuento[$i]['descripcion'];?></td>
       <td><label for="pt_monto"></label>
-      <input name="pt_monto" type="text" id="pt_monto" 
+      <input name="pt_monto" type="text" id="pt_monto-<?php echo $ID;?>" 
        value="<?php 
 	   for($x=0; $x<count($calc_conceptos); $x++):
 		   if($pdescuento[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
@@ -100,10 +140,10 @@ value="<?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?>"/
 </div>
 <table width="670" border="1" class="tb ocultar">
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>TOTAL DESCUENTOS:</td>
-    <td><label for="pt_total_devengado"></label>
-      <input name="pt_total_devengado" type="text" id="pt_total_devengado" value="0.00" size="8" /></td>
+    <td width="21">&nbsp;</td>
+    <td width="21">&nbsp;</td>
+    <td width="436">TOTAL DESCUENTOS:</td>
+    <td width="164"><label for="pt_total_dscto"></label>
+      <input name="pt_total_dscto" type="text" id="pt_total_dscto" value="0.00" size="8" readonly="readonly" /></td>
   </tr>
 </table>

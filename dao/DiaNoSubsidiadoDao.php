@@ -1,8 +1,40 @@
 <?php
+//require_once '../dao/AbstractDao.php';
+//require_once '../model/DiaNoSubsidiado.php';
 
 class DiaNoSubsidiadoDao extends AbstractDao {
+   // singleton
+    private static $instancia = null;
+ 
+    static public function anb_add($obj){        
+        
+        if( self::$instancia == null ){
+            try {
+                self::$instancia = new DiaNoSubsidiadoDao();
+                self::$instancia->registrar($obj);                
+            } catch (Exception $e) {
+                throw $e;
+            }
+        }
+        
+    }
 
-    //put your code here
+
+    static public function anb_diasNoSubsidiado($id_trabajador_pdeclaracion, $cod_tipo_suspen_relacion_laboral){        
+        
+        if( self::$instancia == null ){
+            try {
+                self::$instancia = new DiaNoSubsidiadoDao();
+                self::$instancia->diasNoSubsidiado($id_trabajador_pdeclaracion, $cod_tipo_suspen_relacion_laboral);                
+            } catch (Exception $e) {
+                throw $e;
+            }
+        }
+        
+    }
+
+    
+    
     public function registrar($obj) {
 
         $model = new DiaNoSubsidiado();
@@ -12,8 +44,10 @@ class DiaNoSubsidiadoDao extends AbstractDao {
                     (
                      id_trabajador_pdeclaracion,
                      cantidad_dia,
-                     cod_tipo_suspen_relacion_laboral)
+                     cod_tipo_suspen_relacion_laboral,
+                     estado)
         VALUES (
+                ?,
                 ?,
                 ?,
                 ?);          
@@ -23,6 +57,7 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         $stm->bindValue(1, $model->getId_trabajador_pdeclaracion());
         $stm->bindValue(2, $model->getCantidad_dia());
         $stm->bindValue(3, $model->getCod_tipo_suspen_relacion_laboral());
+        $stm->bindValue(4, $model->getEstado());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -77,7 +112,8 @@ class DiaNoSubsidiadoDao extends AbstractDao {
           id_dia_nosubsidiado,
           id_trabajador_pdeclaracion,
           cantidad_dia,
-          cod_tipo_suspen_relacion_laboral
+          cod_tipo_suspen_relacion_laboral,
+          estado
         FROM dias_nosubsidiados
         WHERE id_trabajador_pdeclaracion = ?         
         ";
@@ -106,6 +142,38 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         
     }
 
+
+    //personalizado para boleta:
+    private function diasNoSubsidiado($id_trabajador_pdeclaracion, $cod_tipo_suspen_relacion_laboral) {
+
+        $query = "
+        SELECT
+          -- id_dia_nosubsidiado,          
+          cantidad_dia                   
+        FROM dias_nosubsidiados
+        WHERE id_trabajador_pdeclaracion = ?
+        AND cod_tipo_suspen_relacion_laboral = ?        
+        ";
+       
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador_pdeclaracion);
+        $stm->bindValue(2, $cod_tipo_suspen_relacion_laboral);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista[0]['cantidad_dia'];
+    }
+
+
 }
 
+/*
+$obj = new DiaNoSubsidiado();
+$obj->setId_trabajador_pdeclaracion(1171);
+$obj->setCantidad_dia(5);
+$obj->setCod_tipo_suspen_relacion_laboral(23);
+
+DiaNoSubsidiadoDao::anb_registrar($obj);
+*/
 ?>

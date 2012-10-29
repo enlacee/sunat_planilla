@@ -1,11 +1,8 @@
 <?php
 
 
-function generarConfiguracion($ID_PDECLARACION) {
+function generarConfiguracion($periodo) {
 
-    $daox = new PlameDeclaracionDao();
-    $datax = $daox->buscar_ID($ID_PDECLARACION);
-    $periodo = $datax['periodo'];
 
 //--- SUELDO BASE = SB
     $dao_1 = new ConfSueldoBasicoDao();
@@ -31,15 +28,15 @@ function generarConfiguracion($ID_PDECLARACION) {
     $ESSALUD_MAS = 5.00;
     $SNP_MAS = 5.00;
     /*
-      echo "8888888888888888888888888888888888888888888888";
+      echo "\n8888888888888888888888888888888888888888888888\n";
 
-      echo "SB =".$SB;
-      echo "T_AF =".$T_AF;
-      echo "T_ESSALUD =".$T_ESSALUD;
-      echo "T_ONP =".$T_ONP;
-      echo "UIT =".$UIT;
+      echo "\nSB =".$SB;
+      echo "\nT_AF =".$T_AF;
+      echo "\nT_ESSALUD =".$T_ESSALUD;
+      echo "\nT_ONP =".$T_ONP;
+      echo "\nUIT =".$UIT;
 
-      echo "8888888888888888888888888888888888888888888888";
+      echo "\n8888888888888888888888888888888888888888888888\n";
      */
 
 
@@ -59,7 +56,7 @@ function generarConfiguracion($ID_PDECLARACION) {
     } else {
         define('SB', $SB);
         define('T_AF', $T_AF);
-        define('T_ESSALUD', $T_ESSALUD); // ojoooooooooooooooooooooooooooooo? xq habili?=
+        define('T_ESSALUD', $T_ESSALUD); //
         define('T_ONP', $T_ONP);
         define('UIT', $UIT);
 

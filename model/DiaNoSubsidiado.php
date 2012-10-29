@@ -7,12 +7,14 @@ class DiaNoSubsidiado {
     private $id_trabajador_pdeclaracion;
     private $cantidad_dia;
     private $cod_tipo_suspen_relacion_laboral;
+    private $estado;
 
     function __construct() {
         $this->id_dia_nosubsidiado = null;
         $this->id_trabajador_pdeclaracion = null;
         $this->cantidad_dia = null;
         $this->cod_tipo_suspen_relacion_laboral = null;
+        $this->estado = null;
     }
     
     public function getId_dia_nosubsidiado() {
@@ -46,6 +48,16 @@ class DiaNoSubsidiado {
     public function setCod_tipo_suspen_relacion_laboral($cod_tipo_suspen_relacion_laboral) {
         $this->cod_tipo_suspen_relacion_laboral = $cod_tipo_suspen_relacion_laboral;
     }
+
+    public function getEstado() {
+        return $this->estado;
+    }
+
+    public function setEstado($estado) {
+        $this->estado = $estado;
+    }
+
+
 
 
 

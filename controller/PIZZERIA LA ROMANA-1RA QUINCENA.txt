@@ -1,8 +1,8 @@
 
-CAMUENTE S.A.                                                FECHA :  10/10/2012
+CAMUENTE S.A.                                                FECHA :  15/08/2012
                                                              PAGINA :          1
                                   1RA QUINCENA                                  
-                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
 
 LOCALIDAD : SAN ISIDRO
 
@@ -12,16 +12,54 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 10389776    ZAMORA MEGO MELQUIADES                  175.00   _______________
+  1 10389776    ZAMORA MEGO MELQUIADES                  90.00    _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS SAN ISIDRO                                 175.00
+TOTAL VENTAS SAN ISIDRO                                 90.00
 --------------------------------------------------------------------------------
 
 
 
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          2
+                                  1RA QUINCENA                                  
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : PUEBLO LIBRE
+
+CENTRO DE COSTO : ADMINISTRACION - CAJA
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             1955.00  _______________
+
+--------------------------------------------------------------------------------
+TOTAL ADMINISTRACION - CAJA PUEBLO LIBRE                1,955.00
+--------------------------------------------------------------------------------
+
 
 
+CAMUENTE S.A.                                                FECHA :  15/08/2012
+                                                             PAGINA :          3
+                                  1RA QUINCENA                                  
+                       PLANILLA DEL MES DE ENERO DEL 2012                       
+
+LOCALIDAD : SAN BORJA
+
+CENTRO DE COSTO : VENTAS
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            375.00   _______________
+
+--------------------------------------------------------------------------------
+TOTAL VENTAS SAN BORJA                                  375.00
+--------------------------------------------------------------------------------
+
 
 
 

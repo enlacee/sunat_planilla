@@ -450,29 +450,6 @@ function roundFaborContra($num) {
     return $numero;
 }
 
-/*
-  $num = 590.59;
-  $num2 = 590.25;
-  var_dump (roundFaborContra($num2));
- */
-
-function getNumMayor($a, $b, $c) {
-    //$a=5;
-    //$b=8;
-    //$c=7;
-    $cout = 0;
-
-    if (($a >= $b) && ($a >= $c)) {
-        $cout = $a;
-    }
-    if (($b >= $a) && ($b >= $c)) {
-        $cout = $b;
-    } else {
-        $cout = $c;
-    }
-
-    return $cout;
-}
 
 function getRendondeoEnSoles($num) {
     $numero = array();
@@ -548,4 +525,43 @@ function tipoFechaVacacionMasDias($fecha, $tipo) {
 //echo "<pre>";
 //print_r(getMesInicioYfin('2012-05-05'));
 //echo "<pre>";
+
+
+
+/**
+ *
+ * @param type $numeros
+ * @return type 
+ * $var Numero mayor Podria utilizar max(array);
+ */
+
+
+function getNumeroMayor($numeros = array()){    
+$contador = array();
+
+for($i=0; $i< count($numeros);$i++){    
+    $contador[$i]=0;
+    for($j=0; $j< count($numeros);$j++){
+        if($numeros[$i]>=$numeros[$j] && $numeros[$i]!=$numeros[$j]){            
+            $contador[$i] = $contador[$i] + 1;            
+        }
+    }
+}
+
+$mayor = max($contador);
+for($x=0;$x<count($contador);$x++):
+    if($contador[$x] == $mayor):
+        $indice = $x;
+        break;
+    endif;
+endfor;
+
+//echoo($indice);
+//echo "<br>";
+//echoo($numeros[$indice]);
+return $numeros[$indice];
+
+}
+
+
 ?>

@@ -108,7 +108,7 @@ class VacacionDao extends AbstractDao {
      */
 
     // UTIL en 1era y 2da quincena!.. UTILIZADO DE PRUEBA
-    function listaIdsTraVacacionesFProgramada($mes_inicio, $mes_fin) {
+    public function listaIdsTraVacacionesFProgramada($mes_inicio, $mes_fin) {
 
         $query = "
         SELECT        
@@ -134,7 +134,7 @@ class VacacionDao extends AbstractDao {
         endif;
     }
 
-    function listaIdsTraVacacionesFProgramadaFin($mes_inicio, $mes_fin) {
+    public function listaIdsTraVacacionesFProgramadaFin($mes_inicio, $mes_fin) {
 
         $query = "
         SELECT        
@@ -163,7 +163,7 @@ class VacacionDao extends AbstractDao {
     }
 
     
-      function listarVacacionesEnRango($id_trabajador/*,$mes_inicio,$mes_fin,$mes_fin_sgte_mes*/){
+     public function listarVacacionesEnRango($id_trabajador){ /*,$mes_inicio,$mes_fin,$mes_fin_sgte_mes*/
 
       $query ="
       SELECT
@@ -196,7 +196,7 @@ class VacacionDao extends AbstractDao {
       }
      
 
-    function add($obj/* $id_trabajador, $fecha, $fecha_programada,$f_programado_fin,$tipo_vacacion */) {
+    public function add($obj/* $id_trabajador, $fecha, $fecha_programada,$f_programado_fin,$tipo_vacacion */) {
 
         $model = new Vacacion();
         $model = $obj;

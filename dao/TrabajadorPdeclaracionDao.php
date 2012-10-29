@@ -64,9 +64,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $stm->bindValue(8, $model->getSueldo_neto());
             $stm->bindValue(9, $model->getEstado());
             $stm->bindValue(10, $model->getFecha_creacion());
-            
+
             $stm->bindValue(11, $model->getFecha_modificacion());
-            
+
             $stm->bindValue(12, $model->getIngreso_5ta_categoria());
             $stm->bindValue(13, $model->getCod_tipo_trabajador());
             $stm->bindValue(14, $model->getCod_regimen_pensionario());
@@ -687,7 +687,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
     //Utilizado para limpiar periodo del mes. utilizado full 2 tablas 27/09/2012
     //
-    public function eliminarDatosMes($id_pdeclaracion=null) {
+    public function eliminarDatosMes($id_pdeclaracion = null) {
         //SELECT *FROM etapas_pagos
         //SELECT *FROM trabajadores_pdeclaraciones        
         $query = "
@@ -710,9 +710,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         return $count;
     }
-    
-    public function del_idpdeclaracion($id_pdeclaracion){      
-    $query = "
+
+    public function del_idpdeclaracion($id_pdeclaracion) {
+        $query = "
             DELETE
             FROM trabajadores_pdeclaraciones
             WHERE id_pdeclaracion = ?;  
@@ -725,7 +725,6 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         //$count = $stm->rowCount();
         $stm = null;
         return true;
-        
     }
 
     public function eliminar_idPdeclaracion($id_pdeclaracion, $id_trabajador) {

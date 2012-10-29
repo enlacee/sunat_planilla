@@ -1,9 +1,25 @@
 <?php
 
 class PagoDao extends AbstractDao {
+   // singleton
+    private static $instancia = null;
+    
+    static public function anb_dosQuincenasEnBoleta($id_pdeclaracion, $id_trabajador) {
+        $data = null;        
+        if (self::$instancia == null) {
+            try {
+                self::$instancia = new PagoDao();
+                $data = self::$instancia->dosQuincenasEnBoleta($id_pdeclaracion, $id_trabajador);
+            } catch (Exception $e) {
+                throw $e;
+            }
+        }
+        
+        return $data;
+    }
 
-    //put your code here
     public function registrar($obj) {
+
         $model = new Pago();
         $model = $obj;
         $query = "
@@ -12,9 +28,11 @@ INSERT INTO pagos
              id_trabajador,
              id_etapa_pago,
              dia_laborado,
+             dia_nosubsidiado,
              dia_total,
              sueldo_base,
              sueldo,
+             sueldo_vacacion,
              descuento,
              sueldo_neto,
              ordinario_hora,
@@ -41,6 +59,8 @@ VALUES (
         ?,
         ?,
         ?,
+        ?,
+        ?,
         ?);
                 ";
 
@@ -48,20 +68,22 @@ VALUES (
         $stm->bindValue(1, $model->getId_trabajador());
         $stm->bindValue(2, $model->getId_etapa_pago());
         $stm->bindValue(3, $model->getDia_laborado());
-        $stm->bindValue(4, $model->getDia_total());
-        $stm->bindValue(5, $model->getSueldo_base());
-        $stm->bindValue(6, $model->getSueldo());
-        $stm->bindValue(7, $model->getDescuento());
-        $stm->bindValue(8, $model->getSueldo_neto());
-        $stm->bindValue(9, $model->getOrdinario_hora());
-        $stm->bindValue(10, $model->getOrdinario_min());
-        $stm->bindValue(11, $model->getSobretiempo_hora());
-        $stm->bindValue(12, $model->getSobretiempo_min());
+        $stm->bindValue(4, $model->getDia_nosubsidiado());
+        $stm->bindValue(5, $model->getDia_total());
+        $stm->bindValue(6, $model->getSueldo_base());
+        $stm->bindValue(7, $model->getSueldo());
+        $stm->bindValue(8, $model->getSueldo_vacacion());
+        $stm->bindValue(9, $model->getDescuento());
+        $stm->bindValue(10, $model->getSueldo_neto());
+        $stm->bindValue(11, $model->getOrdinario_hora());
+        $stm->bindValue(12, $model->getOrdinario_min());
+        $stm->bindValue(13, $model->getSobretiempo_hora());
+        $stm->bindValue(14, $model->getSobretiempo_min());
 
-        $stm->bindValue(13, $model->getEstado());
-        $stm->bindValue(14, $model->getDescripcion());
-        $stm->bindValue(15, $model->getFecha_creacion());
-        $stm->bindValue(16, $model->getId_empresa_centro_costo());
+        $stm->bindValue(15, $model->getEstado());
+        $stm->bindValue(16, $model->getDescripcion());
+        $stm->bindValue(17, $model->getFecha_creacion());
+        $stm->bindValue(18, $model->getId_empresa_centro_costo());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -107,7 +129,7 @@ VALUES (
     }
 
     //USO ALTERNATIVA PARA FILTRAR EN QUINCENAS!
- public function listar_HIJO($id_etapa_pago) {
+    public function listar_HIJO($id_etapa_pago) {
 
         $query = "
         SELECT
@@ -132,13 +154,13 @@ VALUES (
 
         $stm->execute();
         $lista = $stm->fetchAll();
-        $stm = null;        
+        $stm = null;
 
         return $lista;
-    }    
-    
+    }
+
     //USO ESCLUSIVO PARA GRID
-    public function listarCount($id_etapa_pago,$WHERE) {
+    public function listarCount($id_etapa_pago, $WHERE) {
 
         $query = "
         SELECT
@@ -164,26 +186,25 @@ VALUES (
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0]['counteo'];
-    }    
-    
+    }
+
     //USO ESCLUSIVO PARA GRID
-    public function listar($id_etapa_pago,$WHERE, $start, $limit, $sidx, $sord) {
+    public function listar($id_etapa_pago, $WHERE, $start, $limit, $sidx, $sord) {
 
         $cadena = null;
-        if(is_null($WHERE)){
-           $cadena = $WHERE;
-        }else{
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
             $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
         }
-        
+
         $query = "
         SELECT
             p.id_pago,
             p.id_trabajador,
-            p.sueldo,
-            p.descuento,
-            p.sueldo_neto, -- Calculado y guardado
-            p.dia_total,          
+            p.sueldo,            
+            p.descuento,            
+            p.dia_laborado,          
             p.estado,
             p.fecha_creacion,
             p.id_empresa_centro_costo,	  
@@ -214,18 +235,18 @@ VALUES (
         $lista = $stm->fetchAll();
         $stm = null;
         /*
-        if ($op == 'id_trabajador') { // ['id_trabajador']
-            $new = array();
-            for ($i = 0; $i < count($lista); $i++) {
-                $new[]['id_trabajador'] = $lista[$i]['id_trabajador'];
-            }
-            return $new;
-        }*/
+          if ($op == 'id_trabajador') { // ['id_trabajador']
+          $new = array();
+          for ($i = 0; $i < count($lista); $i++) {
+          $new[]['id_trabajador'] = $lista[$i]['id_trabajador'];
+          }
+          return $new;
+          } */
         return $lista;
     }
-    
+
     // 06/09/2012 ->new uso para reportes
-        public function listar_2($id_etapa_pago,$id_establecimiento,$id_empresa_centro_costo) {
+    public function listar_2($id_etapa_pago, $id_establecimiento, $id_empresa_centro_costo) {
 
         $query = "
         SELECT
@@ -270,12 +291,11 @@ VALUES (
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-    
+
         return $lista;
     }
-    
-    
-    public function buscar_ID($id, $op=null) {
+
+    public function buscar_ID($id, $op = null) {
         $query = "
         SELECT
           id_pago,
@@ -369,8 +389,11 @@ VALUES (
         -- pago
         pg.id_trabajador,
         SUM(pg.sueldo) AS sueldo,
-        SUM(pg.sueldo_neto) AS sueldo_neto,
+        SUM(pg.sueldo_vacacion) AS sueldo_vacacion,
+        SUM(pg.dia_total) AS dia_total,
         SUM(pg.dia_laborado) AS dia_laborado ,
+        SUM(pg.dia_nosubsidiado) AS dia_nosubsidiado,
+        
         SUM(pg.ordinario_hora) AS ordinario_hora,
         SUM(pg.ordinario_min) AS ordinario_min,
         SUM(pg.sobretiempo_hora) AS sobretiempo_hora,
@@ -400,13 +423,45 @@ VALUES (
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        
+
         return $lista[0];
     }
-    
-    
+
+    public function dosQuincenasEnBoleta($id_pdeclaracion, $id_trabajador) {
+        $query = "
+        SELECT 
+        SUM(pg.sueldo) AS sueldo,
+        SUM(pg.sueldo_vacacion) AS sueldo_vacacion,        
+        SUM(pg.dia_laborado) AS dia_laborado ,
+        SUM(pg.dia_nosubsidiado) AS dia_nosubsidiado
+
+        FROM pdeclaraciones AS pd
+        INNER JOIN etapas_pagos AS ep
+        ON pd.id_pdeclaracion = ep.id_pdeclaracion
+        INNER JOIN pagos AS pg
+        ON ep.id_etapa_pago = pg.id_etapa_pago
+        -- tra
+        INNER JOIN trabajadores AS t
+        ON pg.id_trabajador = t.id_trabajador
+        
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+        -- tra
+        WHERE pd.id_pdeclaracion = ?
+        AND t.id_trabajador  = ?        
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista[0];
+    }
+
     //Elimado en casacada..
-        public function eliminar_idEtapaPago($id_etapa_pago,$id_trabajador){
+    public function eliminar_idEtapaPago($id_etapa_pago, $id_trabajador) {
         $query = "
         DELETE 
         FROM pagos
@@ -416,12 +471,9 @@ VALUES (
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_etapa_pago);
         $stm->bindValue(2, $id_trabajador);
-        $stm->execute();        
-        $stm = null;        
-        return  true;
-        
-        
-        
+        $stm->execute();
+        $stm = null;
+        return true;
     }
 
 }

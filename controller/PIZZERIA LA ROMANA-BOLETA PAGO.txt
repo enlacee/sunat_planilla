@@ -3,32 +3,215 @@
 CAMUENTE S.A.
 AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10389776                            DNI: 10389776                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ZAMORA MEGO MELQUIADES                                              
-Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/03/2003                  
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 03/01/2003                  
                                                  NRO.CARNET AFP : 186331MZMOO5               A.F.P. : SPP PROFUTURO                      
-MES : NOVIENBRE DE : 01.2012                     CARGO : MOZO                                SECCION : ventas                            
-22 DIAS TRAB. 176 HORAS TRAB.                    DIRECCION :  CALLE GREGORIO APAZA 232URB. URBANIZACIÓN SANTA LUZMILA LIMA-LIMA-COMAS   
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+4 DIAS TRAB. 32 HORAS TRAB.                      DIRECCION :  CALLE GREGORIO APAZA 232URB. URBANIZACIÓN SANTA LUZMILA LIMA-LIMA-COMAS   
 ---------------------------------------------------------------------------------------------------------------------------------------
 |        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
 |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   REMUNERACION VACACIONAL         200.00   |   OTROS DESCUENTOS NO DEDUCI...     0.00   |   ESSALUD                         67.50   |
-|   SUELDO BASICO                   550.00   |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
+|   REMUNERACION VACACIONAL         585.00   |   ADELANTO                         90.00   |   ESSALUD                         66.83   |
+|   SUELDO BASICO                    90.00   |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|   ASG. FAMILIAR                    67.50   |   ESSALUD +VIDA                     5.00   |                                           |
+|   -- ASG.FAMILIAR VAC.             58.50   |   TARDANZAS                         2.81   |                                           |
+|   -- ASG.FAMILIAR TRAB.             9.00   |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
+|   (HORAS EXTRAS) 25%                3.51   |   COMISION AFP 2.14%               19.42   |                                           |
+|   (HORAS EXTRAS) 35%               11.38   |   PRIMA DE SEGURO 1.42%            12.88   |                                           |
+|   BONIF. POR RIESGO DE CAJA       150.00   |   JUBILACION SPP 10.00%            90.74   |                                           |
+|   MOVILIDAD                       111.00   |                                            |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES          1,018.39   |   TOTAL RETENC./DESCUENTOS        220.85   |   TOTAL APORTACIONES              66.83   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :       0.46 |
+-----------------------------
+| NETO A PAGAR :     798.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 10285430                            DNI: 10285430                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: SOLANO CALDUA NICOLAS VICTOR                                        
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 247871NSCAD1               A.F.P. : SPP INTEGRA                        
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÓN SAN FRANCISCO MZA. F LOTE. 34 LIMA-LIMA-SAN MARTIN DE PORRES
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   SUELDO BASICO                   750.00   |   ADELANTO                        375.00   |   ESSALUD                         67.50   |
+|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|                                            |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
+|                                            |   COMISION AFP 1.80%               13.50   |                                           |
+|                                            |   PRIMA DE SEGURO 1.16%             8.70   |                                           |
+|                                            |   JUBILACION SPP 10.00%            75.00   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        472.20   |   TOTAL APORTACIONES              67.50   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :        0.2 |
+-----------------------------
+| NETO A PAGAR :     278.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA Guillermo Presccot 395 - SAN ISIDRO      CODIGO: 09716287                            DNI: 09716287                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: FERNANDEZ MERINO CARMEN IMELDA                                      
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 570060CFMNI1               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2012                         CARGO : SECRETARIA, COMERCIAL               SECCION : administracion - gerencia         
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  AVENIDA HUSARES DE JUNIN 1119 302 LIMA-LIMA-JESUS MARIA                    
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   SUELDO BASICO                 2,690.00   |   ADELANTO                      1,345.00   |   ESSALUD                        242.10   |
+|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|                                            |   IMPTO. 5TA. CATEGORIA           151.38   |                                           |
+|                                            |   COMISION AFP 2.14%               57.57   |                                           |
+|                                            |   PRIMA DE SEGURO 1.42%            38.20   |                                           |
+|                                            |   JUBILACION SPP 10.00%           269.00   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES          2,690.00   |   TOTAL RETENC./DESCUENTOS      1,861.15   |   TOTAL APORTACIONES             242.10   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :       0.15 |
+-----------------------------
+| NETO A PAGAR :     829.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+CALLE BARTOLOME FIGARI 193 - PUEBLO LIBRE        CODIGO: 08007436                            DNI: 08007436                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ESPINOZA HUANCAS FAUSTO ENRIQUE                                     
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 529071FEHIN0               A.F.P. : SPP PRIMA                          
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN EL ALTILLO URB. URBANIZACIÓN CIUDAD Y CAMPO MZA. A LOTE. 18 LIMA-LIMA-RIMAC
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   SUELDO BASICO                   750.00   |   ADELANTO                        375.00   |   ESSALUD                         67.50   |
+|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|                                            |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
+|                                            |   COMISION AFP 1.75%               13.13   |                                           |
+|                                            |   PRIMA DE SEGURO 1.29%             9.68   |                                           |
+|                                            |   JUBILACION SPP 10.00%            75.00   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        472.81   |   TOTAL APORTACIONES              67.50   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :      -0.19 |
+-----------------------------
+| NETO A PAGAR :     277.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+CALLE BARTOLOME FIGARI 193 - PUEBLO LIBRE        CODIGO: 07971134                            DNI: 07971134                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CANO RODRIGUEZ LUIS ENRIQUE                                         
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 254421LCROR2               A.F.P. : SPP PRIMA                          
+MES : ENERO DE : 01.2012                         CARGO : JEFE DE PERSONAL ADMINISTRATIVO     SECCION : administracion - caja             
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN TUPAC AMARU 217 LIMA-LIMA-PUEBLO LIBRE                              
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   SUELDO BASICO                 3,910.00   |   ADELANTO                      1,955.00   |   ESSALUD                        351.90   |
+|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|                                            |   IMPTO. 5TA. CATEGORIA           364.88   |                                           |
+|                                            |   COMISION AFP 1.75%               68.43   |                                           |
+|                                            |   PRIMA DE SEGURO 1.29%            50.44   |                                           |
+|                                            |   JUBILACION SPP 10.00%           391.00   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES          3,910.00   |   TOTAL RETENC./DESCUENTOS      2,829.75   |   TOTAL APORTACIONES             351.90   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :      -0.25 |
+-----------------------------
+| NETO A PAGAR :   1,080.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA SAN BORJA SUR 241 - SAN BORJA            CODIGO: 08438708                            DNI: 08438708                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ESPINOZA FARFAN LUIS ALBERTO                                        
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 211051LEFIF2               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2012                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  CALLE LOS MEDICOS 3849COO. COOPERATIVA HUANCAYO LIMA-LIMA-SAN JUAN DE LURIGANCHO
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   SUELDO BASICO                   750.00   |   ADELANTO                        375.00   |   ESSALUD                         67.50   |
+|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|                                            |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
 |                                            |   COMISION AFP 2.14%               16.05   |                                           |
 |                                            |   PRIMA DE SEGURO 1.42%            10.65   |                                           |
 |                                            |   JUBILACION SPP 10.00%            75.00   |                                           |
 |                                            |                                            |                                           |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        101.70   |   TOTAL APORTACIONES              67.50   |
+|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        476.70   |   TOTAL APORTACIONES              67.50   |
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-                                                                                                                                       
 -----------------------------
 | REDONDEO     :       -0.3 |
 -----------------------------
-| NETO A PAGAR :     648.00 |                            _________________________                  _________________________
+| NETO A PAGAR :     273.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+
+
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA ALFREDO BENAVIDES 2990 - MIRAFLORES      CODIGO: 09570841                            DNI: 09570841                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: TANTALEAN AREVALO CARLOS ALBERTO                                    
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 258251CTATV2               A.F.P. : SPP INTEGRA                        
+MES : ENERO DE : 01.2012                         CARGO : REPARTIDOR                          SECCION : ventas                            
+31 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRÓN LOS LINOS 633URB. URBANIZACIÓN SAN HILARION LIMA-LIMA-SAN JUAN DE LURIGANCHO
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   SUELDO BASICO                   750.00   |   ADELANTO                        375.00   |   ESSALUD                         67.50   |
+|                                            |   OTROS DESCUENTOS NO DEDUCI...     0.00   |                                           |
+|                                            |   IMPTO. 5TA. CATEGORIA             0.00   |                                           |
+|                                            |   COMISION AFP 1.80%               13.50   |                                           |
+|                                            |   PRIMA DE SEGURO 1.16%             8.70   |                                           |
+|                                            |   JUBILACION SPP 10.00%            75.00   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        472.20   |   TOTAL APORTACIONES              67.50   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :        0.2 |
+-----------------------------
+| NETO A PAGAR :     278.00 |                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
 
-
-
-

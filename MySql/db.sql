@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 11, 2012 at 07:07 p.m.
+-- Generation Time: Oct 29, 2012 at 04:17 p.m.
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -98,6 +98,8 @@ CREATE TABLE IF NOT EXISTS `coberturas_salud` (
 -- Dumping data for table `coberturas_salud`
 --
 
+INSERT INTO `coberturas_salud` (`id_cobertura_salud`, `id_personal_tercero`, `nombre_cobertura`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -332,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `conf_uit` (
   `fecha` date DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id_conf_uit`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Unidad Impositiva Tributaria - UIT' AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Unidad Impositiva Tributaria - UIT' AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `conf_uit`
@@ -340,7 +342,8 @@ CREATE TABLE IF NOT EXISTS `conf_uit` (
 
 INSERT INTO `conf_uit` (`id_conf_uit`, `valor`, `fecha`, `fecha_creacion`) VALUES
 (1, '3650.00', '2012-01-01', NULL),
-(7, '3600.00', '2010-01-01', NULL);
+(7, '3600.00', '2010-01-01', NULL),
+(8, '3700.00', '2013-01-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -12959,78 +12962,134 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos` (
   PRIMARY KEY (`id_declaracion_dconcepto`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=1052 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=988 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos`
 --
 
 INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
-(987, 131, '0121', '3910.00', '3910.00'),
-(988, 131, '0701', '1837.00', '1837.00'),
-(989, 131, '0706', NULL, '0.00'),
-(990, 131, '0201', '75.00', '75.00'),
-(991, 131, '0804', NULL, '358.65'),
-(992, 131, '0909', '400.00', '400.00'),
-(993, 131, '0605', NULL, '0.00'),
-(994, 131, '0601', NULL, '69.74'),
-(995, 131, '0606', NULL, '51.41'),
-(996, 131, '0608', NULL, '398.50'),
-(997, 132, '0121', '750.00', '750.00'),
-(998, 132, '0701', '225.00', '225.00'),
-(999, 132, '0706', NULL, '0.00'),
-(1000, 132, '0804', NULL, '67.50'),
-(1001, 132, '0605', NULL, '0.00'),
-(1002, 132, '0601', NULL, '13.13'),
-(1003, 132, '0606', NULL, '9.68'),
-(1004, 132, '0608', NULL, '75.00'),
-(1005, 133, '0121', '750.00', '750.00'),
-(1006, 133, '0701', '375.00', '375.00'),
-(1007, 133, '0706', NULL, '0.00'),
-(1008, 133, '0804', NULL, '67.50'),
-(1009, 133, '0605', NULL, '0.00'),
-(1010, 133, '0607', NULL, '97.50'),
-(1011, 134, '0121', '2690.00', '2690.00'),
-(1012, 134, '0701', '1479.00', '1479.00'),
-(1013, 134, '0706', NULL, '0.00'),
-(1014, 134, '0201', '75.00', '75.00'),
-(1015, 134, '0804', NULL, '248.85'),
-(1016, 134, '0304', '230.00', '230.00'),
-(1017, 134, '0909', '155.00', '155.00'),
-(1018, 134, '0605', NULL, '0.00'),
-(1019, 134, '0601', NULL, '64.09'),
-(1020, 134, '0606', NULL, '42.53'),
-(1021, 134, '0608', NULL, '299.50'),
-(1022, 135, '0121', '3910.00', '3910.00'),
-(1023, 135, '0701', '1955.00', '1955.00'),
-(1024, 135, '0706', NULL, '0.00'),
-(1025, 135, '0804', NULL, '351.90'),
-(1026, 135, '0605', NULL, '0.00'),
-(1027, 135, '0601', NULL, '68.43'),
-(1028, 135, '0606', NULL, '50.44'),
-(1029, 135, '0608', NULL, '391.00'),
-(1030, 136, '0121', '750.00', '750.00'),
-(1031, 136, '0701', '375.00', '375.00'),
-(1032, 136, '0706', NULL, '0.00'),
-(1033, 136, '0804', NULL, '67.50'),
-(1034, 136, '0605', NULL, '0.00'),
-(1035, 136, '0601', NULL, '13.13'),
-(1036, 136, '0606', NULL, '9.68'),
-(1037, 136, '0608', NULL, '75.00'),
-(1038, 137, '0121', '750.00', '750.00'),
-(1039, 137, '0701', '375.00', '375.00'),
-(1040, 137, '0706', NULL, '0.00'),
-(1041, 137, '0804', NULL, '67.50'),
-(1042, 137, '0605', NULL, '0.00'),
-(1043, 137, '0607', NULL, '97.50'),
-(1044, 138, '0121', '2690.00', '2690.00'),
-(1045, 138, '0701', '1345.00', '1345.00'),
-(1046, 138, '0706', NULL, '0.00'),
-(1047, 138, '0804', NULL, '242.10'),
-(1048, 138, '0605', NULL, '0.00'),
-(1049, 138, '0601', NULL, '57.57'),
-(1050, 138, '0606', NULL, '38.20'),
-(1051, 138, '0608', NULL, '269.00');
+(867, 1224, '0118', '585.00', '585.00'),
+(868, 1224, '0121', '90.00', '90.00'),
+(869, 1224, '0701', '90.00', '90.00'),
+(870, 1224, '0706', NULL, '0.00'),
+(871, 1224, '0201', '67.50', '67.50'),
+(872, 1224, '0804', NULL, '66.83'),
+(873, 1224, '0604', NULL, '5.00'),
+(874, 1224, '0105', '3.51', '3.51'),
+(875, 1224, '0106', '11.38', '11.38'),
+(876, 1224, '0304', '150.00', '150.00'),
+(877, 1224, '0704', '2.81', '2.81'),
+(878, 1224, '0909', '111.00', '111.00'),
+(879, 1224, '0605', NULL, '0.00'),
+(880, 1224, '0601', NULL, '19.42'),
+(881, 1224, '0606', NULL, '12.88'),
+(882, 1224, '0608', NULL, '90.74'),
+(883, 1225, '0121', '3910.00', '3910.00'),
+(884, 1225, '0701', '1955.00', '1955.00'),
+(885, 1225, '0706', NULL, '0.00'),
+(886, 1225, '0804', NULL, '351.90'),
+(887, 1225, '0605', NULL, '364.88'),
+(888, 1225, '0601', NULL, '68.43'),
+(889, 1225, '0606', NULL, '50.44'),
+(890, 1225, '0608', NULL, '391.00'),
+(891, 1226, '0121', '750.00', '750.00'),
+(892, 1226, '0701', '375.00', '375.00'),
+(893, 1226, '0706', NULL, '0.00'),
+(894, 1226, '0804', NULL, '67.50'),
+(895, 1226, '0605', NULL, '0.00'),
+(896, 1226, '0601', NULL, '16.05'),
+(897, 1226, '0606', NULL, '10.65'),
+(898, 1226, '0608', NULL, '75.00'),
+(899, 1227, '0121', '750.00', '750.00'),
+(900, 1227, '0701', '375.00', '375.00'),
+(901, 1227, '0706', NULL, '0.00'),
+(902, 1227, '0804', NULL, '67.50'),
+(903, 1227, '0605', NULL, '0.00'),
+(904, 1227, '0601', NULL, '13.50'),
+(905, 1227, '0606', NULL, '8.70'),
+(906, 1227, '0608', NULL, '75.00'),
+(907, 1228, '0121', '750.00', '750.00'),
+(908, 1228, '0701', '375.00', '375.00'),
+(909, 1228, '0706', NULL, '0.00'),
+(910, 1228, '0804', NULL, '67.50'),
+(911, 1228, '0605', NULL, '0.00'),
+(912, 1228, '0601', NULL, '13.50'),
+(913, 1228, '0606', NULL, '8.70'),
+(914, 1228, '0608', NULL, '75.00'),
+(915, 1229, '0121', '750.00', '750.00'),
+(916, 1229, '0701', '375.00', '375.00'),
+(917, 1229, '0706', NULL, '0.00'),
+(918, 1229, '0804', NULL, '67.50'),
+(919, 1229, '0605', NULL, '0.00'),
+(920, 1229, '0601', NULL, '13.13'),
+(921, 1229, '0606', NULL, '9.68'),
+(922, 1229, '0608', NULL, '75.00'),
+(923, 1230, '0121', '2690.00', '2690.00'),
+(924, 1230, '0701', '1345.00', '1345.00'),
+(925, 1230, '0706', NULL, '0.00'),
+(926, 1230, '0804', NULL, '242.10'),
+(927, 1230, '0605', NULL, '151.38'),
+(928, 1230, '0601', NULL, '57.57'),
+(929, 1230, '0606', NULL, '38.20'),
+(930, 1230, '0608', NULL, '269.00'),
+(931, 1231, '0118', '67.50', '67.50'),
+(932, 1231, '0121', '607.50', '607.50'),
+(933, 1231, '0701', '270.00', '270.00'),
+(934, 1231, '0706', NULL, '0.00'),
+(935, 1231, '0804', NULL, '60.75'),
+(936, 1231, '0605', NULL, '0.00'),
+(937, 1231, '0601', NULL, '14.45'),
+(938, 1231, '0606', NULL, '9.59'),
+(939, 1231, '0608', NULL, '67.50'),
+(940, 1232, '0121', '3910.00', '3910.00'),
+(941, 1232, '0701', '1955.00', '1955.00'),
+(942, 1232, '0706', NULL, '0.00'),
+(943, 1232, '0804', NULL, '351.90'),
+(944, 1232, '0605', NULL, '364.88'),
+(945, 1232, '0601', NULL, '68.43'),
+(946, 1232, '0606', NULL, '50.44'),
+(947, 1232, '0608', NULL, '391.00'),
+(948, 1233, '0121', '750.00', '750.00'),
+(949, 1233, '0701', '375.00', '375.00'),
+(950, 1233, '0706', NULL, '0.00'),
+(951, 1233, '0804', NULL, '67.50'),
+(952, 1233, '0605', NULL, '0.00'),
+(953, 1233, '0601', NULL, '16.05'),
+(954, 1233, '0606', NULL, '10.65'),
+(955, 1233, '0608', NULL, '75.00'),
+(956, 1234, '0121', '750.00', '750.00'),
+(957, 1234, '0701', '375.00', '375.00'),
+(958, 1234, '0706', NULL, '0.00'),
+(959, 1234, '0804', NULL, '67.50'),
+(960, 1234, '0605', NULL, '0.00'),
+(961, 1234, '0601', NULL, '13.50'),
+(962, 1234, '0606', NULL, '8.70'),
+(963, 1234, '0608', NULL, '75.00'),
+(964, 1235, '0121', '750.00', '750.00'),
+(965, 1235, '0701', '375.00', '375.00'),
+(966, 1235, '0706', NULL, '0.00'),
+(967, 1235, '0804', NULL, '67.50'),
+(968, 1235, '0605', NULL, '0.00'),
+(969, 1235, '0601', NULL, '13.50'),
+(970, 1235, '0606', NULL, '8.70'),
+(971, 1235, '0608', NULL, '75.00'),
+(972, 1236, '0121', '750.00', '750.00'),
+(973, 1236, '0701', '375.00', '375.00'),
+(974, 1236, '0706', NULL, '0.00'),
+(975, 1236, '0804', NULL, '67.50'),
+(976, 1236, '0605', NULL, '0.00'),
+(977, 1236, '0601', NULL, '13.13'),
+(978, 1236, '0606', NULL, '9.68'),
+(979, 1236, '0608', NULL, '75.00'),
+(980, 1237, '0121', '2690.00', '2690.00'),
+(981, 1237, '0701', '1345.00', '1345.00'),
+(982, 1237, '0706', NULL, '0.00'),
+(983, 1237, '0804', NULL, '242.10'),
+(984, 1237, '0605', NULL, '151.38'),
+(985, 1237, '0601', NULL, '57.57'),
+(986, 1237, '0606', NULL, '38.20'),
+(987, 1237, '0608', NULL, '269.00');
 
 -- --------------------------------------------------------
 
@@ -15756,16 +15815,19 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimiento` (
   PRIMARY KEY (`id_detalle_establecimiento`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `id_establecimiento` (`id_establecimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=163 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle :\r\nHistorial de  Establecimientos donde trabajo si e' AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `detalle_establecimiento`
 --
 
 INSERT INTO `detalle_establecimiento` (`id_detalle_establecimiento`, `id_trabajador`, `id_establecimiento`) VALUES
+(41, 3, 1),
 (42, 4, 2),
+(43, 5, 3),
+(44, 6, 1),
+(45, 7, 5),
 (46, 8, 2),
-(50, 12, 2),
 (51, 13, 1);
 
 -- --------------------------------------------------------
@@ -15787,6 +15849,8 @@ CREATE TABLE IF NOT EXISTS `detalle_establecimientos_formacion` (
 -- Dumping data for table `detalle_establecimientos_formacion`
 --
 
+INSERT INTO `detalle_establecimientos_formacion` (`id_detalle_establecimiento_formacion`, `id_personal_formacion_laboral`, `id_establecimiento`) VALUES
+(1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -15807,6 +15871,8 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_formativos` (
 -- Dumping data for table `detalle_periodos_formativos`
 --
 
+INSERT INTO `detalle_periodos_formativos` (`id_detalle_periodo_formativo`, `id_personal_formacion_laboral`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -15825,16 +15891,19 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_motivo_baja_registro` (`cod_motivo_baja_registro`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=217 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='------HISTORIAL------' AUTO_INCREMENT=106 ;
 
 --
 -- Dumping data for table `detalle_periodos_laborales`
 --
 
 INSERT INTO `detalle_periodos_laborales` (`id_detalle_periodo_laboral`, `id_trabajador`, `cod_motivo_baja_registro`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
+(95, 3, '0', '2003-01-03', NULL, 3),
 (96, 4, '0', '2003-08-16', NULL, 4),
+(97, 5, '0', '2003-08-16', NULL, 5),
+(98, 6, '0', '2003-08-16', NULL, 6),
+(99, 7, '0', '2003-08-16', NULL, 7),
 (100, 8, '0', '2003-08-16', NULL, 8),
-(104, 12, '0', '2003-08-16', NULL, 13),
 (105, 13, '0', '2003-08-16', NULL, 14);
 
 -- --------------------------------------------------------
@@ -15858,6 +15927,8 @@ CREATE TABLE IF NOT EXISTS `detalle_periodos_laborales_pensionistas` (
 -- Dumping data for table `detalle_periodos_laborales_pensionistas`
 --
 
+INSERT INTO `detalle_periodos_laborales_pensionistas` (`id_detalle_periodo_laboral_pensionista`, `cod_motivo_baja_registro`, `id_pensionista`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, '0', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -15877,16 +15948,19 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_pensionarios` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=163 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='--------HISTORIAL-------\r\nlink detalle' AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `detalle_regimenes_pensionarios`
 --
 
 INSERT INTO `detalle_regimenes_pensionarios` (`id_detalle_regimen_pensionario`, `id_trabajador`, `cod_regimen_pensionario`, `cuspp`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
+(41, 3, '23', '186331MZMOO5', '2003-01-03', NULL, 3),
 (42, 4, '24', '254421LCROR2', '2003-08-16', NULL, 4),
+(43, 5, '23', '211051LEFIF2', '2003-08-16', NULL, 5),
+(44, 6, '21', '247871NSCAD1', '2003-08-16', NULL, 6),
+(45, 7, '21', '258251CTATV2', '2003-08-16', NULL, 7),
 (46, 8, '24', '529071FEHIN0', '2003-08-16', NULL, 8),
-(50, 12, '02', '', '2003-08-16', NULL, 13),
 (51, 13, '23', '570060CFMNI1', '2003-08-16', NULL, 14);
 
 -- --------------------------------------------------------
@@ -15908,16 +15982,19 @@ CREATE TABLE IF NOT EXISTS `detalle_regimenes_salud` (
   KEY `cod_regimen_aseguramiento_salud` (`cod_regimen_aseguramiento_salud`),
   KEY `cod_eps` (`cod_eps`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=203 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
 
 --
 -- Dumping data for table `detalle_regimenes_salud`
 --
 
 INSERT INTO `detalle_regimenes_salud` (`id_detalle_regimen_salud`, `id_trabajador`, `cod_regimen_aseguramiento_salud`, `fecha_inicio`, `fecha_fin`, `cod_eps`, `id_persona`) VALUES
+(81, 3, '00', '2003-01-03', NULL, '0', 3),
 (82, 4, '00', '2003-08-16', NULL, '0', 4),
+(83, 5, '00', '2003-08-16', NULL, '0', 5),
+(84, 6, '00', '2003-08-16', NULL, '0', 6),
+(85, 7, '00', '2003-08-16', NULL, '0', 7),
 (86, 8, '00', '2003-08-16', NULL, '0', 8),
-(90, 12, '00', '2003-08-16', NULL, '0', 13),
 (91, 13, '00', '2003-08-16', NULL, '0', 14);
 
 -- --------------------------------------------------------
@@ -15937,16 +16014,19 @@ CREATE TABLE IF NOT EXISTS `detalle_tipos_trabajadores` (
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_tipo_trabajador` (`cod_tipo_trabajador`),
   KEY `id_persona` (`id_persona`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=163 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='-T_REGISTRO :Tipo de trabajador.\r\nmuestra primero (ACTUAL)\r\n' AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `detalle_tipos_trabajadores`
 --
 
 INSERT INTO `detalle_tipos_trabajadores` (`id_detalle_tipo_trabajador`, `id_trabajador`, `cod_tipo_trabajador`, `fecha_inicio`, `fecha_fin`, `id_persona`) VALUES
+(41, 3, '21', '2003-01-03', NULL, 3),
 (42, 4, '21', '2003-08-16', NULL, 4),
+(43, 5, '21', '2003-08-16', NULL, 5),
+(44, 6, '21', '2003-08-16', NULL, 6),
+(45, 7, '21', '2003-08-16', NULL, 7),
 (46, 8, '21', '2003-08-16', NULL, 8),
-(50, 12, '21', '2003-08-16', NULL, 13),
 (51, 13, '21', '2003-08-16', NULL, 14);
 
 -- --------------------------------------------------------
@@ -15960,15 +16040,19 @@ CREATE TABLE IF NOT EXISTS `dias_nosubsidiados` (
   `id_trabajador_pdeclaracion` int(11) NOT NULL,
   `cantidad_dia` tinyint(4) DEFAULT NULL,
   `cod_tipo_suspen_relacion_laboral` char(2) NOT NULL,
+  `estado` tinyint(1) DEFAULT '0' COMMENT '1 = no modificable 0 = modificable',
   PRIMARY KEY (`id_dia_nosubsidiado`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_tipo_suspen_relacion_laboral` (`cod_tipo_suspen_relacion_laboral`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `dias_nosubsidiados`
 --
 
+INSERT INTO `dias_nosubsidiados` (`id_dia_nosubsidiado`, `id_trabajador_pdeclaracion`, `cantidad_dia`, `cod_tipo_suspen_relacion_laboral`, `estado`) VALUES
+(28, 1224, 27, '23', 1),
+(29, 1231, 3, '23', 1);
 
 -- --------------------------------------------------------
 
@@ -16357,18 +16441,17 @@ CREATE TABLE IF NOT EXISTS `etapas_pagos` (
   PRIMARY KEY (`id_etapa_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`,`cod_periodo_remuneracion`),
   KEY `cod_periodo_remuneracion` (`cod_periodo_remuneracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=459 ;
 
 --
 -- Dumping data for table `etapas_pagos`
 --
 
 INSERT INTO `etapas_pagos` (`id_etapa_pago`, `id_pdeclaracion`, `cod_periodo_remuneracion`, `fecha_inicio`, `fecha_fin`, `fecha_creacion`, `tipo`, `glosa`) VALUES
-(22, 23, 2, '2012-09-01', '2012-09-15', '2012-10-11', 1, 'Primera Quincena'),
-(27, 24, 2, '2012-10-01', '2012-10-15', '2012-10-11', 1, 'Primera Quincena'),
-(28, 24, 2, '2012-10-16', '2012-10-31', '2012-10-11', 2, 'Segunda Quincena'),
-(29, 9, 2, '2012-08-01', '2012-08-15', '2012-10-11', 1, 'Primera Quincena'),
-(30, 9, 2, '2012-08-16', '2012-08-31', '2012-10-11', 2, 'Segunda Quincena');
+(455, 1, 2, '2012-01-01', '2012-01-15', '2012-10-29', 1, 'Primera Quincena'),
+(456, 1, 2, '2012-01-16', '2012-01-31', '2012-10-29', 2, 'Segunda Quincena'),
+(457, 3, 2, '2012-02-01', '2012-02-15', '2012-10-29', 1, 'Primera Quincena'),
+(458, 3, 2, '2012-02-16', '2012-02-29', '2012-10-29', 2, 'Segunda Quincena');
 
 -- --------------------------------------------------------
 
@@ -16389,6 +16472,8 @@ CREATE TABLE IF NOT EXISTS `lugares_destaques` (
 -- Dumping data for table `lugares_destaques`
 --
 
+INSERT INTO `lugares_destaques` (`id_lugar_destaque`, `id_personal_tercero`, `id_establecimiento`) VALUES
+(1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -26306,50 +26391,59 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   `dia_subsidiado` int(11) DEFAULT NULL COMMENT 'CALCULADO_DELETE',
   `dia_nosubsidiado` int(11) DEFAULT NULL COMMENT 'CALCULADO_DELETE',
   `dia_total` int(11) DEFAULT NULL,
-  `sueldo_base` char(20) DEFAULT NULL,
-  `sueldo` decimal(10,2) DEFAULT NULL,
+  `sueldo_base` decimal(10,2) DEFAULT NULL,
+  `sueldo` decimal(10,2) DEFAULT '0.00',
+  `sueldo_vacacion` decimal(10,2) unsigned DEFAULT NULL,
   `descuento` decimal(10,2) DEFAULT NULL,
   `sueldo_neto` decimal(10,2) DEFAULT NULL COMMENT 'SUELDO_DEBE SER_CALCULADO\r\npero funciona  =',
-  `ordinario_hora` tinyint(3) DEFAULT NULL,
-  `ordinario_min` tinyint(2) DEFAULT NULL,
-  `sobretiempo_hora` tinyint(3) DEFAULT NULL,
+  `ordinario_hora` int(11) DEFAULT NULL,
+  `ordinario_min` tinyint(2) DEFAULT '0',
+  `sobretiempo_hora` int(11) DEFAULT NULL,
   `sobretiempo_min` tinyint(2) DEFAULT NULL,
   `estado` char(20) DEFAULT NULL,
   `descripcion` tinytext,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  `id_empresa_centro_costo` int(10) unsigned NOT NULL,
+  `id_empresa_centro_costo` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id_pago`),
   KEY `id_trabajador` (`id_trabajador`,`id_etapa_pago`,`id_empresa_centro_costo`),
   KEY `id_etapa_pago` (`id_etapa_pago`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=196 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=261 ;
 
 --
 -- Dumping data for table `pagos`
 --
 
-INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`) VALUES
-(43, 4, 22, 15, NULL, NULL, 15, '3910.00', '1564.00', NULL, '1564.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 14:13:10', NULL, 1),
-(47, 8, 22, 15, NULL, NULL, 15, '750.00', '225.00', NULL, '225.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 14:13:10', NULL, 1),
-(51, 12, 22, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 14:13:10', NULL, 1),
-(52, 13, 22, 15, NULL, NULL, 15, '2690.00', '1479.50', NULL, '1479.50', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 14:13:10', NULL, 2),
-(180, 4, 27, 15, NULL, NULL, 15, '3910.00', '1837.00', NULL, '1837.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:57:48', NULL, 1),
-(181, 8, 27, 15, NULL, NULL, 15, '750.00', '225.00', NULL, '225.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:57:48', NULL, 1),
-(182, 12, 27, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:57:48', NULL, 1),
-(183, 13, 27, 15, NULL, NULL, 15, '2690.00', '1479.00', NULL, '1479.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:57:48', NULL, 2),
-(184, 4, 28, 16, NULL, NULL, 16, '3910.00', '2073.00', NULL, '2073.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:59:01', NULL, 1),
-(185, 8, 28, 16, NULL, NULL, 16, '750.00', '525.00', NULL, '525.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:59:01', NULL, 1),
-(186, 12, 28, 16, NULL, NULL, 16, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:59:01', NULL, 1),
-(187, 13, 28, 16, NULL, NULL, 16, '2690.00', '1211.00', NULL, '1211.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 17:59:01', NULL, 2),
-(188, 4, 29, 15, NULL, NULL, 15, '3910.00', '1955.00', NULL, '1955.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:19:33', NULL, 1),
-(189, 8, 29, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:19:33', NULL, 1),
-(190, 12, 29, 15, NULL, NULL, 15, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:19:33', NULL, 1),
-(191, 13, 29, 15, NULL, NULL, 15, '2690.00', '1345.00', NULL, '1345.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:19:33', NULL, 2),
-(192, 4, 30, 16, NULL, NULL, 16, '3910.00', '1955.00', NULL, '1955.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:20:13', NULL, 1),
-(193, 8, 30, 16, NULL, NULL, 16, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:20:13', NULL, 1),
-(194, 12, 30, 16, NULL, NULL, 16, '750.00', '375.00', NULL, '375.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:20:13', NULL, 1),
-(195, 13, 30, 16, NULL, NULL, 16, '2690.00', '1345.00', NULL, '1345.00', 120, NULL, NULL, NULL, '0', NULL, '2012-10-11 18:20:13', NULL, 2);
+INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `sueldo_vacacion`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`) VALUES
+(233, 3, 455, 4, NULL, 11, 15, '675.00', '90.00', '247.50', NULL, NULL, 32, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 1),
+(234, 4, 455, 15, NULL, 0, 15, '3910.00', '1955.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 3),
+(235, 5, 455, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 1),
+(236, 6, 455, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 1),
+(237, 7, 455, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 1),
+(238, 8, 455, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 1),
+(239, 13, 455, 15, NULL, 0, 15, '2690.00', '1345.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:16', NULL, 2),
+(240, 3, 456, 0, NULL, 16, 16, '675.00', '0.00', '337.50', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 1),
+(241, 5, 456, 16, NULL, 0, 16, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 1),
+(242, 6, 456, 16, NULL, 0, 16, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 1),
+(243, 7, 456, 16, NULL, 0, 16, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 1),
+(244, 8, 456, 16, NULL, 0, 16, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 1),
+(245, 13, 456, 16, NULL, 0, 16, '2690.00', '1345.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 2),
+(246, 4, 456, 16, NULL, 0, 16, '3910.00', '1955.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:09:29', NULL, 3),
+(247, 3, 457, 12, NULL, 3, 15, '675.00', '270.00', '67.50', NULL, NULL, 96, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 1),
+(248, 4, 457, 15, NULL, 0, 15, '3910.00', '1955.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 3),
+(249, 5, 457, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 1),
+(250, 6, 457, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 1),
+(251, 7, 457, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 1),
+(252, 8, 457, 15, NULL, 0, 15, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 1),
+(253, 13, 457, 15, NULL, 0, 15, '2690.00', '1345.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:03', NULL, 2),
+(254, 3, 458, 14, NULL, 0, 14, '675.00', '337.50', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 1),
+(255, 5, 458, 14, NULL, 0, 14, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 1),
+(256, 6, 458, 14, NULL, 0, 14, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 1),
+(257, 7, 458, 14, NULL, 0, 14, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 1),
+(258, 8, 458, 14, NULL, 0, 14, '750.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 1),
+(259, 13, 458, 14, NULL, 0, 14, '2690.00', '1345.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 2),
+(260, 4, 458, 14, NULL, 0, 14, '3910.00', '1955.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-10-29 14:17:13', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -26679,10 +26773,10 @@ INSERT INTO `pdeclaraciones` (`id_pdeclaracion`, `id_empleador_maestro`, `period
 (18, 1, '2012-06-01', '2012-09-14', '2012-09-14', 1),
 (19, 1, '2012-07-01', '2012-09-14', '2012-09-14', 1),
 (20, 1, '2012-08-01', '2012-09-14', '2012-09-14', 1),
-(23, 2, '2012-09-01', '2012-09-28', '2012-09-28', 0),
-(24, 2, '2012-10-01', NULL, NULL, 1),
-(25, 2, '2012-11-01', NULL, NULL, 1),
-(27, 2, '2012-12-01', NULL, NULL, 1);
+(23, 2, '2012-09-01', '2012-09-28', '2012-09-28', 1),
+(24, 2, '2012-10-01', '2012-10-10', '2012-10-10', 1),
+(25, 2, '2012-11-01', '2012-10-10', '2012-10-10', 1),
+(27, 2, '2012-12-01', '2012-10-10', '2012-10-10', 1);
 
 -- --------------------------------------------------------
 
@@ -26751,6 +26845,8 @@ CREATE TABLE IF NOT EXISTS `pensionistas` (
 -- Dumping data for table `pensionistas`
 --
 
+INSERT INTO `pensionistas` (`id_pensionista`, `id_persona`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cuspp`, `cod_tipo_pago`, `cod_situacion`, `estado`) VALUES
+(1, 126, '0', '0', NULL, '0', '1', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -26771,6 +26867,8 @@ CREATE TABLE IF NOT EXISTS `periodos_destaques` (
 -- Dumping data for table `periodos_destaques`
 --
 
+INSERT INTO `periodos_destaques` (`id_periodo_destaque`, `id_personal_tercero`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -26829,6 +26927,8 @@ CREATE TABLE IF NOT EXISTS `personales_formaciones_laborales` (
 -- Dumping data for table `personales_formaciones_laborales`
 --
 
+INSERT INTO `personales_formaciones_laborales` (`id_personal_formacion_laboral`, `id_persona`, `cod_nivel_educativo`, `id_modalidad_formativa`, `id_ocupacion_2`, `centro_formacion`, `seguro_medico`, `presenta_discapacidad`, `horario_nocturno`, `cod_situacion`, `estado`) VALUES
+(1, 126, '0', '0', '0', '0', '0', 0, 0, '1', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -26853,6 +26953,8 @@ CREATE TABLE IF NOT EXISTS `personales_terceros` (
 -- Dumping data for table `personales_terceros`
 --
 
+INSERT INTO `personales_terceros` (`id_personal_tercero`, `id_persona`, `id_empleador_destaque_yoursef`, `cobertura_pension`, `cod_situacion`, `estado`) VALUES
+(1, 126, 0, NULL, '1', 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -26891,7 +26993,7 @@ CREATE TABLE IF NOT EXISTS `personas` (
   KEY `cod_telefono_codigo_nacional` (`cod_telefono_codigo_nacional`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_estado_civil` (`id_estado_civil`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=126 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=127 ;
 
 --
 -- Dumping data for table `personas`
@@ -27021,7 +27123,8 @@ INSERT INTO `personas` (`id_persona`, `id_empleador`, `cod_pais_emisor_documento
 (122, 1, '604', '01', '9589', '45347323', '1988-07-13', 'GARGATE', 'ROSALES', 'JONATHAN', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-06', NULL, NULL),
 (123, 1, '604', '01', '9589', '42070522', '1978-03-01', 'AQUINO', 'ROJAS', 'MARIBEL', '2', 2, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-06', NULL, NULL),
 (124, 1, '604', '01', '9589', '76608802', '1994-08-01', 'QUISPE', 'FLORES', 'JUAN DANIEL', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-06', NULL, NULL),
-(125, 1, '604', '01', '9589', '07182707', '1959-02-19', 'VILLARREAL', 'MEDINA', 'ANA ELENA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-11', NULL, NULL);
+(125, 1, '604', '01', '9589', '07182707', '1959-02-19', 'VILLARREAL', 'MEDINA', 'ANA ELENA', '2', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-11', NULL, NULL),
+(126, 1, '604', '01', '9589', '43539383', '1986-05-09', 'SUAREZ', 'MAGUIÑA', 'ERICK JORGE', '1', 1, '0', '', '', 1, 0, 0, 0, 'ACTIVO', '2012-10-16', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -27053,7 +27156,7 @@ CREATE TABLE IF NOT EXISTS `personas_direcciones` (
   KEY `cod_zona` (`cod_zona`),
   KEY `id_persona` (`id_persona`),
   KEY `cod_ubigeo_reniec` (`cod_ubigeo_reniec`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=285 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='MAX 2 direcciones por Persona' AUTO_INCREMENT=287 ;
 
 --
 -- Dumping data for table `personas_direcciones`
@@ -27307,7 +27410,9 @@ INSERT INTO `personas_direcciones` (`id_persona_direccion`, `id_persona`, `cod_u
 (281, 124, '140109', '03', 'MANUEL CISNEROS', '748', '20', '', '', '', '', '', '', '0', '', '', 1, 1),
 (282, 124, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
 (283, 125, '140117', '01', 'LA MAR', '1192', '', '', '', '', '', '', '', '0', '', '', 1, 1),
-(284, 125, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
+(284, 125, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2),
+(285, 126, '140137', '0', '', '', '', '', '163', '29', '', '', '', '09', '18 HUASCAR', '', 1, 1),
+(286, 126, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -27549,15 +27654,12 @@ CREATE TABLE IF NOT EXISTS `registros_conceptos_e` (
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id_registro_concepto_e`),
   KEY `id_concepto_e_empleador` (`id_concepto_e_empleador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS DETALLES 706\r\n-para ti familia\r\n-prestamo empresa' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='DESCUENTOS DETALLES 706\r\n-para ti familia\r\n-prestamo empresa' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `registros_conceptos_e`
 --
 
-INSERT INTO `registros_conceptos_e` (`id_registro_concepto_e`, `id_concepto_e_empleador`, `id_trabajador`, `valor`, `estado`, `fecha_creacion`) VALUES
-(1, 1, 1, NULL, NULL, '2012-09-17'),
-(2, 5, 5, NULL, NULL, '2012-09-17');
 
 -- --------------------------------------------------------
 
@@ -27573,37 +27675,52 @@ CREATE TABLE IF NOT EXISTS `registros_por_conceptos` (
   `valor` decimal(10,2) DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  `cod_situacion` char(1) DEFAULT NULL,
   PRIMARY KEY (`id_registro_por_concepto`),
   KEY `id_trabajador` (`id_trabajador`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`),
-  KEY `cod_situacion` (`cod_situacion`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='01 : select de conceptos que usara la empresa\r\n02 : registra' AUTO_INCREMENT=253 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='01 : select de conceptos que usara la empresa\r\n02 : registra' AUTO_INCREMENT=272 ;
 
 --
 -- Dumping data for table `registros_por_conceptos`
 --
 
-INSERT INTO `registros_por_conceptos` (`id_registro_por_concepto`, `id_pdeclaracion`, `id_trabajador`, `cod_detalle_concepto`, `valor`, `estado`, `fecha_creacion`, `cod_situacion`) VALUES
-(1, 23, 4, '0201', '1.00', 1, '2012-10-09', NULL),
-(2, 23, 13, '0201', '1.00', 1, '2012-10-09', NULL),
-(3, 23, 4, '0909', '400.00', 1, '2012-10-09', NULL),
-(4, 23, 13, '0909', '155.00', 1, '2012-10-09', NULL),
-(5, 23, 13, '0304', '230.00', 1, '2012-10-09', NULL),
-(6, 23, 4, '0701', '40.00', 1, '2012-10-09', NULL),
-(7, 23, 13, '0701', '55.00', 1, '2012-10-09', NULL),
-(14, 23, 8, '0701', '30.00', 1, '2012-10-11', NULL),
-(18, 23, 12, '0701', NULL, NULL, '2012-10-11', NULL),
-(127, 24, 4, '0201', '1.00', 1, NULL, NULL),
-(128, 24, 13, '0201', '1.00', 1, NULL, NULL),
-(129, 24, 13, '0304', '230.00', 1, NULL, NULL),
-(130, 24, 4, '0701', '47.00', 1, NULL, NULL),
-(131, 24, 13, '0701', '55.00', 1, NULL, NULL),
-(138, 24, 8, '0701', '30.00', 1, NULL, NULL),
-(142, 24, 12, '0701', NULL, NULL, NULL, NULL),
-(251, 24, 4, '0909', '400.00', 1, NULL, NULL),
-(252, 24, 13, '0909', '155.00', 1, NULL, NULL);
+INSERT INTO `registros_por_conceptos` (`id_registro_por_concepto`, `id_pdeclaracion`, `id_trabajador`, `cod_detalle_concepto`, `valor`, `estado`, `fecha_creacion`) VALUES
+(1, 23, 4, '0201', '1.00', 1, '2012-10-09'),
+(2, 23, 13, '0201', '1.00', 1, '2012-10-09'),
+(3, 23, 4, '0909', '400.00', 1, '2012-10-09'),
+(4, 23, 13, '0909', '155.00', 1, '2012-10-09'),
+(5, 23, 13, '0304', '230.00', 1, '2012-10-09'),
+(6, 23, 4, '0701', '40.00', 1, '2012-10-09'),
+(7, 23, 13, '0701', '55.00', 1, '2012-10-09'),
+(10, 23, 3, '0701', '30.00', 0, '2012-10-11'),
+(11, 23, 5, '0701', '30.00', 1, '2012-10-11'),
+(12, 23, 6, '0701', '30.00', 1, '2012-10-11'),
+(13, 23, 7, '0701', '30.00', 1, '2012-10-11'),
+(14, 23, 8, '0701', '30.00', 1, '2012-10-11'),
+(127, 24, 4, '0201', '1.00', 0, NULL),
+(128, 24, 13, '0201', '1.00', 1, NULL),
+(129, 24, 13, '0304', '230.00', 1, NULL),
+(130, 24, 4, '0701', '40.00', 0, NULL),
+(131, 24, 13, '0701', '55.00', 1, NULL),
+(134, 24, 3, '0701', '30.00', 0, NULL),
+(135, 24, 5, '0701', '30.00', 1, NULL),
+(136, 24, 6, '0701', '30.00', 1, NULL),
+(137, 24, 7, '0701', '30.00', 1, NULL),
+(138, 24, 8, '0701', '30.00', 1, NULL),
+(251, 24, 4, '0909', '400.00', 0, NULL),
+(252, 24, 13, '0909', '155.00', 1, NULL),
+(256, 24, 5, '0201', '1.00', 1, '2012-10-12'),
+(257, 24, 6, '0201', '1.00', 1, '2012-10-12'),
+(258, 24, 7, '0201', '1.00', 1, '2012-10-12'),
+(259, 24, 8, '0201', '1.00', 1, '2012-10-12'),
+(265, 1, 3, '0201', '1.00', 1, '2012-10-25'),
+(266, 1, 3, '0105', '1.00', 1, '2012-10-25'),
+(267, 1, 3, '0106', '3.00', 1, '2012-10-25'),
+(268, 1, 3, '0304', '150.00', 1, '2012-10-25'),
+(269, 1, 3, '0604', '1.00', 1, '2012-10-25'),
+(270, 1, 3, '0704', '1.00', 1, '2012-10-25'),
+(271, 1, 3, '0909', '111.00', 1, '2012-10-25');
 
 -- --------------------------------------------------------
 
@@ -28390,16 +28507,19 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   KEY `cod_situacion` (`cod_situacion`),
   KEY `id_monto_remuneracion` (`id_monto_remuneracion`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=125 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='*' AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `trabajadores`
 --
 
 INSERT INTO `trabajadores` (`id_trabajador`, `id_persona`, `cod_regimen_laboral`, `cod_nivel_educativo`, `cod_categorias_ocupacionales`, `id_ocupacion_2`, `cod_ocupacion_p`, `cod_tipo_contrato`, `cod_tipo_pago`, `cod_periodo_remuneracion`, `monto_remuneracion`, `monto_devengado`, `id_monto_remuneracion`, `id_establecimiento`, `jornada_laboral`, `situacion_especial`, `discapacitado`, `sindicalizado`, `percibe_renta_5ta_exonerada`, `aplicar_convenio_doble_inposicion`, `cod_convenio`, `cod_situacion`, `estado`, `id_empresa_centro_costo`, `estado_asignacion_familiar`) VALUES
-(4, 4, '01', '11', '03', '0', 411006, '01', '1', 2, '3910.00', '0.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
+(3, 3, '01', '07', '03', '0', 523003, '01', '1', 2, '500.00', '0.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
+(4, 4, '01', '11', '03', '0', 411006, '01', '1', 2, '3910.00', '0.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', NULL, 3, 0),
+(5, 5, '01', '07', '03', '0', 523003, '01', '1', 2, '750.00', '0.00', 0, 3, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
+(6, 6, '01', '07', '03', '0', 523003, '01', '1', 2, '750.00', '0.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
+(7, 7, '01', '07', '03', '0', 951009, '01', '1', 2, '750.00', '0.00', 0, 5, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
 (8, 8, '01', '07', '03', '0', 523003, '01', '1', 2, '750.00', '0.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
-(12, 13, '01', '07', '03', '0', 941007, '01', '1', 2, '750.00', '0.00', 0, 2, '', '0', 0, 0, 0, 0, 0, '1', NULL, 1, 0),
 (13, 14, '01', '11', '03', '0', 413011, '01', '1', 2, '2690.00', '0.00', 0, 1, '', '0', 0, 0, 0, 0, 0, '1', NULL, 2, 0);
 
 -- --------------------------------------------------------
@@ -28437,21 +28557,27 @@ CREATE TABLE IF NOT EXISTS `trabajadores_pdeclaraciones` (
   KEY `id_pdeclaracion_2` (`id_pdeclaracion`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`),
   KEY `cod_ocupacion_p` (`cod_ocupacion_p`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=139 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=1238 ;
 
 --
 -- Dumping data for table `trabajadores_pdeclaraciones`
 --
 
 INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pdeclaracion`, `id_trabajador`, `dia_laborado`, `dia_total`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `sueldo`, `sueldo_neto`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cod_regimen_aseguramiento_salud`, `cod_situacion`, `id_empresa_centro_costo`, `cod_ocupacion_p`) VALUES
-(131, 24, 4, 31, 31, 240, NULL, NULL, NULL, '3910.00', '3910.00', 0, NULL, '2012-10-11 17:59:01', NULL, 0, '21', '24', '00', '1', 1, 411006),
-(132, 24, 8, 31, 31, 240, NULL, NULL, NULL, '750.00', '750.00', 0, NULL, '2012-10-11 17:59:01', NULL, 0, '21', '24', '00', '1', 1, 523003),
-(133, 24, 12, 31, 31, 240, NULL, NULL, NULL, '750.00', '750.00', 0, NULL, '2012-10-11 17:59:02', NULL, 0, '21', '02', '00', '1', 1, 941007),
-(134, 24, 13, 31, 31, 240, NULL, NULL, NULL, '2690.00', '2690.00', 0, NULL, '2012-10-11 17:59:02', NULL, 0, '21', '23', '00', '1', 2, 413011),
-(135, 9, 4, 31, 31, 240, NULL, NULL, NULL, '3910.00', '3910.00', 0, NULL, '2012-10-11 18:20:13', NULL, 0, '21', '24', '00', '1', 1, 411006),
-(136, 9, 8, 31, 31, 240, NULL, NULL, NULL, '750.00', '750.00', 0, NULL, '2012-10-11 18:20:14', NULL, 0, '21', '24', '00', '1', 1, 523003),
-(137, 9, 12, 31, 31, 240, NULL, NULL, NULL, '750.00', '750.00', 0, NULL, '2012-10-11 18:20:14', NULL, 0, '21', '02', '00', '1', 1, 941007),
-(138, 9, 13, 31, 31, 240, NULL, NULL, NULL, '2690.00', '2690.00', 0, NULL, '2012-10-11 18:20:14', NULL, 0, '21', '23', '00', '1', 2, 413011);
+(1224, 1, 3, 4, 31, 32, NULL, 4, 0, '90.00', NULL, 0, NULL, '2012-10-29 14:09:29', '2012-10-29', 0, '21', '23', '00', '1', 1, 523003),
+(1225, 1, 4, 31, 31, 240, NULL, NULL, NULL, '3910.00', NULL, 0, NULL, '2012-10-29 14:09:29', '2012-10-29', 0, '21', '24', '00', '1', 3, 411006),
+(1226, 1, 5, 31, 31, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:09:29', '2012-10-29', 0, '21', '23', '00', '1', 1, 523003),
+(1227, 1, 6, 31, 31, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:09:30', '2012-10-29', 0, '21', '21', '00', '1', 1, 523003),
+(1228, 1, 7, 31, 31, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:09:30', '2012-10-29', 0, '21', '21', '00', '1', 1, 951009),
+(1229, 1, 8, 31, 31, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:09:30', '2012-10-29', 0, '21', '24', '00', '1', 1, 523003),
+(1230, 1, 13, 31, 31, 240, NULL, NULL, NULL, '2690.00', NULL, 0, NULL, '2012-10-29 14:09:30', '2012-10-29', 0, '21', '23', '00', '1', 2, 413011),
+(1231, 3, 3, 26, 29, 216, NULL, NULL, NULL, '607.50', NULL, 0, NULL, '2012-10-29 14:17:13', '2012-10-29', 0, '21', '23', '00', '1', 1, 523003),
+(1232, 3, 4, 29, 29, 240, NULL, NULL, NULL, '3910.00', NULL, 0, NULL, '2012-10-29 14:17:13', '2012-10-29', 0, '21', '24', '00', '1', 3, 411006),
+(1233, 3, 5, 29, 29, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:17:14', '2012-10-29', 0, '21', '23', '00', '1', 1, 523003),
+(1234, 3, 6, 29, 29, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:17:14', '2012-10-29', 0, '21', '21', '00', '1', 1, 523003),
+(1235, 3, 7, 29, 29, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:17:14', '2012-10-29', 0, '21', '21', '00', '1', 1, 951009),
+(1236, 3, 8, 29, 29, 240, NULL, NULL, NULL, '750.00', NULL, 0, NULL, '2012-10-29 14:17:14', '2012-10-29', 0, '21', '24', '00', '1', 1, 523003),
+(1237, 3, 13, 29, 29, 240, NULL, NULL, NULL, '2690.00', NULL, 0, NULL, '2012-10-29 14:17:14', '2012-10-29', 0, '21', '23', '00', '1', 2, 413011);
 
 -- --------------------------------------------------------
 
@@ -30822,16 +30948,21 @@ CREATE TABLE IF NOT EXISTS `vacaciones` (
   `id_trabajador` int(10) unsigned NOT NULL,
   `fecha` date DEFAULT NULL,
   `fecha_programada` date DEFAULT NULL,
+  `fecha_programada_fin` date DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
+  `tipo_vacacion` char(1) DEFAULT NULL,
   PRIMARY KEY (`id_vacacion`),
   KEY `id_trabajador` (`id_trabajador`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=83 ;
 
 --
 -- Dumping data for table `vacaciones`
 --
 
+INSERT INTO `vacaciones` (`id_vacacion`, `id_trabajador`, `fecha`, `fecha_programada`, `fecha_programada_fin`, `estado`, `fecha_creacion`, `tipo_vacacion`) VALUES
+(81, 3, '2012-01-04', '2012-01-05', '2012-02-03', NULL, '2012-10-24', '1'),
+(82, 4, '2012-08-16', '2012-10-10', '2012-11-08', NULL, '2012-10-29', '1');
 
 -- --------------------------------------------------------
 
@@ -31347,7 +31478,6 @@ ALTER TABLE `registros_conceptos_e`
 ALTER TABLE `registros_por_conceptos`
   ADD CONSTRAINT `registros_por_conceptos_ibfk_1` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `registros_por_conceptos_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `registros_por_conceptos_ibfk_3` FOREIGN KEY (`cod_situacion`) REFERENCES `situaciones` (`cod_situacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `registros_por_conceptos_ibfk_4` FOREIGN KEY (`id_pdeclaracion`) REFERENCES `pdeclaraciones` (`id_pdeclaracion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

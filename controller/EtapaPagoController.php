@@ -44,7 +44,7 @@ if ($op) {
     require_once '../dao/ConfEssaludDao.php';
     require_once '../dao/ConfOnpDao.php';
     require_once '../dao/ConfUitDao.php';
- 
+
     require_once '../controller/ConfController.php';
 }
 
@@ -58,8 +58,6 @@ if ($op == "trabajador_por_etapa") {
     $response = listar_15_Mes();
 } else if ($op == "registrar_etapa") {
 
-    //here configuracion = generarConfiguracion(); 
-    //sueldo basico o dfault
     $response = registrarTrabajadoresPorEtapa();
 } else if ($op == "cargar_tabla") {
 
@@ -94,23 +92,23 @@ function listarTrabajadoresPorEtapa() {
 function registrarTrabajadoresPorEtapa() {
 
 //=========================================================================//
+    //VARIABLES    
     $ID_DECLARACION = $_REQUEST['id_declaracion'];
-
-    generarConfiguracion($ID_DECLARACION);
-
     $COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
     $ids_trabajador = $_REQUEST['ids'];
 
+    //DAO
+    $daoPlame = new PlameDeclaracionDao();
+    $data_d = $daoPlame->buscar_ID($ID_DECLARACION);
+    $PERIODO = $data_d['periodo'];
 
-// echo "ID_DECLARACION = " . $ID_DECLARACION;
-// echo "  COD_PERIODO_REMUNERACION =" . $COD_PERIODO_REMUNERACION;   
+
+    generarConfiguracion($PERIODO);
+
+
     if ($COD_PERIODO_REMUNERACION == '2') { // 2 = SIEMPRE PRIMERA quincena
 //========================================================================//
-        $daoPlame = new PlameDeclaracionDao();
-        $data_d = $daoPlame->buscar_ID($ID_DECLARACION);
-
-        $FECHA_PERIODO = $data_d['periodo'];
-        $FECHAX = getFechasDePago($FECHA_PERIODO);
+        $FECHAX = getFechasDePago($PERIODO);
         $FECHA = array();
 //========================================================================//
         if (true/* count($data_id_etapa_pago) == 0 */) {
@@ -135,7 +133,7 @@ function registrarTrabajadoresPorEtapa() {
                 $id_etapa_pago = $dao->registrar($model);
             }
 //--------------------------------
-            registrar_15($ID_DECLARACION, $id_etapa_pago, null, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
+            registrar_15($ID_DECLARACION, $PERIODO, $id_etapa_pago, null, $FECHA['inicio'], $FECHA['fin'], $ids_trabajador);
         } else {
             echo "UN CASO INCONTROLABLE QUINCENA! En tabla Etapa de PAGO";
         }
@@ -422,15 +420,16 @@ function listar_15_Mes() {
     return $response;
 }
 
-function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $FECHA_INICIO, $FECHA_FIN, $ids) {
-    echoo($_REQUEST);
-    echo "\nPASOOOOOOOO\n";
-//   $_REQUEST['id_declaracion']   =======THIS EXISTES rpc nedd
-
+function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago_antes, $FECHA_INICIO, $FECHA_FIN, $ids) {
+    //echoo($_REQUEST);
+    echo "\nPeriodo Declaracion== ".$PERIODO;
+    
     $rpta = false;
-// DAO
+    // DAO
     $dao_plame = new PlameDao();
     $dao_pago = new PagoDao();
+
+    $data_pd['periodo'] = $PERIODO;
 
 //|-------------------------------------------------------------------------
 //| Aki para mejorar. la aplicacion debe de preguntar por un Trabajador en 
@@ -451,7 +450,6 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
         for ($i = 0; $i < count($_data_id_trabajador); $i++) {
             for ($j = 0; $j < count($data_traa); $j++) {
                 if ($_data_id_trabajador[$i]['id_trabajador'] == $data_traa[$j]['id_trabajador']) {
-//unset($data_traa[$j]);
                     $data_filtro[] = $data_traa[$j];
                     break;
                 }
@@ -487,13 +485,13 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
     }
 
 
-
+    echoo($data_tra);
 
 
 //========== ELIMINAR LO QUE YA EXISTE en BD ===================//
-//TRABAJADORES YA REGISTRADOS  
+
     $data_id_tra_db = $dao_pago->listar_HIJO($id_etapa_pago);
-//print_r($data_id_tra_db);
+
 
     if (count($data_id_tra_db) > 0) { // =============== MEJORAR ->buesqueda binariaaaaaaaaaaaaaaaaaaa!
         $data_tra_ref = $data_tra;
@@ -501,12 +499,10 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
         for ($i = 0; $i < count($data_id_tra_db); $i++):
 
             for ($j = 0; $j < count($data_tra_ref); $j++):
-//echo "<< ";
-//echo "i = $i : j = $j ";
-//echo " >>\n";
+
                 if ($data_id_tra_db[$i]['id_trabajador'] == $data_tra_ref[$j]['id_trabajador']):
                     $data_tra_ref[$j]['id_trabajador'] = null;
-//echo "encontro trabajador Y  BREAK;";
+
                     break;
                 endif;
             endfor;
@@ -517,13 +513,9 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
     }
 
 
-//echo "DATA CON id_trabajador NULL Y SIN NULL ";
-//print_r($data_tra);
-//echo "FINNN NULL";
 //-------------------------------------------------------------------
-    $dao_pd = new PlameDeclaracionDao();
-    $data_pd = $dao_pd->buscar_ID($ID_PDECLARACION);
-
+    //$dao_pd = new PlameDeclaracionDao();
+    //$data_pd = $dao_pd->buscar_ID($ID_PDECLARACION);
 // Lista trabajadores que le corresponde vacacion
     $dao_vac = new VacacionDao();
 
@@ -531,257 +523,167 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
     $arreglo = getMesInicioYfin($data_pd['periodo']); //periodo        
     $mes_inicio = $arreglo['mes_inicio'];
     $mes_fin = $arreglo['mes_fin'];
-
-
+    echo "\n##############################\n";
+    echo "\nmes_inicio = $mes_inicio\n";
+    echo "\nmes_fin = $mes_fin\n";
+    echo "\n##############################\n";
     // FECHAS MANDO!.
     $id_1 = $dao_vac->listaIdsTraVacacionesFProgramada($mes_inicio, $mes_fin);
     $id_2 = $dao_vac->listaIdsTraVacacionesFProgramadaFin($mes_inicio, $mes_fin);
 
     $ids_tra_vacaciones = array_unico_ordenado($id_1, $id_2);
-
+    
+    echo "\n-----------------------------\n";
+    echoo($id_1);
+    echo "\n-----------------------------\n";
+    echoo($id_2);
+    echo "\n-----------------------------\n";
     echoo($ids_tra_vacaciones);
-    /*    $ids_tra_vacaciones = array();
-      for ($a = 0; $a < count($ids_data_dao_vacaciones); $a++):
-      $ids_tra_vacaciones[] = $ids_data_dao_vacaciones[$a]['id_trabajador'];
-      endfor;
-     */
-
+    echo "\n-----------------------------\n";
+    
 
     if (count($data_tra) >= 1) {
-//DAO
+
         $dao_rpc = new RegistroPorConceptoDao();
 
         for ($i = 0; $i < count($data_tra); $i++) {
             if ($data_tra[$i]['id_trabajador'] != null) {
-
+                
+                $model = new Pago();
+                
+                //VARIABLES
+                $dias_vacacion = 0;
+                
                 //SUELDO X DEFAUL
-
                 $data_tra[$i]['monto_remuneracion'] = sueldoDefault($data_tra[$i]['monto_remuneracion']);
 
-                //SUELDO X DEFAUL
-
-
-                $model = new Pago();
+                
+//-------------------------------FIN VACACIONES---------------------------------                  
                 if (in_array($data_tra[$i]['id_trabajador'], $ids_tra_vacaciones)) {  //TIENE VACACION
-                    echo "\nTRABAJADOR ENTRO EN VACACION\n";
-
-//INI VAR
+                    echo "\n\n    TRABAJADOR ENTRO EN VACACION  \n\n";
+                    
                     $tra_fvacacion_calc = null;
                     $tra_fvacacion_calc = $dao_vac->listarVacacionesEnRango($data_tra[$i]['id_trabajador']);
 
-
-                    echo "\nmes_inicio = $mes_inicio";
-                    echo "\nmes_fin = $mes_fin";
-                    echo "\nmes_fin_sgte_mes = $mes_fin_sgte_mes";
-
-
-
-                    echo "\n\n<pre> -VACACION ACTIVO!!!- \n\n \n";
-                    print_r($tra_fvacacion_calc);
-                    echo "</pre>\n\n";
-
+                    
                     $fecha_programada = $tra_fvacacion_calc['fecha_programada'];
                     $fecha_programada_fin = $tra_fvacacion_calc['fecha_programada_fin'];
-                    $tipo_vacacion = $tra_fvacacion_calc['tipo_vacacion'];
+                    //----------------------------------------------------------
+                    $tra_finicio = ( getFechaPatron($fecha_programada, "m") == getFechaPatron($data_pd['periodo'], "m") ) ? $fecha_programada : null;
+                    $tra_ffinal = ( getFechaPatron($fecha_programada_fin, "m") == getFechaPatron($data_pd['periodo'], "m") ) ? $fecha_programada_fin : null;
 
 
-                    if ($tipo_vacacion == 2) {// 15dias vac.
-                        if ($fecha_programada == $FECHA_INICIO) {
-                            echo "15 = entro 2  == \n";
-                            $status_vacacion = true; //Vacacion toda la quincena!
-                            $data_tra[$i]['fecha_inicio'] = false;
-                            $data_tra[$i]['fecha_fin'] = false;
+                    $finicio = ($tra_finicio == null) ? $FECHA_INICIO : $tra_finicio;
+                    $ffin = ($tra_ffinal == null) ? $FECHA_FIN : $tra_ffinal;
 
-                            $dia_mes = getFechaPatron($fecha_programada, 't');
-                            if ($dia_mes == 31 && (intval(getFechaPatron($FECHA_INICIO, "d")) > 15)) {
-                                $data_tra[$i]['fecha_inicio'] = crearFecha($fecha_programada_fin, 1, 0, 0);
-                                $data_tra[$i]['fecha_fin'] = crearFecha($fecha_programada_fin, 1, 0, 0);
-                            }
-                        } else if ($fecha_programada > $FECHA_INICIO) {
-
-                            $data_tra[$i]['fecha_inicio'] = $FECHA_INICIO; //ok
-                            $data_tra[$i]['fecha_fin'] = crearFecha($fecha_programada, -1, 0, 0);
-                        } else if ($fecha_programada_fin >= $FECHA_INICIO) {
-
-                            $data_tra[$i]['fecha_inicio'] = crearFecha($fecha_programada_fin, 1, 0, 0); //ok
-                            $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
-                        }
-                    } else if ($tipo_vacacion == 1) { // 30dias vac.
-                        if ($fecha_programada == $FECHA_INICIO) { //OJO
-                            $status_vacacion = true;
-                            $data_tra[$i]['fecha_inicio'] = false;
-                            $data_tra[$i]['fecha_fin'] = false;
-
-                            $dia_mes = getFechaPatron($fecha_programada, 't');
-                            if ($dia_mes == 31 && (intval(getFechaPatron($FECHA_INICIO, "d")) > 15)) {
-                                $data_tra[$i]['fecha_inicio'] = crearFecha($fecha_programada_fin, 1, 0, 0);
-                                $data_tra[$i]['fecha_fin'] = crearFecha($fecha_programada_fin, 1, 0, 0);
-                            }
-                        } else if ($fecha_programada_fin == $FECHA_FIN) { //OJO
-                            $status_vacacion = true;
-                            $data_tra[$i]['fecha_inicio'] = false;
-                            $data_tra[$i]['fecha_fin'] = false;
-                        } else if ($fecha_programada > $FECHA_INICIO) {
-                            echo "\nENTRO FECHA_PRO > FECHA INICIO\n";
-                            $data_tra[$i]['fecha_inicio'] = $FECHA_INICIO; //ok
-                            $data_tra[$i]['fecha_fin'] = crearFecha($fecha_programada, -1, 0, 0); //OK 
-                        } else if (getFechaPatron($fecha_programada_fin, "m") > getFechaPatron($FECHA_FIN, "m")) {
-                            $status_vacacion = true;
-                            $data_tra[$i]['fecha_inicio'] = false;
-                            $data_tra[$i]['fecha_fin'] = false;
-                        } else if (getFechaPatron($fecha_programada_fin, "m") == getFechaPatron($FECHA_FIN, "m")) {
-                            /* else */ if ($fecha_programada_fin >= $FECHA_INICIO) {
-
-                                $data_tra[$i]['fecha_inicio'] = crearFecha($fecha_programada_fin, 1, 0, 0); //ok
-                                $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
-                            }
-                        }
-                    }
-
-
-                    //echo "<pre>HELLO";
-                    //echoo(getFechaTrabajadoVacaciones($fecha_programada, $fecha_programada_fin, $tipo_vacacion, $data_pd['periodo']));
-                    //echo "</pre>";
-
-
-
-                    echo "\n\n -------------------------------------------------\n\n";
-                    echo "\n status_vacacion = " . ($status_vacacion);
-                    echo "\n\n";
-                    echo "data_tra fecha_inicio " . $data_tra[$i]['fecha_inicio'];
-                    echo "\n\n";
-                    echo "data_tra fecha_fin " . $data_tra[$i]['fecha_fin'];
-                    echo "\n\n -------------------------------------------------\n\n";
-
-
+                    //$a = getFechaPatron($fecha_inicio,"d");
+                    //$b = getFechaPatron($fecha_fin,"d");
+                    $dias_vacacion = numDiasVacaciones($FECHA_INICIO, $FECHA_FIN, $finicio, $ffin);
+                    //----------------------------------------------------------
+                    echo "\n\nNUM DE VACACIONES RPTA ES = $dias_vacacion\n\n";
 
                     echo "\nFECHA_INICIO = $FECHA_INICIO";
                     echo "\n";
                     echo "\nFECHA_FIN = $FECHA_FIN";
                     echo "\n";
-
-                    //baja de adelanto RC = para realizar buen calculo!!!!
-                    $mes_vaca_progra = getFechaPatron($fecha_programada, "m");
-                    $mes_vaca_progra_f = getFechaPatron($fecha_programada_fin, "m");
-                    $mes_vaca_declar = getFechaPatron($data_pd['periodo'], "m");
-
-                    if ($status_vacacion == true) {
-
-                        echo "TRABAJADOR TIENE VACACION!! ";
-                        $model->setId_trabajador($data_tra[$i]['id_trabajador']);
-                        $model->setId_etapa_pago($id_etapa_pago);
-                        $model->setDia_laborado(0);
-                        $model->setDia_total(0);
-                        $model->setSueldo_base(0);
-                        $model->setSueldo(0);
-                        $model->setSueldo_neto(0);
-                        $model->setOrdinario_hora(0);
-                        $model->setEstado(0);
-                        $model->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
-                        $model->setFecha_creacion(date("Y-m-d H:i:s"));
-
-                        //$dao_pago = new PagoDao();
-                        $dao_pago->registrar($model);
-
-
-                        //cambiar tipo de pago inactivar adelanto                       
-                        $dao_rpc->baja($data_tra[$i]['id_trabajador'], $ID_PDECLARACION);
-
-                        continue;
-                    } else if ($mes_vaca_progra == $mes_vaca_declar || $mes_vaca_declar == $mes_vaca_progra_f) {
-
-                        $dao_rpc->baja($data_tra[$i]['id_trabajador'], $ID_PDECLARACION);
+                    
+                    // BAJA CONCEPTO ADELANTO  
+                    if ($dias_vacacion > 0) {
+                        echo "\nDar baja concepto adelanto 50% OFF\n ";                                            
+                        $dao_rpc->baja($data_tra[$i]['id_trabajador'], $ID_PDECLARACION,'0701');
+                        
+                    } else if (getFechaPatron($fecha_programada, "m") == getFechaPatron($data_pd['periodo'], "m") || getFechaPatron($fecha_programada_fin, "m") == getFechaPatron($data_pd['periodo'], "m")) {
+                        
+                        $dao_rpc->baja($data_tra[$i]['id_trabajador'], $ID_PDECLARACION,'0701');
                     }
-                }//else{
-// ECHO "INYECTAR A BD";
-//---            
+                    
+                }else{
+                    
+                     echo "\n\n    TRABAJADOR ID =".$data_tra[$i]['id_trabajador']." NO VACACION! \n\n";
+                    
+                }
+//-------------------------------FIN VACACIONES---------------------------------  
+
                 if ($data_tra[$i]['fecha_inicio'] > $FECHA_INICIO) {
-//default
+                    
                 } else if ($data_tra[$i]['fecha_inicio'] <= $FECHA_INICIO) {
                     $data_tra[$i]['fecha_inicio'] = $FECHA_INICIO;
                 }
-//---            
-//---            
+//---           
+
                 if (is_null($data_tra[$i]['fecha_fin'])) {
                     $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
                 } else if ($data_tra[$i]['fecha_fin'] >= $FECHA_FIN) { //INSUE
                     $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
                 } else if ($data_tra[$i]['fecha_fin'] < $FECHA_FIN) {
-//default
+                    
                 }
-//---            
-
-
-
-                $cubodin = 0;
-//solo si la fecha de fin es mayor a 15 "segunda quincena" Anomalias
-                $_2da_quincena = date("j", strtotime($data_tra[$i]['fecha_fin']));
-                if (intval($_2da_quincena) > 15) {
-
-                    $num_dia = date("t", strtotime($data_tra[$i]['fecha_fin']));
-                    if ($num_dia == 28) {
-                        $cubodin = 2;
-                    } else if ($num_dia == 29) {
-                        $cubodin = 1;
-                    }
-                }
-
 
                 $a = getDayThatYear($data_tra[$i]['fecha_inicio']);
                 $b = getDayThatYear($data_tra[$i]['fecha_fin']);
 
-//$data_tra[$i]['dia_laborado'] = 
+                $dia_laborado = ($b - $a) + 1;
+                echo "\n".$data_tra[$i]['id_trabajador']."dia_laborado sin vacacion = $dia_laborado\n";
 
-                $dia_laborado = ($b - $a) + 1 + $cubodin;
-                $dia_laborado_data = ($b - $a) + 1; //$data_tra[$i]['dia_laborado'];
+                //---//
+                // 01 varia num dias pero no calculos!!
+                $dia_laborado_bd = $dia_laborado;
+                // Sacar de comentario para establecer como solo trabajados                
+                //---//
 
-
-                if ($dia_laborado >= 15) { //solo para ver dias NO afecta calc
-                    $dia_laborado = 15;
+                if ($dias_vacacion > 0) {
+                    //$dia_laborado = $dias_vacacion;
+                    $dia_vacacion = $dias_vacacion;
+                    $dia_laborado = $dia_laborado - $dias_vacacion;
+                    $dia_no_laborado = ($dia_laborado == 0) ? 0 : $dias_vacacion;  //OK
                 } else {
-//null
+                    $dia_vacacion = 0;
+                    //$dia_no_laborado = 15;
+                    $dia_no_laborado = 15 - $dia_laborado;
                 }
 
+                /******************************************************************************** */
+//02             /**/
+                $dia_laborado_util = $dia_laborado;
+                /** Sacar de comentario para establecer como solo trabajados
+                 */
+                /******************************************************************************** */
 
-                $data_tra[$i]['dia_no_laborado'] = 15 - $dia_laborado;
-                $dia_no_laborado = $data_tra[$i]['dia_no_laborado'];
+                echo "\ndia_vacacion = $dia_vacacion\n";
+                echo "\ndia_laborado = $dia_laborado\n";
+                echo "\ndia_no_laborado = $dia_no_laborado\n";
 
+                echo "\nDATOS A COSULTAR PARA CONCEPTO DE ADELANTO\n";
 
-                echo "<pre> -_-DATOS A COSULTAR PARA CONCEPTO DE ADELANTO</pre>";
-//echo "AFTER ANIBAL 01";
-//print_r($data_tra);
-//echo "</pre>";
-// 01 Registrar Epagos_trabajadores
-//02 Registrar Pagos               
-//$model = new Pago();
                 $model->setId_trabajador($data_tra[$i]['id_trabajador']);
                 $model->setId_etapa_pago($id_etapa_pago);
-                $model->setDia_laborado($dia_laborado_data);
-                $model->setDia_total($dia_laborado_data);
+                $model->setDia_laborado($dia_laborado_util);
+                $model->setDia_total($dia_laborado_bd);
+                $model->setDia_nosubsidiado($dia_vacacion);
+                //$model->setDia_total($dia_laborado_bd);
                 $model->setSueldo_base($data_tra[$i]['monto_remuneracion']);
 
 //--------------------------------------------------------------------------------------- 
-//$id_ptrabajador = existeID_TrabajadorPoPtrabajador($data_tra[$i]['id_trabajador']);
-//$daopt = new PtrabajadorDao();
-//buscar_ID_Ptrabajador
-//$datax = $daopt->buscar_ID($id_ptrabajador);
-//$dao_rpc = new RegistroPorConceptoDao();
-//new ????
                 $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701, 1);
                 $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
 
                 $numero = number_format($dataxx, 2);
 //----------------------------------------------------------------------------------------
-//-- Datos basicos --                       
+
+
                 $SUELDO = $data_tra[$i]['monto_remuneracion'];
-                ECHO "\n\n\n\nSUELDO DB =" . $SUELDO;
 
-// 1 Quincena
-                if (getFechaPatron($FECHA_INICIO, "d") == '01' || getFechaPatron($FECHA_INICIO, "d") == '1') {
+                echo "\nSUELDO for calc = " . $SUELDO . "\n";
+
+
+                if (getFechaPatron($FECHA_INICIO, "d") == '01') {// 1 QUINCENA HAY DESCUENTO  
+                    
+                    $SUELDO_CAL = 0;
+                    $SUELDO_VAC = 0;
+
+                    //$dia_no_laborado = 15- $dia_laborado;
+
                     $percent = ($numero) ? $numero : 0;
-                    echo "ENTROOO EN primeraA quincena";
-                    echo "percent  despues# = " . $percent;
-
                     if ($dia_laborado >= 15) {//CON %
                         $SUELDO_CAL = $SUELDO * ($percent / 100);
                     } else if ($dia_laborado < 15) { //SIN %
@@ -790,7 +692,7 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
                         $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
                     }
 //..........................................................
-// Solo en primera quincena se redondea:
+                    // Solo en primera quincena se redondea:
                     $round_sueldo = array();
                     $round_sueldo = getRendondeoEnSoles($SUELDO_CAL);
 
@@ -799,73 +701,124 @@ function registrar_15($ID_PDECLARACION, $id_etapa_pago, $id_etapa_pago_antes, $F
                         $SUELDO_CAL = $round_sueldo['numero'];
                     }
 //..........................................................
+                    //Sueldo Vacacion
+                    if ($dia_vacacion >= 15) {
+                        $SUELDO_VAC = $SUELDO * ($percent / 100);
+                    } else if ($dia_vacacion < 15) {
+                        $SUELDO_VAC = ($SUELDO / 30) * $dia_vacacion;
+                    }
 
-                    ECHO "\nMONTO A PAGAR ES = " . $SUELDO_CAL;
+
+                    ECHO "\n\nSUELDO_calc = $SUELDO_CAL\n";
+                    echo "\nSUELDO VACACION = " . $SUELDO_VAC;
                 } else {// 2 QUINCENA HAY DESCUENTO
-                    echo "ENTROOO EN segundaA quincena";
+                    // mes mando = 
+                    $master_a = getDayThatYear($mes_inicio);
+                    $master_b = getDayThatYear($mes_fin);
+                    $master_dia_lab = ($master_b - $master_a) + 1;
+                    
+                    $SUELDO_CAL = 0;
+                    $SUELDO_VAC = 0;
+                    
+                    //echo "\n sueldo en 2da quincena SUELDO _1 = ".$SUELDO."\n";
+                    //echo "\n sueldo en 2da quincena SUELDO _2 = ".$data_tra[$i]['monto_remuneracion']."\n";
+                    
+                    echo "\nmes_inicio = $mes_inicio";
+                    echo "\nmes_fin = $mes_fin";
+                    echo "\nmaster_dia_lab  = $master_dia_lab \n";
+
+                    /**/
+                    //$dia_laborado_bd = $dia_laborado;
+                    /** Sacar de comentario para establecer como solo trabajados
+                     */
+                    switch ($master_dia_lab) {
+                        case 28:
+                            $dia_laborado = $dia_laborado + 2; //30
+                            $dia_no_laborado = $dia_no_laborado - 2; //30-2=28
+                            echo "add = 2";
+                            break;
+                        case 29:
+                            $dia_laborado = $dia_laborado + 1; //30
+                            $dia_no_laborado = $dia_no_laborado - 1; //30-1 = 29
+                            echo "add = 1";
+                            break;
+                        case 30:
+                            $dia_laborado = $dia_laborado; //30
+                            break;
+                        case 31:
+                            $dia_laborado = $dia_laborado - 1; //30                        
+                            echo "add = -1";
+                            break;
+                        default:
+                            break;
+                    }
+
+
+
+                    echo "\n*dia_laborado* = $dia_laborado\n";
+                    echo "\n*dia_no_laborado* = $dia_no_laborado\n";
+
+                    //$dia_no_laborado = 15 - $dia_laborado;
                     $percent = ($numero) ? $numero : 0;
                     $percent = 100 - $percent;
                     echo "percent  despues# = " . $percent;
-
+                    
+                    
                     if ($dia_laborado >= 15) {
                         $SUELDO_CAL = $SUELDO * ($percent / 100);
-                    } else if ($dia_laborado < 15) {
+                    } else if ($dia_laborado < 15 && $dia_laborado > 0) {
                         $DESCTO = ($SUELDO / 30) * $dia_no_laborado;
-                        $SUELDO_CAL = $SUELDO * ($percent / 100);
-                        // 50%
+                        $SUELDO_CAL = $SUELDO * ($percent / 100); // 50%
                         $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
+                    } else { //numero negativo
+                        $dia_laborado = 0;
                     }
 
-//CALC
-//$SUELDO_CAL = $SUELDO_CAL - $DESCTO;
-//$DESCTO = ($SUELDO / 30) * $dia_no_laborado;
 //..........................................................
 // Toma en cuenta si hay devengado para sumar a sueldo.
                     if ($data_tra[$i]['monto_devengado'] > 0) {
-
                         $SUELDO_CAL = $SUELDO_CAL + $data_tra[$i]['monto_devengado'];
-// devengado a cero
+                        //devengado = 0
                         $dao_plame->editMontoDevengadoTrabajador($data_tra[$i]['id_trabajador'], 0.00);
                     }
 //..........................................................
+                    //Sueldo Vacacion
+                    if ($dia_vacacion >= 15) {
+                        $SUELDO_VAC = $SUELDO * ($percent / 100);
+                    } else if ($dia_vacacion < 15) {
+                        $SUELDO_VAC = ($SUELDO / 30) * $dia_vacacion;
+                    }
                 }
 
 
-//-------------------------------------------
-//--------------------------------------------
-//$SUELDO_CAL = $SUELDO * ($percent / 100);
-//--------------------------------------------
+                echo "\n ID_TRABAJADOR = ".$data_tra[$i]['id_trabajador']."\n";
                 echo "\nSUELDO = " . $SUELDO;
+                echo "\nSUELDO VACACION = " . $SUELDO_VAC;
                 echo "\npercent  despues = " . $percent;
                 echo "\nDESCTO = " . $DESCTO;
                 echo "\nSUELDO_CAL  definitivo= " . $SUELDO_CAL;
                 echo "\ndia_laborado = " . $dia_laborado;
+                echo "\n";
+                echo "\ndia_laborado_bd = " . $dia_laborado_bd;
                 echo "\ndia_no_laborado = " . $dia_no_laborado;
-//$SUELDO_CAL = $SUELDO_CAL - $DESCTO;
+
 //---------------------------------------------------------------------------------------
                 $model->setSueldo($SUELDO_CAL);
-                $model->setSueldo_neto($SUELDO_CAL);
-                $model->setOrdinario_hora($dia_laborado * 8);
+                $model->setSueldo_vacacion($SUELDO_VAC);
+                //$model->setSueldo_neto($SUELDO_CAL);
+                $model->setOrdinario_hora((/*$dia_laborado_bd*/ $dia_laborado* 8));
                 $model->setEstado(0);
                 $model->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
                 $model->setFecha_creacion(date("Y-m-d H:i:s"));
-
-//$dao_pago = new PagoDao();
+                
+                //Dao
                 $dao_pago->registrar($model);
                 $rpta = true;
-
-
 //}End trabajador Vacacion
             }
         }
     }
 
-
-
-//----------------------******************-----------------------------------   
-//    echo "<pre>";
-//    print_r($data_tra);
-//    echo "</pre>";
 
 
     return $rpta;
@@ -1190,4 +1143,89 @@ function buscar_ID_EtapaPago($id_etapa_pago) {
     return $model;
 }
 
+function numDiasVacaciones($f1, $f2, $tra_finicio, $tra_ffinal) {
+    // =15= 2012-01-01 a 2012-15-01
+    // =30= 2012-01-16 a 2012-31-01    
+    $a = getFechaPatron($f1, "d");
+    $b = getFechaPatron($f2, "d");
+
+    //fecha vacaion
+    $day_vi = intval(getFechaPatron($tra_finicio, "d"));
+    $day_vf = intval(getFechaPatron($tra_ffinal, "d"));
+
+    //echo "\na = $a<br>";
+    //echo "\nb = $b<br>";
+    //echo "\n$tra_finicio inicio dia = $day_vi<br>";
+    //echo "\n$tra_ffinal final dia = $day_vf<br>";
+
+    // Buscar si esta en rango
+    $bandera = false;
+    if ($day_vf > $day_vi) { //Feccha de fin tiene q ser Mayor si o si!
+        for ($i = $a; $i <= $b; $i++) {
+            if ($i == $day_vi || $i == $day_vf):
+                $bandera = true;
+                break;
+            endif;
+        }
+    }
+    //$day_vi =($a ==16) ? 16 : 1;
+    $tipo = ($a >= 16) ? 2 : 1;
+    echo "\ntipo =$tipo<br>";
+
+    $contador = 0;
+    if ($bandera) {
+        for ($i = $a; $i <= $b; $i++):
+            if ($i >= $day_vi):
+                $contador++;
+                if ($i == $day_vf):
+                    //echo "\nbreak $day_vf";
+                    break;
+                endif;
+            endif;
+            //echo "\ncontador = $contador<br>\n";
+        endfor;
+    }
+    return $contador;
+}
+
+/*
+  //periodo
+  $periodo = '2012-02-01';
+  //rango
+  $fecha_inicio = '2012-02-16';
+  $fecha_fin = '2012-02-29';
+
+  //fechas de vacacion
+  $tra_finicio = '2012-01-05';
+  $tra_ffinal = '2012-02-03';
+
+  require_once '../util/funciones.php';
+
+
+  $tra_finicio= ( getFechaPatron($tra_finicio,"m") == getFechaPatron($periodo, "m") ) ? $tra_finicio : null;
+  $tra_ffinal =  ( getFechaPatron($tra_ffinal,"m") == getFechaPatron($periodo, "m") ) ? $tra_ffinal : null;
+
+  $finicio = ($tra_finicio == null) ? $fecha_inicio : $tra_finicio;
+  //$ffin = ($tra_ffinal == null) ? $fecha_fin : $tra_ffinal;
+
+
+
+  if($tra_ffinal == null){echo " ANIBAL null<br>";
+  $ffin = $fecha_fin;
+
+  }else if($tra_ffinal>=$fecha_fin){echo "<br> ANIBAL > <br>";
+  $ffin = $fecha_fin;
+
+  }else if($tra_ffinal<$fecha_fin){ echo " <BR>ANIBAL OTRO<br>";
+  $ffin = $tra_ffinal;
+  }
+
+  $a = getFechaPatron($fecha_inicio,"d");
+  $b = getFechaPatron($fecha_fin,"d");
+
+
+
+  numDiasVacaciones($fecha_inicio,$fecha_fin, $finicio,$ffin);
+
+ */
 ?>

@@ -26,6 +26,7 @@ print_r($data);
 echo "</pre>";
 */
 
+
 ?>
 
 
@@ -75,7 +76,9 @@ calcDiaNoSubsidiado();
 
                 
                 
-          <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-<?php echo $ID; ?>" style="width:150px;" onchange=""> 
+          <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-<?php echo $ID; ?>" style="width:150px;" onchange=""
+<?php  echo ($data[$i]->getEstado() == '1' ) ? ' disabled="disabled"' : '';?> 
+ > 
                     <?php
                     foreach ($suspencion2 as $indice) {
 
@@ -93,12 +96,22 @@ calcDiaNoSubsidiado();
                 </select>            </td>
             <td>
                 <input name="dns_cantidad_dia[]" id="dns_cantidad_dia-<?php echo $ID; ?>" size="7" type="text"
+<?php  echo ($data[$i]->getEstado() == '1' ) ? ' readonly="readonly"' : '';?>                 
+                
                 value="<?php echo $data[$i]->getCantidad_dia();?>"/>            </td>
 <td>
-          <span title="editar">
-              <a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
-                  <img src="images/cancelar.png"/></a></span>        </td>
+<td>
+<?php if($data[$i]->getEstado() != '1' ): ?>
+<span title="editar">
+<a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
+<img src="images/cancelar.png"/></a>
+</span>
+<?php endif; ?>
+
+</td>
         </tr>
+         
+         
          
 
 

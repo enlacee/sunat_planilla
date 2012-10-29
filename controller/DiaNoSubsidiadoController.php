@@ -83,6 +83,7 @@ function buscarDiaNoSPor_IdTrabajadorPdeclaracion($id) {
         $model->setId_trabajador_pdeclaracion($data[$i]['id_trabajador_pdeclaracion']);
         $model->setCantidad_dia($data[$i]['cantidad_dia']);
         $model->setCod_tipo_suspen_relacion_laboral($data[$i]['cod_tipo_suspen_relacion_laboral']);
+        $model->setEstado($data[$i]['estado']);
 
         $arreglo[] = $model;
     }

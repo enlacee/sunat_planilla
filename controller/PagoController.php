@@ -134,8 +134,8 @@ function cargartabla() {
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
-        $_06 = $rec['dia_total'];
-        $_07 = $rec['sueldo_neto'];
+        $_06 = $rec['dia_laborado'];
+        $_07 = $rec['sueldo'];
         $_08 = $rec['ccosto']; //Ccosto
         //$_09 = $rec['estado'];
 
@@ -145,10 +145,12 @@ function cargartabla() {
         
           // $js2 = "javascript:eliminarPersona('" . $param . "')";
         
-        //<span  title="Editar" >
-        //<a href="' . $js . '" class="divEditar" ></a>
-        //</span>
-          $opciones = '<div id="divEliminar_Editar">          
+//<span  title="Editar" >
+//<a href="' . $js . '" class="divEditar" ></a>
+//</span> 
+        
+          $opciones = '<div id="divEliminar_Editar"> 
+
           <span  title="Eliminar" >
           <a href="' . $js2 . '" class="divEliminar" ></a>
           </span>

@@ -7,11 +7,12 @@ class Pago {
     private $id_trabajador;
     private $id_etapa_pago;
     private $dia_laborado;
-    /*private $dia_subsidiado;
-    private $dia_nosubsidiado;*/
+    /*private $dia_subsidiado;*/
+    private $dia_nosubsidiado;
     private $dia_total;
     private $sueldo_base;
     private $sueldo;
+    private $sueldo_vacacion;
     private $descuento;
     private $sueldo_neto;
     private $ordinario_hora;
@@ -29,11 +30,12 @@ class Pago {
      $this->id_trabajador=null;
      $this->id_etapa_pago=null;
      $this->dia_laborado=null;
-     /*$this->dia_subsidiado=null;
-     $this->dia_nosubsidiado=null;*/
+     /*$this->dia_subsidiado=null;*/
+     $this->dia_nosubsidiado=null;
      $this->dia_total=null;
      $this->sueldo_base=null;
      $this->sueldo=null;
+     $this->sueldo_vacacion=null;
      $this->descuento=null;
      $this->sueldo_neto=null;
      $this->ordinario_hora=null;
@@ -46,6 +48,7 @@ class Pago {
      $this->fecha_modificacion=null;
      $this->fecha_creacion=null;
     }
+
     public function getId_pago() {
         return $this->id_pago;
     }
@@ -78,6 +81,14 @@ class Pago {
         $this->dia_laborado = $dia_laborado;
     }
 
+    public function getDia_nosubsidiado() {
+        return $this->dia_nosubsidiado;
+    }
+
+    public function setDia_nosubsidiado($dia_nosubsidiado) {
+        $this->dia_nosubsidiado = $dia_nosubsidiado;
+    }
+
     public function getDia_total() {
         return $this->dia_total;
     }
@@ -100,6 +111,14 @@ class Pago {
 
     public function setSueldo($sueldo) {
         $this->sueldo = $sueldo;
+    }
+
+    public function getSueldo_vacacion() {
+        return $this->sueldo_vacacion;
+    }
+
+    public function setSueldo_vacacion($sueldo_vacacion) {
+        $this->sueldo_vacacion = $sueldo_vacacion;
     }
 
     public function getDescuento() {

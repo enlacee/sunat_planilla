@@ -8,12 +8,13 @@ class PagoDao extends AbstractDao {
         $data = null;        
         if (self::$instancia == null) {
             try {
-                self::$instancia = new PagoDao();
-                $data = self::$instancia->dosQuincenasEnBoleta($id_pdeclaracion, $id_trabajador);
+                self::$instancia = new PagoDao();               
             } catch (Exception $e) {
                 throw $e;
             }
         }
+        
+        $data = self::$instancia->dosQuincenasEnBoleta($id_pdeclaracion, $id_trabajador);
         
         return $data;
     }

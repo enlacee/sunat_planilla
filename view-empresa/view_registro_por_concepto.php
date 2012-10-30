@@ -97,6 +97,8 @@ require_once('../view/ide.php');
         id_pdeclaracion :
   <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
            value="<?php echo $_REQUEST['id_declaracion']; ?>" />
+          <input type="button" name="Retornar " value="Retornar"
+          onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php?id_pdeclaracion=<?php echo $_REQUEST['id_declaracion']; ?>','#CapaContenedorFormulario')" />
           <br />
  <h3>         
           Lista de conceptos utilizados

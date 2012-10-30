@@ -195,9 +195,11 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
         $("#list").jqGrid({
             url:'sunat_planilla/controller/RegistroPorConceptoController.php?oper=cargar_tabla&cod_detalle_concepto='+cod_detalle_concepto+'&id_pdeclaracion='+id_pdeclaracion,
             datatype: 'json',
-            colNames:['','Id','Tipo Doc','N. Doc','A.Paterno','A.Materno','Nombres','Valor','Activo'],
+            colNames:['','Id','idt','Tipo Doc','N. Doc','A.Paterno','A.Materno','Nombres','Valor','Activo'],
             colModel :[
-				{name: 'myac', width:80, fixed:true, sortable:false, resize:false, formatter:'actions',
+				{name: 'myac',
+				search:false,
+				width:80, fixed:true, sortable:false, resize:false, formatter:'actions',
 					formatoptions:{keys:true}
 				},
 				{
@@ -205,12 +207,23 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 				sortable:true,
 				key : true,
 				index:'id_registro_por_concepto',
-				width:55
+				width:55,
+				 search:false,
+				 hidden:true,
+				 
 				},
+				{
+				name:'id_trabajador',
+				sortable:true,				
+				index:'id_trabajador',
+				width:55,
+				 search:false, 
+				},				
+				
                 {
                     name:'cod_tipo_documento',
                     index:'cod_tipo_documento',
-                    search:true, 
+                    search:false, 
 					sortable:false,
                     editable:false,
 					editrules:{required:true},
@@ -260,7 +273,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
                 {
                     name:'valor', 
                     index:'valor',
-                    search:true,
+                    search:false,
 					sortable:false,
                     editable:true, //true,
 					editrules:{custom:true,number:true, custom_func:validarGrid_RPC},
@@ -301,7 +314,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		
 	
      //--- PIE GRID
-	jQuery("#list").jqGrid('navGrid','#pager',{add:true,edit:false,del:false,search:false});
+	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false,search:true});
 	//---------
 
 	
@@ -510,6 +523,8 @@ $("#trabajador").fadeToggle("slow", "linear");
         <div id="tabs-1">
 <h2>
   <?php echo $data_detalle_concepto['cod_detalle_concepto'] ." - ". $data_detalle_concepto['descripcion'] ?>
+  <input type="button" name="retornar" id="retornar" value="Retornar"
+  onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>','#CapaContenedorFormulario')" />
 </h2>
 <p>
 

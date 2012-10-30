@@ -36,6 +36,8 @@ function registrarRPC() {
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $id_trabajador = $_REQUEST['id_trabajador'];
 
+    //echoo($_REQUEST);
+    //echo "\n\n";
     if (isset($id_trabajador)) {
 
         /**
@@ -45,6 +47,7 @@ function registrarRPC() {
         $dao = new RegistroPorConceptoDao();
         $datax = $dao->buscar_ID_trabajador($id_trabajador,$id_pdeclaracion ,$cod_detalle_concepto);
         
+        //echoo($datax);
 
         if (is_null($datax['id_registro_por_concepto'])) {
 
@@ -180,6 +183,7 @@ function listarRPC() {
         $response->rows[$i]['cell'] = array(
             $key,
             $param,
+            $_00,
             $_01,
             $_02,
             $_03,

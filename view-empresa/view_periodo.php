@@ -2,6 +2,7 @@
 //*******************************************************************//
 require_once('../view/ide.php');
 //*******************************************************************//
+$id_pdeclaracion = ($_REQUEST['id_pdeclaracion']) ? $_REQUEST['id_pdeclaracion'] : 'null';
 ?>
 
 
@@ -18,10 +19,10 @@ require_once('../view/ide.php');
 
 <script type="text/javascript">
     $(document).ready(function(){
-                  
+		var request_id_pdeclaracion = <?php echo $id_pdeclaracion;?>;                  
         $( "#tabs").tabs();
 		//cargarTablaLiquidaciones();
-		cargarTablaPdeclaracionEmpresa();	
+		cargarTablaPdeclaracionEmpresa(request_id_pdeclaracion);	
 		
 	});
 	
@@ -67,7 +68,7 @@ alert("Debe seleccionar un periodo.\n");
 	
 	
 //cargarTablaLiquidaciones();
-cargarTablaPdeclaracionEmpresa();
+//cargarTablaPdeclaracionEmpresa();
 	
 //-----------------------------------------------------------------
 

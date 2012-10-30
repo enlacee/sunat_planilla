@@ -578,9 +578,14 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
 
                     //$a = getFechaPatron($fecha_inicio,"d");
                     //$b = getFechaPatron($fecha_fin,"d");
+                    
                     $dias_vacacion = numDiasVacaciones($FECHA_INICIO, $FECHA_FIN, $finicio, $ffin);
                     //----------------------------------------------------------
-                    echo "\n\nNUM DE VACACIONES RPTA ES = $dias_vacacion\n\n";
+                    echo "\n\nNUM DE VACACIONES RPTA ES = $dias_vacacion \n\n";
+                    echo "\nVAC :: id_trabajador = ".$data_tra[$i]['id_trabajador']."\n";
+                    
+                    echo "\n id_pdeclaracion = $ID_PDECLARACION\n";
+                    echo "\n\n\n...........";
 
                     echo "\nFECHA_INICIO = $FECHA_INICIO";
                     echo "\n";
@@ -593,7 +598,7 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                         $dao_rpc->baja($data_tra[$i]['id_trabajador'], $ID_PDECLARACION,'0701');
                         
                     } else if (getFechaPatron($fecha_programada, "m") == getFechaPatron($data_pd['periodo'], "m") || getFechaPatron($fecha_programada_fin, "m") == getFechaPatron($data_pd['periodo'], "m")) {
-                        
+                        echo "\nelse BAJA ELSE BAJA\n";
                         $dao_rpc->baja($data_tra[$i]['id_trabajador'], $ID_PDECLARACION,'0701');
                     }
                     
@@ -684,6 +689,9 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                     //$dia_no_laborado = 15- $dia_laborado;
 
                     $percent = ($numero) ? $numero : 0;
+                    
+                    if($dia_laborado > 0)://CONTROLAR EXECPCION
+                    
                     if ($dia_laborado >= 15) {//CON %
                         $SUELDO_CAL = $SUELDO * ($percent / 100);
                     } else if ($dia_laborado < 15) { //SIN %
@@ -691,6 +699,7 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                         $SUELDO_CAL = $SUELDO * (50 / 100); // 50%
                         $SUELDO_CAL = $SUELDO_CAL - $DESCTO;
                     }
+                    endif;
 //..........................................................
                     // Solo en primera quincena se redondea:
                     $round_sueldo = array();
@@ -1169,8 +1178,8 @@ function numDiasVacaciones($f1, $f2, $tra_finicio, $tra_ffinal) {
         }
     }
     //$day_vi =($a ==16) ? 16 : 1;
-    $tipo = ($a >= 16) ? 2 : 1;
-    echo "\ntipo =$tipo<br>";
+    //$tipo = ($a >= 16) ? 2 : 1;
+    //echo "\ntipo =$tipo<br>";
 
     $contador = 0;
     if ($bandera) {

@@ -349,7 +349,9 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 //VACACION
                 concepto_0118($id_trabajador_pdeclaracion, $data_sum['sueldo_vacacion']);
                 //registrar dias vacaciones
-                
+                    echo"\n\n";
+                    echo"\Napunto de registrar el DIA VACACIONE TOTAL = ".$data_sum['dia_nosubsidiado']."\n";
+                    echo"\n\n";
                 $obj_dianosub = new DiaNoSubsidiado();
                 $obj_dianosub->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);                
                 $obj_dianosub->setCantidad_dia($data_sum['dia_nosubsidiado']);
@@ -2556,6 +2558,7 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
 // Inicio Exel
 //..............................................................................
     $fp = fopen($file_name, 'w');
+    fwrite($fp, chr(15));
     //fwrite($fp, chr(27).chr(15));
     
 

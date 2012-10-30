@@ -204,7 +204,7 @@
 
 //-------------------------------------------------------------------
 
-    function cargarTablaPdeclaracionEmpresa(){ 
+    function cargarTablaPdeclaracionEmpresa(session_id_pdeclaracion){ 
 		//var d = new Date();
 		//var n = d.getFullYear(); 
 		var anio = document.getElementById('anio').value || 2012;
@@ -309,7 +309,19 @@
                      jQuery("#id_pdeclaracion").val(null);
                 }
 			}
-		}	
+		},
+        gridComplete    : function(){  //alert("grid okD");
+    
+        var ids = $("#list").getDataIDs();
+        var act;
+        for(var i=0;i<ids.length;i++){
+            var data = $("#list").getRowData(ids[i]);
+            if (data.id_pdeclaracion == session_id_pdeclaracion) {
+                act =' <b class="red">'+data.periodo+'</b>';
+                $("#list").setRowData(ids[i],{periodo: act });
+            }
+        }//ENDFOR
+    }   
 			
 			
 	

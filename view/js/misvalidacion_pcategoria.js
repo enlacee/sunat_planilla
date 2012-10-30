@@ -613,13 +613,15 @@ function cargarEstablecimientoLocales(idComboPadre){
 //-----------------------------------------
 function cargarEstablecimientoLocalesCCosto(idComboPadre){ //alert(idComboPadre.value);
 	
-	var valor = idComboPadre.value;
+	var objCombo = document.getElementById(idComboPadre/*'cboCentroCosto'*/);
+	
+	var valor = objCombo.value;
 	var fragmento = valor.split("|"); //Array()
 	
 	
 	//alert("id_empleador "+ valor);
-	console.log("modificado..... idComboPadre ");
-	var objCombo = document.getElementById(idComboPadre/*'cboCentroCosto'*/);
+	console.log("modificado..... idComboPadre = "+idComboPadre);
+	
 	//cbo_depa.options[cbo_depa.selectedIndex].value
 	if(valor=='0'){
 		//objCombo.disabled = true;
@@ -1104,6 +1106,8 @@ function limpiarcomboVinculadosTipoTrabajadorConCategoriaOcupacional(){
 ** -----------------------------  ------------------------------------------------------------
 
 ********************************************************************************************************/
+//Combo dinamico combo de registro Personal 
+//combo vinculado establecimiento centro costo 
 function seleccionarLocalDinamico(oCombo){ //alert(oCombo.value);
 	var oInput = document.getElementById('txt_codigo_local')||0;
 	var oInput2 = document.getElementById('txt_id_establecimiento')||0;
@@ -1118,7 +1122,8 @@ function seleccionarLocalDinamico(oCombo){ //alert(oCombo.value);
 	oInput.value = codigo_establecimiento;
 	oInput2.value = id_establecimiento;
 
-	cargarEstablecimientoLocalesCCosto(oCombo);
+	console.log("modificado...  altera otro combo =??")
+	cargarEstablecimientoLocalesCCosto('cboCentroCosto'/*oCombo*/);
 	//seleccionarComboCodigoAinput(oCombo,oInput);
 	
 }

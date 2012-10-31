@@ -1,8 +1,8 @@
 
-CAMUENTE S.A.                                                FECHA :  15/08/2012
+CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          1
                                   1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2012                       
+                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
 
 LOCALIDAD : SAN ISIDRO
 
@@ -12,54 +12,46 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 10389776    ZAMORA MEGO MELQUIADES                  90.00    _______________
+  1 07951545    CHIPANA FLORES ELENA                    0.00     _______________
+
+  2 10389776    ZAMORA MEGO MELQUIADES                  225.00   _______________
+
+  3 10285430    SOLANO CALDUA NICOLAS VICTOR            225.00   _______________
+
+  4 09886536    ZAMORA MEGO OLEGARIO                    225.00   _______________
+
+  5 25780120    MIRANDA YBAÑEZ SONIA MARITZA           225.00   _______________
+
+  6 40624077    CALLE JERONIMO EDWIN ALVICE             451.00   _______________
+
+  7 10132707    MEGO SILVA RONAL                        225.00   _______________
+
+  8 22862765    ESPINOZA CESPEDES MERCEDES EVA          225.00   _______________
+
+  9 10285230    CHIPANA FLORES LIDIA JUANA              225.00   _______________
+
+ 10 07644248    GUERRA CHAUCA SANDRA ISABEL             225.00   _______________
+
+ 11 44052923    MEZA GARCIA MANUEL ALEJANDRO            225.00   _______________
+
+ 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            225.00   _______________
+
+ 13 40827219    NOLE  CAMUS IRIS EDITA                  225.00   _______________
+
+ 14 46767275    CHAVEZ GOMEZ CRISTIAN                   375.00   _______________
+
+ 15 45711545    NAVARRETE GUEVARA ADRIAN ALI            225.00   _______________
+
+ 16 47707022    HUERTA CARLOS MAX JOUSTON               225.00   _______________
+
+ 17 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           225.00   _______________
+
+ 18 42070522    AQUINO ROJAS MARIBEL                    375.00   _______________
+
+ 19 76608802    QUISPE FLORES JUAN DANIEL               375.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS SAN ISIDRO                                 90.00
---------------------------------------------------------------------------------
-
-
-
-CAMUENTE S.A.                                                FECHA :  15/08/2012
-                                                             PAGINA :          2
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2012                       
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             1955.00  _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA PUEBLO LIBRE                1,955.00
---------------------------------------------------------------------------------
-
-
-
-CAMUENTE S.A.                                                FECHA :  15/08/2012
-                                                             PAGINA :          3
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2012                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            375.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS SAN BORJA                                  375.00
+TOTAL VENTAS SAN ISIDRO                                 4,726.00
 --------------------------------------------------------------------------------
 
-
-
 

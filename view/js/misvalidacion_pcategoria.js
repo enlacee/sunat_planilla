@@ -567,7 +567,8 @@ function cargarEstablecimientosBase(){
 
 
 //--------------------------- seleccionarLocalDinamico
-function cargarEstablecimientoLocales(idComboPadre){
+function cargarEstablecimientoLocales(idComboPadre){ 
+	//alert('cargarEstablecimientoLocales');
 	
 	var valor = idComboPadre.value;
 	//alert("id_empleador "+ valor);
@@ -578,21 +579,17 @@ function cargarEstablecimientoLocales(idComboPadre){
 		alert("Debe Selecionar Un Establecimiento Correcto");
 		limpiarComboGlobal(objCombo);
 	}else{
-		//limpiarComboGlobal(objCombo);
-		//objCombo.disabled = false;
-	//-----
 
+	//-----
 	$.ajax({
 		type: 'get',
 		dataType: 'json',
 		url: 'sunat_planilla/controller/EmpleadorDestaqueController.php',
 		data: {id_empleador: valor, oper: 'lista_establecimiento'},
-		beforeSend: function(objeto){ /*alert("Adiós, me voy a ejecutar");*/ },
-        complete: function(objeto, exito){ /*alert("Me acabo de completar");
-			if(exito=="success"){alert("Y con éxito");}*/
+		beforeSend: function(objeto){  },
+        complete: function(objeto, exito){ 
         },
-		success: function(json){
-			//console.log(json);
+		success: function(json){			
 			if(json == null || json.length<1 ){
 				var mensaje = "No Existen Establecimientos Registrados\n";
 				mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
@@ -611,21 +608,18 @@ function cargarEstablecimientoLocales(idComboPadre){
 //-----------------------
 
 //-----------------------------------------
-function cargarEstablecimientoLocalesCCosto(idComboPadre){ //alert(idComboPadre.value);
+function cargarEstablecimientoLocalesCCosto(idComboPadre){ 
 	
 	var objCombo = document.getElementById(idComboPadre/*'cboCentroCosto'*/);
+	alert(objCombo.value);
 	
 	var valor = objCombo.value;
 	var fragmento = valor.split("|"); //Array()
 	
-	
-	//alert("id_empleador "+ valor);
-	console.log("modificado..... idComboPadre = "+idComboPadre);
-	
 	//cbo_depa.options[cbo_depa.selectedIndex].value
 	if(valor=='0'){
 		//objCombo.disabled = true;
-		alert("Debe Selecionar Un Local Correcto");
+		alert("Debe Selecionar Un Local Correcto    this ZERO");
 		limpiarComboGlobal(objCombo);
 	}else{
 		//limpiarComboGlobal(objCombo);
@@ -637,10 +631,6 @@ function cargarEstablecimientoLocalesCCosto(idComboPadre){ //alert(idComboPadre.
 		dataType: 'json',
 		url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
 		data: {id_establecimiento: fragmento[0], oper: 'lista_centrocosto'},
-		beforeSend: function(objeto){ /*alert("Adiós, me voy a ejecutar");*/ },
-        complete: function(objeto, exito){ /*alert("Me acabo de completar");
-			if(exito=="success"){alert("Y con éxito");}*/
-        },
 		success: function(json){
 			//console.log(json);
 			if(json == null || json.length<1 ){
@@ -1106,8 +1096,30 @@ function limpiarcomboVinculadosTipoTrabajadorConCategoriaOcupacional(){
 ** -----------------------------  ------------------------------------------------------------
 
 ********************************************************************************************************/
+function seleccionarLocalDinamicoPersona(oCombo){ //alert(oCombo.value);
+	var oInput = document.getElementById('txt_codigo_local')||0;
+	var oInput2 = document.getElementById('txt_id_establecimiento'/*'id_detalle_establecimiento'*/)||0;
+	
+	var aguja = oCombo.value;
+	console.log("hola aguja");
+	console.log(aguja);
+
+	var partes = aguja.split("|");	
+	
+	var id_establecimiento = partes[0];	
+	var codigo_establecimiento = partes[2];
+	
+	oInput.value = codigo_establecimiento;
+	oInput2.value = id_establecimiento;
+
+	cargarEstablecimientoLocalesCCosto('cboCentroCosto'/*oCombo*/);
+	//seleccionarComboCodigoAinput(oCombo,oInput);
+	
+}
 //Combo dinamico combo de registro Personal 
 //combo vinculado establecimiento centro costo 
+
+/*
 function seleccionarLocalDinamico(oCombo){ //alert(oCombo.value);
 	var oInput = document.getElementById('txt_codigo_local')||0;
 	var oInput2 = document.getElementById('txt_id_establecimiento')||0;
@@ -1123,10 +1135,12 @@ function seleccionarLocalDinamico(oCombo){ //alert(oCombo.value);
 	oInput2.value = id_establecimiento;
 
 	console.log("modificado...  altera otro combo =??")
-	cargarEstablecimientoLocalesCCosto('cboCentroCosto'/*oCombo*/);
+	cargarEstablecimientoLocalesCCosto('cboCentroCosto');
 	//seleccionarComboCodigoAinput(oCombo,oInput);
 	
 }
+*/
+
 
 //-----------------
 function seleccionarLocalDinamico2(oCombo){ //alert(oCombo.value);

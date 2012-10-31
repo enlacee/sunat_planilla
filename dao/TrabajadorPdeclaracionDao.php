@@ -673,7 +673,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.id_trabajador = ?
         -- ojo plame sale error
-        AND ddc.cod_detalle_concepto != '0804';
+        AND (ddc.cod_detalle_concepto != '0804')
+        AND (ddc.cod_detalle_concepto != '0607');
     ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);

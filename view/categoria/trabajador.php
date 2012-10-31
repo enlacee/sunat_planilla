@@ -108,10 +108,11 @@ $lista_empleador_destaque = listarEmpleadorDestaque();
 // ## (02)-> 
 $id_empleador_select = buscarID_EMP_EmpleadorDestaquePorTrabajador( $objTRADetalle_3->getId_trabajador(), $objTRADetalle_3->getId_detalle_establecimiento() );
 
+
+//echo "<pre>id_empleador_select";
+//print_r($id_empleador_select);
 /*
-echo "<pre>id_empleador_select";
-print_r($id_empleador_select);
-echo "<hr>";
+echo "<pre>";
 echo "objTRADetalle_3<br>";
 print_r($objTRADetalle_3);
 echo "<pre>";
@@ -451,6 +452,63 @@ var cbo = document.getElementById('cbo_convenio');
 
 // -----------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
+
+function seleccionarLocalDinamicoLocal(oCombo){ //alert("oCombo = "+oCombo.value);
+	//var oInput = document.getElementById('txt_codigo_local')||0;
+	var oInput2 = document.getElementById('txt_id_establecimiento')||0;
+	
+	var aguja = oCombo.value;
+
+	var partes = aguja.split("|");	
+	
+	var id_establecimiento = partes[0];	
+	var codigo_establecimiento = partes[2];
+	
+	//oInput.value = codigo_establecimiento;
+	oInput2.value = id_establecimiento;
+
+	//console.log("okkkk =??")
+
+
+	var objCombo = document.getElementById('cboCentroCosto');
+	
+
+	if(id_establecimiento=='0'){		
+		alert("Debe Selecionar Un Local Correcto");
+		limpiarComboGlobal(objCombo);
+	}else{
+		//limpiarComboGlobal(objCombo);
+		//objCombo.disabled = false;
+	//-----
+
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
+		data: {id_establecimiento: id_establecimiento, oper: 'lista_centrocosto'},
+		success: function(json){
+			console.log("rpta json");
+			
+			if(json == null || json.length<1 ){
+				var mensaje = "No Existen Establecimientos Registrados\n";
+				mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
+				mensaje += "O el problema es aun Mayor"; 				
+				objCombo.disabled =true;
+				alert(mensaje);	
+			}else{
+				console.log("entro ah llenar combo objCombo ");
+				
+				objCombo.disabled =false;
+				llenarComboDinamico(json,objCombo);
+			}
+		}
+	});
+			
+	}
+
+
+	
+}
 
 
  </script>
@@ -832,10 +890,13 @@ foreach ($cbo_monto_remuneracion as $indice) {
 
 
 <div style="width:350px; margin:0 0 0 5px; background-color:#FFBBBD ">
-<table width="305" border="1" cellpadding="0" cellspacing="0">
-            <tr>
-              <td width="98"> Establecimiento donde labora: 
-                <label for="id_detalle_establecimiento"></label></td>
+  <table width="305" border="1" cellpadding="0" cellspacing="0">
+    <tr>
+              <td width="98"> Establecimiento 
+                <input name="id_detalle_establecimiento" type="hidden" id="id_detalle_establecimiento"
+                value="<?php echo $objTRADetalle_3->getId_detalle_establecimiento();?>" size="3" />
+                donde labora:
+<label for="id_detalle_establecimiento"></label></td>
               <td width="101">
               <select name="cbo_establecimiento[]" id="cbo_establecimiento" style="width:100px"
               onchange="cargarEstablecimientoLocales(this)">
@@ -865,16 +926,13 @@ foreach ($lista_empleador_destaque as $indice) {
               <td>Local</td>
             </tr>
             <tr>
-              <td>
-                <input name="id_detalle_establecimiento" type="hidden" id="id_detalle_establecimiento"
-                value="<?php echo $objTRADetalle_3->getId_detalle_establecimiento();?>" size="3" />
-                <input name="txt_id_establecimiento" type="hidden" id="txt_id_establecimiento" size="3"
+              <td><input name="txt_id_establecimiento" type="hidden" id="txt_id_establecimiento" size="3"
                 value="<?php echo $objTRADetalle_3->getId_establecimiento(); ?>"
                  /></td>
               <td><input name="txt_codigo_local" type="text" id="txt_codigo_local" size="6" value="<?php echo $COD_LOCAL; ?>" ></td>
               <td>
                 <select name="cbo_establecimiento_local" id="cbo_establecimiento_local" style="width:100px"
-              onchange="seleccionarLocalDinamico(this)">
+              onchange="seleccionarLocalDinamicoLocal(this)">
                    
                     <?php
 //$COD_LOCAL = 0;                    
@@ -896,8 +954,7 @@ foreach ($lista_establecimientos as $indice) {
 ?>
                   </select>
                   <label for="tipo_establecimiento"></label>
-                  <input name="tipo_establecimiento" type="hidden" id="tipo_establecimiento" size="4" />
-                </p>
+                  </p>
               </td>
             </tr>
             <tr>
@@ -922,7 +979,7 @@ foreach ($comboCCosto as $indice) {
                 </select></td>
               <td>&nbsp;</td>
             </tr>
-        </table>
+      </table>
 		  <br>
 		  <table width="199" border="1" cellpadding="0" cellspacing="0">
             <tr>

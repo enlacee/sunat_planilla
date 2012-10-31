@@ -2547,7 +2547,7 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
     $nombre_mes = getNameMonth($num_mes);
     $anio = getFechaPatron($data_pd['periodo'], "Y");
 
-    $file_name = NAME_COMERCIAL . '-PLANILLA UNICA.txt';
+    $file_name = /*NAME_COMERCIAL . */'planilla.txt'; //-PLANILLA UNICA
     
 
     $BREAK = chr(13) . chr(10);
@@ -2558,18 +2558,18 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
 // Inicio Exel
 //..............................................................................
     $fp = fopen($file_name, 'w');
-    fwrite($fp, chr(15));
-    //fwrite($fp, chr(27).chr(15));
+    $cab_comprimido = chr(27).M.chr(15);
+    fwrite($fp, $cab_comprimido);
     
 
 
     //DAO
-    $dao_cc = new EmpresaCentroCostoDao();
+    //$dao_cc = new EmpresaCentroCostoDao();
     $dao_pago = new TrabajadorPdeclaracionDao(); //[OK]
-    $dao_estd = new EstablecimientoDireccionDao();
-    $dao_rp = new DetalleRegimenPensionarioDao(); //[OK]
-    $dao_pdireccion = new PersonaDireccionDao(); //[OK]
-    $dao_dpl = new DetallePeriodoLaboralDao(); //[OK]
+    //$dao_estd = new EstablecimientoDireccionDao();
+    //$dao_rp = new DetalleRegimenPensionarioDao(); //[OK]
+    //$dao_pdireccion = new PersonaDireccionDao(); //[OK]
+    //$dao_dpl = new DetallePeriodoLaboralDao(); //[OK]
     // 01 Crear Cabecera del Documento.
 
     $fp = helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO);
@@ -2778,19 +2778,15 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
             fwrite($fp, $BREAK);
         }//enfFor $k 
         // imprimir :PIE:
-        $fp = helper_pie($fp, $total, $BREAK, $BREAK2, $PUNTO);
+        $fp = helper_pie($fp, $total, $BREAK, $PUNTO);
     }
 
-
-
     fclose($fp);
-
-
 
     $file = array();
     $file[] = $file_name;
     //$file[] = ($file_name2);
-    ////generarRecibo15_txt2($id_pdeclaracion, $id_etapa_pago);
+    //generarRecibo15_txt2($id_pdeclaracion, $id_etapa_pago);
 
 
     $zipfile = new zipfile();
@@ -2808,8 +2804,8 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
     echo $zipfile->file();
 }
 
-function helper_pie($fp, $total, $BREAK, $BREAK2, $PUNTO) {
-
+function helper_pie($fp, $total, $BREAK, $PUNTO) {
+    $PUNTO = " ";
     $linea_caja = str_repeat('-', 254);
     fwrite($fp, $linea_caja);
     fwrite($fp, $BREAK);
@@ -2828,9 +2824,9 @@ function helper_pie($fp, $total, $BREAK, $BREAK2, $PUNTO) {
     //fwrite($fp, str_pad(' '/*'HORAS'*/, 8, " ", STR_PAD_BOTH));
     
     
-    fwrite($fp, str_pad(number_format_var($total['ingresos_h_v'])/* BASICO */, 16, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['ingresos_h_v'])/* BASICO */, 15, " ", STR_PAD_LEFT));
     
-    fwrite($fp, str_pad(number_format_var($total['ingresos_a_f'])/* 'ASIG.' FAMIL */, 16, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['ingresos_a_f'])/* 'ASIG.' FAMIL */, 17, " ", STR_PAD_LEFT));
         
     fwrite($fp, str_pad(number_format_var($total['ingresos_a_t'])/* ASIG.TRANSP */, 16, " ", STR_PAD_LEFT));
     
@@ -2849,18 +2845,18 @@ function helper_pie($fp, $total, $BREAK, $BREAK2, $PUNTO) {
     fwrite($fp, str_pad(number_format_var($total['descuentos_afp'])/* 'A.F.P.' */, 16, " ", STR_PAD_LEFT));
     
 
-    fwrite($fp, str_pad(number_format_var($total['descuentos_d_p'])/* DESC. PRESTAMO */, 16, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['descuentos_d_p'])/* DESC. PRESTAMO */, 17, " ", STR_PAD_LEFT));
     
 
 
-    fwrite($fp, str_pad(number_format_var($total['descuentos_jdl'])/* DESC. JUDIC. */, 17, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['descuentos_jdl'])/* DESC. JUDIC. */, 16, " ", STR_PAD_LEFT));
     
     
     fwrite($fp, str_pad(number_format_var($total['descuentos_total'])/* TOTAL. */, 17, " ", STR_PAD_LEFT));
     
     fwrite($fp, $PUNTO);
 
-    fwrite($fp, str_pad(number_format_var($total['aportes_total'])/* TOTAL. DESC. */, 25, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['aportes_total'])/* TOTAL. DESC. */, 23, " ", STR_PAD_LEFT));
         
     //?
 
@@ -2953,7 +2949,7 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, $BREAK);
     fwrite($fp, str_pad('', 105, " ", STR_PAD_BOTH));
-    fwrite($fp, str_pad($nombre_mes . ' - ' . $anio, 50, " ", STR_PAD_RIGHT));
+    fwrite($fp, str_pad($nombre_mes . ' - ' . $anio, 38, " ", STR_PAD_BOTH));
     fwrite($fp, $BREAK2);
 
 
@@ -3028,7 +3024,7 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, str_pad('ESSALUD.'/**/, 8, " ", STR_PAD_LEFT));
 
-    fwrite($fp, str_pad('------'/* DESC. */, 6, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad('OTRO'/* DESC. */, 6, " ", STR_PAD_LEFT));
 
     fwrite($fp, str_pad('TOTAL.'/* DESC. */, 9, " ", STR_PAD_LEFT));
 
@@ -3087,11 +3083,11 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, str_pad('PRESTAM', 8, " ", STR_PAD_LEFT));
 
-    fwrite($fp, str_pad('P.T.FAML', 8, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad('PT.FAML', 8, " ", STR_PAD_LEFT));
 
     fwrite($fp, str_pad('JUDIC.', 8, " ", STR_PAD_LEFT));
 
-    fwrite($fp, str_pad('DESC.', 8, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad('DSCT.', 8, " ", STR_PAD_LEFT));
 
 
     fwrite($fp, str_pad('TOTAL.', 9, " ", STR_PAD_LEFT));
@@ -3100,7 +3096,7 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, str_pad('', 8, " ", STR_PAD_LEFT));
 
-    fwrite($fp, str_pad('------', 6, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad('DSCT', 6, " ", STR_PAD_LEFT));
 
     fwrite($fp, str_pad('', 9, " ", STR_PAD_LEFT));
 
@@ -3115,7 +3111,7 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
 
     fwrite($fp, $BREAK);
 
-    fwrite($fp, str_repeat('-', 254));
+    fwrite($fp, $linea_caja);
 
     fwrite($fp, $BREAK);
 

@@ -477,10 +477,14 @@ function getRendondeoEnSoles($num) {
 //$monto = 1837;
 //echoo(getRendondeoEnSoles($monto));
 
+
+
 function textoaMedida($num_limite, $texto) {
     //return sizeof(explode(" ", $texto));  
-    $num_palabra = str_word_count($texto);
-    $num_len = strlen($texto);
+    //$num_palabra = str_word_count($texto);
+    //$num_len = strlen($texto);
+    
+    $texto = limpiar_caracteres_especiales_plame($texto);    
 
     $txt = str_replace(" ", ",", $texto);
     $arreglo_txt = (str_getcsv($txt, ","));
@@ -488,7 +492,6 @@ function textoaMedida($num_limite, $texto) {
     $cadena = null;
     $count_leng = 0;
     for ($i = 0; $i < count($arreglo_txt); $i++) {
-
         $count_leng = $count_leng + intval(strlen($arreglo_txt[$i]));
         if ($count_leng <= $num_limite) {
             if ($i == 0):
@@ -504,6 +507,30 @@ function textoaMedida($num_limite, $texto) {
     return $cadena;
 }
 
+function limpiar_caracteres_especiales_plame($s){
+    $s = str_replace("Ñ",chr(165)/*"N"*/,$s);
+    $s = str_replace("ñ",chr(164)/*"N"*/,$s);
+    return $s;
+}
+
+function limpiar_caracteres_especiales($s) {
+	$s = ereg_replace("[áàâãª]","a",$s);
+	$s = ereg_replace("[ÁÀÂÃ]","A",$s);
+	$s = ereg_replace("[éèê]","e",$s);
+	$s = ereg_replace("[ÉÈÊ]","E",$s);
+	$s = ereg_replace("[íìî]","i",$s);
+	$s = ereg_replace("[ÍÌÎ]","I",$s);
+	$s = ereg_replace("[óòôõº]","o",$s);
+	$s = ereg_replace("[ÓÒÔÕ]","O",$s);
+	$s = ereg_replace("[úùû]","u",$s);
+	$s = ereg_replace("[ÚÙÛ]","U",$s);
+	$s = str_replace(" ","-",$s);
+	$s = str_replace("ñ","n",$s);
+	$s = str_replace("Ñ","N",$s);
+	//para ampliar los caracteres a reemplazar agregar lineas de este tipo:
+	//$s = str_replace("caracter-que-queremos-cambiar","caracter-por-el-cual-lo-vamos-a-cambiar",$s);
+	return $s;
+}
 //Funcion sumar 30 o 15 dias a la fecha
 //fech inicio y fech fin
 

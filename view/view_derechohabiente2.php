@@ -72,6 +72,7 @@ cargarTablaDerechoHabiente(id_persona,id_empleador);
           Ver también derechohabientes dados de baja</div>
         <br />
         <input type="button" name="Submit" value="Nuevo DerechoHabiente"
+        class="submit-nuevo"
 			 onclick="javascript:cargar_pagina('sunat_planilla/view/new_derechohabiente.php?id_persona=<?php echo $data_persona['id_persona']; ?>','#CapaContenedorFormulario')" />
 		
         </p>

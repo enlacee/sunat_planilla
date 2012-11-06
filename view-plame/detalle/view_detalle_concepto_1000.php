@@ -70,7 +70,7 @@ function validarDescripcionLupa(id){
 function validarPlameDetalleConcepto1000(){
 	
 var from_data =  $("#formDetalleConcepto1000").serialize();
-alert(".... __ ---");
+console.log(".... __ ---");
 
 //-------
 	$.ajax({
@@ -84,7 +84,12 @@ alert(".... __ ---");
         },
 		success: function(data){
 			//console.log(data);
-			alert(data);
+			if(data){
+				alert("Se guardo correctamente");
+			}else{
+				alert("Ocurrio un error");
+			}
+			
 		}
 	});
 }
@@ -340,10 +345,14 @@ value="<?php echo $cod_concepto; ?>"/>
   
   <p>&nbsp;</p>
 </div>
+<input type="button" name="btnGrabar"  value="Guardar" class="submit-go"
+onclick="validarPlameDetalleConcepto1000()" />
 
-<input type="button" name="btnGrabar"  value="Grabar" onclick="validarPlameDetalleConcepto1000()" />
-
-<input type="button" name="btnNuevo"  value="Nuevo" onclick="nuevoFilaConcepto1000()" />
+<input type="button" name="btnNuevo"  value="Nuevo" class="submit-nuevo"
+disabled="disabled"
+onclick="nuevoFilaConcepto1000()" />
+<br />
+<br />
 </form>
 
 

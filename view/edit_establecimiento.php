@@ -285,9 +285,7 @@ foreach ($cbo_tipo_establecimiento as $indice) {
 
 
                       </select>
-
-
-                        cbo</div>
+                    </div>
                 <div class="fila_input ocultar">
                     <label>Actividad de Riesgo </label>
                     <input name="rbtn_actividad_riesgo" type="radio" value="radiobutton" />
@@ -299,7 +297,7 @@ foreach ($cbo_tipo_establecimiento as $indice) {
             <fieldset id="">
             <legend>Direccion</legend>
 <br /><br />
-                <div style="border:1px solid blue; background-color:#FFFFCC; display:block; " id="direccion_1">
+                <div style="display:block; " id="direccion_1">
                   <?php
 	
 		//require_once('dao/AbstractDao.php');
@@ -467,9 +465,18 @@ foreach ($cboZonas as  $indice) {
                 </fieldset>
 
             <!-- DIRECCION 2-->
-				<input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar">
+				<br />
+				<input name="btn_grabar" type="submit" id="btn_grabar" value="Guardar"
+                class="submit-go" />
 
-            </form>
+            <input type="button" name="Submit" id="button" value="Cancelar"
+            class="submit-cancelar"
+            onclick="cargar_pagina('sunat_planilla/view/view_establecimiento.php?id_empleador=<?php echo $obj_establecimiento->getId_empleador();?>','#CapaContenedorFormulario')"
+            
+             />
+            <br />
+            <br />
+          </form>
 
 
 
@@ -492,6 +499,7 @@ foreach ($cboZonas as  $indice) {
 <!-- -->
 
 <div id="dialog-form-editarDireccion" title="Editar Direccion">
-    <div id="editarPersonaDireccion" align="left"></div>
+    <div id="editarPersonaDireccion" align="left"><br />
+    </div>
 </div>
 

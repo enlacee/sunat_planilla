@@ -31,10 +31,13 @@ require_once('ide.php');
         </ul>
         <div id="tabs-1">
 
+            <br />
             <input type ="button" 
+            class="submit-nuevo"
             onclick="javascript:cargar_pagina('sunat_planilla/view/new_empleador.php','#CapaContenedorFormulario')"
              value="Nuevo Empleador "/>
-             <br />
+            <br />
+<br />
 <table id="list">
 </table>
 <div id="pager">

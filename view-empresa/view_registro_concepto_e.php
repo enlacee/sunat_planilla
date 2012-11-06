@@ -89,11 +89,10 @@ require_once('../view/ide.php');
             <li><a href="#tabs-1">Registros por Conceptos</a></li>			
 
         </ul>
-        <div id="tabs-1">
-        
-Lista de conceptos utilizados        
-<table id="list">
-</table>
+        <div id="tabs-1"><br />
+          <br />
+          <table id="list">
+          </table>
 <div id="pager"></div>        
         
         </div>

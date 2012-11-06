@@ -46,11 +46,11 @@ value="<?php echo $id_establecimiento ?>" />
  ?>
 
     <tr>
-      <td width="35">ID</td>
-      <td width="202">Descripcion</td>
-      <td width="91"> <input type="checkbox" name="checkbox" id="" 
+      <td width="27">&nbsp;</td>
+      <td width="202"><strong>Descripcion</strong></td>
+      <td width="99"> <input type="checkbox" name="checkbox" id="" 
       onClick="estadoCheck(this,'formEditEmpresaCentroCosto')">
-      Seleccione</td>
+        <strong>      Seleccione</strong></td>
     </tr>
  
     
@@ -59,8 +59,8 @@ value="<?php echo $id_establecimiento ?>" />
     
     <tr>
       <td>
-        <input name="id_establecimiento_centro_costo[]" type="text" 
-        value="<?php  echo $data[$i]['id_establecimiento_centro_costo']; ?>" size="2" />
+        <input name="id_establecimiento_centro_costo[]" type="hidden"  readonly="readonly"
+        value="<?php  echo $data[$i]['id_establecimiento_centro_costo']; ?>" size="1" />
       </td>
       
       

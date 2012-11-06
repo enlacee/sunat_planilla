@@ -176,24 +176,24 @@ $cboZonas = comboZonas();
 <form action="" method="get" name="form_direccion" id="form_direccion" >
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="160"> Departamento 
+    <td width="263"> Departamento 
       <input name="id_persona_direccion" type="hidden" id="id_persona_direccion"  value="<?php echo $_REQUEST['id_persona_direccion'];?>"/>
       <input name="id_persona" id="id_persona" type="hidden" value=" <?php echo $obj_persona_direccion->getId_persona(); ?>" />
       <input type="hidden" name="txt_estado_direccion" id="txt_estado_direccion"  
       value="<?php  echo $obj_persona_direccion->getEstado_direccion(); ?>"/></td>
-    <td width="150"> Provincia </td>
-    <td width="54"> Distrito </td>
-    <td width="35">&nbsp;</td>
-    <td width="48">&nbsp;</td>
-    <td width="59">&nbsp;</td>
+    <td width="183"> Provincia </td>
+    <td width="58"> Distrito </td>
+    <td width="38">&nbsp;</td>
+    <td width="52">&nbsp;</td>
+    <td width="64">&nbsp;</td>
+    <td width="34">&nbsp;</td>
     <td width="32">&nbsp;</td>
-    <td width="30">&nbsp;</td>
-    <td width="40">&nbsp;</td>
-    <td width="101">&nbsp;</td>
+    <td width="43">&nbsp;</td>
+    <td width="115">&nbsp;</td>
   </tr>
   <tr>  
     <td><select name="cbo_departamento" id="cbo_departamento" onchange="SeleccionandoCombo_1(this, 'cbo_provincia')" 
-	style="width:140px;" class="required">    
+	 class="required">    
 <?php
 foreach ($cbo_departamento as $indice) { 
 	if ($indice['cod_departamento'] == $data_ubigeo['cod_departamento']  ) {
@@ -207,7 +207,7 @@ foreach ($cbo_departamento as $indice) {
 	
       </select>    </td>
     <td><select name="cbo_provincia" id="cbo_provincia" onchange="SeleccionandoCombo_2(this, 'cbo_distrito');"
-	style="width:150px;" >
+	 >
 <?php
 foreach ($cbo_provincia as $indice) { 
 	if ($indice['cod_provincia'] == $data_ubigeo['cod_provincia']  ) {
@@ -220,7 +220,7 @@ foreach ($cbo_provincia as $indice) {
 ?>
 
  </select></td>
-    <td colspan="4"><select name="cbo_distrito" id="cbo_distrito" style="width:150px;">
+    <td colspan="4"><select name="cbo_distrito" id="cbo_distrito">
 
 <?php
 foreach ($cbo_distrito as $indice) { 
@@ -252,7 +252,7 @@ foreach ($cbo_distrito as $indice) {
     <td> Etapa </td>
   </tr>
   <tr>
-    <td><select name="cbo_tipo_via" id="cbo_tipo_via" style="width:120px;">
+    <td><select name="cbo_tipo_via" id="cbo_tipo_via">
 
 	<?php
 	
@@ -291,7 +291,7 @@ foreach ($cboVias as $indice) {
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><select name="cbo_tipo_zona" id="cbo_tipo_zona" style="width:120px;">
+    <td><select name="cbo_tipo_zona" id="cbo_tipo_zona">
 	<?php
 	
 foreach ($cboZonas as  $indice) {

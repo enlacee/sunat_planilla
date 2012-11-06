@@ -230,7 +230,7 @@ function cargar_tabla() {
 				</span>				
 				&nbsp;
 				<span  title="Nuevo Establecimiento" >
-				<a href="' . $j3 . '"><img src="images/page.png"/></a>
+				<a href="' . $j3 . '"><img src="images/empresas.png"/></a>
 				</span>
 				
 		</div>';
@@ -245,7 +245,7 @@ function cargar_tabla() {
 				&nbsp;
 				&nbsp;
 				<span  title="Nuevo Establecimiento" >
-				<a href="' . $j3 . '"><img src="images/page.png"/></a>
+				<a href="' . $j3 . '"><img src="images/empresas.png"/></a>
 				</span>
 				
 		</div>';

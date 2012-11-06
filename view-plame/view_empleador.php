@@ -131,7 +131,7 @@ foreach ($cbo_tipo_empleador as $indice) {
       <div id="tabs-2">
         <div class="titulo">Mantenimiento de Conceptos</div>
         <br />
-        RUC: <label><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></label>
+        RUC: <?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?>
         <br />
         <br />
 

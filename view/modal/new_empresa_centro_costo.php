@@ -78,9 +78,9 @@ value="<?php echo $id_establecimiento;  ?>" />
  ?>
  
      <tr>
-      <td width="34">ID</td>
-      <td width="199">Descripcion</td>
-      <td width="95">    Estado</td>
+      <td width="34">&nbsp;</td>
+      <td width="199"><strong>Descripcion</strong></td>
+      <td width="95">    <strong>Estado</strong></td>
     </tr>
 
  
@@ -88,7 +88,8 @@ value="<?php echo $id_establecimiento;  ?>" />
  foreach($arreglo as $data):  //FOR 002 ?>   
     
     <tr>
-      <td><input name="id_empresa_centro_costo[]" type="text"  size="4"
+      <td><input name="id_empresa_centro_costo[]" type="hidden"  size="4"
+      readonly="readonly"
       value="<?php  echo $data['id_empresa_centro_costo']; ?>">
       </td>
       

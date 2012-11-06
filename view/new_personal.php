@@ -439,7 +439,9 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
                 
                 
                 <!-- DIRECCION 2-->
-                <input name="btn_grabar" type="button" id="btn_grabar" value="Grabar" onclick="validarFormNewPersonalPrincipal(this)">
+                <input name="btn_grabar" type="button" id="btn_grabar" value="Guardar" 
+                class="submit-go"
+                onclick="validarFormNewPersonalPrincipal(this)">
             </form>
             </div>
 
@@ -455,7 +457,8 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 			
 </div>
 
-<input type="submit" name="btnRetornar" id="btnRetornar" value="Retornar"
+<input type="submit" name="btnRetornar" id="btnRetornar" value="Cancelar"
+class="submit-cancelar"
   onclick="javascript:cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')" />
 
 

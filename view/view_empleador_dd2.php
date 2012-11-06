@@ -140,6 +140,7 @@ $DATA_EME = buscarIdEmpleadorMaestroPorIDEMPLEADOR($id_empleador_maestro);
 
         <p>
           <input name="button" type ="button" 
+          class="submit-nuevo"
             onclick="javascript:cargar_pagina('sunat_planilla/view/view_empleador_buscar.php?tipo_emp=emp-dd2','#CapaContenedorFormulario')"
              value="Nuevo"/>
           

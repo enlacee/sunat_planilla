@@ -385,13 +385,14 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 				//input_fin.value = data.rows[0]['data_mes']['mes_fin'];
 								
 				//---------
+                console.log(data);
 							
 				if(data){
-					cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
+					//cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?periodo='+periodo,'#CapaContenedorFormulario');
 					alert("Se registro correctamente el Periodo");
 					javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
 				}else{
-					alert("Ocurrio un error.");
+					alert("Periodo ya se encuntra registrado\nOcurrio un error.");
 				}
 				
 				

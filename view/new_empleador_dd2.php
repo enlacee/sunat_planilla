@@ -636,9 +636,11 @@ function obtenerDiasTranscurridos(fecha_incio, fecha_fin){
   <fieldset id="fieldset-1">
   <legend><strong>Servicios Recibidos</strong></legend>
 <p>
-  <input name="btn_agregar" type="button" id="btn_agregar" value="Agregar" onclick="crearElementoTipoDeServicio()" />
+  <input name="btn_agregar" type="button" id="btn_agregar" value="Agregar" 
+  class="submit-nuevo" onclick="crearElementoTipoDeServicio()" />
 
   
+  <br />
   <br />
 Fecha de periodo a perido max 1 mes
 
@@ -805,11 +807,14 @@ endif;
             </fieldset>
 
             <p><!-- DIRECCION 2-->
-			<input name="btn_grabar" type="button" id="btn_grabar" value="Grabar" onclick="validarFormulario()"  >
+			<input name="btn_grabar" type="button" id="btn_grabar" value="Guardar" 
+            class="submit-go" onclick="validarFormulario()"  >
 
-                <input name="btnRetornar" type="button" id="btnRetornar" value="Retornar" 
+                <input name="btnRetornar" type="button" id="btnRetornar" 
+                value="Cancelar"  class="submit-cancelar"
                 onclick="javascript:cargar_pagina('sunat_planilla/view/edit_empleador.php?id_empleador=<?php echo $ID_EMPLEADOR; ?>','#CapaContenedorFormulario');" />
-          </p>
+              <br />
+            </p>
           </form>
 
           <p>

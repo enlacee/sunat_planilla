@@ -37,8 +37,17 @@ $ID_EMPLEADOR = $_REQUEST['id_empleador'];
           <input type="hidden" name="id_empleador" id="id_empleador"  value="<?php echo $ID_EMPLEADOR;?>"/>
           <br />
           <input type ="button" 
-            onclick="javascript:cargar_pagina('sunat_planilla/view/new_establecimiento.php?id_empleador=<?php echo $ID_EMPLEADOR; ?>','#CapaContenedorFormulario')"
-             value="Nuevo Establecimiento "/>
+          class="submit-go"
+          onclick="javascript:cargar_pagina('sunat_planilla/view/new_establecimiento.php?id_empleador=<?php echo $ID_EMPLEADOR; ?>','#CapaContenedorFormulario')"
+           value="Nuevo Establecimiento "/>
+             
+             
+          <input type="button" name="button" value="Cancelar" 
+          class="submit-cancelar"
+          onclick="cargar_pagina('sunat_planilla/view/view_empleador.php','#CapaContenedorFormulario')"          
+            />
+          <br />
+          <br />
 
       <table id="list"><tr><td/></tr></table>
             <div id="pager"></div>

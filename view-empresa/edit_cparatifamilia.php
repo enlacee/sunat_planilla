@@ -65,13 +65,13 @@ $obj = buscar_IdParaTiFamilia($_REQUEST['id_para_ti_familia']);
             <input name="oper" type="text" id="oper" value="edit">
           </p>
         </div>
-          <p>Num Doc:
+          <p><label>Num Doc:</label>
             <input name="dni" type="text" id="dni" value="<?php echo $obj['num_documento']; ?>" size="15" readonly="readonly">
             <input name="nombre" type="text" id="nombre" size="40" readonly="readonly"
             value="<?php echo $obj['apellido_paterno']." ".$obj['apellido_materno']. " ".$obj['nombres']; ?>"
              >
             <br>
-          Tipo Para ti Familia
+          <label>Tipo Para ti Familia</label>
           
 <select name="cbo_tipo_para_tifamilia" id="cbo_tipo_para_tifamilia" style="width:180px" disabled="disabled" >
 
@@ -93,7 +93,7 @@ $obj = buscar_IdParaTiFamilia($_REQUEST['id_para_ti_familia']);
 </select>
 <label for="textfield"></label>
 <br />
-fecha Inicio 
+<label>fecha Inicio</label> 
             <input name="fecha_inicio" type="text" id="fecha_inicio" 
             value="<?php echo getFechaPatron( $obj['fecha_inicio'],"m/Y");?>" readonly="readonly" />
 (mm/aaaa) </p>
@@ -101,7 +101,8 @@ fecha Inicio
           <p><br />
             <input type="button" name="btn_aceptar" id="btn_aceptar" value="Guardar" disabled="disabled"
 onclick="grabarParaTiFamilia(this)" />
-            <input type="button" name="btn_cancelar" id="btn_cancelar" value="Cancelar" />
+            <input type="button" name="btn_cancelar" id="btn_cancelar" 
+            class="submit-cancelar" value="Cancelar" />
           </p>
 
         <p>&nbsp;</p>

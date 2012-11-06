@@ -60,28 +60,28 @@ $data = buscar_IdPrestamo($_REQUEST['id_prestamo']);
             <input type="text" name="oper" id="oper" value="add" />
           </div>  
             <br />
-            Num Doc:
+            <label>Num Doc:</label>
 <input name="dni" type="dni" id="textfield" size="12" value="<?php echo $data['num_documento']; ?>" 
 readonly="readonly">
                 
             <input name="nombre" type="text" id="nombre" size="40" readonly="readonly" 
             value="<?php echo $data['apellido_paterno'].' '.$data['apellido_materno'].' '.$data['nombres']?>" >
             <br />
-            Monto
+            <label>Monto</label>
             
             <input name="valor" type="text" id="valor" value="<?php echo $data['valor']; ?>" readonly="readonly" />
             <br />
-            Numero Cuotas
+            <label>Numero Cuotas</label>
             
           <input type="text" name="num_cuota" id="num_cuota"
           readonly="readonly"
             value="<?php echo $data['num_cuota']; ?>" />
             <br />
-            fecha inicio del Prestamo
+            <label>fecha inicio del Prestamo</label>
             
             <input name="fecha_inicio" type="text" id="fecha_inicio" readonly="readonly" 
             value="<?php echo getFechaPatron($data['fecha_inicio'], "m/Y"); ?>" />
-            </p>(mm/aaaa)
+            <span class="tiny-text">(mm/aaaa)</span>
 
               <p>&nbsp;</p>
               <h3>Historial de Pagos:</h3>

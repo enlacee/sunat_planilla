@@ -41,7 +41,7 @@ $data_detalle_concepto = listarDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MA
 function validarPlameDetalleConcepto(){
 	
 var from_data =  $("#formDetalleConcepto").serialize();
-alert(".... __ ---");
+console.log(".... __ ---");
 
 //-------
 	$.ajax({
@@ -54,13 +54,15 @@ alert(".... __ ---");
 			if(exito=="success"){alert("Y con éxito");}*/
         },
 		success: function(data){
-			//console.log(data);
-			alert(data);
+			console.log(data);
+			if(data){
+        alert("Se guardo correctamente");
+      }else{
+        alert("Ocurrio un error");
+      }
+
 		}
 	});	
-
-
-
 
 
 
@@ -77,8 +79,8 @@ alert(".... __ ---");
     <td width="408">Descripcion</td>
   </tr>
   <tr>
-    <td><label><?php echo $cod_concepto; ?></label></td>
-    <td><label><?php echo $data_concepto[0]['descripcion']; ?></label></td>
+    <td><strong><?php echo $cod_concepto; ?></strong></td>
+    <td><strong><?php echo $data_concepto[0]['descripcion']; ?></strong></td>
   </tr>
 </table>
   <input type="hidden" name="cod_concepto" id="cod_concepto"  
@@ -99,9 +101,10 @@ value="<?php echo $cod_concepto; ?>"/>
 
 
 <form action="HOLA.PHP" method="get" name="formDetalleConcepto" id="formDetalleConcepto">
+<div class="ocultar">
 <input name="oper" type="text" value="edit" />
-
 <input type="text" name="cod_concepto" value="<?php echo $cod_concepto; ?>" />
+</div>
 <div id="view_detalle_concepto" style="height:200px; overflow:scroll;">
   <table width="670" border="1" class="tabla_gris">
     <tr>
@@ -158,8 +161,12 @@ value="<?php echo $cod_concepto; ?>"/>
   </table>
 </div>
 
-<input name="btnGrabar" type="button" value="Grabar" onclick="validarPlameDetalleConcepto()" />
+<br />
+<input name="btnGrabar" type="button"  class="submit-go"
+value="Guardar" onclick="validarPlameDetalleConcepto()" />
 
+<br />
+<br />
 </form>
 
 

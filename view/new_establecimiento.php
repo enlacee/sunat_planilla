@@ -435,8 +435,16 @@ $cboZonas = comboZonas();
                 </fieldset>
 
                 <!-- DIRECCION 2-->
-                <input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar">
-
+                <br />
+                <input name="btn_grabar" type="submit" id="btn_grabar" 
+                class="submit-go" value="Guardar">
+                
+                <input type="button" name="button" 
+                class="submit-cancelar" value="Cancelar"
+                onclick="cargar_pagina('sunat_planilla/view/view_establecimiento.php?id_empleador=<?php echo $ID_EMPLEADOR; ?>','#CapaContenedorFormulario')"
+                 />
+<br />
+              <br />
             </form>
 
 

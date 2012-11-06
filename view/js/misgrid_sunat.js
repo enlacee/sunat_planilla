@@ -111,7 +111,7 @@
 				gridview: true,
 				//caption: 'Lista de Direcciones',
 				onSelectRow: function(ids) {},
-				height:'100px',
+				height:70,
 				//width:'720px',
 				//grouping         : false,
 				gridview          : true,
@@ -559,7 +559,7 @@ function bajaEstablecimiento(id){
                     index:'opciones',
                     search:false,
                     editable:false,
-                    width:100, 
+                    width:80, 
                     align:'center'
                 }							
 

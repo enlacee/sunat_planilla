@@ -399,16 +399,15 @@ function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
     //PASO 01   existe periodo?    
     $dao = new PlameDeclaracionDao();
     $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
-    $rpta = 'false';
+    $rpta = false;
+	
     if ($num_declaracion == 0) {
-        $rpta = 'true';
-    }
-    if ($rpta == 'true') {
-        $dao->registrar($id_empleador_maestro, $periodo);
+        $rpta = true;
+		$dao->registrar($id_empleador_maestro, $periodo);
     }
     // $response = strval($rpta);
 
-    return strval($rpta); //SOLO 1 = TRUE
+    return $rpta; //SOLO 1 = TRUE
 }
 
 //-----------------------------------------------------------------------------

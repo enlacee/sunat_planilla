@@ -62,16 +62,19 @@ $data = comboTipoParaTiFamilia();
               oper
               <label for="oper"></label>
               <input name="oper" type="text" id="oper" value="add">
-            </p>
-          </div>
-          <p>Num Doc:
-            <input name="dni" type="dni" id="textfield" size="12" readonly="readonly">
-            <input name="nombre" type="text" id="nombre" size="40" readonly="readonly">
-          <a onclick="javascript:modalshow_anb('sunat_planilla/view-empresa/modal/new_cparatifamilia_grid.php')" 
-tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a><br>
-          Tipo Para ti Familia
-          
-          <select name="cbo_tipo_para_tifamilia" id="cbo_tipo_para_tifamilia" style="width:180px">
+          </p>
+        </div>
+<div class="fila_input">
+  <label>Num doc</label>
+  <input name="dni" type="dni" id="textfield" size="12" readonly="readonly">
+  <input name="nombre" type="text" id="nombre" size="40" readonly="readonly">
+  <a onclick="javascript:modalshow_anb('sunat_planilla/view-empresa/modal/new_cparatifamilia_grid.php')" 
+tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a></div>
+<br>
+<div class="fila_input">
+          <label>Tipo Para ti Familia
+            
+          </label><select name="cbo_tipo_para_tifamilia" id="cbo_tipo_para_tifamilia" style="width:180px">
             
             <?php for($i=0; $i<count($data); $i++): ?>
             <option value="<?php echo $data[$i]['id_tipo_para_ti_familia']; ?>">	
@@ -79,21 +82,27 @@ tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a><br>
             </option>
             <?php endfor; ?>
           </select>
-          </p>
-          <p>fecha Inicio 
-            <input name="fecha_inicio" type="text" id="fecha_inicio" 
+</div>
+
+ <div class="fila_input">
+    <label>fecha Inicio</label>
+    <input name="fecha_inicio" type="text" id="fecha_inicio" 
             value="<?php echo getFechaPatron( date("Y-m-d"),"m/Y");?>" />
-            (mm/aaaa)
-            </p>
-          </p>
-          <p><br />
-            <input type="button" name="btn_aceptar" id="btn_aceptar" value="Guardar"
+    (mm/aaaa)
+   </div>
+
+
+  <br />
+  <input type="button" name="btn_aceptar" id="btn_aceptar" value="Guardar"
+            class="submit-go"
             onclick="grabarParaTiFamilia(this)" />
-            <input type="button" name="btn_cancelar" id="btn_cancelar" value="Cancelar" />
-            <br>
-          </p>
+  <input type="button" name="btn_cancelar" id="btn_cancelar" 
+            class="submit-cancelar" value="Cancelar" />
+
+
           
-        </form>
+        <br />
+</form>
           <p><br>
           </p>
           

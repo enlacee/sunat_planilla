@@ -24,7 +24,7 @@ $data_concepto_empleador = listarConceptosEmpleador();
 function validarPlameDetalleConcepto(){
 	
 var from_data =  $("#formDetalleConcepto").serialize();
-alert(".... __ ---");
+console.log(".... __ ---");
 
 //-------
 	$.ajax({
@@ -37,8 +37,14 @@ alert(".... __ ---");
 			if(exito=="success"){alert("Y con éxito");}*/
         },
 		success: function(data){
-			//console.log(data);
-			alert(data);
+			console.log(data);
+
+      if(data){
+          alert("Se Guardo Correctamente");
+      }else{
+          alert("Ocurrio un Error");
+      }
+			
 		}
 	});	
 

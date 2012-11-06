@@ -477,7 +477,7 @@ if($_SESSION['sunat_empleador']['id_empleador'] == $ID_EMPLEADOR){
             
 
 <div >
-      <label>Actividad de Riesgo</label>:
+      <label>Actividad de Riesgo</label>
       <input name="rbtn_actividad_riesgo" type="radio" value="1"
       <?php if($obj_empleador->getActividad_riesgo_sctr() == 1){?>checked="checked" <?php } ?> 
       onclick="verDetalleActividadRiesgoRadio(this)"
@@ -501,7 +501,7 @@ No
 			
 			
             <div class="fila_input">
-              <label>Aporta a SENATI:</label>
+              <label>Aporta a SENATI</label>
               <input name="rbtn_senati" type="radio" value="1"  
               <?php if($obj_empleador->getSenati() == 1){?>checked="checked" <?php } ?> />
               Si
@@ -513,7 +513,7 @@ No
               No</div>
               
             <div>
-              <label style="clear:both">REMYPE:</label>
+              <label style="clear:both">REMYPE</label>
               <span class="fila_input">
               <input name="rbtn_remype" id="rbtn_remype" type="radio" value="1" 
               onclick="validarRadioRemype(this)"
@@ -538,7 +538,7 @@ Peque&ntilde;aEmpresa</li>
 <br />
             </div>
             <div style="clear:both">
-              <label>Trabajador sin Regimen Pensionario:</label>
+              <label>Trabajador sin Regimen Pensionario</label>
               <label style="clear:both"></label>
               <input name="rbtn_sin_rp" type="radio" value="1"
               <?php if($obj_empleador->getTrabajador_sin_rp() == 1){?>checked="checked" <?php } ?> />
@@ -548,7 +548,7 @@ Si
  />
 No </div>
             <div style="clear:both">
-              <label>Tiene trabajadores por los que aporta al SCTR?:</label>
+              <label>Tiene trabajadores por los que aporta al SCTR?</label>
               <input name="rbtn_sctr" type="radio" value="1" 
 			  <?php if($obj_empleador->getTrabajadores_sctr() == 1){?>checked="checked" <?php } ?> 
 
@@ -559,8 +559,8 @@ Si
 />
 No</div>
             <div style="clear:both">
-              <label>Pesona con Discapacidad</label>:
-			  <input name="rbtn_persona_discapacidad" type="radio" value="1" 
+              <label>Pesona con Discapacidad</label>
+              <input name="rbtn_persona_discapacidad" type="radio" value="1" 
 <?php if($obj_empleador->getPersona_discapacidad() == 1){?>checked="checked" <?php } ?>
 			  />
 Si
@@ -579,7 +579,7 @@ Si
 />
 No</div>
             <div style="clear:both">
-              <label>Desplaza Pesonal:</label>
+              <label>Desplaza Pesonal</label>
               <input name="rbtn_desplaza_personal" type="radio" value="1"
               onclick="validarDesplazaPersonal()"
 <?php if($obj_empleador->getDesplaza_personal() == 1){?>checked="checked" <?php } ?>
@@ -605,7 +605,7 @@ detalle SI Registro de Empleadores</a></div>
 
 
             <div >
-              <label>Terceros desplaza Personal a Usted:</label>
+              <label>Terceros desplaza Personal a Usted</label>
               <input name="rbtn_terceros_desplaza_personal" type="radio" value="1" 
                onclick="validarTercerosDesplazaPersonal()"
 <?php if($obj_empleador->getTerceros_desplaza_usted() == 1){?>checked="checked" <?php } ?>
@@ -637,9 +637,11 @@ detalle Registro Empleadores me Destacan SI</a></div>
 				
 				
 				<!-- DIRECCION 2-->
-				<input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar">
+				<input name="btn_grabar" type="submit" id="btn_grabar" value="Guardar"
+                class="submit-go" />
 
-            <input type="button" name="btn_retornar" id="btn_retornar" value="Retornar" 
+            <input type="button" name="btn_retornar" id="btn_retornar" value="Cancelar" 
+            class="submit-cancelar"
             onclick="javascript:cargar_pagina('sunat_planilla/view/view_empleador.php','#CapaContenedorFormulario')" />
           </form>
 

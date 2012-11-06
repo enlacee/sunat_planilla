@@ -66,10 +66,12 @@ function estadoCheckEstado(){
             Mostrar Histórico de Prestadores
           </div>
           <br />
-            <input type ="button" 
+            <input type ="button"
+            class="submit-go" 
                    onclick="javascript:cargar_pagina('sunat_planilla/view/new_personal0.php','#CapaContenedorFormulario')" 
-                   value="Nuevo"/>
-        <br />
+                   value="Nuevo Registro"/>
+          <br />
+          <br />
 
             <table id="list">
             </table>

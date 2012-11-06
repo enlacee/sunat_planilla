@@ -138,14 +138,17 @@ $DATA_EME = buscarIdEmpleadorMaestroPorIDEMPLEADOR($id_empleador_maestro);
 		value="<?php echo $DATA_EME['id_empleador']; ?>" />        
       </div>
 <div id="tabs-1">
+  <br />
   <input type ="button" 
+  class="submit-nuevo"
             onclick="javascript:cargar_pagina('sunat_planilla/view/view_empleador_buscar.php?tipo_emp=emp-dd1','#CapaContenedorFormulario')"
-             value="Nuevo"/>
+             value="Nuevo Registro"/>
               
-                <input type="button" name="Submit" value="Retornar"
+                <input type="button" name="Submit" value="Cancelar"
+                class="submit-cancelar"
                  onclick="javascript:cargar_pagina('sunat_planilla/view/edit_empleador.php?id_empleador=<?php echo $DATA_EME['id_empleador']; ?>','#CapaContenedorFormulario')" />
         </p>
-            <table id="list"><tr><td/></tr></table>
+      <table id="list"><tr><td/></tr></table>
             <div id="pager"></div>
 
 		

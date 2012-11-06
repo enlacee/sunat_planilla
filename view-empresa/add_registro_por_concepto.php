@@ -522,10 +522,7 @@ $("#trabajador").fadeToggle("slow", "linear");
         </ul>
         <div id="tabs-1">
 <h2>
-  <?php echo $data_detalle_concepto['cod_detalle_concepto'] ." - ". $data_detalle_concepto['descripcion'] ?>
-  <input type="button" name="retornar" id="retornar" value="Retornar"
-  onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>','#CapaContenedorFormulario')" />
-</h2>
+  <?php echo $data_detalle_concepto['cod_detalle_concepto'] ." - ". $data_detalle_concepto['descripcion'] ?></h2>
 <p>
 
 
@@ -534,6 +531,9 @@ $("#trabajador").fadeToggle("slow", "linear");
   <!--I.Buscador-->
 
 
+  <input type="button" name="retornar" id="retornar" value="Cancelar"
+  class="submit-cancelar"
+  onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>','#CapaContenedorFormulario')" />
 <div id="trabajador" class="trabajador" style="display:none">
 <div class="ocultar">id_pdeclaracion :
   <label for="id_pdeclaracion"></label>
@@ -552,7 +552,7 @@ $("#trabajador").fadeToggle("slow", "linear");
 </table>
 <div id="pager-buscar"></div> 
 </div>
-<a href="#" id="nuevo_trabajador" class="red">Agregar Nuevo</a></p>
+<a href="#" id="nuevo_trabajador" class="red resaltar_1">Agregar Nuevo</a></p>
 
 
 

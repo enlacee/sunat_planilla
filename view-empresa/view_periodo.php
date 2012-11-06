@@ -163,7 +163,8 @@ function habilitarBotonEliminarMes(){
 
         </ul>
         <div id="tabs-1">
-            <input type="button" name="button" id="button" value="Nuevo Periodo"
+            <input type="button" name="button" id="button"  class="submit-nuevo"
+            value="Nuevo Periodo"
             onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_periodo.php','#CapaContenedorFormulario')" />
             
             <h2>lista de periodos 
@@ -183,7 +184,7 @@ function habilitarBotonEliminarMes(){
   <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
 </div>
 <div class="section">
-      <div class="article fila1">
+<div class="article fila1">
 <table id="list">
 </table>
 <div id="pager"></div>

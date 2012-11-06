@@ -94,7 +94,7 @@ Adelanto %
 <input type="text" name="adelanto" id="adelanto" 
 value="<?php echo $obj_ptrabajador->getAdelanto(); ?>" />
 <h2 >Configuracion Empresa</h2>
-<p>Asignacion familiar: 
+<p>Asignacion familiar:
   <input type="radio" name="rbtn_afamiliar" id="" value="1"
  <?php echo ($obj_ptrabajador->getAsignacion_familiar()=="1") ? ' checked="checked"': ''; ?>         
          />
@@ -103,7 +103,7 @@ value="<?php echo $obj_ptrabajador->getAdelanto(); ?>" />
 <?php echo ($obj_ptrabajador->getAsignacion_familiar()=="0") ? ' checked="checked"': ''; ?>           
          />
   NO</p>
-<p> Seguro &quot;para ti familia&quot;: 
+<p> Seguro &quot;para ti familia&quot;
   <input type="radio" name="rbtn_ptf" id="" value="1" onclick="verDetallePTF()"
   <?php echo ($obj_ptrabajador->getPara_ti_familia()=="1") ? ' checked="checked"': ''; ?>
          />

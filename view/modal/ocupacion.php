@@ -39,7 +39,7 @@
 	});
 		
 
-function cargarTablaGridTrabajador(cod_estado){
+function cargarTablaOcupacionTrabajador(cod_estado){
 		
 		var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
 	

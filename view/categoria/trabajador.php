@@ -570,8 +570,9 @@ function seleccionarLocalDinamicoLocal(oCombo){ //alert("oCombo = "+oCombo.value
 	<h3><a href="#">Section 1  Datos Laborales Form Trabajador
 	  <label for="tab"></label>
 	</a></h3>
+    
 	<div>
-	  <div style=" width:550px; background-color:#fff; border-right:2px solid blue; " >
+	  <div style="float:left; width:455px;" >
 <div class="ocultar">id_trabajador
   <label for="id_trabajador"></label>
   <input type="text" name="id_trabajador_categoria" id="id_trabajador_categoria" 
@@ -586,13 +587,13 @@ value="<?php echo $objTRA->getId_persona(); ?>" />
 oper
   <input type="text" name="oper" value="edit" />
 </div>
-<table width="auto" border="1" CELLPADDING=0 cellspacing="0">
+<table width="350"  border="1" CELLPADDING=0 cellspacing="0">
   <tr>
-    <td class="style2"><div class="ocultar">detalle_periodos_laborales</div></td>
-    <td><em>Fecha de Inicio</em> </td>
-    <td><em>Fecha de Fin </em></td>
-    <td><em>Motivo de baja del registro</em></td>
-    <td>&nbsp;</td>
+    <td width="65" class="style2">&nbsp;</td>
+    <td width="66"><em>Fecha de Inicio</em> </td>
+    <td width="66"><em>Fecha de Fin </em></td>
+    <td width="104"><em>Motivo de baja del registro</em></td>
+    <td width="37">&nbsp;</td>
   </tr>
   <tr>
     <td>Periodo Laboral 
@@ -605,11 +606,12 @@ oper
          
                value="<?php echo getFechaPatron( $objTRADetalle_1->getFecha_inicio() ,"d/m/Y" ); ?>"
          
-         size="12" onkeyup="getFechaActualEnter(event,this)" class="required">    </td>
-    <td><input  name="txt_plaboral_fecha_fin_base" type="text" id="txt_plaboral_fecha_fin_base" size="12" onkeyup="getFechaActualEnter(event,this)"
+         size="11" onkeyup="getFechaActualEnter(event,this)" class="required">    </td>
+    <td><input  name="txt_plaboral_fecha_fin_base" type="text" id="txt_plaboral_fecha_fin_base" size="11" onkeyup="getFechaActualEnter(event,this)"
      value ="<?php echo getFechaPatron( $objTRADetalle_1->getFecha_fin() ,"d/m/Y");?>"
      ></td>
-    <td><select name="cbo_plaboral_motivo_baja_base" id="cbo_plaboral_motivo_baja_base" style="width:180px;"  >
+    <td>
+    <select name="cbo_plaboral_motivo_baja_base" id="cbo_plaboral_motivo_baja_base" style="width:100px">
     <!--<option value="">-</option>-->
       <?php 
 
@@ -633,13 +635,13 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
   </tr>
 </table>
 <br />
-<table width="auto" border="1" cellpadding="0" cellspacing="0" >
+<table width="319"  border="1" cellpadding="0" cellspacing="0" >
   <tr>
-            <td class="style2"><div class="ocultar">detalle_tipos_trabajadores</div></td>
-            <td>Ocupacion </td>
-            <td><em>Fecha de Inicio</em></td>
-            <td><em>Fecha de Fin</em></td>
-            <td>&nbsp;</td>
+            <td width="68" >&nbsp;</td>
+            <td width="70">Ocupacion </td>
+            <td width="66"><em>Fecha de Inicio</em></td>
+            <td width="66"><em>Fecha de Fin</em></td>
+            <td width="37">&nbsp;</td>
           </tr>
           <tr>
 		  
@@ -647,7 +649,8 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
               value="<?php  echo $objTRADetalle_2->getId_detalle_tipo_trabajador(); ?>"
                /></td>
             <td>
-                <select name="cbo_ttrabajador_base" id="cbo_ttrabajador_base" style="width:180px;" onchange="comboVinculadosTipoTrabajadorConCategoriaOcupacional(this)" >
+                <select name="cbo_ttrabajador_base" id="cbo_ttrabajador_base" 
+                 onchange="comboVinculadosTipoTrabajadorConCategoriaOcupacional(this)" >
 				
 				<!--<option value="0" >-</option>-->
 <?php 
@@ -687,22 +690,22 @@ foreach ($cbo_tipo_trabajador as $indice) {
                 </select>
             </td>
             <td>
-                <input name="txt_ttrabajador_fecha_inicio_base"  id="txt_ttrabajador_fecha_inicio_base" type="text"  size="12"
+                <input name="txt_ttrabajador_fecha_inicio_base"  id="txt_ttrabajador_fecha_inicio_base" type="text"  size="11"
                 onkeyup="getFechaActualEnter(event,this)"
                 value="<?php echo getFechaPatron( $objTRADetalle_2->getFecha_inicio(), "d/m/Y"); ?>" >
             </td>
-            <td><input name="txt_ttrabajador_fecha_fin_base" type="text" id="txt_ttrabajador_fecha_fin_base" size="12" 
+            <td><input name="txt_ttrabajador_fecha_fin_base" type="text" id="txt_ttrabajador_fecha_fin_base" size="11" 
             onkeyup="getFechaActualEnter(event,this)"
             value="<?php echo getFechaPatron( $objTRADetalle_2->getFecha_fin() ,"d/m/Y"); ?>"></td>
             <td><div class="ocultar"><a href="javascript:editarDialogoDetalle_2()">detalle</a></div></td>
           </tr>
 </table>
         <br>
-        <table width="auto" border="1" cellpadding="0" cellspacing="0">
+        <table width="303" border="1" cellpadding="0" cellspacing="0">
           <tr>
-            <td width="195">Regimen Laboral </td>
+            <td width="128" height="26">Regimen Laboral </td>
             <td colspan="2">
-                <select name="cbo_regimen_laboral" id="cbo_regimen_laboral" style="width:300px;" >
+                <select name="cbo_regimen_laboral" id="cbo_regimen_laboral" >
 				<option value="0">-</option>
 <?php 
 foreach ($cbo_regimen_laboral as $indice) {
@@ -725,9 +728,9 @@ foreach ($cbo_regimen_laboral as $indice) {
               </select>            </td>
           </tr>
           <tr>
-            <td>Categoria Ocupacional</td>
+            <td height="26">Categoria Ocupacional</td>
             <td colspan="2">
-<select name="cbo_categoria_ocupacional"  id="cbo_categoria_ocupacional" style="width:230px;" onchange="combosVinculados(this)" 
+<select name="cbo_categoria_ocupacional"  id="cbo_categoria_ocupacional" onchange="combosVinculados(this)" 
 >
   <option value="0">-</option>
   <?php 
@@ -747,7 +750,7 @@ foreach ($cbo_categoria_ocupacional as $indice) {
           <tr>
             <td>Nivel Educativo </td>
             <td colspan="2">
-			<select name="cbo_nivel_educativo" id="cbo_nivel_educativo" style="width:300px;">
+			<select name="cbo_nivel_educativo" id="cbo_nivel_educativo">
 <!--             <option value="0">-</option>-->
 <?php 
 foreach ($combo_nivel_educativo as $indice) {
@@ -765,8 +768,8 @@ foreach ($combo_nivel_educativo as $indice) {
           </tr>
           <tr>
             <td>&nbsp;</td>
-            <td width="125"><em>Codigo</em></td>
-            <td width="200"><em>Nombre</em></td>
+            <td width="82"><em>Codigo</em></td>
+            <td width="85"><em>Nombre</em></td>
           </tr>
           <tr>
             <td>Ocupacion</td>
@@ -777,7 +780,7 @@ foreach ($combo_nivel_educativo as $indice) {
              >
               <input type="button" name="toggle" id="toggle" value="Button" />
             </td>
-            <td><select name="cboOcupacion" id="cboOcupacion" style="width:200px " onchange="seleccionarOcupacionInputPorCombo(this)">
+            <td><select name="cboOcupacion" id="cboOcupacion"  onchange="seleccionarOcupacionInputPorCombo(this)">
 			<option value="0"></option>
 		<option value="<?php echo $objTRA->getCod_ocupacion(); ?>" selected="selected">-</option>
 <!--  Combo dependiente JOJOJOJO foreach temporal --->
@@ -796,11 +799,17 @@ foreach ($cbo_ocupaciones as $indice) {
 	echo $html;
 }
 ?>			
-            </select></td>
+            </select>
+              
+<a href="#" onclick="javascript:modalshow_anb('sunat_planilla/view-empresa/modal/new_cprestamo_grid.php')">
+<img src="images/search.png" alt="Buscar">
+</a>              
+              
+              </td>
           </tr>
           <tr>
             <td>Tipo de Contrato</td>
-            <td colspan="2"><select name="cbo_tipo_contrato" style="width:180px" >
+            <td colspan="2"><select name="cbo_tipo_contrato"  >
               <option value="0">-</option>
   <?php 
 foreach ($cbo_tipo_contrato as $indice) {
@@ -823,7 +832,7 @@ foreach ($cbo_tipo_contrato as $indice) {
           <tr>
             <td> Tipo de pago y periodicidad de ingreso: </td>
             <td>
-			<select name="cbo_tipo_pago" style="width:120px">
+			<select name="cbo_tipo_pago" >
 			<!-- <option value="">-</option>-->
 <?php 
 foreach ($cbo_tipo_pago as $indice) {
@@ -841,7 +850,7 @@ foreach ($cbo_tipo_pago as $indice) {
 }
 ?>			
 			</select></td>
-            <td><select name="cbo_periodo_pago" style="width:150px">
+            <td><select name="cbo_periodo_pago" >
              <!--<option value="">-</option>-->
 <?php 
 foreach ($cbo_periodo_remuneracion as $indice) {
@@ -863,7 +872,7 @@ foreach ($cbo_periodo_remuneracion as $indice) {
           <tr>
             <td> Monto de remuneración básica inicial: </td>
             <td>&nbsp;
-              <input name="txt_monto_remuneracion_basica_inicial" type="text" size="15"
+              <input name="txt_monto_remuneracion_basica_inicial" type="text" size="12"
               value="<?php echo $objTRA->getMonto_remuneracion(); ?>" /></td>
             <td><div class="ocultar">
               <select name="cbo_monto_remuneracion" >
@@ -889,16 +898,15 @@ foreach ($cbo_monto_remuneracion as $indice) {
 
 
 
-<div style="width:350px; margin:0 0 0 5px; background-color:#FFBBBD ">
-  <table width="305" border="1" cellpadding="0" cellspacing="0">
+<div style="float:left; width:250px;">
+  <table width="242"  border="1" cellpadding="0" cellspacing="0">
     <tr>
-              <td width="98"> Establecimiento 
+              <td width="46"> Est.
                 <input name="id_detalle_establecimiento" type="hidden" id="id_detalle_establecimiento"
                 value="<?php echo $objTRADetalle_3->getId_detalle_establecimiento();?>" size="3" />
-                donde labora:
-<label for="id_detalle_establecimiento"></label></td>
-              <td width="101">
-              <select name="cbo_establecimiento[]" id="cbo_establecimiento" style="width:100px"
+                donde labora:</td>
+              <td width="95">
+              <select name="cbo_establecimiento[]" id="cbo_establecimiento" style="width:95px"
               onchange="cargarEstablecimientoLocales(this)">
                <option value="0">-</option>
                
@@ -918,7 +926,7 @@ foreach ($lista_empleador_destaque as $indice) {
                
                 
               </select>              </td>
-              <td width="98"><div class="ocultar"><a href="#">detalle</a></div></td>
+              <td width="93"><span class="ocultar"><a href="#">detalle</a></span></td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -929,9 +937,9 @@ foreach ($lista_empleador_destaque as $indice) {
               <td><input name="txt_id_establecimiento" type="hidden" id="txt_id_establecimiento" size="3"
                 value="<?php echo $objTRADetalle_3->getId_establecimiento(); ?>"
                  /></td>
-              <td><input name="txt_codigo_local" type="text" id="txt_codigo_local" size="6" value="<?php echo $COD_LOCAL; ?>" ></td>
+              <td><input name="txt_codigo_local" type="text" id="txt_codigo_local" value="<?php echo $COD_LOCAL; ?>" size="6" readonly="readonly" ></td>
               <td>
-                <select name="cbo_establecimiento_local" id="cbo_establecimiento_local" style="width:100px"
+                <select name="cbo_establecimiento_local" id="cbo_establecimiento_local" style="width:95px"
               onchange="seleccionarLocalDinamicoLocal(this)">
                    
                     <?php
@@ -960,7 +968,7 @@ foreach ($lista_establecimientos as $indice) {
             <tr>
               <td>Centro de Costo</td>
               <td><label for="cboCentroCosto"></label>
-                <select name="cboCentroCosto" id="cboCentroCosto" style="width:100px">
+                <select name="cboCentroCosto" id="cboCentroCosto" style="width:95px">
                 <option value="0">-</option>                
 <?php
 foreach ($comboCCosto as $indice) {
@@ -1083,7 +1091,7 @@ foreach ($comboCCosto as $indice) {
             <tr>
               <td height="45"> Situación: </td>
               <td colspan="2">
-              <select name="cbo_situacion" id="cbo_situacion" style="width:160px" 
+              <select name="cbo_situacion" id="cbo_situacion"  
               <?php //echo ($objTRA->getCod_situacion()==1) ? ' disabled="disabled"' : ''; ?>
                >
             <!--<option value="" >-</option>-->
@@ -1115,7 +1123,11 @@ foreach ($comboCCosto as $indice) {
         
         
         <div class="clear"></div>
+
+        
+        
 	</div>
+    
 	<h3><a href="#">Section 2  Datos de Seguridad Social</a></h3>
 	<div>
 
@@ -1130,7 +1142,7 @@ foreach ($comboCCosto as $indice) {
 				*/
 			 ?>
               <div class="ocultar"><span class="style2">&nbsp;detalle_regimenes_salud</span></div>
-              <select name="cbo_regimen_salud_base" id="cbo_regimen_salud_base" style="width:210px;"
+              <select name="cbo_regimen_salud_base" id="cbo_regimen_salud_base" 
             onchange="havilitarEps(this)" >
                 <!--<option value="" >-</option>-->
                 <?php              
@@ -1156,7 +1168,7 @@ foreach ($combo_regimen_salud as $indice) {
               
               <strong>Entidad prestadora de salud</strong><br />
 <label for="cbo_eps_servicios_propios"></label>
-                <select name="cbo_eps_servicios_propios" id="cbo_eps_servicios_propios" style="width:180px"
+                <select name="cbo_eps_servicios_propios" id="cbo_eps_servicios_propios" 
                  >
             <!--<option value="0" >-</option>-->
               <?php              
@@ -1326,8 +1338,14 @@ foreach ($combo_convenio  as $indice) {
 
 
         <p>
-          <input name="btn_aceptar" type="button" id="btn_aceptar" value="Aceptar(Validar)" 
+          <input name="btn_aceptar" type="button" id="btn_aceptar" 
+          class="submit-go" value="Guardar Trabajador" 
           onclick="validarFormtrabajadorPrincipal()" />
+          
+          <input type="button" name="Button" id="button" 
+          class="submit-cancelar" value="Cancelar"
+          onclick="cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')"
+           />
       </p>   
         
         		

@@ -301,15 +301,17 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
               No</div>
             </fieldset>
 
-<p></p>
+            <!-- DIRECCION 2-->
+				<br />
+				<input name="btn_grabar" type="submit" id="btn_grabar" 
+                class="submit-go" value="Grabar"  >
 
-				
-				
-				
-				
-				<!-- DIRECCION 2-->
-				<input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar"  >
-
+            <input type="button"  name="cancelar" 
+            class="submit-cancelar" value="Cancelar"
+            onclick="cargar_pagina('sunat_planilla/view/view_empleador.php','#CapaContenedorFormulario')"
+             />
+            <br />
+            <br />
           </form>
 
           <!--

@@ -219,11 +219,11 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
 						
 						 ?>
 <form action="" method="get" name="form_direccion_derechohabiente" id="form_direccion_derechohabiente">
-<table width="709" height="218" border="0">
+<table width="705" height="218" border="0">
   <tr>
-    <td width="160"> Departamento 
+    <td width="179"> Departamento 
       <input name="id_derechohabiente_direccion"  class="ocultar" type="text" id="id_derechohabiente_direccion"  value="<?php echo $_REQUEST['id_derechohabiente_direccion'];?>"/></td>
-    <td width="350"> Provincia </td>
+    <td width="150"> Provincia </td>
     <td width="54"> Distrito </td>
     <td width="35">&nbsp;</td>
     <td width="48">&nbsp;</td>
@@ -231,7 +231,7 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
     <td width="32">&nbsp;</td>
     <td width="30">&nbsp;</td>
     <td width="40">&nbsp;</td>
-    <td width="39">&nbsp;</td>
+    <td width="36">&nbsp;</td>
   </tr>
   <tr>
   <?php //echo "<pre>".print_r($cboDepartamentos)."</pre"?>

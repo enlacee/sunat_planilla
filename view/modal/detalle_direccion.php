@@ -105,19 +105,19 @@ function SeleccionandoCombo_2(cbo_depa, cbo_distrito){
 <h3>Registro de Direccion</h3>
 <table width="800" border="1">
   <tr>
-    <td> <label>Departamento </label></td>
-    <td> <label>Provincia </label></td>
-    <td> <label><label>Distrito</label></label> </td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td width="221"> <label>Departamento </label></td>
+    <td width="155"> <label>Provincia </label></td>
+    <td width="57"> <label><label>Distrito</label></label> </td>
+    <td width="36">&nbsp;</td>
+    <td width="54">&nbsp;</td>
+    <td width="65">&nbsp;</td>
+    <td width="34">&nbsp;</td>
+    <td width="27">&nbsp;</td>
+    <td width="42">&nbsp;</td>
+    <td width="45">&nbsp;</td>
   </tr>
   <tr>
-    <td><select name="cbo_departamento" id="cbo_departamento" onchange="SeleccionandoCombo_1(this, 'cbo_provincia');">
+    <td><select name="cbo_departamento" id="cbo_departamento" onChange="SeleccionandoCombo_1(this, 'cbo_provincia');">
           <option value="">-</option>
 <?php
 
@@ -135,7 +135,7 @@ foreach ($cboDepartamentos as $indice) {
 ?>
 	
       </select>    </td>
-    <td><select name="cbo_provincia" id="cbo_provincia" onchange="SeleccionandoCombo_2(this, 'cbo_distrito');">
+    <td><select name="cbo_provincia" id="cbo_provincia" onChange="SeleccionandoCombo_2(this, 'cbo_distrito');">
           <option>--</option>
 <?php
 /*

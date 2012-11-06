@@ -406,8 +406,8 @@ foreach ($cbo_tipo_documento as $indice) {
 ?>
 
 
-                      </select>
-                  </div>
+        </select>
+      </div>
                     <div class="fila_input">
                         <label>Numero Documento </label>
                         <input name="txt_num_documento" type="text"  id="txt_num_documento" 
@@ -522,11 +522,11 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 }
 ?>
 
-                        </select>
+        </select>
                         <input name="txt_telefono" type="text" id="txt_telefono" 
 						value="<?php echo $obj_persona->getTelefono(); ?>">
                         
-                  </div>
+      </div>
 
                     <div style="clear:both">
                         <label>Correo Electronico </label> 
@@ -535,26 +535,37 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 
 
 
-                </fieldset>
+    </fieldset>
 				
 				
 				
 <p></p>
-
+<div class="divv" style="margin:0 0 0 13px;">
 
 <div style="display:block; " id="DIV_GRID_DIRECCION">
 
 <table id="list"></table>
-<div id="pager"></div>
+<div id="pagerX"></div>
 
 			
 </div>
-<p></p>				
-				
-				
-<input name="btn_grabar" type="submit" id="btn_grabar" value="Grabar Persona">
+<br />
 
-  </form>
+  <input name="btn_grabar" type="submit" id="btn_grabar" 
+  class="submit-go" value="Guardar Persona">
+  
+</div>
+
+
+<br />
+<br />
+<hr />
+
+
+
+
+<br />
+</form>
   
 
   

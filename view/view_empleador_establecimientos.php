@@ -123,9 +123,13 @@
             <div id="pager"></div>
 
           <p>
-            <input type="button" name="btn_retornar" id="btn_retornar" value="Retornar"
+            <input type="button" name="btn_retornar" id="btn_retornar" value="Cancelar"
+            class="submit-cancelar"
             onclick="javascript:cargar_pagina('sunat_planilla/view/edit_empleador.php?id_empleador=<?php echo $_REQUEST['id_empleador']; ?>','#CapaContenedorFormulario')"
              />
+            <br />
+            <br />
+            <br />
           </p>
       </div>
 </div>

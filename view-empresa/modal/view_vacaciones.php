@@ -140,16 +140,19 @@ $dia_calc = $now_dia - $dia;
     <tr>
 <td width="9">#</td>
       <td width="204"><input name="fv_calculado" type="text" id="fv_calculado" size="15" 
-      value="<?php echo getFechaPatron($data_fecha['fecha_calc'],"d/m/Y");?>"  readonly="readonly" /></td>
+      value="<?php echo getFechaPatron($data_fecha['fecha_calc'],"d/m/Y");?>"  readonly="readonly" />
+        <br />
+        <br /></td>
       <td width="188"><input name="fv_programado" type="text" id="fv_programado" size="15" 
        <?php echo  ($estado == 'anio mayor') ? ' readonly="readonly"' : ''; ?>
        />
         <!--<input type="checkbox" name="chk_estado" id="chk_estado" onclick="cambiarCheck(this)"  />-->
-      <label for="chk_estado"><br />
+      
+        <br />
         <input type="radio" name="tipo_vacacion" value="1" checked="checked" />
         mes[30]
         <input type="radio" name="tipo_vacacion" value="2" />
-        dias[15]     </label></td>
+        dias[15]     </td>
       <td width="71">
       <input type="button" name="btnAprovar" id="btnAprovar" value="Aprobar"
       class "red"

@@ -85,6 +85,7 @@ function validarPeriodo(periodo){
 </script>
 
 
+&lt;
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
@@ -100,20 +101,28 @@ function validarPeriodo(periodo){
 
           <form id="formNewDeclaracion" name="formNewDeclaracion" method="post" action="">
           
-		    <p>RUC:
+		    <label>RUC:</label>
               <label for="ruc"></label>
             <input type="text" name="ruc" id="ruc" 
             value="<?php  echo $data['ruc']; ?>" />
             <br />
-          Nombre/Razon Social:	
+            <br />
+          <label>Nombre/Razon Social:</label>	
           <label for="razon_social"></label>
           <input type="text" name="razon_social" id="razon_social"  
           value="<?php echo $data['razon_social_concatenado']; ?>" />
           <br />
-          Periodo Tributario (mm/aaaa)          
-      <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  />
-		    <input type="button" name="btnValidar"  value="Registrar"  onclick="validarNewDeclaracionPeriodo()"/>
-		    </p>
+          <br />
+          <label>Periodo Tributario:</label>           
+          <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  />
+      (mm/aaaa)		    <br />
+		    <br />
+<input type="button" name="btnValidar"  value="Guardar" 
+class="submit-go" onclick="validarNewDeclaracionPeriodo()"/>
+		    
+            <input type="button"  value="Cancelar" class="submit-cancelar"
+            onclick="cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')" />
+		   
 		    <table id="list">
 	        </table>
         <div id="pager"></div>

@@ -8,6 +8,8 @@ class DiaNoSubsidiado {
     private $cantidad_dia;
     private $cod_tipo_suspen_relacion_laboral;
     private $estado;
+    private $fecha_inicio;
+    private $fecha_fin;
 
     function __construct() {
         $this->id_dia_nosubsidiado = null;
@@ -15,6 +17,8 @@ class DiaNoSubsidiado {
         $this->cantidad_dia = null;
         $this->cod_tipo_suspen_relacion_laboral = null;
         $this->estado = null;
+        $this->fecha_inicio=null;
+        $this->fecha_fin = null;
     }
     
     public function getId_dia_nosubsidiado() {
@@ -56,6 +60,24 @@ class DiaNoSubsidiado {
     public function setEstado($estado) {
         $this->estado = $estado;
     }
+
+    public function getFecha_inicio() {
+        return $this->fecha_inicio;
+    }
+
+    public function setFecha_inicio($fecha_inicio) {
+        $this->fecha_inicio = $fecha_inicio;
+    }
+
+    public function getFecha_fin() {
+        return $this->fecha_fin;
+    }
+
+    public function setFecha_fin($fecha_fin) {
+        $this->fecha_fin = $fecha_fin;
+    }
+
+
 
 
 

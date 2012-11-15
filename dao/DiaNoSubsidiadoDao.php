@@ -38,8 +38,8 @@ class DiaNoSubsidiadoDao extends AbstractDao {
     }
 
     public function registrar($obj) {
-        ECHO "\nENTRO MAS DENTRO insert SINGLETON\n";
-        echo "\n\n";
+        //ECHO "\nENTRO MAS DENTRO insert SINGLETON\n";
+        //echo "\n\n";
         $model = new DiaNoSubsidiado();
         $model = $obj;
         $query = "
@@ -48,8 +48,12 @@ class DiaNoSubsidiadoDao extends AbstractDao {
                      id_trabajador_pdeclaracion,
                      cantidad_dia,
                      cod_tipo_suspen_relacion_laboral,
-                     estado)
+                     estado,
+                     fecha_inicio,
+                     fecha_fin)
         VALUES (
+                ?,
+                ?,
                 ?,
                 ?,
                 ?,
@@ -61,6 +65,8 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         $stm->bindValue(2, $model->getCantidad_dia());
         $stm->bindValue(3, $model->getCod_tipo_suspen_relacion_laboral());
         $stm->bindValue(4, $model->getEstado());
+        $stm->bindValue(5, $model->getFecha_inicio());
+        $stm->bindValue(6, $model->getFecha_fin());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -76,14 +82,18 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         UPDATE dias_nosubsidiados
         SET   
           cantidad_dia = ?,
-          cod_tipo_suspen_relacion_laboral = ?
+          cod_tipo_suspen_relacion_laboral = ?,
+          fecha_inicio=?,
+          fecha_fin=?
         WHERE id_dia_nosubsidiado = ?;  
         ";
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $model->getCantidad_dia());
         $stm->bindValue(2, $model->getCod_tipo_suspen_relacion_laboral());
-        $stm->bindValue(3, $model->getId_dia_nosubsidiado());
+        $stm->bindValue(3, $model->getFecha_inicio());
+        $stm->bindValue(4, $model->getFecha_fin());
+        $stm->bindValue(5, $model->getId_dia_nosubsidiado());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -116,6 +126,8 @@ class DiaNoSubsidiadoDao extends AbstractDao {
           id_trabajador_pdeclaracion,
           cantidad_dia,
           cod_tipo_suspen_relacion_laboral,
+          fecha_inicio,
+          fecha_fin,
           estado
         FROM dias_nosubsidiados
         WHERE id_trabajador_pdeclaracion = ?         

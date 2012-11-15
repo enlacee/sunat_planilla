@@ -166,54 +166,41 @@ class PersonaDao extends AbstractDao {
         INNER JOIN empleadores_maestros AS em
         ON p.id_empleador = em.id_empleador
 
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona
-
-        INNER JOIN situaciones AS s
-        ON t.cod_situacion = s.cod_situacion
-
-        WHERE em.id_empleador_maestro = ?
-        AND t.cod_situacion = ?
-            -- $WHERE ";
+        WHERE em.id_empleador_maestro = ?        
+        $WHERE ";
 
         try {
-
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
-            $stm->bindValue(2,$estado);
+            //$stm->bindValue(2,$estado);
 
             $stm->execute();
-
             $lista = $stm->fetchAll();
-
             return $lista[0]["numfilas"];
-
             $stm = null;
         } catch (Exception $e) {
 
             throw $e;
         }
     }
-
+//MOD 06/10/2012
     public function listarPersonas($estado, $ID_EMPLEADOR_MAESTRO, $WHERE, $start, $limit, $sidx, $sord) {
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+        
         $query = "
 	SELECT 
-		p.id_persona,
-                t.id_trabajador,
+		p.id_persona,                
 		td.descripcion_abreviada AS nombre_tipo_documento,
 		p.num_documento,
 		p.apellido_paterno,
 		p.apellido_materno,
-		p.nombres,
-		p.fecha_nacimiento,
-		p.sexo,
-		t.cod_situacion,
-		s.descripcion_abreviada AS estado,
-		
-		IF (p.tabla_trabajador = 1,'TRA','0') AS categoria_1,
-		IF (p.tabla_pensionista = 1,'PEN','0') AS categoria_2,
-		IF (p.tabla_personal_formacion_laboral = 1,'PFOR','0') AS categoria_3,
-		IF (p.tabla_personal_terceros = 1,'PTER','0') AS categoria_4	
+		p.nombres,		
+		p.sexo	
 		
         FROM personas AS p        
         INNER JOIN tipos_documentos AS td
@@ -221,26 +208,16 @@ class PersonaDao extends AbstractDao {
 
         INNER JOIN empleadores_maestros AS em
         ON p.id_empleador = em.id_empleador
-
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona
-        
-        INNER JOIN situaciones AS s
-        ON t.cod_situacion = s.cod_situacion
-        
+       
         WHERE em.id_empleador_maestro = ?
-        AND t.cod_situacion = ?
-        
-       -- WHERE p.estado='ACTIVO'
-        
-        $WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit
+        $cadena         
         ";
 
         try {
 
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
-            $stm->bindValue(2,$estado);
+            //$stm->bindValue(2,$estado);
             $stm->execute();
             $lista = $stm->fetchAll();
 
@@ -446,6 +423,50 @@ class PersonaDao extends AbstractDao {
         $lista = $stm->fetchAll();
         return $lista;
     }
+    
+    
+    // new 09/10/2012
+   public function listarPersonaConPeriodoLaboral($id_empleador_maestro,$id_persona){
+        
+        $query = "
+        SELECT  dpl.id_detalle_periodo_laboral,
+		p.id_persona,
+                t.id_trabajador,
+		t.cod_situacion,
+		s.descripcion_abreviada,
+		dpl.fecha_inicio,
+		dpl.fecha_fin,
+		dpl.cod_motivo_baja_registro
+			
+        FROM personas AS p
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona 
+        -- periodo laboral
+	INNER JOIN detalle_periodos_laborales AS  dpl
+	ON p.id_persona = dpl.id_persona	
+        
+        INNER JOIN situaciones AS s
+        ON t.cod_situacion = s.cod_situacion  
+             
+        WHERE em.id_empleador_maestro = ?    
+        AND p.id_persona = ? 
+
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $id_persona);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        return $lista; 
+        
+        
+        
+    }
+    
+    
+    
 
 }
 

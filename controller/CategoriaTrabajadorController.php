@@ -10,7 +10,8 @@ if ($op) {
     require_once '../util/funciones.php';
     require_once '../dao/AbstractDao.php';
     require_once '../dao/EmpleadorDao.php';
-
+    
+    /*
     // Categoria Trabajador
     require_once '../model/Trabajador.php';
     require_once '../dao/TrabajadorDao.php';
@@ -34,6 +35,65 @@ if ($op) {
     // -- 01 -- Detalle Regimenes Pensionario
     require_once '../model/DetalleRegimenPensionario.php';
     require_once '../dao/DetalleRegimenPensionarioDao.php';
+    */
+    
+    //Categoria Trabajador
+    require_once '../model/Trabajador.php';
+    require_once '../dao/TrabajadorDao.php';
+    //sub 01
+    require_once '../model/DetallePeriodoLaboral.php';
+    require_once '../dao/DetallePeriodoLaboralDao.php';
+    //sub 02
+    require_once '../model/DetalleTipoTrabajador.php';
+    require_once '../dao/DetalleTipoTrabajadorDao.php';
+    //sub 03
+    require_once '../model/DetalleEstablecimiento.php';
+    require_once '../dao/DetalleEstablecimientoDao.php';
+    //sub 04
+    require_once '../model/DetalleRegimenSalud.php';
+    require_once '../dao/DetalleRegimenSaludDao.php';
+    //sub 05
+    require_once '../model/DetalleRegimenPensionario.php';
+    require_once '../dao/DetalleRegimenPensionarioDao.php';
+
+    //Categoria Pensionista ----------------------------------------------------
+    require_once '../model/Pensionista.php';
+    require_once '../dao/PensionistaDao.php';
+    // require_once '../controller/CategoriaPensionistaControlller.php';
+    //dub 01
+    require_once '../model/DetallePeriodoLaboral.php';
+    require_once '../model/DetallePeriodoLaboralPensionista.php';
+    require_once '../dao/DetallePeriodoLaboralPensionistaDao.php';
+
+    //Categoria Personal en  Formacion Laboral --------------------------------------
+    require_once '../model/PersonaFormacionLaboral.php';
+    require_once '../dao/PersonaFormacionLaboralDao.php';
+    //require_once '../controller/CategoriaPFormacionController.php';
+    //establecimiento de formacion
+    require_once '../model/DetalleEstablecimientoFormacion.php';
+    require_once '../dao/DetalleEstablecimientoFormacionDao.php';
+    //periodo laboral 
+    require_once '../model/DetallePeriodoFormativo.php';
+    require_once '../dao/DetallePeriodoFormativoDao.php';
+
+    //---- Categoria Persona de Terceros --------------------------------------
+    require_once '../model/personaTercero.php';
+    require_once '../dao/PersonaTerceroDao.php';
+
+    //sub 01 
+    require_once '../model/PeriodoDestaque.php';
+    require_once '../dao/PeriodoDestaqueDao.php';
+
+    //sub 02
+    require_once '../model/LugarDestaque.php';
+    require_once '../dao/LugarDestaqueDao.php';
+
+    //sub 03
+    require_once '../model/CoberturaSalud.php';
+    require_once '../dao/CoberturaSaludDao.php';
+
+    
+    
 
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
@@ -47,9 +107,9 @@ $responce = NULL;
 if ($op == "cargar_tabla_trabajador") {
     $ESTADO = $_REQUEST['estado'];
     //echo $ESTADO;
-    $responce = cargar_tabla_trabajador($ESTADO); /*     * *** DATOS ARRAY guardados AKIIIIIIII ** */
+    $responce = cargar_tabla_trabajador($ESTADO);
 } elseif ($op == "add") {
-    //$responce = nuevoTrabajador();
+    $responce = nuevoTrabajador();
 } elseif ($op == "edit") {
 
     $responce = editarTrabajador();
@@ -66,8 +126,9 @@ if ($op == "cargar_tabla_trabajador") {
         $responce = listarEstablecimientoLocalesPorEmpleadorVinculado($id_empleador);
     }
     //$responce = ListarEstablecimientoLocalPorEmpleador();
-} else {
-    //echo "variable OPER no esta CT definido";
+} else if($op == "cargar_tabla"){
+    $responce  = cargar_tabla_grid();
+    
 }
 
 
@@ -247,7 +308,7 @@ function editarTrabajador() {
 
     //DAO
     $dao_tra = new TrabajadorDao();
-    $dao_rc = new RegistroPorConceptoDao();
+    //$dao_rc = new RegistroPorConceptoDao();
 
     // echo "\ncbo_tipo_pago = " . $_REQUEST['cbo_tipo_pago'];
     // datos ORDEN FORM
@@ -344,26 +405,26 @@ function editarTrabajador() {
     //
     $tra->setPercibe_renta_5ta_exonerada($_REQUEST['rbtn_percibe_renta_5ta_exoneradas']);
     $tra->setAplicar_convenio_doble_inposicion($_REQUEST['rbtn_aplica_convenio_doble_inposicion']);
+    $tra->setCod_situacion(1);
 
     //-----------------------------------------	
     //CAMBIAR CODIGO SITUACION
-    $contador = false;
     if (isset($detalle_1)) {
         if ($detalle_1->getFecha_inicio() != "") {
             if ($detalle_1->getFecha_fin() != "") {
                 if ($detalle_1->getCod_motivo_baja_registro() != '0') {
                     $detalle_2->setFecha_fin($detalle_1->getFecha_fin());
                     $detalle_4->setFecha_fin($detalle_1->getFecha_fin());
-                    $detalle_5->setFecha_fin($detalle_1->getFecha_fin());
-                    $contador = true;
+                    $detalle_5->setFecha_fin($detalle_1->getFecha_fin());  
+                    //ECHO "\nentroooooooooooooooooo COD SITUACION = 0";
+                    $tra->setCod_situacion(0);
+                    //$contador = true;
                 }
             }
         }
     }   //END FOR
 
- 
-
-	//DAO trabajador
+    //DAO trabajador
     $dao_tra->actualizarTrabajador($tra);
 
     //-----------------------------------------
@@ -398,15 +459,11 @@ function editarTrabajador() {
     return true;
 }
 
-function buscarTrabajadorPorIdPersona($id_persona,$id_trabajador) {
+//funcion POSIBLE ELIMINADO !
+function buscarTrabajadorPorIdPersona($id_persona,$id_trabajador) { 
     $dao = new TrabajadorDao();
-    /* buscaTrabajadorPorIdPersona */
     $data = $dao->buscaTrabajadorPorIdPersona($id_persona,$id_trabajador);
-    //echo "CONTROLLER DAO";
-    /*echo "<pre>";
-    print_r($data);
-    echo "</pre>";
-    */
+
     $model = new Trabajador();
     $model->setId_trabajador($data['id_trabajador']);
     $model->setId_persona($data['id_persona']);
@@ -434,9 +491,7 @@ function buscarTrabajadorPorIdPersona($id_persona,$id_trabajador) {
     $model->setEstado($data['estado']);
     $model->setCod_situacion($data['cod_situacion']);
     $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
-
 	//var_dump($model);
-
     return $model;
 }
 
@@ -472,7 +527,6 @@ function cargar_tabla_trabajador($ESTADO) {
 
     $count = $dao_trabajador->cantidadTrabajador(ID_EMPLEADOR_MAESTRO, $ESTADO, $WHERE);
 
-    // $count = $count['numfilas'];
     if ($count > 0) {
         $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
     } else {
@@ -503,7 +557,7 @@ function cargar_tabla_trabajador($ESTADO) {
 
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
-        return $responce;  /* break; */
+        return $responce; 
     }
 //print_r($lista);
 
@@ -611,6 +665,7 @@ function buscar_IDTrabajador($id_trabajador) {
     $model->setAplicar_convenio_doble_inposicion($data['aplicar_convenio_doble_inposicion']);
     $model->setCod_convenio($data['cod_convenio']);
     $model->setCod_situacion($data['cod_situacion']);
+    $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
 
     // $model->setCod_tipo_pago($data['cod_tipo_pago']);
     // $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
@@ -622,18 +677,22 @@ function buscar_IDTrabajador($id_trabajador) {
 
 
 // REGISTRAR NUEVO:: utilizado en PersonaController
-function nuevoTrabajador($ID_PERSONA) {
+function nuevoTrabajador() {
 //---------------------------------------------------------------------------------
-//------------------ INICIO Registrar TRABAJADOR  ---------------------------------   
-
-    $obj = new Trabajador();
-    $obj->setId_persona($ID_PERSONA);
-    // $obj->setEstado('INACTIVO');
-    $obj->setCod_convenio(0);
-    $obj->setCod_situacion(1);
+//------------------ INICIO Registrar TRABAJADOR  --------------------------------- 
+    //echo "\n nuevoTrabajador ".__FILE__;
+    //echoo($_REQUEST);
+    
+    $ID_PERSONA = $_REQUEST['id_persona'];
+    
+    $obj_tra = new Trabajador();
+    $obj_tra->setId_persona($ID_PERSONA);
+    // $obj_tra->setEstado('INACTIVO');
+    $obj_tra->setCod_convenio(0);
+    $obj_tra->setCod_situacion(1);
 
     $dao = new TrabajadorDao();
-    $ID_TRA = $dao->registrarTrabajador($obj);
+    $ID_TRA = $dao->registrarTrabajador($obj_tra);
 
     //--- sub (1) Periodo Laboral    
     $obj1 = new DetallePeriodoLaboral();
@@ -690,8 +749,8 @@ function nuevoTrabajador($ID_PERSONA) {
     $obj->setCod_situacion(1); //activo    
     $obj->setEstado('INACTIVO');
 
-    $dao = new PensionistaDao();
-    $ID_PENSIONISTA = $dao->registrar($obj);
+    $dao_pen = new PensionistaDao();
+    $ID_PENSIONISTA = $dao_pen->registrar($obj);
 
     // ---- sub (periodo) laboral Pensionista
     $obj = new DetallePeriodoLaboralPensionista();
@@ -731,8 +790,6 @@ function nuevoTrabajador($ID_PERSONA) {
     $dao = new DetallePeriodoFormativoDao();
     $dao->registrar($obj);
 
-
-
 //------------------------------------------------------------------------------
 //------------------ INICIO Registrar CATEGORIA Personal de Teceros  OK---------
 //      
@@ -770,12 +827,134 @@ function nuevoTrabajador($ID_PERSONA) {
     $daoc = new CoberturaSaludDao();
     $daoc->registrar($objc);
 
-
-
 //---------------------------------------------------------------------------------
 //------------------ FINAL Registrar TRABAJADOR  ---------------------------------
 
     return $ID_TRA;
+    
 }
+
+// grid = que personal
+function cargar_tabla_grid() {
+    $ESTADO = ($_REQUEST['estado']) ? $_REQUEST['estado'] : 0;
+    //$ESTADO = ($_REQUEST['estado'] == 1) ? $_REQUEST['estado'] : null;
+    $dao_persona = new TrabajadorDao();
+
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; 
+    $sord = $_GET['sord'];
+
+    $WHERE = "";
+
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $count = $dao_persona->cantidadTrabajador_grid(ID_EMPLEADOR_MAESTRO, $ESTADO, $WHERE);
+
+    // $count = $count['numfilas'];
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; // do not put $limit*($page - 1)
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+    //llena en al array
+    $lista = array();
+
+    //$dao_persona->actualizarStock();
+
+    $lista = $dao_persona->listarTrabajador_grid(ID_EMPLEADOR_MAESTRO,$ESTADO, $WHERE, $start, $limit, $sidx, $sord);
+
+// CONTRUYENDO un JSON
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+    $i = 0;
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return $response;
+    }
+
+    foreach ($lista as $rec) {
+
+        $param = $rec["id_persona"];
+        $_01 = $rec['id_trabajador'];  
+
+        $_02 = $rec["nombre_tipo_documento"];
+        $_03 = $rec["num_documento"];
+        $_04 = $rec["apellido_paterno"];
+        $_05 = $rec["apellido_materno"];
+        $_06 = $rec["nombres"];
+        $_08 = $rec["sexo"];
+        $_09 = $rec['cod_situacion'];//($rec['cod_situacion'] == 1) ? 'ACTIVO' : $rec['cod_situacion'];
+
+
+        $js = "javascript:cargar_pagina('sunat_planilla/view/edit_ptrabajador.php?id_persona=".$param."&id_trabajador=" . $_01 . "&cod_situacion=" . $_09 . "','#CapaContenedorFormulario')";
+        $js2 = "javascript:eliminarPersona('" . $param . "')";
+
+        if ($_09 == 1) {
+            $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar" >
+		<a href="' . $js . '"><img src="images/edit.png"/></a>
+		</span>
+		</div>';
+        } else {
+            $opciones = '<div id="divEliminar_Editar">				
+		<span  title="Editar" >
+		<a href="' . $js . '"><img src="images/edit.png"/></a>
+		</span>
+                </div>';
+        }
+
+        //hereee
+
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $_06,
+            $_08,
+            $_09,
+            $opciones,
+            $new
+        );
+
+        $i++;
+    }
+
+    return $response;
+}
+
 
 ?>

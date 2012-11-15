@@ -77,8 +77,24 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 				
 
 	});
-	 
 	
+	//05
+	$('#reporte_exel_afp').click(function(){
+		console.log("reporte exel true");
+		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
+		url +="?oper=reporte_exel_afp&id_pdeclaracion="+ID_DECLARACION
+
+		window.location.href = url;
+	});
+	
+	//06
+	$('#reporte_afp').click(function(){
+		console.log("reporte afp txt");
+		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
+		url +="?oper=reporte_afp&id_pdeclaracion="+ID_DECLARACION
+		console.log(url);
+		window.location.href = url;
+	});	
 	
 	
 	
@@ -177,7 +193,9 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 <input type="button" name="reporte30_mas" id="reporte30_mas" value="Mas op" />
 <input type="button" name="reporte_plame" id="reporte_plame" value="PDT PLAME"  />
 <span  id="break" style="padding:0 10px; margin:0 2px; background-color:#FCF"></span>
-<input type="submit" name="reporte_emp_01" id="reporte_emp_01" value="|planilla unica pagos|" />
+<input type="button" name="reporte_emp_01" id="reporte_emp_01" value="|planilla unica pagos|" />
+<input type="button" name="reporte_exel_afp" id="reporte_exel_afp" value="Reporte Exel AFP" />
+<input type="button" name="reporte_afp" id="reporte_afp" value="AFP OP" />
 <table id="list">
 </table>
 <div id="pager">

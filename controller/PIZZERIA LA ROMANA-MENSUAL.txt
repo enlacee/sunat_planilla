@@ -12,7 +12,7 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    460.00   _______________
+  1 07951545    CHIPANA FLORES ELENA                    477.00   _______________
 
   2 10389776    ZAMORA MEGO MELQUIADES                  488.00   _______________
 
@@ -21,11 +21,30 @@ CENTRO DE COSTO : VENTAS
   4 09886536    ZAMORA MEGO OLEGARIO                    488.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            1,930.00
+TOTAL VENTAS                                            1,947.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          0
+                                    MENSUAL                                     
+                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+
+LOCALIDAD : SAN ISIDRO
+
+CENTRO DE COSTO : ADMINISTRACION - GERENCIA
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 09716287    FERNANDEZ MERINO CARMEN IMELDA          1,265.00 _______________
+
+--------------------------------------------------------------------------------
+TOTAL ADMINISTRACION - GERENCIA                         1,265.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  10/10/2012
+                                                             PAGINA :          1
                                     MENSUAL                                     
                       PLANILLA DEL MES DE OCTUBRE DEL 2012                      
 
@@ -44,7 +63,7 @@ TOTAL ADMINISTRACION - CAJA                             805.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          1
+                                                             PAGINA :          0
                                     MENSUAL                                     
                       PLANILLA DEL MES DE OCTUBRE DEL 2012                      
 
@@ -58,8 +77,22 @@ CENTRO DE COSTO : VENTAS
 
   1 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         492.00   _______________
 
+  2 25565139    HERNANDEZ ROMAN CARLOS                  446.00   _______________
+
+  3 07448164    CASANOVA RAMIREZ MARIA LUISA            493.00   _______________
+
+  4 09738210    ALIAGA COTRINA HILDEBRANDO              494.00   _______________
+
+  5 07950684    BERNAL ZURITA SONIA MAGDALENA           492.00   _______________
+
+  6 07966569    CUPE FLORES ALFONSO                     488.00   _______________
+
+  7 08305295    DIAZ HURTADO ROSARIO OSVALDO            492.00   _______________
+
+  8 07627656    HERRERA ROJAS MARIBEL ALBINA            492.00   _______________
+
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            492.00
+TOTAL VENTAS                                            3,889.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -96,12 +129,14 @@ CENTRO DE COSTO : VENTAS
 
   1 08438708    ESPINOZA FARFAN LUIS ALBERTO            488.00   _______________
 
+  2 08510319    CHAVEZ PALACIOS ANTONIO                 492.00   _______________
+
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            488.00
+TOTAL VENTAS                                            980.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          0
+                                                             PAGINA :          1
                                     MENSUAL                                     
                       PLANILLA DEL MES DE OCTUBRE DEL 2012                      
 
@@ -117,6 +152,25 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
 
 --------------------------------------------------------------------------------
 TOTAL ADMINISTRACION - CAJA                             1,073.00
+--------------------------------------------------------------------------------
+
+CAMUENTE S.A.                                                FECHA :  10/10/2012
+                                                             PAGINA :          0
+                                    MENSUAL                                     
+                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+
+LOCALIDAD : SAN BORJA
+
+CENTRO DE COSTO : PRODUCCION
+
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
+
+  1 10731895    GARGATE LOPEZ BENJAMIN                  864.00   _______________
+
+--------------------------------------------------------------------------------
+TOTAL PRODUCCION                                        864.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012

@@ -5,7 +5,7 @@
  * 	para tener las varibales defaul bajo control	
  *
  */
-
+require_once '../../util/funciones.php';
 require_once '../../dao/AbstractDao.php';
 require_once '../../dao/ComboCategoriaDao.php';
 require_once '../../controller/ComboCategoriaController.php';
@@ -20,11 +20,11 @@ $suspencion2 = comboSuspensionLaboral_2();
 $id_pago = $_REQUEST['id_tpd'];
 //DATOS
 $data = buscarDiaNoSPor_IdTrabajadorPdeclaracion($id_pago);
-/*
-echo "<pre>";
-print_r($data);
-echo "</pre>";
-*/
+
+
+
+//echoo($data);
+
 
 
 ?>
@@ -32,8 +32,45 @@ echo "</pre>";
 
 
 <script type="text/javascript">
+
+//FUNCION INICIO
+//calcDiaSubsidiado();  
+$(document).ready(function(){
+//Obteniendo periodo:
+	var periodo = $("#txt_periodo_tributario").val();
+	var new_periodo;
+	var arreglo;
+	var data_mes;
+
+	periodo = periodo.replace("/","-");  	//var arreglo = periodo.split("/");
+	new_periodo = '01-'+periodo;
+	
+	arreglo = new_periodo.split("-");	
+	data_mes = new Date( parseInt(arreglo[2]),parseInt(arreglo[1])-1,parseInt(arreglo[0]) );	
+		 $( ".f_inicio, .f_fin" ).datepicker({
+			changeMonth: true,
+			changeYear: true, 
+		 	firstDay:0,
+			dateFormat: 'dd/mm/yy',
+			//dateFormat: 'DD MM yy',			
+			numberOfMonths: 1,
+			minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDay()),
+			maxDate: new Date(data_mes.getFullYear(),data_mes.getMonth()+1,0),
+			//showOn: 'both',
+			//buttonText: 'Selecciona una fecha',
+			//buttonImageOnly:true,
+			//buttonImage: 'images/calendar.gif',
+		 
+		 });
+});
+
+
 //--
 calcDiaNoSubsidiado();
+
+
+
+
 </script>
 
 
@@ -47,11 +84,15 @@ calcDiaNoSubsidiado();
     <input type="text" name="id_pago" id="" value="<?php echo $id_pago; ?>" />
   </div>
 
-<table width="394" border="1" id="tb_dnolaborado" class="tabla_gris">
+<table width="443" border="1" id="tb_dnolaborado" class="tabla_gris">
       <tr>
-            <td width="217">tipo desuspens&oacute;n</td>
-            <td width="81">cantidad de dias</td>
-<td width="74">Eliminar</td>
+            <td width="170">tipo desuspens&oacute;n</td>
+            <td width="65">cantidad de dias</td>
+            <td width="71">fecha inicio</td>
+            <td width="55">fecha fin</td>
+            <td width="48">Eliminar</td>
+
+
         </tr>
 
 
@@ -77,7 +118,7 @@ calcDiaNoSubsidiado();
                 
                 
           <select name="cbo_dns_tipo_suspension[]" id="cbo_dns_tipo_suspension-<?php echo $ID; ?>" style="width:150px;" onchange=""
-<?php  echo ($data[$i]->getEstado() == '1' ) ? ' disabled="disabled"' : '';?> 
+<?php  //echo ($data[$i]->getEstado() == '1' ) ? ' disabled="disabled"' : '';?> 
  > 
                     <?php
                     foreach ($suspencion2 as $indice) {
@@ -93,21 +134,30 @@ calcDiaNoSubsidiado();
                     echo $html;
                     }
                     ?>
-                </select>            </td>
+                </select>           </td>
             <td>
                 <input name="dns_cantidad_dia[]" id="dns_cantidad_dia-<?php echo $ID; ?>" size="7" type="text"
 <?php  echo ($data[$i]->getEstado() == '1' ) ? ' readonly="readonly"' : '';?>                 
                 
                 value="<?php echo $data[$i]->getCantidad_dia();?>"/>            </td>
-<td>
-<td>
-<?php if($data[$i]->getEstado() != '1' ): ?>
-<span title="editar">
-<a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
-<img src="images/cancelar.png"/></a>
-</span>
-<?php endif; ?>
-
+            <td>
+<input type="text" name="dns_finicio[]" id="dns_finicio-<?php echo $ID; ?>" class="f_inicio" 
+value="<?php echo getFechaPatron($data[$i]->getFecha_inicio(),"d/m/Y");?> " size="11" >
+            </td>
+            
+            
+            <td>
+<input type="text" name="dns_fin[]" id="dns_fin-<?php echo $ID; ?>" class="f_fin" 
+size="11" value="<?php echo getFechaPatron($data[$i]->getFecha_fin(),"d/m/Y");?>" >
+            </td>
+          <td>
+            <?php if($data[$i]->getEstado() != '1' ): ?>
+            <span title="editar">
+            <a href="javascript:eliminar_dns_0('dia_nosubsidiado-<?php echo $ID; ?>',<?php echo $data[$i]->getId_dia_nosubsidiado(); ?>)">
+            <img src="images/cancelar.png"/></a>
+            </span>
+            <?php endif; ?>
+              
 </td>
         </tr>
          

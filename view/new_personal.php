@@ -68,20 +68,27 @@ function validarFormNewPersonalPrincipal(obj){
 			$.getJSON('sunat_planilla/controller/PersonaController.php?'+from_data,
 				function(data){
 				//funcion.js index.php
-					//alert(data);
-					
-					if(data){
+					console.log(data);
 
-					//alert(data);
-					//console.log(data);									
+					
+					if(data.rpta == true){
+
+					console.log("data.rpta  = true");
 					disableForm('form_new_personal');
+
 					$("#DIV_GRID_DIRECCION").show();
-					alert ('Se Guardo Correctamente.\nAhora registre su Direccion');
-					cargarTablaPersonalDireccion(data);	
-					}else{
-						alert("El Num de Documento:"+$("#txt_num_documento").val()+"Ya se encuentra registrado!\n no se puede registrar nuevamente");
-						//alert("Ocurrio un error, intente nuevamente no hay datos JSON");
+
+					alert(data.mensaje+"\nAhora registre su direccion");
+					
+					cargarTablaPersonalDireccion(data.id);	
+
+					
+					}else if(data.rpta == false){
+						console.log("data.rpta  = false");
+						alert(data.mensaje);
+
 					}
+
 				}); 
 		//-----------------------------------------------------------------------
 			
@@ -306,7 +313,9 @@ foreach ($cbo_tipo_documento as $indice) {
                   </div>
                   <div class="fila_input" >
                     <label>Numero Documento </label>
-                    <input name="txt_num_documento" type="text" id="txt_num_documento" value="<?php echo $_REQUEST['num_documento']; ?>" >
+                    <input name="txt_num_documento" type="text" id="txt_num_documento" 
+                    onkeydown="soloNumeros(event)"
+                    value="<?php echo $_REQUEST['num_documento']; ?>" >
                     <label for="id_persona_existe"></label>
                   </div>
                   <div class="fila_input">
@@ -417,7 +426,8 @@ foreach ($cbo_telefono_codigo_nacional as $indice) {
 ?>
                       
                       </select>                        
-                    <input name="txt_telefono" type="text" id="txt_telefono">
+                    <input name="txt_telefono" type="text" id="txt_telefono" 
+                    onkeydown="soloNumeros(event)" />
                     
                     </div>
                   

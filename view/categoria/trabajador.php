@@ -60,7 +60,8 @@ $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 // ---- Busqueda Trabajador
 $objTRA = new Trabajador();
 //-- funcion Controlador Trabajador
-$objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA,$ID_TRABAJADOR);
+//$objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA,$ID_TRABAJADOR);
+$objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
 
 
 //--- sub 1 Periodo Laboral
@@ -1344,7 +1345,7 @@ foreach ($combo_convenio  as $indice) {
           
           <input type="button" name="Button" id="button" 
           class="submit-cancelar" value="Cancelar"
-          onclick="cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')"
+          onclick="cargar_pagina('sunat_planilla/view/view_ptrabajador.php','#CapaContenedorFormulario')"
            />
       </p>   
         

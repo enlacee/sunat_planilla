@@ -173,18 +173,25 @@ for ($i = 0; $i < $counteo; $i++):
 
         var input_cdia = '<input name="ds_cantidad_dia[]" type="text" id="ds_cantidad_dia-'+COD_DETALLE_CONCEPTO+'" size="7"  onblur="calcDiaSubsidiado()"/>';
         //-----input Descripcion
-        var span1;
-        var span2;
-
+        var span1,span2,finicio,ffin;
+        
 
         var finSpan = '</span>';
+
+        finicio = '<span title="Fecha Inicio">';
+        finicio +="<input type='text' onblur='' size='11' class = 'f_inicio' id='ds_finicio-"+COD_DETALLE_CONCEPTO+"' name='ds_finicio[]'>";
+        finicio += finSpan;
+
+        ffin = '<span>';
+        ffin +="<input type='text' onblur='' size='11' class = 'f_fin' id='ds_ffin-"+COD_DETALLE_CONCEPTO+"' name='ds_ffin[]'>";
+        ffin += finSpan;
 
         span1 = '<span title="editar">';
         span1 +="<a href=\"javascript:editar_ds('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
         span1 += finSpan;
 
         //html +='    <a href="javascript:eliminarElemento( document.getElementById( \'plaboral-row-'+id+'\' ) )" > delete </a>';
-        span2 = '<span title="editar">';
+        span2 = '<span title="Eliminar">';
         span2 +="<a href=\"javascript:eliminar_ds_0( 'dia_subsidiado-"+COD_DETALLE_CONCEPTO+"' )\"><img src=\"images/cancelar.png\"></a>";
         span2 += finSpan;
 
@@ -210,6 +217,16 @@ for ($i = 0; $i < $counteo; $i++):
         html +='<td>';	
         html += input_cdia;
         html += cerrarTD;
+
+        html +='<td>';  
+        html += finicio;
+        html += cerrarTD;        
+
+        html +='<td>';  
+        html += ffin;
+        html += cerrarTD;     
+
+
 /*
         html +='<td>';	
         html += span1;
@@ -491,13 +508,21 @@ for ($i = 0; $i < $counteo; $i++):
 
                 var input_cdia = '<input name="dns_cantidad_dia[]" type="text" id="dns_cantidad_dia-'+COD_DETALLE_CONCEPTO+'" size="7" onblur="calcDiaNoSubsidiado()" />';
                 //-----input Descripcion
-                var span1;
-                var span2;
-
+                var span1,span2,finicio,ffin;
+    
 
                 var finSpan = '</span>';
 
-                span1 = '<span title="editar">';
+                finicio = '<span>';
+                finicio +="<input type='text' size='11' class = 'f_inicio' id='dns_finicio-"+COD_DETALLE_CONCEPTO+"' name='dns_finicio[]'>";
+                finicio += finSpan;
+
+                ffin = '<span>';
+                ffin +="<input type='text' size='11' class = 'f_fin' id='dns_ffin-"+COD_DETALLE_CONCEPTO+"' name='dns_ffin[]'>";
+                ffin += finSpan;
+
+
+                span1 = '<span>';
                 span1 +="<a href=\"javascript:editar_dns_0('"+COD_DETALLE_CONCEPTO+"')\"><img src=\"images/edit.png\"></a>";
                 span1 += finSpan;
 
@@ -528,6 +553,16 @@ for ($i = 0; $i < $counteo; $i++):
                 html +='<td>';	
                 html += input_cdia;
                 html += cerrarTD;
+
+                html +='<td>';  
+                html += finicio;
+                html += cerrarTD;
+
+                html +='<td>';  
+                html += ffin;
+                html += cerrarTD;                
+
+
 /*
                 html +='<td>';	
                 html += span1;
@@ -706,7 +741,7 @@ function grabarDiaNoSubsidiado(){
 			
 			document.getElementById('dia_nosubsidiado').value = num_dia_nosubsidiado;
 			document.getElementById('dia_laborado').value = dia_laborado;//dia_laborado - num_dia_subsidiado;				
-			alert("SESSION = La informacion se Guardo\nCorrectamente.");	
+			alert("Se Guardo\nCorrectamente.");	
         //-----
         var data = $("#formDiaNoSubsidiado").serialize();
         $.ajax({

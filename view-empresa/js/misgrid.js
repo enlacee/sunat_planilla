@@ -1570,7 +1570,7 @@ function crearDialogoDiaNoLaborado(){
            
 			autoOpen: false,
 			height: 250,
-			width: 490,
+			width: 530,
 			modal: true,
 			title: "Dias no laborados y no Subsidiados" 
 			/*                      

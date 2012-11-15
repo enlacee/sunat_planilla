@@ -24,12 +24,16 @@ echo (!empty($response)) ? json_encode($response) : '';
 
 function dualDiaSubsidiado() {
     // nuevo o Actualizar
+    echoo($_REQUEST);
+    
     $id_pago = $_REQUEST['id_pago']; //id_pjoranada_laboral
 
     $id_dia_subsidiado = $_REQUEST['pdia_subsidiado'];
     $estado = $_REQUEST['estado'];
     $ds_cantidad_dia = $_REQUEST['ds_cantidad_dia'];
     $cbo_ds_tipo_suspension = $_REQUEST['cbo_ds_tipo_suspension'];
+    $ds_finicio = $_REQUEST['ds_finicio'];
+    $ds_ffin = $_REQUEST['ds_ffin'];
     //update
     $txt_txt_cbo_ds_tipo_suspension = $_REQUEST['txt_cbo_ds_tipo_suspension'];
 
@@ -45,10 +49,9 @@ function dualDiaSubsidiado() {
             $model->setId_trabajador_pdeclaracion($id_pago);
             $model->setCantidad_dia($ds_cantidad_dia[$i]);
             $model->setCod_tipo_suspen_relacion_laboral($cbo_ds_tipo_suspension[$i]);
+            $model->setFecha_inicio(getFechaPatron($ds_finicio[$i],"Y-m-d"));
+            $model->setFecha_fin(getFechaPatron($ds_ffin[$i],"Y-m-d"));
             
-            //echo "<pre>";
-            //print_r($model);
-            //echo "</pre>";
             //DAO
             $dao->registrar($model);
         } else { //Actualizar 
@@ -57,6 +60,8 @@ function dualDiaSubsidiado() {
             $model->setId_dia_subsidiado($id_dia_subsidiado[$i]);
             $model->setCod_tipo_suspen_relacion_laboral($txt_txt_cbo_ds_tipo_suspension[$i]);
             $model->setCantidad_dia($ds_cantidad_dia[$i]);
+            $model->setFecha_inicio(getFechaPatron($ds_finicio[$i],"Y-m-d"));
+            $model->setFecha_fin(getFechaPatron($ds_ffin[$i],"Y-m-d"));
 
             $dao->actualizar($model);
         }
@@ -77,7 +82,9 @@ function buscarDiaSPor_IdTrabajadorPdeclaracion($id){
         $model->setId_trabajador_pdeclaracion($data[$i]['id_trabajador_pdeclaracion']);
         $model->setCantidad_dia($data[$i]['cantidad_dia']);
         $model->setCod_tipo_suspen_relacion_laboral($data[$i]['cod_tipo_suspen_relacion_laboral']);
-        $model->SetEstado($data[$i]['estado']);
+        $model->setFecha_inicio($data[$i]['fecha_inicio']);
+        $model->setFecha_fin($data[$i]['fecha_fin']);
+        //$model->SetEstado($data[$i]['estado']);
                 
         $arreglo[] =$model;         
     }    

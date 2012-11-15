@@ -1,9 +1,6 @@
 <?php
 
-
 function generarConfiguracion($periodo) {
-
-
 //--- SUELDO BASE = SB
     $dao_1 = new ConfSueldoBasicoDao();
     $SB = $dao_1->vigenteAux($periodo);
@@ -29,22 +26,17 @@ function generarConfiguracion($periodo) {
     $SNP_MAS = 5.00;
     /*
       echo "\n8888888888888888888888888888888888888888888888\n";
-
       echo "\nSB =".$SB;
       echo "\nT_AF =".$T_AF;
       echo "\nT_ESSALUD =".$T_ESSALUD;
       echo "\nT_ONP =".$T_ONP;
       echo "\nUIT =".$UIT;
-
       echo "\n8888888888888888888888888888888888888888888888\n";
      */
-
-
     // DEFINE
     if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || is_null($UIT)) {
         //header($string, $replace)
         //header('Location: www.google.com');
-
         $SB = 0;
         $T_AF = 0;
         $T_ESSALUD = 0;
@@ -62,7 +54,6 @@ function generarConfiguracion($periodo) {
 
         define('ESSALUD_MAS', $ESSALUD_MAS);
         define('SNP_MAS', $SNP_MAS);
-
         return true;
     }
 }

@@ -27,8 +27,6 @@ if ($op) {
     require_once '../dao/ConfUitDao.php';
 
 
-
-
     // POR UNICA VEZ UTILIZAMOS  librerias  calcularSegudaQuincena
     require_once '../controller/EtapaPagoController.php';
     //ETAPA PAGO
@@ -93,9 +91,18 @@ if ($op) {
     require_once '../dao/DiaNoSubsidiadoDao.php';
     require_once '../model/DiaNoSubsidiado.php';
     
+    require_once '../dao/DiaSubsidiadoDao.php';
+    require_once '../model/DiaSubsidiado.php';
+    
+    //Exel AFP.
+    require_once '../controller/EstructuraAfp.php';
+    require_once '../dao/EstructuraAfpDao.php';
+    
+    // Escribir Exel 2003
+    require_once '../util/Spreadsheet/Excel/Writer.php';  
+    /* Establecer configuraci�n regional al holand�s */
+    setlocale(LC_ALL, 'es_Es');    
 }
-
-
 
 
 $response = NULL;
@@ -110,7 +117,7 @@ if ($op == "add") {
     $PERIODO = $data_pd['periodo']; 
 
     $estado = generarConfiguracion($PERIODO);
-    if ($estado == true):
+    if($estado == true):
         generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO);
     endif;
     
@@ -148,11 +155,37 @@ if ($op == "add") {
 
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     generar_reporte_empresa_01($ID_PDECLARACION);
+}else if($op == 'reporte_exel_afp'){
+    //echoo($_REQUEST);
+    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];  
+    $PERIODO = buscarPeriodo($ID_PDECLARACION);
+    $ESTADO = generarConfiguracion($PERIODO);    
+    //Generar Reporte EXEL AFP
+    if($ESTADO){
+        //echo "entroo";
+        generarExelAfp($ID_PDECLARACION,$PERIODO);
+    }
+}else if($op == 'reporte_afp'){
+    
+    //$ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];  
+    //$PERIODO = buscarPeriodo($ID_PDECLARACION);
+    //$ESTADO = generarConfiguracion($PERIODO);    
+    //Generar Reporte EXEL AFP
+    if(true/*$ESTADO*/){       
+        generarReporteAfp($ID_PDECLARACION,$PERIODO);
+    } 
 }
 
 
 echo (!empty($response)) ? json_encode($response) : '';
 
+
+function buscarPeriodo($id_pdeclaracion){
+    // DAO
+    $dao_pd = new PlameDeclaracionDao();
+    $data_pd = $dao_pd->buscar_ID($id_pdeclaracion);
+    return $data_pd['periodo'];        
+}
 
 //EtapaPagoController
 function calcularSegudaQuincena($ID_PDECLARACION, $ids_REQUEST,$PERIODO) {
@@ -481,6 +514,15 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C705);
             if (isset($data_val['valor'])) {
+                
+                $obj_dianosub = new DiaNoSubsidiado();
+                $obj_dianosub->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);                
+                $obj_dianosub->setCantidad_dia($data_val['valor']);
+                $obj_dianosub->setCod_tipo_suspen_relacion_laboral('07');
+                //$obj_dianosub->setEstado(1);//no modificable                
+                //Add
+                DiaNoSubsidiadoDao::anb_add($obj_dianosub); 
+                
                 concepto_0705($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
             }
 
@@ -2470,7 +2512,6 @@ function generarBoletaLineal($fp, $data_tra, $neto_pagar, $k, $BREAK) {
 
 //FUNCTION ELIMINAR O LIMPIAR MES DE DATA
 
-
 function eliminarDatosMes() {
     //var_dump($_REQUEST);
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
@@ -2549,14 +2590,10 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
 
     $file_name = /*NAME_COMERCIAL . */'planilla.txt'; //-PLANILLA UNICA
     
-
     $BREAK = chr(13) . chr(10);
     $BREAK2 = chr(13) . chr(10) . chr(13) . chr(10);
     $PUNTO = '|';
     //$LINEA = str_repeat('-', 80);
-//..............................................................................
-// Inicio Exel
-//..............................................................................
     $fp = fopen($file_name, 'w');
     $cab_comprimido = chr(27).M.chr(15);
     fwrite($fp, $cab_comprimido);

@@ -57,18 +57,18 @@ function estadoCheckEstado(){
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Registro de Trabajadores, Pensionistas y Otros Prestadores de Servicios</a></li>			
+            <li><a href="#tabs-1">Personas</a></li>			
 	
         </ul>
         <div id="tabs-1">
-          <div class="ocultarr">
+          <div>
             <input type="checkbox" name="chk_historial_empleadores" id="chk_historial_empleadores"  onclick="estadoCheckEstado()"/>
             Mostrar Histórico de Prestadores
           </div>
           <br />
             <input type ="button"
             class="submit-go" 
-                   onclick="javascript:cargar_pagina('sunat_planilla/view/new_personal0.php','#CapaContenedorFormulario')" 
+                   onclick="javascript:cargar_pagina('sunat_planilla/view/new_personal.php','#CapaContenedorFormulario')" 
                    value="Nuevo Registro"/>
           <br />
           <br />
@@ -85,5 +85,11 @@ function estadoCheckEstado(){
 
 
     </div>
+</div>
+
+
+
+<div id="dialog-addTrabajador" title="Agregar Nuevo Trabajador">
+    <div id="edit-addTrabajador" align="left"></div>
 </div>
 

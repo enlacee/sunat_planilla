@@ -209,6 +209,77 @@ function editarPersonaDireccion(id_persona_direccion){
    }); 
 }
 
+//-------------------------------------------------------------
+//-------------------------------------------------------------
+//-----------------Persona Trabajador separado ---------------
+//  intranet intranet intranet intranet intranet intranet 
+
+function addTrabajador(id_persona){
+	crearDialogoAddTrabajador();
+    $('#dialog-addTrabajador').dialog('open');
+    $.ajax({
+   type: "POST",
+   url: "sunat_planilla/view/modal/modal_add_trabajador.php",
+   data: {id_persona : id_persona },
+   async:true,
+   success: function(datos){
+    $('#edit-addTrabajador').html(datos);
+    
+    
+   }
+   }); 
+}
+
+function crearDialogoAddTrabajador(){
+	$("#dialog-addTrabajador").dialog({ 
+           
+			autoOpen: false,
+			height: 350,
+			width: 600,
+			modal: true,                        
+			buttons: {
+                /*'Cancelar': function() {
+					$(this).dialog('close');
+				},
+				'Guardar': function() {				
+					//var estado_form = $("#form_direccion").valid();
+				}*/
+                                
+			},
+			open: function() {},
+			close: function() {}
+	});
+}
+
+
+function nuevoAddTrabajador(id_persona){
+
+var from_data =  $("#formAddTrabajador").serialize();
+
+if(id_persona!=""){
+$.ajax({
+   type: "POST",
+   dataType: 'json',
+   url: "sunat_planilla/controller/CategoriaTrabajadorController.php?"+from_data,
+   /*data: {id_persona : id_persona },*/
+   async:true,
+   success: function(data){
+   	 
+   	if(data){
+	   	var id_trabajador = data;
+	    alert("Se Guardo Correctamente  "+id_trabajador);
+	    $("#dialog-addTrabajador").dialog('close');	
+
+	    javascript:cargar_pagina('sunat_planilla/view/edit_ptrabajador.php?id_persona='+id_persona+'&id_trabajador='+id_trabajador+'&cod_situacion=1','#CapaContenedorFormulario')
+    }else{
+    	alert('Ocurrio un error');
+    }
+
+   }
+   }); 
+}
+
+}
 
 
 //-------------------------------------------------------------
@@ -451,9 +522,9 @@ function bajaEstablecimiento(id){
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PersonaController.php?oper=cargar_tabla&estado='+arg,
             datatype: 'json',
-            colNames:['IdP','Cat','tipo_doc','Numero Doc','A.Paterno',
-                'A.Materno','Nombres','Fecha Nacimiento','Sexo','Estado'
-                ,'Opciones'],
+            colNames:['IdP','tipo_doc','Numero Doc','A.Paterno',
+                'A.Materno','Nombres','Sexo','Estado','Opciones'
+                ,'New'],
             colModel :[
                 {
                     name:'id_persona',
@@ -464,16 +535,8 @@ function bajaEstablecimiento(id){
                     width:20,
                     align:'center',
                     hidden:false,
-                },		
-                {
-                    name:'categoria',
-                    index:'categoria',
-                    search:false, 
-                    editable:false,
-                    width:50, 
-                    align:'center',
-                    hidden:true,
-                },
+                },	
+
                 {
                     name:'nombre_tipo_documento', 
                     index:'nombre_tipo_documento',
@@ -492,7 +555,7 @@ function bajaEstablecimiento(id){
 						return ' colspan=4';
 					},
                     formatter : function(value, options, rData){4
-                    	return ": "+value + " - "+rData['4']+" "+rData['5']+" "+rData['6'] ;
+                    	return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
                     }
 
 
@@ -531,14 +594,6 @@ function bajaEstablecimiento(id){
                     }
                 },
                 {
-                    name:'fecha_nacimiento',
-                    index:'fecha_nacimiento',
-                    editable:true,
-                    width:100,
-                    formatter:'date', datefmt:'d/m/Y',
-                    align:'center'
-                },
-                {
                     name:'sexo',
                     index:'sexo',
                     editable:true,
@@ -549,9 +604,10 @@ function bajaEstablecimiento(id){
                 {
                     name:'estado',
                     index:'estado',
-                    editable:true,
+                    editable:false,
                     search:false,
-                    width:80, 
+                    width:80,
+                    hidden:true,
                     align:'center'
                 },
                 {
@@ -561,7 +617,15 @@ function bajaEstablecimiento(id){
                     editable:false,
                     width:80, 
                     align:'center'
-                }							
+                },
+                {
+                    name:'new',
+                    index:'new',
+                    search:false,
+                    editable:false,
+                    width:80,                    
+                    align:'center'
+                },
 
 		
             ],
@@ -585,6 +649,146 @@ function bajaEstablecimiento(id){
         jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 					
     }
+
+// new  grid trabajador 09/11/2012
+    function cargarTablaTrabajadorServicio(cod_estado){
+    	console.log("cargarTablaTrabajadorServicio")
+		var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
+	
+        $("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/CategoriaTrabajadorController.php?oper=cargar_tabla&estado='+arg,
+            datatype: 'json',
+            colNames:['IdP','tipo_doc','Numero Doc','A.Paterno',
+                'A.Materno','Nombres','Sexo','Situacion','Opciones'
+                ,'New'],
+            colModel :[
+                {
+                    name:'id_persona',
+                    key : true, 
+                    editable:false, 
+                    index:'id_persona',
+                    search:false,
+                    width:20,
+                    align:'center',
+                    hidden:false,
+                },	
+
+                {
+                    name:'nombre_tipo_documento', 
+                    index:'nombre_tipo_documento',
+                    search:false,
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    editable:false,
+                    width:100,
+                    align:'left',
+					cellattr: function(rowId, value, rowObject, colModel, arrData) {
+						return ' colspan=4';
+					},
+                    formatter : function(value, options, rData){4
+                    	return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
+
+
+                },            
+                
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:90,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
+                 
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:90,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
+                },
+                
+                {
+                    name:'nombres', 
+                    index:'nombres',
+                    editable:true,
+                    width:80,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },
+                {
+                    name:'sexo',
+                    index:'sexo',
+                    editable:true,
+                    search:false,
+                    width:30, 
+                    align:'center'
+                },
+                {
+                    name:'cod_situacion',
+                    index:'cod_situacion',
+                    editable:true,
+                    search:false,
+                    width:80, 
+                    align:'center'
+                },
+                {
+                    name:'opciones',
+                    index:'opciones',
+                    search:false,
+                    editable:false,
+                    width:80, 
+                    align:'center'
+                },
+                {
+                    name:'new',
+                    index:'new',
+                    search:false,
+                    editable:false,
+                    width:80,                    
+                    align:'center'
+                },
+
+		
+            ],
+            pager: '#pager',
+            rownumbers: true,
+            //autowidth: true,
+            rowNum:10,
+            rowList:[10,20,30],
+            sortname: 'id_persona',
+            sortorder: 'asc',
+            viewrecords: true,
+            /*gridview: true,*/
+            caption: 'Lista de Trabajadores',
+            /*						multiselect: false,
+                                    hiddengrid: true,*/
+            onSelectRow: function(ids) {},
+            height:320,
+           // width:720
+        });
+        //--- PIE GRID
+        jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+					
+    }
+
+
+
+
 
 
 //-----------------------------------------------------------------------------------
@@ -613,8 +817,7 @@ function bajaEstablecimiento(id){
                                 editable:false, 
 								hidden:true,
                                 index:'id_persona',
-                                width:20,
-								hidden:true,
+                                width:20,								
                                 align:'left'
                             },		
                             {

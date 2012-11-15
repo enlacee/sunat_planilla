@@ -25,15 +25,16 @@ echo (!empty($response)) ? json_encode($response) : '';
 
 function dualDiaNoSubsidiado() {
     // nuevo o Actualizar
-    echo "<pre>";
-    print_r($_REQUEST);
-    echo "</pre>";
+    echoo($_REQUEST);
+    
     $id_pago = $_REQUEST['id_pago']; //id_pjoranada_laboral
 
     $id_dia_nosubsidiado = $_REQUEST['id_pdia_nosubsidiado'];
     $estado = $_REQUEST['estado'];
     $dns_cantidad_dia = $_REQUEST['dns_cantidad_dia'];
     $cbo_dns_tipo_suspension = $_REQUEST['cbo_dns_tipo_suspension'];
+    $dns_fecha_inicio = $_REQUEST['dns_finicio'];
+    $dns_fecha_fin = $_REQUEST['dns_fin'];
 
     //update
     $txt_cbo_dns_tipo_suspension = $_REQUEST['txt_cbo_dns_tipo_suspension'];
@@ -42,8 +43,11 @@ function dualDiaNoSubsidiado() {
     $dao = new DiaNoSubsidiadoDao();
     //$model = new DiaNoSubsidiado();
 
-    for ($i = 0; $i < count($estado); $i++) {
-
+    for ($i = 0; $i < count($estado); $i++) {        
+//-------------------------------------
+           $f_inico = (strlen($dns_fecha_inicio[$i]) > 3 ) ? getFechaPatron($dns_fecha_inicio[$i], "Y-m-d") : null;              
+           $f_fin = (strlen($dns_fecha_fin[$i]) > 3 ) ? getFechaPatron($dns_fecha_fin[$i], "Y-m-d") : null;
+//-------------------------------------  
         if ($estado[$i] == 0) { //Registrar   
             
             $model = new DiaNoSubsidiado();
@@ -51,16 +55,23 @@ function dualDiaNoSubsidiado() {
             $model->setCantidad_dia($dns_cantidad_dia[$i]);
             $model->setCod_tipo_suspen_relacion_laboral($cbo_dns_tipo_suspension[$i]);
 
+            $model->setFecha_inicio($f_inico);
+            $model->setFecha_fin($f_fin);
 
             //DAO
             $dao->registrar($model);
         } else { //Actualizar 
             echo "estado = 1";
-
+            
             $model = new DiaNoSubsidiado();
             $model->setId_dia_nosubsidiado($id_dia_nosubsidiado[$i]);
-            $model->setCod_tipo_suspen_relacion_laboral($txt_cbo_dns_tipo_suspension[$i]);
+            $morfo = ($txt_cbo_dns_tipo_suspension[$i]!= $cbo_dns_tipo_suspension[$i]) ? $cbo_dns_tipo_suspension[$i] : $txt_cbo_dns_tipo_suspension[$i]; 
+            $model->setCod_tipo_suspen_relacion_laboral($morfo/*$txt_cbo_dns_tipo_suspension[$i]*/);
             $model->setCantidad_dia($dns_cantidad_dia[$i]);
+            
+            $model->setFecha_inicio($f_inico);
+            $model->setFecha_fin($f_fin);
+            
             //echo "<pre>ACTUALIZAR?";
             //print_r($model);
             //echo "</pre>";
@@ -84,6 +95,8 @@ function buscarDiaNoSPor_IdTrabajadorPdeclaracion($id) {
         $model->setCantidad_dia($data[$i]['cantidad_dia']);
         $model->setCod_tipo_suspen_relacion_laboral($data[$i]['cod_tipo_suspen_relacion_laboral']);
         $model->setEstado($data[$i]['estado']);
+        $model->setFecha_inicio($data[$i]['fecha_inicio']);
+        $model->setFecha_fin($data[$i]['fecha_fin']);
 
         $arreglo[] = $model;
     }

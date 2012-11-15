@@ -398,25 +398,26 @@ function validarFechaFin_Formtrabajador(fecha){
 		
 		var id_persona = document.getElementById('id_persona_categoria').value;
 			
+		//console.log("VALIDACION    = "+estado);
 			
-		if(/*false*/estado){ //alert("ajax true");			
+		if(estado){		
 			//-----------------------------------------------------------------------				
 				var from_data =  $("#form_trabajador").serialize();
 				$.getJSON('sunat_planilla/controller/CategoriaTrabajadorController.php?id_persona='+id_persona+'&'+from_data,
 					function(data){
 						if(data){
-							alert ('Se Guardo Correctamente Trabajador.');
-							//cargar_pagina('sunat_planilla/view/view_empleador.php','#CapaContenedorFormulario');
-							cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')
+							console.log(data);
+							alert ('Se Guardo Correctamente TrabajadorR.');
+							cargar_pagina('sunat_planilla/view/view_ptrabajador.php','#CapaContenedorFormulario');
+
 						}else{
 							alert("Ocurrio un error");
 						}
 					}); 
+				
 			//-----------------------------------------------------------------------
-		}else{
-		//	alert ("ajax false ");
-		
 		}
+
 		return true;
 }//ENDVAlidarformulario 
 

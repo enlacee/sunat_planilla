@@ -337,11 +337,9 @@
 	$("#t_list").append($("#reporte_plame"));
 
     $("#t_list").append($("#break"));
-    $("#t_list").append($("#reporte_emp_01"));    
+    $("#t_list").append($("#reporte_emp_01"));
+    $("#t_list").append($("#reporte_exel_afp"));    
 
-	
-
-	
     }
 
 //----------------------------------------------------------------------
@@ -599,7 +597,7 @@ function crearDialogoDiaSubsidiado_0(){
            
 			autoOpen: false,
 			height: 250,
-			width: 490,
+			width: 540,
 			modal: true,
 			title: "Dias Subsidiados"
 			/*                      
@@ -644,7 +642,7 @@ function crearDialogoDiaNoLaborado_0(){
            
 			autoOpen: false,
 			height: 250,
-			width: 490,
+			width: 570,
 			modal: true,
 			title: "Dias no laborados y no Subsidiados" 
 			/*                      

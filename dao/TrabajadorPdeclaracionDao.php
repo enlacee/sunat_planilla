@@ -378,6 +378,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return $lista;
     }
 
+
+    
+    
     public function buscar_ID_GRID_LINEAL($id_trabajadorpdeclaracion) {
 
         $query = "

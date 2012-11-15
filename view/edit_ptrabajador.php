@@ -41,8 +41,9 @@ $cbo_estado_civil = comboEstadosCiviles();
 //---------------------------- EDITAR PERSONA--------------------------------- //
 
 $ID_PERSONA = $_REQUEST['id_persona'];
-//$ID_TRABAJADOR = $_REQUEST['id_trabajador'];
-
+$ID_TRABAJADOR = $_REQUEST['id_trabajador'];
+//-------------------------ESTADO
+$COD_ESTADO = $_REQUEST['cod_situacion'];
 
 $obj_persona = new Persona();
 // funcion del Controlador
@@ -133,11 +134,20 @@ $obj_persona = buscarPersonaPorId($ID_PERSONA);
 	
 	
 	
-	var id = $("#id_persona").val();
-	var id2 = $("#id_trabajador").val();	
-	//id_persona = document.form_edit_personal.id_persona.value;
-	cargarTablaPersonalDireccion(id);		
+var cod_situacion =<?php echo $COD_ESTADO;?>;	
+var id = <?php echo $ID_TRABAJADOR;?>;
 	
+cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_trabajador='+id+'&cod_situacion='+cod_situacion,'#tabs-2');
+	
+//	cargar_pagina('sunat_planilla/view/categoria/pensionista.php?id_persona='+id,'#tabs-3');
+
+//	setTimeout(cargar_pagina('sunat_planilla/view/categoria/persona-en-formacion.php?id_persona='+id,'#tabs-4'), 3000);
+
+//	cargar_pagina('sunat_planilla/view/categoria/persona-en-formacion.php?id_persona='+id,'#tabs-4');
+
+//	cargar_pagina('sunat_planilla/view/categoria/persona-de-terceros.php?id_persona='+id,'#tabs-5');
+
+
 
 
 function LlenarCombo(json, combo){ //console.log(json);
@@ -355,202 +365,72 @@ function seleccionarOcupacionInputPorCombo(obj){
 <div class="demo" align="left">
 
     <div id="tabs">
-  
+    <fieldset>
+    <legend>Datos Basicos</legend>
+    <br />
+    
+    <table width="506" border="0" class="tabla_gris">
+      <tr>
+    <td width="166"><strong>Num doc:</strong></td>
+    <td width="436"><?php echo $obj_persona->getCod_tipo_documento()." - ". $obj_persona->getNum_documento();?></td>
+  </tr>
+  <tr>
+    <td><strong>Nombres y Apellidos:</strong></td>
+    <td><?php echo $obj_persona->getApellido_paterno()." ".$obj_persona->getApellido_materno()." ".$obj_persona->getNombres();?></td>
+    </tr>
+  <tr>
+    <td><strong>Sexo:</strong></td>
+    <td><?php echo $obj_persona->getSexo();?></td>
+  </tr>
+    </table>
+    <br />
 
-<form action="sunat_planilla/controller/PersonaController.php" method="get" name="form_edit_personal" id="form_edit_personal" novalidate="novalidate">
-                
-                <input name="oper" type="hidden" value="edit">
-
-<fieldset>
-      <legend>Datos de Identificacion </legend>
-                    <div class="ocultar">
-                      id_persona
-                      <input type="text" name="id_persona" id="id_persona" value="<?php echo $obj_persona->getId_persona() ?>" >
-                      <br />
-                      id_trabajador
-                      <label for="id_trabajador"></label>
-                      <input type="text" name="id_trabajador" id="id_trabajador" 
-                      value=""/>
-                    </div>
-<div>
-<label>Tipo de Documento: </label>
-
-					<select name="cbo_tipo_documento" id="cbo_tipo_documento" onChange="cambioSelect()" 
-					class="chzn-select"  style="width:70px">
-						<option value="">-</option>
-<?php
-foreach ($cbo_tipo_documento as $indice) {
-	
-	if ( $indice['cod_tipo_documento'] == $obj_persona->getCod_tipo_documento() ) {
-		
-		$html = '<option value="'. $indice['cod_tipo_documento'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';		
-	} else {
-		$html = '<option value="'. $indice['cod_tipo_documento'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
-	}
-	echo $html;
-}
-?>
-
-
-        </select>
-      </div>
-                    <div class="fila_input">
-                        <label>Numero Documento </label>
-                        <input name="txt_num_documento" type="text"  id="txt_num_documento" 
-						value="<?php echo $obj_persona->getNum_documento(); ?>">
-                    </div>
-                    <div class="fila_input">
-                        <label>Fecha Nacimiento</label>
-                        <input name="txt_fecha_nacimiento" type="text"  id="txt_fecha_nacimiento" 
-						value="<?php echo getFechaPatron($obj_persona->getFecha_nacimiento(),"d/m/Y"); ?>">
-                    </div>
-                    <div class="fila_input">
-                        <label>País Emisor del Documento:</label>
-                        <select name="cbo_pais_emisor_documento" id="cbo_pais_emisor_documento" style="width:170px;">
-                            <option value="">-</option>
-<?php
-
-foreach ($cbo_pais_emisor_documento as $indice) {
-	
-	if ($indice['cod_pais_emisor_documento'] == $obj_persona->getCod_pais_emisor_documentos() ) {
-		
-		$html = '<option value="'. $indice['cod_pais_emisor_documento'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-	} else {
-		$html = '<option value="'. $indice['cod_pais_emisor_documento'] .'" >' . $indice['descripcion'] . '</option>';
-	}
-	echo $html;
-}
-
-?>
-
-                        </select>
-                    </div>
-                    <div class="fila_input">
-                        <label>Apellido Paterno:</label>
-                        <input name="txt_apellido_paterno" type="text" id="txt_apellido_paterno" 
-						value="<?php echo $obj_persona->getApellido_paterno();?>">
-                    </div>
-                    <div style="clear:both">
-                        <label>Apellido Materno:</label>
-                        <input name="txt_apellido_materno" type="text"  id="txt_apellido_materno" 
-						value="<?php echo $obj_persona->getApellido_materno();?>">
-                    </div>
-                    <div class="fila_input">
-                        <label>Nombres:</label>
-                        <input name="txt_nombre" type="text" id="txt_nombre" value="<?php echo $obj_persona->getNombres();?>">
-                    </div>
-                    <div class="fila_input">
-                        <label>Sexo:</label>
-                        <input name="rbtn_sexo" type="radio" 
-						value="1" <?php if($obj_persona->getSexo() == "1"){;?>checked="checked" <?php }?>>
-                        M
-                        <input name="rbtn_sexo" type="radio" 
-						value="2" <?php if($obj_persona->getSexo() == "2"){;?>checked="checked" <?php }?>>
-                        F </div>
-                    <div>
-                        <label style="clear:both">Estado Civil:</label>
-											<select name="cbo_estado_civil">
-
-                            <option value="">-</option>
-<?php
-
-foreach ($cbo_estado_civil as $indice) {
-	
-	if ($indice['id_estado_civil'] == $obj_persona->getId_estado_civil() ) {		
-		$html = '<option value="'. $indice['id_estado_civil'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-	} else {
-		$html = '<option value="'. $indice['id_estado_civil'] .'" >' . $indice['descripcion'] . '</option>';
-	}
-	echo $html;
-}
-
-?>
-						
-</select>						
-</div>
-<div class="fila_input">
-<label>Nacionalidad:</label>
-<select name="cbo_Nacionalidad" style="width:170px;" >
-<option value="">-</option>
-          <?php
-foreach ($cbo_nacionalidades as $indice) {
-	
-	if ($indice['cod_nacionalidad'] == $obj_persona->getCod_nacionalidad() ) {
-		
-		$html = '<option value="'. $indice['cod_nacionalidad'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-	} else {
-		$html = '<option value="'. $indice['cod_nacionalidad'] .'" >' . $indice['descripcion'] . '</option>';
-	}
-	echo $html;
-}
-?>
-
-</select>
-</div>
-</fieldset>
-
-<p></p>
-
-<fieldset id=""><legend>datos opcionales</legend>
-   <div>
-        <label>Teléfono( código y número ): </label>
-        <select name="cbo_telefono_codigo_nacional"  style="width:170px;">
-<?php
-foreach ($cbo_telefono_codigo_nacional as $indice) {
-	
-	if ($indice['cod_telefono_codigo_nacional'] == $obj_persona->getCod_telefono_codigo_nacional() ) {
-		
-		$html = '<option value="'. $indice['cod_telefono_codigo_nacional'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-	} else {
-		$html = '<option value="'. $indice['cod_telefono_codigo_nacional'] .'" >' . $indice['descripcion'] . '</option>';
-	}
-	echo $html;
-}
-?>
-
-        </select>
-                        <input name="txt_telefono" type="text" id="txt_telefono" 
-						value="<?php echo $obj_persona->getTelefono(); ?>">
-                        
-      </div>
-
-                    <div style="clear:both">
-                        <label>Correo Electronico </label> 
-                        <input name="txt_correo_electronico" type="text" value="<?php echo $obj_persona->getCorreo(); ?>">
-                    </div>
-
-
-
+    
+    
     </fieldset>
-				
-				
-				
-<p></p>
-<div class="divv" style="margin:0 0 0 13px;">
-
-<div style="display:block; " id="DIV_GRID_DIRECCION">
-
-<table id="list"></table>
-<div id="pagerX"></div>
-
+    
+    
+    
+    
+    
+    
+    
+      <fieldset>
+      <legend>Categoria</legend>
+      <br />
+  <ul>
+            
+            <li ><a href="#tabs-2">Trabajador</a></li>
+            <!--		
+            <li ><a href="#tabs-3">Pensionistas</a></li>
+            <li><a href="#tabs-4">Personal en Formaci&oacute;n Laboral</a></li>			
+            <li><a href="#tabs-5">Personal de Terceros</a></li>
+            -->
+            
+        </ul>
 			
-</div>
-<br />
+        
 
-  <input name="btn_grabar" type="submit" id="btn_grabar" 
-  class="submit-go" value="Guardar Persona">
-  
-  <input type="button" name="button" value="Cancelar" class="submit-cancelar"
-  onclick="javascript:cargar_pagina('sunat_planilla/view/view_personal.php','#CapaContenedorFormulario')"
-   />
-</div>
-
-
-
-<br />
-</form>
-  
       
+<div id="tabs-2">
+<p class="style2"> CATEGORIA TRABAJADOR</p>
+</div>
+<!--  
+<div id="tabs-3">
+<p>CATEGORIA PENSIONISTA</p>
+</div>
+
+<div id="tabs-4">
+<p>CATEGORIA PERSONA-EN-FORMACION</p>
+</div>
+
+<div id="tabs-5">
+<p>CATEGORIA PERSONA-DE-TERCEROS</p>
+</div>
+-->
+
+    
+</fieldset>  
 </div>
 
 

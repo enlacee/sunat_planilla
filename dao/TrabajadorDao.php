@@ -29,8 +29,8 @@ class TrabajadorDao extends AbstractDao {
                      percibe_renta_5ta_exonerada,
                      aplicar_convenio_doble_inposicion,
                      cod_convenio,
-                     cod_situacion,
-                     estado)
+                     cod_situacion
+                     )
         VALUES (
                 ?,
 		?,
@@ -50,16 +50,17 @@ class TrabajadorDao extends AbstractDao {
                 ?,
                 ?,
                 ?,
-                ?,
-                ?); ";
+                ?
+                ); ";
             //Inicia transaccion 
 
             $em = new Trabajador();
             $em = $obj_trabajador;
-
-//echo "<h3>";
-//print_r($em);
-//echo "</h3>";
+/*
+echo "<h3> antes de dao insert";
+print_r($em);
+echo "</h3>";
+*/
             $this->pdo->beginTransaction();
 
             $stm = $this->pdo->prepare($query);
@@ -84,8 +85,7 @@ class TrabajadorDao extends AbstractDao {
             $stm->bindvalue(17, $em->getAplicar_convenio_doble_inposicion());
             $stm->bindvalue(18, $em->getCod_convenio());
             $stm->bindvalue(19, $em->getCod_situacion());
-            $stm->bindvalue(20, $em->getEstado());
-
+            
             $stm->execute();
 
             // id Comerico
@@ -110,6 +110,14 @@ class TrabajadorDao extends AbstractDao {
 
         $com = new Trabajador();
         $com = $obj_trabajador;
+        //echo "<BR>obj a ACTUALIZAR<BR>";
+        /*echoo($com);
+        $situacion = null;               
+        if( $com->getCod_situacion()==null || $com->getCod_situacion()==1){
+           $situacion = 1;
+        }else if($com->getCod_situacion() == 0){
+           $situacion = 0;
+        }*/     
 
         $query = "
         UPDATE trabajadores
@@ -131,8 +139,8 @@ class TrabajadorDao extends AbstractDao {
           sindicalizado = ?,
           percibe_renta_5ta_exonerada = ?,
           aplicar_convenio_doble_inposicion = ?,
-          cod_convenio = ?,          
-          estado = ?,
+          cod_convenio = ?,
+          cod_situacion = ?,          
           id_empresa_centro_costo = ?
         WHERE id_trabajador = ?;
 	";
@@ -160,8 +168,7 @@ class TrabajadorDao extends AbstractDao {
         $stm->bindValue(16, $com->getPercibe_renta_5ta_exonerada());
         $stm->bindValue(17, $com->getAplicar_convenio_doble_inposicion());
         $stm->bindValue(18, $com->getCod_convenio());
-        // $stm->bindValue(19, $com->getCod_situacion());
-        $stm->bindValue(19, $com->getEstado());
+        $stm->bindValue(19, $com->getCod_situacion());
         $stm->bindValue(20, $com->getId_empresa_centro_costo());
         $stm->bindValue(21, $com->getId_trabajador());
         $stm->execute();
@@ -251,6 +258,88 @@ class TrabajadorDao extends AbstractDao {
         $lista = $stm->fetchAll();
         return $lista[0]["numfilas"];
         $stm = null;
+    }
+    
+    
+    public function cantidadTrabajador_grid($ID_EMPLEADOR_MAESTRO, $cod_situacion, $WHERE){
+        
+        $query = "
+        SELECT 
+                COUNT(*) AS numfilas
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        INNER JOIN situaciones AS s
+        ON t.cod_situacion = s.cod_situacion
+
+        WHERE em.id_empleador_maestro = ?
+        AND t.cod_situacion = ?
+        -- $WHERE "; 
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$ID_EMPLEADOR_MAESTRO);
+        $stm->bindValue(2,$cod_situacion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        return $lista[0]["numfilas"];
+        $stm = null;
+        
+        
+        
+    }
+    
+    public function listarTrabajador_grid($ID_EMPLEADOR_MAESTRO, $cod_situacion, $WHERE, $start, $limit, $sidx, $sord) {
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+        
+        $query = "
+        SELECT 
+		p.id_persona,
+                t.id_trabajador,
+		td.descripcion_abreviada AS nombre_tipo_documento,
+		p.num_documento,
+		p.apellido_paterno,
+		p.apellido_materno,
+		p.nombres,		
+		p.sexo,
+		t.cod_situacion	
+		
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+        
+        INNER JOIN situaciones AS s
+        ON t.cod_situacion = s.cod_situacion
+       
+        WHERE em.id_empleador_maestro = ?      
+        AND t.cod_situacion = ?
+        $cadena
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $ID_EMPLEADOR_MAESTRO);
+        $stm->bindValue(2, $cod_situacion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+
     }
 
     public function actualizarCodigoSituacion($id_trabajador, $cod_situacion) {
@@ -835,11 +924,10 @@ class TrabajadorDao extends AbstractDao {
 // SOLO Personal en Formación-modalidad formativa laboral.
 // Categoria = 5
 //------------------------------------------------------------------------------
-
 // new 03/09/2012 _fuck utilizado en RegistroE _>eliminar!!! DELETE
-    function buscarTrabajador($num_documento, $cod_tipo_documento,$id_empleador) {
-        
-        $query ="
+    function buscarTrabajador($num_documento, $cod_tipo_documento, $id_empleador) {
+
+        $query = "
         SELECT 
         p.id_persona,
         t.id_trabajador
@@ -854,7 +942,7 @@ class TrabajadorDao extends AbstractDao {
         AND t.cod_situacion = 1
         ORDER BY id_trabajador DESC        
 ";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $num_documento);
         $stm->bindValue(2, $cod_tipo_documento);
@@ -863,8 +951,6 @@ class TrabajadorDao extends AbstractDao {
         $data = $stm->fetchAll();
         return $data[0];
     }
-    
-    
 
 }
 

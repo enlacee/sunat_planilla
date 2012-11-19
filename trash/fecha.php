@@ -11,7 +11,7 @@ echo getFechaPatron("1988-12-10", "Y-m-d");
 
 */
 
-echo getFechaPatron("2011-08-01","m");
+//echo getFechaPatron("2011-08-01","m");
 
 
 
@@ -34,3 +34,32 @@ echo "<br>";
 echo date('c', mktime(1, 2, 3, 7, 21, 2012));
 
 */
+require_once '../util/funciones.php';
+$numero =18.268;
+
+echo round(55);
+echo "<hr>";
+$obj = new Obj();
+$obj->setUno(number_format_2($numero));
+
+echo $obj->getUno();
+
+
+
+class Obj{
+    private $uno;
+    private $dos;
+    
+    function __construct() {
+      $this->dos = null;
+      $this->uno = null;        
+    }
+    
+    function setUno($uno){
+        $this->uno = $uno;
+    }
+    function getUno(){
+        return $this->uno;
+    }
+    
+}

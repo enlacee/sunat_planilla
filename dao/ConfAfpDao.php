@@ -101,7 +101,7 @@ class ConfAfpDao extends AbstractDao {
 //------------------------------------------------------------------------------
 // AFP -- obtiene los datos de afp del ultimo año ingresado
 // siempre 4 afp y anio = 2011,2012    
-    public function vigenteAfp($cod_regimen_pensionario,$periodo) {
+    public function vigenteAfp($cod_regimen_pensionario,$periodo){
         
         $query = "
         SELECT

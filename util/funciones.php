@@ -417,7 +417,12 @@ function roundTwoDecimal($num) { //SIN REDONDEO OK number_format =redondea a 2 :
 function number_format_var($number) {
     return number_format($number, 2, '.', ',');
 }
+//
+function number_format_2($number){
+    return round($number, 2);
+}
 
+//echo number_format_var(2525125.384);
 // NUM = 1950.24
 function roundFaborContra($num) {
     $numero = array();

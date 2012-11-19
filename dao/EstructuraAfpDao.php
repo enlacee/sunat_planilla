@@ -3,7 +3,10 @@
 class EstructuraAfpDao extends AbstractDao{
     
         //12/11/2012
-    public function listarTrabajadoresAfp($id_pdeclaracion){
+    public function listarTrabajadoresAfp($id_pdeclaracion, $codcubodin=null){
+        $afp = 0;
+        $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;
+        
       $query = "
         SELECT 
         tpd.id_trabajador,
@@ -24,7 +27,7 @@ class EstructuraAfpDao extends AbstractDao{
         ON p.id_persona = t.id_persona
 
         WHERE tpd.id_pdeclaracion = ?
-        AND tpd.cod_regimen_pensionario IN(21,22,23,24)      
+        AND tpd.cod_regimen_pensionario IN($afp)      
 ";
 
         $stm = $this->pdo->prepare($query);
@@ -37,7 +40,9 @@ class EstructuraAfpDao extends AbstractDao{
     }
     
     //1 = Inicio de relación laboral
-    public function codigoMovimiento_1($id_pdeclaracion, $anio, $mes){
+    public function codigoMovimiento_1($id_pdeclaracion, $anio, $mes, $codcubodin = null){
+        $afp = 0;
+        $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;
         
         $query = "  
         SELECT 
@@ -52,7 +57,7 @@ class EstructuraAfpDao extends AbstractDao{
         ON tpd.id_trabajador = dpl.id_trabajador
 
         WHERE tpd.id_pdeclaracion = ?
-        AND tpd.cod_regimen_pensionario IN(21,22,23,24)
+        AND tpd.cod_regimen_pensionario IN($afp)
         AND YEAR(dpl.fecha_inicio) = ?
         AND MONTH(dpl.fecha_inicio) = ?          
 ";
@@ -151,7 +156,10 @@ class EstructuraAfpDao extends AbstractDao{
         return $lista;   
     }
     
-     public function codigoMovimiento_5($id_pdeclaracion,$anio,$mes){
+     public function codigoMovimiento_5($id_pdeclaracion,$anio,$mes, $codcubodin=null){
+        $afp = 0;
+        $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;         
+         
         $query = "  
         SELECT 
         tpd.id_trabajador_pdeclaracion,
@@ -172,7 +180,7 @@ class EstructuraAfpDao extends AbstractDao{
         ON tpd.id_trabajador = v.id_trabajador
 
         WHERE tpd.id_pdeclaracion = ?
-        AND tpd.cod_regimen_pensionario IN(21,22,23,24)
+        AND tpd.cod_regimen_pensionario IN($afp)
         AND dns.cod_tipo_suspen_relacion_laboral =23
 
         AND YEAR(v.fecha_programada) = ?

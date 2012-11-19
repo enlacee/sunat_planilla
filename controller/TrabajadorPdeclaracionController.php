@@ -167,11 +167,11 @@ if ($op == "add") {
     }
 }else if($op == 'reporte_afp'){
     
-    //$ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];  
-    //$PERIODO = buscarPeriodo($ID_PDECLARACION);
-    //$ESTADO = generarConfiguracion($PERIODO);    
+    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];  
+    $PERIODO = buscarPeriodo($ID_PDECLARACION);
+    $ESTADO = generarConfiguracion($PERIODO);    
     //Generar Reporte EXEL AFP
-    if(true/*$ESTADO*/){       
+    if($ESTADO){       
         generarReporteAfp($ID_PDECLARACION,$PERIODO);
     } 
 }
@@ -1365,7 +1365,7 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
     $periodo = $data_pd['periodo'];
 
     //==================================================== 
-    $all_ingreso = get_AFP_Ingresos($id_pdeclaracion, $id_trabajador);     
+    $all_ingreso = number_format_2( get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) );     
     //====================================================    
 
     $dao_afp = new ConfAfpDao();
@@ -1383,13 +1383,13 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
     $PRIMA_SEGURO = floatval($afp['prima_seguro']);
 
     // UNO = comision porcentual
-    $_601 = (floatval($all_ingreso)) * ($COMISION / 100);
+    $_601 = number_format_2( (floatval($all_ingreso)) * ($COMISION / 100) );
 
     // DOS prima de seguro
-    $_606 = (floatval($all_ingreso)) * ($PRIMA_SEGURO / 100);
+    $_606 = number_format_2( (floatval($all_ingreso)) * ($PRIMA_SEGURO / 100) );
 
     // TRES = aporte obligatorio
-    $_608 = (floatval($all_ingreso)) * ($A_OBLIGATORIO / 100);
+    $_608 = number_format_2( (floatval($all_ingreso)) * ($A_OBLIGATORIO / 100) );
 
     /*
      *  Conficion Parametro Tope. Monto maximo a pagar por all las
@@ -1401,7 +1401,7 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
     // uno DAO
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
-    //$model->setMonto_devengado($CALC);
+    //$model->setMonto_devengado($CALC);    
     $model->setMonto_pagado($_601);
     $model->setCod_detalle_concepto('0601');
     $dao = new DeclaracionDconceptoDao();
@@ -1411,7 +1411,7 @@ function concepto_AFP($id, $cod_regimen_pensionario, $id_pdeclaracion, $id_traba
     // dos DAO
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
-    //$model->setMonto_devengado($CALC);
+    //$model->setMonto_devengado($CALC);    
     $model->setMonto_pagado($_606);
     $model->setCod_detalle_concepto('0606');
     $dao = new DeclaracionDconceptoDao();

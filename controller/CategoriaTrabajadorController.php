@@ -475,8 +475,7 @@ function buscarTrabajadorPorIdPersona($id_persona,$id_trabajador) {
     $model->setCod_tipo_contrato($data['cod_tipo_contrato']);
     $model->setCod_tipo_pago($data['cod_tipo_pago']);
     $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);
-    $model->setMonto_remuneracion($data['monto_remuneracion']);
-    $model->setId_monto_remuneracion($data['id_monto_remuneracion']);
+    $model->setMonto_remuneracion($data['monto_remuneracion']);    
 
     $model->setId_establecimiento($data['id_establecimiento']);
     $model->setJornada_laboral($data['jornada_laboral']);

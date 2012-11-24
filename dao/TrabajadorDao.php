@@ -19,8 +19,7 @@ class TrabajadorDao extends AbstractDao {
                      cod_ocupacion_p,
                      cod_tipo_contrato,
                      cod_tipo_pago,
-                     cod_periodo_remuneracion,
-                     id_monto_remuneracion,
+                     cod_periodo_remuneracion,                     
                      id_establecimiento,
                      jornada_laboral,
                      situacion_especial,
@@ -33,8 +32,7 @@ class TrabajadorDao extends AbstractDao {
                      )
         VALUES (
                 ?,
-		?,
-                ?,
+		?,                
                 ?,
                 ?,
                 ?,
@@ -73,18 +71,16 @@ echo "</h3>";
             $stm->bindValue(7, $em->getCod_tipo_contrato());
             $stm->bindValue(8, $em->getCod_tipo_pago());
 
-            $stm->bindValue(9, $em->getCod_periodo_remuneracion());
-            $stm->bindValue(10, $em->getId_monto_remuneracion());
-            $stm->bindValue(11, $em->getId_establecimiento());
-            $stm->bindValue(12, $em->getJornada_laboral());
-            $stm->bindValue(13, $em->getSituacion_especial());
-
-            $stm->bindValue(14, $em->getDiscapacitado());
-            $stm->bindValue(15, $em->getSindicalizado());
-            $stm->bindValue(16, $em->getPercibe_renta_5ta_exonerada());
-            $stm->bindvalue(17, $em->getAplicar_convenio_doble_inposicion());
-            $stm->bindvalue(18, $em->getCod_convenio());
-            $stm->bindvalue(19, $em->getCod_situacion());
+            $stm->bindValue(9, $em->getCod_periodo_remuneracion());            
+            $stm->bindValue(10, $em->getId_establecimiento());
+            $stm->bindValue(11, $em->getJornada_laboral());
+            $stm->bindValue(12, $em->getSituacion_especial());
+            $stm->bindValue(13, $em->getDiscapacitado());
+            $stm->bindValue(14, $em->getSindicalizado());
+            $stm->bindValue(15, $em->getPercibe_renta_5ta_exonerada());
+            $stm->bindvalue(16, $em->getAplicar_convenio_doble_inposicion());
+            $stm->bindvalue(17, $em->getCod_convenio());
+            $stm->bindvalue(18, $em->getCod_situacion());
             
             $stm->execute();
 
@@ -130,8 +126,7 @@ echo "</h3>";
           cod_tipo_contrato = ?,
           cod_tipo_pago = ?,
           cod_periodo_remuneracion = ?,
-	  monto_remuneracion =?,
-          id_monto_remuneracion = ?,
+	  monto_remuneracion =?,          
           id_establecimiento = ?,
           jornada_laboral = ?,
           situacion_especial = ?,
@@ -158,19 +153,18 @@ echo "</h3>";
         $stm->bindValue(6, $com->getCod_tipo_contrato());
         $stm->bindValue(7, $com->getCod_tipo_pago());
         $stm->bindValue(8, $com->getCod_periodo_remuneracion());
-        $stm->bindValue(9, $com->getMonto_remuneracion());
-        $stm->bindValue(10, $com->getId_monto_remuneracion());
-        $stm->bindValue(11, $com->getId_establecimiento());
-        $stm->bindValue(12, $com->getJornada_laboral());
-        $stm->bindValue(13, $com->getSituacion_especial());
-        $stm->bindValue(14, $com->getDiscapacitado());
-        $stm->bindValue(15, $com->getSindicalizado());
-        $stm->bindValue(16, $com->getPercibe_renta_5ta_exonerada());
-        $stm->bindValue(17, $com->getAplicar_convenio_doble_inposicion());
-        $stm->bindValue(18, $com->getCod_convenio());
-        $stm->bindValue(19, $com->getCod_situacion());
-        $stm->bindValue(20, $com->getId_empresa_centro_costo());
-        $stm->bindValue(21, $com->getId_trabajador());
+        $stm->bindValue(9, $com->getMonto_remuneracion());        
+        $stm->bindValue(10, $com->getId_establecimiento());
+        $stm->bindValue(11, $com->getJornada_laboral());
+        $stm->bindValue(12, $com->getSituacion_especial());
+        $stm->bindValue(13, $com->getDiscapacitado());
+        $stm->bindValue(14, $com->getSindicalizado());
+        $stm->bindValue(15, $com->getPercibe_renta_5ta_exonerada());
+        $stm->bindValue(16, $com->getAplicar_convenio_doble_inposicion());
+        $stm->bindValue(17, $com->getCod_convenio());
+        $stm->bindValue(18, $com->getCod_situacion());
+        $stm->bindValue(19, $com->getId_empresa_centro_costo());
+        $stm->bindValue(20, $com->getId_trabajador());
         $stm->execute();
         $stm = null;
         return true;
@@ -405,8 +399,7 @@ echo "</h3>";
         cod_tipo_contrato,
         cod_tipo_pago,
         cod_periodo_remuneracion,
-        monto_remuneracion,
-        id_monto_remuneracion,
+        monto_remuneracion,        
         id_establecimiento,
         jornada_laboral,
         situacion_especial,
@@ -452,8 +445,7 @@ echo "</h3>";
         cod_tipo_contrato,
         cod_tipo_pago,
         cod_periodo_remuneracion,
-        monto_remuneracion,
-        id_monto_remuneracion,
+        monto_remuneracion,        
         id_establecimiento,
         jornada_laboral,
         situacion_especial,
@@ -535,7 +527,7 @@ echo "</h3>";
         INNER JOIN trabajadores AS t
         ON p.id_persona = t.id_persona
 		
-		INNER JOIN empleadores_maestros AS em
+	INNER JOIN empleadores_maestros AS em
         ON p.id_empleador = em.id_empleador
         
         INNER JOIN tipos_documentos AS td

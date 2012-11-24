@@ -118,6 +118,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------				
 		// 0705 = INASISTENCIAS
 		}else if(cod_detalle_concepto=='0705'){
+			
 			if(value < 1 || value >31){
 				return [false,"Dias validos 1 al 31"];
 			}else{

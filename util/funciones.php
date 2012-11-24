@@ -595,5 +595,18 @@ return $numeros[$indice];
 
 }
 
+function arrayId($data, $name_array) {
+    if (is_array($data)) {
+        $new = array();
+        for ($i = 0; $i < count($data); $i++) {
+            $new[] = $data[$i][$name_array];
+        }
+    }
+    return $new;
+}
+
+
+
+
 
 ?>

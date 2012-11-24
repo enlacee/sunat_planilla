@@ -226,20 +226,6 @@ class ComboCategoriaDao extends AbstractDao {
         return $lista;
     }
 
-    /*
-     * ****************************************************************************	
-     * INICIO ADMINISTRACION
-     * **************************************************************************** 
-     */
-
-    public function comboMontoRemuneracion() {
-        $query = "SELECT *FROM montos_remuneraciones ORDER BY cantidad ASC";
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista;
-    }
 
     /*
      * ****************************************************************************	

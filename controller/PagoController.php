@@ -729,7 +729,8 @@ function generarRecibo15_txt() {
         $dao_pago = new PagoDao();
         $dao_estd = new EstablecimientoDireccionDao();
 
-        // -------- Variables globales --------//        
+        // -------- Variables globales --------//     
+        $TOTAL = 0;
         $SUM_TOTAL_CC = array();
         $SUM_TOTAL_EST = array();
 
@@ -836,7 +837,7 @@ function generarRecibo15_txt() {
                                 fwrite($fp, $BREAK);
                                 fwrite($fp, str_pad(($k + 1) . " ", 4, " ", STR_PAD_LEFT));
                                 fwrite($fp, str_pad($data_tra[$k]['num_documento'], 12, " ", STR_PAD_RIGHT));
-                                fwrite($fp, str_pad(strtoupper($texto_3), 40, " ", STR_PAD_RIGHT));
+                                fwrite($fp, str_pad(limpiar_caracteres_especiales_plame($texto_3), 40, " ", STR_PAD_RIGHT));
                                 fwrite($fp, str_pad($data_tra[$k]['sueldo'], 9, " ", STR_PAD_RIGHT));
                                 fwrite($fp, str_pad("_______________", 15, " ", STR_PAD_RIGHT));
                                 fwrite($fp, $BREAK);
@@ -849,7 +850,7 @@ function generarRecibo15_txt() {
 
 
                             $SUM_TOTAL_EST[$i]['monto'] = $SUM_TOTAL_EST[$i]['monto'] + $SUM_TOTAL_CC[$i][$j]['monto'];
-
+                            $TOTAL = $TOTAL + $SUM_TOTAL_EST[$i]['monto'];
                             //--- LINE
                             fwrite($fp, $BREAK);
                             //fwrite($fp, $LINEA);
@@ -902,15 +903,17 @@ function generarRecibo15_txt() {
           fwrite($fp, str_pad($SUM_TOTAL_EST[$z]['establecimiento'], 59, " ", STR_PAD_RIGHT));
           fwrite($fp, number_format($SUM_TOTAL_EST[$z]['monto'], 2));
           fwrite($fp, $BREAK);
-
-
           $SUM = $SUM + $SUM_TOTAL_EST[$z]['monto'];
           }
-          fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 59, " ", STR_PAD_RIGHT));
-          fwrite($fp, number_format($SUM, 2));
-          fwrite($fp, $BREAK);
-          fwrite($fp, $BREAK);
          */
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+            fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 59, " ", STR_PAD_RIGHT));
+            fwrite($fp, number_format_var($TOTAL));
+            fwrite($fp, $BREAK);
+            fwrite($fp, $BREAK);
+        
+        
     }//END IF
 //..............................................................................
 // Inicio Exel

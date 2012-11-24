@@ -350,16 +350,6 @@ function comboPeriodoRemuneracion() {
  *
  *
  */
-function comboMontoRemuneracion() {
-    $dao = new ComboCategoriaDao();
-    $data = $dao->comboMontoRemuneracion();
-    return $data;
-}
-
-/**
- *
- *
- */
 //Envio de Variable OPER = tipo_trabajador
 function comboRegimenAseguramientoSalud($id_tipo_empleador, $remype, $id_tipo_trabajador) {
     $dao = new ComboCategoriaDao();

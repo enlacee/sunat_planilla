@@ -43,8 +43,10 @@ INSERT INTO pagos
              estado,
              descripcion,
              fecha_creacion,
-             id_empresa_centro_costo)
+             id_empresa_centro_costo,
+             fecha_fin_15)
 VALUES (
+        ?,
         ?,
         ?,
         ?,
@@ -85,6 +87,7 @@ VALUES (
         $stm->bindValue(16, $model->getDescripcion());
         $stm->bindValue(17, $model->getFecha_creacion());
         $stm->bindValue(18, $model->getId_empresa_centro_costo());
+        $stm->bindValue(19, $model->getFecha_fin_15());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -281,7 +284,9 @@ VALUES (
         WHERE p.id_etapa_pago = ? 
         AND t.id_establecimiento = ?
         AND ecc.id_empresa_centro_costo = ?
-        AND p.sueldo IS NOT NULL
+        
+        AND p.sueldo > 0
+        AND p.fecha_fin_15 IS NULL
         ";
 
         $stm = $this->pdo->prepare($query);

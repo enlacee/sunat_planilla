@@ -1,7 +1,7 @@
 <?php
 
 class ConfDao extends AbstractDao {
-
+    
     public function conf_valor_SB() {
         $query = "
         SELECT 

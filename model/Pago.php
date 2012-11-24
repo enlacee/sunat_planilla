@@ -24,6 +24,7 @@ class Pago {
     private $id_empresa_centro_costo;
     private $fecha_modificacion;
     private $fecha_creacion;
+    private $fecha_fin_15;
 
     function __construct() {
      $this->id_pago=null;
@@ -47,6 +48,7 @@ class Pago {
      $this->id_empresa_centro_costo=null;
      $this->fecha_modificacion=null;
      $this->fecha_creacion=null;
+     $this->fecha_fin_15=null;
     }
 
     public function getId_pago() {
@@ -209,7 +211,13 @@ class Pago {
         $this->fecha_creacion = $fecha_creacion;
     }
 
+    public function getFecha_fin_15() {
+        return $this->fecha_fin_15;
+    }
 
+    public function setFecha_fin_15($fecha_fin_15) {
+        $this->fecha_fin_15 = $fecha_fin_15;
+    }
 
 
 }

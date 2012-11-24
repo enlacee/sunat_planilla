@@ -157,7 +157,7 @@ class PlameDao extends AbstractDao {
         
         $cadena
 	";
-
+        
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_EM);
         $stm->bindValue(2, $mes_fin);

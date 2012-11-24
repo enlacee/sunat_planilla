@@ -21,8 +21,7 @@ class Trabajador {
     private $cod_ocupacion;
     private $cod_tipo_contrato;
     private $cod_tipo_pago;
-    private $cod_periodo_remuneracion;
-    private $id_monto_remuneracion;
+    private $cod_periodo_remuneracion;    
     private $monto_remuneracion;
     private $id_establecimiento;
     private $jornada_laboral;
@@ -47,8 +46,7 @@ class Trabajador {
      
      $this->cod_tipo_contrato=0;
      $this->cod_tipo_pago=0;
-     $this->cod_periodo_remuneracion=0;
-     $this->id_monto_remuneracion=0;
+     $this->cod_periodo_remuneracion=0;     
      $this->monto_remuneracion=0;
      $this->id_establecimiento=0;
      $this->jornada_laboral=0;
@@ -62,7 +60,6 @@ class Trabajador {
      $this->estado = null;
      $this->id_empresa_centro_costo = null;
     }
-  
     public function getId_trabajador() {
         return $this->id_trabajador;
     }
@@ -141,14 +138,6 @@ class Trabajador {
 
     public function setCod_periodo_remuneracion($cod_periodo_remuneracion) {
         $this->cod_periodo_remuneracion = $cod_periodo_remuneracion;
-    }
-
-    public function getId_monto_remuneracion() {
-        return $this->id_monto_remuneracion;
-    }
-
-    public function setId_monto_remuneracion($id_monto_remuneracion) {
-        $this->id_monto_remuneracion = $id_monto_remuneracion;
     }
 
     public function getMonto_remuneracion() {
@@ -246,10 +235,6 @@ class Trabajador {
     public function setId_empresa_centro_costo($id_empresa_centro_costo) {
         $this->id_empresa_centro_costo = $id_empresa_centro_costo;
     }
-
-
-
-
 
     
 }

@@ -9,12 +9,13 @@ require_once '../util/funciones.php';
 
 function sueldoMensualXHora($monto) {
     $valor = ($monto / DIA_BASE) / HORA_BASE;
-    return roundTwoDecimal($valor);
+    return $valor;
 }
 
 function sueldoMensualXDia($monto) {
     $valor = ($monto / DIA_BASE);
-    return roundTwoDecimal($valor);
+    //return number_format_2($valor); 
+    return $valor;    
 }
 
 

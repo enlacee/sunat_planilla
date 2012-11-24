@@ -33,9 +33,9 @@ function estadoCheckTrabajadorEstado(){
         </ul>
         <div id="tabs-1">
         
-          <div class="ocultar">
+          <div class="">
             <input type="checkbox" name="chk_historial_trabajador" id="chk_historial_trabajador"  onclick="estadoCheckTrabajadorEstado()"/>
-            Mostrar Histórico de Prestadores
+            Mostrar Histórico de Bajas
           </div>
           <br />
           

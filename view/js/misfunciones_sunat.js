@@ -1,4 +1,9 @@
 // JavaScript Document
+function validaFloat(numero){
+	console.log('validanfooooo floatttt');
+	if (!/^([0-9])*[.]?[0-9]*$/.test(numero))
+	alert("El valor " + numero + " no es un número");	
+}
 
 function ponerdecimales(numero){
 if(numero.indexOf(".")==-1) {

@@ -152,6 +152,20 @@ function habilitarBotonEliminarMes(){
 		
 	});
 	
+
+//::: OPERACIONES::::
+//00
+$('#reporte_liquidacion').click(function(){
+	console.log("reporte liquidacion txt");
+	var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
+	url +="?oper=reporte_liquidacion&id_pdeclaracion="+ID_DECLARACION
+	console.log(url);
+	//window.location.href = url;
+});	
+
+
+
+
 	
 </script>
 
@@ -159,7 +173,9 @@ function habilitarBotonEliminarMes(){
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Lista de  Periodos</a></li>			
+            <li><a href="#tabs-1">Lista de  Periodos</a></li>
+            
+             <li><a href="#tabs-2">Operacion Anual</a></li>			
 
         </ul>
         <div id="tabs-1">
@@ -206,6 +222,25 @@ function habilitarBotonEliminarMes(){
 
         
         </div>
+        
+<div id="tabs-2">
+<h2>Anual</h2>
+<fieldset><legend>Remuneraciones</legend>
+
+
+<input name="reporte_liquidacion_anual"  id= "reporte_liquidacion_anual" type="button" value="Liquidacion Anual"/>
+
+<div class="ayuda">Generar archivo exel de ...</div>
+
+
+</fieldset>
+
+
+
+
+</div>        
+        
+        
 </div>
 
 </div>

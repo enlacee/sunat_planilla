@@ -615,15 +615,17 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                     $data_tra[$i]['fecha_inicio'] = $FECHA_INICIO;
                 }
 //---           
-
+                $fecha_fin_15 = null;
                 if (is_null($data_tra[$i]['fecha_fin'])) {
                     $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
                 } else if ($data_tra[$i]['fecha_fin'] >= $FECHA_FIN) { //INSUE
                     $data_tra[$i]['fecha_fin'] = $FECHA_FIN;
                 } else if ($data_tra[$i]['fecha_fin'] < $FECHA_FIN) {
-                    
+                    $fecha_fin_15 = $data_tra[$i]['fecha_fin'];
                 }
 
+             
+                
                 $a = getDayThatYear($data_tra[$i]['fecha_inicio']);
                 $b = getDayThatYear($data_tra[$i]['fecha_fin']);
 
@@ -671,7 +673,15 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
 //--------------------------------------------------------------------------------------- 
                 $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701, 1);
                 $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
-
+                
+                /*if($datax['valor']<=0){
+                    $dataxx = 0;
+                }else if(is_null($datax['valor'])){
+                    $dataxx = 50;
+                }else{
+                   $dataxx = $datax['valor'];
+                }*/
+                
                 $numero = number_format($dataxx, 2);
 //----------------------------------------------------------------------------------------
 
@@ -820,6 +830,7 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 $model->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
                 $model->setFecha_creacion(date("Y-m-d H:i:s"));
                 
+                $model->setFecha_fin_15($fecha_fin_15);
                 //Dao
                 $dao_pago->registrar($model);
                 $rpta = true;

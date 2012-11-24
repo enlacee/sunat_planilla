@@ -1,14 +1,5 @@
 <?php
-
-function arrayId($data, $name_array) {
-    if (is_array($data)) {
-        $new = array();
-        for ($i = 0; $i < count($data); $i++) {
-            $new[] = $data[$i][$name_array];
-        }
-    }
-    return $new;
-}
+//Nombre descriptivo de del archivo  no vincula la funcion
 
 //---12/11/2012
 function generarExelAfp($ID_PDECLARACION, $PERIODO) {
@@ -208,14 +199,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
     $workbook->close();
 }
 
-//Generar Rporte
-function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
-
-    //$id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
-    $anio = getFechaPatron($PERIODO, "Y");
-    $mes = getFechaPatron($PERIODO, "m");
-    $nombre_mes = getNameMonth($mes);
-
+function afpConstruido(){
     $mi_afp = array();
     $mi_afp[0]['codigo'] = 21;
     $mi_afp[1]['codigo'] = 22;
@@ -225,8 +209,19 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
     $mi_afp[0]['nombre'] = 'INTEGRA';
     $mi_afp[1]['nombre'] = 'HORIZONTE';
     $mi_afp[2]['nombre'] = 'PROFUTURO';
-    $mi_afp[3]['nombre'] = 'PRIMA';
+    $mi_afp[3]['nombre'] = 'PRIMA'; 
+    
+    return $mi_afp;
+}
+//Generar Rporte
+function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
 
+    //$id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $anio = getFechaPatron($PERIODO, "Y");
+    $mes = getFechaPatron($PERIODO, "m");
+    $nombre_mes = getNameMonth($mes);
+
+    $mi_afp = afpArrayConstruido();
     //variables file
     $BREAK = chr(13) . chr(10);
     $BR = ' ';

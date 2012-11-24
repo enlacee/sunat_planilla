@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 15, 2012 at 05:39 p.m.
+-- Generation Time: Nov 20, 2012 at 02:00 p.m.
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -12981,7 +12981,7 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos` (
 INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
 (6345, 732, '0121', '750.00', '750.00'),
 (6346, 732, '0701', '225.00', '225.00'),
-(6347, 732, '0706', NULL, '0.00'),
+(6347, 732, '0706', NULL, '2.00'),
 (6348, 732, '0804', NULL, '67.50'),
 (6349, 732, '0605', NULL, '0.00'),
 (6350, 732, '0601', NULL, '16.05'),

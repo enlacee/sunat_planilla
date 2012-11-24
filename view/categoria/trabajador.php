@@ -174,8 +174,7 @@ $cbo_ocupaciones = comboOcupacionPorIdCategoriaOcupacional($objTRA->getCod_categ
 $cbo_tipo_pago = comboTipoPago();
 //COMBO 09
 $cbo_periodo_remuneracion = comboPeriodoRemuneracion();
-//COMBO 10
-$cbo_monto_remuneracion = comboMontoRemuneracion();
+
 
 
 
@@ -875,23 +874,14 @@ foreach ($cbo_periodo_remuneracion as $indice) {
             <td>&nbsp;
               <input name="txt_monto_remuneracion_basica_inicial" type="text" size="12"
               value="<?php echo $objTRA->getMonto_remuneracion(); ?>" /></td>
-            <td><div class="ocultar">
-              <select name="cbo_monto_remuneracion" >
-                <option>-</option>
-                <?php 
-foreach ($cbo_monto_remuneracion as $indice) {
-	
-	if ($indice['id_monto_remuneracion']==0 ) {
-		
-		//$html = '<option value="" selected="selected" >' . $indice['descripcion'] . '</option>';
-	} else {
-		$html = '<option value="'. $indice['id_monto_remuneracion'] .'" >' . $indice['cantidad'] . '</option>';
-	}
-	echo $html;
-}
-?>
-              </select>
-            </div></td>
+            <td>
+            <div class="ayuda">
+            <input type="checkbox" name="chk_monto_remuneracion" id="chk_monto_remuneracion" />
+              <label for="chk_monto_remuneracion"></label>
+              Establecer monto Fijo para calculos.
+              </div>
+              
+              </td>
           </tr>
         </table>
 	  </div>

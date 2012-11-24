@@ -174,6 +174,15 @@ if ($op == "add") {
     if($ESTADO){       
         generarReporteAfp($ID_PDECLARACION,$PERIODO);
     } 
+}else if($op == 'reporte_liquidacion_anual'){
+    
+    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];  
+    $PERIODO = buscarPeriodo($ID_PDECLARACION);
+    $ESTADO = generarConfiguracion($PERIODO);
+    if($ESTADO){       
+        generarReporteliquidacionAnual($ID_PDECLARACION,$PERIODO);
+    }
+    
 }
 
 
@@ -324,11 +333,12 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
         //DAO
         $dao_rpc = new RegistroPorConceptoDao();
         $dao_pago = new PagoDao();
-        
+        // Variables globales in
+        $data_val = null;
+        $_0201  = 0; // asignacion familiar
 
 
         for ($i = 0; $i < count($ID_TRABAJADOR); $i++) {
-
             //REGISTRAMOS TRABAJADOR (declaracion Mensual)
             // ..... anes Genero la Seguna Quincenaaaaa
             
@@ -408,7 +418,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
 
 // ##############################################################################
             //SUELDO SETEADO PARA CALCULO: SB DEL PERIODO.
-            
+            ??????????????
             $data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
 // ##############################################################################            
 
@@ -422,7 +432,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             //DAO
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C201);
             if (isset($data_val['valor'])) { 
-                concepto_0201($id_trabajador_pdeclaracion);
+                $_0201 = concepto_0201($id_trabajador_pdeclaracion);
             }
 
 
@@ -454,7 +464,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C105);
             if (isset($data_val['valor'])){
-                concepto_0105($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
+                concepto_0105($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
             }
 
 
@@ -462,7 +472,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C106);
             if (isset($data_val['valor'])) {
-                concepto_0106($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
+                concepto_0106($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
             }
 
 
@@ -470,14 +480,14 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C107);
             if (isset($data_val['valor']) && !is_null($data_val['valor'])) {
-                concepto_0107($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
+                concepto_0107($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
             }
 
             // 0115 = REMUNERACIÓN DÍA DE DESCANSO Y FERIADOS (INCLUIDA LA DEL 1° DE MAYO)
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C115);             
             if ( intval($data_val['valor']) == 1 ) {
-                concepto_0115($id_trabajador_pdeclaracion, $data_sum['sueldo']);
+                concepto_0115($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201);
             }
 
 
@@ -496,8 +506,6 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C703);
             
-            echoo($data_val);            
-            
             if (isset($data_val['valor'])) {                
                 concepto_0703($id_trabajador_pdeclaracion, $data_val['valor']);
             }
@@ -507,7 +515,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C704);
             if (isset($data_val['valor'])) {
-                concepto_0704($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
+                concepto_0704($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
             }
 
             // 0705 = INASISTENCIAS
@@ -523,7 +531,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 //Add
                 DiaNoSubsidiadoDao::anb_add($obj_dianosub); 
                 
-                concepto_0705($id_trabajador_pdeclaracion, $data_sum['sueldo'], $data_val['valor']);
+                concepto_0705($id_trabajador_pdeclaracion, $data_sum['sueldo'],$_0201, $data_val['valor']);
             }
 
 
@@ -577,14 +585,14 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
  * @param type $horas No debe ser Mayor a dos
  * @return type 
  */
-function concepto_0105($id, $monto = 0, $horas = 0) {
+function concepto_0105($id, $monto = 0,$afamiliar=0, $horas = 0) {
 
-    $sueldo_por_hora = sueldoMensualXHora($monto);
+    $sueldo_por_hora = sueldoMensualXHora( ($monto+$afamiliar) );
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.25;
 
     $neto = $nuevo_sueldo_por_hora * $horas;
-    $neto = roundTwoDecimal($neto);
-
+    //$neto = roundTwoDecimal($neto);
+    $neto = number_format_2($neto);
     //..............................................
     $minutos = $horas * 60;
 
@@ -611,13 +619,14 @@ function concepto_0105($id, $monto = 0, $horas = 0) {
     return $dao->registrar($model);
 }
 
-function concepto_0106($id, $monto = 0, $horas = 0) {
+function concepto_0106($id, $monto = 0, $afamiliar = 0, $horas = 0) {
 
-    $sueldo_por_hora = sueldoMensualXHora($monto);
+    $sueldo_por_hora = sueldoMensualXHora( ($monto+$afamiliar) );
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.35;
     $neto = $nuevo_sueldo_por_hora * $horas;
-    $neto = roundTwoDecimal($neto);
-
+    //$neto = roundTwoDecimal($neto);
+    $neto = number_format_2($neto);
+    
     // Consultamos si existe valores seteados en Bd H:mm
     $dao_tpd = new TrabajadorPdeclaracionDao();
     $data_time = $dao_tpd->selectHoraMinuto($id);
@@ -654,12 +663,15 @@ function concepto_0106($id, $monto = 0, $horas = 0) {
     return $dao->registrar($model);
 }
 
-function concepto_0107($id, $monto = 0, $dias = 0) {
+function concepto_0107($id, $monto = 0, $afamiliar=0, $dias = 0) {
+    $neto = 0;
+    $sueldo_por_dia = 0;
 
-    $sueldo_por_dia = sueldoMensualXDia($monto);
+    $sueldo_por_dia = sueldoMensualXDia( ($monto + $afamiliar) );
     $nuevo_sueldo_por_dia = $sueldo_por_dia * 2; //DOBLE SUELDO
     $neto = $nuevo_sueldo_por_dia * $dias;
-    $neto = roundTwoDecimal($neto);
+    $neto = number_format_2($neto);
+    //$neto = roundTwoDecimal($neto);
 
     //registrar
     $model = new DeclaracionDconcepto();
@@ -678,9 +690,9 @@ function concepto_0107($id, $monto = 0, $dias = 0) {
 // o dia de trabajao para el empleado.
 // En este caso se le pafara el dia al trabajador.... xq necesariamente es un dia
 // de descanzo.
-function concepto_0115($id, $sueldo) {
+function concepto_0115($id, $sueldo, $_0201) {
 
-    $neto = sueldoMensualXDia($sueldo);
+    $neto = sueldoMensualXDia( ($sueldo+$_0201) );
     //registrar
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
@@ -731,9 +743,8 @@ function concepto_0201($id) {
     //SUELDO BASICO    
     //if ($monto_remuneracion < SB) {
     $SB = SB;
-
-
     $CAL_AF = $SB * (T_AF / 100);
+    
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
     $model->setMonto_devengado($CAL_AF);
@@ -742,7 +753,7 @@ function concepto_0201($id) {
 
     $dao = new DeclaracionDconceptoDao();
     $dao->registrar($model);
-    return true;
+    return $CAL_AF;
 }
 
 // BONIFICACION POR RIESGO DE CAJA.
@@ -780,10 +791,11 @@ function concepto_0701($id,$ID_TRABAJADOR, $ID_PDECLARACION) {
 }
 
 function concepto_0703($id, $monto) {// 10/09/2012
+    $neto = number_format_2($monto);
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
-    $model->setMonto_devengado($monto);
-    $model->setMonto_pagado($monto);
+    $model->setMonto_devengado($neto);
+    $model->setMonto_pagado($neto);
     $model->setCod_detalle_concepto(C703);
 
     $dao = new DeclaracionDconceptoDao();
@@ -791,11 +803,11 @@ function concepto_0703($id, $monto) {// 10/09/2012
 }
 
 // TARDANZAS : DESCUENTOS
-function concepto_0704($id, $monto, $hora) {
+function concepto_0704($id, $monto, $_0201 = 0, $hora=0) {
 
-    $sueldo_x_hora = sueldoMensualXHora($monto);
+    $sueldo_x_hora = sueldoMensualXHora($monto+$_0201);
 
-    $neto = $sueldo_x_hora * $hora;
+    $neto = number_format_2( ($sueldo_x_hora * $hora) );
 
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
@@ -808,11 +820,11 @@ function concepto_0704($id, $monto, $hora) {
 }
 
 // 0705 INASISTENCIAS : 
-function concepto_0705($id, $monto, $dias) {
+function concepto_0705($id, $monto, $_0201=0, $dias=0){
 
-    $sueldo_x_dia = sueldoMensualXDia($monto);
+    $sueldo_x_dia = sueldoMensualXDia( ($monto+$_0201) );
 
-    $neto = $sueldo_x_dia * $dias;
+    $neto = number_format_2( ($sueldo_x_dia * $dias) );
 
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);

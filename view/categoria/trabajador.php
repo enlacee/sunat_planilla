@@ -876,7 +876,11 @@ foreach ($cbo_periodo_remuneracion as $indice) {
               value="<?php echo $objTRA->getMonto_remuneracion(); ?>" /></td>
             <td>
             <div class="ayuda">
-            <input type="checkbox" name="chk_monto_remuneracion" id="chk_monto_remuneracion" />
+            <input type="checkbox" name="chk_monto_remuneracion" 
+            id="chk_monto_remuneracion"  
+            <?php if($objTRA->getMonto_remuneracion_fijo()): ?>checked="checked"<?php endif; ?>
+             value="1"
+             />
               <label for="chk_monto_remuneracion"></label>
               Establecer monto Fijo para calculos.
               </div>

@@ -34,6 +34,7 @@ class Trabajador {
     private $cod_situacion;
     private $estado;
     private $id_empresa_centro_costo;
+    private $monto_remuneracion_fijo;
     
     function __construct() {
      $this->id_trabajador=null;
@@ -59,7 +60,9 @@ class Trabajador {
      $this->cod_situacion =null;
      $this->estado = null;
      $this->id_empresa_centro_costo = null;
+     $this->monto_remuneracion_fijo=null;
     }
+   
     public function getId_trabajador() {
         return $this->id_trabajador;
     }
@@ -235,6 +238,15 @@ class Trabajador {
     public function setId_empresa_centro_costo($id_empresa_centro_costo) {
         $this->id_empresa_centro_costo = $id_empresa_centro_costo;
     }
+
+    public function getMonto_remuneracion_fijo() {
+        return $this->monto_remuneracion_fijo;
+    }
+
+    public function setMonto_remuneracion_fijo($monto_remuneracion_fijo) {
+        $this->monto_remuneracion_fijo = $monto_remuneracion_fijo;
+    }
+
 
     
 }

@@ -25,7 +25,7 @@ class PrestamoDao extends AbstractDao {
                 ?,
                 ?);       
         ";
-
+        $this->pdo->beginTransaction();
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $model->getId_empleador());
         $stm->bindValue(2, $model->getId_trabajador());
@@ -34,11 +34,18 @@ class PrestamoDao extends AbstractDao {
         $stm->bindValue(5, $model->getFecha_inicio());
         $stm->bindValue(6, $model->getEstado());
         $stm->bindValue(7, $model->getFecha_creacion());
-
         $stm->execute();
-        //$lista = $stm->fetchAll();
+        // id Comerico
+        $query2 = "select last_insert_id() as id";
+        $stm = $this->pdo->prepare($query2);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $this->pdo->commit();
+        //finaliza transaccion
+        //return true;
         $stm = null;
-        return true;
+        return $lista[0]['id'];
+
     }
 
     public function edit($obj) {

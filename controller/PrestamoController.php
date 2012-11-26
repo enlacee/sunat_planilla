@@ -9,7 +9,9 @@ if ($op) {
     require_once '../controller/ideController.php';
 
     require_once '../model/Prestamo.php';
+    require_once '../model/PrestamoCuota.php';
     require_once '../dao/PrestamoDao.php';
+    require_once '../dao/PrestamoCuotaDao.php';
 }
 
 $response = NULL;
@@ -243,7 +245,6 @@ function listarTrabajadores() {
 }
 
 function addPrestamos() {
-
     //echoo($_REQUEST);
     /*
       $_REQUEST['id_trabajador'];
@@ -254,7 +255,6 @@ function addPrestamos() {
     $fecha_inicio = "01/" . $_REQUEST['fecha_inicio'];
 
     //echoo($fecha_inicio);
-
     $obj = new Prestamo();
     $obj->setId_empleador(ID_EMPLEADOR);
     $obj->setId_trabajador($_REQUEST['id_trabajador']);
@@ -263,14 +263,80 @@ function addPrestamos() {
     $obj->setFecha_inicio(getFechaPatron($fecha_inicio, "Y-m-d"));
     $obj->setEstado('1');
     $obj->setFecha_creacion(date("Y-m-d"));
-
-    $dao = new PrestamoDao();
-
-    return $dao->add($obj);
+    
+   //REGISTRAR PRESTAMO
+    $dao = new PrestamoDao();    
+    $id_prestamo = $dao->add($obj);    
+    
+    // variables 01
+    $tope_sgte_mes = 20;    
+    $cuota_arreglo = calcPrestamo($obj->getValor(), $obj->getNum_cuota(), $tope_sgte_mes);
+       
+    // REGISTRAR PRESTAMO CUOTA
+    $dao_cprestamo = new PrestamoCuotaDao();
+    for($i = 0; $i<count($cuota_arreglo); $i++):
+        $fecha_contruida = crearFecha($obj->getFecha_inicio(), $day = 0, $month = (0+$i), $year = 0);
+        
+        $obj_cp = new PrestamoCuota();
+        $obj_cp->setId_prestamo($id_prestamo);
+        $obj_cp->setMonto($cuota_arreglo[$i]['monto']);        
+        $obj_cp->setFecha_calc($fecha_contruida);
+        $obj_cp->setFecha_pago(null);
+        $obj_cp->setEstado(0);
+        $obj_cp->setDescripcion(null);
+        //DAO
+        $dao_cprestamo->add($obj_cp);
+    endfor;    
+            
+    return true;
 }
 
+/**
+ *  Funcion de Super Ayuda para generar prestamo.
+ */
+function calcPrestamo($monto, $num_cuota, $tope_sgte_mes=20){
+    
+    // variables 02
+    $multiplo = floor($monto/$num_cuota); //ok
+    $valor_multiplo = $multiplo * $num_cuota;
+    $residuo = 0;
+    
+    //codicion de residuo
+    if($monto > $valor_multiplo):
+        $residuo = $monto - $valor_multiplo;
+    endif;
+    
+    $bandera_sgte_mes = false;
+    if($residuo > $tope_sgte_mes): //$residuo es mayor a 20
+        $bandera_sgte_mes = true;
+    else:
+        $bandera_sgte_mes = false;
+    endif;
+    
+    
+    //DATOS A GUARDAR BD
+    $cuota_arreglo = array();
+    for($i=0; $i < $num_cuota;$i++ ):
+        $cuota_arreglo[$i]['monto'] = ($valor_multiplo/$num_cuota);        
+        if( ($num_cuota-1) == $i ): // ultima cuaota de pago
+            $cuota_arreglo[$i]['monto'] = ($valor_multiplo/$num_cuota) + $residuo;
+        endif;
+    endfor;
+    
+    
+    if($bandera_sgte_mes == true ): //SIGUIENTE MES CASO EXEPCION
+        $i_count = count($cuota_arreglo);
+        $cuota_arreglo[$i_count]['monto'] = $residuo;        
+    endif;
+     
+    return $cuota_arreglo;    
+}
 
-
+//$a = calcPrestamo(285, 4);
+//$b = calcPrestamo((285-71), 3);
+//require_once '../util/funciones.php';
+//echoo($a);
+//echoo($b);
 //-----------------------------------------------
 //-----------------------------------------------
 // view

@@ -340,6 +340,7 @@ function editarTrabajador() {
     $tra->setCod_periodo_remuneracion($_REQUEST['cbo_periodo_pago']);
 
     $tra->setMonto_remuneracion($_REQUEST['txt_monto_remuneracion_basica_inicial']);
+    $tra->setMonto_remuneracion_fijo($_REQUEST['chk_monto_remuneracion']);
     $tra->setId_establecimiento($_REQUEST['txt_id_establecimiento']);
     $tra->setId_empresa_centro_costo($_REQUEST['cboCentroCosto']);
 
@@ -639,7 +640,7 @@ function cargar_tabla_trabajador($ESTADO) {
 }
 
 // ----- VIEW-plame
-function buscar_IDTrabajador($id_trabajador) {
+function buscar_IDTrabajador($id_trabajador) { //usado en view/categoria/trabajador.php
 
     $dao = new TrabajadorDao();
     $data = $dao->buscar_IDTrabajador($id_trabajador);
@@ -665,6 +666,7 @@ function buscar_IDTrabajador($id_trabajador) {
     $model->setCod_convenio($data['cod_convenio']);
     $model->setCod_situacion($data['cod_situacion']);
     $model->setId_empresa_centro_costo($data['id_empresa_centro_costo']);
+    $model->setMonto_remuneracion_fijo($data['monto_remuneracion_fijo']);
 
     // $model->setCod_tipo_pago($data['cod_tipo_pago']);
     // $model->setCod_periodo_remuneracion($data['cod_periodo_remuneracion']);

@@ -630,6 +630,7 @@ function bajaEstablecimiento(id){
 		
             ],
             pager: '#pager',
+            mtype: "GET",
             rownumbers: true,
             //autowidth: true,
             rowNum:10,
@@ -647,8 +648,40 @@ function bajaEstablecimiento(id){
         });
         //--- PIE GRID
         jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+        //$("#list").remapColumns([1,3,2],true,false);
+        //---- ini new otro buscador
+		/*jQuery("#list").jqGrid('navGrid','#pager',{
+			edit:false,
+			add:false,
+			del:false,
+			search:false,
+			refresh:false
+		});
+		jQuery("#list").jqGrid('navButtonAdd',"#pager",{
+			caption:"Toggle",
+			title:"Toggle Search Toolbar",
+			buttonicon :'ui-icon-pin-s',
+			onClickButton:function(){ mygrid[0].toggleToolbar() } 
+		});
+
+		jQuery("#list").jqGrid('navButtonAdd',"#pager",{
+			caption:"Clear",
+			title:"Clear Search",
+			buttonicon :'ui-icon-refresh',
+			onClickButton:function(){ mygrid[0].clearToolbar() } 
+		});
+		jQuery("#list").jqGrid('filterToolbar');*/
+		//-----------------------------------------
+
+
+        //---- ini new otro buscador
+
+
 					
     }
+
+
+
 
 // new  grid trabajador 09/11/2012
     function cargarTablaTrabajadorServicio(cod_estado){

@@ -555,8 +555,11 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 $dias_vacacion = 0;
                 
                 //SUELDO X DEFAUL
-                $data_tra[$i]['monto_remuneracion'] = sueldoDefault($data_tra[$i]['monto_remuneracion']);
-
+                if($data_tra[$i]['monto_remuneracion_fijo']): //  = 1
+                    
+                else:
+                   $data_tra[$i]['monto_remuneracion'] = sueldoDefault($data_tra[$i]['monto_remuneracion']); 
+                endif;
                 
 //-------------------------------FIN VACACIONES---------------------------------                  
                 if (in_array($data_tra[$i]['id_trabajador'], $ids_tra_vacaciones)) {  //TIENE VACACION

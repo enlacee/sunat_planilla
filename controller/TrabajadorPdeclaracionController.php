@@ -416,6 +416,13 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 
             }
             
+            // PASO 1 
+            // para sueldo que usted establecio que sera fijo 'monto_remuneracion_fijo'
+            // solo afecta a essalud a Sueldo Basico obligatorio
+            
+            
+            
+            
             if ($data_sum['sueldo'] > 0){                
                 // == new
                 // 0705 = INASISTENCIAS
@@ -440,7 +447,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 $data_sum['sueldo'] = concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo'],$_0705);
                 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SUELDO BASIC MODIFICADO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//
                 
-                //ADELANTO
+                //ADELANTO 0
                 $bandera_adelanto = false;
                 if($DATA_TRA['fecha_fin']){                 
                 if(getFechaPatron($PERIODO, 'Y') == getFechaPatron($DATA_TRA['fecha_fin'], 'Y')):                    
@@ -452,6 +459,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 endif;                
                 }
                 
+                // ADELANTO 1
                 if($bandera_adelanto == false):
                     concepto_0701($id_trabajador_pdeclaracion,$ID_TRABAJADOR[$i], $ID_PDECLARACION); 
                 endif;
@@ -463,7 +471,11 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             //SUELDO SETEADO PARA CALCULO: SB DEL PERIODO.
             //??????????????
             if($data_sum['sueldo_no_tocado'] == $data_sum['sueldo']):
-                $data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
+                if($DATA_TRA['monto_remuneracion_fijo']):
+                    // monto Remuneracion Fijo MODIFICACION = 2
+                else:
+                    $data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
+                endif;
             else:                    
                 // sueldo basico se resto Inasistencia! OK-FULL
             endif;
@@ -811,7 +823,7 @@ function concepto_0304($id, $monto) {
     return true;
 }
 
-//OK
+//OK ADELANTO
 function concepto_0701($id,$ID_TRABAJADOR, $ID_PDECLARACION) {
 
     // 01 :: = Consultar Trabajador su primer pago en quincena (indistintos de caculos)

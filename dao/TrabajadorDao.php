@@ -93,8 +93,9 @@ echo "</h3>";
             $this->pdo->commit();
             //finaliza transaccion
             //return true;
-            return $lista[0]['id'];
             $stm = null;
+            return $lista[0]['id'];
+            
         } catch (Exception $e) {
             //  Util::rigistrarLog( $e, $query );
             $this->pdo->rollBack();
@@ -136,7 +137,8 @@ echo "</h3>";
           aplicar_convenio_doble_inposicion = ?,
           cod_convenio = ?,
           cod_situacion = ?,          
-          id_empresa_centro_costo = ?
+          id_empresa_centro_costo = ?,
+          monto_remuneracion_fijo = ?
         WHERE id_trabajador = ?;
 	";
 
@@ -164,7 +166,8 @@ echo "</h3>";
         $stm->bindValue(17, $com->getCod_convenio());
         $stm->bindValue(18, $com->getCod_situacion());
         $stm->bindValue(19, $com->getId_empresa_centro_costo());
-        $stm->bindValue(20, $com->getId_trabajador());
+        $stm->bindValue(20, $com->getMonto_remuneracion_fijo());
+        $stm->bindValue(21, $com->getId_trabajador());
         $stm->execute();
         $stm = null;
         return true;
@@ -455,7 +458,8 @@ echo "</h3>";
         aplicar_convenio_doble_inposicion,
         cod_convenio,
         cod_situacion,
-        id_empresa_centro_costo
+        id_empresa_centro_costo,
+        monto_remuneracion_fijo
 
         FROM trabajadores
         WHERE(id_trabajador = ?)

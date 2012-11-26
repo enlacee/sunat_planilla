@@ -199,7 +199,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
     $workbook->close();
 }
 
-function afpConstruido(){
+function afpArrayConstruido(){
     $mi_afp = array();
     $mi_afp[0]['codigo'] = 21;
     $mi_afp[1]['codigo'] = 22;

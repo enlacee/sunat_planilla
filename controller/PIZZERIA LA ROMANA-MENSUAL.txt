@@ -12,7 +12,7 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    474.00   _______________
+  1 07951545    CHIPANA FLORES ELENA                    479.00   _______________
 
   2 10389776    ZAMORA MEGO MELQUIADES                  536.00   _______________
 
@@ -34,24 +34,24 @@ CENTRO DE COSTO : VENTAS
 
  11 44052923    MEZA GARCIA MANUEL ALEJANDRO            493.00   _______________
 
- 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            465.00   _______________
+ 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            461.00   _______________
 
- 13 40827219    NOLE  CAMUS IRIS EDITA                  472.00   _______________
+ 13 40827219    NOLE  CAMUS IRIS EDITA                  468.00   _______________
 
- 14 46767275    CHAVEZ GOMEZ CRISTIAN                   472.00   _______________
+ 14 46767275    CHAVEZ GOMEZ CRISTIAN                   468.00   _______________
 
  15 45711545    NAVARRETE GUEVARA ADRIAN ALI            422.00   _______________
 
- 16 47707022    HUERTA CARLOS MAX JOUSTON               474.00   _______________
+ 16 47707022    HUERTA CARLOS MAX JOUSTON               470.00   _______________
 
  17 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           490.00   _______________
 
  18 42070522    AQUINO ROJAS MARIBEL                    388.00   _______________
 
- 19 76608802    QUISPE FLORES JUAN DANIEL               268.00   _______________
+ 19 76608802    QUISPE FLORES JUAN DANIEL               273.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            9,614.00
+TOTAL VENTAS                                            9,608.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -115,7 +115,7 @@ CENTRO DE COSTO : OFICINA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07939005    ESPINOZA BAUTISTA JORGINA               734.00   _______________
+  1 07939005    ESPINOZA BAUTISTA JORGINA               730.00   _______________
 
   2 80167058    BENITES CARBAJAL INES SILVIA            562.00   _______________
 
@@ -129,12 +129,12 @@ CENTRO DE COSTO : OFICINA
 
   7 10196620    GRANDEZ AGUILAR PERCY RICHARD           735.00   _______________
 
-  8 41722946    PEREZ HINOSTROZA PEDRO ARMANDO          674.00   _______________
+  8 41722946    PEREZ HINOSTROZA PEDRO ARMANDO          669.00   _______________
 
-  9 09671735    OBANDO TEJADA FRANCISCO                 471.00   _______________
+  9 09671735    OBANDO TEJADA FRANCISCO                 485.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL OFICINA                                           5,914.00
+TOTAL OFICINA                                           5,919.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -154,13 +154,13 @@ CENTRO DE COSTO : VENTAS
 
   2 25565139    HERNANDEZ ROMAN CARLOS                  446.00   _______________
 
-  3 07448164    CASANOVA RAMIREZ MARIA LUISA            408.00   _______________
+  3 07448164    CASANOVA RAMIREZ MARIA LUISA            413.00   _______________
 
   4 09738210    ALIAGA COTRINA HILDEBRANDO              719.00   _______________
 
   5 07950684    BERNAL ZURITA SONIA MAGDALENA           436.00   _______________
 
-  6 07966569    CUPE FLORES ALFONSO                     506.00   _______________
+  6 07966569    CUPE FLORES ALFONSO                     510.00   _______________
 
   7 08305295    DIAZ HURTADO ROSARIO OSVALDO            540.00   _______________
 
@@ -182,13 +182,13 @@ CENTRO DE COSTO : VENTAS
 
  16 46329096    AQUINO ROJAS HUGO PERCY                 490.00   _______________
 
- 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            475.00   _______________
+ 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            471.00   _______________
 
  18 47136383    MEZA VALENCIA YOEL ALFREDO              425.00   _______________
 
- 19 41967126    POMA MURGA LIVIA                        523.00   _______________
+ 19 41967126    POMA MURGA LIVIA                        515.00   _______________
 
- 20 44943430    PAREDES VILELA CARLOS HUMBERTO          325.00   _______________
+ 20 44943430    PAREDES VILELA CARLOS HUMBERTO          321.00   _______________
 
  21 45347323    GARGATE ROSALES JONATHAN                390.00   _______________
 
@@ -197,7 +197,7 @@ CENTRO DE COSTO : VENTAS
  23 40926514    HINOJOSA SANCHEZ ANA KARINA             277.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            11,125.00
+TOTAL VENTAS                                            11,118.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -252,7 +252,7 @@ CENTRO DE COSTO : VENTAS
 
   8 10283250    MACHUCA PAREDES JESSICA ZULEMA          526.00   _______________
 
-  9 43697662    INGA CHUQUIPA ELBIA                     471.00   _______________
+  9 43697662    INGA CHUQUIPA ELBIA                     467.00   _______________
 
  10 42295617    LOAYZA ALMONACIN JOSE VICTOR            498.00   _______________
 
@@ -260,13 +260,13 @@ CENTRO DE COSTO : VENTAS
 
  12 10562806    PELAYO ROBLES DINA ELENA                536.00   _______________
 
- 13 42343596    QUISPE QUISPE GILBERTO PEDRO            419.00   _______________
+ 13 42343596    QUISPE QUISPE GILBERTO PEDRO            415.00   _______________
 
  14 40167192    FERNANDEZ HURTADO JOSE DONATO           541.00   _______________
 
- 15 46589552    SANTOS  VILLACORTA JHON ANDERSON        471.00   _______________
+ 15 46589552    SANTOS  VILLACORTA JHON ANDERSON        467.00   _______________
 
- 16 71813971    DIAZ MEGO OSWALDO                       465.00   _______________
+ 16 71813971    DIAZ MEGO OSWALDO                       461.00   _______________
 
  17 07635669    CASTILLO REYNOSO  PEDRO LUIS            451.00   _______________
 
@@ -278,16 +278,16 @@ CENTRO DE COSTO : VENTAS
 
  21 42063882    COLLAZOS BARDALES IRMA                  539.00   _______________
 
- 22 44867935    MEGO  ZAMORA JUANITO                    471.00   _______________
+ 22 44867935    MEGO  ZAMORA JUANITO                    467.00   _______________
 
  23 44800604    RAMIREZ  URETA AMEC JOAB                447.00   _______________
 
  24 45619512    PEÑA MAMANI JESUS EDUARDO              264.00   _______________
 
- 25 43539383    SUAREZ MAGUIÑA ERICK JORGE             322.00   _______________
+ 25 43539383    SUAREZ MAGUIÑA ERICK JORGE             318.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            12,457.00
+TOTAL VENTAS                                            12,433.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -328,9 +328,9 @@ CENTRO DE COSTO : PRODUCCION
 
   2 09700349    MORALES PEREZ JULIA                     581.00   _______________
 
-  3 06107239    SANCHEZ GARGATE NOEMI MARINA            696.00   _______________
+  3 06107239    SANCHEZ GARGATE NOEMI MARINA            692.00   _______________
 
-  4 08236571    SANDOVAL TORIBIO SANTA BENEDICTA        985.00   _______________
+  4 08236571    SANDOVAL TORIBIO SANTA BENEDICTA        980.00   _______________
 
   5 40826130    ABAD GUERRERO FROILAN                   782.00   _______________
 
@@ -340,16 +340,16 @@ CENTRO DE COSTO : PRODUCCION
 
   8 09678603    CAQUI GARGATE GILDER MOISES             850.00   _______________
 
-  9 44084183    PUMA HUILLCA HERMITAÑO                 476.00   _______________
+  9 44084183    PUMA HUILLCA HERMITAÑO                 472.00   _______________
 
  10 08172801    CHINCHAY  VALLADARES MELQUIADES         713.00   _______________
 
  11 41220291    QUISPE  QUIPSE ELMA VICTORIA            536.00   _______________
 
- 12 48350296    CCORIMANYA INGA EDWARD                  475.00   _______________
+ 12 48350296    CCORIMANYA INGA EDWARD                  471.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL PRODUCCION                                        8,010.00
+TOTAL PRODUCCION                                        7,993.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -369,7 +369,7 @@ CENTRO DE COSTO : VENTAS
 
   2 10436222    NAVARRO CAUTI NIEVES HERLINDA           583.00   _______________
 
-  3 40066138    QUISPE MATAMOROS HILDA VILMA            369.00   _______________
+  3 40066138    QUISPE MATAMOROS HILDA VILMA            365.00   _______________
 
   4 10165095    MEGO SILVA ARTURO JAMER                 540.00   _______________
 
@@ -381,7 +381,7 @@ CENTRO DE COSTO : VENTAS
 
   8 43297418    MEGO DIAZ JOSE YOMAR                    716.00   _______________
 
-  9 44989567    ARAUJO HERRERA ITALO                    470.00   _______________
+  9 44989567    ARAUJO HERRERA ITALO                    466.00   _______________
 
  10 09433554    NAVARRO CAUTI MARY LUZ                  718.00   _______________
 
@@ -393,32 +393,32 @@ CENTRO DE COSTO : VENTAS
 
  14 40953862    GALLOZA PALLAROSO CARMEN MILAGROS       526.00   _______________
 
- 15 09708383    TENORIO LOAYZA LUCAS HERNANDO           428.00   _______________
+ 15 09708383    TENORIO LOAYZA LUCAS HERNANDO           424.00   _______________
 
- 16 46967693    CORDOVA CALLE SANTOS                    422.00   _______________
+ 16 46967693    CORDOVA CALLE SANTOS                    418.00   _______________
 
- 17 45780533    VILLARROEL CORDOVA RODIY JEYSSON        374.00   _______________
+ 17 45780533    VILLARROEL CORDOVA RODIY JEYSSON        370.00   _______________
 
  18 47004326    MOREYRA ESPINOZA SANDRA                 278.00   _______________
 
  19 09702338    SOLORZANO MORALES NORA CELIA            530.00   _______________
 
- 20 40988733    INGA CHUQUIPA LUZ FELINDA               474.00   _______________
+ 20 40988733    INGA CHUQUIPA LUZ FELINDA               470.00   _______________
 
- 21 45486798    CORNEJO GUEVARA SERGIO JORGE            474.00   _______________
+ 21 45486798    CORNEJO GUEVARA SERGIO JORGE            470.00   _______________
 
  22 46827908    HILARIO HUETE ALAN ANIBAL               536.00   _______________
 
  23 28116618    MEGO  SILVA HUMBERTO                    451.00   _______________
 
- 24 45781644    ALVA LOPEZ JUNIOR DARLYN                473.00   _______________
+ 24 45781644    ALVA LOPEZ JUNIOR DARLYN                469.00   _______________
 
  25 43937550    SUAREZ MAGUIÑA JOSE ANTONIO            386.00   _______________
 
  26 40470678    BARBOSA FERNANDEZ TRINI MARTIN          307.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            12,912.00
+TOTAL VENTAS                                            12,880.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
@@ -436,9 +436,9 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
 
   1 40484310    RIOS DIAZ JIMY ORLANDO                  973.00   _______________
 
-  2 10362282    RODRIGUEZ  ROJAS JAIME ELITER           -60.00   _______________
+  2 10362282    RODRIGUEZ  ROJAS JAIME ELITER           407.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             913.00
+TOTAL ADMINISTRACION - CAJA                             1,380.00
 --------------------------------------------------------------------------------
 

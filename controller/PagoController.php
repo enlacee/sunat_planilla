@@ -660,7 +660,7 @@ function generarRecibo15_txt() {
     $master_est = null; //2;
     $master_cc = null; //2;
 
-    if ($_REQUEST['todo'] == "todo") {
+    if ($_REQUEST['todo'] == "todo") { // UTIL PARA EL BOTON Recibo Total
         $cubo_est = "todo";
         $cubo_cc = "todo";
     }
@@ -668,16 +668,16 @@ function generarRecibo15_txt() {
     $id_est = $_REQUEST['id_establecimientos'];
     $id_cc = $_REQUEST['cboCentroCosto'];
 
-    if (!is_null($id_est)) {
+    if ($id_est) {
         $master_est = $id_est;
-    } else {
-        //$cubo_est = "todo";
+    } else if($id_est=='0') {
+        $cubo_est = "todo";
     }
 
-    if (!is_null($id_cc)) {
+    if ($id_cc) {
         $master_cc = $id_cc;
-    } else {
-        //$cubo_cc = "todo";
+    } else if($id_cc == '0'){
+        $cubo_cc = "todo";
     }
     //
     $dao = new PlameDeclaracionDao();
@@ -720,7 +720,7 @@ function generarRecibo15_txt() {
     $dao_est = new EstablecimientoDao();
     $est = array();
     $est = $dao_est->listar_Ids_Establecimientos(ID_EMPLEADOR);
-    $contador_break = 0;
+    $pagina = 1;
 
     // paso 02 listar CENTROS DE COSTO del establecimento.    
     if (is_array($est) && count($est) > 0) {
@@ -747,9 +747,9 @@ function generarRecibo15_txt() {
                 $bandera_1 = true;
             }
 
-            if ($bandera_1/* $est[$i]['id_establecimiento'] == $master_est  || $cubo_est == "todo" */) {
+            if ($bandera_1) {
                 
-                $contador_break = $contador_break + 1;
+               // if($bander_ecc){
                 
                 $SUM_TOTAL_EST[$i]['monto'] = 0;
                 //Establecimiento direccion Reniec
@@ -766,10 +766,10 @@ function generarRecibo15_txt() {
                     $bandera_2 = false;
                     if ($ecc[$j]['id_empresa_centro_costo'] == $master_cc) {
                         $bandera_2 = true;
-                    } else if ($cubo_est == "todo") {
+                    } else if ($cubo_est == 'todo' || $cubo_cc == "todo") { // $cubo_est
                         $bandera_2 = true;
                     }
-
+                    
                     if ($bandera_2) {
                         //$contador_break = $contador_break + 1;
                         // LISTA DE TRABAJADORES
@@ -794,8 +794,8 @@ function generarRecibo15_txt() {
                             fwrite($fp, str_pad($descripcion1, 11, " ", STR_PAD_LEFT));
                             fwrite($fp, $BREAK);
 
-                            fwrite($fp, str_pad("PAGINA :", 69, " ", STR_PAD_LEFT));
-                            fwrite($fp, str_pad($contador_break, 11, " ", STR_PAD_LEFT));
+                            fwrite($fp, str_pad("PAGINA :", 69, " ", STR_PAD_LEFT));                            
+                            fwrite($fp, str_pad($pagina, 11, " ", STR_PAD_LEFT));
                             fwrite($fp, $BREAK);
 
                             fwrite($fp, str_pad($_name_15/*"1RA QUINCENA"*/, 80, " ", STR_PAD_BOTH));
@@ -847,10 +847,8 @@ function generarRecibo15_txt() {
                             }
 
 
-
-
                             $SUM_TOTAL_EST[$i]['monto'] = $SUM_TOTAL_EST[$i]['monto'] + $SUM_TOTAL_CC[$i][$j]['monto'];
-                            $TOTAL = $TOTAL + $SUM_TOTAL_EST[$i]['monto'];
+                            
                             //--- LINE
                             fwrite($fp, $BREAK);
                             //fwrite($fp, $LINEA);
@@ -863,7 +861,9 @@ function generarRecibo15_txt() {
                             fwrite($fp, $BREAK);
 
                             fwrite($fp,chr(12));
+                            $pagina = $pagina + 1;
                             //fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK);
+                            $TOTAL = $TOTAL + $SUM_TOTAL_CC[$i][$j]['monto'];
                             //$row_a = $row_a + 5;
                         }//End Trabajadores
                     }//End Bandera.
@@ -886,7 +886,7 @@ function generarRecibo15_txt() {
                  */
 
                 fwrite($fp, $BREAK . $BREAK);
-                
+            
             }
         }//END FOR Est
 
@@ -908,8 +908,8 @@ function generarRecibo15_txt() {
          */
             fwrite($fp, $BREAK);
             fwrite($fp, $BREAK);
-            fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 59, " ", STR_PAD_RIGHT));
-            fwrite($fp, number_format_var($TOTAL));
+            fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 56, " ", STR_PAD_RIGHT));
+            fwrite($fp, str_pad(number_format_var($TOTAL), 15, ' ',STR_PAD_RIGHT));
             fwrite($fp, $BREAK);
             fwrite($fp, $BREAK);
         

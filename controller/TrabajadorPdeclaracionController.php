@@ -334,11 +334,13 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
         $dao_rpc = new RegistroPorConceptoDao();
         $dao_pago = new PagoDao();
         // Variables globales in
-        $data_val = null;
-        $_0201  = 0; // asignacion familiar
+        //$data_val = array();
 
 
         for ($i = 0; $i < count($ID_TRABAJADOR); $i++) {
+            $_0201  = 0; // asignacion familiar
+            $_0705  = 0; // inasistencias            
+            
             //REGISTRAMOS TRABAJADOR (declaracion Mensual)
             // ..... anes Genero la Seguna Quincenaaaaa
             
@@ -346,15 +348,18 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
 
             $obj = new TrabajadorPdeclaracion();
             $obj->setId_pdeclaracion($ID_PDECLARACION);
-            $obj->setId_trabajador($ID_TRABAJADOR[$i]);
-            $obj->setDia_laborado($data_sum['dia_laborado']);
+            $obj->setId_trabajador($ID_TRABAJADOR[$i]);            
+            $dia_lab = ($data_sum['dia_laborado']) ? $data_sum['dia_laborado'] : 0; 
+            $ordi_hora = 0;//($data_sum['ordinario_hora']) ? $data_sum['ordinario_hora'] : 0;            
+            $obj->setDia_laborado($dia_lab);
             $obj->setDia_total($data_sum['dia_total']);
-            //??????????
-            $obj->setOrdinario_hora($data_sum['ordinario_hora']);
+            //??????????            
+            $obj->setOrdinario_hora($ordi_hora);
             $obj->setOrdinario_min($data_sum['ordinario_min']);
-            $obj->setSobretiempo_hora($data_sum['sobretiempo_hora']);
+            $obj->setSobretiempo_hora(0);
             $obj->setSobretiempo_min($data_sum['sobretiempo_min']);
-            $obj->setSueldo($data_sum['sueldo']);
+            //$obj->setSueldo($data_sum['sueldo']);
+            $data_sum['sueldo_no_tocado'] = $data_sum['sueldo'];
             //  $data_sum['sueldo_vacacion'];
             //$obj->setSueldo_neto($data_sum['sueldo_neto']);
             $obj->setEstado(0);
@@ -385,7 +390,11 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             
 //..............................................................................//   
             // -------- utilizado solo en caso de Persona en Vacacacion----
-            $id_trabajador_pdeclaracion = $dao_trapdecla->registrar($obj);
+            $id_trabajador_pdeclaracion = $dao_trapdecla->registrar($obj);            
+            $obj = $dao_trapdecla->buscar_IDOject($id_trabajador_pdeclaracion);
+            //#### Recuperando Datos
+            
+            
 
            
             if ($data_sum['sueldo_vacacion'] > 0){ 
@@ -407,29 +416,70 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 
             }
             
-            if ($data_sum['sueldo'] > 0){
-                //SUELDO BASICO                
-                concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo']);
+            if ($data_sum['sueldo'] > 0){                
+                // == new
+                // 0705 = INASISTENCIAS
+                $data_val = array();
+                $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C705);
+                if (isset($data_val['valor'])) {
+                    $obj_dianosub = new DiaNoSubsidiado();
+                    $obj_dianosub->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);                
+                    $obj_dianosub->setCantidad_dia($data_val['valor']);
+                    $obj_dianosub->setCod_tipo_suspen_relacion_laboral('07');
+                    
+                    $obj->setDia_laborado( ($obj->getDia_laborado() - $data_val['valor']) );
+                    //$obj_dianosub->setEstado(1);//no modificable                
+                    //Add
+                    DiaNoSubsidiadoDao::anb_add($obj_dianosub); 
+                    $_0705 = concepto_0705($id_trabajador_pdeclaracion, $data_sum['sueldo'],$_0201, $data_val['valor']);
+                    unset($data_val);
+                }
+                // == new
+                //SUELDO BASICO
+                // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SUELDO BASIC MODIFICADO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//                
+                $data_sum['sueldo'] = concepto_0121($id_trabajador_pdeclaracion, $data_sum['sueldo'],$_0705);
+                // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SUELDO BASIC MODIFICADO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%//
+                
                 //ADELANTO
-                concepto_0701($id_trabajador_pdeclaracion,$ID_TRABAJADOR[$i], $ID_PDECLARACION); 
+                $bandera_adelanto = false;
+                if($DATA_TRA['fecha_fin']){                 
+                if(getFechaPatron($PERIODO, 'Y') == getFechaPatron($DATA_TRA['fecha_fin'], 'Y')):                    
+                    if(getFechaPatron($PERIODO, 'm') == getFechaPatron($DATA_TRA['fecha_fin'], 'm')):
+                        if( intval(getFechaPatron($DATA_TRA['fecha_fin'], 'd')) < 15 ):
+                            $bandera_adelanto = true;
+                        endif;
+                    endif;
+                endif;                
+                }
+                
+                if($bandera_adelanto == false):
+                    concepto_0701($id_trabajador_pdeclaracion,$ID_TRABAJADOR[$i], $ID_PDECLARACION); 
+                endif;
             }
             
             echo "\ninicio sueldo\n";
 
 // ##############################################################################
             //SUELDO SETEADO PARA CALCULO: SB DEL PERIODO.
-            ??????????????
-            $data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
+            //??????????????
+            if($data_sum['sueldo_no_tocado'] == $data_sum['sueldo']):
+                $data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
+            else:                    
+                // sueldo basico se resto Inasistencia! OK-FULL
+            endif;
+            $obj->setSueldo($data_sum['sueldo']);
+            //$data_sum['sueldo'] = sueldoDefault($data_sum['sueldo']);
 // ##############################################################################            
 
             // 001 = Prestamo ¿Preguntar si existe prestamo echo ?
-            ECHO " <<<< 0706 == CONCEPTO EXCLUSIVO DE EMPRESA>>> ";
-            //OTROS DESCUENTOS NO DEDUCIBLES A LA BASE IMPONIBLE
+            ECHO " <<<< 0706 == CONCEPTO EXCLUSIVO DE EMPRESA  PRESTAMO>>> ";
+            //OTROS DESCUENTOS NO DEDUCIBLES A LA BASE IMPONIBLE PRESTAMO
             concepto_0706($id_trabajador_pdeclaracion, $ID_TRABAJADOR[$i], $ID_PDECLARACION, $PERIODO);
 
             
             // "ASIGNACION FAMILIAR";
             //DAO
+            $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C201);
             if (isset($data_val['valor'])) { 
                 $_0201 = concepto_0201($id_trabajador_pdeclaracion);
@@ -464,7 +514,11 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C105);
             if (isset($data_val['valor'])){
-                concepto_0105($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
+                $data_0105 = concepto_0105($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
+                //$obj->setSobretiempo_hora( ($obj->getSobretiempo_hora() + ($data_val['valor'])) );                
+                $obj->setSobretiempo_hora( ($obj->getSobretiempo_hora() + $data_0105['hour']) );
+                $obj->setSobretiempo_min( ($obj->getSobretiempo_min() + $data_0105['min'])  );                
+                
             }
 
 
@@ -472,7 +526,10 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C106);
             if (isset($data_val['valor'])) {
-                concepto_0106($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
+                $data_0106 = null;
+                $data_0106 =  concepto_0106($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
+                $obj->setSobretiempo_hora( ($obj->getSobretiempo_hora() + $data_0106['hour']) );
+                $obj->setSobretiempo_min( ($obj->getSobretiempo_min() + $data_0106['min'])  );
             }
 
 
@@ -481,6 +538,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C107);
             if (isset($data_val['valor']) && !is_null($data_val['valor'])) {
                 concepto_0107($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
+                $obj->setSobretiempo_hora( ($obj->getSobretiempo_hora() + ($data_val['valor']*HORA_BASE)) );
             }
 
             // 0115 = REMUNERACIÓN DÍA DE DESCANSO Y FERIADOS (INCLUIDA LA DEL 1° DE MAYO)
@@ -488,6 +546,7 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C115);             
             if ( intval($data_val['valor']) == 1 ) {
                 concepto_0115($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201);
+                $obj->setSobretiempo_hora( ($obj->getSobretiempo_hora() + ($data_val['valor']*HORA_BASE)) );
             }
 
 
@@ -518,23 +577,8 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 concepto_0704($id_trabajador_pdeclaracion, $data_sum['sueldo'], $_0201, $data_val['valor']);
             }
 
-            // 0705 = INASISTENCIAS
-            $data_val = array();
-            $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C705);
-            if (isset($data_val['valor'])) {
-                
-                $obj_dianosub = new DiaNoSubsidiado();
-                $obj_dianosub->setId_trabajador_pdeclaracion($id_trabajador_pdeclaracion);                
-                $obj_dianosub->setCantidad_dia($data_val['valor']);
-                $obj_dianosub->setCod_tipo_suspen_relacion_laboral('07');
-                //$obj_dianosub->setEstado(1);//no modificable                
-                //Add
-                DiaNoSubsidiadoDao::anb_add($obj_dianosub); 
-                
-                concepto_0705($id_trabajador_pdeclaracion, $data_sum['sueldo'],$_0201, $data_val['valor']);
-            }
-
-
+            
+            
             // 0909 = MOVILIDAD SUPEDITADA A ASISTENCIA Y QUE CUBRE SÓLO EL TRASLADO
             $data_val = array();
             $data_val = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $ID_TRABAJADOR[$i], C909);
@@ -573,7 +617,16 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
                 concepto_AFP($id_trabajador_pdeclaracion, '24', $ID_PDECLARACION, $ID_TRABAJADOR[$i]);
             } else {
                 //null
-            }
+            }            
+            
+            echo "<br> obj->getId_trabajador() = ".$obj->getId_trabajador();
+            echo "<br>obj->getOrdinario_hora() = ".$obj->getOrdinario_hora();            
+            echo "<br>obj->getDia_laborado() = ".$obj->getDia_laborado();
+            echo "<br>HORA_BASE = ".HORA_BASE;            
+            
+            $obj->setOrdinario_hora( ($obj->getOrdinario_hora()+($obj->getDia_laborado()*HORA_BASE)) );
+            $dao_trapdecla->actualizar($obj);
+            echo "<br> CALC obj->getOrdinario_hora() = ".$obj->getOrdinario_hora();
         }//ENDFOR
     }//Banderin 
 }
@@ -586,13 +639,12 @@ function generarDeclaracionPlanillaMensual($ID_PDECLARACION, $PERIODO) {
  * @return type 
  */
 function concepto_0105($id, $monto = 0,$afamiliar=0, $horas = 0) {
-
+    $time = array();
     $sueldo_por_hora = sueldoMensualXHora( ($monto+$afamiliar) );
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.25;
 
-    $neto = $nuevo_sueldo_por_hora * $horas;
+    $neto = number_format_2( ($nuevo_sueldo_por_hora * $horas) );
     //$neto = roundTwoDecimal($neto);
-    $neto = number_format_2($neto);
     //..............................................
     $minutos = $horas * 60;
 
@@ -604,8 +656,8 @@ function concepto_0105($id, $monto = 0,$afamiliar=0, $horas = 0) {
     }
     $min = $minutos;
 
-    $dao_tpd = new TrabajadorPdeclaracionDao();
-    $dao_tpd->actualizarHoraMinuto($hour, $min, $id);
+    $time['hour'] = $hour;
+    $time['min']= $min;
     //..............................................    
     //registrar
     $model = new DeclaracionDconcepto();
@@ -615,29 +667,18 @@ function concepto_0105($id, $monto = 0,$afamiliar=0, $horas = 0) {
     $model->setCod_detalle_concepto(C105);
 
     $dao = new DeclaracionDconceptoDao();
-
-    return $dao->registrar($model);
+    $dao->registrar($model);
+    return $time;
 }
 
 function concepto_0106($id, $monto = 0, $afamiliar = 0, $horas = 0) {
-
+    $tiempo = array(); 
     $sueldo_por_hora = sueldoMensualXHora( ($monto+$afamiliar) );
     $nuevo_sueldo_por_hora = $sueldo_por_hora * 1.35;
     $neto = $nuevo_sueldo_por_hora * $horas;
     //$neto = roundTwoDecimal($neto);
     $neto = number_format_2($neto);
     
-    // Consultamos si existe valores seteados en Bd H:mm
-    $dao_tpd = new TrabajadorPdeclaracionDao();
-    $data_time = $dao_tpd->selectHoraMinuto($id);
-    $h = ($data_time['sobretiempo_hora']) ? $data_time['sobretiempo_hora'] : 0;
-    $m = ($data_time['sobretiempo_min']) ? (intval($data_time['sobretiempo_min']) / 60) : 0;
-    $hora_decimal_calc = $h + $m;
-    //---------
-    //..............................................
-    $horas = $horas + $hora_decimal_calc;
-    $minutos = $horas * 60;
-
     $hour = 0;
     $min = 0;
     while ($minutos >= 60) {
@@ -645,11 +686,10 @@ function concepto_0106($id, $monto = 0, $afamiliar = 0, $horas = 0) {
         $minutos = $minutos - 60;
     }
     $min = $minutos;
-
-
-
     //
     $dao_tpd->actualizarHoraMinuto($hour, $min, $id);
+    $tiempo['hour'] = $hour;
+    $tiempo['min']= $min;   
     //..............................................
     //registrar
     $model = new DeclaracionDconcepto();
@@ -659,8 +699,8 @@ function concepto_0106($id, $monto = 0, $afamiliar = 0, $horas = 0) {
     $model->setCod_detalle_concepto(C106);
 
     $dao = new DeclaracionDconceptoDao();
-
-    return $dao->registrar($model);
+    $dao->registrar($model);
+    return $tiempo;
 }
 
 function concepto_0107($id, $monto = 0, $afamiliar=0, $dias = 0) {
@@ -669,8 +709,7 @@ function concepto_0107($id, $monto = 0, $afamiliar=0, $dias = 0) {
 
     $sueldo_por_dia = sueldoMensualXDia( ($monto + $afamiliar) );
     $nuevo_sueldo_por_dia = $sueldo_por_dia * 2; //DOBLE SUELDO
-    $neto = $nuevo_sueldo_por_dia * $dias;
-    $neto = number_format_2($neto);
+    $neto = number_format_2($nuevo_sueldo_por_dia * $dias);    
     //$neto = roundTwoDecimal($neto);
 
     //registrar
@@ -723,19 +762,20 @@ function concepto_0118($id, $monto) {
 }
 
 // Sueldo Basico
-function concepto_0121($id, $monto) {
+function concepto_0121($id, $monto, $_0705) {
 
     //$SUELDO_BASE = $monto_remuneracion;
+    $neto = ($monto-$_0705);
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
-    $model->setMonto_devengado($monto);
-    $model->setMonto_pagado($monto);
+    $model->setMonto_devengado($neto);
+    $model->setMonto_pagado($neto);
     $model->setCod_detalle_concepto(C121);
 
     $dao = new DeclaracionDconceptoDao();
-    $rpta = $dao->registrar($model);
-    
-    return ($rpta>0)?true : false;
+    $dao->registrar($model);    
+    //return ($rpta>0)?true : false;
+    return $neto;
 }
 
 // ASIGNACION FAMILIAR
@@ -828,12 +868,13 @@ function concepto_0705($id, $monto, $_0201=0, $dias=0){
 
     $model = new DeclaracionDconcepto();
     $model->setId_trabajador_pdeclaracion($id);
-    $model->setMonto_devengado($neto);
-    $model->setMonto_pagado($neto);
+    $model->setMonto_devengado(0);
+    $model->setMonto_pagado(0);
     $model->setCod_detalle_concepto(C705);
 
     $dao = new DeclaracionDconceptoDao();
-    return $dao->registrar($model);
+    $dao->registrar($model);
+    return $neto;
 }
 
 // 0706 OTROS DESCUENTOS NO DEDUCIBLES A LA BASE IMPONIBLE
@@ -1069,8 +1110,7 @@ function getSumaTodosIngresosDeDiasFeriadosTrabajador($id_trabajador, $periodo, 
 // 0406	= GRATIFICACIONES DE FIESTAS PATRIAS Y NAVIDAD – LEY 29351
 function concepto_28_Navidad_LEY_29351($id, $ID_PDECLARACION, $id_trabajador, $PERIODO) { //0406
     
-    $dao_pdeclaracion = new PlameDeclaracionDao();    
-    //$data = $dao_pdeclaracion->buscar_ID($ID_PDECLARACION);
+    $dao_pdeclaracion = new PlameDeclaracionDao();       
     
     $data = array();
     $data['periodo'] = $PERIODO;

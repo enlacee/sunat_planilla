@@ -1060,7 +1060,7 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				url += "&id_etapa_pago="+id_etapa_pago;
 				url += "&id_establecimientos="+id[0];
 				url += "&cboCentroCosto="+cboCentroCosto;
-				//alert(url);
+				console.log(url);
 		
 				window.location.href = url;				
 				},

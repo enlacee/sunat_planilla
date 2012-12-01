@@ -48,7 +48,7 @@ function cargarTablaGridTrabajador(cod_estado){
             url:'../../controller/PrestamoController.php?oper=cargar_tabla_trabajador&estado='+arg,
             datatype: 'json',
             colNames:['id','tipo','Numero Doc','Paterno',
-                'Materno','Nombres','Opciones'],
+                'Materno','Nombres','# Pres','Opciones'],
             colModel :[
                 {
                     name:'id_trabajador',
@@ -58,7 +58,7 @@ function cargarTablaGridTrabajador(cod_estado){
                     search:false,
                     width:20,
                     align:'center',
-					hidden:true
+					hidden:false
                 },		
                 {
                     name:'nombre_tipo_documento',
@@ -66,14 +66,21 @@ function cargarTablaGridTrabajador(cod_estado){
                     search:false, 
                     editable:false,
                     width:50, 
-                    align:'center'
+                    align:'center',
+					hidden:true
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:70,
-                    align:'center'
+                    width:80,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                    }
                 },            
                 
                 {
@@ -81,7 +88,10 @@ function cargarTablaGridTrabajador(cod_estado){
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
+					cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 
                  
                 },
                 {
@@ -90,13 +100,27 @@ function cargarTablaGridTrabajador(cod_estado){
                     editable:false,
                     width:80,
                     align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
                 },
                 
                 {
                     name:'nombres', 
                     index:'nombres',
                     editable:true,
-                    width:80,
+                    width:60,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+                },
+                {
+                    name:'numero_prestamo',
+                    index:'numero_prestamo',
+                    search:false,
+                    editable:false,
+                    width:30, 
                     align:'center'
                 },
                 {

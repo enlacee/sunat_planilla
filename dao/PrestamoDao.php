@@ -122,9 +122,6 @@ class PrestamoDao extends AbstractDao {
     }
     
     
-    
-    
-
     public function buscar_id($id) {
 
         $query = "
@@ -151,26 +148,35 @@ class PrestamoDao extends AbstractDao {
 
         $query = "
         SELECT
-          id_prestamo,
-          id_empleador,
-          id_trabajador,
-          valor,
-          num_cuota,
-          fecha_inicio,
-          estado,
-          fecha_creacion
-        FROM prestamos
-        WHERE id_trabajador = ?
-        AND fecha_inicio <='$periodo'
-        -- AND estado = 1
-        ORDER BY  fecha_inicio DESC    
+          pre.id_prestamo,
+          pc.id_prestamo_cutoa,
+          -- pre.valor,
+          -- pre.num_cuota,
+          -- pre.fecha_inicio,
+          -- pre.estado,
+	  -- prestamo cuota
+          pc.fecha_calc,
+          pc.monto,
+          pc.monto_variable,
+          pc.cubodin,
+          pc.fecha_calc
+          
+        FROM prestamos AS pre	
+	LEFT JOIN prestamos_cuotas AS pc
+	ON pre.id_prestamo = pc.id_prestamo        
+        
+        WHERE pre.id_trabajador = ?
+        AND pc.fecha_calc = ?
+        -- AND pre.estado = 1 -- PRESTAMOS ACTIVOS ELIMINAR ESTE ATRIBUTO PARA FILTRO
+        -- AND fecha_inicio <='2012-10-01'
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $periodo);        
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        return $lista[0];
+        return $lista;
     }
 
     // Utilizado para reporte mensual !!!!! == funcion gemela
@@ -259,7 +265,87 @@ class PrestamoDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
+    
+    // lista de prestamos por Prestamos count
+    function listarPrestamoPeriodoCount($id_empleador,$periodo, $WHERE){
+        $query = "
+        SELECT
+	COUNT(pre.id_prestamo) AS counteo
+        
+        FROM prestamos AS pre	
+	LEFT JOIN prestamos_cuotas AS pc
+	ON pre.id_prestamo = pc.id_prestamo
+	
+	WHERE pre.id_empleador = ?
+	AND pc.fecha_calc = ?
+        $WHERE
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);
+        $stm->bindValue(2, $periodo);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['counteo'];    
+        
+    }
+    
+    // lista de prestamos por Prestamos
+    function listarPrestamoPeriodo($id_empleador, $periodo,$WHERE, $start = null, $limit = null, $sidx = null, $sord = null){
+        
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
 
+        $query = "
+        SELECT
+        pre.id_prestamo,
+        pre.id_trabajador,
+        pre.valor,
+        pre.num_cuota,
+        pre.estado,
+        pre.fecha_inicio,
+        p.cod_tipo_documento,
+	p.num_documento,
+	p.apellido_paterno,
+	p.apellido_materno,
+	p.nombres	
+	,pc.fecha_calc
+        
+        FROM prestamos AS pre	
+	LEFT JOIN prestamos_cuotas AS pc
+	ON pre.id_prestamo = pc.id_prestamo
+	
+	-- data
+	INNER JOIN trabajadores AS t
+	ON pre.id_trabajador = t.id_trabajador
+	
+	INNER JOIN personas AS p
+	ON p.id_persona = t.id_persona	
+	-- data
+	
+	WHERE pre.id_empleador = ?
+	AND pc.fecha_calc = ?      
+        $cadena
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);
+        $stm->bindValue(2, $periodo);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+
+        
+    } 
+    
+    
+    
+    
+    
     //------ INICIO  
     // lista para seleccionar Trabajadores
     public function listarTrabajadorCount($id_empleador_maestro, $WHERE) {

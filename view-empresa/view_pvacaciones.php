@@ -15,11 +15,13 @@
 	
     // GRID 2
     function cargarTablaPVacaciones(){
-		console.log("cargarTablaPVacaciones");
+		var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+		var periodo = document.getElementById('periodo').value;
+		var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
 
         //$("#list-2").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajador&estado=1',
+url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajador&estado=1&'+parametro,
             datatype: 'json',
             colNames:['id','Ttipo_doc','Numero Doc','Apellido Paterno',
                 'Apellido Materno','Nombres','F Inicio','Fecha Vacacion'
@@ -178,12 +180,29 @@
 
 
 <div class="demo" align="left">
+
+<div class="ocultar">
+id_pdeclaracion
+<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+value="<?php echo $_REQUEST['id_declaracion']; ?>"/><br />
+periodo
+<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+</div>
+
+
     <div id="tabs">
+   
         <ul>
             <li><a href="#tabs-1">Vacaciones calculadas</a></li>			
 
         </ul>
         <div id="tabs-1">
+<!-- Boton cancelar-->
+<input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
+<br /><br />        
+        
+        
           <h2>Lista de Trabajadores con vacaciones proximas</h2>
           <table id="list">
           </table>

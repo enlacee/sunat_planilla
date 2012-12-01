@@ -192,7 +192,7 @@
                     width:700,
                     multiselect: false, 
                     subGrid: true, 
-                    caption: "Liquidaciones", 
+                    caption: "Liquidaciones"
                 });
                 jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
             }
@@ -208,13 +208,14 @@
 		//var d = new Date();
 		//var n = d.getFullYear(); 
 		var anio = document.getElementById('anio').value || 2012;
+        var periodo = document.getElementById('periodo').value;
 		
-		
+		parametro = 'anio='+anio+'&periodo='+periodo;
         $("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_empresa&anio='+anio,
+            url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_empresa&'+parametro,
             datatype: 'json',
-            colNames:['Id','Periodo','Estado','Modificar','Operaciones'],
+            colNames:['Id','Periodo','Periodo View','Estado','Modificar','Operaciones','Conceptos'],
             colModel :[
                 {
                     name:'id_pdeclaracion', 
@@ -222,15 +223,27 @@
                     index:'id_pdeclaracion',
                     search:false,
                     width:20,
-                    align:'center'
+                    align:'center',
+                    sortable:false
                 },		
                 {
                     name:'periodo',
                     index:'periodo',
-                    search:false, 
-                    editable:false,
+                    search:false,                     
                     width:70, 
-                    align:'center' 
+                    align:'center',
+                    editable:true,                    
+                    sortable:false,
+                    hidden:true                                  
+                },
+                {
+                    name:'periodo_view',
+                    index:'periodo_view',
+                    search:false,                     
+                    width:70, 
+                    align:'center',
+                    editable:true                   
+                    //datefmt: "m/Y "                    
                 },
                 {
                     name:'estado',
@@ -253,6 +266,13 @@
                     name:'edit', 
                     index:'edit',
                     editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'concepto', 
+                    index:'concepto',
+                    editable:false,
                     width:100,
                     align:'center'
                 }
@@ -260,8 +280,8 @@
 
             ],
             pager: '#pager',
-			height:'280px',
-            width:'100px',
+			height:'320px',
+            width:350,
             //autowidth: true,
             rowNum:12,
             rowList:[12,24,36],
@@ -305,8 +325,10 @@
                 
                 if(data.estado ==1){	
  				   jQuery("#id_pdeclaracion").val(ids);
+                   jQuery("#periodo").val(data.periodo);
                 }else{
                      jQuery("#id_pdeclaracion").val(null);
+                     jQuery("#periodo").val(null);
                 }
 			}
 		},
@@ -317,11 +339,11 @@
         for(var i=0;i<ids.length;i++){
             var data = $("#list").getRowData(ids[i]);
             if (data.id_pdeclaracion == session_id_pdeclaracion) {
-                act =' <b class="red">'+data.periodo+'</b>';
-                $("#list").setRowData(ids[i],{periodo: act });
+                act =' <b class="red">'+data.periodo_view+'</b>';
+                $("#list").setRowData(ids[i],{periodo_view: act });
             }
         }//ENDFOR
-    }   
+    }    
 			
 			
 	
@@ -2095,16 +2117,18 @@ $.ajax({
 //------------------------------------------------------
 
 
-	function cargarTablaPrestamo(){
-
+	function cargarTablaPrestamo(id_pdeclaracion, periodo){        
 		//var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
 	
         //$("#list").jqGrid('GridUnload');
+        var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
+        console.log(parametro);
+        
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PrestamoController.php?oper=cargar_tabla',
+            url:'sunat_planilla/controller/PrestamoController.php?oper=cargar_tabla&'+parametro,
             datatype: 'json',
             colNames:['id','Numero Doc','Paterno',
-                'Materno','Nombres','Fecha Prestamo','Estado','Opciones'],
+                'Materno','Nombres','Fecha Prestamo','Monto','Opciones'],
             colModel :[
                 {
                     name:'id_prestamo',
@@ -2114,22 +2138,33 @@ $.ajax({
                     search:false,
                     width:20,
                     align:'center',
-					hidden:true
+					/*hidden:true*/
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:70,
-                    align:'center'
-                },            
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){4
+                        return ": "+value + " - "+rData['2']+" "+rData['3']+" "+rData['4'] ;
+                    }
+
+
+                },             
                 
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
                     editable:false,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 
                  
                 },
                 {
@@ -2138,6 +2173,9 @@ $.ajax({
                     editable:false,
                     width:80,
                     align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 
                 {
@@ -2145,7 +2183,10 @@ $.ajax({
                     index:'nombres',
                     editable:true,
                     width:80,
-                    align:'center'
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                     
                 },
                 {
                     name:'fecha_inicio', 
@@ -2156,8 +2197,8 @@ $.ajax({
                 },				
 				
                 {
-                    name:'estado', 
-                    index:'estado',
+                    name:'valor', 
+                    index:'valor',
                     editable:false,
                     width:80,
                     align:'center'

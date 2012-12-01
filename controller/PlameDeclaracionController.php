@@ -341,14 +341,17 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
     foreach ($lista as $rec) {
 
         $param = $rec["id_pdeclaracion"];
-        $_01 = getFechaPatron($rec['periodo'], "m/Y");
+        $_01 = $rec['periodo'];//getFechaPatron($rec['periodo'], "m/Y");
         $_02 = $rec['estado'];
+        $_03 = null;
+        $_04 = null; 
                 
         if($_02 == '1'){
-            $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $_01 . '\',\'#CapaContenedorFormulario\')"title = "Operaciones">Oper</a>';
-            $_04 = ' - - <a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=' . $param . '\',\'#CapaContenedorFormulario\')"title = "Operaciones"><span class ="red">RC</span></a>';            
+            $_03 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $rec['periodo'] . '\',\'#CapaContenedorFormulario\')"title = "Operaciones">Oper</a>';
             
-            $_03 .= " ".$_04;
+            $_04 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=' . $param ."&periodo=".$rec['periodo']. '\',\'#CapaContenedorFormulario\')"><span class ="red">RC</span></a>';            
+            $_05 = ' - - <a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=' . $param .'&periodo=' . $rec['periodo'] .'\',\'#CapaContenedorFormulario\')"><span class ="red">RC-2</span></a>';
+            $_04 .= " ".$_05;
             
        }else{
            $_03=null;
@@ -367,9 +370,11 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
         $response->rows[$i]['cell'] = array(
             $param,
             $_01,
+            getFechaPatron($rec['periodo'], "m/Y"),
             $_02,
             $opciones,
-            $_03            
+            $_03,
+            $_04,
         );
         $i++;
     }

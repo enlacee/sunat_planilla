@@ -18,7 +18,9 @@ $response = NULL;
 if ($op == 'cargar_tabla_trabajador') {
     $response = listarTrabajadores();
 } else if ($op == 'cargar_tabla') {
-    $response = listarPrestamos();
+    //$response = listarPrestamos();
+   $response = listarPrestamoPeriodo(); 
+    
 } else if ($op == "add") {
     $response = addPrestamos();
 } else if ($op == "edit") {
@@ -27,7 +29,12 @@ if ($op == 'cargar_tabla_trabajador') {
 
 echo (!empty($response)) ? json_encode($response) : '';
 
+
+//lisat de trabajadores con prestamos. PRIMERO
 function listarPrestamos() {
+        
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $periodo = $_REQUEST['periodo'];    
 
     $dao = new PrestamoDao();
     $page = $_GET['page'];
@@ -55,7 +62,8 @@ function listarPrestamos() {
         $sidx = 1;
 
     $count = $dao->listarCount(ID_EMPLEADOR, $WHERE);
-
+    
+   
     if ($count > 0) {
         $total_pages = ceil($count / $limit);
     } else {
@@ -83,10 +91,12 @@ function listarPrestamos() {
     if ($lista == null || count($lista) == 0) {
         return $responce;
     }
-
+    
+    $parametro = "id_declaracion=$id_pdeclaracion&periodo=$periodo";
+    
     foreach ($lista as $rec) {
         $param = $rec["id_prestamo"];
-        //$_00 = $rec["id_trabajador"];
+        $_00 = $rec["id_trabajador"];
         //$_01 = $rec["cod_tipo_documento"];
         $_02 = $rec["num_documento"];
         $_03 = $rec["apellido_paterno"];
@@ -97,10 +107,10 @@ function listarPrestamos() {
         
 
         //$js = "javascript:return_modal_anb_prestamo('".$param ."','".$_02."','".$_03." ".$_04." ".$_05."')";
-        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cprestamo.php?id_prestamo=" . $param . "?id_trabajador=" . $_00 . "','#CapaContenedorFormulario')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cprestamo.php?id_prestamo=" . $param . "&$parametro','#CapaContenedorFormulario')";
         $opciones = '<div id="">
           <span  title="Editar" >
-          <a class = "divEditar" href="' . $js . '">e</a>
+          <a class = "divEditar" href="' . $js . '"></a>
           </span>          
           </div>'
         ;
@@ -123,6 +133,114 @@ function listarPrestamos() {
 
     return $responce;
 }
+
+// lista a los trabajadores x periodo
+function listarPrestamoPeriodo(){
+    
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $periodo = $_REQUEST['periodo'];
+    
+    $dao = new PrestamoDao();
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx'];
+    $sord = $_GET['sord'];
+
+    $WHERE = '';
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $count = $dao->listarPrestamoPeriodoCount(ID_EMPLEADOR,$periodo, $WHERE);
+    
+   
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit);
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit;
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+    //$lista = array();
+    $lista = $dao->listarPrestamoPeriodo(ID_EMPLEADOR,$periodo, $WHERE, $start, $limit, $sidx, $sord);
+
+    $responce->page = $page;
+    $responce->total = $total_pages;
+    $responce->records = $count;
+    $i = 0;
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return $responce;
+    }
+    
+    $parametro = "id_declaracion=$id_pdeclaracion&periodo=$periodo";
+    
+    foreach ($lista as $rec) {
+        $param = $rec["id_prestamo"];
+        $_00 = $rec["id_trabajador"];
+        //$_01 = $rec["cod_tipo_documento"];
+        $_02 = $rec["num_documento"];
+        $_03 = $rec["apellido_paterno"];
+        $_04 = $rec["apellido_materno"];
+        $_05 = $rec["nombres"];
+        $_06 = $rec["fecha_inicio"];
+        $_07 = $rec["valor"];//($rec["estado"] == 1) ? 'ACTIVO' : 'INACTIVO';
+        
+
+        //$js = "javascript:return_modal_anb_prestamo('".$param ."','".$_02."','".$_03." ".$_04." ".$_05."')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cprestamo.php?id_prestamo=" . $param . "&$parametro','#CapaContenedorFormulario')";
+        $opciones = '<div id="">
+          <span  title="Editar" >
+          <a class = "divEditar" href="' . $js . '"></a>
+          </span>          
+          </div>'
+        ;
+
+        $responce->rows[$i]['id'] = $param;
+        $responce->rows[$i]['cell'] = array(
+            $param,
+            //$_01,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $_06,
+            $_07,
+            
+            $opciones
+        );
+        $i++;
+    }
+
+    return $responce;
+    
+}
+
+
+
 
 function listarTrabajadores() {
 
@@ -198,32 +316,31 @@ function listarTrabajadores() {
         $_05 = $rec["nombres"];
 
 
-        $bandera = false;
+         $num_prestamos = 0;
+        //$cadena_prestamo = '';
         for ($j = 0; $j < count($press); $j++) {
-
-            if ($param == $press[$j]['id_trabajador']) {
-                $bandera = true;
-                break;
+            if ($param == $press[$j]['id_trabajador']) {                
+                $num_prestamos++;
+                //break;
             }
-        }
-
-
-        if ($bandera == false) {
-            $js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
-            $opciones = '<div class="red">
-          <span  title="Editar" >
-          <a href="' . $js . '">seleccionar</a>
-          </span>
-          &nbsp;
-          </div>';
-        }else{
-             $opciones = '<div class="red">
+        }        
+        
+       /* if ($num_prestamos > 0){            
+          $opciones = '<div class="red">
           <span  title="Editar" >
           <a href="#">P. Pendiente</a>
           </span>
           &nbsp;
-          </div>';
-        }
+          </div>';  */          
+       // }else{            
+          $js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
+          $opciones = '<div class="red">
+          <span  title="Editar" >
+          <a href="' . $js . '">seleccionar</a>
+          </span>
+          &nbsp;
+          </div>';             
+       // }
 
 
 
@@ -236,6 +353,7 @@ function listarTrabajadores() {
             $_03,
             $_04,
             $_05,
+            $num_prestamos,
             $opciones
         );
         $i++;
@@ -243,6 +361,9 @@ function listarTrabajadores() {
 
     return $responce;
 }
+
+
+
 
 function addPrestamos() {
     //echoo($_REQUEST);
@@ -261,7 +382,7 @@ function addPrestamos() {
     $obj->setValor($_REQUEST['valor']);
     $obj->setNum_cuota($_REQUEST['num_cuota']);
     $obj->setFecha_inicio(getFechaPatron($fecha_inicio, "Y-m-d"));
-    $obj->setEstado('1');
+    $obj->setEstado(1); //ACTIVO
     $obj->setFecha_creacion(date("Y-m-d"));
     
    //REGISTRAR PRESTAMO

@@ -93,6 +93,17 @@ if(validarFormatoMesAnio(fecha_inicio)){
 
 
 <div class="demo" align="left">
+
+<div class="ocultar">
+id_pdeclaracion
+<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+value="<?php echo $_REQUEST['id_declaracion']; ?>"/><br />
+periodo
+<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+</div>
+
+
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Nuevo Prestamo</a></li>			
@@ -144,7 +155,7 @@ tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a></div>
                 class="submit-go" onclick="grabarPrestamo(this)" />
                 <input type="button" name="btn_cancelar" id="btn_cancelar" 
                 class="submit-cancelar" value="Cancelar" 
-                onclick="cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php','#CapaContenedorFormulario');" />
+                onclick="cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario');" />
               </p>
           <p>&nbsp;</p>
         </form>       

@@ -18,10 +18,16 @@ $id_pdeclaracion = ($_REQUEST['id_pdeclaracion']) ? $_REQUEST['id_pdeclaracion']
 <!--<script src="sunat_planilla/view/js/jquery-1.7_min.js" type="text/javascript"></script>-->
 
 <script type="text/javascript">
+
+	
+
+
+
     $(document).ready(function(){
 		var request_id_pdeclaracion = <?php echo $id_pdeclaracion;?>;                  
         $( "#tabs").tabs();
 		//cargarTablaLiquidaciones();
+		console.log("request_id_pdeclaracion = "+request_id_pdeclaracion);
 		cargarTablaPdeclaracionEmpresa(request_id_pdeclaracion);	
 		
 	});
@@ -32,6 +38,7 @@ $("#eliminar_datos_mes").click(function(){
 	
 	
 var id_pdeclaracion = $("#id_pdeclaracion").val();
+var periodo = $("#periodo").val();
 
 
 var boton = $(this);
@@ -43,7 +50,7 @@ if(id_pdeclaracion!=""){
    $.ajax({
    type: "POST",
    url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
-   data: {id_pdeclaracion : id_pdeclaracion,oper : 'eliminar_data_mes'},
+   data: {id_pdeclaracion : id_pdeclaracion, oper : 'eliminar_data_mes', periodo : periodo },
    async:true,
    success: function(datos){
 
@@ -197,7 +204,12 @@ $('#reporte_liquidacion').click(function(){
             <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button" class="button-del"  />
             <input type="hidden" name="eliminar_declaracion" id="eliminar_declaracion" value="Elimina Declaracion" class="button-del" />
 <div class="ocultar">   
-  <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
+  id_pdeclaracion<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
+  <br />
+periodo<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+  
+  
 </div>
 <div class="section">
 <div class="article fila1">

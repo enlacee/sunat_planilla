@@ -76,7 +76,9 @@ return $rpta;
 
 
 function cargar_tabla_ConceptoEEmpleador() {
-
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $periodo = $_REQUEST['periodo'];
+    
     $dao_trabajador = new Concepto_E_EmpleadorDao();
 
     $page = $_GET['page'];
@@ -149,19 +151,24 @@ function cargar_tabla_ConceptoEEmpleador() {
         
         
         // diferentes vistas ::: segun concepto.
-            $js = '#';
-        if($_01=='1'){ // Prestamo
-            $js ="javascript:cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php','#CapaContenedorFormulario')";
-            //new_cprestamo
-        }else if($_01=='2'){ // PARA TI FAMILIA
-           $js ="javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php','#CapaContenedorFormulario')"; 
-            
-        }else{
-           // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_concepto_e.php?id_concepto_e=$_01&id_concepto_e_empleador=$param','#CapaContenedorFormulario')";
+             $js = '#';
+             $parametro = "?id_declaracion=$id_pdeclaracion&periodo=$periodo";
+        switch ($_01) {
+            case 1: // PRESTAMO
+                $js ="javascript:cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php$parametro','#CapaContenedorFormulario')";
+                break;
+            case 2: // PARA TI FAMILIA
+                $js ="javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php$parametro','#CapaContenedorFormulario')"; 
+                break;
+            case 3: // VACACION
+                $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/view_pvacaciones.php$parametro','#CapaContenedorFormulario')";
+                break;
+            default:
+                $js = 'null';
+                break;
         }
-        
-        
-        //$js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
+           // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_concepto_e.php?id_concepto_e=$_01&id_concepto_e_empleador=$param','#CapaContenedorFormulario')";
+
         $opciones = '<div id="divEliminar_Editar">				
         <span  title="Editar"   >
         <a href="' . $js . '" class="divEditar" ></a>

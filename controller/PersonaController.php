@@ -436,11 +436,11 @@ function buscarPersonaPorId($ID_PERSONA) {
  * listar Persona con:
  * Periodos laborados 
  */
-function listarPersonaConPeriosdoLaborales($id_empleador_maestro,$id_persona){
+function listarPersonaConPeriosdoLaborales($id_empleador,$id_persona){
         // IDE_EMPLEADOR_MAESTRO    
         
     $dao_persona = new PersonaDao();
-    $data = $dao_persona->listarPersonaConPeriodoLaboral($id_empleador_maestro, $id_persona);    
+    $data = $dao_persona->listarPersonaConPeriodoLaboral($id_empleador, $id_persona);    
     return $data;
     
 }

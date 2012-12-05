@@ -15,7 +15,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
     //02 CODIGOS de Movimientos
     // CODIGO = 1 = Inicio Relacion laboral    
     $data_tra_1 = $dao_eafp->codigoMovimiento_1($ID_PDECLARACION, $anio, $mes);
-    ;
+    
     $data_tra_1id = arrayId($data_tra_1, 'id_trabajador');
 
 
@@ -199,20 +199,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
     $workbook->close();
 }
 
-function afpArrayConstruido(){
-    $mi_afp = array();
-    $mi_afp[0]['codigo'] = 21;
-    $mi_afp[1]['codigo'] = 22;
-    $mi_afp[2]['codigo'] = 23;
-    $mi_afp[3]['codigo'] = 24;
-    //
-    $mi_afp[0]['nombre'] = 'INTEGRA';
-    $mi_afp[1]['nombre'] = 'HORIZONTE';
-    $mi_afp[2]['nombre'] = 'PROFUTURO';
-    $mi_afp[3]['nombre'] = 'PRIMA'; 
-    
-    return $mi_afp;
-}
+
 //Generar Rporte
 function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
 

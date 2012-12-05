@@ -2143,6 +2143,7 @@ $.ajax({
                 {
                     name:'num_documento', 
                     index:'num_documento',
+                    search:false,
                     editable:false,
                     width:100,
                     align:'left',
@@ -2236,16 +2237,18 @@ $.ajax({
     }
 
 
-	function cargarTablaParaTiFamilia(){
+	function cargarTablaParaTiFamilia(id_pdeclaracion, periodo){
 
 		//var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
 	
         //$("#list").jqGrid('GridUnload');
+        var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
+
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/ParatiFamiliaController.php?oper=cargar_tabla',
+            url:'sunat_planilla/controller/ParatiFamiliaController.php?oper=cargar_tabla&'+parametro,
             datatype: 'json',
             colNames:['id','Numero Doc','Paterno',
-                'Materno','Nombres','Descripcion','Estado','Opciones'],
+                'Materno','Nombres','Descripcion','Opciones','Eliminar'],
             colModel :[
                 {
                     name:'id_para_ti_familia',
@@ -2260,6 +2263,7 @@ $.ajax({
                 {
                     name:'num_documento', 
                     index:'num_documento',
+                    search:false,
                     editable:false,
                     width:70,
                     align:'center'
@@ -2294,23 +2298,24 @@ $.ajax({
                     editable:false,
                     width:120,
                     align:'center'
-                },				
-				
-                {
-                    name:'estado', 
-                    index:'estado',
-                    editable:false,
-                    width:80,
-                    align:'center'
-                },				
+                },	
+			
                 {
                     name:'opciones',
                     index:'opciones',
                     search:false,
                     editable:false,
-                    width:100, 
+                    width:70, 
                     align:'center'
-                }							
+                },
+                {
+                    name:'eliminar', 
+                    index:'eliminar',
+                    search:false,
+                    editable:false,
+                    width:70,
+                    align:'center'
+                },  
 
 		
             ],
@@ -2339,10 +2344,16 @@ $.ajax({
 //--------------------------------------------------------------------------------------
 
 function grabarParaTiFamilia(obj){
+
+
 	
 var id_trabajador = document.getElementById('id_trabajador').value;
+var cbo = document.getElementById('cbo_tipo_para_tifamilia').value;
+var fecha_inicio = document.getElementById('fecha_inicio').value;
 
-if(id_trabajador != ''){
+var vacio = (id_trabajador==''|| cbo ==''||fecha_inicio =='') ? false : true;
+
+if(vacio){
 	
 
 var from_data =  $("#FrmParaTiFamilia").serialize();
@@ -2356,8 +2367,12 @@ $.ajax({
 	success: function(data){
 					
 		if(data){
-			alert("Se registro correctamente");
-			javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php','#CapaContenedorFormulario')
+            // variables locales
+            var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+            var periodo = document.getElementById('periodo').value;
+            var parametro = 'id_declaracion='+id_pdeclaracion+'&periodo='+periodo;
+			alert("Se registro correctamente");            
+			javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php?'+parametro,'#CapaContenedorFormulario')
 			//javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
 		}else{
 			alert("Ocurrio un error.");
@@ -2366,7 +2381,7 @@ $.ajax({
 });
 //-------
 }else{
-	alert("Ingrese datos validos");	
+	alert("No deje campos vacios!");	
 }
 
 }
@@ -2374,5 +2389,58 @@ $.ajax({
 
 
 
+//---- eliminar prestamo
+function eliminarPrestamo(id){
+var estado = confirm("Seguro que desea eliminar?");    
 
+if(estado){	
+//-----	
+$.ajax({
+	type: 'post',
+	dataType: 'json',
+	url: 'sunat_planilla/controller/PrestamoController.php',
+	data: {oper : 'del', id_prestamo : id},
+	success: function(data){					
+		if(data.rpta){
+			//alert("Se elimino correctamente");
+			//$("#list").jqGrid('GridUnload');
+			$("#list").trigger('reloadGrid');
+			//javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php','#CapaContenedorFormulario')
+		}else{
+			alert("Ocurrio un error.\n"+data.mensaje);
+		}		
+	}
+});
+//-------
+}
+
+}
+
+
+//---- eliminar prestamo
+function eliminarParaTiFamilia(id){
+var estado = confirm("Seguro que desea eliminar?");    
+
+if(estado){
+//----- 
+$.ajax({
+    type: 'post',
+    dataType: 'json',
+    url: 'sunat_planilla/controller/ParatiFamiliaController.php',
+    data: {oper : 'del', id_para_ti_familia : id},
+    success: function(data){                    
+        if(data){
+            //alert("Se elimino correctamente");
+            //$("#list").jqGrid('GridUnload');
+            $("#list").trigger('reloadGrid');
+            //javascript:cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php','#CapaContenedorFormulario')
+        }else{
+            alert("Ocurrio un error.\n"+data.mensaje);
+        }       
+    }
+});
+//-------
+}
+
+}
 

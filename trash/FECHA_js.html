@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+
+<body>
+<script type="text/javascript">
+
+
+function cadenaFecha(fecha){
+	var caracter = new Array();
+	var data_mes;
+	caracter.push("-");
+	caracter.push("/");	
+	
+	for(var i=0;i<caracter.length;i++){
+			console.log(i);
+		var posicion = fecha.indexOf(caracter[i]);		
+		if(posicion != -1){
+			var arreglo = fecha.split(caracter[i]);
+			
+			if(arreglo[0].length==4){ //AÑO  = Y-m-d
+				data_mes = new Date(arreglo[0],(arreglo[1]-1),arreglo[2])	
+			}else{//endif // DIA = d-m-Y
+				data_mes = new Date(arreglo[2],(arreglo[1]-1),arreglo[0])
+			}			
+			break;
+		}//endif		
+	}	
+	//console.log(data_mes);
+}
+
+
+
+</script>
+
+</body>
+</html>

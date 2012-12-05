@@ -16,11 +16,16 @@ $data = comboTipoParaTiFamilia();
                   
         $( "#tabs").tabs();
 		
+//-----------------------
+		var periodo = $("#periodo").val();	
+		var data_mes = cadenaFecha(periodo);
+		
 		$("#fecha_inicio").datepicker({ 
+		showButtonPanel: true,							  
 		changeMonth: true,
 		changeYear: true,
-		dateFormat: 'mm/yy',
-		//minDate: 0,
+		dateFormat: '01/mm/yy',
+		minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDate())
 		//maxDate: "+11M +0D"
 		
 	});
@@ -40,14 +45,24 @@ $data = comboTipoParaTiFamilia();
 
 
 <div class="demo" align="left">
+
+<div class="ocultar">
+id_pdeclaracion
+<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+value="<?php echo $_REQUEST['id_declaracion']; ?>"/><br />
+periodo
+<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+</div>
+
+
+
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Para Ti Familia</a></li>			
 
         </ul>
         <div id="tabs-1">
-          <p>&nbsp;</p>
-          
 <form name="FrmParaTiFamilia" id="FrmParaTiFamilia" method="post" action="">
 
 <div class="ocultar">
@@ -87,7 +102,7 @@ tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a></div>
  <div class="fila_input">
     <label>fecha Inicio</label>
     <input name="fecha_inicio" type="text" id="fecha_inicio" 
-            value="<?php echo getFechaPatron( date("Y-m-d"),"m/Y");?>" />
+            value=""  readonly="readonly"/>
     (mm/aaaa)
    </div>
 
@@ -96,8 +111,12 @@ tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a></div>
   <input type="button" name="btn_aceptar" id="btn_aceptar" value="Guardar"
             class="submit-go"
             onclick="grabarParaTiFamilia(this)" />
+            
+<!-- Boton cancelar-->
+           
   <input type="button" name="btn_cancelar" id="btn_cancelar" 
-            class="submit-cancelar" value="Cancelar" />
+            class="submit-cancelar" value="Cancelar"  
+ onclick="cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" />
 
 
           

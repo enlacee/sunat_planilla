@@ -171,14 +171,6 @@ if ($op == "add") {
     if ($ESTADO) {
         generarReporteAfp($ID_PDECLARACION, $PERIODO);
     }
-} else if ($op == 'reporte_liquidacion_anual') {
-
-    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
-    $PERIODO = buscarPeriodo($ID_PDECLARACION);
-    $ESTADO = generarConfiguracion($PERIODO);
-    if ($ESTADO) {
-        generarReporteliquidacionAnual($ID_PDECLARACION, $PERIODO);
-    }
 }
 
 
@@ -937,7 +929,7 @@ function concepto_0706($id, $id_trabajador, $id_pdeclaracion, $PERIODO) {
         $obj_pdt->setFecha(date("Y-m-d"));
         $obj_pdt->setValor($calculo_ptf);
 
-        //dao
+        //dao --------------------------------------- OJO ES POSIBLE NO USARLO-------------------------------------------------------------------
         $dao_ptf_pago = new PtfPagoDao();
         $dao_ptf_pago->add($obj_pdt);
     }

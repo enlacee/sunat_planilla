@@ -54,8 +54,7 @@ function listaCuotas($id_prestamo){
         $obj->setId_prestamo($id_prestamo);
         $obj->setId_prestamo_cutoa($data[$i]['id_prestamo_cutoa']);
         $obj->setMonto($data[$i]['monto']);
-        $obj->setMonto_variable($data[$i]['monto_variable']);
-        $obj->setMonto_pagado($data[$i]['monto_pagado']);
+        $obj->setMonto_variable($data[$i]['monto_variable']);        
         $obj->setFecha_calc($data[$i]['fecha_calc']);
         $obj->setFecha_pago($data[$i]['fecha_pago']);        
         $obj->setEstado($data[$i]['estado']);

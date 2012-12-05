@@ -23,6 +23,21 @@ $obj = buscar_IdParaTiFamilia($_REQUEST['id_para_ti_familia']);
     $(document).ready(function(){
                   
         $( "#tabs").tabs();
+		
+//-----------------------
+		var periodo = $("#periodo").val();	
+		var data_mes = cadenaFecha(periodo);
+		
+		$("#fecha_inicio").datepicker({ 
+		showButtonPanel: true,							  
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: '01/mm/yy',
+		//minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDate())
+		//maxDate: "+11M +0D"
+		
+	});
+		
 			
 	});
 
@@ -39,13 +54,22 @@ $obj = buscar_IdParaTiFamilia($_REQUEST['id_para_ti_familia']);
 
 
 <div class="demo" align="left">
+
+<div class="ocultar">
+id_pdeclaracion
+<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+value="<?php echo $_REQUEST['id_declaracion']; ?>"/><br />
+periodo
+<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+</div>
+
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Para Ti Familia</a></li>			
 
         </ul>
         <div id="tabs-1">
-          <p>&nbsp;</p>
           
 <form name="FrmParaTiFamilia" id="FrmParaTiFamilia" method="post" action="">
 
@@ -73,7 +97,7 @@ $obj = buscar_IdParaTiFamilia($_REQUEST['id_para_ti_familia']);
             <br>
           <label>Tipo Para ti Familia</label>
           
-<select name="cbo_tipo_para_tifamilia" id="cbo_tipo_para_tifamilia" style="width:180px" disabled="disabled" >
+<select name="cbo_tipo_para_tifamilia" id="cbo_tipo_para_tifamilia" style="width:180px"  >
 
 <?php for($i=0; $i<count($data); $i++): ?>
 
@@ -95,14 +119,18 @@ $obj = buscar_IdParaTiFamilia($_REQUEST['id_para_ti_familia']);
 <br />
 <label>fecha Inicio</label> 
             <input name="fecha_inicio" type="text" id="fecha_inicio" 
-            value="<?php echo getFechaPatron( $obj['fecha_inicio'],"m/Y");?>" readonly="readonly" />
+            value="<?php echo getFechaPatron( $obj['fecha_inicio'],"d/m/Y");?>" readonly="readonly" />
 (mm/aaaa) </p>
 
           <p><br />
-            <input type="button" name="btn_aceptar" id="btn_aceptar" value="Guardar" disabled="disabled"
+            <input type="button" name="btn_aceptar" id="btn_aceptar" value="Guardar"
+            class="submit-go" 
 onclick="grabarParaTiFamilia(this)" />
+
             <input type="button" name="btn_cancelar" id="btn_cancelar" 
-            class="submit-cancelar" value="Cancelar" />
+            class="submit-cancelar" value="Cancelar"
+ onclick="cargar_pagina('sunat_planilla/view-empresa/view_cparatifamilia.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" />
+
           </p>
 
         <p>&nbsp;</p>

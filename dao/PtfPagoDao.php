@@ -1,5 +1,6 @@
 <?php
-
+// ESTA TABLA ES `POSIBLE QUE SEA INCESASARIO XQ tenemos el monto ABONO
+//EN TABLA trabajador_pdeclaracion
 class PtfPagoDao extends AbstractDao {
 
     public function add($obj) {

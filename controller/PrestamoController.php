@@ -25,6 +25,8 @@ if ($op == 'cargar_tabla_trabajador') {
     $response = addPrestamos();
 } else if ($op == "edit") {
     $response = editPrestamos();
+}else if ($op == "del"){
+    $response = delPrestamo();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
@@ -212,10 +214,15 @@ function listarPrestamoPeriodo(){
 
         //$js = "javascript:return_modal_anb_prestamo('".$param ."','".$_02."','".$_03." ".$_04." ".$_05."')";
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cprestamo.php?id_prestamo=" . $param . "&$parametro','#CapaContenedorFormulario')";
+        $del = "javascript:eliminarPrestamo('".$param."')";
         $opciones = '<div id="">
           <span  title="Editar" >
           <a class = "divEditar" href="' . $js . '"></a>
           </span>          
+          <span>
+          <a class = "divEliminar"     href="' . $del . '"></a>
+          </span>
+          
           </div>'
         ;
 
@@ -373,7 +380,7 @@ function addPrestamos() {
       $_REQUEST['fecha_inicio'];
       $_REQUEST['num_cuota'];
      */
-    $fecha_inicio = "01/" . $_REQUEST['fecha_inicio'];
+    $fecha_inicio = $_REQUEST['fecha_inicio']; //"01/" . $_REQUEST['fecha_inicio'];
 
     //echoo($fecha_inicio);
     $obj = new Prestamo();
@@ -403,8 +410,7 @@ function addPrestamos() {
         $obj_cp->setMonto($cuota_arreglo[$i]['monto']);        
         $obj_cp->setFecha_calc($fecha_contruida);
         $obj_cp->setFecha_pago(null);
-        $obj_cp->setEstado(0);
-        $obj_cp->setDescripcion(null);
+        $obj_cp->setEstado(0);        
         //DAO
         $dao_cprestamo->add($obj_cp);
     endfor;    
@@ -473,6 +479,35 @@ function buscar_IdPrestamo($id_prestamo){
     
 }
 
-
+function delPrestamo(){
+    $r->rpta = null;
+    $flag = false; // No tiene prestamo pagado
+    
+    $id_prestamo = $_REQUEST['id_prestamo'];
+    //paso 1 = pregunta si tiene pagos realizados
+    $dao_pc = new PrestamoCuotaDao();
+    $data = $dao_pc->buscar_idPadre($id_prestamo);
+    
+    
+    for($i=0;$i<count($data);$i++):
+        if($data[$i]['estado'] == 1):
+            $flag = true;
+            break;
+        endif;        
+    endfor;    
+    
+    if($flag):
+        $r->rpta = false;
+        $r->mensaje  = 'No se puede eliminar el Prestamo: porque existe cuotas pagadas.';
+    else:       
+       // paso 2 = Eliminar prestamo
+        $r->rpta = true;
+        $dao_p = new PrestamoDao();
+        $dao_p->del($id_prestamo);
+        
+    endif;
+        
+    return $r;    
+}
 
 ?>

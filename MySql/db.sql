@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2012 at 09:05 p.m.
+-- Generation Time: Dec 03, 2012 at 06:37 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -12969,7 +12969,7 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos` (
   PRIMARY KEY (`id_declaracion_dconcepto`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=31871 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos`
@@ -16559,7 +16559,7 @@ CREATE TABLE IF NOT EXISTS `dias_nosubsidiados` (
   PRIMARY KEY (`id_dia_nosubsidiado`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_tipo_suspen_relacion_laboral` (`cod_tipo_suspen_relacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=211 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `dias_nosubsidiados`
@@ -16955,7 +16955,7 @@ CREATE TABLE IF NOT EXISTS `etapas_pagos` (
   PRIMARY KEY (`id_etapa_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`,`cod_periodo_remuneracion`),
   KEY `cod_periodo_remuneracion` (`cod_periodo_remuneracion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=538 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='pago 7\r\npago 15\r\npago 30\r\n\r\n\r\nSI DECLARACION ESTA ACTIVO no ' AUTO_INCREMENT=472 ;
 
 --
 -- Dumping data for table `etapas_pagos`
@@ -26927,7 +26927,7 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   KEY `id_trabajador` (`id_trabajador`,`id_etapa_pago`,`id_empresa_centro_costo`),
   KEY `id_etapa_pago` (`id_etapa_pago`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=7894 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=1216 ;
 
 --
 -- Dumping data for table `pagos`
@@ -28063,7 +28063,7 @@ CREATE TABLE IF NOT EXISTS `prestamos` (
   PRIMARY KEY (`id_prestamo`),
   KEY `id_empleador` (`id_empleador`),
   KEY `id_trabajador` (`id_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Dumping data for table `prestamos`
@@ -28091,7 +28091,8 @@ INSERT INTO `prestamos` (`id_prestamo`, `id_empleador`, `id_trabajador`, `valor`
 (20, 1, 7, '75.00', 1, '2012-10-01', 1, '2012-11-21'),
 (25, 1, 2, '975.00', 4, '2012-10-01', 1, '2012-11-26'),
 (27, 1, 4, '273.00', 2, '2012-08-01', 1, '2012-11-28'),
-(28, 1, 2, '200.00', 2, '2012-09-01', 1, '2012-11-28');
+(35, 1, 2, '100.00', 2, '2012-12-01', 1, '2012-12-01'),
+(37, 1, 1, '127.00', 2, '2012-07-01', 1, '2012-12-01');
 
 -- --------------------------------------------------------
 
@@ -28111,7 +28112,7 @@ CREATE TABLE IF NOT EXISTS `prestamos_cuotas` (
   `estado` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id_prestamo_cutoa`),
   KEY `id_prestamo` (`id_prestamo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DB_ANB' AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='DB_ANB' AUTO_INCREMENT=291 ;
 
 --
 -- Dumping data for table `prestamos_cuotas`
@@ -28124,8 +28125,10 @@ INSERT INTO `prestamos_cuotas` (`id_prestamo_cutoa`, `id_prestamo`, `monto`, `mo
 (8, 25, '246.00', '0.00', NULL, '2013-01-01', NULL, NULL, 0),
 (19, 27, '136.00', '0.00', '150.00', '2012-08-01', NULL, 0, 0),
 (20, 27, '137.00', '0.00', NULL, '2012-09-01', NULL, 1, 0),
-(21, 28, '100.00', NULL, NULL, '2012-09-01', NULL, NULL, 0),
-(22, 28, '100.00', '0.00', NULL, '2012-11-01', NULL, 1, 0);
+(285, 35, '50.00', NULL, NULL, '2012-12-01', NULL, NULL, 0),
+(286, 35, '50.00', NULL, NULL, '2013-01-01', NULL, NULL, 0),
+(289, 37, '63.00', NULL, NULL, '2012-07-01', NULL, NULL, 0),
+(290, 37, '64.00', NULL, NULL, '2012-08-01', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -28142,7 +28145,7 @@ CREATE TABLE IF NOT EXISTS `ptf_pagos` (
   PRIMARY KEY (`id_ptf_pago`),
   KEY `id_pdeclaracion` (`id_pdeclaracion`),
   KEY `id_para_ti_familia` (`id_para_ti_familia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=85 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ptf_pagos`
@@ -29713,7 +29716,7 @@ CREATE TABLE IF NOT EXISTS `trabajadores_pdeclaraciones` (
   KEY `id_pdeclaracion_2` (`id_pdeclaracion`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`),
   KEY `cod_ocupacion_p` (`cod_ocupacion_p`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=3773 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `trabajadores_pdeclaraciones`

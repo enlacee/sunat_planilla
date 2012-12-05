@@ -17,18 +17,21 @@ $response = NULL;
 if ($op == 'cargar_tabla_trabajador') {
     $response = listarTrabajadores();
 } else if ($op == 'cargar_tabla') {
-    $response = listar();
+    //$response = listar();
+    $response = listarPTFPeriodo();
 } else if ($op == "add") {
     $response = add();
 } else if ($op == "edit") {
     $response = edit();
+}else if($op == "del"){
+    $response = del();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
 
 // Lista a seleccionar grid
 function listarTrabajadores() {
-
+        
     // Reutilizando clase!
     $dao = new PrestamoDao();
     $page = $_GET['page'];
@@ -146,7 +149,13 @@ function listarTrabajadores() {
     return $responce;
 }
 
-function listar() {
+
+// listarPTFPeriodo()
+function listarPTFPeriodo() {
+    //echoo($_REQUEST);
+    $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
+    $periodo = $_REQUEST['periodo'];
+    
     $dao = new ParatiFamiliaDao(); //PrestamoDao();
     $page = $_GET['page'];
     $limit = $_GET['rows'];
@@ -172,8 +181,7 @@ function listar() {
     if (!$sidx)
         $sidx = 1;
 
-    $count = $dao->listarCount(ID_EMPLEADOR, $WHERE);
-
+    $count = $dao->listarPTFCount(ID_EMPLEADOR, $periodo, $WHERE);
     if ($count > 0) {
         $total_pages = ceil($count / $limit);
     } else {
@@ -190,8 +198,9 @@ function listar() {
         $start = 0;
 
     $lista = array();
-    $lista = $dao->listar(ID_EMPLEADOR, $WHERE, $start, $limit, $sidx, $sord);
-
+    //$lista = $dao->listar(ID_EMPLEADOR, $WHERE, $start, $limit, $sidx, $sord);
+    $lista = $dao->listarPTFPeriodo(ID_EMPLEADOR, $periodo, $WHERE, $start, $limit, $sidx, $sord);
+    
     $responce->page = $page;
     $responce->total = $total_pages;
     $responce->records = $count;
@@ -205,24 +214,27 @@ function listar() {
     foreach ($lista as $rec) {
 
         $param = $rec["id_para_ti_familia"];
-        $_00 = $rec["id_trabajador"];
-        //$_01 = $rec["cod_tipo_documento"];
+        $_00 = $rec["id_trabajador"];        
         $_02 = $rec["num_documento"];
         $_03 = $rec["apellido_paterno"];
         $_04 = $rec["apellido_materno"];
         $_05 = $rec["nombres"];
-        $_06 = $rec["descripcion"];
-        $_07 = ($rec["estado"] == 1) ? 'ACTIVO' : 'INACTIVO';
+        $_06 = $rec["descripcion"];        
 
 
         //$js = "javascript:return_modal_anb_prestamo('".$param ."','".$_02."','".$_03." ".$_04." ".$_05."')";
-        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cparatifamilia.php?id_para_ti_familia=" . $param . "?id_trabajador=" . $_00 . "','#CapaContenedorFormulario')";
-        $opciones = '<div id="">
+        $del = "javascript:eliminarParaTiFamilia('".$param."')";
+        $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cparatifamilia.php?id_para_ti_familia=" . $param . "&id_trabajador=" . $_00 . "&id_declaracion=".$id_pdeclaracion."&periodo=".$periodo."','#CapaContenedorFormulario')";
+        $opciones = '
           <span  title="Editar" >
-          <a class = "divEditar" href="' . $js . '">e</a>
-          </span>          
-          </div>'
-        ;
+          <a class = "divEditar" href="' . $js . '"></a>
+          </span>
+          ';
+
+          $opciones2 = '<span>
+          <a class = "divEliminar"     href="' . $del . '"></a>
+          </span>';     
+                
 
         $responce->rows[$i]['id'] = $param;
         $responce->rows[$i]['cell'] = array(
@@ -232,9 +244,9 @@ function listar() {
             $_03,
             $_04,
             $_05,
-            $_06,
-            $_07,
-            $opciones
+            $_06,            
+            $opciones,
+            $opciones2
         );
         $i++;
     }
@@ -250,7 +262,7 @@ function add() {
     $obj->setId_tipo_para_ti_familia($_REQUEST['cbo_tipo_para_tifamilia']);
     $obj->setEstado(1);
     
-    $fecha_inicio = "01/".$_REQUEST['fecha_inicio'];
+    $fecha_inicio = $_REQUEST['fecha_inicio']; //"01/".$_REQUEST['fecha_inicio'];
     
     $obj->setFecha_inicio(getFechaPatron($fecha_inicio, "Y-m-d") );
     $obj->setFecha_creacion(date("Y-m-d"));
@@ -260,17 +272,24 @@ function add() {
     return $dao->add($obj);
 }
 
-function edit() {
-    
-    $id = $_REQUEST['id'];
-    $id_tipo_para_ti_familia = $_REQUEST['cbo_tipo_para_tifamilia'];
+function edit() {  
 
+    // model 
+    $obj = new ParatiFamilia();
+    $obj->setId_para_ti_familia( $_REQUEST['id']);
+    $obj->setId_tipo_para_ti_familia( $_REQUEST['cbo_tipo_para_tifamilia']);
+    $obj->setFecha_inicio( getFechaPatron($_REQUEST['fecha_inicio'], 'Y-m-d'));
     //dao 
     $dao = new ParatiFamiliaDao();
-    return $dao->edit($id, $id_tipo_para_ti_familia);
+    return $dao->edit($obj);
     
 }
-
+function del(){
+    $id_para_ti_familia = $_REQUEST['id_para_ti_familia'];
+    
+    $dao = new ParatiFamiliaDao();
+    return $dao->del($id_para_ti_familia);    
+}
 //-----------------------------------------------
 //-----------------------------------------------
 // view

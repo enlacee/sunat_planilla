@@ -81,6 +81,7 @@ $dia_calc = $now_dia - $dia;
 //alert("fin es : <?php echo $date_inicio; ?>"); 
 			//.calendar
 		 $( "#fv_programado" ).datepicker({
+			showButtonPanel: true,							  
 			changeMonth: true,
 			changeYear: true, 
 		 	firstDay:0,

@@ -1,4 +1,30 @@
 // JavaScript Document
+
+function cadenaFecha(fecha){
+	var caracter = new Array();
+	var data_mes;
+	caracter.push("-");
+	caracter.push("/");	
+	
+	for(var i=0;i<caracter.length;i++){
+		//console.log(i);
+		var posicion = fecha.indexOf(caracter[i]);		
+		if(posicion != -1){
+			var arreglo = fecha.split(caracter[i]);
+			
+			if(arreglo[0].length==4){ //AÑO  = Y-m-d
+				data_mes = new Date(arreglo[0],(arreglo[1]-1),arreglo[2])	
+			}else{//endif // DIA = d-m-Y
+				data_mes = new Date(arreglo[2],(arreglo[1]-1),arreglo[0])
+			}			
+			break;
+		}//endif		
+	}	
+	//console.log('en funciones js = '+data_mes);
+	return data_mes;
+}
+
+
 function validaFloat(numero){
 	console.log('validanfooooo floatttt');
 	if (!/^([0-9])*[.]?[0-9]*$/.test(numero))

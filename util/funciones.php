@@ -58,7 +58,7 @@ function array_unico_ordenado($id1, $id2) {
  * @param integer $num Numero del mes Espaniol
  * @return string Nombre del mes
  */
-function getNameMonth($num) {
+function getNameMonth($num,$opcion=null) {
     $mes = array("Enero",
         "Febrero",
         "Marzo",
@@ -72,8 +72,14 @@ function getNameMonth($num) {
         "Novienbre",
         "Diciembre"
     );
+    
     $num = intval($num);
-    return strtoupper($mes[$num - 1]);
+    if($opcion == 1):
+        return substr($mes[$num - 1], 0, 3);
+    else:
+        return strtoupper($mes[$num - 1]);
+    endif;
+    
 }
 
 //------------------------------------------------------------------------------
@@ -554,20 +560,12 @@ function tipoFechaVacacionMasDias($fecha, $tipo) {
     return $data;
 }
 
-//echo "<pre>";
-//print_r(getMesInicioYfin('2012-05-05'));
-//echo "<pre>";
-
-
-
 /**
  *
  * @param type $numeros
  * @return type 
  * $var Numero mayor Podria utilizar max(array);
  */
-
-
 function getNumeroMayor($numeros = array()){    
 $contador = array();
 
@@ -603,6 +601,31 @@ function arrayId($data, $name_array) {
         }
     }
     return $new;
+}
+//CASO EXEPCION!! !!! beta
+function arrayId_Id($data, $name_array) {
+    if (is_array($data)) {
+        $new = array();
+        for ($i = 0; $i < count($data); $i++) {
+            $new[ $data[$i][$name_array] ] = $data[$i][$name_array];
+        }
+    }
+    return $new;
+}
+
+function afpArrayConstruido(){
+    $mi_afp = array();
+    $mi_afp[0]['codigo'] = 21;
+    $mi_afp[1]['codigo'] = 22;
+    $mi_afp[2]['codigo'] = 23;
+    $mi_afp[3]['codigo'] = 24;
+    //
+    $mi_afp[0]['nombre'] = 'INTEGRA AFP';
+    $mi_afp[1]['nombre'] = 'HORIZONTE AFP';
+    $mi_afp[2]['nombre'] = 'PROFUTURO AFP';
+    $mi_afp[3]['nombre'] = 'PRIMA AFP'; 
+    
+    return $mi_afp;
 }
 
 

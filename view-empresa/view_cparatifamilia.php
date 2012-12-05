@@ -5,7 +5,11 @@
 		
 	});
 	
-	cargarTablaParaTiFamilia();
+	
+	var periodo = document.getElementById('periodo').value;
+	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	
+	cargarTablaParaTiFamilia(id_pdeclaracion,periodo);
 </script>
 
 
@@ -29,7 +33,7 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
         <div id="tabs-1"><span class="div_opciones"><br />
         
           <input id="btnnuevo" name="btnnuevo" value="Nuevo Registro" class="submit-nuevo" 
-onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_cparatifamilia.php','#CapaContenedorFormulario')" type="button" />
+onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_cparatifamilia.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" type="button" />
 
 <!-- Boton cancelar-->
 <input type="button" 

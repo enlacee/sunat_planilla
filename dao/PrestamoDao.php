@@ -424,7 +424,7 @@ class PrestamoDao extends AbstractDao {
         return $lista;
     }
 
-    //------ FINAL 
+    //------ FINAL    
     //ojo lista de trabajadores con Prestamos Activos!
     public function listarTrabajador_PrestamoActivo($id_empleador) {
 

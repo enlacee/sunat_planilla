@@ -5,8 +5,6 @@ require_once('../view/ide.php');
 $id_pdeclaracion = ($_REQUEST['id_pdeclaracion']) ? $_REQUEST['id_pdeclaracion'] : 'null';
 ?>
 
-
-
 <!--<link rel="stylesheet" href="sunat_planilla/view/ui/themes/ui-lightness/jquery.ui.all.css">-->
 
 <!--<link rel="stylesheet" type="text/css" media="screen" href="sunat_planilla/view/css/ui.jqgrid.css" />
@@ -18,30 +16,55 @@ $id_pdeclaracion = ($_REQUEST['id_pdeclaracion']) ? $_REQUEST['id_pdeclaracion']
 <!--<script src="sunat_planilla/view/js/jquery-1.7_min.js" type="text/javascript"></script>-->
 
 <script type="text/javascript">
+// variables LOCALES
+var id_pdeclaracion
+var periodo;
 
-	
+    $(document).ready(function(){	
 
-
-
-    $(document).ready(function(){
+		
 		var request_id_pdeclaracion = <?php echo $id_pdeclaracion;?>;                  
         $( "#tabs").tabs();
 		//cargarTablaLiquidaciones();
 		console.log("request_id_pdeclaracion = "+request_id_pdeclaracion);
-		cargarTablaPdeclaracionEmpresa(request_id_pdeclaracion);	
+		cargarTablaPdeclaracionEmpresa(request_id_pdeclaracion);
+		
+		
+		// TAB2 - funcion en espera de evento
+		$('#reporte_liquidacion').click(function(){
+			id_pdeclaracion = $('#id_pdeclaracion').val();
+			periodo = $('#periodo').val();			
+			
+			var vacios = new Array(); //vacios[id_pdeclaracion, periodo];			
+			vacios.push(id_pdeclaracion,periodo);
+			//console.log(vacios);		
+			
+			var estado = validarVacios(vacios);
+			console.log(estado);
+			if(estado==false){				
+				var parametro = 'oper=reporte_liquidacion&id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
+				var url = "sunat_planilla/controller/EstructuraLiquidacionController.php?"+parametro;			
+				window.location.href = url;
+				//console.log(url);
+			}else{
+				alert("Usted no selecciono un periodo");	
+			}
+
+		});			
 		
 	});
-	
-	//--------------------------------------
-	
+
+
+//--------------------------------------
+// tab 1	
 $("#eliminar_datos_mes").click(function(){
 	
 	
-var id_pdeclaracion = $("#id_pdeclaracion").val();
-var periodo = $("#periodo").val();
-
-
-var boton = $(this);
+	var id_pdeclaracion = $("#id_pdeclaracion").val();
+	var periodo = $("#periodo").val();
+	
+	
+	var boton = $(this);
 		
 				
 if(id_pdeclaracion!=""){		
@@ -68,7 +91,7 @@ if(id_pdeclaracion!=""){
    }); 
 //------			
 }else{
-alert("Debe seleccionar un periodo.\n");
+	alert("Debe seleccionar un periodo.\n");
 }
 
 });
@@ -159,19 +182,21 @@ function habilitarBotonEliminarMes(){
 		
 	});
 	
-
-//::: OPERACIONES::::
-//00
-$('#reporte_liquidacion').click(function(){
-	console.log("reporte liquidacion txt");
-	var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
-	url +="?oper=reporte_liquidacion&id_pdeclaracion="+ID_DECLARACION
-	console.log(url);
-	//window.location.href = url;
-});	
-
-
-
+	
+	
+	//--------------------------------------
+// tab 2
+function validarVacios(arreglo=new Array()){	
+	var flag = false;
+	for(var i =0;i<arreglo.length;i++){
+		console.log(i);
+		if(arreglo[i]==''){
+			flag = true;
+			break;
+		}	
+	}
+	return flag;	
+}
 
 	
 </script>
@@ -238,13 +263,23 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
 <div id="tabs-2">
 <h2>Anual</h2>
 <fieldset><legend>Remuneraciones</legend>
-
-
-<input name="reporte_liquidacion_anual"  id= "reporte_liquidacion_anual" type="button" value="Liquidacion Anual"/>
-
 <div class="ayuda">Generar archivo exel de ...</div>
 
-
+<table width="410" border="1">
+  <tr>
+    <th width="3">&nbsp;</th>
+    <th width="294">Reporte</th>
+    <th width="91">&nbsp;</th>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Liquidacion anual de aportes y retenciones previsionales</td>
+    <td><input name="reporte_liquidacion"  id= "reporte_liquidacion" type="button" value="Generar"/></td>
+  </tr>
+</table>
+<div class="ocultar">
+  <p>&nbsp;</p>
+</div>
 </fieldset>
 
 

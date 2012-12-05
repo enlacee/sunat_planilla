@@ -8,13 +8,15 @@ class EstructuraAfpDao extends AbstractDao{
         $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;
         
       $query = "
-        SELECT 
+        SELECT
+        p.id_persona,
         tpd.id_trabajador,
         rp.cuspp,
         p.num_documento,
         p.apellido_paterno,
         p.apellido_materno,
         p.nombres
+        -- count( p.id_persona) bug
 
         FROM trabajadores_pdeclaraciones AS tpd
         INNER JOIN trabajadores AS t
@@ -23,11 +25,12 @@ class EstructuraAfpDao extends AbstractDao{
         INNER JOIN detalle_regimenes_pensionarios AS rp
         ON t.id_trabajador = rp.id_trabajador 
 
-        INNER JOIN personas AS p
-        ON p.id_persona = t.id_persona
+        LEFT JOIN personas AS p
+        ON t.id_persona = p.id_persona
 
         WHERE tpd.id_pdeclaracion = ?
-        AND tpd.cod_regimen_pensionario IN($afp)      
+        AND tpd.cod_regimen_pensionario IN($afp)
+        -- group by (p.id_persona) bug     
 ";
 
         $stm = $this->pdo->prepare($query);

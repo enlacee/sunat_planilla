@@ -882,7 +882,7 @@ foreach ($cbo_periodo_remuneracion as $indice) {
              value="1"
              />
               <label for="chk_monto_remuneracion"></label>
-              Establecer monto Fijo para calculos.
+              Establecer monto Fijo para calculos.Solo para sueldos menores al Sueldo Baisco
               </div>
               
               </td>

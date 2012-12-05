@@ -515,7 +515,6 @@ class PlameDeclaracionDao extends AbstractDao {
         FROM pdeclaraciones
         WHERE (id_empleador_maestro = ? AND periodo = ? ) 
 ";
-
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_empleador_maestro);
         $stm->bindValue(2, $periodo);
@@ -525,6 +524,30 @@ class PlameDeclaracionDao extends AbstractDao {
 
         return $lista[0];
     }
+    
+    //listado de periodos correspondiente a un anio determinado.
+    function dataPeriodos($id_empleador_maestro, $anio){
+        
+        $query = "
+        SELECT 
+        id_pdeclaracion
+        FROM pdeclaraciones
+        WHERE id_empleador_maestro = ?
+        AND YEAR(periodo) = ?            
+        ";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
+    }
+    
+    
+    
 
 }
 

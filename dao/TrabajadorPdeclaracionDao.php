@@ -749,7 +749,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return true;
     }
 
-    public function eliminar_idPdeclaracion($id_pdeclaracion, $id_trabajador) {
+    public function eliminar_idPdeclaracion($id_pdeclaracion, $id_trabajador){
         $query = "
         DELETE
         FROM trabajadores_pdeclaraciones
@@ -766,7 +766,10 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
         return true;
     }
-
+    
+    
+    
+    
 }
 
 ?>

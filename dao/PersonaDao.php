@@ -425,44 +425,42 @@ class PersonaDao extends AbstractDao {
     }
     
     
-    // new 09/10/2012
-   public function listarPersonaConPeriodoLaboral($id_empleador_maestro,$id_persona){
+    // new 04/12/2012
+   public function listarPersonaConPeriodoLaboral($id_empleador,$id_persona){
         
         $query = "
-        SELECT  dpl.id_detalle_periodo_laboral,
-		p.id_persona,
-                t.id_trabajador,
-		t.cod_situacion,
-		s.descripcion_abreviada,
-		dpl.fecha_inicio,
-		dpl.fecha_fin,
-		dpl.cod_motivo_baja_registro
-			
-        FROM personas AS p
-        INNER JOIN empleadores_maestros AS em
-        ON p.id_empleador = em.id_empleador
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona 
-        -- periodo laboral
-	INNER JOIN detalle_periodos_laborales AS  dpl
-	ON p.id_persona = dpl.id_persona	
-        
+        SELECT 
+        t.id_trabajador,
+        p.id_persona,
+        dpl.fecha_inicio,
+        dpl.fecha_fin,
+        dpl.cod_motivo_baja_registro,
+        s.cod_situacion,
+        s.descripcion_abreviada
+
+        FROM  trabajadores AS t
+        INNER JOIN personas AS p
+        ON t.id_persona = p.id_persona
+
+        INNER JOIN empleadores AS e
+        ON p.id_empleador = e.id_empleador
+
+        INNER JOIN detalle_periodos_laborales AS dpl
+        ON t.id_trabajador = dpl.id_trabajador
+
         INNER JOIN situaciones AS s
         ON t.cod_situacion = s.cod_situacion  
-             
-        WHERE em.id_empleador_maestro = ?    
-        AND p.id_persona = ? 
+
+        WHERE e.id_empleador = ?
+        AND p.id_persona = ?
 
 ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(1, $id_empleador);
         $stm->bindValue(2, $id_persona);
         $stm->execute();
         $lista = $stm->fetchAll();
-        return $lista; 
-        
-        
-        
+        return $lista;         
     }
     
     

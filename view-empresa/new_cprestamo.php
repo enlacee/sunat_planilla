@@ -4,11 +4,19 @@
 $(document).ready(function(){
 	$( "#tabs").tabs();
 	
-//-----------------------		
-	$("#fecha_inicio").datepicker({ 
+	
+	
+//-----------------------
+	var periodo = $("#periodo").val();	
+	var data_mes = cadenaFecha(periodo);
+
+	$("#fecha_inicio").datepicker({
+		showButtonPanel: true,						  
 		changeMonth: true,
 		changeYear: true,
-		dateFormat: 'mm/yy',
+		dateFormat: '01/mm/yy',
+		minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDate())
+		buttonImage: 'images/calendar.gif',
 		//minDate: 0,
 		//maxDate: "+11M +0D"
 		
@@ -49,16 +57,22 @@ function validarFormatoMesAnio(value){
 	
 	
 function grabarPrestamo(obj){
-	
+
+
+
 var from_data =  $("#FrmPrestamo").serialize();
 
 var id_trabajador = document.getElementById('id_trabajador').value;
 var fecha_inicio =  document.getElementById('fecha_inicio').value;
-
+//validar
+var monto = document.getElementById('valor').value;
+var num_cuota = document.getElementById('num_cuota').value;
 
 if(id_trabajador != ''){
+//validarFormatoMesAnio(fecha_inicio)
+var bacio = (fecha_inicio==''||monto==''||num_cuota=='') ? false : true;
 
-if(validarFormatoMesAnio(fecha_inicio)){
+if(bacio){
 		//-----	
 		$.ajax({
 			type: 'post',
@@ -69,7 +83,11 @@ if(validarFormatoMesAnio(fecha_inicio)){
 							
 				if(data){
 					alert("Se registro correctamente");
-					cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php','#CapaContenedorFormulario')
+						//variables cabecera
+					var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+					var periodo = document.getElementById('periodo').value;
+					var parametro = 'id_declaracion='+id_pdeclaracion+'&periodo='+periodo;
+					cargar_pagina('sunat_planilla/view-empresa/view_cprestamo.php?'+parametro,'#CapaContenedorFormulario')
 				}else{
 					alert("Ocurrio un error.");
 				}
@@ -79,7 +97,7 @@ if(validarFormatoMesAnio(fecha_inicio)){
 		});
 		//-------
 }else{
-
+	alert ("No deje campos vacios");
 }
 
 }else{
@@ -145,7 +163,7 @@ tabindex="-10000" href="#"><img alt="Buscar" src="images/search.png"></a></div>
             ejem: 1,2,3</div>
             
             <div class="fila_input">
-          <label>fecha inicio del Prestamo:</label>
+          <label>Fecha inicio del Prestamo:</label>
             
           <input name="fecha_inicio" type="text" id="fecha_inicio" readonly="readonly" />
             (mm/aaaa)</div>

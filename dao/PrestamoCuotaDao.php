@@ -65,7 +65,7 @@ class PrestamoCuotaDao extends AbstractDao {
     //Solo para Cambiar estado de Pago x Periodo
     //pagarPrestamoCuota_Periodo
     function bajaPrestamoCuota($periodo){
-        $fecha_pago = null;
+        
         $query = "
         UPDATE prestamos_cuotas
         SET          
@@ -76,7 +76,7 @@ class PrestamoCuotaDao extends AbstractDao {
         
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, 0);
-        $stm->bindValue(2, $fecha_pago);        
+        $stm->bindValue(2, null);
         $stm->bindValue(3, $periodo);
         $stm->execute();
         $stm = null;
@@ -113,11 +113,9 @@ class PrestamoCuotaDao extends AbstractDao {
         SELECT
           id_prestamo_cutoa,  
           monto,
-          monto_variable,
-          monto_pagado,
+          monto_variable,          
           fecha_calc,
-          fecha_pago,
-          cubodin,
+          fecha_pago,          
           estado
         FROM prestamos_cuotas
         WHERE id_prestamo = ?            

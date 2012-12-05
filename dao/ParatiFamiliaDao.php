@@ -36,44 +36,28 @@ class ParatiFamiliaDao extends AbstractDao {
         return true;
     }
 
-    public function edit($id,$id_tipo_para_ti_familia) {
+    public function edit($obj) {
         $model = new ParatiFamilia();
         $model = $obj;
         $query = "
         UPDATE para_ti_familia
         SET 
-        id_tipo_para_ti_familia = ?
+        id_tipo_para_ti_familia = ?,
+        fecha_inicio =  ?
         WHERE id_para_ti_familia = ?;
         ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_tipo_para_ti_familia);
-        $stm->bindValue(2, $id);
+        $stm->bindValue(1, $model->getId_tipo_para_ti_familia());
+        $stm->bindValue(2, $model->getFecha_inicio());
+        $stm->bindValue(3, $model->getId_para_ti_familia());
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;
         return true;
     }
 
-    function listarCount($id_empleador, $WHERE) {
-
-        $query = "
-        SELECT
-        count(*) as counteo
-        FROM para_ti_familia        
-        WHERE id_empleador = ?
-        -- AND estado = 1
-        $WHERE
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0]['counteo'];
-    }
-
-    // LISTA PARATI FAMILIA ACTIVOS = GRID // ALL activos y inactivos
-    public function listar($id_empleador, $WHERE, $start = null, $limit = null, $sidx = null, $sord = null) {
+    function listarPTFPeriodo($id_empleador,$periodo, $WHERE, $start = null, $limit = null, $sidx = null, $sord = null){
+        
         $cadena = null;
         if (is_null($WHERE)) {
             $cadena = $WHERE;
@@ -83,13 +67,9 @@ class ParatiFamiliaDao extends AbstractDao {
 
         $query = "
         SELECT
-        ptf.id_para_ti_familia,
-        ptf.id_empleador,
+        ptf.id_para_ti_familia,        
         ptf.id_trabajador,
-	tptf.descripcion,
-        ptf.estado,
-	
-        p.cod_tipo_documento,
+	tptf.descripcion,        
 	p.num_documento,
 	p.apellido_paterno,
 	p.apellido_materno,
@@ -105,18 +85,52 @@ class ParatiFamiliaDao extends AbstractDao {
 	INNER JOIN personas AS p
 	ON p.id_persona = t.id_persona
         WHERE ptf.id_empleador = ?
-        -- AND ptf.estado = 1 -- h.. altenativo
+        AND ptf.fecha_inicio <='$periodo'        
         AND t.cod_situacion = 1
         $cadena
         ";
+        //echo " id_empleador =". $id_empleador;
+        //echo $query;
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_empleador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        return $lista;
+        return $lista; 
+        
     }
 
+    function listarPTFCount($id_empleador,$periodo, $WHERE){
+                
+        $query ="
+        SELECT
+	COUNT(ptf.id_para_ti_familia)AS counteo
+        
+        FROM para_ti_familia AS ptf
+	INNER JOIN tipo_para_ti_familia AS tptf
+	ON ptf.id_tipo_para_ti_familia = tptf.id_tipo_para_ti_familia        
+        
+        INNER JOIN trabajadores AS t
+	ON ptf.id_trabajador = t.id_trabajador
+	
+	INNER JOIN personas AS p
+	ON p.id_persona = t.id_persona
+        WHERE ptf.id_empleador = ?
+        AND ptf.fecha_inicio <='$periodo'        
+        AND t.cod_situacion = 1
+        $WHERE;
+        ";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['counteo'];
+        
+    }
+
+// para validar y for
     public function listarTrabajador_Registrados($id_empleador) {
 
         $query = "
@@ -149,7 +163,7 @@ class ParatiFamiliaDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
-
+    //FUCK DELETE!!! VINCULO COn TRABAJADOR 
     public function baja($id) {
 
         $query = "
@@ -166,7 +180,21 @@ class ParatiFamiliaDao extends AbstractDao {
         $stm = null;
         return true;
     }
+    
+    public function del($id){
+        $query = "
+        DELETE
+        FROM para_ti_familia
+        WHERE id_para_ti_familia = ?;
+        ";
 
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id);
+        $stm->execute();        
+        $stm = null;
+        return true;   
+        
+    }
     public function buscar_data_id($id) {
 
         $query = "
@@ -208,16 +236,17 @@ class ParatiFamiliaDao extends AbstractDao {
         $query = "
         SELECT 
         ptf.id_para_ti_familia,
-        ptf.estado,
-        ptf.fecha_inicio,        
         tptf.valor
         FROM para_ti_familia AS ptf
 	INNER JOIN tipo_para_ti_familia AS tptf
 	ON ptf.id_tipo_para_ti_familia = tptf.id_tipo_para_ti_familia
         
+        INNER JOIN trabajadores AS t
+	ON ptf.id_trabajador = t.id_trabajador
+
         WHERE ptf.id_trabajador = ?
         AND ptf.fecha_inicio <='$periodo'
-        AND ptf.estado = 1            
+        AND t.cod_situacion = 1;            
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);

@@ -31,21 +31,6 @@ $data_obj  = listaCuotas($ID_PRESTAMO);
 		$( "#tabs").tabs();
 		
 //------------------------------------
-	var periodo = $("#periodo").val();
-	var arreglo;
-	var data_mes;
-
-	//periodo = periodo.replace("/","-");  	//var arreglo = periodo.split("/");
-	//new_periodo = periodo;
-	console.log(periodo);
-	
-	arreglo = periodo.split("-");
-	
-	console.dir(arreglo);
-	data_mes = new Date( parseInt(arreglo[0]),parseInt(arreglo[1])-1,parseInt(arreglo[2]) );
-	console.log("mes");
-	console.log(data_mes);
-	
 /*
 	$( ".fecha_calc" ).datepicker({
 		showButtonPanel: true,		
@@ -200,17 +185,13 @@ function validarPrestamoCuota(){
 		var estado = parseInt(document.getElementById('estado-'+cadena[1]).value);
 		
 		
-		
-		
-		
 		var mtoc = document.getElementById('montoc-'+cadena[1]).value;
 		var mtoc_variable = document.getElementById('montoc_variable-'+cadena[1]).value;
-		var mtoc_pagado = document.getElementById('monto_pagado-'+cadena[1]).value;
-		
+	
 
 		var montoc_variable = (mtoc_variable=='') ? 0 : parseFloat(mtoc_variable);
 		var montoc = (mtoc=='') ? 0 : parseFloat(mtoc);
-		var montoc_pagado = (mtoc_pagado=='') ? 0 : parseFloat(mtoc_pagado);
+		
 		
 		sum_montoc_variable = sum_montoc_variable + montoc_variable;
 		
@@ -395,12 +376,11 @@ class="submit-cancelar" value="Cancelar">
 
               
               
-              <table width="626" border="1" class="tabla_gris">
+              <table width="530" border="1" class="tabla_gris">
                 <tr>
                   <th width="17">id</th>
                   <th width="55">Monto</th>
-                  <th width="62">Monto variable</th>
-                  <th width="90">Monto Pagado</th>
+                  <th width="62" class="ocultar">Monto variable</th>
                   <th width="90">Fecha calc</th>
                   <th width="90">Fecha pago</th>
                   <th width="96">Estado</th>
@@ -428,46 +408,29 @@ class="submit-cancelar" value="Cancelar">
                   <input name="montoc"
                   type="<?php echo ($flag) ? 'text' : 'text'; ?>" 
                   id="montoc-<?php echo $id;?>" size="7" 
-                  value="<?php echo $obj->getMonto();?>" />
-                  
-                  </td>
+                  value="<?php echo $obj->getMonto();?>" />                  </td>
                                     
-                  <td>
+                  <td class="ocultar">
                   <?php echo $obj->getMonto_variable();?>                  
                                   
                   <input name="montoc_variable[]"
                   type="<?php echo ($flag) ? 'text' : 'text'; ?>" 
                   id="montoc_variable-<?php echo $id;?>"
                   value="<?php echo $obj->getMonto_variable();?>" size="7"
-                  readonly="readonly" />                  
-                  
-                  </td>
-                  
-                  <td><?php echo $obj->getMonto_pagado();?>
-                    
-                  <input name="monto_pagado" 
-                  type="text" id="monto_pagado-<?php echo $id;?>" 
-                  size="7"
-                  readonly="readonly"
-                  value="<?php echo $obj->getMonto_pagado();?>"
-                   /></td>
-                  
-                  <td>
+                  readonly="readonly" />                  </td>
+<td>
 
                   
-                  <?php echo $obj->getFecha_calc();?>
+              <?php echo $obj->getFecha_calc();?>
                    
-                  <input name="fecha_calc" 
+              <input name="fecha_calc" 
                   type="<?php echo ($flag) ? 'text' : 'text'; ?>"  
                   class="fecha_calc" 
                   value="<?php echo getFechaPatron($obj->getFecha_calc(), 'd/m/Y');?>"
-                  id="fecha_calc-<?php echo $id;?>" size="12" />
-                                
-                  </td>
+                  id="fecha_calc-<?php echo $id;?>" size="12" />              </td>
                   
                   <td>				  
-				  <?php echo $obj->getFecha_pago();?>
-                  </td>
+				  <?php echo $obj->getFecha_pago();?>                  </td>
                   
                   <td>
                   <input name="estado"  
@@ -476,23 +439,16 @@ class="submit-cancelar" value="Cancelar">
                   value="<?php echo $obj->getEstado();?>"
                   class="estado <?php echo ($flag) ? 'bandera' : '';?>"
                   id="estado-<?php echo $id;?>" />
-				  <?php echo $obj->getEstado();?>
-                  </td>
+				  <?php echo $obj->getEstado();?>                  </td>
                   
                   <td>
                   <?php if($flag):?>
                   <input type="button" name="btnGuardar"  value="Guardar"  class="submit-go"
                   id="" onclick="guardarPrestamoCuota('<?php echo $id;?>')" />
-                  <?php endif; ?>
-                  </td>
-                  
+                  <?php endif; ?>                  </td>
                 </tr>
                 
 	<?php endforeach; ?>                
-                
-                
-                
-                
 </table>
           <p>&nbsp;</p>
           <p>&nbsp;</p>

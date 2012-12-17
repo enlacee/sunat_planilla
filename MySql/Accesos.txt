@@ -27,6 +27,11 @@ CAMUENTE S.A.
 USUARIO	KHM9SR4H
 CLAVE	iqRJQYHc5
 
+https://www.afpnet.com.pe
+RUC:20100338611
+USER:emp0001
+PASS:210569
+
 //personas
 09678603
 //--

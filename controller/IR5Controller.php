@@ -7,7 +7,8 @@
 //require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 
 function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $PERIODO) {
-    echo "<pre>\n ***INICIO*** RENTA DE 5TA ---$PERIODO--</pre>";
+    echo "\n\n ID_PDECLARACION = $ID_PDECLARACION \nid_trabajador = $id_trabajador";
+    echo "\n\n RENTA DE 5TA ---$PERIODO--";
 
     //|--- Config Posible Cambio ----------------------------------------|
     //| UIT = 
@@ -960,10 +961,24 @@ function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
 
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
-        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) { 
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
     }
+    
+    // .........................................................................
+    // PASO ADICIONAL PARA MANTENER DATOS UNIFORMES CON PTD-PLAME
+    // Resta 0704 = tardanza, y 0705  =inasistencia.
+    $dscto = 0;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if ($data_dconcepto[$z]['cod_detalle_concepto']==704 ||$data_dconcepto[$z]['cod_detalle_concepto']==705 ) { 
+            $dscto = $dscto + $data_dconcepto[$z]['monto_pagado'];
+        }
+    } 
+    // .........................................................................
+    
+    $sum = $sum - $dscto;
+    
     return $sum;
 }
 

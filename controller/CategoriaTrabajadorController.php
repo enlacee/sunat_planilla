@@ -307,8 +307,7 @@ function editarTrabajador() {
     $ID_TRA = $_REQUEST['id_trabajador_categoria'];
 
     //DAO
-    $dao_tra = new TrabajadorDao();
-    //$dao_rc = new RegistroPorConceptoDao();
+    $dao_tra = new TrabajadorDao();    
 
     // echo "\ncbo_tipo_pago = " . $_REQUEST['cbo_tipo_pago'];
     // datos ORDEN FORM

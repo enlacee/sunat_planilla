@@ -178,6 +178,58 @@ function actualizarEstablecimiento_2($id,$actividad_de_riesgo){
         }
     }
     
+    //new
+    function domicilioFiscal($id_empleador){
+    
+    $query ="
+    SELECT
+    ud.descripcion AS ubigeo_departamento,
+    up.descripcion AS ubigeo_provincia,
+    ur.descripcion  AS ubigeo_distrito,
+    v.descripcion AS ubigeo_nombre_via,
+    ed.nombre_via,
+    ed.numero_via,
+    ed.departamento,
+    ed.interior,
+    ed.manzana,
+    ed.lote,
+    ed.kilometro,
+    ed.block,
+    ed.etapa,
+    z.descripcion AS ubigeo_nombre_zona,
+    ed.nombre_zona
+
+    FROM establecimientos AS est
+    INNER JOIN establecimientos_direcciones AS  ed
+    ON est.id_establecimiento = ed.id_establecimiento
+
+    INNER JOIN vias AS v
+    ON ed.cod_via = v.cod_via
+
+    INNER JOIN ubigeo_reniec AS  ur
+    ON ed.cod_ubigeo_reniec = ur.cod_ubigeo_reniec
+
+    INNER JOIN ubigeo_provincias AS  up
+    ON ur.cod_provincia = up.cod_provincia
+
+    INNER JOIN ubigeo_departamentos AS ud
+    ON ur.cod_departamento = ud.cod_departamento
+
+    INNER JOIN zonas AS z
+    ON ed.cod_zona = z.cod_zona
+
+    WHERE est.id_empleador = ?
+    AND est.id_tipo_establecimiento = 1;            
+";
+    $stm = $this->pdo->prepare($query);
+    $stm->bindValue(1,$id_empleador);
+    $stm->execute();
+    $lista = $stm->fetchAll();
+    $cadena = $lista[0]['nombre_via'].' '.$lista[0]['numero_via'].' - '.$lista[0]['ubigeo_distrito']; 
+    return $cadena;      
+    
+    }
+    
     //edit 06/09/2012 ->Usado en Planilla
     function listar_Ids_Establecimientos($id_empleador){
         $query ="

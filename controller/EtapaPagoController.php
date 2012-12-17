@@ -308,14 +308,13 @@ function listar_15_Mes() {
 //========================================================================//
 //echoo($_REQUEST);
     $ID_DECLARACION = $_REQUEST['id_pdeclaracion'];
-
+    // SOLO UTILIZADO EN RPC2 'registro por concepto'
+    $tipo = $_REQUEST['tipo'];
+    
+    
     $dao = new PlameDeclaracionDao();
     $data_d = $dao->buscar_ID($ID_DECLARACION);
-//echoo($data_d);
-//id_pdeclaracion
-
-
-    $FECHA = array();
+    
     $FECHA = getFechasDePago($data_d['periodo']);
 
 //echoo($FECHA);
@@ -380,8 +379,8 @@ function listar_15_Mes() {
     if ($lista == null || count($lista) == 0) {
         return null;
     }
+    
     foreach ($lista as $rec) {
-//echo "enntro en for each   ".$rec['id_trabajador'];
         $param = $rec["id_trabajador"];
         $_01 = $rec["cod_tipo_documento"];
         $_02 = $rec["num_documento"];
@@ -390,16 +389,28 @@ function listar_15_Mes() {
         $_05 = $rec["nombres"];
         $_06 = $rec["fecha_inicio"];
         $_07 = $rec["fecha_fin"];
-// function = agregarTrabajador_rpc(id_pdeclaracion, id_trabajador, cod_detalle_concepto);
-// 
+
 //$js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
+        
         $js = "javascript:agregarTrabajador_rpc('" . $param . "')";
+        
+        switch ($tipo) {
+            case 2:
+                $js = "javascript:agregarTrabajador_rpc2_phe('" . $param . "')";
+                break;
+            default:
+                break;
+        }        
+                
+        
+        
+        
+        
         $opciones = '<div class="red">
           <span  title="Editar" >
           <a href="' . $js . '">seleccionar</a>
           </span>
           </div>';
-        ;
 
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
@@ -674,9 +685,15 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 $model->setSueldo_base($data_tra[$i]['monto_remuneracion']);
 
 //--------------------------------------------------------------------------------------- 
-                $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701, 1);
-                $dataxx = (is_null($datax['valor'])) ? 50 : $datax['valor'];
+                echo "\n\n\n\n";
+                echo "ID_PDECLARACION = $ID_PDECLARACION";
+                echo "data_tra[$i]['id_trabajador'] = ".$data_tra[$i]['id_trabajador'];
+                echo "\n\n\n\n";
+                $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701);
+                $dataxx = (($datax['valor']==null)) ? 50 : $datax['valor'];
                 
+                echo "BUSCADO EN buscar_RPC_PorTrabajador:\n";
+                echoo($dataxx);
                 /*if($datax['valor']<=0){
                     $dataxx = 0;
                 }else if(is_null($datax['valor'])){

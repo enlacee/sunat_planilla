@@ -1,4 +1,7 @@
 <?php
+//*******************************************************************//
+require_once('ide.php');
+//*******************************************************************//
 //COMBO FILE
 require_once('../dao/AbstractDao.php');
 require_once('../dao/ComboDao.php');

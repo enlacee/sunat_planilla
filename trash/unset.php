@@ -1,5 +1,5 @@
 <?php
-
+/*
 $data_val = array();
 
 
@@ -25,5 +25,14 @@ if($a['dia']){
 }else{
     echo "<br><br>VACIO O NULL ?";
 }
+
+
+*/
+$num=1;
+
+if(intval($num) == 1):
+    echo $num;
+endif;
+
 
 ?>

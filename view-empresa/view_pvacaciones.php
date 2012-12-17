@@ -1,31 +1,27 @@
 <script type="text/javascript">
+
+	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	var periodo = document.getElementById('periodo').value;
+
     $(document).ready(function(){
                   
         $( "#tabs").tabs();
-		
-		//$("#fv_inicio").timepicker();
-		
-		
-		cargarTablaPVacaciones();
+		cargarTablaVacacionPeriodo();
+
 		
 	});
 	
 	//----------------- jqgrid
 	
-	
-    // GRID 2
-    function cargarTablaPVacaciones(){
-		var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
-		var periodo = document.getElementById('periodo').value;
+    function cargarTablaVacacionPeriodo(){
 		var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
 
         //$("#list-2").jqGrid('GridUnload');
         $("#list").jqGrid({
-url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajador&estado=1&'+parametro,
+url:'sunat_planilla/controller/VacacionController.php?oper=vacacion_periodo&estado=1&'+parametro,
             datatype: 'json',
-            colNames:['id','Ttipo_doc','Numero Doc','Apellido Paterno',
-                'Apellido Materno','Nombres','F Inicio','Fecha Vacacion'
-                ,'Opciones'],
+            colNames:['id','Numero Doc','Apellido Paterno',
+                'Apellido Materno','Nombres','F programada','vacacion','Opciones'],
             colModel :[
                 {
                     name:'id_trabajador', 
@@ -33,14 +29,6 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
                     index:'id_trabajador',
                     search:false,
                     width:20,
-                    align:'center'
-                },		
-                {
-                    name:'nombre_tipo_documento', 
-                    index:'nombre_tipo_documento',
-                    search:false,
-                    editable:false,
-                    width:50,
                     align:'center'
                 },
                 {
@@ -54,7 +42,7 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
                         return ' colspan=4';
                     },
                     formatter : function(value, options, rData){4
-                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
+                        return ": "+value + " - "+rData['2']+" "+rData['3']+" "+rData['4'] ;
                     }
                 },
                 {
@@ -88,25 +76,23 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
                     } 					
                 },
 				{
-                    name:'fecha_inicio',
-                    index:'fecha_inicio',
+                    name:'fecha_programada',
+                    index:'fecha_programada',
 					hidden :false,
                     editable:true,
                     search:false,
                     width:100, 
                     align:'center'
                 },
-				
-                {
-                    name:'fecha_vacacion_proxima',
-                    index:'fecha_vacacion_proxima',
-                    editable:true,
+				{
+                    name:'estado_vaca',
+                    index:'estado_vaca',
                     search:false,
-					sortorder:false,
-                    width:100, 
-                    align:'center',
-					formatter:'date'
-                },
+                    editable:false,
+                    width:60,
+                    align:'center'
+					
+				},
                 {
                     name:'opciones',
                     index:'opciones',
@@ -157,8 +143,6 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
 			//---
 			
 			
-			
-			
         	});
 		
 		
@@ -168,13 +152,6 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
 
 	
     }
-	
-	
-	
-	
-	//----
-	
-	
 	
 </script>
 
@@ -194,16 +171,14 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
     <div id="tabs">
    
         <ul>
-            <li><a href="#tabs-1">Vacaciones calculadas</a></li>			
+            <li><a href="#tabs-1">Vacaciones</a></li>			
 
         </ul>
         <div id="tabs-1">
 <!-- Boton cancelar-->
 <input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
-<br /><br />        
-        
-        
-          <h2>Lista de Trabajadores con vacaciones proximas</h2>
+<br />  
+          <h2>Lista de Trabajadores con vacaciones.</h2>
           <table id="list">
           </table>
         <div id="pager">

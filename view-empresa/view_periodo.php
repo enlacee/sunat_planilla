@@ -5,16 +5,6 @@ require_once('../view/ide.php');
 $id_pdeclaracion = ($_REQUEST['id_pdeclaracion']) ? $_REQUEST['id_pdeclaracion'] : 'null';
 ?>
 
-<!--<link rel="stylesheet" href="sunat_planilla/view/ui/themes/ui-lightness/jquery.ui.all.css">-->
-
-<!--<link rel="stylesheet" type="text/css" media="screen" href="sunat_planilla/view/css/ui.jqgrid.css" />
-
-<link rel="stylesheet" href="sunat_planilla/view/css/ui.jqgrid.css">
-<link rel="stylesheet" href="sunat_planilla/view/css/ui-lightness/jquery-ui-1.8.20.custom.css">
-
--->
-<!--<script src="sunat_planilla/view/js/jquery-1.7_min.js" type="text/javascript"></script>-->
-
 <script type="text/javascript">
 // variables LOCALES
 var id_pdeclaracion
@@ -29,7 +19,7 @@ var periodo;
 		console.log("request_id_pdeclaracion = "+request_id_pdeclaracion);
 		cargarTablaPdeclaracionEmpresa(request_id_pdeclaracion);
 		
-		
+
 		// TAB2 - funcion en espera de evento
 		$('#reporte_liquidacion').click(function(){
 			id_pdeclaracion = $('#id_pdeclaracion').val();
@@ -39,9 +29,9 @@ var periodo;
 			vacios.push(id_pdeclaracion,periodo);
 			//console.log(vacios);		
 			
-			var estado = validarVacios(vacios);
-			console.log(estado);
-			if(estado==false){				
+			//var estado = validarVacios(vacios);
+			//console.log(estado);
+			if(/*estado==false*/true){				
 				var parametro = 'oper=reporte_liquidacion&id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
 				var url = "sunat_planilla/controller/EstructuraLiquidacionController.php?"+parametro;			
 				window.location.href = url;
@@ -55,138 +45,9 @@ var periodo;
 	});
 
 
-//--------------------------------------
-// tab 1	
-$("#eliminar_datos_mes").click(function(){
-	
-	
-	var id_pdeclaracion = $("#id_pdeclaracion").val();
-	var periodo = $("#periodo").val();
-	
-	
-	var boton = $(this);
-		
-				
-if(id_pdeclaracion!=""){		
-//------
-	boton.val("Procesando...");
-   $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
-   data: {id_pdeclaracion : id_pdeclaracion, oper : 'eliminar_data_mes', periodo : periodo },
-   async:true,
-   success: function(datos){
-
-		if(datos){
-			alert("Se borraron los datos correctamente");
-			jQuery("#list10_d").trigger('reloadGrid');
-			boton.val('Eliminar Datos del Mes');
-		}else{
-			boton.val('Eliminar Datos del Mes');
-			alert("Existio un error");
-		}
-		
-		
-   }
-   }); 
-//------			
-}else{
-	alert("Debe seleccionar un periodo.\n");
-}
-
-});
-	
-	
-//cargarTablaLiquidaciones();
-//cargarTablaPdeclaracionEmpresa();
-	
-//-----------------------------------------------------------------
-
-
-function edit_15(){}
-
-function add_15(id_declaracion,periodo,num15){ //QUINCENAL
-   alert("15");
-   $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/AdelantoController.php",
-   data: {id_declaracion : id_declaracion, periodo : periodo ,num15: num15 ,oper : 'add_15'},
-   async:true,
-   success: function(datos){
-	//alert("datos ::? "+datos);
-
-   }
-   }); 
-   
-   
-}
-	
-//------------------------------
-
-//funcion chekkk
-function habilitarBotonEliminarMes(){
-	var obj = document.getElementById('checkbox_data');
-	
-	if(obj.checked == true){ //alert("entro true");
-	console.log("true");
-		//$("#eliminar_datos_mes").removeAttr('disabled');
-		$(".button-del").removeAttr('disabled');
-		
-		
-			console.log("true");
-	}else{
-		//$("#eliminar_datos_mes").attr('disabled','disabled');		
-		$(".button-del").attr('disabled','disabled');	
-	}
-
-}
-	habilitarBotonEliminarMes();
-	
-	
-	//---------------------------------------------------------
-	
-	
-	$('#eliminar_declaracion').click(function(){
-		
-			var id_pdeclaracion = $("#id_pdeclaracion").val();
-			var boton = $(this);
-					
-							
-			if(id_pdeclaracion!=""){		
-			//------
-				boton.val("Procesando...");
-			   $.ajax({
-			   type: "POST",
-			   url: "sunat_planilla/controller/PlameDeclaracionController.php",
-			   data: {id_pdeclaracion : id_pdeclaracion,oper : 'del-id_pdeclaracion'},
-			   async:true,
-			   success: function(datos){
-			
-					if(datos){
-						alert("Se borraron los datos correctamente");
-						jQuery("#list").trigger('reloadGrid');
-						//jQuery("#list10_d").trigger('reloadGrid');
-						boton.val('Eliminar Datos del Mes');
-					}else{
-						boton.val('Eliminar Datos del Mes');
-						alert("Existio un error");
-					}
-					
-					
-			   }
-			   }); 
-			//------			
-			}else{
-			alert("Debe seleccionar un periodo.\n");
-			}
-		
-	});
-	
-	
-	
-	//--------------------------------------
-// tab 2
-function validarVacios(arreglo=new Array()){	
+//----------------------------------
+/*
+function validarVacios(arreglo = new Array()){		
 	var flag = false;
 	for(var i =0;i<arreglo.length;i++){
 		console.log(i);
@@ -197,8 +58,94 @@ function validarVacios(arreglo=new Array()){
 	}
 	return flag;	
 }
+*/
+//script
+$("#eliminar_datos_mes").click(function(){
+	var id_pdeclaracion = $("#id_pdeclaracion").val();
+	var periodo = $("#periodo").val();
+	var boton = $(this);
+if(id_pdeclaracion!=""){		
+//------
+	boton.val("Procesando...");
+   $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
+   data: {id_pdeclaracion : id_pdeclaracion, oper : 'eliminar_data_mes', periodo : periodo },
+   async:true,
+   success: function(datos){
+		if(datos){
+			alert("Se borraron los datos correctamente");
+			jQuery("#list10_d").trigger('reloadGrid');
+			boton.val('Eliminar Datos del Mes');
+		}else{
+			boton.val('Eliminar Datos del Mes');
+			alert("Existio un error");
+		}
+   }
+   }); 
+//------			
+}else{
+	alert("Debe seleccionar un periodo.\n");
+}
+});
 
+
+habilitarBotonEliminarMes();		
+//-----------------------------------------------------------------
+function add_15(id_declaracion,periodo,num15){ //QUINCENAL
+   alert("15");
+   $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/AdelantoController.php",
+   data: {id_declaracion : id_declaracion, periodo : periodo ,num15: num15 ,oper : 'add_15'},
+   async:true,
+   success: function(datos){
+	//alert("datos ::? "+datos);
+   }
+   });    
+}
+
+//funcion chekkk
+function habilitarBotonEliminarMes(){
+	var obj = document.getElementById('checkbox_data');	
+	if(obj.checked == true){
+	console.log("true");
+		$(".button-del").removeAttr('disabled');
+		console.log("true");
+	}else{				
+		$(".button-del").attr('disabled','disabled');	
+	}
+}
 	
+$('#eliminar_declaracion').click(function(){	
+		var id_pdeclaracion = $("#id_pdeclaracion").val();
+		var boton = $(this);
+		if(id_pdeclaracion!=""){
+			boton.val("Procesando...");
+		   $.ajax({
+		   type: "POST",
+		   url: "sunat_planilla/controller/PlameDeclaracionController.php",
+		   data: {id_pdeclaracion : id_pdeclaracion,oper : 'del-id_pdeclaracion'},
+		   async:true,
+		   success: function(datos){		
+				if(datos){
+					alert("Se borraron los datos correctamente");
+					jQuery("#list").trigger('reloadGrid');					
+					boton.val('Eliminar Datos del Mes');
+				}else{
+					boton.val('Eliminar Datos del Mes');
+					alert("Existio un error");
+				}
+		   }
+		   }); 
+		//------			
+		}else{
+			alert("Debe seleccionar un periodo.\n");
+		}
+});
+
+
+
 </script>
 
 

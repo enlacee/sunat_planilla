@@ -2,9 +2,81 @@
 
 class VacacionDao extends AbstractDao {
 
-    function buscarVacacion() {
+    function vacacionPeriodo($id_empleador, $periodo,$WHERE, $start, $limit, $sidx, $sord) {
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
         
+        $query = "
+        SELECT 
+                p.id_persona,	
+                p.num_documento,
+                p.apellido_paterno,
+                p.apellido_materno,
+                p.nombres,
+                t.id_trabajador,
+                t.cod_situacion,
+                v.fecha_programada
+
+        FROM personas AS p 
+        INNER JOIN empleadores AS e
+        ON p.id_empleador = e.id_empleador
+
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        LEFT JOIN vacaciones AS v
+        ON t.id_trabajador = v.id_trabajador
+
+        WHERE p.id_empleador = ?
+        AND v.fecha_programada = ?
+        $cadena;
+            
+-- lista a los trabajadores que tienen vacacion en este periodo 
+-- en este select se duplican personas xq tienen muchas vacaciones
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);        
+        $stm->bindValue(2, $periodo);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
     }
+
+    function vacacionPeriodoCount($id_empleador, $periodo,$WHERE) {
+        $query = "
+        SELECT 
+        COUNT(p.id_persona)as counteo
+        
+        FROM personas AS p 
+        INNER JOIN empleadores AS e
+        ON p.id_empleador = e.id_empleador
+
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        LEFT JOIN vacaciones AS v
+        ON t.id_trabajador = v.id_trabajador
+        WHERE p.id_empleador = ?
+        AND v.fecha_programada = ? 
+        $WHERE
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);        
+        $stm->bindValue(2, $periodo);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista[0]['counteo'];
+    }    
 
     /**
      *
@@ -34,79 +106,6 @@ class VacacionDao extends AbstractDao {
         return $lista;
     }
 
-    public function fechaVacacionProgramada($id_trabajador, $anio, $mes) {
-
-        $query = "
-        SELECT
-        -- id_vacacion,
-        id_trabajador,
-        fecha,
-        fecha_programada,
-        estado,
-        fecha_creacion
-        FROM vacaciones
-        WHERE id_trabajador = ?
-        WHERE (fecha_programada <= '$mes_fin')        
-        AND (fecha_programada >= '$mes_inicio' );
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0];
-    }
-    
-    
-    
-    public function fechaVacacionProgramadaFin($id_trabajador, $anio, $mes) {
-
-        $query = "
-        SELECT
-        -- id_vacacion,
-        id_trabajador,
-        fecha,
-        fecha_programada,
-        estado,
-        fecha_creacion
-        FROM vacaciones
-        WHERE id_trabajador = ?
-        WHERE (fecha_programada_fin <= '$mes_fin')        
-        AND (fecha_programada_fin >= '$mes_inicio' );
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0];
-    } 
-
-    /* // UTIL en 1era y 2da quincena!.. UTILIZADO DE PRUEBA
-      function listaIdsTraVacaciones($periodo){
-
-      $anio = getFechaPatron($periodo, "Y");
-      $mes = getFechaPatron($periodo, "m");
-
-      $query = "
-      SELECT
-      id_trabajador
-      FROM vacaciones
-      WHERE YEAR(fecha_programada) = ?
-      AND MONTH(fecha_programada) = ?;
-      ";
-      $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $anio);
-      $stm->bindValue(2, $mes);
-      $stm->execute();
-      $lista = $stm->fetchAll();
-      $stm = null;
-
-      return $lista;
-
-      }
-     */
-
     // UTIL en 1era y 2da quincena!.. UTILIZADO DE PRUEBA
     public function listaIdsTraVacacionesFProgramada($mes_inicio, $mes_fin) {
 
@@ -121,15 +120,15 @@ class VacacionDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        
+
         if (is_null($lista)):
             $array = array();
             return $array;
         else:
             $array = array();
-            for($i=0;$i<count($lista);$i++):
+            for ($i = 0; $i < count($lista); $i++):
                 $array[] = $lista[$i]['id_trabajador'];
-            endfor;            
+            endfor;
             return $array;
         endif;
     }
@@ -154,18 +153,16 @@ class VacacionDao extends AbstractDao {
             return $array;
         else:
             $array = array();
-            for($i=0;$i<count($lista);$i++):
+            for ($i = 0; $i < count($lista); $i++):
                 $array[] = $lista[$i]['id_trabajador'];
-            endfor;            
+            endfor;
             return $array;
         endif;
-        
     }
 
-    
-     public function listarVacacionesEnRango($id_trabajador){ /*,$mes_inicio,$mes_fin,$mes_fin_sgte_mes*/
+    public function listarVacacionesEnRango($id_trabajador) { /* ,$mes_inicio,$mes_fin,$mes_fin_sgte_mes */
 
-      $query ="
+        $query = "
       SELECT
       id_trabajador,
       fecha,
@@ -176,27 +173,19 @@ class VacacionDao extends AbstractDao {
       FROM vacaciones
       WHERE id_trabajador = ?
       ";
-      
-      /*-- this mes y ASK proximo Mes maximo
-      AND (fecha_programada <= '$mes_fin' OR fecha_programada_fin <= '$mes_fin_sgte_mes' )
-      -- Mes minimo
-      AND (fecha_programada >= '$mes_inicio' );
-      */
-      
 
-      $stm = $this->pdo->prepare($query);
-      $stm->bindValue(1, $id_trabajador);
 
-      $stm->execute();
-      $lista = $stm->fetchAll();
-      $stm = null;
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
 
-      return $lista[0];
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
 
-      }
-     
+        return $lista[0];
+    }
 
-    public function add($obj/* $id_trabajador, $fecha, $fecha_programada,$f_programado_fin,$tipo_vacacion */) {
+    public function add($obj) {
 
         $model = new Vacacion();
         $model = $obj;

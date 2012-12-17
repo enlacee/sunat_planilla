@@ -1,4 +1,8 @@
 <?php
+//*******************************************************************//
+require_once('../../view/ide2.php');
+//*******************************************************************//
+
 require_once('../../dao/AbstractDao.php');
 require_once('../../controller/ideController2.php');
 require_once('../../dao/EmpleadorDao.php');

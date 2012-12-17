@@ -20,8 +20,6 @@ if ($op) {
     require_once '../dao/PlameDetalleConceptoEmpleadorMaestroDao.php';
 
 
-
-
     $daoe = new EmpleadorDao();
     $empleador = array();
     $empleador = $daoe->buscaEmpleadorPorRuc(RUC);
@@ -188,6 +186,7 @@ function buscar_concepto_por_id($cod_concepto) {
 function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
     
     //echoo($_REQUEST);
+    $periodo = $_REQUEST['periodo'];
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
 
     $page = $_GET['page'];
@@ -254,7 +253,7 @@ function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
         return $response;
     }
 //print_r($lista);
-    $conceptos_workers = array('0105', '0106', '0107','0115', '0201', '0304'/*,'312','406'*/,'407','0604','0612', '0701', '0703', '0704', '0705', '0909');
+    $conceptos_workers = array('0105', '0106', '0107','0115','0121', '0201', '0304'/*,'312','406'*/,'407','0604','0612', '0701', '0703', '0704', '0705', '0909');
 
     foreach ($lista as $rec) {
 
@@ -266,7 +265,7 @@ function cargar_tabla_RegistrosPorConcepto($id_empleador_maestro, $conceptos) {
         if (in_array($_01, $conceptos_workers)) {
             //echo "<<<$_01 ===encontro===$conceptos_workers>>>";
 
-            $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_por_concepto.php?cod_detalle_concepto=$_01&id_pdeclaracion=$ID_PDECLARACION','#CapaContenedorFormulario')";
+            $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/add_registro_por_concepto.php?cod_detalle_concepto=$_01&id_pdeclaracion=$ID_PDECLARACION&periodo=$periodo','#CapaContenedorFormulario')";
             //$js2 = "javascript:eliminarTrabajadorPdeclaracion('" . $param . "')";
             $opciones = '<div id="divEliminar_Editar">				
 		<span  title="Editar"   >

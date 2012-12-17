@@ -822,7 +822,7 @@ function calcHoraLaborada(){
 	console.log("total_hora_local "+total_hora_local);
 	console.log("total_min_local "+total_min_local);
 	
-
+	
 }
 
 

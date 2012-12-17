@@ -2,70 +2,9 @@
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          1
                                   1RA QUINCENA                                  
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE DICIEMBRE DEL 2012                     
 
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         225.00   _______________
-
-  2 25565139    HERNANDEZ ROMAN CARLOS                  427.00   _______________
-
-  3 07448164    CASANOVA RAMIREZ MARIA LUISA            225.00   _______________
-
-  4 07950684    BERNAL ZURITA SONIA MAGDALENA           225.00   _______________
-
-  5 07966569    CUPE FLORES ALFONSO                     225.00   _______________
-
-  6 08305295    DIAZ HURTADO ROSARIO OSVALDO            225.00   _______________
-
-  7 07627656    HERRERA ROJAS MARIBEL ALBINA            225.00   _______________
-
-  8 21542718    HUAMAN CUSTODIO JULIO ANGEL             225.00   _______________
-
-  9 07948158    QUISPE CHIPANA ANTONIA GRACIELA         225.00   _______________
-
- 10 42774098    GONZALES HUARANGA AMPARO MILAGROS       225.00   _______________
-
- 11 10725806    PINCCILOTTI PALLAROSO ALEJANDRO         451.00   _______________
-
- 12 43152817    RODRIGUEZ ROJAS HEBER ARGENIS           427.00   _______________
-
- 13 40070442    ANDIA  CARRASCO JAVIER                  225.00   _______________
-
- 14 40391187    YOVERA ATARAMA ARACELY                  225.00   _______________
-
- 15 46329096    AQUINO ROJAS HUGO PERCY                 225.00   _______________
-
- 16 70509443    QUISPE BALCAZAR YORMAN ANDRE            225.00   _______________
-
- 17 47136383    MEZA VALENCIA YOEL ALFREDO              225.00   _______________
-
- 18 41967126    POMA MURGA LIVIA                        225.00   _______________
-
- 19 44943430    PAREDES VILELA CARLOS HUMBERTO          375.00   _______________
-
- 20 45347323    GARGATE ROSALES JONATHAN                375.00   _______________
-
- 21 07182707    VILLARREAL MEDINA ANA ELENA             262.00   _______________
-
- 22 40926514    HINOJOSA SANCHEZ ANA KARINA             375.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS PUEBLO LIBRE                               6,067.00
---------------------------------------------------------------------------------
-
-CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          2
-                                  1RA QUINCENA                                  
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
-
-LOCALIDAD : PUEBLO LIBRE
+LOCALIDAD : SAN ISIDRO
 
 CENTRO DE COSTO : ADMINISTRACION - CAJA
 
@@ -73,18 +12,18 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             1564.00  _______________
+  1 25809433    OLAYA GONZALES LUIS HELBERT             440.00   _______________
 
-  2 08274953    LOPEZ VASQUEZ ALEJANDRO                 375.00   _______________
+  2 08634028    ROJAS PAJUELO CESAR JAVIER              450.00   _______________
 
-  3 21863249    CHIA LUY JON  CARLOS ALONZO             440.00   _______________
+  3 42429178    CHOMBA ANAYA MARTIN ANTONIO             525.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA PUEBLO LIBRE                2,379.00
+TOTAL ADMINISTRACION - CAJA SAN ISIDRO                  1,415.00
 --------------------------------------------------------------------------------
 
 
 
 
-T O T A L   G E N E R A L  --->>>                       8,446.00       
+T O T A L   G E N E R A L  --->>>                       1,415.00       
 

@@ -51,10 +51,11 @@ num_fila_tabla = num_fila_tabla - 1; //Descuento de Cabecera.
 
 var ID =  num_fila_tabla; //+ 1;
 
-console.log("Pdescuento  = id = "+ID);
-alert("ID = "+ID);
+console.log("Pdescuento ID ====== "+ID);
+//alert("ID = "+ID);
 
 function calcularDescuento(){	
+console.log("Pdescuento ID ====== "+ID);
 	// d = descuento
 	var d_total = document.getElementById('pt_total_dscto');
 	
@@ -84,7 +85,7 @@ id_pdcem_pdescuento<input name="id_pdcem_pdescuento" type="text" readonly="reado
 </div>
 <h3>Descuentos:  </h3>
     <hr />
-  <table width="670" border="1" class="Pdescuento tabla_gris">
+  <table width="670" border="1" id="Pdescuento" class="Pdescuento tabla_gris">
     <tr>
       <td width="17">&nbsp;</td>
       <td width="118">C&oacute;digo</td>
@@ -138,7 +139,7 @@ value="<?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?>"/
   </table>
   <p>&nbsp;</p>
 </div>
-<table width="670" border="1" class="tb ocultar">
+<table width="670" border="1" class="tb">
   <tr>
     <td width="21">&nbsp;</td>
     <td width="21">&nbsp;</td>

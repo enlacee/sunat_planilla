@@ -123,6 +123,7 @@ class="submit-go" onclick="validarNewDeclaracionPeriodo()"/>
             <input type="button"  value="Cancelar" class="submit-cancelar"
             onclick="cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')" />
 		   
+		    
 		    <table id="list">
 	        </table>
         <div id="pager"></div>

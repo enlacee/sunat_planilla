@@ -548,6 +548,7 @@ function bajaEstablecimiento(id){
                 {
                     name:'num_documento', 
                     index:'num_documento',
+                    search:false,
                     editable:false,
                     width:100,
                     align:'left',
@@ -718,6 +719,7 @@ function bajaEstablecimiento(id){
                 {
                     name:'num_documento', 
                     index:'num_documento',
+                    search:false,
                     editable:false,
                     width:100,
                     align:'left',

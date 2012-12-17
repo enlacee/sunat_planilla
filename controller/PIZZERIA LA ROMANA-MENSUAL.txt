@@ -2,7 +2,7 @@
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          0
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN ISIDRO
 
@@ -12,52 +12,56 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    479.00   _______________
+  1 07951545    CHIPANA FLORES ELENA                    502.00   _______________
 
   2 10389776    ZAMORA MEGO MELQUIADES                  536.00   _______________
 
-  3 10285430    SOLANO CALDUA NICOLAS VICTOR            719.00   _______________
+  3 10285430    SOLANO CALDUA NICOLAS VICTOR            541.00   _______________
 
-  4 09886536    ZAMORA MEGO OLEGARIO                    488.00   _______________
+  4 09886536    ZAMORA MEGO OLEGARIO                    536.00   _______________
 
-  5 25780120    MIRANDA YBAÑEZ SONIA MARITZA           586.00   _______________
+  5 25780120    MIRANDA YBAÑEZ SONIA MARITZA           542.00   _______________
 
-  6 40624077    CALLE JERONIMO EDWIN ALVICE             811.00   _______________
+  6 40624077    CALLE JERONIMO EDWIN ALVICE             784.00   _______________
 
   7 10132707    MEGO SILVA RONAL                        538.00   _______________
 
-  8 22862765    ESPINOZA CESPEDES MERCEDES EVA          491.00   _______________
+  8 22862765    ESPINOZA CESPEDES MERCEDES EVA          541.00   _______________
 
-  9 10285230    CHIPANA FLORES LIDIA JUANA              535.00   _______________
+  9 10285230    CHIPANA FLORES LIDIA JUANA              487.00   _______________
 
- 10 07644248    GUERRA CHAUCA SANDRA ISABEL             492.00   _______________
+ 10 07644248    GUERRA CHAUCA SANDRA ISABEL             541.00   _______________
 
- 11 44052923    MEZA GARCIA MANUEL ALEJANDRO            493.00   _______________
+ 11 44052923    MEZA GARCIA MANUEL ALEJANDRO            541.00   _______________
 
- 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            461.00   _______________
+ 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            414.00   _______________
 
- 13 40827219    NOLE  CAMUS IRIS EDITA                  468.00   _______________
+ 13 40827219    NOLE  CAMUS IRIS EDITA                  653.00   _______________
 
- 14 46767275    CHAVEZ GOMEZ CRISTIAN                   468.00   _______________
+ 14 46767275    CHAVEZ GOMEZ CRISTIAN                   464.00   _______________
 
- 15 45711545    NAVARRETE GUEVARA ADRIAN ALI            422.00   _______________
+ 15 45711545    NAVARRETE GUEVARA ADRIAN ALI            651.00   _______________
 
- 16 47707022    HUERTA CARLOS MAX JOUSTON               470.00   _______________
+ 16 47707022    HUERTA CARLOS MAX JOUSTON               428.00   _______________
 
- 17 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           490.00   _______________
+ 17 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           541.00   _______________
 
- 18 42070522    AQUINO ROJAS MARIBEL                    388.00   _______________
+ 18 45347323    GARGATE ROSALES JONATHAN                330.00   _______________
 
- 19 76608802    QUISPE FLORES JUAN DANIEL               273.00   _______________
+ 19 42070522    AQUINO ROJAS MARIBEL                    534.00   _______________
+
+ 20 76608802    QUISPE FLOREZ JUAN DANIEL               315.00   _______________
+
+ 21 40926514    HINOJOSA SANCHEZ ANA KARINA             538.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            9,608.00
+TOTAL VENTAS                                            10,957.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          0
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN ISIDRO
 
@@ -69,18 +73,18 @@ CENTRO DE COSTO : ADMINISTRACION - GERENCIA
 
   1 09716287    FERNANDEZ MERINO CARMEN IMELDA          1,265.00 _______________
 
-  2 07941099    CANO MUENTE JOSE NESTOR                 3,521.00 _______________
+  2 07941099    CANO MUENTE JOSE NESTOR                 3,083.00 _______________
 
-  3 07966762    CANO MUENTE CARLOS ALBERTO              4,708.00 _______________
+  3 07966762    CANO MUENTE CARLOS ALBERTO              4,157.00 _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - GERENCIA                         9,494.00
+TOTAL ADMINISTRACION - GERENCIA                         8,505.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN ISIDRO
 
@@ -90,22 +94,18 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 25809433    OLAYA GONZALES LUIS HELBERT             839.00   _______________
+  1 25809433    OLAYA GONZALES LUIS HELBERT             789.00   _______________
 
-  2 08634028    ROJAS PAJUELO CESAR JAVIER              1,422.00 _______________
-
-  3 08674299    ARAUJO QUISPE OSCAR IVAN                738.00   _______________
-
-  4 10543446    REUVEN GOMEZ MICHAEL                    909.00   _______________
+  2 08634028    ROJAS PAJUELO CESAR JAVIER              972.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             3,908.00
+TOTAL ADMINISTRACION - CAJA                             1,761.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          0
+                                                             PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN ISIDRO
 
@@ -115,32 +115,32 @@ CENTRO DE COSTO : OFICINA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07939005    ESPINOZA BAUTISTA JORGINA               730.00   _______________
+  1 07939005    ESPINOZA BAUTISTA JORGINA               832.00   _______________
 
-  2 80167058    BENITES CARBAJAL INES SILVIA            562.00   _______________
+  2 80167058    BENITES CARBAJAL INES SILVIA            559.00   _______________
 
-  3 06723942    BECERRA SALAS CESAR AUGUSTO             405.00   _______________
+  3 06723942    BECERRA SALAS CESAR AUGUSTO             461.00   _______________
 
-  4 08704625    ZAMBRANO CUENCA DANIEL ALFREDO          991.00   _______________
+  4 08704625    ZAMBRANO CUENCA DANIEL ALFREDO          916.00   _______________
 
-  5 44487341    ZURITA CARRASCO ALEXIS                  423.00   _______________
+  5 44487341    ZURITA CARRASCO ALEXIS                  422.00   _______________
 
-  6 07546364    HUAMAN OVALLE JOSE LUIS                 919.00   _______________
+  6 07546364    HUAMAN OVALLE JOSE LUIS                 737.00   _______________
 
-  7 10196620    GRANDEZ AGUILAR PERCY RICHARD           735.00   _______________
+  7 10196620    GRANDEZ AGUILAR PERCY RICHARD           858.00   _______________
 
-  8 41722946    PEREZ HINOSTROZA PEDRO ARMANDO          669.00   _______________
+  8 41722946    PEREZ HINOSTROZA PEDRO ARMANDO          909.00   _______________
 
-  9 09671735    OBANDO TEJADA FRANCISCO                 485.00   _______________
+  9 09671735    OBANDO TEJADA FRANCISCO                 442.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL OFICINA                                           5,919.00
+TOTAL OFICINA                                           6,136.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          0
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : PUEBLO LIBRE
 
@@ -150,60 +150,60 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         233.00   _______________
+  1 25565139    HERNANDEZ ROMAN CARLOS                  446.00   _______________
 
-  2 25565139    HERNANDEZ ROMAN CARLOS                  446.00   _______________
+  2 07448164    CASANOVA RAMIREZ MARIA LUISA            718.00   _______________
 
-  3 07448164    CASANOVA RAMIREZ MARIA LUISA            413.00   _______________
+  3 09738210    ALIAGA COTRINA HILDEBRANDO              541.00   _______________
 
-  4 09738210    ALIAGA COTRINA HILDEBRANDO              719.00   _______________
+  4 07950684    BERNAL ZURITA SONIA MAGDALENA           573.00   _______________
 
-  5 07950684    BERNAL ZURITA SONIA MAGDALENA           436.00   _______________
+  5 07966569    CUPE FLORES ALFONSO                     528.00   _______________
 
-  6 07966569    CUPE FLORES ALFONSO                     510.00   _______________
+  6 08305295    DIAZ HURTADO ROSARIO OSVALDO            542.00   _______________
 
-  7 08305295    DIAZ HURTADO ROSARIO OSVALDO            540.00   _______________
+  7 07627656    HERRERA ROJAS MARIBEL ALBINA            502.00   _______________
 
-  8 07627656    HERRERA ROJAS MARIBEL ALBINA            527.00   _______________
+  8 21542718    HUAMAN CUSTODIO JULIO ANGEL             530.00   _______________
 
-  9 21542718    HUAMAN CUSTODIO JULIO ANGEL             582.00   _______________
+  9 07948158    QUISPE CHIPANA ANTONIA GRACIELA         504.00   _______________
 
- 10 07948158    QUISPE CHIPANA ANTONIA GRACIELA         488.00   _______________
+ 10 42774098    GONZALES HUARANGA AMPARO MILAGROS       508.00   _______________
 
- 11 42774098    GONZALES HUARANGA AMPARO MILAGROS       521.00   _______________
+ 11 10725806    PINCCILOTTI PALLAROSO ALEJANDRO         805.00   _______________
 
- 12 10725806    PINCCILOTTI PALLAROSO ALEJANDRO         810.00   _______________
+ 12 43152817    RODRIGUEZ ROJAS HEBER ARGENIS           499.00   _______________
 
- 13 43152817    RODRIGUEZ ROJAS HEBER ARGENIS           498.00   _______________
+ 13 43297418    MEGO DIAZ JOSE YOMAR                    482.00   _______________
 
- 14 40070442    ANDIA  CARRASCO JAVIER                  539.00   _______________
+ 14 40070442    ANDIA  CARRASCO JAVIER                  537.00   _______________
 
- 15 40391187    YOVERA ATARAMA ARACELY                  426.00   _______________
+ 15 40391187    YOVERA ATARAMA ARACELY                  471.00   _______________
 
- 16 46329096    AQUINO ROJAS HUGO PERCY                 490.00   _______________
+ 16 46329096    AQUINO ROJAS HUGO PERCY                 541.00   _______________
 
- 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            471.00   _______________
+ 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            653.00   _______________
 
- 18 47136383    MEZA VALENCIA YOEL ALFREDO              425.00   _______________
+ 18 47136383    MEZA VALENCIA YOEL ALFREDO              421.00   _______________
 
- 19 41967126    POMA MURGA LIVIA                        515.00   _______________
+ 19 41967126    POMA MURGA LIVIA                        471.00   _______________
 
- 20 44943430    PAREDES VILELA CARLOS HUMBERTO          321.00   _______________
+ 20 44943430    PAREDES VILELA CARLOS HUMBERTO          295.00   _______________
 
- 21 45347323    GARGATE ROSALES JONATHAN                390.00   _______________
+ 21 07182707    VILLARREAL MEDINA ANA ELENA             541.00   _______________
 
- 22 07182707    VILLARREAL MEDINA ANA ELENA             541.00   _______________
+ 22 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         407.00   _______________
 
- 23 40926514    HINOJOSA SANCHEZ ANA KARINA             277.00   _______________
+ 23 48176445    MACHADO CALIXTO SAIN SABINO             548.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            11,118.00
+TOTAL VENTAS                                            12,063.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          0
+                                                             PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : PUEBLO LIBRE
 
@@ -213,20 +213,22 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             2,532.00 _______________
+  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             2,359.00 _______________
 
   2 08274953    LOPEZ VASQUEZ ALEJANDRO                 676.00   _______________
 
-  3 21863249    CHIA LUY JON  CARLOS ALONZO             785.00   _______________
+  3 21863249    CHIA LUY JON  CARLOS ALONZO             778.00   _______________
+
+  4 08674299    ARAUJO QUISPE OSCAR IVAN                790.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             3,993.00
+TOTAL ADMINISTRACION - CAJA                             4,603.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          0
+                                                             PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN BORJA
 
@@ -236,64 +238,66 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            713.00   _______________
+  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            488.00   _______________
 
-  2 08510319    CHAVEZ PALACIOS ANTONIO                 536.00   _______________
+  2 08510319    CHAVEZ PALACIOS ANTONIO                 542.00   _______________
 
-  3 06633418    NORIEGA GALVEZ JOSE LUIS                492.00   _______________
+  3 06633418    NORIEGA GALVEZ JOSE LUIS                493.00   _______________
 
-  4 09669769    MARTINEZ  CASTILLO FLOR DE MARIA        487.00   _______________
+  4 09669769    MARTINEZ  CASTILLO FLOR DE MARIA        536.00   _______________
 
-  5 41801598    MEGO FERNANDEZ VICTOR RAUL              535.00   _______________
+  5 41801598    MEGO FERNANDEZ VICTOR RAUL              524.00   _______________
 
-  6 32130570    RAMIREZ MARCELO GABRIELA AMPARO         534.00   _______________
+  6 32130570    RAMIREZ MARCELO GABRIELA AMPARO         535.00   _______________
 
-  7 41901906    RIMARACHIN  BACA DAVID ISRAEL           527.00   _______________
+  7 41901906    RIMARACHIN  BACA DAVID ISRAEL           529.00   _______________
 
-  8 10283250    MACHUCA PAREDES JESSICA ZULEMA          526.00   _______________
+  8 10283250    MACHUCA PAREDES JESSICA ZULEMA          515.00   _______________
 
-  9 43697662    INGA CHUQUIPA ELBIA                     467.00   _______________
+  9 43697662    INGA CHUQUIPA ELBIA                     471.00   _______________
 
  10 42295617    LOAYZA ALMONACIN JOSE VICTOR            498.00   _______________
 
- 11 40199272    QUISPE MATAMOROS SONIA                  718.00   _______________
+ 11 40199272    QUISPE MATAMOROS SONIA                  487.00   _______________
 
- 12 10562806    PELAYO ROBLES DINA ELENA                536.00   _______________
+ 12 10562806    PELAYO ROBLES DINA ELENA                522.00   _______________
 
- 13 42343596    QUISPE QUISPE GILBERTO PEDRO            415.00   _______________
+ 13 42343596    QUISPE QUISPE GILBERTO PEDRO            459.00   _______________
 
  14 40167192    FERNANDEZ HURTADO JOSE DONATO           541.00   _______________
 
- 15 46589552    SANTOS  VILLACORTA JHON ANDERSON        467.00   _______________
+ 15 46589552    SANTOS  VILLACORTA JHON ANDERSON        421.00   _______________
 
- 16 71813971    DIAZ MEGO OSWALDO                       461.00   _______________
+ 16 46967693    CORDOVA CALLE SANTOS                    448.00   _______________
 
- 17 07635669    CASTILLO REYNOSO  PEDRO LUIS            451.00   _______________
+ 17 71813971    DIAZ MEGO OSWALDO                       395.00   _______________
 
- 18 07371736    CASTILLA SALAZAR EMMA LILIANA           481.00   _______________
+ 18 07635669    CASTILLO REYNOSO  PEDRO LUIS            451.00   _______________
 
- 19 80376047    NORES ESPINOZA SANDRO ERNESTO           526.00   _______________
+ 19 07371736    CASTILLA SALAZAR EMMA LILIANA           480.00   _______________
 
- 20 07322252    BROCOS CASANOVA CLOTILDE                487.00   _______________
+ 20 80376047    NORES ESPINOZA SANDRO ERNESTO           521.00   _______________
 
- 21 42063882    COLLAZOS BARDALES IRMA                  539.00   _______________
+ 21 07322252    BROCOS CASANOVA CLOTILDE                536.00   _______________
 
- 22 44867935    MEGO  ZAMORA JUANITO                    467.00   _______________
+ 22 42063882    COLLAZOS BARDALES IRMA                  541.00   _______________
 
- 23 44800604    RAMIREZ  URETA AMEC JOAB                447.00   _______________
+ 23 44867935    MEGO  ZAMORA JUANITO                    467.00   _______________
 
- 24 45619512    PEÑA MAMANI JESUS EDUARDO              264.00   _______________
+ 24 45619512    PEÑA MAMANI JESUS EDUARDO              202.00   _______________
 
- 25 43539383    SUAREZ MAGUIÑA ERICK JORGE             318.00   _______________
+ 25 43539383    SUAREZ MAGUIÑA ERICK JORGE             321.00   _______________
+
+ 26 25807381    CHERRES CASTRO LUIS ENRIQUE             369.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            12,433.00
+TOTAL VENTAS                                            12,292.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          1
+                                                             PAGINA :          0
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN BORJA
 
@@ -303,18 +307,18 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 09035048    ROJAS PAJUELO JUAN VENANCIO             1,087.00 _______________
+  1 09035048    ROJAS PAJUELO JUAN VENANCIO             1,130.00 _______________
 
-  2 43662417    DOMINGUEZ LOPEZ CHADWICK HANNS          749.00   _______________
+  2 43662417    DOMINGUEZ LOPEZ CHADWICK HANNS          739.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             1,836.00
+TOTAL ADMINISTRACION - CAJA                             1,869.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
-                                                             PAGINA :          1
+                                                             PAGINA :          0
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : SAN BORJA
 
@@ -324,38 +328,38 @@ CENTRO DE COSTO : PRODUCCION
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 10731895    GARGATE LOPEZ BENJAMIN                  794.00   _______________
+  1 10731895    GARGATE LOPEZ BENJAMIN                  912.00   _______________
 
-  2 09700349    MORALES PEREZ JULIA                     581.00   _______________
+  2 09700349    MORALES PEREZ JULIA                     536.00   _______________
 
-  3 06107239    SANCHEZ GARGATE NOEMI MARINA            692.00   _______________
+  3 06107239    SANCHEZ GARGATE NOEMI MARINA            690.00   _______________
 
-  4 08236571    SANDOVAL TORIBIO SANTA BENEDICTA        980.00   _______________
+  4 08236571    SANDOVAL TORIBIO SANTA BENEDICTA        982.00   _______________
 
   5 40826130    ABAD GUERRERO FROILAN                   782.00   _______________
 
-  6 23977386    PUMA HUILLCA AMILCAR                    486.00   _______________
+  6 23977386    PUMA HUILLCA AMILCAR                    530.00   _______________
 
   7 33345635    LEON  CARRANZA EMILIANO ALEJANDRO       636.00   _______________
 
-  8 09678603    CAQUI GARGATE GILDER MOISES             850.00   _______________
+  8 09678603    CAQUI GARGATE GILDER MOISES             789.00   _______________
 
-  9 44084183    PUMA HUILLCA HERMITAÑO                 472.00   _______________
+  9 44084183    PUMA HUILLCA HERMITAÑO                 428.00   _______________
 
- 10 08172801    CHINCHAY  VALLADARES MELQUIADES         713.00   _______________
+ 10 08172801    CHINCHAY  VALLADARES MELQUIADES         536.00   _______________
 
- 11 41220291    QUISPE  QUIPSE ELMA VICTORIA            536.00   _______________
+ 11 41220291    QUISPE  QUIPSE ELMA VICTORIA            718.00   _______________
 
  12 48350296    CCORIMANYA INGA EDWARD                  471.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL PRODUCCION                                        7,993.00
+TOTAL PRODUCCION                                        8,010.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : MIRAFLORES
 
@@ -365,66 +369,64 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 09570841    TANTALEAN AREVALO CARLOS ALBERTO        462.00   _______________
+  1 09570841    TANTALEAN AREVALO CARLOS ALBERTO        527.00   _______________
 
-  2 10436222    NAVARRO CAUTI NIEVES HERLINDA           583.00   _______________
+  2 10436222    NAVARRO CAUTI NIEVES HERLINDA           504.00   _______________
 
-  3 40066138    QUISPE MATAMOROS HILDA VILMA            365.00   _______________
+  3 40066138    QUISPE MATAMOROS HILDA VILMA            464.00   _______________
 
-  4 10165095    MEGO SILVA ARTURO JAMER                 540.00   _______________
+  4 10165095    MEGO SILVA ARTURO JAMER                 542.00   _______________
 
   5 06202755    BLAS SANCHEZ GLADYS LUZ                 491.00   _______________
 
   6 07859492    BACA CARBAJAL JOSE JESUS                513.00   _______________
 
-  7 44100041    HUAMANI MENDOZA RONALD PEDRO            438.00   _______________
+  7 44100041    HUAMANI MENDOZA RONALD PEDRO            534.00   _______________
 
-  8 43297418    MEGO DIAZ JOSE YOMAR                    716.00   _______________
+  8 44989567    ARAUJO HERRERA ITALO                    444.00   _______________
 
-  9 44989567    ARAUJO HERRERA ITALO                    466.00   _______________
+  9 09433554    NAVARRO CAUTI MARY LUZ                  493.00   _______________
 
- 10 09433554    NAVARRO CAUTI MARY LUZ                  718.00   _______________
+ 10 41224193    GARCIA CASANA LUIS ALEJANDRO            515.00   _______________
 
- 11 41224193    GARCIA CASANA LUIS ALEJANDRO            538.00   _______________
+ 11 43907244    ESPINOZA ESTEBAN CICILIO                450.00   _______________
 
- 12 43907244    ESPINOZA ESTEBAN CICILIO                877.00   _______________
+ 12 07392035    DE LA TORRE CASANOVA ANGELICA           719.00   _______________
 
- 13 07392035    DE LA TORRE CASANOVA ANGELICA           538.00   _______________
+ 13 40953862    GALLOZA PALLAROSO CARMEN MILAGROS       524.00   _______________
 
- 14 40953862    GALLOZA PALLAROSO CARMEN MILAGROS       526.00   _______________
+ 14 09708383    TENORIO LOAYZA LUCAS HERNANDO           381.00   _______________
 
- 15 09708383    TENORIO LOAYZA LUCAS HERNANDO           424.00   _______________
+ 15 45780533    VILLARROEL CORDOVA RODIY JEYSSON        448.00   _______________
 
- 16 46967693    CORDOVA CALLE SANTOS                    418.00   _______________
+ 16 47004326    MOREYRA ESPINOZA SANDRA                 187.00   _______________
 
- 17 45780533    VILLARROEL CORDOVA RODIY JEYSSON        370.00   _______________
+ 17 09702338    SOLORZANO MORALES NORA CELIA            524.00   _______________
 
- 18 47004326    MOREYRA ESPINOZA SANDRA                 278.00   _______________
+ 18 40988733    INGA CHUQUIPA LUZ FELINDA               471.00   _______________
 
- 19 09702338    SOLORZANO MORALES NORA CELIA            530.00   _______________
+ 19 45486798    CORNEJO GUEVARA SERGIO JORGE            472.00   _______________
 
- 20 40988733    INGA CHUQUIPA LUZ FELINDA               470.00   _______________
+ 20 46827908    HILARIO HUETE ALAN ANIBAL               533.00   _______________
 
- 21 45486798    CORNEJO GUEVARA SERGIO JORGE            470.00   _______________
+ 21 28116618    MEGO  SILVA HUMBERTO                    499.00   _______________
 
- 22 46827908    HILARIO HUETE ALAN ANIBAL               536.00   _______________
+ 22 45781644    ALVA LOPEZ JUNIOR DARLYN                471.00   _______________
 
- 23 28116618    MEGO  SILVA HUMBERTO                    451.00   _______________
+ 23 44800604    RAMIREZ  URETA AMEC JOAB                410.00   _______________
 
- 24 45781644    ALVA LOPEZ JUNIOR DARLYN                469.00   _______________
+ 24 43937550    SUAREZ MAGUIÑA JOSE ANTONIO            522.00   _______________
 
- 25 43937550    SUAREZ MAGUIÑA JOSE ANTONIO            386.00   _______________
-
- 26 40470678    BARBOSA FERNANDEZ TRINI MARTIN          307.00   _______________
+ 25 40470678    BARBOSA FERNANDEZ TRINI MARTIN          322.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            12,880.00
+TOTAL VENTAS                                            11,960.00
 --------------------------------------------------------------------------------
 
 CAMUENTE S.A.                                                FECHA :  10/10/2012
                                                              PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE OCTUBRE DEL 2012                      
+                     PLANILLA DEL MES DE NOVIENBRE DEL 2012                     
 
 LOCALIDAD : MIRAFLORES
 
@@ -434,11 +436,13 @@ CENTRO DE COSTO : ADMINISTRACION - CAJA
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 40484310    RIOS DIAZ JIMY ORLANDO                  973.00   _______________
+  1 10543446    REUVEN GOMEZ MICHAEL                    911.00   _______________
 
-  2 10362282    RODRIGUEZ  ROJAS JAIME ELITER           407.00   _______________
+  2 40484310    RIOS DIAZ JIMY ORLANDO                  1,162.00 _______________
+
+  3 42429178    CHOMBA ANAYA MARTIN ANTONIO             608.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             1,380.00
+TOTAL ADMINISTRACION - CAJA                             2,681.00
 --------------------------------------------------------------------------------
 

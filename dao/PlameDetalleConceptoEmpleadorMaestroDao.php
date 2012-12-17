@@ -432,7 +432,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         INNER JOIN conceptos AS c
         ON dc.cod_concepto = c.cod_concepto
 
-        WHERE (dce.id_empleador_maestro = 1)
+        WHERE (dce.id_empleador_maestro = ?)
         AND c.cod_concepto IN ($sql) 
         AND dce.seleccionado IN ($sql_seleccionado)      
         

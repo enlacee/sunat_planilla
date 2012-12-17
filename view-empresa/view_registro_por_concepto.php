@@ -5,6 +5,10 @@ require_once('../view/ide.php');
 //*******************************************************************//
 ?>
 <script type="text/javascript">
+	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	var periodo = document.getElementById('periodo').value;
+
+
     $(document).ready(function(){
                   
         $( "#tabs").tabs();
@@ -18,10 +22,11 @@ require_once('../view/ide.php');
 	
 	
     function cargarTablaConceptosRPC(){
-		var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+		var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
+		
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PlameConceptoController.php?oper=cargar_registro_por_concepto&id_pdeclaracion='+id_pdeclaracion,
+            url:'sunat_planilla/controller/PlameConceptoController.php?oper=cargar_registro_por_concepto&'+parametro,
             datatype: 'json',
             colNames:['Id','Codigo','Concepto','Opciones'],
             colModel :[
@@ -97,6 +102,10 @@ require_once('../view/ide.php');
 <div class="ocultar">id_pdeclaracion :
   <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
            value="<?php echo $_REQUEST['id_declaracion']; ?>" />
+  <br />
+  periodo:<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+
 </div>
 <br />
 <input type="button" name="Retornar " value="Cancelar" class="submit-cancelar"

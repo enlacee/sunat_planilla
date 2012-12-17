@@ -2,7 +2,9 @@
 //*******************************************************************//
 require_once('../view/ide.php');
 //*******************************************************************//
+
 require_once "../util/funciones.php";
+require_once('../dao/AbstractDao.php');
 require_once '../controller/ideController.php';
 
 //NEW

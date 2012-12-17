@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 //header("Content-Type: text/html; charset=utf-8");
 
@@ -14,7 +15,7 @@ if ($op) {
     require_once '../dao/VacacionDao.php';
     //IDE_EMPLEADOR_MAESTRO
     require_once '../controller/ideController.php';
-    
+
     require_once '../model/Vacacion.php';
 }
 
@@ -22,8 +23,9 @@ $response = NULL;
 
 if ($op == "cargar_tabla_trabajador") {
     $ESTADO = $_REQUEST['estado'];
-    //echo $ESTADO;
     $response = cargar_tabla_trabajador($ESTADO);
+} else if ($op == 'vacacion_periodo') {
+    $response = vacacion_periodo();
 } else if ($op == "add") {
     $response = addVacacion();
 } else if ($op == "del") {
@@ -165,6 +167,137 @@ function cargar_tabla_trabajador($ESTADO) {
     return $response;  //RETORNO A intranet.js
 }
 
+// filtro de trabajadores en vacacion  en periodo
+function vacacion_periodo() {    
+    $periodo = $_REQUEST['periodo'];
+    
+    $dao_trabajador = new VacacionDao();
+
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
+    $sord = $_GET['sord']; // get the direction
+
+    $WHERE = "";
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $count = $dao_trabajador->vacacionPeriodoCount(ID_EMPLEADOR, $periodo,$WHERE);
+
+    // $count = $count['numfilas'];
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; // do not put $limit*($page - 1)
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+    //llena en al array
+    $lista = array();
+
+    //$dao_trabajador->actualizarStock();
+
+    $lista = $dao_trabajador->vacacionPeriodo(ID_EMPLEADOR, $periodo,$WHERE, $start, $limit, $sidx, $sord);
+
+// CONTRUYENDO un JSON
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+    $i = 0;
+
+    // ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return $response;  /* break; */
+    }
+    //$lista = $lista[0];
+    foreach ($lista as $rec) {
+
+        $param = $rec["id_trabajador"];
+
+        //--- ASK
+        //__01__
+        //$array_fecha = getFechaVacacionCalc($param);
+        //echo $fecha_vacacion;  fecha_calc
+        //--- ASK!
+        // $anio_futuro = date("Y");
+
+        $_01 = $rec["num_documento"];
+        $_02 = $rec["apellido_paterno"];
+        $_03 = $rec["apellido_materno"];
+
+        $_04 = $rec["nombres"];
+        //$_06 = $array_fecha['fecha_inicio'];
+        $_05 = $rec['fecha_programada']; //$array_fecha['fecha_calc'];
+        
+        if(!is_null($_05)):
+            $estado_vaca=null;
+            if(getFechaPatron($_05, "m") == getFechaPatron($periodo, "m") ):
+                $estado_vaca = '<img src="images/check.gif"/>';
+            endif;                    
+            
+        endif;
+
+
+        $name = "DNI : " . $rec["num_documento"] . " " . $rec["apellido_paterno"] . " " . $rec["apellido_materno"] . " " . $rec["nombres"];
+        $js = "javascript:verVacacion('" . $param . "','" . $name . "')";
+        $opciones = '<div id="divEliminar_Editar">				
+          <span  title="Editar"  >
+          <a class="divEditar" href="' . $js . '"></a>
+          </span>
+          &nbsp;
+          </div>';
+
+        //$_06 = $rec["fecha_nacimiento"];        
+        //$_07 = $rec["estado"];
+        //$js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "','#CapaContenedorFormulario')";
+        //$opciones_1 = '<a href="' . $js . '">Modificar</a>';
+        //$opciones_2 = '<a href="' . $js2 . '">Eliminar</a>';
+        //$opciones = $rec['reporte'];
+        //hereee
+
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            $_01,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $estado_vaca,
+            $opciones,
+        );
+
+        $i++;
+    }
+
+    return $response;  //RETORNO A intranet.js
+}
+
 // Recursivo.
 function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
     // ALERT!!!
@@ -264,35 +397,35 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
 function addVacacion() {
     echoo($_REQUEST);
 
-    
-    $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");       
-     
-    $f_programado = getFechaPatron($_REQUEST['fv_programado'], "Y-m-d");    
-    
+
+    $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");
+
+    $f_programado = getFechaPatron($_REQUEST['fv_programado'], "Y-m-d");
+
     $data = tipoFechaVacacionMasDias($f_programado, $_REQUEST['tipo_vacacion']);
     echoo($data);
     $f_programado_fin = $data['fecha_fin'];
-    
+
     $obj = new Vacacion();
     $obj->setId_trabajador($_REQUEST['id_trabajador']);
     $obj->setFecha($f_calculado);
     $obj->setFecha_programada($f_programado);
     $obj->setFecha_prograda_fin($f_programado_fin);
     $obj->setTipo_vacacion($_REQUEST['tipo_vacacion']);
-    
-    
-    $dao = new VacacionDao();    
-    $dao->add($obj);   
-    
+
+
+    $dao = new VacacionDao();
+    $dao->add($obj);
+
 //..............................................................................
 // this no pasa xq javacript lo tiene controlado    
     //fecha limite de vacacion es : 11 meses
-    /*$fecha_limite = crearFecha($f_calculado, 0, 11, 0);        
-    if ($f_programado > $fecha_limite) {        
-        $f_programado = $f_calculado;
-    }*/    
+    /* $fecha_limite = crearFecha($f_calculado, 0, 11, 0);        
+      if ($f_programado > $fecha_limite) {
+      $f_programado = $f_calculado;
+      } */
 //..............................................................................
-   
+
     return true;
 }
 

@@ -87,7 +87,7 @@ $dia_calc = $now_dia - $dia;
 		 	firstDay:0,
 			dateFormat: 'dd/mm/yy',			
 			numberOfMonths: 2, //16/08/2012
-			minDate: new Date(<?php echo $date_inicio; ?>),
+			//minDate: new Date(<?php echo $date_inicio; ?>),
 			maxDate: new Date(<?php echo $date_fin; ?>),
 			showOn: 'both',
 			buttonText: 'Selecciona una fecha',
@@ -157,7 +157,7 @@ $dia_calc = $now_dia - $dia;
       <td width="71">
       <input type="button" name="btnAprovar" id="btnAprovar" value="Aprobar"
       class "red"
-      onclick="guardarVacacionProgramada()" <?php echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?> /></td>
+      onclick="guardarVacacionProgramada()" <?php //echo  ($estado == 'anio mayor') ? ' disabled="disabled"' : ''; ?> /></td>
     </tr>
     <tr>
       <td>&nbsp;</td>

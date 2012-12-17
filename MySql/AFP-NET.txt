@@ -1,4 +1,0 @@
-﻿https://www.afpnet.com.pe
-RUC:20100338611
-USER:emp0001
-PASS:210569

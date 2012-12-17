@@ -701,19 +701,23 @@ function generarRecibo15_txt() {
     $anio = getFechaPatron($fecha, "Y");
 
 
-    $file_name = NAME_COMERCIAL . '-' . $_name_15 . '.txt';
-    $file_name2 = NAME_COMERCIAL . '-BOLETA QUINCENA.txt';
+    $file_name = '01.txt';//NAME_COMERCIAL . '-' . $_name_15 . '.txt';
+    $file_name2 = '02.txt';//NAME_COMERCIAL . '-BOLETA QUINCENA.txt';
     $fpx = fopen($file_name2, 'w');
-
-
+    $fp = fopen($file_name, 'w');
+    
+    //..........................................................................
+    $FORMATO_0 = chr(27).'@'.chr(27).'C!';
+    $FORMATO = chr(18).chr(27)."P";
     $BREAK = chr(13) . chr(10);
     //$BREAK = chr(14) . chr(10);
     //chr(27). chr(100). chr(0)
     $LINEA = str_repeat('-', 80);
 //..............................................................................
 // Inicio Exel
-//..............................................................................
-    $fp = fopen($file_name, 'w');
+//..............................................................................   
+    fwrite($fp,$FORMATO);       
+    
 
 
     // paso 01 Listar ESTABLECIMIENTOS del Emplearo 'Empresa'
@@ -782,13 +786,11 @@ function generarRecibo15_txt() {
                             $SUM_TOTAL_CC[$i][$j]['centro_costo'] = strtoupper($ecc[$j]['descripcion']);
                             $SUM_TOTAL_CC[$i][$j]['monto'] = 0;
 
-
-                            //fwrite($fp, $LINEA);
-                            fwrite($fp, $BREAK);
-                            fwrite($fp, NAME_EMPRESA);
+                            //fwrite($fp, $LINEA);                            
+                            fwrite($fp, NAME_EMPRESA);                            
                             //$worksheet->write(($row + 1), ($col + 1), NAME_EMPRESA);
-
-                            $descripcion1 = date("d/m/Y", strtotime($data_pd['fecha_modificacion']));
+                            //$data_pd['periodo']  $data_pd['fecha_modificacion']
+                            $descripcion1 = date("d/m/Y");
                             
                             fwrite($fp, str_pad("FECHA : ", 56, " ", STR_PAD_LEFT));
                             fwrite($fp, str_pad($descripcion1, 11, " ", STR_PAD_LEFT));
@@ -824,14 +826,25 @@ function generarRecibo15_txt() {
                             fwrite($fp, $BREAK);
                             fwrite($fp, $LINEA);
                             fwrite($fp, $BREAK);
-
+                            
+                            $pag = 0;
+                            $num_trabajador = 0;
                             for ($k = 0; $k < count($data_tra); $k++) {
-
+                                $num_trabajador = $num_trabajador +1;                                
+                                if($num_trabajador>24):
+                                    fwrite($fp,chr(12));
+                                    $num_trabajador=0;
+                                endif;
+                                
                                 $data = array();
-                                $data = $data_tra[$k];
+                                $data = $data_tra[$k];   
+                                //$DIRECCION = $SUM_TOTAL_EST[$i]['establecimiento'];
+                                // Inicio de Boleta                                
+                                                                
+                                generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag);
+                                $pag = $pag +1;
 
-                                // Inicio de Boleta                            
-                                generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio);
+                                
                                 // Final de Boleta
                                 $texto_3 = $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres'];                                
                                 fwrite($fp, $BREAK);
@@ -885,7 +898,7 @@ function generarRecibo15_txt() {
                   fwrite($fp, number_format($SUM, 2));
                  */
 
-                fwrite($fp, $BREAK . $BREAK);
+                //fwrite($fp, $BREAK . $BREAK);
             
             }
         }//END FOR Est
@@ -906,6 +919,7 @@ function generarRecibo15_txt() {
           $SUM = $SUM + $SUM_TOTAL_EST[$z]['monto'];
           }
          */
+        
             fwrite($fp, $BREAK);
             fwrite($fp, $BREAK);
             fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 56, " ", STR_PAD_RIGHT));
@@ -964,20 +978,30 @@ function generarRecibo15_txt() {
     echo $zipfile->file();
 }
 
-function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio) {
-
-    //$file_name2 = NAME_COMERCIAL . '-BOLETA QUINCENA.txt';
-    $BREAK = chr(13) . chr(10);
-//..............................................................................
-// Inicio Exel
-//..............................................................................
-    fwrite($fpx,chr(18));
-    fwrite($fpx,chr(27));
+function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
+   $BREAK = chr(13) . chr(10); 
+   $CORTE = chr(18).chr(27)."P";
+   
+    if($pag==0):
+        $CERO = chr(27).'@'.chr(27).'C!';
+        
+        fwrite($fpx,$CERO.$BREAK);        
+    endif;    
+    fwrite($fpx,$CORTE); 
     
     fwrite($fpx, $BREAK);    
-    fwrite($fpx, str_pad(NAME_EMPRESA, 0, " ", STR_PAD_LEFT));
+    fwrite($fpx, str_pad(NAME_EMPRESA, 0, " ", STR_PAD_LEFT));    
     fwrite($fpx, str_pad(NAME_EMPRESA, 45, " ", STR_PAD_LEFT));
     fwrite($fpx, $BREAK);
+    //--    
+    fwrite($fpx, str_pad('RUC  '.RUC, 0, " ", STR_PAD_LEFT));
+    fwrite($fpx, str_pad('RUC  '.RUC, 45, " ", STR_PAD_LEFT));
+    fwrite($fpx, $BREAK);
+    fwrite($fpx, str_pad(DIRECCION_FISCAL, 0, " ", STR_PAD_LEFT));    
+    fwrite($fpx, str_pad(DIRECCION_FISCAL, 45, " ", STR_PAD_LEFT));
+    fwrite($fpx, $BREAK);
+    //--AVENIDA Guillermo Presccot 395 - SAN ISIDRO
+    //2
     fwrite($fpx, $BREAK);
 
     fwrite($fpx, str_pad('R E C I B O', 20, " ", STR_PAD_LEFT));
@@ -999,9 +1023,9 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio) {
     fwrite($fpx, $BREAK);
     $_NOMBRE_ = $data['apellido_paterno'] . " " . $data['apellido_materno'] . " " . $data['nombres'];
     fwrite($fpx, str_pad('NOMBRES', 9, " ", STR_PAD_RIGHT));
-    fwrite($fpx, str_pad(textoaMedida(28, ": ".$_NOMBRE_), 36, " ", STR_PAD_RIGHT));
+    fwrite($fpx, str_pad(textoaMedida(31, ": ".$_NOMBRE_), 36, " ", STR_PAD_RIGHT));
     fwrite($fpx, str_pad('NOMBRES', 9, " ", STR_PAD_RIGHT));
-    fwrite($fpx, str_pad(textoaMedida(28, ": ".$_NOMBRE_), 27, " ", STR_PAD_RIGHT));
+    fwrite($fpx, str_pad(textoaMedida(31, ": ".$_NOMBRE_), 31, " ", STR_PAD_RIGHT));
 //fwrite($fpx, $BREAK);
 
     fwrite($fpx, $BREAK);
@@ -1033,9 +1057,9 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio) {
 
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
+    fwrite($fpx, $BREAK);/*
     fwrite($fpx, $BREAK);
-    fwrite($fpx, $BREAK);
-    fwrite($fpx, $BREAK);
+    fwrite($fpx, $BREAK);*/
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
 
@@ -1056,12 +1080,20 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio) {
     fwrite($fpx, $BREAK);
     fwrite($fpx, str_pad('DNI. '.$data['num_documento'], 33, " ", STR_PAD_LEFT));
     fwrite($fpx, str_pad('DNI. '.$data['num_documento'], 44, " ", STR_PAD_LEFT));
-
+    fwrite($fpx, $BREAK);
+    fwrite($fpx, $BREAK);
+    fwrite($fpx, $BREAK);
     //fclose($fpx);
     // return $file_name2;
-    fwrite($fpx,chr(12));
-    fwrite($fpx, $BREAK);
-    fwrite($fpx, $BREAK.$BREAK);
+
+    if(true){
+      fwrite($fpx,chr(12));      
+    } 
+    
+    //$pag = $pag + 1;
+    //
+    //fwrite($fpx, $BREAK.$BREAK);    
+
 }
 
 function generarRecibo15Exel($id_pdeclaracion, $dataa) {

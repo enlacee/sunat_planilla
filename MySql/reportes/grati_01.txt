@@ -1,0 +1,33 @@
+@C!                                                      BOLETA DE PAGO/GRATIFICACION                                                      
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 07951545                            DNI: 07951545                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES ELENA                                                
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
+MES : DICIEMBRE DE : 01.2012                     CARGO : COCINERO                            SECCION : ventas                            
+                                                 DIRECCION :  JIRÓN TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                             
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   GRAT FPATRIAS Y NAV LEY29351    825.00   |                                            |                                           |
+|   TRAB. EN DIA FERIADO             54.72   |                                            |                                           |
+|   BONIF TEMPORAL – LEY 29351     79.17   |                                            |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES            958.89   |   TOTAL RETENC./DESCUENTOS          0.00   |   TOTAL APORTACIONES               0.00   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+                                                                                                                                       
+                                                                                                                                       
+                                                                                                                                       
+-----------------------------
+| REDONDEO     :       0.11 |
+-----------------------------
+| NETO A PAGAR :     959.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+@C!@C!@C!@C!
+@C!@C!
+@C!@C!@C!
+@C!@C!

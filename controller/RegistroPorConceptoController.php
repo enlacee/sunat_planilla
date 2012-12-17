@@ -21,8 +21,8 @@ if ($op == "add") {
     $response = listarRPC();
 } else if ($op == "edit") {
     $response = editRPC();
-} else if ($op == "edit-estado") {
-    $response = editEstadoRPC();
+} else if ($op == "del") {
+    $response = delRPC();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
@@ -81,6 +81,7 @@ function registrarRPC() {
 }
 
 function listarRPC() {
+    $periodo = $_REQUEST['periodo'];
     $cod_detalle_concepto = $_REQUEST['cod_detalle_concepto'];
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
 
@@ -154,12 +155,11 @@ function listarRPC() {
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
-        $_06 = $rec['valor'];
-        $_07 = $rec['estado'];
+        $_06 = $rec['valor'];        
         
         //echo "\n $_00\n\n";
         // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
-
+/*
         $opciones = null;
         if ($_07 == 1) {
             $js = "javascript:editar_EstadoRPC('" . $param . "',0)";
@@ -176,7 +176,7 @@ function listarRPC() {
           </span>
           </div>';
         }
-
+*/
 
         //hereee
         $response->rows[$i]['id'] = $param; //$param;
@@ -189,11 +189,8 @@ function listarRPC() {
             $_03,
             $_04,
             $_05,
-            $_06,
-            $opciones
-                //$_07,
-                //$_08,
-                //$opciones
+            $_06           
+
         );
         $i++;
     }
@@ -216,12 +213,9 @@ function editRPC() {
     return $dao->edit($obj);
 }
 
-function editEstadoRPC() {
-    $obj = new RegistroPorConcepto();
-    $obj->setId_registro_por_concepto($_REQUEST['id']);
-    $obj->setEstado($_REQUEST['estado']);
-    $dao = new RegistroPorConceptoDao();
-    return $dao->edit_estado($obj);
+function delRPC() {
+    $dao = new RegistroPorConceptoDao();     
+    return $dao->del($_REQUEST['id']);
 }
 
 ?>

@@ -1,17 +1,11 @@
 <?php
 
-//session_start();
-//header("Content-Type: text/html; charset=utf-8");
-
-
 $op = $_REQUEST["oper"];
-if ($op) {
-    //require_once '../model/Persona.php';
+if ($op) {    
     require_once ('../dao/AbstractDao.php');
     require_once '../dao/EstablecimientoDao.php';
     require_once ('../dao/EstablecimientoDireccionDao.php');
     require_once('../model/Establecimiento.php');
-
 //REGISTRAR DIRECCION
     require_once('../model/Direccion.php');
     require_once('../model/EstablecimientoDireccion.php');
@@ -39,7 +33,6 @@ if ($op == "cargar_tabla") {
 
 //echo json_encode($response);
 echo (!empty($response)) ? json_encode($response) : '';
-/* * **********categoria*************** */
 
 function nuevo() {
 
@@ -73,8 +66,6 @@ function nuevo() {
     $est_d->setCod_zona($_REQUEST['cbo_tipo_zona']);
     $est_d->setNombre_zona($_REQUEST['txt_zona']);
     $est_d->setReferencia($_REQUEST['txt_referencia']);
-
-
 
 
     if (isset($id_establecimiento)) {
@@ -164,7 +155,7 @@ function cargar_tabla() {
     if (!$sidx)
         $sidx = 1;
 
-    $count = $dao_empleador->cantidadEstablecimiento($id);
+    $count = $dao_empleador->cantidadEstablecimiento($ID_EMPLEADOR);
 
     // $count = $count['numfilas'];
     if ($count > 0) {
@@ -288,38 +279,6 @@ function existeRucDuplicado($ruc) {
     $dao = new EstablecimientoDao();
     $rpta = $dao->existeRucDuplicado($ruc);
     return($rpta);
-}
-
-function buscarEmpleadorPorId($id) {
-    $empleador = new Empleador();
-    $dao = new EstablecimientoDao();
-    $data = $dao->buscarEmpleadorPorId($id);
-
-    $empleador->setId_empleador($data['id_empleador']);
-    $empleador->setId_tipo_empleador($data['id_tipo_empleador']);
-    $empleador->setRuc($data['ruc']);
-    $empleador->setRazon_social($data['razon_social']);
-    $empleador->setId_tipo_sociedad_comercial($data['id_tipo_sociedad_comercial']);
-    $empleador->setNombre_comercial($data['nombre_comercial']);
-    $empleador->setCod_tipo_actividad($data['cod_tipo_actividad']);
-    $empleador->setCod_telefono_codigo_nacional($data['cod_telefono_nacional']);
-    $empleador->setTelefono($data['telefono']);
-    $empleador->setCorreo($data['correo']);
-    $empleador->setEmpresa_dedica($data['empresa_dedica']);
-    $empleador->setSenati($data['senati']);
-    $empleador->setremype($data['remype']);
-    $empleador->setTrabajador_sin_rp($data['trabajador_sin_rp']);
-    $empleador->setActividad_riesgo_sctr($data['actividad_riesgo_sctr']);
-    $empleador->setTrabajadores_sctr($data['trabajadores_sctr']);
-    $empleador->setPersona_discapacidad($data['persona_discapacidad']);
-    $empleador->setAgencia_empleo($data['agencia_empleo']);
-    $empleador->setDesplaza_personal($data['desplaza_personal']);
-    $empleador->setTerceros_desplaza_usted($data['terceros_desplaza_usted']);
-    $empleador->setEstado_empleador($data['estado_empleador']);
-    $empleador->setFecha_creacion($data['fecha_creacion']);
-
-
-    return $empleador;
 }
 
 /*

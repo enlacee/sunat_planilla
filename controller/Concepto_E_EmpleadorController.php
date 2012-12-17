@@ -163,6 +163,9 @@ function cargar_tabla_ConceptoEEmpleador() {
             case 3: // VACACION
                 $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/view_pvacaciones.php$parametro','#CapaContenedorFormulario')";
                 break;
+            case 4: // PROMEDIO  DE HORAS EXTRAS
+                $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/view_pprom_horas_extras.php$parametro','#CapaContenedorFormulario')";
+                break;
             default:
                 $js = 'null';
                 break;

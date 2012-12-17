@@ -43,70 +43,7 @@ echo "</pre>";
 
 ?>
 <script type="text/javascript">
-inicioCalc();
-
-//var 
-	var tabla = document.getElementById("tb_Pingreso");
-	var num_fila_tabla = contarTablaFila(tabla);
-	num_fila_tabla = num_fila_tabla - 1; //Descuento de Cabecera.
-	
-	var ID =  num_fila_tabla; //+ 1;
-
-	
-	//var div = document.createElement('tr');
-
-	//while(){
-		
-	//}
-
-function calcularPingreso(){
-	
-	// d = devengado
-	// p = pagado
-	var d_total = document.getElementById('pt_total_devengado');
-	var p_total = document.getElementById('pt_total_pagado');
-	
-
-	console.log("num_fila_tabla "+ num_fila_tabla);
-	console.log("ID "+ ID);
-	
-	var d_suma = 0;
-	var p_suma = 0;
-	for(var i=1;i<=parseInt(ID);i++){
-
-		//console.log("");
-		var d_num = document.getElementById('pt_devengado-'+i).value;
-		var p_num = document.getElementById('pt_pagado-'+i).value;
-		
-		d_num = (parseFloat(d_num)>0) ? parseFloat(d_num) : 0; 		
-		p_num = (parseFloat(p_num)>0) ? parseFloat(p_num) : 0;
-//			console.log("----"+i+"----");	
-//			console.log("d_num "+d_num);
-//			console.log("p_num "+p_num);
-		
-					
-		d_suma = d_suma + d_num;
-		p_suma = p_suma + p_num;
-	}
-	//----	
-	d_total.value = d_suma;
-	p_total.value = p_suma;
-	//----
-	
-
-}
-//-------------------
-//--------------------
-calcularPingreso();
-
-
-
-///------------------------------------------------------------------------------------
-
-
 $(document).ready(function() {
-
-	//alert("refy");
 	
 	$("#text_form").keyup(function() {
 		generate_code( $("#text_form").val() );	//le pasa el caracter A la funcion
@@ -114,6 +51,70 @@ $(document).ready(function() {
 	
 
 });
+
+// VARIBALES BASE  
+var tabla = document.getElementById("tb_Pingreso");
+var num_fila_tabla_ingreso = contarTablaFila(tabla);
+num_fila_tabla_ingreso = num_fila_tabla_ingreso - 1; //Descuento de Cabecera.
+
+
+inicioCalc();
+calcularPingreso();
+
+	
+	//var div = document.createElement('tr');
+
+function calcularPingreso(){	
+	// d = devengado
+	// p = pagado
+	var d_total = document.getElementById('pt_total_devengado');
+	var p_total = document.getElementById('pt_total_pagado');
+	
+
+	console.log("num_fila_tabla_ingreso "+ num_fila_tabla_ingreso);
+	var ID = num_fila_tabla_ingreso;
+	
+	var d_suma = 0;
+	var p_suma = 0;
+	for(var i=1;i<=parseInt(ID);i++){
+		
+	console.log("*INICIO. i="+i+"  ID = "+ID);
+		//console.log("");
+		var d_num = document.getElementById('pt_devengado-'+i).value;
+		var p_num = document.getElementById('pt_pagado-'+i).value;
+		
+		d_num = (parseFloat(d_num)>0) ? parseFloat(d_num) : 0; 		
+		p_num = (parseFloat(p_num)>0) ? parseFloat(p_num) : 0;
+		
+		
+			console.log("----"+i+"----");	
+			console.log("devengado d_num "+d_num);
+			console.log("pagado p_num "+p_num);
+			
+			console.log("-----sum "+i+"----");
+			console.log("devengado d_suma "+d_suma);
+			console.log("pagado p_suma "+p_suma);			
+					
+		d_suma = d_suma + d_num;
+		p_suma = p_suma + p_num;
+		
+		console.log("*ACABO. i="+i+"  ID = "+ID);
+	}
+	//----	
+	d_total.value = d_suma;
+	p_total.value = p_suma;
+	//----
+	console.log("total es : devengado = "+d_suma);
+	console.log("total es : pagado = "+p_suma);	
+	
+}
+//-------------------
+//--------------------
+
+
+///------------------------------------------------------------------------------------
+
+
 
 
 function duplicarDatoDevengado(id){ console.log(id);
@@ -160,19 +161,25 @@ function generate_code(text,txt_id) {
 }
 
 function inicioCalc(){
-//console.log("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn n n nn   n n n");
-var data = $(".idd");
-for(var id = 1; id<=data.length;id++){
-	//console.log("entro "+id);
-	var d = document.getElementById('pt_devengado-'+id);
-	var p = document.getElementById('pt_pagado-'+id);
-	//console.log(id+" "+d.value);
-	//console.log(id+" "+p.value);
-	p.value=d.value;
-}
-//console.log(data);
-//console.dir(data);
-//console.log("finnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn n n nn   n n n");
+// copiar valores de un INPUT A OTRO INPUT
+	var data = $(".idd");	
+	console.log("contador tabla ingresos = "+data.length);
+	
+	for(var id = 1; id<=data.length;id++){
+		//console.log("entro "+id);
+		var d = document.getElementById('pt_devengado-'+id);
+		var p = document.getElementById('pt_pagado-'+id);
+		
+		if(d.value =='' ||d.value ==null || d == null){
+			p.value= null;	
+		}else{
+			p.value= d.value;
+		}		
+		//console.log(id+" "+d.value);
+		//console.log(id+" "+p.value);
+		p.value= d.value;
+	}
+console.log('inicioCalc FIN');
 }
 
 </script>

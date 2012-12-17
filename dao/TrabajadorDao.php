@@ -54,11 +54,6 @@ class TrabajadorDao extends AbstractDao {
 
             $em = new Trabajador();
             $em = $obj_trabajador;
-/*
-echo "<h3> antes de dao insert";
-print_r($em);
-echo "</h3>";
-*/
             $this->pdo->beginTransaction();
 
             $stm = $this->pdo->prepare($query);
@@ -208,7 +203,7 @@ echo "</h3>";
         ON t.cod_situacion = s.cod_situacion
         
         WHERE em.id_empleador_maestro = ?
-        AND T.cod_situacion= ? 
+        AND t.cod_situacion= ? 
         
         $WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit
         ";

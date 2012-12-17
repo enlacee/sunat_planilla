@@ -120,7 +120,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 
 	function crearDialogoTDMasOp(){
-		console.log("utilizado en combo LOAD similar PERO ESTO EN MESS!!!!!!!");
+
 	$("#dialog_editarTDMasOP").dialog({ 
            
 			autoOpen: false,
@@ -133,6 +133,8 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 				
 				var id_establecimientos = document.getElementById('id_establecimientos').value;				
 				var cboCentroCosto = document.getElementById('cboCentroCosto').value;
+				console.log("id_establecimientos = "+id_establecimientos);
+				console.log("cboCentroCosto = "+cboCentroCosto);
 				
 				var id = id_establecimientos.split('|');
 		
@@ -148,7 +150,7 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 				window.location.href = url;				
 				},
 				'Cancelar': function() {
-				$(this).dialog('close');
+					$(this).dialog('close');
 				},
 
 
@@ -180,8 +182,8 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
 
 
-
-
+<input type="button" name="reporte_vacacion" id="reporte_vacacion" value="Vacaciones" />
+<input type="button" name="reporte_gratificacion" id="reporte_gratificacion" value="Gratificaciones" />
 <div id="detalle_declaracion_trabajador">
 
 
@@ -189,13 +191,14 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
     jqgrid
     <br />
   </h2>-->
-<input type="button" name="reporte30_02" id="reporte30_02" value="Reporte Mensual Total" />
-<input type="button" name="reporte30_mas" id="reporte30_mas" value="Mas op" />
-<input type="button" name="reporte_plame" id="reporte_plame" value="PDT PLAME"  />
+<input type="button" name="reporte30_02" id="reporte30_02" value="Boleta Mensual" />
+<input type="button" name="reporte30_mas" id="reporte30_mas" value="Boleta C.C." />
+<input type="button" name="reporte_emp_01" id="reporte_emp_01" value="Planilla de pagos" />
+<input type="button" name="reporte_afp" id="reporte_afp" value="Aportes AFP" />
+
 <span  id="break" style="padding:0 10px; margin:0 2px; background-color:#FCF"></span>
-<input type="button" name="reporte_emp_01" id="reporte_emp_01" value="|planilla unica pagos|" />
-<input type="button" name="reporte_exel_afp" id="reporte_exel_afp" value="Reporte Exel AFP" />
-<input type="button" name="reporte_afp" id="reporte_afp" value="AFP OP" />
+<input type="button" name="reporte_plame" id="reporte_plame" value="PDT PLAME"  /><input type="button" name="reporte_exel_afp" id="reporte_exel_afp" value="AFP.NET" />
+
 <table id="list">
 </table>
 <div id="pager">

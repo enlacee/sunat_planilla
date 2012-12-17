@@ -76,6 +76,15 @@ print_r($detalle_concepto);
 echo "</pre>";
 */
 
+/*
+echoo($ptaporte);
+echo "<hr>";
+echoo($calc_conceptos);
+
+$dat = arrayId($calc_conceptos, 'cod_detalle_concepto'); 
+echo "<hr>";
+echoo($dat);
+*/
 ?>
 
 <div class="ptrabajador">
@@ -128,10 +137,13 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
       
       <td><input name="ptta_monto[]" type="text" id="ptta_monto"
       value="<?php 
+	  // FOR BUCLE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	   for($x=0; $x<count($calc_conceptos); $x++):
 		   if($ptaporte[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
 			   echo $calc_conceptos[$x]['monto_pagado'];
 			   break;
+			else:
+			echo $x." ";			   
 			endif;
 		endfor;
 	   ?>" size="8" readonly="readonly"
@@ -213,8 +225,12 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //FILTR
       
       <td><input name="ptta_monto[]" type="text" id="ptta_monto"
       value="<?php 
+	  
+	  // FOR BUCLE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	  
 	   for($x=0; $x<count($calc_conceptos); $x++):
+	   	
 		   if($ptaporte[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
+			//if( in_array($ptaporte[$i]['cod_detalle_concepto'],$dat) ):	
 			   echo $calc_conceptos[$x]['monto_pagado'];
 			   break;
 			endif;

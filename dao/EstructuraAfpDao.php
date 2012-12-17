@@ -5,7 +5,7 @@ class EstructuraAfpDao extends AbstractDao{
         //12/11/2012
     public function listarTrabajadoresAfp($id_pdeclaracion, $codcubodin=null){
         $afp = 0;
-        $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;
+        $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin; //onp = 02
         
       $query = "
         SELECT
@@ -42,6 +42,10 @@ class EstructuraAfpDao extends AbstractDao{
         return $lista;
     }
     
+    public function listarTrabajadoresOnp(){
+        
+    }
+
     //1 = Inicio de relación laboral
     public function codigoMovimiento_1($id_pdeclaracion, $anio, $mes, $codcubodin = null){
         $afp = 0;

@@ -351,12 +351,12 @@ class="submit-cancelar" value="Cancelar">
   <tr>
     <td><label>Monto:</label></td>
     <td><?php echo $data['valor']; ?>      
-      <input name="monto_prestamo" type="text" id="monto_prestamo" value="<?php echo $data['valor']; ?>" size="7" /></td>
+      <input name="monto_prestamo" type="hidden" id="monto_prestamo" value="<?php echo $data['valor']; ?>" size="7" /></td>
   </tr>
   <tr>
     <td><label>Numero Cuotas:</label></td>
     <td><?php echo $data['num_cuota']; ?>
-      <input name="num_cuota" type="text" id="num_cuota" size="7" 
+      <input name="num_cuota" type="hidden" id="num_cuota" size="7" 
       value="<?php echo $data['num_cuota']; ?>" /></td>
   </tr>
   <tr>
@@ -450,7 +450,6 @@ class="submit-cancelar" value="Cancelar">
                 
 	<?php endforeach; ?>                
 </table>
-          <p>&nbsp;</p>
           <p>&nbsp;</p>
         </form>       
         </div>

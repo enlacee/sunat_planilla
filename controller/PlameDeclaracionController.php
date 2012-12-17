@@ -33,7 +33,7 @@ if ($op) {
 
     require_once '../dao/PtrabajadorDao.php';
 
-
+/*
     //--------------------------------------------------------------------------
     // DATOS PERSONALES DEL TRABAJADOR (Actualidad)
     require_once '../model/Trabajador.php';
@@ -54,7 +54,7 @@ if ($op) {
     require_once('../model/DetalleRegimenPensionario.php');
     require_once('../dao/DetalleRegimenPensionarioDao.php');
     require_once('../controller/DetalleRegimenPensionarioController.php');
-
+*/
 
     //MODEL PperiodoLaboral
     require_once ('../model/PperiodoLaboral.php');
@@ -399,20 +399,18 @@ function buscar_ID_Pdeclaracion($id_pdeclaracion) {
 
 // New view Empresa READY
 function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
-
-    $FECHA = getMesInicioYfin($periodo);
     //PASO 01   existe periodo?    
     $dao = new PlameDeclaracionDao();
+    echo $id_empleador_maestro;
     $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
     $rpta = false;
 	
     if ($num_declaracion == 0) {
         $rpta = true;
-		$dao->registrar($id_empleador_maestro, $periodo);
+	$dao->registrar($id_empleador_maestro, $periodo);
     }
-    // $response = strval($rpta);
-
-    return $rpta; //SOLO 1 = TRUE
+   
+    return $rpta;
 }
 
 //-----------------------------------------------------------------------------
@@ -552,22 +550,10 @@ function cerrarMes($conceptos){
     if($data_pd_hoy['id_pdeclaracion']){
         
         $periodo_hoy = $data_pd_hoy['periodo'];
-        
-        //echo "\necho hoy = ".$periodo_hoy;
-        //echo "\n\n";
-        
         $periodo_futuro = crearFecha($periodo_hoy,0,1,0); //añade un mes
+        //$dao_pd->baja($id_pdeclaracion); 
         
-        //echo "\nperiodo futuro mes = ".$periodo_futuro;
-        //echo "\n\n";
-        
-        //$dao_pd = new PlameDeclaracionDao();
-        //echo "baja  : id_pdeclaracion =".$id_pdeclaracion;
-        
-        $dao_pd->baja($id_pdeclaracion); 
-        
-        
-        $data_pd_fut =array();
+        //$data_pd_fut =array();
         $data_pd_fut = $dao_pd->Buscar_IDPeriodo(ID_EMPLEADOR_MAESTRO, $periodo_futuro);
         
         //DECISION BINARIA.
@@ -579,8 +565,6 @@ function cerrarMes($conceptos){
             $id_pdeclaracion_futuro = $dao_pd->registrar(ID_EMPLEADOR_MAESTRO, $periodo_futuro);
         }
         
-        
-       
     //----------------------------------------------------------------------        
 
     // paso 02
@@ -595,45 +579,35 @@ function cerrarMes($conceptos){
     //paso 03
     //listar si existen en trabajadores registrados en  : registros_por_conceptos
     $num=0;   
-    for($i=0;$i<count($cod_concepto);$i++){
+    for($i=0;$i<count($cod_concepto);$i++){ // --------------- Registrar codigo_detalle_concepto
         // -- Lista de los trabajadores actuales
-        $dao_rpc = new RegistroPorConceptoDao();
-        //echo "id_pdeclaracion = ".$id_pdeclaracion;
-        //echo "cod_concepto $i ".$cod_concepto[$i]['cod_detalle_concepto'];
-        
+        $dao_rpc = new RegistroPorConceptoDao();        
         $data_rpc = $dao_rpc->listarTrabajador($id_pdeclaracion, $cod_concepto[$i]['cod_detalle_concepto']);
         
         //echoo($data_rpc);
         
-        if(!is_null($data_rpc) && count($data_rpc)>=1):
+        if(count($data_rpc)>=1):
             $num = $num + 1; 
-            //echo "\n encontro data en  = ". $cod_concepto[$i]['cod_detalle_concepto'];
-            //var_dump($data_rpc);
-            
+
             for($j=0;$j<count($data_rpc);$j++):
                 // insert all la data  al siguiente periodo.
                 $obj_rpc = new RegistroPorConcepto();
                 $obj_rpc->setId_pdeclaracion($id_pdeclaracion_futuro);
                 $obj_rpc->setId_trabajador($data_rpc[$j]['id_trabajador']);
                 $obj_rpc->setCod_detalle_concepto($data_rpc[$j]['cod_detalle_concepto']);
-                $c = $data_rpc[$j]['cod_detalle_concepto'];
-                //echo "cod_detalle_concepto  c= $c\n";
+                $c = $data_rpc[$j]['cod_detalle_concepto'];                
                 
-                if( $c == '0201' || $c == '0304' || $c == '0909'|| $c =='0701'){
-                    //echo "\n c = $c\n";
-                    //echo " \n valorrr ".$data_rpc[$j]['valor'];
+                if( $c == '0201' || $c == '0304' || $c == '0909'|| $c =='0701' ){                    
                     $obj_rpc->setValor($data_rpc[$j]['valor']);
-                    $obj_rpc->setEstado($data_rpc[$j]['estado']);
+                    // ----- TESTING ---- $c=='0107'
+                    //$obj_rpc->setValor(0);
+                    //$dao_rpc->add($obj_rpc);
+                    //echo "\n<br> ID_TRABAJADOR = ".$data_rpc[$j]['id_trabajador'];                    
+                    
                 }else {
-                    $obj_rpc->setValor(0);
-                    $obj_rpc->setEstado(0);
+                    $obj_rpc->setValor(0);                    
                 }
-                
-                                
-                //echo "insert $j\n";
-                // INSERT
-                //echo " cod_detalle_concepto ".$data_rpc[$j]['cod_detalle_concepto'];
-                //echo "obj = ".$obj_rpc->getCod_detalle_concepto();
+
                 $dao_rpc->add($obj_rpc);
                 
             endfor;

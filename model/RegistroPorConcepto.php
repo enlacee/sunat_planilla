@@ -5,8 +5,7 @@ class RegistroPorConcepto {
     private $id_pdeclaracion;
     private $id_trabajador;
     private $cod_detalle_concepto;
-    private $valor;
-    private $estado;
+    private $valor;    
     private $fecha_creacion;
     
     
@@ -15,11 +14,9 @@ class RegistroPorConcepto {
      $this->id_pdeclaracion=null;
      $this->id_trabajador=null;
      $this->cod_detalle_concepto=null;
-     $this->valor=null;
-     $this->estado=null;
+     $this->valor=null;     
      $this->fecha_creacion=null;
     }
-    
     public function getId_registro_por_concepto() {
         return $this->id_registro_por_concepto;
     }
@@ -60,14 +57,6 @@ class RegistroPorConcepto {
         $this->valor = $valor;
     }
 
-    public function getEstado() {
-        return $this->estado;
-    }
-
-    public function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
     public function getFecha_creacion() {
         return $this->fecha_creacion;
     }
@@ -77,12 +66,7 @@ class RegistroPorConcepto {
     }
 
 
-    
-    
-
-    
-    
-    
+ 
 
     
 }

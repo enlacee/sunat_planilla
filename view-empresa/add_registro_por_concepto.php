@@ -58,7 +58,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------	
 		// 0106 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 35%	
 		}else if(cod_detalle_concepto=='0106'){
-			if(value < 1 || value >24){
+			if(value < 0 || value >24){
 				return [false,"Horas validas de 1 y 24 horas"];
 			}else{
 				return [true,""];
@@ -66,8 +66,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------	
 		// 0107 = TRABAJO EN DÍA FERIADO O DÍA DE DESCANSO	
 		}else if(cod_detalle_concepto=='0107'){
-			if(value < 1 || value >5){
-				return [false,"Dias validos de 1 a 5"];
+			if(value < 0 || value >5){
+				return [false,"Dias validos de 0 a 5"];
 			}else{
 				return [true,""];
 			}
@@ -80,6 +80,14 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 			}else{
 				return [true,""];
 			}//0115
+		// ------------------------------------------------			
+		// 0121 = REMUNERACION O JORNAL BASICO
+		}else if(cod_detalle_concepto=='0121'){
+			if(value < 0){
+				return [false,"Remuneracion basica Fuera de Rango"];
+			}else{
+				return [true,""];
+			}
 
 		// ------------------------------------------------			
 		// 0201 = ASIGNACION FAMILIAR
@@ -119,13 +127,13 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// 0705 = INASISTENCIAS
 		}else if(cod_detalle_concepto=='0705'){
 			
-			if(value < 1 || value >31){
+			if(value < 0 || value >31){
 				return [false,"Dias validos 1 al 31"];
 			}else{
 				return [true,""];
 			}
 		
-		
+		//ESSALUD VIDA
 		}else if(cod_detalle_concepto=='0604'){
 			if(value < 0 || value >1){
 				return [false,"Estados validos 0 y 1"];
@@ -196,7 +204,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
         $("#list").jqGrid({
             url:'sunat_planilla/controller/RegistroPorConceptoController.php?oper=cargar_tabla&cod_detalle_concepto='+cod_detalle_concepto+'&id_pdeclaracion='+id_pdeclaracion,
             datatype: 'json',
-            colNames:['','Id','idt','Tipo Doc','N. Doc','A.Paterno','A.Materno','Nombres','Valor','Activo'],
+            colNames:['','Id','idt','Tipo Doc','N. Doc','A.Paterno','A.Materno','Nombres','Valor'],
             colModel :[
 				{name: 'myac',
 				search:false,
@@ -228,48 +236,63 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 					sortable:false,
                     editable:false,
 					editrules:{required:true},
-                    width:120, 
-                    align:'center' 
+                    width:60, 
+                    align:'center',
+					hidden:true,
                 },
                 {
                     name:'num_documento', 
                     index:'num_documento',
-                    search:true,
-					sortable:false,
                     editable:false,
-					editrules:{required:true},
-                    width:90,
-                    align:'center'
+					search:false, 
+                    width:100,
+                    align:'left',
+					cellattr: function(rowId, value, rowObject, colModel, arrData) {
+						return ' colspan=4';
+					},
+                    formatter : function(value, options, rData){4
+                    	return ": "+value + " - "+rData['5']+" "+rData['6']+" "+rData['7'] ;
+                    }
+
                 },
                 {
                     name:'apellido_paterno', 
                     index:'apellido_paterno',
-                    search:true,
-					sortable:false,
+                    search:true,					
                     editable:false,
 					editrules:{required:true},
-                    width:90,
-                    align:'center'
+                    width:100,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+					
                 },
                 {
                     name:'apellido_materno', 
                     index:'apellido_materno',
-                    search:true,
-					sortable:false,
+                    search:true,					
                     editable:false,
 					editrules:{required:true},
-                    width:90,
-                    align:'center'
+                    width:100,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+					
                 },
                 {
                     name:'nombres', 
                     index:'nombres',
-                    search:true,
-					sortable:false,
+                    search:true,					
                     editable:false,
 					editrules:{required:true},
-                    width:90,
-                    align:'center'
+                    width:100,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    } 					
+					
                 },
                 {
                     name:'valor', 
@@ -278,18 +301,9 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 					sortable:false,
                     editable:true, //true,
 					editrules:{custom:true,number:true, custom_func:validarGrid_RPC},
-                    width:90,
+                    width:95,
                     align:'center'
-                },
-                {
-                    name:'estado', 
-                    index:'estado',
-                    search:false,
-					sortable:false,
-                    editable:false,					
-                    width:90,
-                    align:'center'
-                }		
+                }
 						
 						
 
@@ -298,8 +312,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
             pager: '#pager',
 			//rownumbers :true,
 			height:320,
-            rowNum:10,
-            rowList:[10,20,30],
+            rowNum:25,
+            rowList:[25,50],
             sortname: 'id_registro_por_concepto',
             sortorder: 'asc',
             viewrecords: true,
@@ -361,7 +375,8 @@ function cargar_tabla_rpc_buscar(id_pdeclaracion){
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
-                    width:100,
+					search:false, 
+                    width:90,
                     align:'left',
 					cellattr: function(rowId, value, rowObject, colModel, arrData) {
 						return ' colspan=4';
@@ -369,8 +384,6 @@ function cargar_tabla_rpc_buscar(id_pdeclaracion){
                     formatter : function(value, options, rData){4
                     	return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] ;
                     }
-
-
                 },
                 {
                     name:'apellido_paterno', 
@@ -432,8 +445,8 @@ function cargar_tabla_rpc_buscar(id_pdeclaracion){
             pager: '#pager-buscar',
             rownumbers: true,
             //height:320,
-            rowNum:10,
-            rowList:[10,20],
+            rowNum:25,
+            rowList:[25,50],
             sortname: 'id_trabajador',
             sortorder: 'asc',
             viewrecords: true,
@@ -522,6 +535,17 @@ $("#trabajador").fadeToggle("slow", "linear");
 
         </ul>
         <div id="tabs-1">
+        
+<div class="ocultar">id_pdeclaracion :
+  <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
+           value="<?php echo $_REQUEST['id_pdeclaracion']; ?>" />
+  <br />
+  periodo:<input type="text" name="periodo" id="periodo"
+value="<?php echo $_REQUEST['periodo']; ?>" />
+
+</div>        
+        
+        
 <h2>
   <?php echo $data_detalle_concepto['cod_detalle_concepto'] ." - ". $data_detalle_concepto['descripcion'] ?></h2>
 <p>
@@ -534,7 +558,7 @@ $("#trabajador").fadeToggle("slow", "linear");
 
   <input type="button" name="retornar" id="retornar" value="Cancelar"
   class="submit-cancelar"
-  onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>','#CapaContenedorFormulario')" />
+  onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" />
 <div id="trabajador" class="trabajador" style="display:none">
 <div class="ocultar">id_pdeclaracion :
   <label for="id_pdeclaracion"></label>

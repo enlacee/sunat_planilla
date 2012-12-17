@@ -3,43 +3,37 @@ session_start();
 /**
  * Varibles DE Identificacion  (Empleador)
  * */
+
 $ruc_login = $_SESSION['gRucEmpresa'];
-//$nombrEmpresa_login = $_SESSION['gNombreEmpresa'];
 
 $SCRIPT = true;
 
-if (!empty($ruc_login)) {
-
-    require_once('../../dao/AbstractDao.php');
-    require_once('../../dao/PersonaDao.php');
-    require_once('../../controller/PersonaController.php');
-    //Empleador 
-    require_once('../../dao/EmpleadorDao.php');
-
-    $dao_empleador = new EmpleadorDao();
-    $DATA_EMPLEADOR = $dao_empleador->buscaEmpleadorPorRuc($ruc_login);
-
-	if( is_null($DATA_EMPLEADOR) ){
-		session_destroy();
-		$SCRIPT = true;
-		//unset($_SESSION);
-		
-	}else{
-    	$_SESSION['sunat_empleador'] = $DATA_EMPLEADOR;
-		$SCRIPT = false;
-	}	
+// 01 INSTANCIA LOGIN
+if ($ruc_login) {
+	$SCRIPT = false;
+// 02 INSTANCIA LOGIN
+	if($_SESSION['sunat_empleador']):
+		//hay datos en session
+		//Errorr Errorr Errorr Errorr Errorr Errorr
+		require_once('../../dao/AbstractDao.php');
+	else:
+		require_once('../../dao/AbstractDao.php');
+		require_once('../../dao/PersonaDao.php');
+		require_once('../../controller/PersonaController.php');
+		//Empleador 
+		require_once('../../dao/EmpleadorDao.php');
 	
+		$dao_empleador = new EmpleadorDao();
+		$DATA_EMPLEADOR = $dao_empleador->buscaEmpleadorPorRuc($ruc_login);
+		$_SESSION['sunat_empleador'] = $DATA_EMPLEADOR;
+	endif;
+	
+}else{
+	session_destroy();
+	$SCRIPT = true;			
 }
-/*
-echo "<pre>";
-print_r($_SESSION);
-echo "Empleador Identificado = " . $DATA_EMPLEADOR['ruc'];
-echo "</pre>";
 
-echo "<h1>".var_dump($ESTADO)."</h1>"
-*/
 ?>
-
 
 
 <?php if($SCRIPT): ?>

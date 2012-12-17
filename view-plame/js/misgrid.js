@@ -244,6 +244,7 @@
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
+                    search:false, 
                     width:100,
                     align:'left',
                     cellattr: function(rowId, value, rowObject, colModel, arrData) {
@@ -314,8 +315,8 @@
             pager: '#pager',
             rownumbers: true,			
             height:320,            
-            rowNum:10,
-            rowList:[10,20,30],
+            rowNum:25,
+            rowList:[25,50],
             sortname: 'id_trabajador_pdeclaracion',
             sortorder: 'asc',
             viewrecords: true,
@@ -332,13 +333,14 @@
         //--- PIE GRID
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
     
-    $("#t_list").append($("#reporte30_02"));
-    $("#t_list").append($("#reporte30_mas"));
-	$("#t_list").append($("#reporte_plame"));
+    $("#t_list").append($("#reporte30_02"))
+       .append($("#reporte30_mas"))
+	   .append($("#reporte_emp_01"))
+       .append($("#reporte_afp"))
+       .append($("#break"))
+       .append($("#reporte_plame"))       
+       .append($("#reporte_exel_afp"));  
 
-    $("#t_list").append($("#break"));
-    $("#t_list").append($("#reporte_emp_01"));
-    $("#t_list").append($("#reporte_exel_afp"));    
 
     }
 
@@ -372,6 +374,7 @@ function cargarTablaTrabajadorPdeclaracionGrid_Lineal(id){
                 {
                     name:'num_documento', 
                     index:'num_documento',
+                    search:false,
                     editable:false,
                     width:100,
                     align:'left',

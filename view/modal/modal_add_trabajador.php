@@ -9,18 +9,18 @@ require_once('../../controller/ideController2.php');
 require_once('../../util/funciones.php');
 
 require_once('../../dao/PersonaDao.php');
-
 require_once('../../dao/ComboCategoriaDao.php');
 require_once('../../controller/ComboCategoriaController.php');
+require_once('../../Controller/PersonaController.php');
 //echoo($_REQUEST);
 $ID_PERSONA = $_REQUEST['id_persona'];
-//echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
-//echo "<br>ID_EMPLEADOR = ".ID_EMPLEADOR;
-//echo "<br>ID_PERSONA = ".$ID_PERSONA;
-//echoo($data);
+/*echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
+echo "<br>ID_EMPLEADOR = ".ID_EMPLEADOR;
+echo "<br>ID_PERSONA = ".$ID_PERSONA;
+*/
 
 $data = listarPersonaConPeriosdoLaborales(ID_EMPLEADOR,$ID_PERSONA);
-
+//echoo($data);
 //combo 01x
 $cbo_motivo_baja_registro_cat_trabajador = comboMotivoBajaRegistroCatTrabajador();
 ?>

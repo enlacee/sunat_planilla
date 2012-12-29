@@ -50,16 +50,16 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------	
 		// 0105 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 25%					
 		}else if(cod_detalle_concepto=='0105'){
-			if(value < 0 || value >2){
-				return [false,"Horas validar 1 y 2 horas"];
+			if(value < 0 || value >20){
+				return [false,"Horas validar 1 y 20 horas"];//Horas validar 1 y 2 horas
 			}else{
 				return [true,""];
 			}
 		// ------------------------------------------------	
 		// 0106 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 35%	
 		}else if(cod_detalle_concepto=='0106'){
-			if(value < 0 || value >24){
-				return [false,"Horas validas de 1 y 24 horas"];
+			if(value < 0 || value >40){
+				return [false,"Horas validas de 1 y 40 horas"];//Horas validas de 1 y 24 horas
 			}else{
 				return [true,""];
 			}
@@ -75,8 +75,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------	
 		// 0115 = REMUNERACIÓN DÍA DE DESCANSO Y FERIADOS (INCLUIDA LA DEL 1° DE MAYO)	
 		}else if(cod_detalle_concepto=='0115'){
-			if(value < 0 || value >1){
-				return [false,"Estados validos 0 y 1 \n Dia que hace Referencia al 1&deg; de Mayo."];
+			if(value < 0 || value >20){
+				return [false,"Estados validos 0 y 1 \n Dia que hace Referencia al 20&deg; de Mayo."];
 			}else{
 				return [true,""];
 			}//0115
@@ -118,8 +118,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------				
 		// 0704 = TARDANZAS	
 		}else if(cod_detalle_concepto=='0704'){
-			if(value < 0 || value >8){
-				return [false,"Horas validas en Decimales de 0 hasta 8 horas"];
+			if(value < 0 || value >15){
+				return [false,"Horas validas en Decimales de 0 hasta 15 horas"];
 			}else{
 				return [true,""];
 			}

@@ -143,7 +143,7 @@ if( in_array($ptaporte[$i]['cod_detalle_concepto'],$detalle_concepto) ): //final
 			   echo $calc_conceptos[$x]['monto_pagado'];
 			   break;
 			else:
-			echo $x." ";			   
+			//echo $x." ";			   
 			endif;
 		endfor;
 	   ?>" size="8" readonly="readonly"

@@ -369,6 +369,7 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         WHERE (dce.id_empleador_maestro = ?)
         AND c.cod_concepto in ($sql)        
         AND dce.seleccionado in ($sql_seleccionado)
+        
         ";
 
         $stm = $this->pdo->prepare($query);

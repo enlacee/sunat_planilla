@@ -32,7 +32,7 @@ INSERT INTO pagos
              dia_nosubsidiado,
              dia_total,
              sueldo_base,
-             sueldo,
+             sueldo,             
              sueldo_vacacion,
              descuento,
              sueldo_neto,
@@ -44,8 +44,13 @@ INSERT INTO pagos
              descripcion,
              fecha_creacion,
              id_empresa_centro_costo,
-             fecha_fin_15)
+             fecha_fin_15,
+             monto_devengado,
+             sueldo_porcentaje
+             )
 VALUES (
+        ?,
+        ?,
         ?,
         ?,
         ?,
@@ -88,6 +93,8 @@ VALUES (
         $stm->bindValue(17, $model->getFecha_creacion());
         $stm->bindValue(18, $model->getId_empresa_centro_costo());
         $stm->bindValue(19, $model->getFecha_fin_15());
+        $stm->bindValue(20, $model->getMonto_devengado());
+        $stm->bindValue(21,$model->getSueldo_porcentaje());
 
         $stm->execute();
         //$lista = $stm->fetchAll();
@@ -192,6 +199,26 @@ VALUES (
         return $lista[0]['counteo'];
     }
 
+    //new OK!
+    function buscar_what($id_etapa_pago,$id_trabajador,$atributo){
+        $query = "
+        SELECT
+            $atributo
+        FROM pagos AS p
+        WHERE p.id_etapa_pago = ?
+        AND id_trabajador = ?
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_etapa_pago);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]["$atributo"];
+        
+    }
+    
     //USO ESCLUSIVO PARA GRID
     public function listar($id_etapa_pago, $WHERE, $start, $limit, $sidx, $sord) {
 

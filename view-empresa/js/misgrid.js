@@ -392,7 +392,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	var input_inicio = document.getElementById('mes_inicio');
 	var input_fin = document.getElementById('mes_fin');
 	
-	if(validarPeriodo(periodo)==true){
+	if(/*validarPeriodo(periodo)==*/true){
 		//-----	
 		$.ajax({
 			type: 'post',
@@ -466,6 +466,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
                     name:'num_documento', 
                     index:'num_documento',
                     editable:false,
+                    search:false,
                     width:100,
                     align:'left',
                     cellattr: function(rowId, value, rowObject, colModel, arrData) {
@@ -1515,6 +1516,12 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 	
     }
 
+// new nueva PROCESO Gratificacion
+function generarGratifiacion(id_pdeclaracion,periodo){
+
+    
+
+}
 
 
 

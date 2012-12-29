@@ -12,6 +12,7 @@ class Pago {
     private $dia_total;
     private $sueldo_base;
     private $sueldo;
+    private $sueldo_porcentaje;
     private $sueldo_vacacion;
     private $descuento;
     private $sueldo_neto;
@@ -25,6 +26,7 @@ class Pago {
     private $fecha_modificacion;
     private $fecha_creacion;
     private $fecha_fin_15;
+    private $monto_devengado;
 
     function __construct() {
      $this->id_pago=null;
@@ -36,6 +38,7 @@ class Pago {
      $this->dia_total=null;
      $this->sueldo_base=null;
      $this->sueldo=null;
+     $this->sueldo_porcentaje=null;
      $this->sueldo_vacacion=null;
      $this->descuento=null;
      $this->sueldo_neto=null;
@@ -49,6 +52,7 @@ class Pago {
      $this->fecha_modificacion=null;
      $this->fecha_creacion=null;
      $this->fecha_fin_15=null;
+     $this->monto_devengado=0;
     }
 
     public function getId_pago() {
@@ -110,10 +114,17 @@ class Pago {
     public function getSueldo() {
         return $this->sueldo;
     }
-
     public function setSueldo($sueldo) {
         $this->sueldo = $sueldo;
     }
+    
+    public function getSueldo_porcentaje() {
+        return $this->sueldo_porcentaje;
+    }
+
+    public function setSueldo_porcentaje($sueldo_porcentaje) {
+        $this->sueldo_porcentaje = $sueldo_porcentaje;
+    }    
 
     public function getSueldo_vacacion() {
         return $this->sueldo_vacacion;
@@ -218,6 +229,14 @@ class Pago {
     public function setFecha_fin_15($fecha_fin_15) {
         $this->fecha_fin_15 = $fecha_fin_15;
     }
+    public function getMonto_devengado() {
+        return $this->monto_devengado;
+    }
+
+    public function setMonto_devengado($monto_devengado) {
+        $this->monto_devengado = $monto_devengado;
+    }
+
 
 
 }

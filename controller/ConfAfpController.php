@@ -35,16 +35,49 @@ function listarAfp() {
     $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
     $sord = $_GET['sord']; // get the direction
 
+    $WHERE = "";
 
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
 
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "WHERE " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "WHERE " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
 
     if (!$sidx)
         $sidx = 1;
 
-    $lista = array();
-    $lista = $dao->listar();
-    $count = count($lista);
+        $count = $dao->listarCount($WHERE);
+    
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY
+    } else {
+        //$total_pages = 0;
+    }
+    //valida
+    if ($page > $total_pages)
+        $page = $total_pages;
 
+    // calculate the starting position of the rows
+    $start = $limit * $page - $limit; // do not put $limit*($page - 1)
+    //valida
+    if ($start < 0)
+        $start = 0;
+
+    
+    
+    
+    $lista = array();
+    $lista = $dao->listar($WHERE, $start, $limit, $sidx, $sord);
+    
     // $count = $count['numfilas'];
     if ($count > 0) {
         $total_pages = ceil($count / $limit); //CONTEO DE PAGINAS QUE HAY

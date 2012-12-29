@@ -305,8 +305,8 @@ function generarLiquidacionAnual() {
         $worksheet->write( ($contador+10) , (7+$z), $suma[$z],$format_decimal_amarillo); 
     endfor;
      $worksheet->write( ($contador+10+4) , 2, 'Firma ............................................fecha '.date("d/m/Y"),$format_titulo2); 
-     $worksheet->write( ($contador+10+5) , 2, 'CANO MUENTE CARLOS ALBERTO',$format_titulo2); 
-     $worksheet->write( ($contador+10+6) , 2, 'GERENTE GENERAL',$format_titulo2);             
+     //$worksheet->write( ($contador+10+5) , 2, 'CANO MUENTE CARLOS ALBERTO',$format_titulo2); 
+     //$worksheet->write( ($contador+10+6) , 2, 'GERENTE GENERAL',$format_titulo2);             
 
 
 

@@ -35,6 +35,7 @@ define('C909', '0909'); // 0909=MOVILIDAD SUPEDITADA A ASISTENCIA Y QUE CUBRE SÃ
 
 
 // Conf 
+define('NUN_MES',12);
 define('DIA_BASE',30);
 define('HORA_BASE',8);
 ?>

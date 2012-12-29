@@ -401,7 +401,7 @@ function buscar_ID_Pdeclaracion($id_pdeclaracion) {
 function nuevaDeclaracionPeriodo($id_empleador_maestro, $periodo) {
     //PASO 01   existe periodo?    
     $dao = new PlameDeclaracionDao();
-    echo $id_empleador_maestro;
+    //echo $id_empleador_maestro;
     $num_declaracion = $dao->existeDeclaracion($id_empleador_maestro, $periodo);
     $rpta = false;
 	

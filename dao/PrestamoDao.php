@@ -180,23 +180,24 @@ class PrestamoDao extends AbstractDao {
     }
 
     // Utilizado para reporte mensual !!!!! == funcion gemela
-    public function getPagoCuotaPorPeriodo_Reporte($id_pdeclaracion,$id_trabajador){
+    public function getPagoCuotaPorPeriodo_Reporte($periodo,$id_trabajador){
         
         // Sobreentedido que hay un prestamo por periodo =pdeclaracion
         // error si ah futuro existiera varios prestamos en el mismo periodo.
         $query = "
         SELECT
-        p.valor,
-        pp.valor AS pago_cuota
+        -- p.valor,
+        pc.monto AS pago_cuota        
         FROM prestamos AS p
-        INNER JOIN ppagos AS pp
-        ON p.id_prestamo = pp.id_prestamo
-        WHERE p.id_trabajador =?
-        AND pp.id_pdeclaracion =?    
+        INNER JOIN prestamos_cuotas AS pc
+        ON p.id_prestamo = pc.id_prestamo
+        WHERE pc.fecha_calc =?
+        AND p.id_trabajador =? 
+        AND pc.estado = 1  
 ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador);
-        $stm->bindValue(2, $id_pdeclaracion);
+        $stm->bindValue(1, $periodo);
+        $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;

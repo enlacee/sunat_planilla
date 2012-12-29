@@ -116,7 +116,8 @@ class DeclaracionDconceptoDao extends AbstractDao {
 
         INNER JOIN detalles_conceptos AS dc
         ON   ddc.cod_detalle_concepto = dc.cod_detalle_concepto   
-        WHERE id_trabajador_pdeclaracion = ?          
+        WHERE id_trabajador_pdeclaracion = ?
+        
         ";
 
         $stm = $this->pdo->prepare($query);
@@ -181,6 +182,7 @@ class DeclaracionDconceptoDao extends AbstractDao {
         return $lista;
     }
 
+      
 }
 
 ?>

@@ -156,7 +156,7 @@ function tabla_Conf_Afp(){
                     name:'cod_regimen_pensionario',
                     index:'cod_regimen_pensionario',
                     search:false, 
-					sortable:false,
+					sortable:true,
                     editable:true,
 					editrules:{required:true},
                     width:120, 
@@ -170,30 +170,30 @@ function tabla_Conf_Afp(){
                     name:'aporte_obligatorio',
                     index:'aporte_obligatorio',
                     search:false, 
-					sortable:false,
+					sortable:true,
                     editable:true,
 					editrules:{required:true},
-                    width:120, 
+                    width:100, 
                     align:'center' 
                 },
                 {
                     name:'comision',
                     index:'comision',
                     search:false, 
-					sortable:false,
+					sortable:true,
                     editable:true,
 					editrules:{required:true},
-                    width:120, 
+                    width:100, 
                     align:'center' 
                 },				
                 {
                     name:'prima_seguro',
                     index:'prima_seguro',
                     search:false, 
-					sortable:false,
+					sortable:true,
                     editable:true,
 					editrules:{required:true},
-                    width:120, 
+                    width:100, 
                     align:'center' 
                 },			
 
@@ -201,17 +201,17 @@ function tabla_Conf_Afp(){
                     name:'fecha', 
                     index:'fecha',
                     search:false,
-					sortable:false,
+					sortable:true,
                     editable:true,
 					editrules:{required:true},
-                    width:90,
+                    width:150,
                     align:'center'
                 }		
 
 
             ],
             pager: '#pager',
-			height:'200px',
+			height:'230px',
             rowNum:10,
             rowList:[10,20,30],
             sortname: 'id_conf_afp',

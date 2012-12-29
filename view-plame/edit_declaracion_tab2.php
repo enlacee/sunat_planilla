@@ -176,22 +176,14 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 
         </ul>
         <div id="tabs-2-1">
-
-
-
-
-
-
-<input type="button" name="reporte_vacacion" id="reporte_vacacion" value="Vacaciones" />
-<input type="button" name="reporte_gratificacion" id="reporte_gratificacion" value="Gratificaciones" />
-<div id="detalle_declaracion_trabajador">
-
-
-<!--  <h2>EDIT trabajador<br />
+          <div id="detalle_declaracion_trabajador">
+            
+            
+            <!--  <h2>EDIT trabajador<br />
     jqgrid
     <br />
   </h2>-->
-<input type="button" name="reporte30_02" id="reporte30_02" value="Boleta Mensual" />
+            <input type="button" name="reporte30_02" id="reporte30_02" value="Boleta Mensual" />
 <input type="button" name="reporte30_mas" id="reporte30_mas" value="Boleta C.C." />
 <input type="button" name="reporte_emp_01" id="reporte_emp_01" value="Planilla de pagos" />
 <input type="button" name="reporte_afp" id="reporte_afp" value="Aportes AFP" />

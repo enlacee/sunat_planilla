@@ -282,7 +282,7 @@ class PlameDao extends AbstractDao {
     
     // ADELANTO QUINCENAL
     //before = listarTrabajadoresPorPeriodo_15 , 7
-    public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin, $WHERE = null/* , $cod_periodo_remuneracion */) {
+    public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin, $WHERE = null) {
 
         $query = "		
         SELECT 

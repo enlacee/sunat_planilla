@@ -198,7 +198,8 @@ class EtapaPagoDao extends AbstractDao {
         
         $query = "
         SELECT  
-        id_etapa_pago      
+        id_etapa_pago,
+        tipo
         FROM etapas_pagos
 	WHERE id_pdeclaracion = ?           
            

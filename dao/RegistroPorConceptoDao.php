@@ -276,7 +276,7 @@ class RegistroPorConceptoDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
-
+    
 }
 
 ?>

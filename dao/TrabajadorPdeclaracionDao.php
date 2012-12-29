@@ -215,8 +215,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $query = "
             SELECT 
 		-- trabajador
-                t.id_trabajador,
-                t.monto_remuneracion,
+                t.id_trabajador,                
                 t.cod_situacion,
                 t.cod_ocupacion_p,
                 t.id_empresa_centro_costo,
@@ -255,6 +254,23 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return $lista[0];
     }
 
+    function buscar_what($id_pdeclaracion,$id_trabajador,$atributo){
+        $query = "
+        SELECT          
+            $atributo
+        FROM trabajadores_pdeclaraciones
+        WHERE id_pdeclaracion = ?
+        AND id_trabajador = ?
+      ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]["$atributo"];        
+        
+    }
     public function buscar_ID($id) {
         $query = "
         SELECT
@@ -720,7 +736,9 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
     LEFT JOIN trabajadores_pdeclaraciones
     ON pdeclaraciones.id_pdeclaracion = trabajadores_pdeclaraciones.id_pdeclaracion
 
-    WHERE pdeclaraciones.id_pdeclaracion=  ?     
+    WHERE pdeclaraciones.id_pdeclaracion=  ?
+    AND etapas_pagos.tipo = 2
+    -- elimina solo 2da quincena.
 ";
 
         $stm = $this->pdo->prepare($query);

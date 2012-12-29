@@ -72,4 +72,42 @@ function sueldoDefault($sueldo) {
     return $new_sueldo;
 }
 
+//-----------------------------------------------------------------------------
+//FUNCION AYUDA  getSumaTodosIngresosTrabajador
+function arrayConceptosIngresos() {
+    $dao = new PlameDetalleConceptoEmpleadorMaestroDao();
+    $conceptos = array('100', '200', '300', '400', '500', '900');
+    $data_concepto = $dao->view_listarConcepto(ID_EMPLEADOR_MAESTRO, $conceptos);
+
+    $concepto_ingresos = array();
+    for ($x = 0; $x < count($data_concepto); $x++) {
+        $concepto_ingresos[] = $data_concepto[$x]['cod_detalle_concepto'];
+    }
+    return $concepto_ingresos;
+}
+
+
+/**
+ * SUMA DE TODOS LOS INGRESOS DEL TRABAJADOR
+ * listado de todos los conceptos que se encuentran seleccionado por el
+ * empleador Maestro
+ */
+function getSumaTodosIngresosTrabajador($id_trabajador, $id_pdeclaracion) {//fuck! no es muy util
+
+    $dao_dconcepto = new DeclaracionDconceptoDao();
+    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+    $concepto_ingresos = arrayConceptosIngresos();
+
+    $sum = 0.00;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $concepto_ingresos)) {
+            $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
+        }
+    }
+    return $sum;
+}
+
+
+
+
 ?>

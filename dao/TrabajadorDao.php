@@ -169,7 +169,12 @@ class TrabajadorDao extends AbstractDao {
     }
 
     public function listarTrabajador($ID_EMPLEADOR_MAESTRO, $ESTADO, $WHERE, $start, $limit, $sidx, $sord) {
-
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
         $query = "
 	SELECT 
 		t.id_trabajador,

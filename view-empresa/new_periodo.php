@@ -24,6 +24,11 @@ $data = $_SESSION['sunat_empleador'];
 ?>
 
 <script type="text/javascript">
+	console.log("NEW_PERIODO.PHP");
+	console.log(id_pdeclaracion);
+	console.log(periodo);
+			
+			
     $(document).ready(function(){
                   
         $( "#tabs").tabs();

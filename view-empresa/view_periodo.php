@@ -12,6 +12,7 @@ var periodo;
 
     $(document).ready(function(){	
 
+		console.log("HOLA EN  document ready");
 		
 		var request_id_pdeclaracion = <?php echo $id_pdeclaracion;?>;                  
         $( "#tabs").tabs();
@@ -206,22 +207,24 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
 
         
         </div>
+
+
         
 <div id="tabs-2">
 <h2>Anual</h2>
 <fieldset><legend>Remuneraciones</legend>
 <div class="ayuda">Generar archivo exel de ...</div>
 
-<table width="410" border="1">
+<table width="429" border="1">
   <tr>
-    <th width="3">&nbsp;</th>
-    <th width="294">Reporte</th>
-    <th width="91">&nbsp;</th>
+    <th width="18">&nbsp;</th>
+    <th width="301">Reporte</th>
+    <th width="88">&nbsp;</th>
   </tr>
   <tr>
-    <td>&nbsp;</td>
+    <td>1.-</td>
     <td>Liquidacion anual de aportes y retenciones previsionales</td>
-    <td><input name="reporte_liquidacion"  id= "reporte_liquidacion" type="button" value="Generar"/></td>
+    <td><input name="reporte_liquidacion"  id= "reporte_liquidacion" type="button" value="Generar arhivo.xls"/></td>
   </tr>
 </table>
 <div class="ocultar">
@@ -232,7 +235,9 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
 
 
 
-</div>        
+</div> 
+
+       
         
         
 </div>

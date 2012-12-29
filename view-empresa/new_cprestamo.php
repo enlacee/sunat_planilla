@@ -15,8 +15,8 @@ $(document).ready(function(){
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: '01/mm/yy',
-		minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDate())
-		buttonImage: 'images/calendar.gif',
+		minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDate()),
+		buttonImage: 'images/calendar.gif'
 		//minDate: 0,
 		//maxDate: "+11M +0D"
 		
@@ -99,6 +99,8 @@ if(bacio){
 }else{
 	alert ("No deje campos vacios");
 }
+
+
 
 }else{
 	alert("Ingrese datos validos");		

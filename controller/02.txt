@@ -1,9 +1,9 @@
-PCAMUENTE S.A.                                                FECHA :  29/12/2012
+PCAMUENTE S.A.                                                FECHA :  31/01/2013
                                                              PAGINA :          1
                                     MENSUAL                                     
-                     PLANILLA DEL MES DE DICIEMBRE DEL 2012                     
+                       PLANILLA DEL MES DE ENERO DEL 2013                       
 
-LOCALIDAD : PUEBLO LIBRE
+LOCALIDAD : SAN ISIDRO
 
 CENTRO DE COSTO : VENTAS
 
@@ -11,55 +11,39 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 25565139    HERNANDEZ ROMAN CARLOS                  396.00   _______________
+  1 10389776    ZAMORA MEGO MELQUIADES                  584.00   _______________
 
-  2 07448164    CASANOVA RAMIREZ MARIA LUISA            433.00   _______________
+  2 10285430    SOLANO CALDUA NICOLAS VICTOR            583.00   _______________
 
-  3 09738210    ALIAGA COTRINA HILDEBRANDO              541.00   _______________
+  3 09886536    ZAMORA MEGO OLEGARIO                    581.00   _______________
 
-  4 07950684    BERNAL ZURITA SONIA MAGDALENA           440.00   _______________
+  4 25780120    MIRANDA YBAÑEZ SONIA MARITZA           649.00   _______________
 
-  5 07966569    CUPE FLORES ALFONSO                     528.00   _______________
+  5 22862765    ESPINOZA CESPEDES MERCEDES EVA          678.00   _______________
 
-  6 08305295    DIAZ HURTADO ROSARIO OSVALDO            539.00   _______________
+  6 07644248    GUERRA CHAUCA SANDRA ISABEL             678.00   _______________
 
-  7 07627656    HERRERA ROJAS MARIBEL ALBINA            524.00   _______________
+  7 44052923    MEZA GARCIA MANUEL ALEJANDRO            588.00   _______________
 
-  8 21542718    HUAMAN CUSTODIO JULIO ANGEL             535.00   _______________
+  8 42972458    SANTILLAN MELENDEZ CHRISTIAN            503.00   _______________
 
-  9 07948158    QUISPE CHIPANA ANTONIA GRACIELA         533.00   _______________
+  9 40827219    NOLE  CAMUS IRIS EDITA                  512.00   _______________
 
- 10 42774098    GONZALES HUARANGA AMPARO MILAGROS       513.00   _______________
+ 10 46767275    CHAVEZ GOMEZ CRISTIAN                   595.00   _______________
 
- 11 10725806    PINCCILOTTI PALLAROSO ALEJANDRO         516.00   _______________
+ 11 47707022    HUERTA CARLOS MAX JOUSTON               550.00   _______________
 
- 12 43152817    RODRIGUEZ ROJAS HEBER ARGENIS           499.00   _______________
+ 12 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           575.00   _______________
 
- 13 43297418    MEGO DIAZ JOSE YOMAR                    536.00   _______________
+ 13 45347323    GARGATE ROSALES JONATHAN                529.00   _______________
 
- 14 40070442    ANDIA  CARRASCO JAVIER                  536.00   _______________
+ 14 42070522    AQUINO ROJAS MARIBEL                    647.00   _______________
 
- 15 40391187    YOVERA ATARAMA ARACELY                  468.00   _______________
+ 15 76608802    QUISPE FLOREZ JUAN DANIEL               364.00   _______________
 
- 16 46329096    AQUINO ROJAS HUGO PERCY                 486.00   _______________
-
- 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            513.00   _______________
-
- 18 47136383    MEZA VALENCIA YOEL ALFREDO              466.00   _______________
-
- 19 41967126    POMA MURGA LIVIA                        470.00   _______________
-
- 20 44943430    PAREDES VILELA CARLOS HUMBERTO          319.00   _______________
-
- 21 07182707    VILLARREAL MEDINA ANA ELENA             584.00   _______________
-
- 22 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         235.00   _______________
-
- 23 48176445    MACHADO CALIXTO SAIN SABINO             320.00   _______________
-
- 24 47000848    PALMA AMADO JUAN RAUL                   313.00   _______________
+ 16 40926514    HINOJOSA SANCHEZ ANA KARINA             645.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            11,243.00
+TOTAL VENTAS                                            9,261.00
 --------------------------------------------------------------------------------
 

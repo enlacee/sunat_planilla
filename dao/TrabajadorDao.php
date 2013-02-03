@@ -1,7 +1,24 @@
 <?php
 
 class TrabajadorDao extends AbstractDao {
+    //new OK!
+    function buscar_what($id_trabajador,$atributo){
+        //monto_remuneracion
+        $query = "
+        SELECT
+            $atributo            
+        FROM trabajadores
+        WHERE id_trabajador = ?
+        ";
 
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);        
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]["$atributo"];
+        
+    }
 //END FUNCION
 //Registrar Producto and Imagen
     public function registrarTrabajador($obj_trabajador) {

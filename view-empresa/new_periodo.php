@@ -89,8 +89,6 @@ function validarPeriodo(periodo){
 	
 </script>
 
-
-&lt;
 <div class="demo" align="left">
     <div id="tabs">
         <ul>

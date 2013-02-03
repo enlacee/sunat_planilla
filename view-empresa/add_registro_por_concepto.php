@@ -58,8 +58,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------	
 		// 0106 = TRABAJO EN SOBRETIEMPO (HORAS EXTRAS) 35%	
 		}else if(cod_detalle_concepto=='0106'){
-			if(value < 0 || value >40){
-				return [false,"Horas validas de 1 y 40 horas"];//Horas validas de 1 y 24 horas
+			if(value < 0 || value >100){
+				return [false,"Horas validas de 1 y 100 horas"];//Horas validas de 1 y 24 horas
 			}else{
 				return [true,""];
 			}
@@ -118,8 +118,8 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------				
 		// 0704 = TARDANZAS	
 		}else if(cod_detalle_concepto=='0704'){
-			if(value < 0 || value >15){
-				return [false,"Horas validas en Decimales de 0 hasta 15 horas"];
+			if(value < 0 || value >160){
+				return [false,"Horas validas en Decimales de 0 hasta 160 horas"];
 			}else{
 				return [true,""];
 			}

@@ -48,42 +48,18 @@ $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
         </table>
         <div id="pager" align="left">
         </div>
-
-
-
-
-<div class="ayuda">
-<h3>Descripcion tenga en cuenta:</h3>
-<p>-Verificar si la (lista) de  trabajadores que se muestra arriba.<br />
-coinciden con los trabajadores que realmente desea Declarar<br />
-en Planilla Mensual. 'PDT-PLANILLA'.</p>
-<p>
--Esta operacion puede tardar segun el numero de trabajadores que tenga en la (Lista).</p>
-</div>
+		<div class="ayuda">
+		<h3>Descripcion tenga en cuenta:</h3>
+		<p>-Verificar si la (lista) de  trabajadores que se muestra arriba.<br />
+		coinciden con los trabajadores que realmente desea Declarar<br />
+		en Planilla Mensual. 'PDT-PLANILLA'.</p>
+		<p>
+		-Esta operacion puede tardar segun el numero de trabajadores que tenga en la (Lista).</p>
+		</div>
               </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
       </div>
 </div>
-
-
 <!-- -->
 <div id="dialog-form-editarPtrabajador">
-
 <div id="editarPtrabajador"> </div>
-
 </div>

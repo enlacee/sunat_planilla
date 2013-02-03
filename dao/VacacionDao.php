@@ -1,10 +1,47 @@
 <?php
 
 class VacacionDao extends AbstractDao {
+    
+        // Reporte para crear vacacion. For planilla de vacaciones
+    function vacacionPeriodo2($id_empleador, $periodo) {
+        
+        $query = "
+        SELECT                 
+                t.id_trabajador,                
+                v.fecha_programada,
+		v.fecha_programada_fin
 
+        FROM personas AS p 
+        INNER JOIN empleadores AS e
+        ON p.id_empleador = e.id_empleador
+
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+
+        LEFT JOIN vacaciones AS v
+        ON t.id_trabajador = v.id_trabajador
+
+        WHERE p.id_empleador = ?
+        AND YEAR(v.fecha_programada) = ?
+	AND MONTH(v.fecha_programada) = ?
+	OR MONTH(v.fecha_programada_fin) = ?
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);        
+        $stm->bindValue(2, getFechaPatron($periodo, 'Y'));
+        $stm->bindValue(3, getFechaPatron($periodo, 'm'));
+        $stm->bindValue(4, getFechaPatron($periodo, 'm'));
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
+    }
+    
     function vacacionPeriodo($id_empleador, $periodo,$WHERE, $start, $limit, $sidx, $sord) {
         $cadena = null;
-        if (is_null($WHERE)) {
+        if (is_null($WHERE)|| $WHERE=='') {
             $cadena = $WHERE;
         } else {
             $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
@@ -31,17 +68,21 @@ class VacacionDao extends AbstractDao {
         LEFT JOIN vacaciones AS v
         ON t.id_trabajador = v.id_trabajador
 
-        WHERE p.id_empleador = ?
-        AND v.fecha_programada = ?
+        WHERE p.id_empleador = ?                       
+        AND YEAR(v.fecha_programada) = ?
+	AND MONTH(v.fecha_programada) = ?
+	OR MONTH(v.fecha_programada_fin) = ?
         $cadena;
-            
--- lista a los trabajadores que tienen vacacion en este periodo 
--- en este select se duplican personas xq tienen muchas vacaciones
 ";
+            
+//-- lista a los trabajadores que tienen vacacion en este periodo 
+//-- en este select se duplican personas xq tienen muchas vacaciones        
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_empleador);        
-        $stm->bindValue(2, $periodo);
+        $stm->bindValue(2, getFechaPatron($periodo, 'Y'));
+        $stm->bindValue(3, getFechaPatron($periodo, 'm'));
+        $stm->bindValue(4, getFechaPatron($periodo, 'm'));
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
@@ -64,13 +105,17 @@ class VacacionDao extends AbstractDao {
         LEFT JOIN vacaciones AS v
         ON t.id_trabajador = v.id_trabajador
         WHERE p.id_empleador = ?
-        AND v.fecha_programada = ? 
+        AND YEAR(v.fecha_programada) = ?
+	AND MONTH(v.fecha_programada) = ?
+	OR MONTH(v.fecha_programada_fin) = ?  
         $WHERE
 ";
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_empleador);        
-        $stm->bindValue(2, $periodo);
+        $stm->bindValue(2, getFechaPatron($periodo, 'Y'));
+        $stm->bindValue(3, getFechaPatron($periodo, 'm'));
+        $stm->bindValue(4, getFechaPatron($periodo, 'm'));
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
@@ -162,7 +207,7 @@ class VacacionDao extends AbstractDao {
 
     public function listarVacacionesEnRango($id_trabajador) { /* ,$mes_inicio,$mes_fin,$mes_fin_sgte_mes */
 
-        $query = "
+      $query = "
       SELECT
       id_trabajador,
       fecha,
@@ -197,7 +242,8 @@ class VacacionDao extends AbstractDao {
                     fecha_programada,
                     fecha_programada_fin,
                     fecha_creacion,
-                    tipo_vacacion
+                    tipo_vacacion,
+                    id_pdeclaracion
                     )
         VALUES (
                 ?,
@@ -205,7 +251,8 @@ class VacacionDao extends AbstractDao {
                 ?,
                 ?,
                 ?,
-                ?);      
+                ?,
+                ?);
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $model->getId_trabajador());
@@ -214,8 +261,10 @@ class VacacionDao extends AbstractDao {
         $stm->bindValue(4, $model->getFecha_prograda_fin());
         $stm->bindValue(5, date("Y-m-d"));
         $stm->bindValue(6, $model->getTipo_vacacion());
+        $stm->bindValue(7, $model->getId_pdeclaracion());
         $stm->execute();
-        //$lista = $stm->fetchAll();
+//        $lista = $stm->fetchAll();
+print "<p>Registro creado correctamente.</p>\n";
         $stm = null;
 
         return true;
@@ -255,7 +304,14 @@ class VacacionDao extends AbstractDao {
         $stm = null;
         return true;
     }
-
+    
+    
+    //--------------------------------------------------------------------------
+    
+    
+    
+    
+    
 }
 
 ?>

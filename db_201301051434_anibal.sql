@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2013 at 06:39 p.m.
+-- Generation Time: Jan 05, 2013 at 02:33 p.m.
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -12983,7 +12983,7 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos` (
   PRIMARY KEY (`id_declaracion_dconcepto`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=59823 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='THIS MENSUAL\r\nthis trabajador siempre estara relacionado con' AUTO_INCREMENT=59858 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos`
@@ -15106,16 +15106,6 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (46740, 5525, '0606', NULL, '11.35'),
 (46741, 5525, '0608', NULL, '88.00'),
 (46742, 5525, '0804', NULL, '78.79'),
-(46743, 5526, '0121', '750.00', '750.00'),
-(46744, 5526, '0701', '225.00', '225.00'),
-(46745, 5526, '0706', NULL, '0.00'),
-(46746, 5526, '0107', '50.00', '50.00'),
-(46747, 5526, '0704', '5.22', '5.22'),
-(46748, 5526, '0605', NULL, '0.00'),
-(46749, 5526, '0601', NULL, '12.80'),
-(46750, 5526, '0606', NULL, '10.32'),
-(46751, 5526, '0608', NULL, '80.00'),
-(46752, 5526, '0804', NULL, '71.53'),
 (46753, 5527, '0121', '750.00', '750.00'),
 (46754, 5527, '0701', '225.00', '225.00'),
 (46755, 5527, '0706', NULL, '0.00'),
@@ -15368,12 +15358,6 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (47002, 5551, '0605', NULL, '0.00'),
 (47003, 5551, '0607', NULL, '114.34'),
 (47004, 5551, '0804', NULL, '79.16'),
-(47005, 5552, '0118', '750.00', '750.00'),
-(47006, 5552, '0706', NULL, '0.00'),
-(47007, 5552, '0201', '75.00', '75.00'),
-(47008, 5552, '0605', NULL, '0.00'),
-(47009, 5552, '0607', NULL, '107.25'),
-(47010, 5552, '0804', NULL, '74.25'),
 (47011, 5553, '0121', '750.00', '750.00'),
 (47012, 5553, '0701', '465.00', '465.00'),
 (47013, 5553, '0706', NULL, '0.00'),
@@ -15661,8 +15645,7 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (47295, 5585, '0706', NULL, '0.00'),
 (47296, 5585, '0704', '2.75', '2.75'),
 (47297, 5585, '0605', NULL, '0.00'),
-(47298, 5585, '0601', NULL, '14.18');
-INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
+(47298, 5585, '0601', NULL, '14.18'),
 (47299, 5585, '0606', NULL, '10.20'),
 (47300, 5585, '0608', NULL, '75.00'),
 (47301, 5585, '0804', NULL, '67.25'),
@@ -15678,7 +15661,8 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (47319, 5588, '0706', NULL, '0.00'),
 (47320, 5588, '0201', '75.00', '75.00'),
 (47321, 5588, '0107', '55.00', '55.00'),
-(47322, 5588, '0704', '10.07', '10.07'),
+(47322, 5588, '0704', '10.07', '10.07');
+INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
 (47323, 5588, '0605', NULL, '0.00'),
 (47324, 5588, '0601', NULL, '18.83'),
 (47325, 5588, '0606', NULL, '12.50'),
@@ -16986,8 +16970,7 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (51391, 6014, '0607', NULL, '114.40'),
 (51392, 6014, '0804', NULL, '79.01'),
 (51393, 6015, '0121', '750.00', '750.00'),
-(51394, 6015, '0701', '225.00', '225.00');
-INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
+(51394, 6015, '0701', '225.00', '225.00'),
 (51395, 6015, '0706', NULL, '0.00'),
 (51396, 6015, '0107', '50.00', '50.00'),
 (51397, 6015, '0704', '0.53', '0.53'),
@@ -17003,7 +16986,8 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (51407, 6016, '0606', NULL, '12.93'),
 (51408, 6016, '0608', NULL, '111.50'),
 (51409, 6016, '0804', NULL, '100.35'),
-(51410, 6017, '0121', '750.00', '750.00'),
+(51410, 6017, '0121', '750.00', '750.00');
+INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
 (51411, 6017, '0701', '225.00', '225.00'),
 (51412, 6017, '0706', NULL, '0.00'),
 (51413, 6017, '0107', '50.00', '50.00'),
@@ -18309,8 +18293,7 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (59521, 6832, '0704', '2.65', '2.65'),
 (59522, 6832, '0605', NULL, '0.00'),
 (59523, 6832, '0607', NULL, '114.40'),
-(59524, 6832, '0804', NULL, '78.96');
-INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
+(59524, 6832, '0804', NULL, '78.96'),
 (59525, 6833, '0121', '750.00', '750.00'),
 (59526, 6833, '0701', '225.00', '225.00'),
 (59527, 6833, '0706', NULL, '0.00'),
@@ -18326,7 +18309,8 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (59537, 6834, '0107', '58.33', '58.33'),
 (59538, 6834, '0304', '250.00', '250.00'),
 (59539, 6834, '0909', '150.00', '150.00'),
-(59540, 6834, '0115', '637.50', '637.50'),
+(59540, 6834, '0115', '637.50', '637.50');
+INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajador_pdeclaracion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
 (59541, 6834, '0605', NULL, '0.00'),
 (59542, 6834, '0601', NULL, '31.68'),
 (59543, 6834, '0606', NULL, '21.12'),
@@ -18588,7 +18572,17 @@ INSERT INTO `declaraciones_dconceptos` (`id_declaracion_dconcepto`, `id_trabajad
 (59819, 6863, '0601', NULL, '17.33'),
 (59820, 6863, '0606', NULL, '11.72'),
 (59821, 6863, '0608', NULL, '82.50'),
-(59822, 6863, '0804', NULL, '74.25');
+(59822, 6863, '0804', NULL, '74.25'),
+(59823, 6864, '0121', '975.00', '975.00'),
+(59824, 6864, '0701', '225.00', '225.00'),
+(59825, 6864, '0706', NULL, '0.00'),
+(59826, 6864, '0107', '50.00', '50.00'),
+(59827, 6864, '0704', '5.22', '5.22'),
+(59828, 6864, '0605', NULL, '0.00'),
+(59829, 6864, '0601', NULL, '16.40'),
+(59830, 6864, '0606', NULL, '13.22'),
+(59831, 6864, '0608', NULL, '102.50'),
+(59832, 6864, '0804', NULL, '91.78');
 
 -- --------------------------------------------------------
 
@@ -19017,13 +19011,33 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos_vacaciones` (
   `monto_devengado` decimal(10,2) DEFAULT NULL,
   `monto_pagado` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id_declaracion_dconcepto_vacacion`),
-  KEY `id_trabajador_vacacion` (`id_trabajador_vacacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tabla conceptos gratifiacion' AUTO_INCREMENT=19 ;
+  KEY `id_trabajador_vacacion` (`id_trabajador_vacacion`),
+  KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tabla conceptos gratifiacion' AUTO_INCREMENT=101 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos_vacaciones`
 --
 
+INSERT INTO `declaraciones_dconceptos_vacaciones` (`id_declaracion_dconcepto_vacacion`, `id_trabajador_vacacion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
+(83, 1, '0118', '0.00', '725.00'),
+(84, 1, '0201', '0.00', '0.00'),
+(85, 1, '0304', '0.00', '0.00'),
+(86, 1, '0703', '0.00', '0.00'),
+(87, 1, '0909', '0.00', '0.00'),
+(88, 1, '0804', '0.00', '63.08'),
+(89, 1, '0601', '0.00', '15.52'),
+(90, 1, '0606', '0.00', '10.30'),
+(91, 1, '0608', '0.00', '72.50'),
+(92, 2, '0118', '0.00', '25.00'),
+(93, 2, '0201', '0.00', '0.00'),
+(94, 2, '0304', '0.00', '0.00'),
+(95, 2, '0703', '0.00', '0.00'),
+(96, 2, '0909', '0.00', '0.00'),
+(97, 2, '0804', '0.00', '0.08'),
+(98, 2, '0601', '0.00', '0.54'),
+(99, 2, '0606', '0.00', '0.36'),
+(100, 2, '0608', '0.00', '2.50');
 
 -- --------------------------------------------------------
 
@@ -22649,7 +22663,7 @@ CREATE TABLE IF NOT EXISTS `dias_nosubsidiados` (
   PRIMARY KEY (`id_dia_nosubsidiado`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_tipo_suspen_relacion_laboral` (`cod_tipo_suspen_relacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=224 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=222 ;
 
 --
 -- Dumping data for table `dias_nosubsidiados`
@@ -22664,7 +22678,6 @@ INSERT INTO `dias_nosubsidiados` (`id_dia_nosubsidiado`, `id_trabajador_pdeclara
 (41, 5507, 30, '23', 1, NULL, NULL),
 (42, 5510, 1, '07', NULL, NULL, NULL),
 (43, 5519, 30, '23', 1, NULL, NULL),
-(44, 5552, 30, '23', 1, NULL, NULL),
 (45, 5555, 30, '23', 1, NULL, NULL),
 (46, 5558, 30, '23', 1, NULL, NULL),
 (47, 5563, 30, '23', 1, NULL, NULL),
@@ -33105,7 +33118,7 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   KEY `id_trabajador` (`id_trabajador`,`id_etapa_pago`,`id_empresa_centro_costo`),
   KEY `id_etapa_pago` (`id_etapa_pago`),
   KEY `id_empresa_centro_costo` (`id_empresa_centro_costo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=14754 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='TIENE VARIOS TRABAJADORES\r\nde la persona' AUTO_INCREMENT=14767 ;
 
 --
 -- Dumping data for table `pagos`
@@ -33667,7 +33680,6 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (8944, 57, 546, 15, NULL, 0, 15, '1470.00', '588.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:32', NULL, 5, NULL, '0.00'),
 (8945, 58, 546, 15, NULL, 0, 15, '750.00', '225.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:32', NULL, 1, NULL, '0.00'),
 (8946, 59, 546, 15, NULL, 0, 15, '750.00', '427.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:32', NULL, 1, NULL, '0.00'),
-(8947, 60, 546, 0, NULL, 15, 15, '750.00', '0.00', '0.00', '225.00', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:33', NULL, 1, NULL, '0.00'),
 (8948, 61, 546, 15, NULL, 0, 15, '750.00', '465.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:33', NULL, 5, NULL, '0.00'),
 (8949, 62, 546, 15, NULL, 0, 15, '750.00', '225.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:33', NULL, 1, NULL, '0.00'),
 (8950, 63, 546, 0, NULL, 15, 15, '750.00', '0.00', '0.00', '225.00', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:33', NULL, 1, NULL, '0.00'),
@@ -33730,9 +33742,9 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (9008, 121, 546, 15, NULL, 0, 15, '750.00', '375.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
 (9009, 122, 546, 15, NULL, 0, 15, '750.00', '375.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
 (9010, 123, 546, 15, NULL, 0, 15, '750.00', '375.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
-(9011, 124, 546, 15, NULL, 0, 15, '750.00', '262.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00');
+(9011, 124, 546, 15, NULL, 0, 15, '750.00', '262.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
+(9012, 125, 546, 15, NULL, 0, 15, '750.00', '375.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00');
 INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `sueldo_porcentaje`, `sueldo_vacacion`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`, `fecha_fin_15`, `monto_devengado`) VALUES
-(9012, 125, 546, 15, NULL, 0, 15, '750.00', '375.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
 (9013, 126, 546, 6, NULL, 0, 6, '750.00', '150.00', '0.00', '0.00', NULL, NULL, 48, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
 (9014, 153, 546, 7, NULL, 0, 7, '2003.00', '467.00', '0.00', '0.00', NULL, NULL, 56, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 3, '2012-10-07', '0.00'),
 (9015, 154, 546, 15, NULL, 0, 15, '750.00', '375.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-10 05:04:34', NULL, 1, NULL, '0.00'),
@@ -33771,7 +33783,6 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (12867, 31, 602, 16, NULL, 0, 16, '800.00', '360.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 3, NULL, '0.00'),
 (12868, 32, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12869, 33, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
-(12870, 34, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12871, 35, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12872, 36, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12873, 37, 602, 16, NULL, 0, 16, '800.00', '360.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 3, NULL, '0.00'),
@@ -33797,7 +33808,6 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (12893, 57, 602, 16, NULL, 0, 16, '1470.00', '882.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 5, NULL, '0.00'),
 (12894, 58, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12895, 59, 602, 16, NULL, 0, 16, '750.00', '322.50', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
-(12896, 60, 602, 1, NULL, 15, 16, '750.00', '0.00', '0.00', '525.00', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12897, 61, 602, 16, NULL, 0, 16, '750.00', '285.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 5, NULL, '0.00'),
 (12898, 62, 602, 16, NULL, 0, 16, '750.00', '525.00', '0.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
 (12899, 63, 602, 1, NULL, 15, 16, '750.00', '0.00', '0.00', '525.00', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2012-12-18 10:09:03', NULL, 1, NULL, '0.00'),
@@ -34036,11 +34046,11 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (13563, 41, 615, 15, NULL, 0, 15, '806.00', '355.00', '355.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
 (13564, 42, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
 (13565, 43, 615, 15, NULL, 0, 15, '800.00', '480.00', '480.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 4, NULL, '0.00'),
-(13566, 44, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00');
-INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `sueldo_porcentaje`, `sueldo_vacacion`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`, `fecha_fin_15`, `monto_devengado`) VALUES
+(13566, 44, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
 (13567, 45, 615, 15, NULL, 0, 15, '750.00', '375.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
 (13568, 46, 615, 15, NULL, 0, 15, '750.00', '323.00', '323.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
-(13569, 47, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
+(13569, 47, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00');
+INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `sueldo_porcentaje`, `sueldo_vacacion`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`, `fecha_fin_15`, `monto_devengado`) VALUES
 (13570, 48, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
 (13571, 49, 615, 15, NULL, 0, 15, '750.00', '270.00', '270.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 4, NULL, '0.00'),
 (13572, 50, 615, 15, NULL, 0, 15, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-22 03:58:39', NULL, 1, NULL, '0.00'),
@@ -34340,11 +34350,11 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (14688, 70, 654, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
 (14689, 71, 654, 16, NULL, 0, 16, '750.00', '323.00', '323.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
 (14690, 72, 654, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
-(14691, 73, 654, 16, NULL, 0, 16, '1700.00', '833.00', '833.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 5, NULL, '0.00');
-INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `sueldo_porcentaje`, `sueldo_vacacion`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`, `fecha_fin_15`, `monto_devengado`) VALUES
+(14691, 73, 654, 16, NULL, 0, 16, '1700.00', '833.00', '833.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 5, NULL, '0.00'),
 (14692, 74, 654, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
 (14693, 75, 654, 16, NULL, 0, 16, '800.00', '360.00', '360.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 3, NULL, '0.00'),
-(14694, 76, 654, 16, NULL, 0, 16, '750.00', '323.00', '323.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
+(14694, 76, 654, 16, NULL, 0, 16, '750.00', '323.00', '323.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00');
+INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`, `dia_subsidiado`, `dia_nosubsidiado`, `dia_total`, `sueldo_base`, `sueldo`, `sueldo_porcentaje`, `sueldo_vacacion`, `descuento`, `sueldo_neto`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `id_empresa_centro_costo`, `fecha_fin_15`, `monto_devengado`) VALUES
 (14695, 77, 654, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
 (14696, 78, 654, 16, NULL, 0, 16, '800.00', '360.00', '360.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 3, NULL, '0.00'),
 (14697, 79, 654, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:33', NULL, 1, NULL, '0.00'),
@@ -34401,7 +34411,10 @@ INSERT INTO `pagos` (`id_pago`, `id_trabajador`, `id_etapa_pago`, `dia_laborado`
 (14748, 160, 654, 16, NULL, 0, 16, '750.00', '375.00', '375.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:13:34', NULL, 1, NULL, '0.00'),
 (14749, 59, 654, 16, NULL, 0, 16, '750.00', '323.00', '323.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2012-12-29 12:17:46', NULL, 1, NULL, '0.00'),
 (14752, 94, 546, 15, NULL, 0, 15, '750.00', '225.00', '225.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2013-01-03 18:11:24', NULL, 4, NULL, '0.00'),
-(14753, 94, 602, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2013-01-03 18:12:00', NULL, 4, NULL, '0.00');
+(14753, 94, 602, 16, NULL, 0, 16, '750.00', '525.00', '525.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2013-01-03 18:12:00', NULL, 4, NULL, '0.00'),
+(14755, 34, 602, 16, NULL, 0, 16, '750.00', '750.00', '750.00', '0.00', NULL, NULL, 120, NULL, NULL, NULL, '0', NULL, '2013-01-04 19:04:09', NULL, 1, NULL, '0.00'),
+(14765, 60, 546, 0, NULL, 15, 15, '750.00', '0.00', '0.00', '0.00', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2013-01-05 11:41:26', NULL, 1, NULL, '0.00'),
+(14766, 60, 602, 1, NULL, 15, 16, '750.00', '0.00', '0.00', '0.00', NULL, NULL, 0, NULL, NULL, NULL, '0', NULL, '2013-01-05 11:41:46', NULL, 1, NULL, '0.00');
 
 -- --------------------------------------------------------
 
@@ -38874,7 +38887,7 @@ CREATE TABLE IF NOT EXISTS `trabajadores_pdeclaraciones` (
   KEY `cod_regimen_pensionario` (`cod_regimen_pensionario`),
   KEY `cod_regimen_pensionario_2` (`cod_regimen_pensionario`),
   KEY `cod_regimen_aseguramiento_salud` (`cod_regimen_aseguramiento_salud`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=6864 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='ptrabajadores - REPORTEMensual\r\n--------------------\r\nSELECT' AUTO_INCREMENT=6870 ;
 
 --
 -- Dumping data for table `trabajadores_pdeclaraciones`
@@ -39161,7 +39174,6 @@ INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pde
 (5523, 24, 31, 31, 31, 248, NULL, 8, NULL, '800.00', NULL, NULL, NULL, '2012-12-18 10:09:15', '2012-12-18', NULL, '21', '21', '00', '1', 3, 451010),
 (5524, 24, 32, 31, 31, 248, NULL, 16, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:15', '2012-12-18', NULL, '21', '24', '00', '1', 1, 941007),
 (5525, 24, 33, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:16', '2012-12-18', NULL, '21', '24', '00', '1', 1, 941007),
-(5526, 24, 34, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:16', '2012-12-18', NULL, '21', '24', '00', '1', 1, 941007),
 (5527, 24, 35, 31, 31, 248, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:16', '2012-12-18', NULL, '21', '23', '00', '1', 1, 941007),
 (5528, 24, 36, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:17', '2012-12-18', NULL, '21', '24', '00', '1', 1, 523003),
 (5529, 24, 37, 31, 31, 248, NULL, NULL, NULL, '800.00', NULL, NULL, NULL, '2012-12-18 10:09:17', '2012-12-18', NULL, '21', '24', '00', '1', 3, 451010),
@@ -39187,7 +39199,6 @@ INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pde
 (5549, 24, 57, 31, 31, 248, NULL, NULL, NULL, '1470.00', NULL, NULL, NULL, '2012-12-18 10:09:24', '2012-12-18', NULL, '21', '24', '00', '1', 5, 365004),
 (5550, 24, 58, 31, 31, 248, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:24', '2012-12-18', NULL, '21', '02', '00', '1', 1, 941007),
 (5551, 24, 59, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:24', '2012-12-18', NULL, '21', '02', '00', '1', 1, 564005),
-(5552, 24, 60, 1, 31, 8, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:25', '2012-12-18', NULL, '21', '02', '00', '1', 1, 941007),
 (5553, 24, 61, 31, 31, 248, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:25', '2012-12-18', NULL, '21', '02', '00', '1', 5, 462001),
 (5554, 24, 62, 31, 31, 248, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:25', '2012-12-18', NULL, '21', '02', '00', '1', 1, 523003),
 (5555, 24, 63, 1, 31, 8, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:25', '2012-12-18', NULL, '21', '02', '00', '1', 1, 523003),
@@ -39216,10 +39227,10 @@ INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pde
 (5578, 24, 86, 31, 31, 248, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:33', '2012-12-18', NULL, '21', '21', '00', '1', 1, 564005),
 (5579, 24, 87, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:33', '2012-12-18', NULL, '21', '02', '00', '1', 1, 951009),
 (5580, 24, 88, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:34', '2012-12-18', NULL, '21', '21', '00', '1', 4, 522003),
-(5581, 24, 89, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:34', '2012-12-18', NULL, '21', '02', '00', '1', 1, 523003);
-INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pdeclaracion`, `id_trabajador`, `dia_laborado`, `dia_total`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `sueldo`, `sueldo_neto`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cod_regimen_aseguramiento_salud`, `cod_situacion`, `id_empresa_centro_costo`, `cod_ocupacion_p`) VALUES
+(5581, 24, 89, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:34', '2012-12-18', NULL, '21', '02', '00', '1', 1, 523003),
 (5582, 24, 90, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:34', '2012-12-18', NULL, '21', '02', '00', '1', 1, 951009),
-(5583, 24, 91, 31, 31, 248, NULL, NULL, NULL, '600.00', NULL, NULL, NULL, '2012-12-18 10:09:35', '2012-12-18', NULL, '21', '02', '00', '1', 1, 392001),
+(5583, 24, 91, 31, 31, 248, NULL, NULL, NULL, '600.00', NULL, NULL, NULL, '2012-12-18 10:09:35', '2012-12-18', NULL, '21', '02', '00', '1', 1, 392001);
+INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pdeclaracion`, `id_trabajador`, `dia_laborado`, `dia_total`, `ordinario_hora`, `ordinario_min`, `sobretiempo_hora`, `sobretiempo_min`, `sueldo`, `sueldo_neto`, `estado`, `descripcion`, `fecha_creacion`, `fecha_modificacion`, `ingreso_5ta_categoria`, `cod_tipo_trabajador`, `cod_regimen_pensionario`, `cod_regimen_aseguramiento_salud`, `cod_situacion`, `id_empresa_centro_costo`, `cod_ocupacion_p`) VALUES
 (5584, 24, 92, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:35', '2012-12-18', NULL, '21', '23', '00', '1', 1, 941007),
 (5585, 24, 93, 31, 31, 248, NULL, NULL, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:35', '2012-12-18', NULL, '21', '22', '00', '0', 1, 951009),
 (5587, 24, 95, 31, 31, 248, NULL, 8, NULL, '750.00', NULL, NULL, NULL, '2012-12-18 10:09:36', '2012-12-18', NULL, '21', '02', '00', '1', 1, 523003),
@@ -39524,7 +39535,8 @@ INSERT INTO `trabajadores_pdeclaraciones` (`id_trabajador_pdeclaracion`, `id_pde
 (6858, 27, 159, 28, 31, 224, NULL, 8, NULL, '1125.00', '1250.00', NULL, NULL, '2012-12-29 12:14:13', '2012-12-29', NULL, '21', '21', '00', '1', 3, 252001),
 (6859, 27, 160, 20, 20, 160, NULL, NULL, NULL, '750.00', '475.00', NULL, NULL, '2012-12-29 12:14:13', '2012-12-29', NULL, '21', '02', '00', '1', 1, 951009),
 (6860, 27, 59, 31, 31, 248, NULL, 8, NULL, '750.00', '750.00', NULL, NULL, '2012-12-29 12:17:46', '2012-12-29', NULL, '21', '02', '00', '1', 1, 564005),
-(6863, 24, 94, 31, 31, 248, NULL, NULL, NULL, '750.00', '750.00', NULL, NULL, '2013-01-03 18:12:00', '2013-01-03', NULL, '21', '23', '00', '1', 4, 522003);
+(6863, 24, 94, 31, 31, 248, NULL, NULL, NULL, '750.00', '750.00', NULL, NULL, '2013-01-03 18:12:00', '2013-01-03', NULL, '21', '23', '00', '1', 4, 522003),
+(6864, 24, 34, 31, 31, 248, NULL, 8, NULL, '975.00', '975.00', NULL, NULL, '2013-01-04 19:04:57', '2013-01-04', NULL, '21', '24', '00', '1', 1, 941007);
 
 -- --------------------------------------------------------
 
@@ -39536,15 +39548,22 @@ CREATE TABLE IF NOT EXISTS `trabajadores_vacaciones` (
   `id_trabajador_vacacion` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_pdeclaracion` int(10) unsigned NOT NULL,
   `id_trabajador` int(10) unsigned NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
   `num_dia` int(11) NOT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id_trabajador_vacacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id_trabajador_vacacion`),
+  KEY `id_pdeclaracion` (`id_pdeclaracion`),
+  KEY `id_trabajador` (`id_trabajador`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `trabajadores_vacaciones`
 --
 
+INSERT INTO `trabajadores_vacaciones` (`id_trabajador_vacacion`, `id_pdeclaracion`, `id_trabajador`, `fecha_inicio`, `fecha_fin`, `num_dia`, `fecha_creacion`) VALUES
+(1, 3, 11, '2012-02-01', '2012-02-29', 29, '2013-01-05'),
+(2, 4, 11, '2012-03-01', '2012-03-01', 1, '2013-01-05');
 
 -- --------------------------------------------------------
 
@@ -41921,7 +41940,7 @@ CREATE TABLE IF NOT EXISTS `vacaciones` (
   `tipo_vacacion` char(1) DEFAULT NULL,
   PRIMARY KEY (`id_vacacion`),
   KEY `id_trabajador` (`id_trabajador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `vacaciones`
@@ -41944,7 +41963,8 @@ INSERT INTO `vacaciones` (`id_vacacion`, `id_trabajador`, `fecha`, `fecha_progra
 (24, 93, '2012-09-01', '2012-11-01', '2012-11-30', NULL, '2012-12-11', '1'),
 (25, 107, '2013-02-01', '2012-11-01', '2012-11-30', NULL, '2012-12-11', '1'),
 (26, 40, '2012-11-01', '2013-01-01', '2013-01-30', NULL, '2012-12-28', '1'),
-(27, 10, '2013-08-16', '2012-10-25', '2012-11-08', NULL, '2013-01-01', '2');
+(27, 10, '2013-08-16', '2012-10-25', '2012-11-08', NULL, '2013-01-01', '2'),
+(29, 11, '2013-08-16', '2012-02-01', '2012-03-01', NULL, '2013-01-05', '1');
 
 -- --------------------------------------------------------
 
@@ -42123,13 +42143,14 @@ ALTER TABLE `declaraciones_dconceptos`
 -- Constraints for table `declaraciones_dconceptos_grati`
 --
 ALTER TABLE `declaraciones_dconceptos_grati`
-  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_3` FOREIGN KEY (`id_trabajador_grati`) REFERENCES `trabajadores_gratifiaciones` (`id_trabajador_grati`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_3` FOREIGN KEY (`id_trabajador_grati`) REFERENCES `trabajadores_gratifiaciones` (`id_trabajador_grati`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `declaraciones_dconceptos_vacaciones`
 --
 ALTER TABLE `declaraciones_dconceptos_vacaciones`
+  ADD CONSTRAINT `declaraciones_dconceptos_vacaciones_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `declaraciones_dconceptos_vacaciones_ibfk_1` FOREIGN KEY (`id_trabajador_vacacion`) REFERENCES `trabajadores_vacaciones` (`id_trabajador_vacacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -42538,6 +42559,13 @@ ALTER TABLE `trabajadores_pdeclaraciones`
   ADD CONSTRAINT `trabajadores_pdeclaraciones_ibfk_4` FOREIGN KEY (`cod_ocupacion_p`) REFERENCES `ocupaciones_p` (`cod_ocupacion_p`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `trabajadores_pdeclaraciones_ibfk_5` FOREIGN KEY (`cod_regimen_pensionario`) REFERENCES `regimenes_pensionarios` (`cod_regimen_pensionario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `trabajadores_pdeclaraciones_ibfk_6` FOREIGN KEY (`cod_regimen_aseguramiento_salud`) REFERENCES `regimenes_aseguramientos_salud` (`cod_regimen_aseguramiento_salud`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `trabajadores_vacaciones`
+--
+ALTER TABLE `trabajadores_vacaciones`
+  ADD CONSTRAINT `trabajadores_vacaciones_ibfk_2` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `trabajadores_vacaciones_ibfk_1` FOREIGN KEY (`id_pdeclaracion`) REFERENCES `pdeclaraciones` (`id_pdeclaracion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `t_empleadores_c_ocupacionales`

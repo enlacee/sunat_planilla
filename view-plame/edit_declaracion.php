@@ -115,22 +115,13 @@ $.ajax({
 <p>EMPRESA: <span class="red"><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></span>
     DECLARACION: <span class="red"><?php echo getFechaPatron($pdeclaracion->getPeriodo(),"m/Y"); ?></span>
 </p>
-
-
-
-<ul>
-            <li><a href="#tabs-1">Informacion General</a></li>	
-            <li><a href="#tabs-2">Detalle de Declaraci&oacute;n</a></li>
-            <!--<li><a href="#tabs-3">Determinacion de Deuda</a></li>-->	            		
-
+	<ul>
+		<li><a href="#tabs-1">Informacion General</a></li>	
+		<li><a href="#tabs-2">Detalle de Declaraci&oacute;n</a></li>
+         <!--<li><a href="#tabs-3">Determinacion de Deuda</a></li>-->	            		
       </ul>
-        
-        
-        <div id="tabs-1">
-
-
+      <div id="tabs-1">
           <h2>Datos Basicos de la Declaracion:</h2>
-
           <form id="frmNuevaDeclaracion" name="frmNuevaDeclaracion" method="post" action="">
           <p>RUC:
               <label for="ruc"></label>
@@ -149,9 +140,9 @@ $.ajax({
 		    <div class="ocultar"> 
               <p>Declaracion Sustitutoria o Rectificadora
                  <input name="rbtn_declaracionRectificadora" type="radio" id="rbtn_declaracionRectificadora" value="1" checked="checked" />
-                 Si
+                Si
                  <input type="radio" name="rbtn_declaracionRectificadora" id="rbtn_declaracionRectificadora" value="0" />
-No </p>
+				No </p>
                <p>Limpia datos Edit</p>
                <p>&nbsp;</p>
               <p>Sincronizar datos: Actualizar Prestadores de Servicios:
@@ -163,44 +154,23 @@ No </p>
                 <input type="text" name="dfcreacion" id="dfcreacion" />
               </p>
 		    </div>
-            
-           
- 
  <?php  if($_REQUEST['estado'] == '1'): // Condicion Datos?>           
 		    <h2 >Cerrar Mes Definitivamente:		    
 		      <input type="checkbox" name="chk_cerrar_mes" id="chk_cerrar_mes"  />
 		      <input type="button" name="btn_cerrar_mes" id="btn_cerrar_mes" value="Cerrar Mes"  disabled="disabled"/>
 		    </h2>
-           
 <?php endif;?>            
-            
 		    <p>&nbsp;</p>
 		    <p>&nbsp;</p>
-            
-            
-            		    
           </form>
-        
       </div><!-- tabs-1 -->
-        
-        
         <div id="tabs-2">
           <p>&nbsp;</p>
           <p>ass2 </p>
-</div>
-        
+		</div>
         <!--
         <div id="tabs-3">
         ass
-        
         3</div>
         -->
-        
-        
 </div>
-
-
-
-
-
-

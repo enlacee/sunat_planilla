@@ -3,10 +3,7 @@
 require_once('../view/ide.php');
 //*******************************************************************//
 require_once("../util/funciones.php");
-
-
 require_once("../dao/ComboCategoriaDao.php");
-
 require_once("../controller/ComboCategoriaController.php");
 
 $data = comboPeriodoRemuneracion();
@@ -18,9 +15,7 @@ $ID_DECLARACION = $_REQUEST['id_declaracion'];
 
 $mes = getFechaPatron($periodo,"m");
 $anio = getFechaPatron($periodo,"Y");
-
 ?>
-
 <script type="text/javascript">
 if (id_pdeclaracion){
 	id_pdeclaracion = document.getElementById('id_declaracion').value;
@@ -62,15 +57,8 @@ console.log('periodo = '+periodo);
 				}
 			});
 			//-------
-						
 		});//end gratifiacion
-		
-		
-		
-		
-		
 	});
-	
 	
 $('#boleta_gratifiacion').click(function(){
 	
@@ -91,44 +79,27 @@ function adelanteEtapa01(){
 	cod_periodo_remuneracion = parseInt(cod_periodo_remuneracion);
 	var periodo = document.getElementById('periodo').value;			
 	var id_declaracion = document.getElementById('id_declaracion').value;
-	
-	
 		console.log('periodo = '+periodo);
 		console.log('id_pdeclaracion = '+id_declaracion);
 		console.log('id_declaracion = '+id_declaracion);	
-	
 	var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
 	url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;
-	
 	if(cod_periodo_remuneracion==2){		
 		cargar_pagina(url,'#CapaContenedorFormulario');
-		
 	}else if(cod_periodo_remuneracion==1){ //MENSUAL
-	
 	cargar_pagina('sunat_planilla/view-empresa/edit_declaracion.php?id_pdeclaracion='+id_declaracion,'#CapaContenedorFormulario')
 		//cargar_pagina(url,'#CapaContenedorFormulario');
-
 	}else if(cod_periodo_remuneracion==3){		
-
-		console.log(' = 3 = '+cod_periodo_remuneracion );
-	cargar_pagina('sunat_planilla/view-empresa/new_vacacion.php?id_pdeclaracion'+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')
-
-
+	console.log(' = 3 = '+cod_periodo_remuneracion );
+	cargar_pagina('sunat_planilla/view-empresa/view_pvacaciones.php?id_declaracion='+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')
+	//cargar_pagina('sunat_planilla/view-empresa/new_vacacion.php?id_pdeclaracion='+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')
 	}else{
 		alert("No se permite el adelanto "+ cod_periodo_remuneracion);
 	}
-	
 }
-
-
-
-
 </script>
-
-
 <div class="demo" align="left">
     <div id="tabs">
-    
 <div class="ocultar">
 id_declaracion
 <input name="id_declaracion" id="id_declaracion" type="text" value="<?php echo $ID_DECLARACION; ?>">
@@ -141,29 +112,24 @@ periodo
             <?php if($mes == '07'|| $mes=='12'):?>
         <li><a href="#tabs-2">Otras Operaciones</a></li>
             <?php endif;?>
-            		
-
       </ul>
         <div id="tabs-1">
           <h2>Declaracion  <?php echo $mes ."/". $anio;?></h2>
           <p>
           <br>
-
           </p>
-          <h2>
-            Operacion
+          <label>
+            Tipo de Operacion
+          </label>
               <select name="cboPeriodoRemunerativo" id="cboPeriodoRemunerativo">
               <option value="2">- Primera Quincena -</option>
               <option value="1">- Mensual -</option>
-              <option value="3">-Vacaciones-</option>
-      
+              <option value="3">- Vacaciones-</option>
       <?php 
 /*
 foreach ($data as $indice) {
 	 if( $indice['cod_periodo_remuneracion'] == $cod_periodo_remuneracion){
-
 		$html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-
 	}else {
 		$html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" >' . $indice['descripcion'] . '</option>';
 	}
@@ -172,22 +138,14 @@ foreach ($data as $indice) {
 */
 ?>
             </select>
-          </h2>
           <p>
             <input type="button" name="btnAtras"  value="&lt;&lt; Atras" disabled="disabled"
             onclick="cargar_pagina('sunat_planilla/view-empresa/view_etapaPago2.php','#CapaContenedorFormulario')" />
-            <input type="button" name="btnAdelante" id="btnAdelante" value="SIGUIENTE &gt;&gt;"
-            
+            <input type="button" name="btnAdelante" id="btnAdelante" value="SIGUIENTE &gt;&gt;"            
             onclick="adelanteEtapa01()" />
             </p>
 </p>
 </div>
-
-
-
-
-
-
 
 <?php if($mes == '07'|| $mes=='12'):?>
 <div id="tabs-2">
@@ -209,11 +167,6 @@ foreach ($data as $indice) {
 </table>
 </div><!--Tab 2-->
 <?php endif; ?>
-
-
-
-
-
 
 </div>
 

@@ -210,6 +210,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
      * Conceptos.
      */
 
+    // ojo no busca en la tabla trabajador_pdeclaracion OK!
     public function buscar_ID_trabajador($id_trabajador) {
 
         $query = "

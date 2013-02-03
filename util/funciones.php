@@ -555,6 +555,8 @@ function tipoFechaVacacionMasDias($fecha, $tipo) {
         $data['fecha_fin'] = crearFecha($fecha, 29, 0, 0);
     } else if ($tipo == 2) {// quincena
         $data['fecha_fin'] = crearFecha($fecha, 14, 0, 0);
+    }else if ($tipo == 3){ //semanal
+        $data['fecha_fin'] = crearFecha($fecha, 6, 0, 0); 
     }
 
     return $data;

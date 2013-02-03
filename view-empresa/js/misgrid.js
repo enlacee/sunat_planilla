@@ -2072,13 +2072,12 @@ function guardarVacacionProgramada(){
     var tipo_vacacion = document.getElementById('tipo_vacacion').value;
 	*/
     $data = $('#FrmVacacion').serialize();
-
 $.ajax({
    type: "POST",
    url: "sunat_planilla/controller/VacacionController.php?"+$data,
    data: {
 	   oper : 'add',
-	   id_trabajador : id_trabajador/*,
+	   id_trabajador : id_trabajador /*,
 	   fv_calculado : fv_calculado,
 	   fv_programado: fv_programado,
        tipo_vacacion: tipo_vacacion*/

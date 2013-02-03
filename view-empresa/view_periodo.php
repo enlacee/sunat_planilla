@@ -148,73 +148,48 @@ $('#eliminar_declaracion').click(function(){
 
 
 </script>
-
-
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Lista de  Periodos</a></li>
-            
              <li><a href="#tabs-2">Operacion Anual</a></li>			
-
         </ul>
         <div id="tabs-1">
             <input type="button" name="button" id="button"  class="submit-nuevo"
             value="Nuevo Periodo"
             onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_periodo.php','#CapaContenedorFormulario')" />
-            
-            <h2>lista de periodos 
+            <h3>Seleccionar de Periodo
               <label for="anio"></label>
               <select name="anio" id="anio" onchange="cargarTablaPdeclaracionEmpresa()">
                 <option value="2011">2011</option>
-                <option value="2012" selected="selected">2012</option>
-                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2013" selected="selected">2013</option>
               </select>
-            </h2>
-            <p>&nbsp;</p>
-            
+            </h3>
             <input type="checkbox" name="checkbox_data" id="checkbox_data" onclick="habilitarBotonEliminarMes()" />
             <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button" class="button-del"  />
             <input type="hidden" name="eliminar_declaracion" id="eliminar_declaracion" value="Elimina Declaracion" class="button-del" />
 <div class="ocultar">   
   id_pdeclaracion<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
-  <br />
-periodo<input type="text" name="periodo" id="periodo"
-value="<?php echo $_REQUEST['periodo']; ?>" />
-  
-  
+  periodo<input type="text" name="periodo" id="periodo" value="<?php echo $_REQUEST['periodo']; ?>" />
 </div>
 <div class="section">
-<div class="article fila1">
-<table id="list">
-</table>
-<div id="pager"></div>
-
-              </div>
-              <div class="article fila2">
-              
-<table id="list10_d">
-</table>
-<div id="list10_d"></div>
-              </div>
-            </div>
-            
-            
-            
-            
-
-            
-
-        
+	<div class="article fila1">
+	<table id="list">
+	</table>
+	<div id="pager"></div>
+	</div>
+	<div class="article fila2">
+		<table id="list10_d">
+		</table>
+		<div id="list10_d"></div>
+	</div>
+</div>
         </div>
-
-
-        
 <div id="tabs-2">
 <h2>Anual</h2>
 <fieldset><legend>Remuneraciones</legend>
 <div class="ayuda">Generar archivo exel de ...</div>
-
 <table width="429" border="1">
   <tr>
     <th width="18">&nbsp;</th>
@@ -231,32 +206,6 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
   <p>&nbsp;</p>
 </div>
 </fieldset>
-
-
-
-
 </div> 
-
-       
-        
-        
 </div>
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

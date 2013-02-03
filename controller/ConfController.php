@@ -58,6 +58,11 @@ function generarConfiguracion($periodo) {
     }
 }
 
+function asignacionFamiliar(){
+    $SB = SB;
+    $CAL_AF = $SB * (T_AF / 100);
+    return $CAL_AF;
+}
 
 
 
@@ -71,6 +76,20 @@ function sueldoDefault($sueldo) {
     }
     return $new_sueldo;
 }
+
+// funciones sin relacion de datos calculados por periodo
+// init migrado
+function sueldoMensualXHora($monto) {
+    $valor = ($monto / DIA_BASE) / HORA_BASE;
+    return $valor;
+}
+
+function sueldoMensualXDia($monto) {
+    $valor = ($monto / DIA_BASE);     
+    return $valor;    
+}
+// end migrado
+
 
 //-----------------------------------------------------------------------------
 //FUNCION AYUDA  getSumaTodosIngresosTrabajador

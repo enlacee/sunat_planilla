@@ -422,7 +422,7 @@ VALUES (
         -- pago
         pg.id_trabajador,
         SUM(pg.sueldo) AS sueldo,
-        SUM(pg.sueldo_vacacion) AS sueldo_vacacion,
+        -- SUM(pg.sueldo_vacacion) AS sueldo_vacacion,
         SUM(pg.dia_total) AS dia_total,
         SUM(pg.dia_laborado) AS dia_laborado ,
         SUM(pg.dia_nosubsidiado) AS dia_nosubsidiado,

@@ -566,13 +566,13 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 $dias_vacacion = 0;
 
                 //SUELDO X DEFAUL
-                if ($data_tra[$i]['monto_remuneracion_fijo']): //  = 1
+                if ($data_tra[$i]['monto_remuneracion_fijo']): // ESTADO  = 0,1
 
                 else:
                     $data_tra[$i]['monto_remuneracion'] = sueldoDefault($data_tra[$i]['monto_remuneracion']);
                 endif;
 
-//-------------------------------FIN VACACIONES---------------------------------                  
+//-------------------------------INIT VACACIONES---------------------------------                  
                 if (in_array($data_tra[$i]['id_trabajador'], $ids_tra_vacaciones)) {  //TIENE VACACION
                     echo "\n\n    TRABAJADOR ENTRO EN VACACION  \n\n";
 
@@ -641,7 +641,8 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 $b = getDayThatYear($data_tra[$i]['fecha_fin']);
 
                 $dia_laborado = ($b - $a) + 1;
-                echo "\n" . $data_tra[$i]['id_trabajador'] . "dia_laborado sin vacacion = $dia_laborado\n";
+                echo "\n\nDIA LABORADO = ".$dia_laborado;
+                echo "\n" . $data_tra[$i]['id_trabajador'] . "dia_laborado SIN VACACION = $dia_laborado\n";
 
                 //---//
                 // 01 varia num dias pero no calculos!!
@@ -652,7 +653,7 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 if ($dias_vacacion > 0) {
                     //$dia_laborado = $dias_vacacion;
                     $dia_vacacion = $dias_vacacion;
-                    $dia_laborado = $dia_laborado - $dias_vacacion;
+                    $dia_laborado = $dia_laborado - $dias_vacacion; // CALCULO IMPORTANTE DE RESTA  dia laborado y dia de vaca.
                     $dia_no_laborado = ($dia_laborado == 0) ? 0 : $dias_vacacion;  //OK
                 } else {
                     $dia_vacacion = 0;
@@ -858,8 +859,9 @@ function registrar_15($ID_PDECLARACION, $PERIODO, $id_etapa_pago, $id_etapa_pago
                 echo "\ndia_no_laborado = " . $dia_no_laborado;
 
 //---------------------------------------------------------------------------------------
-                $model->setSueldo($SUELDO_CAL);
-                $model->setSueldo_vacacion($SUELDO_VAC);
+                $model->setSueldo($SUELDO_CAL); 
+                //$model->setSueldo_vacacion($SUELDO_VAC); // este dato es irrelevante.. no trabajamos con this data
+                $model->setSueldo_vacacion(0);
                 //$model->setSueldo_neto($SUELDO_CAL);
                 $model->setOrdinario_hora((/* $dia_laborado_bd */ $dia_laborado * 8));
                 $model->setEstado(0);

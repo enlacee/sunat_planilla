@@ -47,7 +47,6 @@ if ($op) {
     require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
     //mass ++ + 5ta essalud, onp ,afp
     require_once '../dao/RegistroPorConceptoDao.php';
-    require_once '../controller/ConfConceptosFController.php';
     require_once '../controller/ConfConceptosController.php';
 
     //
@@ -84,7 +83,7 @@ if ($op) {
     // Renta de QUINTA
     require_once '../controller/IR5Controller.php';
 
-    //configuracion sueldo basico ++
+    //configuracion sueldo basico ++ OKK  ------------------------------- configuracion OK
     require_once '../controller/ConfController.php';
 
     //vacacion

@@ -9,6 +9,7 @@ class Vacacion {
     private $estado;
     private $fecha_creacion;
     private $tipo_vacacion;
+    private $id_pdeclaracion;
     
     function __construct(){
         
@@ -20,6 +21,7 @@ class Vacacion {
      $this->estado=null;
      $this->fecha_creacion=null;
      $this->tipo_vacacion=null;
+	 $this->id_pdeclaracion=null;
         
     }
     
@@ -87,15 +89,12 @@ class Vacacion {
         $this->tipo_vacacion = $tipo_vacacion;
     }
 
+    public function getId_pdeclaracion() {
+        return $this->id_pdeclaracion;
+    }
 
-    
-    
-    
-    
-    
-    
-    
-    
+    public function setId_pdeclaracion($id_pdeclaracion) {
+        $this->id_pdeclaracion = $id_pdeclaracion;
+    }
 }
-
 ?>

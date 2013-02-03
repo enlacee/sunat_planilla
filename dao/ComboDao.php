@@ -246,14 +246,14 @@ public function comboEstablecimiento(){
         return $lista;
 }
 
-
-
-
-
-
-
-
-
+public function combopdeclaraciones(){
+        $query = "SELECT *FROM pdeclaraciones ORDER BY id_pdeclaracion DESC";
+        $stm = $this->pdo->prepare($query);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+}
 
 }//End Class
 ?>

@@ -11,8 +11,7 @@ require_once('../view/ide.php');
 	});
 	
 	cargarTablaConceptosRPCE();
-	
-	
+
     function cargarTablaConceptosRPCE(){
 		var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 		var periodo = document.getElementById('periodo').value;
@@ -56,8 +55,6 @@ require_once('../view/ide.php');
                     width:100,
                     align:'center'
                 }							
-
-
             ],
             pager: '#pager',
 			height:350,
@@ -71,22 +68,12 @@ require_once('../view/ide.php');
             //toolbar: [true,"top"],
             //multiselect: true,
             hiddengrid: false,
-			
         });
-		
-		
         //--- PIE GRID
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-
-	
     }
-
-	
 </script>
-
-
 <div class="demo" align="left"> 
-
 <div class="ocultar">
   id_pdeclaracion
   <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
@@ -100,10 +87,7 @@ require_once('../view/ide.php');
 <div id="tabs">
       <ul>
             <li><a href="#tabs-1">Registros por Conceptos</a></li>			
-
     </ul>
-    
-   
         <div id="tabs-1">   
     <!-- Boton cancelar-->
 <input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php?id_pdeclaracion=<?php echo $_REQUEST['id_declaracion']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           

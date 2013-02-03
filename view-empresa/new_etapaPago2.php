@@ -4,7 +4,6 @@ require_once('../view/ide.php');
 //*******************************************************************//
 require_once("../util/funciones.php");
 
-
 $periodo = $_REQUEST['periodo'];
 $cod_periodo_remuneracion = $_REQUEST['cod_periodo_remuneracion'];
 
@@ -29,16 +28,8 @@ if($premunerativo == 2){ //quincena 2
     $FECHA[1]['inicio'] = getFechaPatron($FECHAX['second_weeks'],"d/m/Y");
     $FECHA[1]['fin'] = getFechaPatron($FECHAX['las_day'],"d/m/Y");
     $FECHA[0]['tipo'] = "2";
-    
 }
-
-
-
-
-
-
 ?>
-
 <script type="text/javascript">
     $(document).ready(function(){
                   
@@ -67,8 +58,6 @@ if($premunerativo == 2){ //quincena 2
     }
 	
 </script>
-
-
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
@@ -99,9 +88,6 @@ if($premunerativo == 2){ //quincena 2
    <p><strong>Adelanto total :</strong><br />
      Genera el adelanto de todos los trabajadores comprendidos en el mes.   </p>
    </div>         
-            
-            
-            
           <p><!--  onclick="registrarEtapa()" -->
             <input type="button" name="adelanto_01" id="adelanto_01" value="Individual">
             <input type="button" name="adelanto_02" id="adelanto_02" value="Total" />
@@ -119,5 +105,4 @@ if($premunerativo == 2){ //quincena 2
                    onclick="" /></p>
         </div>
     </div>
-
 </div>

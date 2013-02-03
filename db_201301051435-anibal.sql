@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2013 at 06:39 p.m.
+-- Generation Time: Jan 04, 2013 at 07:00 p.m.
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -19017,13 +19017,88 @@ CREATE TABLE IF NOT EXISTS `declaraciones_dconceptos_vacaciones` (
   `monto_devengado` decimal(10,2) DEFAULT NULL,
   `monto_pagado` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id_declaracion_dconcepto_vacacion`),
-  KEY `id_trabajador_vacacion` (`id_trabajador_vacacion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tabla conceptos gratifiacion' AUTO_INCREMENT=19 ;
+  KEY `id_trabajador_vacacion` (`id_trabajador_vacacion`),
+  KEY `cod_detalle_concepto` (`cod_detalle_concepto`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='tabla conceptos gratifiacion' AUTO_INCREMENT=83 ;
 
 --
 -- Dumping data for table `declaraciones_dconceptos_vacaciones`
 --
 
+INSERT INTO `declaraciones_dconceptos_vacaciones` (`id_declaracion_dconcepto_vacacion`, `id_trabajador_vacacion`, `cod_detalle_concepto`, `monto_devengado`, `monto_pagado`) VALUES
+(10, 1, '0118', '0.00', '750.00'),
+(11, 1, '0201', '0.00', '75.00'),
+(12, 1, '0304', '0.00', '0.00'),
+(13, 1, '0703', '0.00', '0.00'),
+(14, 1, '0909', '0.00', '0.00'),
+(15, 1, '0804', '0.00', '74.25'),
+(16, 1, '0601', '0.00', '17.33'),
+(17, 1, '0606', '0.00', '11.72'),
+(18, 1, '0608', '0.00', '82.50'),
+(19, 2, '0118', '0.00', '750.00'),
+(20, 2, '0201', '0.00', '75.00'),
+(21, 2, '0304', '0.00', '0.00'),
+(22, 2, '0703', '0.00', '0.00'),
+(23, 2, '0909', '0.00', '0.00'),
+(24, 2, '0804', '0.00', '74.25'),
+(25, 2, '0612', '0.00', '107.25'),
+(26, 3, '0118', '0.00', '900.00'),
+(27, 3, '0201', '0.00', '75.00'),
+(28, 3, '0304', '0.00', '150.00'),
+(29, 3, '0703', '0.00', '0.00'),
+(30, 3, '0909', '0.00', '450.00'),
+(31, 3, '0804', '0.00', '101.25'),
+(32, 3, '0601', '0.00', '23.63'),
+(33, 3, '0606', '0.00', '15.98'),
+(34, 3, '0608', '0.00', '112.50'),
+(35, 4, '0118', '0.00', '750.00'),
+(36, 4, '0201', '0.00', '75.00'),
+(37, 4, '0304', '0.00', '0.00'),
+(38, 4, '0703', '0.00', '0.00'),
+(39, 4, '0909', '0.00', '0.00'),
+(40, 4, '0804', '0.00', '74.25'),
+(41, 4, '0601', '0.00', '14.36'),
+(42, 4, '0606', '0.00', '9.57'),
+(43, 4, '0608', '0.00', '82.50'),
+(44, 5, '0118', '0.00', '750.00'),
+(45, 5, '0201', '0.00', '75.00'),
+(46, 5, '0304', '0.00', '0.00'),
+(47, 5, '0703', '0.00', '0.00'),
+(48, 5, '0909', '0.00', '0.00'),
+(49, 5, '0804', '0.00', '74.25'),
+(50, 5, '0601', '0.00', '14.36'),
+(51, 5, '0606', '0.00', '9.57'),
+(52, 5, '0608', '0.00', '82.50'),
+(53, 6, '0118', '0.00', '750.00'),
+(54, 6, '0201', '0.00', '75.00'),
+(55, 6, '0304', '0.00', '0.00'),
+(56, 6, '0703', '0.00', '0.00'),
+(57, 6, '0909', '0.00', '0.00'),
+(58, 6, '0804', '0.00', '74.25'),
+(59, 6, '0612', '0.00', '107.25'),
+(60, 7, '0118', '0.00', '750.00'),
+(61, 7, '0201', '0.00', '75.00'),
+(62, 7, '0304', '0.00', '0.00'),
+(63, 7, '0703', '0.00', '0.00'),
+(64, 7, '0909', '0.00', '0.00'),
+(65, 7, '0804', '0.00', '74.25'),
+(66, 7, '0612', '0.00', '107.25'),
+(67, 8, '0118', '0.00', '750.00'),
+(68, 8, '0201', '0.00', '75.00'),
+(69, 8, '0304', '0.00', '0.00'),
+(70, 8, '0703', '0.00', '0.00'),
+(71, 8, '0909', '0.00', '159.50'),
+(72, 8, '0804', '0.00', '74.25'),
+(73, 8, '0612', '0.00', '107.25'),
+(74, 9, '0118', '0.00', '210.00'),
+(75, 9, '0201', '0.00', '17.50'),
+(76, 9, '0304', '0.00', '46.67'),
+(77, 9, '0703', '0.00', '0.00'),
+(78, 9, '0909', '0.00', '116.67'),
+(79, 9, '0804', '0.00', '5.76'),
+(80, 9, '0601', '0.00', '4.77'),
+(81, 9, '0606', '0.00', '3.18'),
+(82, 9, '0608', '0.00', '27.42');
 
 -- --------------------------------------------------------
 
@@ -22649,7 +22724,7 @@ CREATE TABLE IF NOT EXISTS `dias_nosubsidiados` (
   PRIMARY KEY (`id_dia_nosubsidiado`),
   KEY `id_trabajador_pdeclaracion` (`id_trabajador_pdeclaracion`),
   KEY `cod_tipo_suspen_relacion_laboral` (`cod_tipo_suspen_relacion_laboral`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=224 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=222 ;
 
 --
 -- Dumping data for table `dias_nosubsidiados`
@@ -39536,15 +39611,29 @@ CREATE TABLE IF NOT EXISTS `trabajadores_vacaciones` (
   `id_trabajador_vacacion` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_pdeclaracion` int(10) unsigned NOT NULL,
   `id_trabajador` int(10) unsigned NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
   `num_dia` int(11) NOT NULL,
   `fecha_creacion` date DEFAULT NULL,
-  PRIMARY KEY (`id_trabajador_vacacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id_trabajador_vacacion`),
+  KEY `id_pdeclaracion` (`id_pdeclaracion`),
+  KEY `id_trabajador` (`id_trabajador`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `trabajadores_vacaciones`
 --
 
+INSERT INTO `trabajadores_vacaciones` (`id_trabajador_vacacion`, `id_pdeclaracion`, `id_trabajador`, `fecha_inicio`, `fecha_fin`, `num_dia`, `fecha_creacion`) VALUES
+(1, 24, 5, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(2, 24, 60, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(3, 24, 27, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(4, 24, 6, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(5, 24, 15, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(6, 24, 63, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(7, 24, 66, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(8, 24, 71, '2012-10-01', '2012-10-30', 30, '2013-01-04'),
+(9, 24, 10, '2012-10-25', '2012-10-31', 7, '2013-01-04');
 
 -- --------------------------------------------------------
 
@@ -42123,13 +42212,14 @@ ALTER TABLE `declaraciones_dconceptos`
 -- Constraints for table `declaraciones_dconceptos_grati`
 --
 ALTER TABLE `declaraciones_dconceptos_grati`
-  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_3` FOREIGN KEY (`id_trabajador_grati`) REFERENCES `trabajadores_gratifiaciones` (`id_trabajador_grati`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `declaraciones_dconceptos_grati_ibfk_3` FOREIGN KEY (`id_trabajador_grati`) REFERENCES `trabajadores_gratifiaciones` (`id_trabajador_grati`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `declaraciones_dconceptos_vacaciones`
 --
 ALTER TABLE `declaraciones_dconceptos_vacaciones`
+  ADD CONSTRAINT `declaraciones_dconceptos_vacaciones_ibfk_2` FOREIGN KEY (`cod_detalle_concepto`) REFERENCES `detalles_conceptos` (`cod_detalle_concepto`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `declaraciones_dconceptos_vacaciones_ibfk_1` FOREIGN KEY (`id_trabajador_vacacion`) REFERENCES `trabajadores_vacaciones` (`id_trabajador_vacacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -42538,6 +42628,13 @@ ALTER TABLE `trabajadores_pdeclaraciones`
   ADD CONSTRAINT `trabajadores_pdeclaraciones_ibfk_4` FOREIGN KEY (`cod_ocupacion_p`) REFERENCES `ocupaciones_p` (`cod_ocupacion_p`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `trabajadores_pdeclaraciones_ibfk_5` FOREIGN KEY (`cod_regimen_pensionario`) REFERENCES `regimenes_pensionarios` (`cod_regimen_pensionario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `trabajadores_pdeclaraciones_ibfk_6` FOREIGN KEY (`cod_regimen_aseguramiento_salud`) REFERENCES `regimenes_aseguramientos_salud` (`cod_regimen_aseguramiento_salud`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `trabajadores_vacaciones`
+--
+ALTER TABLE `trabajadores_vacaciones`
+  ADD CONSTRAINT `trabajadores_vacaciones_ibfk_2` FOREIGN KEY (`id_trabajador`) REFERENCES `trabajadores` (`id_trabajador`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `trabajadores_vacaciones_ibfk_1` FOREIGN KEY (`id_pdeclaracion`) REFERENCES `pdeclaraciones` (`id_pdeclaracion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `t_empleadores_c_ocupacionales`

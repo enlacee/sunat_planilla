@@ -113,24 +113,13 @@ function cargar_tabla_trabajador($ESTADO) {
         //echo $fecha_vacacion;  fecha_calc
         //--- ASK!
         // $anio_futuro = date("Y");
-
-
-
-
-
-
-
-
         $_01 = $rec["nombre_tipo_documento"];
         $_02 = $rec["num_documento"];
         $_03 = $rec["apellido_paterno"];
         $_04 = $rec["apellido_materno"];
-
         $_05 = $rec["nombres"];
         //$_06 = $array_fecha['fecha_inicio'];
         $_07 = $array_fecha['fecha_calc'];
-
-
         $name = "DNI : " . $rec["num_documento"] . " " . $rec["apellido_paterno"] . " " . $rec["apellido_materno"] . " " . $rec["nombres"];
         $js = "javascript:verVacacion('" . $param . "','" . $name . "')";
         $opciones = '<div id="divEliminar_Editar">				
@@ -139,7 +128,6 @@ function cargar_tabla_trabajador($ESTADO) {
           </span>
           &nbsp;
           </div>';
-
         //$_06 = $rec["fecha_nacimiento"];        
         //$_07 = $rec["estado"];
         //$js = "javascript:cargar_pagina('sunat_planilla/view/edit_personal.php?id_persona=" . $param . "','#CapaContenedorFormulario')";
@@ -147,7 +135,6 @@ function cargar_tabla_trabajador($ESTADO) {
         //$opciones_2 = '<a href="' . $js2 . '">Eliminar</a>';
         //$opciones = $rec['reporte'];
         //hereee
-
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
             $param,
@@ -168,7 +155,7 @@ function cargar_tabla_trabajador($ESTADO) {
 }
 
 // filtro de trabajadores en vacacion  en periodo
-function vacacion_periodo() {    
+function vacacion_periodo(){    
     $periodo = $_REQUEST['periodo'];
     
     $dao_trabajador = new VacacionDao();
@@ -397,7 +384,6 @@ function getFechaVacacionCalc($id_trabajador) { //id por defautl is Activo
 function addVacacion() {
     echoo($_REQUEST);
 
-
     $f_calculado = getFechaPatron($_REQUEST['fv_calculado'], "Y-m-d");
 
     $f_programado = getFechaPatron($_REQUEST['fv_programado'], "Y-m-d");
@@ -412,7 +398,7 @@ function addVacacion() {
     $obj->setFecha_programada($f_programado);
     $obj->setFecha_prograda_fin($f_programado_fin);
     $obj->setTipo_vacacion($_REQUEST['tipo_vacacion']);
-
+    $obj->setId_pdeclaracion($_REQUEST['id_pdeclaracion']);
 
     $dao = new VacacionDao();
     $dao->add($obj);

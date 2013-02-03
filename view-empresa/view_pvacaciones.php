@@ -1,18 +1,11 @@
 <script type="text/javascript">
-
 	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 	var periodo = document.getElementById('periodo').value;
-
     $(document).ready(function(){
-                  
         $( "#tabs").tabs();
 		cargarTablaVacacionPeriodo();
-
-		
 	});
-	
 	//----------------- jqgrid
-	
     function cargarTablaVacacionPeriodo(){
 		var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
 
@@ -116,7 +109,7 @@ url:'sunat_planilla/controller/VacacionController.php?oper=vacacion_periodo&esta
             viewrecords: true,
             gridview: true,
             caption: 'List',
-            //toolbar: [true,"top"],
+            toolbar: [true,"top"],
             //multiselect: true,
             hiddengrid: false,
             //onSelectRow: function(rowid, selected) {}
@@ -139,25 +132,62 @@ url:'sunat_planilla/controller/VacacionController.php?oper=vacacion_periodo&esta
 					}
 				}//ENDFOR
 			}			
-			
 			//---
-			
-			
         	});
-		
-		
         //--- PIE GRID
 	//jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
 	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-
+	//add on
+	$("#t_list").append($("#vacacion"));
+	$("#t_list").append($("#reporte_vacacion"));	
 	
+	
+	//01 = indidual
+   //02  = total
+	$("#vacacion").click(function(){		
+		
+		generarVacacion(id_pdeclaracion,periodo,null);
+	});
+	
+		$("#reporte_vacacion").click(function(){	
+	
+			var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
+			url +="?oper=boleta_vacacion&id_pdeclaracion="+id_pdeclaracion
+			url +="periodo="+periodo;		
+			//url +="&todo=todo";			
+			window.location.href = url;	
+	});	
     }
+	//function add
+//---------------------------------------------------------------
+function generarVacacion(id_pdeclaracion,periodo,cadena){
+
+	cadena = (cadena!=null) ? '?'+cadena : '';	
 	
+   $.ajax({
+   type: "POST",
+   url: "sunat_planilla/controller/TrabajadorVacacionController.php"+cadena,
+   data: { 
+   		oper: 'vacacion',
+    	id_pdeclaracion : id_pdeclaracion,
+		periodo : periodo
+		 },
+   async:true,
+   success: function(data){
+	   console.log(data);
+        if(data){
+			
+            alert("Se Genero la planilla correctamente");   
+        }else{
+            alert("Ocurrio un error");
+        }
+
+        //cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
+   }
+   }); 
+}	
 </script>
-
-
 <div class="demo" align="left">
-
 <div class="ocultar">
 id_pdeclaracion
 <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
@@ -166,52 +196,29 @@ periodo
 <input type="text" name="periodo" id="periodo"
 value="<?php echo $_REQUEST['periodo']; ?>" />
 </div>
-
-
     <div id="tabs">
-   
         <ul>
             <li><a href="#tabs-1">Vacaciones</a></li>			
-
         </ul>
         <div id="tabs-1">
 <!-- Boton cancelar-->
 <input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
 <br />  
-          <h2>Lista de Trabajadores con vacaciones.</h2>
+          <h2>Lista de Trabajadores con Vacaciones.</h2>
           <table id="list">
           </table>
         <div id="pager">
         </div>
+<input name="vacacion"  id="vacacion" type="button"  value="G.Vacacion"/> 
+<input name="reporte_vacacion"  id="reporte_vacacion" type="button"  value="Boleta.Vacacion"/> 
 <p></p>
 <p>&nbsp;</p> 
-
-
-
-
-
-          
-          
         </div>
 </div>
-
 </div>
-
-
-
-
-
 
 <!-- DIALOG -->
 
 <div id="dialog_view_vacacion" title="Vacaciones">
     <div id="view_vacacion" align="left"></div>
 </div>
-
-
-
-
-
-
-
-

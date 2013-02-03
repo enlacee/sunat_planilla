@@ -4,11 +4,15 @@ require_once("../../dao/AbstractDao.php");
 require_once("../../dao/VacacionDao.php");
 require_once("../../dao/DetallePeriodoLaboralDao.php");
 require_once ('../../controller/VacacionController.php');
+require_once '../../dao/ComboDao.php';
 
 $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 
 $dao_vacacion = new VacacionDao();
 $data = $dao_vacacion->listar($ID_TRABAJADOR);
+
+$dao_combo = new ComboDao();
+$cbo_pdeclaracion = $dao_combo->combopdeclaraciones();
 
 //echo "id =".$ID_TRABAJADOR;
 //var_dump($data);
@@ -142,7 +146,22 @@ $dia_calc = $now_dia - $dia;
 <td width="9">#</td>
       <td width="204"><input name="fv_calculado" type="text" id="fv_calculado" size="15" 
       value="<?php echo getFechaPatron($data_fecha['fecha_calc'],"d/m/Y");?>"  readonly="readonly" />
-        <br />
+
+	  <br />
+	  <label>Periodo Vacaciones</label>
+                <select name="id_pdeclaracion"  id="id_pdeclaracion">
+                  <?php
+foreach ($cbo_pdeclaracion as $indice) {
+	if ($indice['id_pdeclaracion'] == 0 ) {
+		$html = '<option value="'.$indice['id_pdeclaracion'].'"  >' . substr($indice['periodo'],0,7) . '</option>';
+	} else {
+		$html = '<option value="'. $indice['id_pdeclaracion'] .'" >' . substr($indice['periodo'],0,7) . '</option>';
+	}
+	echo $html;
+}
+?>
+                </select>
+
         <br /></td>
       <td width="188"><input name="fv_programado" type="text" id="fv_programado" size="15" 
        <?php echo  ($estado == 'anio mayor') ? ' readonly="readonly"' : ''; ?>
@@ -152,8 +171,13 @@ $dia_calc = $now_dia - $dia;
         <br />
         <input type="radio" name="tipo_vacacion" value="1" checked="checked" />
         mes[30]
+		<br />
         <input type="radio" name="tipo_vacacion" value="2" />
-        dias[15]     </td>
+        dias[15]
+		<br />
+        <input type="radio" name="tipo_vacacion" value="3" />
+        dias[7]
+        </td>
       <td width="71">
       <input type="button" name="btnAprovar" id="btnAprovar" value="Aprobar"
       class "red"

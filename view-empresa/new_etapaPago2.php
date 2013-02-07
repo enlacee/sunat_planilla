@@ -12,23 +12,6 @@ $anio = getFechaPatron($periodo, "Y");
 $ID_DECLARACION = $_REQUEST['id_declaracion'];
 
 //-------------------------------------------
-//echo "<pre>";
-//echo print_r(getFechasDePago($periodo));
-//echo "</pre>";
-
-$FECHAX = getFechasDePago($periodo);
-
-$FECHA =array();
-if($premunerativo == 2){ //quincena 2
-    //UNO
-    $FECHA[0]['inicio'] = getFechaPatron($FECHAX['first_day'],"d/m/Y");
-    $FECHA[0]['fin'] = getFechaPatron($FECHAX['second_weeks'],"d/m/Y");
-    $FECHA[0]['tipo'] = "1";
-    //DOS
-    $FECHA[1]['inicio'] = getFechaPatron($FECHAX['second_weeks'],"d/m/Y");
-    $FECHA[1]['fin'] = getFechaPatron($FECHAX['las_day'],"d/m/Y");
-    $FECHA[0]['tipo'] = "2";
-}
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -39,9 +22,13 @@ if($premunerativo == 2){ //quincena 2
 	
 	var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
 	var id_declaracion = document.getElementById('id_declaracion').value;
+	var periodo = document.getElementById('periodo').value;
 	
-	cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion);
+	cargarTabla_Etapa(id_declaracion, cod_periodo_remuneracion, periodo);
     //--------------------------
+	
+	
+	
 	
     function atrasEtapa02(){
         var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;

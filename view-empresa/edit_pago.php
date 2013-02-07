@@ -7,46 +7,13 @@ require_once "../util/funciones.php";
 require_once('../dao/AbstractDao.php');
 require_once '../controller/ideController.php';
 
-//NEW
-require_once("../controller/PlameDeclaracionController.php");
-require_once("../dao/PlameDeclaracionDao.php");
-require_once ("../model/Pdeclaracion.php");
-
-// EtAPA PAGO
-require_once "../model/EtapaPago.php";
-require_once "../dao/EtapaPagoDao.php";
-require_once "../controller/EtapaPagoController.php";
-
-//echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;
-// -- Carga de COMBOS
-//require_once('../dao/ComboCategoriaDao.php');
-//require_once('../controller/ComboCategoriaController.php');
-//Combo 01
-//$cbo_tipo_empleador = comboTipoEmpleador();
 
 $data = $_SESSION['sunat_empleador'];
 
-
-
 //require_once('../controller/ideController.php');
 $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
-$ID_ETAPA_PAGO = $_REQUEST['id_etapa_pago'];
+$periodo = $_REQUEST['periodo'];
 
-$pdeclaracion = new Pdeclaracion();
-$pdeclaracion = buscar_ID_Pdeclaracion($ID_PDECLARACION);
-
-echo "<pre>";
-//print_r($pdeclaracion);
-echo "</pre>";
-
-
-
-//ETAPA DE PAGO
-$obj_estapa_pago = buscar_ID_EtapaPago($ID_ETAPA_PAGO);
-
-echo "<pre>";
-//print_r($obj_estapa_pago);
-echo "</pre>";
 ?>
 
 <script type="text/javascript">
@@ -77,14 +44,14 @@ echo "</pre>";
 value="<?php echo $ID_PDECLARACION; ?>" readonly="true" >
 <br>
 id_etapa_pago 
-<input name="id_etapa_pago" id="id_etapa_pago" type="text" readonly="true" 
-value="<?php echo $ID_ETAPA_PAGO; ?>">
+<input name="periodo" id="periodo" type="text" readonly="true" 
+value="<?php echo $periodo; ?>">
 </div>
 
 
 
   <p>EMPRESA: <span class="red"><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></span>
-    DECLARACION: <span class="red"><?php echo getFechaPatron($pdeclaracion->getPeriodo(),"m/Y"); ?></span>  </p>
+    DECLARACION: <span class="red"><?php echo $periodo; ?></span>  </p>
     
 <ul>
             <li><a href="#tabs-1">Informacion General</a></li>	
@@ -110,28 +77,12 @@ value="<?php echo $ID_ETAPA_PAGO; ?>">
           <br />
           Periodo Tributario (mm/aaaa)          
           <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  readonly="readonly"
-             value="<?php echo getFechaPatron($pdeclaracion->getPeriodo(),"m/Y"); ?>" />
+             value="<?php echo getFechaPatron($periodo,'m/Y'); ?>" />
           <br />
               </p>
-              <h4> detalle</h4>
-          La declaracion se ebabor&oacute;
-          <input name="dfcreacion" type="text" id="dfcreacion" value="<?php echo getFechaPatron($pdeclaracion->getFecha_creacion(),"d/m/Y");?>" readonly="readonly" />
-          <br>
-		    Ultima fecha de modificacion 
-		    <input name="fecha_modificacion" type="text" id="fecha_modificacion"
-                           value="<?php echo getFechaPatron($pdeclaracion->getFecha_modificacion(),"d/m/Y"); ?>" readonly="readonly" />
             </div>
             
-                <h2>Titulo: <span class="blue"><?php echo $obj_estapa_pago->getGlosa(); ?></span></h2>
-              Fecha inicio 
-              <input type="text" name="finicio" id="finicio" 
-              value="<?php echo getFechaPatron($obj_estapa_pago->getFecha_inicio(),"d/m/Y"); ?>" />
-              <br>
-              Fecha fin
-              <input type="text" name="ffin" id="ffin" 
-                     value="<?php echo getFechaPatron($obj_estapa_pago->getFecha_fin(),"d/m/Y"); ?>" />
-<p>&nbsp;</p>
-		    
+	    
 		    <p>&nbsp;</p>
 		    <p>&nbsp;</p>
 		    <p>&nbsp;</p>

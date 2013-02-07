@@ -398,6 +398,35 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
 }
 
 /**
+ *  Function devuelde los dias de una fecha determinada
+ *  return tipo array.
+ * @param type $date
+ * @param type $start
+ * @return type
+ */
+function arregloDiaMes($date,$start=1){
+    $f = getFechasDePago($date);
+    $inicio = $f['first_day'];
+    $fin = $f['last_day'];
+    
+    $i=0;
+    $day = array();
+    do {
+        $fecha_variable = crearFecha($inicio,$i,0,0);
+        $day[]= getFechaPatron($fecha_variable, 'd');
+        $i++;
+    } while ($fin != $fecha_variable);
+    
+    $r = array();
+    foreach ($day as $indice=>$value){
+        if($value>=$start){
+           $r[] = $value;
+        }
+    }
+    return $r;
+}
+
+/**
  *
  * @param type $num
  * @return Decimal Numero Redondeado a dos Decimales

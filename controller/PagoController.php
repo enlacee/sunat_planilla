@@ -648,10 +648,7 @@ function generarRecibo15() {
 }
 
 function generarRecibo15_txt() {
-    // id de trabajador a generar recibo x quincena.
-    //null
-    //echoo($_REQUEST);
-    
+    // id de trabajador a generar recibo x quincena.   
     $ids = $_REQUEST['ids'];
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $id_etapa_pago = $_REQUEST['id_etapa_pago'];
@@ -983,8 +980,7 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
    $CORTE = chr(18).chr(27)."P";
    
     if($pag==0):
-        $CERO = chr(27).'@'.chr(27).'C!';
-        
+        $CERO = chr(27).'@'.chr(27).'C!';        
         fwrite($fpx,$CERO.$BREAK);        
     endif;    
     fwrite($fpx,$CORTE); 
@@ -1083,16 +1079,8 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
-    //fclose($fpx);
-    // return $file_name2;
 
-    if(true){
-      fwrite($fpx,chr(12));      
-    } 
-    
-    //$pag = $pag + 1;
-    //
-    //fwrite($fpx, $BREAK.$BREAK);    
+    fwrite($fpx,chr(12));      
 
 }
 

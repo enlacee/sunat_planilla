@@ -3,7 +3,6 @@
 class TrabajadorPdeclaracion extends AbstractDao {
 
     //put your code here
-
     private $id_trabajador_pdeclaracion;
     private $id_pdeclaracion;
     private $id_trabajador;
@@ -14,13 +13,9 @@ class TrabajadorPdeclaracion extends AbstractDao {
     private $sobretiempo_hora;
     private $sobretiempo_min;
     private $sueldo;
-    private $sueldo_neto;
-    private $estado;
-    private $descripcion;
+    private $sueldo_base;
     private $fecha_creacion;
-    private $fecha_modificacion;
-    //
-    private $ingreso_5ta_categoria;
+    //    
     private $cod_tipo_trabajador;
     private $cod_regimen_pensionario;
     private $cod_regimen_aseguramiento_salud;
@@ -28,31 +23,6 @@ class TrabajadorPdeclaracion extends AbstractDao {
     private $id_empresa_centro_costo;
     private $cod_ocupacion_p;
 
-    function __construct() {
-        $this->id_trabajador_pdeclaracion = null;
-        $this->id_pdeclaracion = null;
-        $this->id_trabajador = null;
-        $this->dia_laborado = null;
-        $this->dia_total = null;
-        $this->ordinario_hora = null;
-        $this->ordinario_min = null;
-        $this->sobretiempo_hora = null;
-        $this->sobretiempo_min = null;
-        $this->sueldo = null;
-        $this->sueldo_neto = null;
-        $this->estado = null;
-        $this->descripcion = null;
-        $this->fecha_creacion = null;
-        $this->fecha_modificacion = null;
-        //
-        $this->ingreso_5ta_categoria=null;
-        $this->cod_tipo_trabajador=null;
-        $this->cod_regimen_pensionario=null;
-        $this->cod_regimen_aseguramiento_salud=null;
-        $this->cod_situacion=null;
-         $this->id_empresa_centro_costo=null;
-         $this->cod_ocupacion_p=null;        
-    }
     public function getId_trabajador_pdeclaracion() {
         return $this->id_trabajador_pdeclaracion;
     }
@@ -133,28 +103,12 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->sueldo = $sueldo;
     }
 
-    public function getSueldo_neto() {
-        return $this->sueldo_neto;
+    public function getSueldo_base() {
+        return $this->sueldo_base;
     }
 
-    public function setSueldo_neto($sueldo_neto) {
-        $this->sueldo_neto = $sueldo_neto;
-    }
-
-    public function getEstado() {
-        return $this->estado;
-    }
-
-    public function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
-    public function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
+    public function setSueldo_base($sueldo_base) {
+        $this->sueldo_base = $sueldo_base;
     }
 
     public function getFecha_creacion() {
@@ -163,22 +117,6 @@ class TrabajadorPdeclaracion extends AbstractDao {
 
     public function setFecha_creacion($fecha_creacion) {
         $this->fecha_creacion = $fecha_creacion;
-    }
-
-    public function getFecha_modificacion() {
-        return $this->fecha_modificacion;
-    }
-
-    public function setFecha_modificacion($fecha_modificacion) {
-        $this->fecha_modificacion = $fecha_modificacion;
-    }
-
-    public function getIngreso_5ta_categoria() {
-        return $this->ingreso_5ta_categoria;
-    }
-
-    public function setIngreso_5ta_categoria($ingreso_5ta_categoria) {
-        $this->ingreso_5ta_categoria = $ingreso_5ta_categoria;
     }
 
     public function getCod_tipo_trabajador() {
@@ -228,10 +166,6 @@ class TrabajadorPdeclaracion extends AbstractDao {
     public function setCod_ocupacion_p($cod_ocupacion_p) {
         $this->cod_ocupacion_p = $cod_ocupacion_p;
     }
-
-
-    
-    
    
 }
 

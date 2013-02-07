@@ -158,7 +158,7 @@ $('#eliminar_declaracion').click(function(){
             <input type="button" name="button" id="button"  class="submit-nuevo"
             value="Nuevo Periodo"
             onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_periodo.php','#CapaContenedorFormulario')" />
-            <h3>Seleccionar de Periodo
+            <h3>Seleccionar  Periodo
               <label for="anio"></label>
               <select name="anio" id="anio" onchange="cargarTablaPdeclaracionEmpresa()">
                 <option value="2011">2011</option>
@@ -166,24 +166,32 @@ $('#eliminar_declaracion').click(function(){
                 <option value="2013" selected="selected">2013</option>
               </select>
             </h3>
-            <input type="checkbox" name="checkbox_data" id="checkbox_data" onclick="habilitarBotonEliminarMes()" />
+            <input type="checkbox" name="checkbox_data" id="checkbox_data" onclick="habilitarBotonEliminarMesXXX()" />
             <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button" class="button-del"  />
             <input type="hidden" name="eliminar_declaracion" id="eliminar_declaracion" value="Elimina Declaracion" class="button-del" />
 <div class="ocultar">   
   id_pdeclaracion<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
   periodo<input type="text" name="periodo" id="periodo" value="<?php echo $_REQUEST['periodo']; ?>" />
 </div>
-<div class="section">
+<div class="sectionx">
+	<table id="list">
+	</table>
+	<div id="pager"></div>
+    
+
+<!--
+ GRID ANTIGUO
 	<div class="article fila1">
 	<table id="list">
 	</table>
 	<div id="pager"></div>
 	</div>
+    
 	<div class="article fila2">
 		<table id="list10_d">
 		</table>
 		<div id="list10_d"></div>
-	</div>
+	</div> -->
 </div>
         </div>
 <div id="tabs-2">

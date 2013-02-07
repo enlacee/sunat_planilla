@@ -15,11 +15,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
           sobretiempo_hora,
           sobretiempo_min,
           sueldo,
-          sueldo_neto,          
-          descripcion,
+          sueldo_base,
           fecha_creacion,
-          fecha_modificacion,
-          ingreso_5ta_categoria,
           cod_tipo_trabajador,
           cod_regimen_pensionario,
           cod_regimen_aseguramiento_salud,
@@ -46,10 +43,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $obj->setSobretiempo_hora($data['sobretiempo_hora']);
         $obj->setSobretiempo_min($data['sobretiempo_min']);
         $obj->setSueldo($data['sueldo']);
-        $obj->setSueldo_neto($data['sueldo_neto']);        
-        $obj->setDescripcion($data['descripcion']);
+        $obj->setSueldo_base($data['sueldo_base']);
         $obj->setFecha_creacion($data['fecha_creacion']);
-        $obj->setFecha_modificacion($data['fecha_modificacion']);
         $obj->setCod_tipo_trabajador($data['cod_tipo_trabajador']);
         $obj->setCod_regimen_pensionario($data['cod_regimen_pensionario']);
         $obj->setCod_regimen_aseguramiento_salud($data['cod_regimen_aseguramiento_salud']);
@@ -75,10 +70,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                     ordinario_hora,
                     ordinario_min,
                     sueldo,
-                    sueldo_neto,                    
-                    fecha_creacion,
-                    fecha_modificacion,
-                    ingreso_5ta_categoria,
+                    sueldo_base,                    
+                    fecha_creacion,                                       
                     cod_tipo_trabajador,
                     cod_regimen_pensionario,
                     cod_regimen_aseguramiento_salud,
@@ -88,8 +81,6 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                          
                             )
             VALUES (
-                    ?,
-                    ?,
                     ?,
                     ?,
                     ?,
@@ -118,19 +109,16 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
             $stm->bindValue(5, $model->getOrdinario_hora());
             $stm->bindValue(6, $model->getOrdinario_min());
             $stm->bindValue(7, $model->getSueldo());
-            $stm->bindValue(8, $model->getSueldo_neto());            
+            $stm->bindValue(8, $model->getSueldo_base());            
             $stm->bindValue(9, $model->getFecha_creacion());
+                        
+            $stm->bindValue(10, $model->getCod_tipo_trabajador());
+            $stm->bindValue(11, $model->getCod_regimen_pensionario());
+            $stm->bindValue(12, $model->getCod_regimen_aseguramiento_salud());
+            $stm->bindValue(13, $model->getCod_situacion());
 
-            $stm->bindValue(10, $model->getFecha_modificacion());
-
-            $stm->bindValue(11, $model->getIngreso_5ta_categoria());
-            $stm->bindValue(12, $model->getCod_tipo_trabajador());
-            $stm->bindValue(13, $model->getCod_regimen_pensionario());
-            $stm->bindValue(14, $model->getCod_regimen_aseguramiento_salud());
-            $stm->bindValue(15, $model->getCod_situacion());
-
-            $stm->bindValue(16, $model->getCod_ocupacion_p());
-            $stm->bindValue(17, $model->getId_empresa_centro_costo());
+            $stm->bindValue(14, $model->getCod_ocupacion_p());
+            $stm->bindValue(15, $model->getId_empresa_centro_costo());
             $stm->execute();
 
             // id Comerico
@@ -164,7 +152,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
       sobretiempo_hora = ?,
       sobretiempo_min = ?,
       sueldo = ?,
-      sueldo_neto = ?,  
+      sueldo_base = ?,  
       fecha_modificacion = ?
     WHERE id_trabajador_pdeclaracion = ?;
       ";
@@ -179,8 +167,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm->bindValue(5, $model->getSobretiempo_hora());
         $stm->bindValue(6, $model->getSobretiempo_min());
         $stm->bindValue(7, $model->getSueldo());
-        $stm->bindValue(8, $model->getSueldo_neto());
-        $stm->bindValue(9, $model->getFecha_modificacion());
+        $stm->bindValue(8, $model->getSueldo_base());        
         $stm->bindValue(10, $model->getId_trabajador_pdeclaracion());
 
         $stm->execute();
@@ -285,11 +272,8 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
           sobretiempo_hora,
           sobretiempo_min,
           sueldo,
-          sueldo_neto,
-          descripcion,
+          sueldo_base,          
           fecha_creacion,
-          fecha_modificacion,
-          ingreso_5ta_categoria,
           cod_tipo_trabajador,
           cod_regimen_pensionario,
           cod_regimen_aseguramiento_salud,
@@ -353,7 +337,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
           tpd.sobretiempo_hora,
           tpd.sobretiempo_min,
           tpd.sueldo,
-          tpd.sueldo_neto,
+          tpd.sueldo_base,
         per.cod_tipo_documento,
         per.num_documento,
         per.apellido_paterno,
@@ -431,7 +415,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
           tpd.sobretiempo_hora,
           tpd.sobretiempo_min,
           tpd.sueldo,
-          tpd.sueldo_neto,
+          tpd.sueldo_base,
         per.cod_tipo_documento,
         per.num_documento,
         per.apellido_paterno,
@@ -461,14 +445,14 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
     //->new uso para reportes    
     public function listar_2($id_pdeclaracion, $id_establecimiento, $id_empresa_centro_costo) {
 
-        $query = "
+        $query = "XXX
         SELECT
           tpd.id_trabajador_pdeclaracion,
           tpd.id_pdeclaracion,
           tpd.id_trabajador,
           tpd.dia_laborado,
           tpd.ordinario_hora,
-          tpd.sueldo_neto,
+          tpd.sueldo_base,
           tpd.cod_tipo_trabajador,
           tpd.cod_regimen_pensionario,
           tpd.cod_regimen_aseguramiento_salud,

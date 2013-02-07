@@ -21,7 +21,7 @@ if (id_pdeclaracion){
 	id_pdeclaracion = document.getElementById('id_declaracion').value;
 	periodo = document.getElementById('periodo').value;
 }else{
-	id_pdeclaracion = document.getElementById('id_declaracion').value;
+	var id_pdeclaracion = document.getElementById('id_declaracion').value;
 	periodo = document.getElementById('periodo').value;
 }
 
@@ -73,23 +73,25 @@ $('#boleta_gratifiacion').click(function(){
 	
 //--------------------------------------------------
 
+
+// Funcion lista:
+// -quincena
+// -mensual
 function adelanteEtapa01(){	
 	
 	var cod_periodo_remuneracion = document.getElementById('cboPeriodoRemunerativo').value;
 	cod_periodo_remuneracion = parseInt(cod_periodo_remuneracion);
 	var periodo = document.getElementById('periodo').value;			
 	var id_declaracion = document.getElementById('id_declaracion').value;
-		console.log('periodo = '+periodo);
-		console.log('id_pdeclaracion = '+id_declaracion);
-		console.log('id_declaracion = '+id_declaracion);	
-	var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
-	url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;
-	if(cod_periodo_remuneracion==2){		
-		cargar_pagina(url,'#CapaContenedorFormulario');
-	}else if(cod_periodo_remuneracion==1){ //MENSUAL
+
+	if(cod_periodo_remuneracion==2 || cod_periodo_remuneracion==1){
+            var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
+            url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;            
+            cargar_pagina(url,'#CapaContenedorFormulario');
+	}/*else if(cod_periodo_remuneracion==1){ //MENSUAL
 	cargar_pagina('sunat_planilla/view-empresa/edit_declaracion.php?id_pdeclaracion='+id_declaracion,'#CapaContenedorFormulario')
-		//cargar_pagina(url,'#CapaContenedorFormulario');
-	}else if(cod_periodo_remuneracion==3){		
+		cargar_pagina(url,'#CapaContenedorFormulario');
+	}*/else if(cod_periodo_remuneracion==3){		
 	console.log(' = 3 = '+cod_periodo_remuneracion );
 	cargar_pagina('sunat_planilla/view-empresa/view_pvacaciones.php?id_declaracion='+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')
 	//cargar_pagina('sunat_planilla/view-empresa/new_vacacion.php?id_pdeclaracion='+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')

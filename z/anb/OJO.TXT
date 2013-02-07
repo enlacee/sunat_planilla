@@ -1,0 +1,15 @@
+
+DELETE TABLES
+-pagos
+-etapas_pagos,DAO
+
+
+
+DELETE FUCK!
+otras_rentas_quinta
+
+
+-trabajadores
+	-monto_devengado
+	-
+	-

@@ -215,14 +215,14 @@
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_empresa&'+parametro,
             datatype: 'json',
-            colNames:['Id','Periodo','Periodo View','Estado','Modificar','Operaciones','Conceptos'],
+            colNames:['Id','Periodo','Periodo','Estado','Mes','Quincena','Operaciones','Conceptos 1','Conceptos 2'],
             colModel :[
                 {
                     name:'id_pdeclaracion', 
                     editable:false, 
                     index:'id_pdeclaracion',
                     search:false,
-                    width:20,
+                    width:25,
                     align:'center',
                     sortable:false
                 },		
@@ -252,39 +252,54 @@
                     editable:false,
                     width:70, 
                     align:'center',
-                    hidden:true
+                    hidden:false
                 },                
                 {
-                    name:'add', 
-                    index:'add',
+                    name:'mes', 
+                    index:'mes',
                     search:false,
                     editable:false,
                     width:90,
                     align:'center'
                 },
                 {
-                    name:'edit', 
-                    index:'edit',
+                    name:'qna', 
+                    index:'qna',
+                    search:false,
                     editable:false,
+                    width:90,
+                    align:'center'
+                },                
+                {
+                    name:'op', 
+                    index:'op',
+                    editable:false,                    
                     width:80,
                     align:'center'
                 },
                 {
-                    name:'concepto', 
-                    index:'concepto',
+                    name:'concepto1', 
+                    index:'concepto1',
                     editable:false,
                     width:100,
                     align:'center'
-                }
+                },
+                {
+                    name:'concepto2', 
+                    index:'concepto2',
+                    editable:false,
+                    width:100,
+                    align:'center'
+                }                
 
 
             ],
             pager: '#pager',
 			height:'320px',
-            width:350,
+            //width:500,
             //autowidth: true,
             rowNum:12,
-            rowList:[12,24,36],
+            rowList:[12],
             sortname: 'id_pdeclaracion',
             sortorder: 'asc',
             viewrecords: true,
@@ -434,15 +449,15 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
    //vocabulario Etapa
    //-semanal = ?
    //-quincenal = ?
-    function cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion){
+    function cargarTabla_Etapa(id_declaracion,cod_periodo_remuneracion,periodo){
 
 		var arreglo = new Array();
 		
         $("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/EtapaPagoController.php?oper=trabajador_por_etapa&cod_periodo_remuneracion='+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion,
+            url:'sunat_planilla/controller/EtapaPagoController.php?oper=trabajador_por_etapa&cod_periodo_remuneracion='+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion+"&periodo="+periodo,
             datatype: 'json',
-            colNames:['Id','tipo_doc','Numero Doc','APaterno',
+            colNames:['id','tipo_doc','Numero Doc','APaterno',
                 'AMaterno', 'Nombres','F inicio','F fin','Sueldo','C.Costo'],
             colModel :[
                 {
@@ -661,35 +676,50 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 
 
 
-
-
-
-
-
-
 	function registrarEtapa(cadena){
-		var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
-		var id_declaracion = document.getElementById('id_declaracion').value;
-		if(cadena!=null){
-			cadena = "?"+cadena;
-		}else{
-			cadena = '';	
-		}
+
+        var id_declaracion = document.getElementById('id_declaracion').value;
+        var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
+        var periodo = document.getElementById('periodo').value;
+        var link = '';
+
+        if(cadena!=null){
+            cadena = "&"+cadena;
+        }else{
+            cadena = '';    
+        }
+
+        if(cod_periodo_remuneracion == 2){ //QUINCENA
+            //link = 'sunat_planilla/controller/EtapaPagoController.php'+cadena;  
+            link = 'sunat_planilla/controller/PagoQuincenaController.php';                              
+            link += '?id_declaracion='+id_declaracion;
+            link += '&periodo='+periodo;
+            link += '&oper=add';
+            link += cadena;
+            
+
+        }else if(cod_periodo_remuneracion ==1){ //MENSUAL
+            link = 'sunat_planilla/controller/TrabajadorPdeclaracionController.php';            
+            link += '?id_pdeclaracion='+id_pdeclaracion;
+            link += '&periodo='+periodo;
+            link += '&oper=generar_declaracion';
+            link += cadena;
+            
+        }
 		
-	$.ajax({
+
+    $.ajax({
    type: "POST",
-   url: "sunat_planilla/controller/EtapaPagoController.php"+cadena,
-   data: {cod_periodo_remuneracion : cod_periodo_remuneracion,
-   id_declaracion : id_declaracion,
-   oper : "registrar_etapa"},
+   url: link,
    async:true,
    success: function(datos){
 
-   console.log("LLEGO "+datos);
-   alert("Se Genero Adelanto Quincenal");
-   cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario');
+        console.log("LLEGO "+datos);
+        alert("Se Genero la Operacion"); //Adelanto Quincenal
+        //cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario');
    }
-   }); 
+   });
+
 
 		
 	}
@@ -779,26 +809,22 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	
 	//--------------------------------------------------------------------------
 	
-function cargarTablaTrabajadoresPorEtapa(id_etapa_pago){ 
-
-console.log("Cargandou..."+id_etapa_pago);
-//alert("Cargando... "+id_etapa_pago);
-
+function cargarTablaTrabajadoresPorEtapa(id_pdeclaracion){ 
 
 		var arreglo = new Array();
         
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/PagoController.php?oper=cargar_tabla&id_etapa_pago='+id_etapa_pago,
+            url:'sunat_planilla/controller/PagoQuincenaController.php?oper=cargar_tabla&id_pdeclaracion='+id_pdeclaracion,
             datatype: 'json',
-            colNames:['Id','Tipo doc','Numero Doc','APaterno',
+            colNames:['id','Tipo doc','Numero Doc','APaterno',
                 'AMaterno', 'Nombres','dias T.','Sueldo.','Ccosto','Opciones'],
             colModel :[
                 {
-                    name:'id_pago', 
+                    name:'id_pago_quincena', 
                     editable:false, 
-                    index:'id_pago',
+                    index:'id_pago_quincena',
                     search:false,
-                    width:20,
+                    width:25,
                     align:'center'
                 },		
                 {
@@ -806,7 +832,7 @@ console.log("Cargandou..."+id_etapa_pago);
                     index:'cod_tipo_documento',
                     search:false, 
                     editable:false,
-                    width:70, 
+                    width:50, 
                     align:'center',
                     hidden:true,
                 },
@@ -861,16 +887,16 @@ console.log("Cargandou..."+id_etapa_pago);
                     index:'dia_total',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:70,
                     align:'center'
                 },
 				
                 {
-                    name:'sueldo_neto',
-                    index:'sueldo_neto',
+                    name:'sueldo',
+                    index:'sueldo',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:90,
                     align:'center'
                 },
 				{
@@ -878,7 +904,7 @@ console.log("Cargandou..."+id_etapa_pago);
                     index:'ccosto',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:90,
                     align:'center'
                 },										
                 {
@@ -886,7 +912,7 @@ console.log("Cargandou..."+id_etapa_pago);
                     index:'opciones',
                     search:false,
                     editable:false,
-                    width:60,
+                    width:90,
                     align:'center'
                 }	
             ],
@@ -894,13 +920,13 @@ console.log("Cargandou..."+id_etapa_pago);
 			height:320,
             rowNum:25,
             rowList:[25,50],
-            sortname: 'id_pago',
+            sortname: 'id_pago_quincena',
             sortorder: 'asc',
             viewrecords: true,
             gridview: true,
             //caption: 'Trabajadores Activos',
             toolbar: [true,"top"],
-            multiselect: true,
+            //multiselect: true,
             hiddengrid: false,
 			
             onSelectRow: function(rowid, selected) {
@@ -955,9 +981,12 @@ console.log("Cargandou..."+id_etapa_pago);
 	$("#t_list").append($("#reporte15_02"));
 	
 	$("#t_list").append($("#reporte15_mas"));
+
+
+
 	
 	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
-	var id_etapa_pago = document.getElementById('id_etapa_pago').value;
+	var periodo = document.getElementById('periodo').value;
 
 	
 	
@@ -988,8 +1017,8 @@ console.log("Cargandou..."+id_etapa_pago);
 		//alert(cadena);
 		// -----arrayCadena
 	
-		var url = "sunat_planilla/controller/PagoController.php?"+cadena;
-		url +="&oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		var url = "sunat_planilla/controller/PagoQuincenaController.php?"+cadena;
+		url +="&oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo;
 		
 		window.location.href = url;
 		//$("#list-2").jqGrid('GridUnload');
@@ -1004,29 +1033,30 @@ console.log("Cargandou..."+id_etapa_pago);
 	});
    
    //02  = total
-	$("#reporte15_02").click(function(){
+	$("#reporte15_02").click(function(){		
 		
-		//registrarEtapa(null);
-		var url = "sunat_planilla/controller/PagoController.php";
-		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		var url = "sunat_planilla/controller/PagoQuincenaController.php";
+		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo;
 		url +="&todo=todo";
 		
 		window.location.href = url;
 		//window.open(url);
+        console.log(url);
 
 	});
 	
 	   //02  = total
 	$("#reporte15_mas").click(function(){
 		
-		editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago);
+		editarPagoMasOpciones(id_pdeclaracion);
 		/*
-		var url = "sunat_planilla/controller/PagoController.php";
-		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&id_etapa_pago="+id_etapa_pago;
+		var url = "sunat_planilla/controller/PagoQuincenaController.php";
+		url +="?oper=recibo15&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo;
 		
 		window.location.href = url;
 		//window.open(url);
-		*/
+        */
+		
 
 	});
 
@@ -1036,7 +1066,7 @@ console.log("Cargandou..."+id_etapa_pago);
 	
 	
 	//---- new 06/09/2012
-function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
+function editarPagoMasOpciones(id_pdeclaracion){
 	crearDialogoMasOp();
 
    $('#dialog_editarPagoMasOP').dialog('open');
@@ -1044,7 +1074,7 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
    $.ajax({
    type: "POST",
    url: "sunat_planilla/view-empresa/modal/edit_mas_opciones.php",
-   data: {id_pdeclaracion : id_pdeclaracion, id_etapa_pago : id_etapa_pago},
+   data: {id_pdeclaracion : id_pdeclaracion},
    async:true,
    success: function(datos){
     $('#data_editarPagoMasOP').html(datos);
@@ -1067,7 +1097,7 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 			buttons: {
 				'Generar': function() {	
 				var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
-				var id_etapa_pago =  document.getElementById('id_etapa_pago').value;
+				var periodo =  document.getElementById('periodo').value;
 				
 				var id_establecimientos = document.getElementById('id_establecimientos').value;		
                 //var id_establecimientos = document.getElementById('cbo_establecimiento_local').value;    
@@ -1078,13 +1108,13 @@ function editarPagoMasOpciones(id_pdeclaracion,id_etapa_pago){
 				var id = id_establecimientos.split('|');
 		
 				
-				var url = "sunat_planilla/controller/PagoController.php";
+				var url = "sunat_planilla/controller/PagoQuincenaController.php";
 				url += "?oper=recibo15";
-				url += "&id_pdeclaracion="+id_pdeclaracion;
-				url += "&id_etapa_pago="+id_etapa_pago;
+                url += "&periodo="+periodo;
+				url += "&id_pdeclaracion="+id_pdeclaracion;				
 				url += "&id_establecimientos="+id[0];
 				url += "&cboCentroCosto="+cboCentroCosto;
-				console.log(url);
+				//console.log(url);
 		
 				window.location.href = url;				
 				},
@@ -1489,11 +1519,13 @@ function cargarTablaPagoGrid_Lineal(id_pago){
 			}	
 		}		
 
-		generarDeclaracionPlanilla(id_pdeclaracion,$(this),cadena);
+		//
+        registrarEtapa(cadena);
+        //
 
-		   jQuery("#list").trigger("reloadGrid"); 
-			limpiarArray(arreglo);
-			limpiarArray(news);
+	   jQuery("#list").trigger("reloadGrid"); 
+		limpiarArray(arreglo);
+		limpiarArray(news);
 	}else{
 		alert("Debe seleccionar un registro,\n para generar periodo Mensual Individual");
 	}
@@ -1504,7 +1536,7 @@ function cargarTablaPagoGrid_Lineal(id_pago){
    //02  = total
 	$("#adelanto_mes_02").click(function(){		
 		
-		generarDeclaracionPlanilla(id_pdeclaracion,$(this),null);
+		registrarEtapa(null);
 	});
 	
 	
@@ -1689,41 +1721,6 @@ crearDialogoPtrabajador();
 
 
 
-//---------------------------------------------------------------
-function generarDeclaracionPlanilla(id_pdeclaracion,obj,cadena){
-	//obj.disabled = true;
-	//obj.value = "Generando...";
-		if(cadena!=null){
-			cadena = "?"+cadena;
-		}else{
-			cadena = '';	
-		}
-	
-	
-    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php"+cadena,
-   data: { oper: 'generar_declaracion', id_pdeclaracion : id_pdeclaracion },//Enviando a ediatarProducto.php vareiable=id_producto
-   async:true,
-   success: function(data){	
-
-        if(data){
-            alert("Se Genero la planilla correctamente");   
-        }else{
-            alert("Ocurrio un error");
-        }
-
-        cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
-
-		
-	
-   }
-   }); 
-	
-
-
-
-}
 
 
 
@@ -1754,8 +1751,9 @@ function eliminarPago(id){
 	if(estado == true){
 		$.ajax({
 	   type: "POST",
-	   url: "sunat_planilla/controller/PagoController.php",
-	   data: { oper: 'del', id_pago : id },
+       dataType: 'json',
+	   url: "sunat_planilla/controller/PagoQuincenaController.php",
+	   data: { oper: 'del', id : id },
 	   async:true,
 	   success: function(data){
 		console.log("Se elimino correctamente");		
@@ -1765,6 +1763,26 @@ function eliminarPago(id){
    }); 
 }
 }
+function eliminarPagoAll(id){
+    var estado = confirm("Seguro que desea eliminar Todo Quincena?");
+    var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+    if(estado == true){
+        $.ajax({
+       type: "POST",
+       dataType: 'json',
+       url: "sunat_planilla/controller/PagoQuincenaController.php",
+       data: { oper: 'del', id : 'all',id_pdeclaracion : id_pdeclaracion },
+       async:true,
+       success: function(data){
+        console.log("Se elimino correctamente toda la Quincena.");        
+        jQuery("#list").trigger("reloadGrid");
+        
+       }
+   }); 
+}
+}
+
+
 //---------------------------------
 function eliminarTrabajadorPdeclaracion(id,id_trabajador){
 	

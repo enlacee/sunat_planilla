@@ -28,7 +28,7 @@ class RegistroPorConceptoDao extends AbstractDao {
         $stm->bindValue(1, $model->getId_pdeclaracion());
         $stm->bindValue(2, $model->getId_trabajador());
         $stm->bindValue(3, $model->getCod_detalle_concepto());
-        $stm->bindValue(4, $model->getValor());        
+        $stm->bindValue(4, $model->getValor());
         $stm->bindValue(5, $model->getFecha_creacion());
 
         $stm->execute();
@@ -36,8 +36,6 @@ class RegistroPorConceptoDao extends AbstractDao {
         // $lista = $stm->fetchAll();
         return true;
     }
-
-
 
     function edit($obj) {
 
@@ -62,7 +60,7 @@ class RegistroPorConceptoDao extends AbstractDao {
     // -- funcion lista trabajadores por concepto para realizar calculo segun
     // corresponda. usando 04/10/2012 ONLY EN DAO...
     //
-    function del($id){
+    function del($id) {
         $query = "
         DELETE
         FROM registros_por_conceptos
@@ -73,20 +71,35 @@ class RegistroPorConceptoDao extends AbstractDao {
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;
-        return true;  
-        
+        return true;
     }
-    function buscar_RPC_PorTrabajador($id_pdeclaracion,$id_trabajador, $cod_detalle_concepto) {
+
+    //new function
+    function buscar_RPC_PorTrabajador2($id_pdeclaracion, $id_trabajador) {
+
+        $query = "
+        SELECT       
+        cod_detalle_concepto,        
+        valor        
+        FROM registros_por_conceptos
+        WHERE id_pdeclaracion = ?
+        AND id_trabajador = ?   
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        return $lista;
+    }
+
+    function buscar_RPC_PorTrabajador($id_pdeclaracion, $id_trabajador,$cod_detalle_concepto) {
 
         if (is_array($cod_detalle_concepto) && count($cod_detalle_concepto) >= 1) {
             $sql = " ";
             for ($i = 0; $i < count($cod_detalle_concepto); $i++) {
                 $sql .= $cod_detalle_concepto[$i];
-                if ($i == (count($cod_detalle_concepto)) - 1) {
-                    //null                    
-                } else {
-                    $sql .= ",";
-                }
+                $sql .= ($i == (count($cod_detalle_concepto)) - 1) ? '' : ',';
             }
         } else {
             $sql = $cod_detalle_concepto;
@@ -107,7 +120,7 @@ class RegistroPorConceptoDao extends AbstractDao {
 
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $id_trabajador);        
+        $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         return $lista[0];
@@ -231,8 +244,8 @@ class RegistroPorConceptoDao extends AbstractDao {
      * @param type $codigo Situacion 0 OR 1
      * @return boolean 
      */
-    function baja($id_trabajador,$id_pdeclaracion,$cod_detalle_concepto) {
-        
+    function baja($id_trabajador, $id_pdeclaracion, $cod_detalle_concepto) {
+
         $query = "
         UPDATE registros_por_conceptos
         SET  
@@ -243,7 +256,7 @@ class RegistroPorConceptoDao extends AbstractDao {
         AND cod_detalle_concepto = ?
         ";
 
-        $stm = $this->pdo->prepare($query);        
+        $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);
         $stm->bindValue(2, $id_pdeclaracion);
         $stm->bindValue(3, $cod_detalle_concepto);
@@ -257,7 +270,7 @@ class RegistroPorConceptoDao extends AbstractDao {
     //-------------------------------------------------------------------------
     public function listarTrabajador($id_pdeclaracion, $cod_detalle_concepto) {
 
-    $query = "
+        $query = "
     SELECT
     id_pdeclaracion,
     id_trabajador,
@@ -276,7 +289,7 @@ class RegistroPorConceptoDao extends AbstractDao {
         $stm = null;
         return $lista;
     }
-    
+
 }
 
 ?>

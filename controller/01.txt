@@ -1,440 +1,59 @@
-PCAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          1
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN ISIDRO
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07951545    CHIPANA FLORES ELENA                    225.00   _______________
-
-  2 10389776    ZAMORA MEGO MELQUIADES                  225.00   _______________
-
-  3 10285430    SOLANO CALDUA NICOLAS VICTOR            225.00   _______________
-
-  4 09886536    ZAMORA MEGO OLEGARIO                    225.00   _______________
-
-  5 25780120    MIRANDA YBA¥EZ SONIA MARITZA            225.00   _______________
-
-  6 40624077    CALLE JERONIMO EDWIN ALVICE             553.00   _______________
-
-  7 10132707    MEGO SILVA RONAL                        225.00   _______________
-
-  8 22862765    ESPINOZA CESPEDES MERCEDES EVA          225.00   _______________
-
-  9 10285230    CHIPANA FLORES LIDIA JUANA              225.00   _______________
-
- 10 07644248    GUERRA CHAUCA SANDRA ISABEL             225.00   _______________
-
- 11 44052923    MEZA GARCIA MANUEL ALEJANDRO            225.00   _______________
-
- 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            225.00   _______________
-
- 13 40827219    NOLE  CAMUS IRIS EDITA                  225.00   _______________
-
- 14 46767275    CHAVEZ GOMEZ CRISTIAN                   225.00   _______________
-
- 15 47707022    HUERTA CARLOS MAX JOUSTON               225.00   _______________
-
- 16 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           225.00   _______________
-
- 17 45347323    GARGATE ROSALES JONATHAN                375.00   _______________
-
- 18 42070522    AQUINO ROJAS MARIBEL                    225.00   _______________
-
- 19 76608802    QUISPE FLOREZ JUAN DANIEL               375.00   _______________
-
- 20 40926514    HINOJOSA SANCHEZ ANA KARINA             225.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS SAN ISIDRO                                 5,128.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          2
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN ISIDRO
-
-CENTRO DE COSTO : ADMINISTRACION - GERENCIA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 09716287    FERNANDEZ MERINO CARMEN IMELDA          1479.00  _______________
-
-  2 07941099    CANO MUENTE JOSE NESTOR                 4100.00  _______________
-
-  3 07966762    CANO MUENTE CARLOS ALBERTO              6000.00  _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - GERENCIA SAN ISIDRO              11,579.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          3
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN ISIDRO
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 25809433    OLAYA GONZALES LUIS HELBERT             440.00   _______________
-
-  2 08634028    ROJAS PAJUELO CESAR JAVIER              450.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA SAN ISIDRO                  890.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          4
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN ISIDRO
-
-CENTRO DE COSTO : OFICINA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07939005    ESPINOZA BAUTISTA JORGINA               456.00   _______________
-
-  2 80167058    BENITES CARBAJAL INES SILVIA            225.00   _______________
-
-  3 06723942    BECERRA SALAS CESAR AUGUSTO             400.00   _______________
-
-  4 08704625    ZAMBRANO CUENCA DANIEL ALFREDO          628.00   _______________
-
-  5 44487341    ZURITA CARRASCO ALEXIS                  520.00   _______________
-
-  6 07546364    HUAMAN OVALLE JOSE LUIS                 731.00   _______________
-
-  7 10196620    GRANDEZ AGUILAR PERCY RICHARD           651.00   _______________
-
-  8 41722946    PEREZ HINOSTROZA PEDRO ARMANDO          440.00   _______________
-
-  9 09671735    OBANDO TEJADA FRANCISCO                 413.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL OFICINA SAN ISIDRO                                4,464.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          5
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 25565139    HERNANDEZ ROMAN CARLOS                  427.00   _______________
-
-  2 07448164    CASANOVA RAMIREZ MARIA LUISA            225.00   _______________
-
-  3 09738210    ALIAGA COTRINA HILDEBRANDO              225.00   _______________
-
-  4 07950684    BERNAL ZURITA SONIA MAGDALENA           225.00   _______________
-
-  5 07966569    CUPE FLORES ALFONSO                     225.00   _______________
-
-  6 08305295    DIAZ HURTADO ROSARIO OSVALDO            225.00   _______________
-
-  7 07627656    HERRERA ROJAS MARIBEL ALBINA            225.00   _______________
-
-  8 21542718    HUAMAN CUSTODIO JULIO ANGEL             225.00   _______________
-
-  9 07948158    QUISPE CHIPANA ANTONIA GRACIELA         225.00   _______________
-
- 10 42774098    GONZALES HUARANGA AMPARO MILAGROS       225.00   _______________
-
- 11 10725806    PINCCILOTTI PALLAROSO ALEJANDRO         553.00   _______________
-
- 12 43152817    RODRIGUEZ ROJAS HEBER ARGENIS           427.00   _______________
-
- 13 43297418    MEGO DIAZ JOSE YOMAR                    225.00   _______________
-
- 14 40070442    ANDIA  CARRASCO JAVIER                  225.00   _______________
-
- 15 40391187    YOVERA ATARAMA ARACELY                  225.00   _______________
-
- 16 46329096    AQUINO ROJAS HUGO PERCY                 225.00   _______________
-
- 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            225.00   _______________
-
- 18 47136383    MEZA VALENCIA YOEL ALFREDO              225.00   _______________
-
- 19 41967126    POMA MURGA LIVIA                        225.00   _______________
-
- 20 44943430    PAREDES VILELA CARLOS HUMBERTO          375.00   _______________
-
- 21 07182707    VILLARREAL MEDINA ANA ELENA             262.00   _______________
-
- 22 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         225.00   _______________
-
- 23 48176445    MACHADO CALIXTO SAIN SABINO             375.00   _______________
-
- 24 47000848    PALMA AMADO JUAN RAUL                   0.00     _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS PUEBLO LIBRE                               6,244.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          6
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             1564.00  _______________
-
-  2 08274953    LOPEZ VASQUEZ ALEJANDRO                 445.00   _______________
-
-  3 21863249    CHIA LUY JON  CARLOS ALONZO             440.00   _______________
-
-  4 10543446    REUVEN GOMEZ MICHAEL                    440.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA PUEBLO LIBRE                2,889.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          7
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            225.00   _______________
-
-  2 08510319    CHAVEZ PALACIOS ANTONIO                 225.00   _______________
-
-  3 06633418    NORIEGA GALVEZ JOSE LUIS                225.00   _______________
-
-  4 09669769    MARTINEZ  CASTILLO FLOR DE MARIA        225.00   _______________
-
-  5 08674299    ARAUJO QUISPE OSCAR IVAN                440.00   _______________
-
-  6 41801598    MEGO FERNANDEZ VICTOR RAUL              225.00   _______________
-
-  7 32130570    RAMIREZ MARCELO GABRIELA AMPARO         225.00   _______________
-
-  8 41901906    RIMARACHIN  BACA DAVID ISRAEL           225.00   _______________
-
-  9 10283250    MACHUCA PAREDES JESSICA ZULEMA          225.00   _______________
-
- 10 43697662    INGA CHUQUIPA ELBIA                     225.00   _______________
-
- 11 42295617    LOAYZA ALMONACIN JOSE VICTOR            427.00   _______________
-
- 12 40199272    QUISPE MATAMOROS SONIA                  225.00   _______________
-
- 13 10562806    PELAYO ROBLES DINA ELENA                225.00   _______________
-
- 14 42343596    QUISPE QUISPE GILBERTO PEDRO            225.00   _______________
-
- 15 40167192    FERNANDEZ HURTADO JOSE DONATO           225.00   _______________
-
- 16 46967693    CORDOVA CALLE SANTOS                    225.00   _______________
-
- 17 71813971    DIAZ MEGO OSWALDO                       225.00   _______________
-
- 18 07635669    CASTILLO REYNOSO  PEDRO LUIS            427.00   _______________
-
- 19 07371736    CASTILLA SALAZAR EMMA LILIANA           225.00   _______________
-
- 20 80376047    NORES ESPINOZA SANDRO ERNESTO           225.00   _______________
-
- 21 07322252    BROCOS CASANOVA CLOTILDE                225.00   _______________
-
- 22 42063882    COLLAZOS BARDALES IRMA                  225.00   _______________
-
- 23 28116618    MEGO  SILVA HUMBERTO                    427.00   _______________
-
- 24 44867935    MEGO  ZAMORA JUANITO                    225.00   _______________
+@C!                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 07951545                            DNI: 07951545                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES ELENA                                                
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2013                         CARGO : COCINERO                            SECCION : ventas                            
+31 DIAS TRAB. 248 HORAS TRAB.                    DIRECCION :  JIRON TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                              
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   ASG. FAMILIAR                    75.00   |   ADELANTO                        225.00   |   ESSALUD                         83.01   |
+|   SUELDO BASICO                   750.00   |   OTROS DESCUENTOS NO DEDUCI...    25.00   |                                           |
+|   TRAB. EN DIA FERIADO            110.00   |   TARDANZAS. 3.67 .hrs             12.62   |                                           |
+|   MOVILIDAD                        80.00   |   COMISION AFP 2.10%               19.64   |                                           |
+|                                            |   PRIMA DE SEGURO 1.41%            13.18   |                                           |
+|                                            |   JUBILACION SPP 10.00%            93.50   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES          1,015.00   |   TOTAL RETENC./DESCUENTOS        388.94   |   TOTAL APORTACIONES              83.01   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------
+| REDONDEO     :      -0.06 |
+-----------------------------
+| NETO A PAGAR :     626.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 10285430                            DNI: 10285430                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: SOLANO CALDUA NICOLAS VICTOR                                        
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 247871NSCAD1               A.F.P. : SPP INTEGRA                        
+MES : ENERO DE : 01.2013                         CARGO : MOZO                                SECCION : ventas                            
+31 DIAS TRAB. 248 HORAS TRAB.                    DIRECCION : URB. URBANIZACIÃ“N SAN FRANCISCO MZA. F LOTE. 34 LIMA-LIMA-SAN MARTIN DE PORRES
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   ASG. FAMILIAR                    75.00   |   ADELANTO                        225.00   |   ESSALUD                         83.62   |
+|   SUELDO BASICO                   750.00   |   TARDANZAS. 1.72 .hrs              5.91   |                                           |
+|   TRAB. EN DIA FERIADO            110.00   |   COMISION AFP 1.74%               16.27   |                                           |
+|                                            |   PRIMA DE SEGURO 1.22%            11.41   |                                           |
+|                                            |   JUBILACION SPP 10.00%            93.50   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES            935.00   |   TOTAL RETENC./DESCUENTOS        352.09   |   TOTAL APORTACIONES              83.62   |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+                                                                                                                                       
+-----------------------------
+| REDONDEO     :       0.09 |
+-----------------------------
+| NETO A PAGAR :     583.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
 
- 25 45619512    PE¥A MAMANI JESUS EDUARDO               225.00   _______________
-
- 26 43539383    SUAREZ MAGUI¥A ERICK JORGE              375.00   _______________
-
- 27 25807381    CHERRES CASTRO LUIS ENRIQUE             427.00   _______________
-
- 28 72542781    CHAVEZ SANCHEZ DANIEL                   65.00    _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS SAN BORJA                                  7,313.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          8
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 09035048    ROJAS PAJUELO JUAN VENANCIO             450.00   _______________
-
-  2 43662417    DOMINGUEZ LOPEZ CHADWICK HANNS          440.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA SAN BORJA                   890.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :          9
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : PRODUCCION
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 10731895    GARGATE LOPEZ BENJAMIN                  291.00   _______________
-
-  2 09700349    MORALES PEREZ JULIA                     225.00   _______________
-
-  3 06107239    SANCHEZ GARGATE NOEMI MARINA            360.00   _______________
-
-  4 08236571    SANDOVAL TORIBIO SANTA BENEDICTA        396.00   _______________
-
-  5 40826130    ABAD GUERRERO FROILAN                   376.00   _______________
-
-  6 23977386    PUMA HUILLCA AMILCAR                    544.00   _______________
-
-  7 33345635    LEON  CARRANZA EMILIANO ALEJANDRO       225.00   _______________
-
-  8 09678603    CAQUI GARGATE GILDER MOISES             418.00   _______________
-
-  9 44084183    PUMA HUILLCA HERMITA¥O                  225.00   _______________
-
- 10 08172801    CHINCHAY  VALLADARES MELQUIADES         225.00   _______________
-
- 11 41220291    QUISPE  QUIPSE ELMA VICTORIA            225.00   _______________
-
- 12 48350296    CCORIMANYA INGA EDWARD                  225.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL PRODUCCION SAN BORJA                              3,735.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :         10
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : MIRAFLORES
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 09570841    TANTALEAN AREVALO CARLOS ALBERTO        225.00   _______________
-
-  2 10436222    NAVARRO CAUTI NIEVES HERLINDA           225.00   _______________
-
-  3 40066138    QUISPE MATAMOROS HILDA VILMA            225.00   _______________
-
-  4 10165095    MEGO SILVA ARTURO JAMER                 225.00   _______________
-
-  5 06202755    BLAS SANCHEZ GLADYS LUZ                 375.00   _______________
-
-  6 07859492    BACA CARBAJAL JOSE JESUS                225.00   _______________
-
-  7 44100041    HUAMANI MENDOZA RONALD PEDRO            225.00   _______________
-
-  8 44989567    ARAUJO HERRERA ITALO                    225.00   _______________
-
-  9 09433554    NAVARRO CAUTI MARY LUZ                  225.00   _______________
-
- 10 41224193    GARCIA CASANA LUIS ALEJANDRO            225.00   _______________
-
- 11 43907244    ESPINOZA ESTEBAN CICILIO                427.00   _______________
-
- 12 07392035    DE LA TORRE CASANOVA ANGELICA           225.00   _______________
-
- 13 40953862    GALLOZA PALLAROSO CARMEN MILAGROS       225.00   _______________
-
- 14 09708383    TENORIO LOAYZA LUCAS HERNANDO           427.00   _______________
-
- 15 45780533    VILLARROEL CORDOVA RODIY JEYSSON        225.00   _______________
-
- 16 47004326    MOREYRA ESPINOZA SANDRA                 300.00   _______________
-
- 17 09702338    SOLORZANO MORALES NORA CELIA            225.00   _______________
-
- 18 40988733    INGA CHUQUIPA LUZ FELINDA               225.00   _______________
-
- 19 45486798    CORNEJO GUEVARA SERGIO JORGE            225.00   _______________
-
- 20 46827908    HILARIO HUETE ALAN ANIBAL               225.00   _______________
-
- 21 45781644    ALVA LOPEZ JUNIOR DARLYN                225.00   _______________
-
- 22 44800604    RAMIREZ  URETA AMEC JOAB                225.00   _______________
-
- 23 43937550    SUAREZ MAGUI¥A JOSE ANTONIO             375.00   _______________
-
- 24 40470678    BARBOSA FERNANDEZ TRINI MARTIN          0.00     _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS MIRAFLORES                                 5,954.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  07/02/2013
-                                                             PAGINA :         11
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : MIRAFLORES
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 40484310    RIOS DIAZ JIMY ORLANDO                  440.00   _______________
-
-  2 42429178    CHOMBA ANAYA MARTIN ANTONIO             525.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA MIRAFLORES                  965.00
---------------------------------------------------------------------------------
-
-
-T O T A L   G E N E R A L  --->>>                       50,051.00      
-

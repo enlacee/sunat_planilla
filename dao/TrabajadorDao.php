@@ -1,6 +1,38 @@
 <?php
 
 class TrabajadorDao extends AbstractDao {
+    //new 
+    function buscarDataForPlanilla($id_trabajador){
+           $query = "
+            SELECT              
+                t.cod_situacion,
+                t.cod_ocupacion_p,
+                drs.cod_regimen_aseguramiento_salud,
+                drp.cod_regimen_pensionario,
+                dtt.cod_tipo_trabajador               
+            FROM trabajadores AS t
+            INNER JOIN personas AS p
+            ON t.id_persona = p.id_persona
+            INNER JOIN detalle_regimenes_salud AS drs
+            ON drs.id_trabajador = t.id_trabajador
+            INNER JOIN detalle_regimenes_pensionarios AS drp
+            ON drp.id_trabajador = t.id_trabajador
+            -- new 1
+            INNER JOIN detalle_tipos_trabajadores AS dtt
+            ON t.id_trabajador = dtt.id_trabajador            
+            WHERE t.id_trabajador = ?        
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista[0];
+
+        
+    }
+    
     //new OK!
     function buscar_what($id_trabajador,$atributo){
         //monto_remuneracion

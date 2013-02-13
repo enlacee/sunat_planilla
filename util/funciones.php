@@ -11,7 +11,7 @@ function getFechaPatron($fecha_es_us, $patron_date) {
     if (!isset($fecha_es_us) || $fecha_es_us == "0000-00-00") {
         return null;
     }
-
+    //WARNING
     $fecha_es_us = eregi_replace("/", "-", $fecha_es_us);
 
     $fecha = date("Y-m-d", strtotime($fecha_es_us));
@@ -404,7 +404,7 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
  * @param type $start
  * @return type
  */
-function arregloDiaMes($date,$start=1){
+function arregloDiaMes($date,$start=1){ // inicia a contar desde el mes 1
     $f = getFechasDePago($date);
     $inicio = $f['first_day'];
     $fin = $f['last_day'];
@@ -659,6 +659,64 @@ function afpArrayConstruido(){
     return $mi_afp;
 }
 
+// nueva funcion asociada
+/**
+ * 
+ * @param type $inicio
+ * @param type $fin
+ * @return type
+ */
+function diasLaborados($inicio, $fin) {
+//$inicio = '2013-01-01';
+//$fin = '2013-01-15';
+    /*
+    echo "<br>";
+    echo "<pre>inicio = ";
+    print_r($inicio);
+    echo "</pre>";
+    echo "<br>";
+    
+    echo "<br>";
+    echo "<pre>fin = ";
+    print_r($fin);
+    echo "</pre>";
+    echo "<br>";   
+    */
+    $dias = array();
+    $i = 0;
+    do {
+        $fecha_variable = crearFecha($inicio, $i, 0, 0);
+        //$dias [] = $fecha_variable;    
+        $dias [] = getFechaPatron($fecha_variable, 'd');
+        $i++;
+    } while ($fin != $fecha_variable);
+    
+
+    $diasv = array();
+    /*
+    $data_vacacion = array(
+        array('fecha_inicio' => '2013-01-01', 'fecha_fin' => '2013-01-05'),
+        array('fecha_inicio' => '2013-01-13', 'fecha_fin' => '2013-01-17')
+    );    
+    for ($a = 0; $a < count($data_vacacion); $a++) {
+        if (getFechaPatron($data_vacacion[$a]['fecha_inicio'], 'd') > 15)
+            continue;
+        if (getFechaPatron($data_vacacion[$a]['fecha_fin'], 'd') > 15)
+            $data_vacacion[$a]['fecha_fin'] = $fin;
+
+        $i = 0;
+        do {
+            $fecha_variable = crearFecha($data_vacacion[$a]['fecha_inicio'], $i, 0, 0);
+            //$diasv [] = $fecha_variable;    
+            $diasv [] = getFechaPatron($fecha_variable, 'd');
+            $i++;
+        } while ($data_vacacion[$a]['fecha_fin'] != $fecha_variable);        
+    }
+*/
+    $diast = array_values(array_diff($dias, $diasv));
+
+    return count($diast);
+}
 
 
 

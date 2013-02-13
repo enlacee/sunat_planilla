@@ -191,56 +191,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         return true;
     }
 
-    /*
-     * Ayuda y 
-     * Busca informacion para ayudar con la generacion de 
-     * Conceptos.
-     */
 
-    // ojo no busca en la tabla trabajador_pdeclaracion OK!
-    public function buscar_ID_trabajador($id_trabajador) {
-
-        $query = "
-            SELECT 
-		-- trabajador
-                t.id_trabajador,                
-                t.cod_situacion,
-                t.cod_ocupacion_p,
-                t.id_empresa_centro_costo,
-                t.monto_remuneracion,
-                t.monto_remuneracion_fijo,
-                drs.cod_regimen_aseguramiento_salud,
-                drp.cod_regimen_pensionario,
-                dtt.cod_tipo_trabajador,
-                dpl.fecha_inicio,
-                dpl.fecha_fin
-               
-            FROM trabajadores AS t
-            INNER JOIN personas AS p
-            ON t.id_persona = p.id_persona
-
-            INNER JOIN detalle_regimenes_salud AS drs
-            ON drs.id_trabajador = t.id_trabajador
-
-            INNER JOIN detalle_regimenes_pensionarios AS drp
-            ON drp.id_trabajador = t.id_trabajador
-            -- new 2
-            INNER JOIN detalle_periodos_laborales AS dpl
-            ON dpl.id_trabajador = t.id_trabajador
-            -- new 1
-            INNER JOIN detalle_tipos_trabajadores AS dtt
-            ON t.id_trabajador = dtt.id_trabajador
-            
-            WHERE t.id_trabajador = ?       
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        return $lista[0];
-    }
 
     function buscar_what($id_pdeclaracion,$id_trabajador,$atributo){
         $query = "
@@ -445,7 +396,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
     //->new uso para reportes    
     public function listar_2($id_pdeclaracion, $id_establecimiento, $id_empresa_centro_costo) {
 
-        $query = "XXX
+        $query = "
         SELECT
           tpd.id_trabajador_pdeclaracion,
           tpd.id_pdeclaracion,

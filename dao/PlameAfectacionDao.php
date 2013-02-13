@@ -5,7 +5,10 @@ class PlameAfectacionDao extends AbstractDao {
     
     public function listar() {
         $query = "
-        SELECT *FROM afectaciones
+        SELECT 
+        cod_afectacion
+        -- descripcion 
+        FROM afectaciones
         ";
         $stm = $this->pdo->prepare($query);
         $stm->execute();

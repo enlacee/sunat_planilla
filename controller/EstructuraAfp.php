@@ -313,7 +313,10 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
                         endif;
                     endfor;
                 }
-
+                
+                
+                
+                //get_AFP_Ingresos2(DATA_CONCEPTOS);  ANB
                 //================================================================================== 
                 $all_ingreso = number_format_2( get_AFP_Ingresos($ID_PDECLARACION, $data_tra[$j]['id_trabajador']) );
                 //==================================================================================    

@@ -1,0 +1,5 @@
+DELETE FROM  trabajadores_pdeclaraciones
+WHERE id_pdeclaracion = 29
+
+CAMBIOS EN PERSONAS DE 01/01/2013
+QUE TIENEN SEGUNDA 15CENA

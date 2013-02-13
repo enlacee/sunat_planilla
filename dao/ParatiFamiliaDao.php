@@ -245,9 +245,10 @@ class ParatiFamiliaDao extends AbstractDao {
 	ON ptf.id_trabajador = t.id_trabajador
 
         WHERE ptf.id_trabajador = ?
-        AND ptf.fecha_inicio <='$periodo'
-        AND t.cod_situacion = 1;            
+        AND ptf.fecha_inicio <='$periodo'                   
         ";
+        // AND t.cod_situacion = 1; 
+        
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);
         $stm->execute();

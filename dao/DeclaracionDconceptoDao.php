@@ -159,7 +159,7 @@ class DeclaracionDconceptoDao extends AbstractDao {
     //10/09/2012
     //---------------------------------------------------------------
 
-    public function listarTrabajadorPorDeclaracion($id_trabajador,$id_pdeclaracion) {
+    public function listarTrabajadorPorDeclaracion($id_trabajador,$id_pdeclaracion) {//OK FUCK !! NOOO
         $query = "
         SELECT 
         -- tpd.id_pdeclaracion,

@@ -86,16 +86,13 @@ function listarRPC() {
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
 
     $dao = new RegistroPorConceptoDao();
-
     $page = $_GET['page'];
     $limit = $_GET['rows'];
     $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
     $sord = $_GET['sord']; // get the direction
 
     $WHERE = "";
-
     if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
-
         $operadores["eq"] = "=";
         $operadores["ne"] = "<>";
         $operadores["lt"] = "<";
@@ -109,10 +106,8 @@ function listarRPC() {
             $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
     }
 
-
     if (!$sidx)
         $sidx = 1;
-
     $count = $dao->listar2_count($cod_detalle_concepto, $id_pdeclaracion, $WHERE);
 
     // $count = $count['numfilas'];
@@ -130,24 +125,18 @@ function listarRPC() {
     //valida
     if ($start < 0)
         $start = 0;
-
 // CONTRUYENDO un JSON
     $response->page = $page;
     $response->total = $total_pages;
     $response->records = $count;
     $i = 0;
-
-    $lista = array();
-    $lista = $dao->listar2( $cod_detalle_concepto,$id_pdeclaracion,$WHERE, $start, $limit, $sidx, $sord);
     
+    $lista = $dao->listar2( $cod_detalle_concepto,$id_pdeclaracion,$WHERE, $start, $limit, $sidx, $sord);    
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
         return $response;
     }
-//print_r($lista);
-
     foreach ($lista as $rec) {
-
         $param = $rec["id_registro_por_concepto"];
         $_00 = $rec['id_trabajador'];
         $_01 = $rec['cod_tipo_documento'];
@@ -155,31 +144,16 @@ function listarRPC() {
         $_03 = $rec['apellido_paterno'];
         $_04 = $rec['apellido_materno'];
         $_05 = $rec['nombres'];
-        $_06 = $rec['valor'];        
         
-        //echo "\n $_00\n\n";
-        // $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
-/*
-        $opciones = null;
-        if ($_07 == 1) {
-            $js = "javascript:editar_EstadoRPC('" . $param . "',0)";
-            $opciones = '<div id="divEliminar_Editar">
-          <span  title="Activo" >
-          <a href="' . $js . '" class="ui-icon ui-icon-circle-check" ></a>
-          </span>
-          </div>';
-        } else if ($_07 == 0 || $_07 == null) {
-            $js = "javascript:editar_EstadoRPC('" . $param . "',1)";
-            $opciones = '<div id="divEliminar_Editar">
-          <span  title="Inactivo"  >
-          <a href="' . $js . '" class="ui-icon ui-icon-circle-close" ></a>
-          </span>
-          </div>';
+        // 0107 = Dia feriado entero.
+        // 0115 = Dia feriado 1ero mayo.
+        if($cod_detalle_concepto =='0107' || $cod_detalle_concepto =='0115'){        
+            $_06 = ($rec['valor']>=0) ? intval($rec['valor']) : $rec['valor'];     
+        }else{
+            $_06 = $rec['valor'];
         }
-*/
-
-        //hereee
-        $response->rows[$i]['id'] = $param; //$param;
+        
+        $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
             $key,
             $param,
@@ -189,15 +163,10 @@ function listarRPC() {
             $_03,
             $_04,
             $_05,
-            $_06           
-
+            $_06
         );
         $i++;
     }
-
-//echo "<pre>";
-//print_r($response);
-//echo "</pre>";
     return $response;
 }
 

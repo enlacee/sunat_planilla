@@ -299,8 +299,7 @@ class PlameDao extends AbstractDao {
         t.id_trabajador,
 	t.cod_periodo_remuneracion,
 	t.monto_remuneracion,
-        t.monto_remuneracion_fijo,
-        t.monto_devengado,
+        t.monto_remuneracion_fijo,        
         
         dpl.fecha_inicio,
         dpl.fecha_fin,

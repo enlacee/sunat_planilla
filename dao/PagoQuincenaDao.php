@@ -221,7 +221,7 @@ class PagoQuincenaDao extends AbstractDao {
         
         $stm->execute();
         $lista = $stm->fetchAll();
-        return $lista;        
+        return $lista[0];        
         
     }
 

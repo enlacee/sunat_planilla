@@ -104,10 +104,8 @@ class ConfAfpTopeDao extends AbstractDao{
 
     public function vigenteAux($periodo) {
         $query = "
-        SELECT
-            id_conf_afp_tope,
-            valor,
-            fecha      
+        SELECT            
+            valor      
         FROM conf_afp_tope
         WHERE fecha <='$periodo'
         ORDER BY fecha DESC     

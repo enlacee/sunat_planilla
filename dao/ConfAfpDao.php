@@ -132,14 +132,12 @@ class ConfAfpDao extends AbstractDao {
     public function vigenteAfp($cod_regimen_pensionario, $periodo) {
 
         $query = "
-        SELECT
-            id_conf_afp,
+        SELECT            
             cod_regimen_pensionario,
             aporte_obligatorio,
             comision,
             prima_seguro,
-            fecha,
-            fecha_creacion
+            fecha            
         FROM conf_afp AS cafp
         WHERE cod_regimen_pensionario = ?
         AND fecha <= '$periodo'

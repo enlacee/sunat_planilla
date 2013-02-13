@@ -6,9 +6,9 @@
 //require_once '../dao/DeclaracionDconceptoDao.php';
 //require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 
-function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $PERIODO) {
-    echo "\n\n ID_PDECLARACION = $ID_PDECLARACION \nid_trabajador = $id_trabajador";
-    echo "\n\n RENTA DE 5TA ---$PERIODO--";
+function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO) {
+    //echo "\n\n ID_PDECLARACION = $ID_PDECLARACION \nid_trabajador = $id_trabajador";
+    //echo "\n\n RENTA DE 5TA ---$PERIODO--";
 
     //|--- Config Posible Cambio ----------------------------------------|
     //| UIT = 
@@ -17,8 +17,7 @@ function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $PERI
     $periodo = $PERIODO;
     $_7_UIT = 7;
 
-    //"2012-01-01"; //  Enero 2012    
-        
+    //"2012-01-01"; //  Enero 2012
     $mes_periodo = intval(getFechaPatron($periodo, 'm'));
     $anio_periodo = intval(getFechaPatron($periodo, 'Y'));
 //| -----------------------------------------------------
@@ -27,10 +26,7 @@ function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $PERI
 //| gra = gratificacio-+
 //| 
 //| ----------------------------------------------------
-    //echo "<pre> INGRESOS AFECTOS 5TA";
-    //$d = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador, $conceptos_afectos5ta);
-    //print_r($d);
-    //echo "</pre>";
+
 // 01 remuneracion fija
     $_01 = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador); //$sueldo; //2000;
     echo "\n01= " . $_01;
@@ -60,7 +56,7 @@ function calcular_IR5_concepto_0605($id, $ID_PDECLARACION, $id_trabajador, $PERI
     $_05 = 0.00;
     if ($mes_periodo == 7) { //JULIO
         $periodo_armado = $anio_periodo . "-07-01";
-        $arreglo_conceptos = array('0312');
+        $arreglo_conceptos = array('0312');//bonificacion extraordinaria.
         $monto = getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo_armado);
         ////get_IR5_Ingresos_PeriodoArmado($id_trabajador, $periodo_armado);
         ECHO "\nMONTO  JULIO = " . $monto;
@@ -688,7 +684,7 @@ function getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo) {
 
     if (!is_null($id_pdeclaracion_lab)) {
         //$arreglo_conceptos = array('0403', '0405', '0406', '0407');
-        $arreglo_conceptos;
+        //$arreglo_conceptos;
         $dao_dconcepto = new DeclaracionDconceptoDao();
         $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion_lab);
 
@@ -912,13 +908,8 @@ function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador) {
 }
 
 // Get all ingresos 
-function get_SNP_Ingresos($id_pdeclaracion, $id_trabajador) {
-
+function get_SNP_Ingresos($data_dconcepto) { //ok
     $conceptos_afectos = arrayConceptosAfectos_a('08');
-
-    $dao_dconcepto = new DeclaracionDconceptoDao();
-    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
@@ -929,22 +920,11 @@ function get_SNP_Ingresos($id_pdeclaracion, $id_trabajador) {
 }
 
 // Get all ingresos 
-function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
-
+function get_AFP_Ingresos($data_dconcepto) { //OK
     $conceptos_afectos = arrayConceptosAfectos_a('09');
-    //echo "*********************** - -;";
-    //echoo ($conceptos_afectos);
-    //echo "*********************** - -;";    
-
-    $dao_dconcepto = new DeclaracionDconceptoDao();
-    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-
     $sum = 0;
-    for ($z = 0; $z < count($data_dconcepto); $z++) {
-            //echo "pregunta  ? si es afecto = ".$data_dconcepto[$z]['monto_pagado'];
+    for ($z = 0; $z < count($data_dconcepto); $z++) {            
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
-            //echo "\nEncontro = ".$data_dconcepto[$z]['monto_pagado'];
-            
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
     }
@@ -952,20 +932,14 @@ function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
 }
 
 // Get all ingresos 
-function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
-
+function get_ESSALUD_REGULAR_Ingresos($data_dconcepto) {//ok
     $conceptos_afectos = arrayConceptosAfectos_a('01');
-
-    $dao_dconcepto = new DeclaracionDconceptoDao();
-    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) { 
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
-    }
-    
+    }    
     // .........................................................................
     // PASO ADICIONAL PARA MANTENER DATOS UNIFORMES CON PTD-PLAME
     // Resta 0704 = tardanza, y 0705  =inasistencia.
@@ -975,10 +949,8 @@ function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
             $dscto = $dscto + $data_dconcepto[$z]['monto_pagado'];
         }
     } 
-    // .........................................................................
-    
-    $sum = $sum - $dscto;
-    
+    // .........................................................................    
+    $sum = ($sum - $dscto);    
     return $sum;
 }
 
@@ -993,19 +965,7 @@ function get_ESSALUD_REGULAR_Ingresos($id_pdeclaracion, $id_trabajador) {
  *  - 08 = SNP
  *  - 01 = Esalud Regular
  */
-function arrayConceptosAfectos_a($cod_afectacion) {
 
-//..............................................................................
-    $dao_afecto = new PlameDetalleConceptoAfectacionDao();
-    $data_afecto = $dao_afecto->conceptosAfecto_a($cod_afectacion);
-
-    $conceptos_afectos = array();
-    for ($x = 0; $x < count($data_afecto); $x++) {
-        $conceptos_afectos[] = $data_afecto[$x]['cod_detalle_concepto'];
-    }
-//..............................................................................   
-    return $conceptos_afectos;
-}
 
 //------------------------------------------------------------------------------
 

@@ -24,15 +24,7 @@ function generarConfiguracion($periodo) {
 // Valores Fijos
     $ESSALUD_MAS = 5.00;
     $SNP_MAS = 5.00;
-    /*
-      echo "\n8888888888888888888888888888888888888888888888\n";
-      echo "\nSB =".$SB;
-      echo "\nT_AF =".$T_AF;
-      echo "\nT_ESSALUD =".$T_ESSALUD;
-      echo "\nT_ONP =".$T_ONP;
-      echo "\nUIT =".$UIT;
-      echo "\n8888888888888888888888888888888888888888888888\n";
-     */
+
     // DEFINE
     if (is_null($SB) || is_null($T_AF) || is_null($T_ESSALUD) || is_null($T_ONP) || is_null($UIT)) {
         //header($string, $replace)
@@ -58,14 +50,94 @@ function generarConfiguracion($periodo) {
     }
 }
 
-function asignacionFamiliar(){
+//------------------------------------------------------------------------------
+// planilla inicio
+function generarConfiguracion2($periodo) {
+    
+        if(!$_SESSION['afectaciones']||!$_SESSION['afp']){
+    // Dao
+    $dao_pa = new PlameAfectacionDao();
+    $dao_afecto = new PlameDetalleConceptoAfectacionDao();
+
+    // afectaciones
+    $data_afect = $dao_pa->listar();
+
+    // la afectacion (rtaquinta) se aplican a una lista de conceptos:
+    // Lista de Conceptos que estan afectos (ejm: reta 5 = 0121,0201...)
+    $afecctaciones = array();
+    $a = 0;
+    for ($i = 0; $i < count($data_afect); $i++) {
+        $cod_afectacion = $data_afect[$i]['cod_afectacion'];
+        if ($cod_afectacion == '01' || $cod_afectacion == '08' || $cod_afectacion == '09' || $cod_afectacion == '10') {
+            $data_afecto = $dao_afecto->conceptosAfecto_a($cod_afectacion);
+            $conceptos_afectos = array();
+            for ($x = 0; $x < count($data_afecto); $x++) {
+                $conceptos_afectos[] = $data_afecto[$x]['cod_detalle_concepto'];
+            }
+            $afecctaciones[$a]['cod_afectacion'] = $cod_afectacion;
+            $afecctaciones[$a]['conceptos'] = $conceptos_afectos;
+            $a++;
+        }
+    }
+    
+    
+    //--------------------------------------------------------------------------
+    $dao_afp = new ConfAfpDao();
+    $_arregloAfps = array(21, 22, 23, 24);
+    $afp = array();
+    for($i=0;$i<count($_arregloAfps);$i++){
+        $afp[$i]['cod_regimen_pensionario'] = $_arregloAfps[$i];
+        $afp[$i]['data'] = $dao_afp->vigenteAfp($_arregloAfps[$i], $periodo);
+    }
+    //--------------------------------------------------------------------------
+    $dao_tafp = new ConfAfpTopeDao();
+    $afp_tope = $dao_tafp->vigenteAux($periodo);
+    //--------------------------------------------------------------------------
+        
+    
+
+        $_SESSION['afectaciones'] = $afecctaciones;
+        $_SESSION['afp'] = $afp;
+        $_SESSION['afp_tope'] = $afp_tope;
+        
+    }else{
+        //echo "<BR>ELSE XQ YA EXISTE!!!";
+    }    
+    //echoo($_SESSION);
+    
+}
+// FUNCION ALIADA A generarConfiguracion2
+function arrayConceptosAfectos_a($cod_afectacion) {// 10
+    $arreglo = $_SESSION['afectaciones'];
+    for($i=0;$i<count($arreglo);$i++){        
+        if($arreglo[$i]['cod_afectacion'] == $cod_afectacion){
+            return $arreglo[$i]['conceptos'];
+        }
+    }
+}
+
+function arrayAfp($cod_regimen_pensionario){
+    $arreglo = $_SESSION['afp'];
+    for($i=0;$i<count($arreglo);$i++){
+        if($arreglo[$i]['cod_regimen_pensionario'] == $cod_regimen_pensionario){
+            return $arreglo[$i]['data'];
+        }        
+    }    
+}
+function afpTope(){
+    return $_SESSION['afp_tope'];
+}
+// planilla final
+//------------------------------------------------------------------------------
+
+
+function asignacionFamiliar() {
     $SB = SB;
     $CAL_AF = $SB * (T_AF / 100);
     return $CAL_AF;
 }
 
-
-
+// eliminar Funcion
 function sueldoDefault($sueldo) {
     $sueldo = floatval($sueldo);
     $new_sueldo = 0.00;
@@ -85,12 +157,11 @@ function sueldoMensualXHora($monto) {
 }
 
 function sueldoMensualXDia($monto) {
-    $valor = ($monto / DIA_BASE);     
-    return $valor;    
+    $valor = ($monto / DIA_BASE);
+    return $valor;
 }
+
 // end migrado
-
-
 //-----------------------------------------------------------------------------
 //FUNCION AYUDA  getSumaTodosIngresosTrabajador
 function arrayConceptosIngresos() {
@@ -105,14 +176,12 @@ function arrayConceptosIngresos() {
     return $concepto_ingresos;
 }
 
-
 /**
  * SUMA DE TODOS LOS INGRESOS DEL TRABAJADOR
  * listado de todos los conceptos que se encuentran seleccionado por el
  * empleador Maestro
  */
 function getSumaTodosIngresosTrabajador($id_trabajador, $id_pdeclaracion) {//fuck! no es muy util
-
     $dao_dconcepto = new DeclaracionDconceptoDao();
     $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
     $concepto_ingresos = arrayConceptosIngresos();
@@ -125,8 +194,5 @@ function getSumaTodosIngresosTrabajador($id_trabajador, $id_pdeclaracion) {//fuc
     }
     return $sum;
 }
-
-
-
 
 ?>

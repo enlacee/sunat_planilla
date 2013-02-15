@@ -1763,7 +1763,7 @@ function eliminarPago(id){
    }); 
 }
 }
-function eliminarPagoAll(id){
+function eliminarPagoAll(){ // Pago Quincena
     var estado = confirm("Seguro que desea eliminar Todo Quincena?");
     var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
     if(estado == true){

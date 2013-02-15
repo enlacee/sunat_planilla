@@ -183,7 +183,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         DELETE
         FROM trabajadores_pdeclaraciones
         WHERE id_trabajador_pdeclaracion = ?;
-		";
+	";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador_pdeclaracion);
         $stm->execute();
@@ -661,20 +661,12 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
     //Utilizado para limpiar periodo del mes. utilizado full 2 tablas 27/09/2012
     //
-    public function eliminarDatosMes($id_pdeclaracion = null) {
+    public function eliminarDatosMes($id_pdeclaracion) {
         //SELECT *FROM etapas_pagos
         //SELECT *FROM trabajadores_pdeclaraciones        
         $query = "
-    DELETE etapas_pagos,trabajadores_pdeclaraciones
-    FROM pdeclaraciones
-    INNER JOIN etapas_pagos
-    ON pdeclaraciones.id_pdeclaracion = etapas_pagos.id_pdeclaracion
-    LEFT JOIN trabajadores_pdeclaraciones
-    ON pdeclaraciones.id_pdeclaracion = trabajadores_pdeclaraciones.id_pdeclaracion
-
-    WHERE pdeclaraciones.id_pdeclaracion=  ?
-    AND etapas_pagos.tipo = 2
-    -- elimina solo 2da quincena.
+        DELETE FROM trabajadores_pdeclaraciones        
+        WHERE id_pdeclaracion = ?
 ";
 
         $stm = $this->pdo->prepare($query);
@@ -683,7 +675,6 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         //$lista = $stm->fetchAll();
         $count = $stm->rowCount();
         $stm = null;
-
         return $count;
     }
 

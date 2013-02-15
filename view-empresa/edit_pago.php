@@ -43,7 +43,7 @@ $periodo = $_REQUEST['periodo'];
 <input type="text" name="id_pdeclaracion" id="id_pdeclaracion"
 value="<?php echo $ID_PDECLARACION; ?>" readonly="true" >
 <br>
-id_etapa_pago 
+periodo
 <input name="periodo" id="periodo" type="text" readonly="true" 
 value="<?php echo $periodo; ?>">
 </div>

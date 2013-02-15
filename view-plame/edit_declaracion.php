@@ -110,6 +110,9 @@ $.ajax({
     id_declaracion
   <input type="text" name="id_declaracion" id="id_declaracion"
               value="<?php echo $ID_DECLARACION; ?>" />
+periodo
+<input name="periodo" id="periodo" type="text" readonly="true" 
+value="<?php echo $PERIODO; ?>">              
 </div>    
 
 <p>EMPRESA: <span class="red"><?php echo $data['ruc']." - ".$data['razon_social_concatenado']; ?></span>
@@ -137,23 +140,7 @@ $.ajax({
       <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  readonly="readonly"
       value="<?php echo $PERIODO; ?>" />
 		    </p>
-		    <div class="ocultar"> 
-              <p>Declaracion Sustitutoria o Rectificadora
-                 <input name="rbtn_declaracionRectificadora" type="radio" id="rbtn_declaracionRectificadora" value="1" checked="checked" />
-                Si
-                 <input type="radio" name="rbtn_declaracionRectificadora" id="rbtn_declaracionRectificadora" value="0" />
-				No </p>
-               <p>Limpia datos Edit</p>
-               <p>&nbsp;</p>
-              <p>Sincronizar datos: Actualizar Prestadores de Servicios:
-  <input type="checkbox" name="chk_actualizar_declaracion" id="chk_actualizar_declaracion" />
-  <input type="button" name="btnEjecutar" id="btnEjecutar" value="Actualizar Declaracion" 
-            onclick="registrarDeclaracion()" />
-              </p>
-              <p>La declaracion se ebabor&oacute; 'Ultima actualizacion'
-                <input type="text" name="dfcreacion" id="dfcreacion" />
-              </p>
-		    </div>
+		    
  <?php  if($_REQUEST['estado'] == '1'): // Condicion Datos?>           
 		    <h2 >Cerrar Mes Definitivamente:		    
 		      <input type="checkbox" name="chk_cerrar_mes" id="chk_cerrar_mes"  />

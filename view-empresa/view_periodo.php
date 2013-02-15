@@ -61,37 +61,7 @@ function validarVacios(arreglo = new Array()){
 }
 */
 //script
-$("#eliminar_datos_mes").click(function(){
-	var id_pdeclaracion = $("#id_pdeclaracion").val();
-	var periodo = $("#periodo").val();
-	var boton = $(this);
-if(id_pdeclaracion!=""){		
-//------
-	boton.val("Procesando...");
-   $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
-   data: {id_pdeclaracion : id_pdeclaracion, oper : 'eliminar_data_mes', periodo : periodo },
-   async:true,
-   success: function(datos){
-		if(datos){
-			alert("Se borraron los datos correctamente");
-			jQuery("#list10_d").trigger('reloadGrid');
-			boton.val('Eliminar Datos del Mes');
-		}else{
-			boton.val('Eliminar Datos del Mes');
-			alert("Existio un error");
-		}
-   }
-   }); 
-//------			
-}else{
-	alert("Debe seleccionar un periodo.\n");
-}
-});
-
-
-habilitarBotonEliminarMes();		
+		
 //-----------------------------------------------------------------
 function add_15(id_declaracion,periodo,num15){ //QUINCENAL
    alert("15");
@@ -106,17 +76,6 @@ function add_15(id_declaracion,periodo,num15){ //QUINCENAL
    });    
 }
 
-//funcion chekkk
-function habilitarBotonEliminarMes(){
-	var obj = document.getElementById('checkbox_data');	
-	if(obj.checked == true){
-	console.log("true");
-		$(".button-del").removeAttr('disabled');
-		console.log("true");
-	}else{				
-		$(".button-del").attr('disabled','disabled');	
-	}
-}
 	
 $('#eliminar_declaracion').click(function(){	
 		var id_pdeclaracion = $("#id_pdeclaracion").val();
@@ -166,8 +125,6 @@ $('#eliminar_declaracion').click(function(){
                 <option value="2013" selected="selected">2013</option>
               </select>
             </h3>
-            <input type="checkbox" name="checkbox_data" id="checkbox_data" onclick="habilitarBotonEliminarMesXXX()" />
-            <input name="eliminar_datos_mes" id="eliminar_datos_mes"  value="Eliminar Datos del Mes"type="button" class="button-del"  />
             <input type="hidden" name="eliminar_declaracion" id="eliminar_declaracion" value="Elimina Declaracion" class="button-del" />
 <div class="ocultar">   
   id_pdeclaracion<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />

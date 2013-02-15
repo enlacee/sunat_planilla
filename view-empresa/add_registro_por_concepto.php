@@ -79,7 +79,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// 0115 = REMUNERACIÓN DÍA DE DESCANSO Y FERIADOS (INCLUIDA LA DEL 1° DE MAYO)	
 		}else if(cod_detalle_concepto=='0115'){
 			var filter = /^[0-9]$/
-			var status = filter.test(value);			
+			var status = filter.test(value);
 			if(value < 0 || value >20 || status == false){
 				return [false,"Estados validos 0 y 1(20?) \n Dia que hace Referencia al 20&deg; de Mayo.Solo enteros."];
 			}else{
@@ -131,9 +131,11 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 		// ------------------------------------------------				
 		// 0705 = INASISTENCIAS
 		}else if(cod_detalle_concepto=='0705'){
+			var filter = /^[0-9]$/
+			var status = filter.test(value);
 			
-			if(value < 0 || value >31){
-				return [false,"Dias validos 1 al 31"];
+			if(value < 0 || value >31|| status == false){
+				return [false,"Dias validos 1 al 31.Solo enteros."];
 			}else{
 				return [true,""];
 			}

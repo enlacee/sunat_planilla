@@ -426,6 +426,29 @@ function arregloDiaMes($date,$start=1){ // inicia a contar desde el mes 1
     return $r;
 }
 
+function arregloDiaMes2($finicio,$ffin){ // inicia a contar desde el mes 1
+    
+    $inicio = $finicio;
+    $fin = $ffin;
+    
+    $i=0;
+    $day = array();
+    do {
+        $fecha_variable = crearFecha($inicio,$i,0,0);
+        $day[]= getFechaPatron($fecha_variable, 'd');
+        $i++;
+    } while ($fin != $fecha_variable);
+    
+    $r = array();
+    foreach ($day as $indice=>$value){
+        //if($value>=$start){
+           $r[] = $value;
+        //}
+    }
+    return $r;
+}
+//$a = arregloDiaMes2('2013-01-16','2013-01-17');
+//echoo($a);
 /**
  *
  * @param type $num

@@ -39,11 +39,25 @@ class PtfPagoDao extends AbstractDao {
         ";        
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
-        $stm->execute();
-        
+        $stm->execute();        
         $stm = null;
         return true;
     }
+    
+    public function del_idpdeclaracion2($id_trabajador){
+        $query ="
+        DELETE ptf_pagos
+        FROM para_ti_familia
+        INNER JOIN ptf_pagos
+        ON ptf_pagos.id_para_ti_familia = para_ti_familia.id_para_ti_familia        
+        WHERE para_ti_familia.id_trabajador = ?   
+        ";        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->execute();        
+        $stm = null;
+        return true;
+    }    
     
     
     //Elimina por mes

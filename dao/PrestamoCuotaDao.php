@@ -81,7 +81,31 @@ class PrestamoCuotaDao extends AbstractDao {
         $stm->execute();
         $stm = null;
         return true;
-    }    
+    }
+    function bajaPrestamoCuota2($id_pdeclaracion, $id_empleador,$id_trabajador){//okkkk
+        
+        $query = "
+        UPDATE prestamos_cuotas AS pc
+        JOIN prestamos AS p        
+        SET  
+        pc.estado= ?,
+        pc.fecha_pago=?,
+        pc.monto_pagado=?
+
+        WHERE p.id_empleador= ?
+        AND p.id_trabajador= ?       
+        ";
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, 0);
+        $stm->bindValue(2, null);
+        $stm->bindValue(3, 0);
+        $stm->bindValue(4, $id_empleador);
+        $stm->bindValue(5, $id_trabajador);       
+        $stm->execute();
+        $stm = null;
+        return true;
+    }       
     
     
     function edit($obj) {

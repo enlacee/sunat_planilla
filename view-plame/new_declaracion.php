@@ -70,15 +70,6 @@ function validarNewDeclaracion(){ //Registrar Periodo
 
 }
 
-
-
-
-//-----------------------------------------------------------
-//function registrarDeclaracion(periodo){
-//}
-
-
-
 //-----------------------------------
 function verPeriodo(){
 	var periodo = document.getElementById('txt_periodo_tributario').value;

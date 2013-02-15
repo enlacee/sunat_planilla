@@ -532,44 +532,6 @@ function editarPTperiodoLaboral(id_ptrabajador){
 //----------------------------------------------------
 //funciuones
 
-//-------------------------------
-function registrarDeclaracion(){ alert("..");
-
-var data = $("#formPago").serialize();
-var id_declaracion = document.getElementById('id_declaracion').value;
-var declaracionRectificadora = document.getElementById('rbtn_declaracionRectificadora').value;
-var periodo = document.getElementById('txt_periodo_tributario').value;
-
-   $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/PlameDeclaracionController.php",
-	   data: {oper : 'add-data-ptrabajadores',
-	   id_declaracion : id_declaracion,
-	   declaracionRectificadora: declaracionRectificadora,
-	   periodo : periodo
-   },//Enviando a ediatarProducto.php vareiable=id_producto
-   async:true,
-   success: function(datos){
-	
-	
-	if(datos){
-		alert("Se guardo Correctamente los datos");
-	}else{
-		alert("Error");
-	}
-	
-	
-   }
-   }); 
-
-
-
-}
-
-
-
-//----------------------------------------------------------
-
 //---------------------------------------------------------------
 // DIALOG
 
@@ -663,4 +625,28 @@ function crearDialogoDiaNoLaborado_0(){
 	});
 }
 
+
+//Eliminar Pago Mensual
+function eliminarPagoMonthAll(){ // Pago Quincena
+    var estado = confirm("Seguro que desea eliminar Toda Planilla Mensual?");    
+    if(estado == true){
+		var id_pdeclaracion = document.getElementById('id_declaracion').value;
+        var periodo = document.getElementById('periodo').value;	
+        $.ajax({
+       type: "POST",
+       dataType: 'json',
+       url: "sunat_planilla/controller/TrabajadorPdeclaracionController.php",
+       data: {id_pdeclaracion : id_pdeclaracion, oper : 'eliminar_data_mes', periodo : periodo },
+       async:true,
+       success: function(data){
+        console.log("Se elimino correctamente toda la Quincena.");        
+        jQuery("#list").trigger("reloadGrid");        
+       },
+		beforeSend:function(){/*carga de load imagen*/},		
+		timeout:4000,
+		error:function(){ alert('error');}//problemas	   
+	   
+   }); 
+}
+}
 

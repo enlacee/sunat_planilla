@@ -48,7 +48,7 @@ $ID_DECLARACION = $_REQUEST['id_declaracion'];
 <div class="demo" align="left">
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Operacion Quincena</a></li>			
+            <li><a href="#tabs-1">Operacion</a></li>			
 
         </ul>
         <div id="tabs-1">
@@ -61,24 +61,11 @@ $ID_DECLARACION = $_REQUEST['id_declaracion'];
   periodo
   <input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>" />
 </div>
-<h2>ADELANTO 
-<?php echo getNameMonth($mes); ?>
- DEL 
-<?php echo $anio; ?>
-</h2>
-            
-   <div class="help ayuda">
-    
-   <strong> Adelanto individual :</strong>
-   <br />
-   Genera el adelanto quincenal de los trabajadores seleccionados.
-   <p><strong>Adelanto total :</strong><br />
-     Genera el adelanto de todos los trabajadores comprendidos en el mes.   </p>
-   </div>         
-          <p><!--  onclick="registrarEtapa()" -->
+
+<p><!--  onclick="registrarEtapa()" -->
             <input type="button" name="adelanto_01" id="adelanto_01" value="Individual">
             <input type="button" name="adelanto_02" id="adelanto_02" value="Total" />
-          <br /></p>
+          </p>
           <table id="list">
             </table>
             <div id="pager">          

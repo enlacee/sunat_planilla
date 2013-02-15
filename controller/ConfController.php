@@ -53,80 +53,77 @@ function generarConfiguracion($periodo) {
 //------------------------------------------------------------------------------
 // planilla inicio
 function generarConfiguracion2($periodo) {
-    
-        if(!$_SESSION['afectaciones']||!$_SESSION['afp']){
-    // Dao
-    $dao_pa = new PlameAfectacionDao();
-    $dao_afecto = new PlameDetalleConceptoAfectacionDao();
 
-    // afectaciones
-    $data_afect = $dao_pa->listar();
+    if ( !$_SESSION['afectaciones'] || !$_SESSION['afp']) {
+        // Dao
+        $dao_pa = new PlameAfectacionDao();
+        $dao_afecto = new PlameDetalleConceptoAfectacionDao();
 
-    // la afectacion (rtaquinta) se aplican a una lista de conceptos:
-    // Lista de Conceptos que estan afectos (ejm: reta 5 = 0121,0201...)
-    $afecctaciones = array();
-    $a = 0;
-    for ($i = 0; $i < count($data_afect); $i++) {
-        $cod_afectacion = $data_afect[$i]['cod_afectacion'];
-        if ($cod_afectacion == '01' || $cod_afectacion == '08' || $cod_afectacion == '09' || $cod_afectacion == '10') {
-            $data_afecto = $dao_afecto->conceptosAfecto_a($cod_afectacion);
-            $conceptos_afectos = array();
-            for ($x = 0; $x < count($data_afecto); $x++) {
-                $conceptos_afectos[] = $data_afecto[$x]['cod_detalle_concepto'];
+        // afectaciones
+        $data_afect = $dao_pa->listar();
+
+        // la afectacion (rtaquinta) se aplican a una lista de conceptos:
+        // Lista de Conceptos que estan afectos (ejm: reta 5 = 0121,0201...)
+        $afecctaciones = array();
+        $a = 0;
+        for ($i = 0; $i < count($data_afect); $i++) {
+            $cod_afectacion = $data_afect[$i]['cod_afectacion'];
+            if ($cod_afectacion == '01' || $cod_afectacion == '08' || $cod_afectacion == '09' || $cod_afectacion == '10') {
+                $data_afecto = $dao_afecto->conceptosAfecto_a($cod_afectacion);
+                $conceptos_afectos = array();
+                for ($x = 0; $x < count($data_afecto); $x++) {
+                    $conceptos_afectos[] = $data_afecto[$x]['cod_detalle_concepto'];
+                }
+                $afecctaciones[$a]['cod_afectacion'] = $cod_afectacion;
+                $afecctaciones[$a]['conceptos'] = $conceptos_afectos;
+                $a++;
             }
-            $afecctaciones[$a]['cod_afectacion'] = $cod_afectacion;
-            $afecctaciones[$a]['conceptos'] = $conceptos_afectos;
-            $a++;
         }
-    }
-    
-    
-    //--------------------------------------------------------------------------
-    $dao_afp = new ConfAfpDao();
-    $_arregloAfps = array(21, 22, 23, 24);
-    $afp = array();
-    for($i=0;$i<count($_arregloAfps);$i++){
-        $afp[$i]['cod_regimen_pensionario'] = $_arregloAfps[$i];
-        $afp[$i]['data'] = $dao_afp->vigenteAfp($_arregloAfps[$i], $periodo);
-    }
-    //--------------------------------------------------------------------------
-    $dao_tafp = new ConfAfpTopeDao();
-    $afp_tope = $dao_tafp->vigenteAux($periodo);
-    //--------------------------------------------------------------------------
+        //----------------------------------------
+        $dao_afp = new ConfAfpDao();
+        $_arregloAfps = array(21, 22, 23, 24);
+        $afp = array();
+        for ($i = 0; $i < count($_arregloAfps); $i++) {
+            $afp[$i]['cod_regimen_pensionario'] = $_arregloAfps[$i];
+            $afp[$i]['data'] = $dao_afp->vigenteAfp($_arregloAfps[$i], $periodo);
+        }
+        //------------------------------------------
+        $dao_tafp = new ConfAfpTopeDao();
+        $afp_tope = $dao_tafp->vigenteAux($periodo);
+        //------------------------------------------
         
-    
-
         $_SESSION['afectaciones'] = $afecctaciones;
         $_SESSION['afp'] = $afp;
         $_SESSION['afp_tope'] = $afp_tope;
-        
-    }else{
+    } else {
         //echo "<BR>ELSE XQ YA EXISTE!!!";
-    }    
+    }
     //echoo($_SESSION);
-    
 }
+
 // FUNCION ALIADA A generarConfiguracion2
 function arrayConceptosAfectos_a($cod_afectacion) {// 10
     $arreglo = $_SESSION['afectaciones'];
-    for($i=0;$i<count($arreglo);$i++){        
-        if($arreglo[$i]['cod_afectacion'] == $cod_afectacion){
+    for ($i = 0; $i < count($arreglo); $i++) {
+        if ($arreglo[$i]['cod_afectacion'] == $cod_afectacion) {
             return $arreglo[$i]['conceptos'];
         }
     }
 }
 
-function arrayAfp($cod_regimen_pensionario){
+function arrayAfp($cod_regimen_pensionario) {
     $arreglo = $_SESSION['afp'];
-    for($i=0;$i<count($arreglo);$i++){
-        if($arreglo[$i]['cod_regimen_pensionario'] == $cod_regimen_pensionario){
+    for ($i = 0; $i < count($arreglo); $i++) {
+        if ($arreglo[$i]['cod_regimen_pensionario'] == $cod_regimen_pensionario) {
             return $arreglo[$i]['data'];
-        }        
-    }    
+        }
+    }
 }
-function afpTope(){
+
+function afpTope() {
     return $_SESSION['afp_tope'];
 }
+
 // planilla final
 //------------------------------------------------------------------------------
 

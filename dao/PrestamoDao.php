@@ -277,8 +277,16 @@ class PrestamoDao extends AbstractDao {
 	LEFT JOIN prestamos_cuotas AS pc
 	ON pre.id_prestamo = pc.id_prestamo
 	
+	-- data
+	INNER JOIN trabajadores AS t
+	ON pre.id_trabajador = t.id_trabajador
+	
+	INNER JOIN personas AS p
+	ON p.id_persona = t.id_persona	
+	-- data
+	
 	WHERE pre.id_empleador = ?
-	AND pc.fecha_calc = ?
+	AND pc.fecha_calc = ?   
         $WHERE
         ";
         $stm = $this->pdo->prepare($query);

@@ -46,7 +46,7 @@ $data_dns = buscarDiaNoSPor_IdTrabajadorPdeclaracion($obj_tpd->getId_trabajador_
 
 
 //Obtener dias Subsidiados
-$dia_laborado_calc = $obj_tpd->getDia_total();//$obj_tpd->getDia_laborado();
+$dia_laborado_calc = $obj_tpd->getDia_laborado();//$obj_tpd->getDia_laborado();
 
 $dia_subsidiado = 0;
 $dia_nosubsidiado = 0;

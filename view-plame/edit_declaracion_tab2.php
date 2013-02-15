@@ -183,7 +183,10 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
     jqgrid
     <br />
   </h2>-->
-            <input type="button" name="reporte30_02" id="reporte30_02" value="Boleta Mensual" />
+<a href="#">OPERACIONES</a>
+<input type="button" name="deleteMonth_all" id="deleteMonth_all" value="Elimar Todo" onclick="eliminarPagoMonthAll()">
+  
+<input type="button" name="reporte30_02" id="reporte30_02" value="Boleta Mensual" />
 <input type="button" name="reporte30_mas" id="reporte30_mas" value="Boleta C.C." />
 <input type="button" name="reporte_emp_01" id="reporte_emp_01" value="Planilla de pagos" />
 <input type="button" name="reporte_afp" id="reporte_afp" value="Aportes AFP" disabled='disabled' />

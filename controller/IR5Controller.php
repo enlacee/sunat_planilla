@@ -165,18 +165,7 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO) 
     ECHO "\n\nIMP. a retener mensual [$id_trabajador] = " . $_27;
     echo "\n\n<br>";
 
-
-
-    //registrar
-    $model = new DeclaracionDconcepto();
-    $model->setId_trabajador_pdeclaracion($id);
-    //$model->setMonto_devengado($neto);
-    $model->setMonto_pagado($_27);
-    $model->setCod_detalle_concepto("0605");
-
-    $dao = new DeclaracionDconceptoDao();
-
-    return $dao->registrar($model);
+    return $_27;
 }
 
 /*
@@ -673,7 +662,7 @@ function getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo) {
     $id_pdeclaracion_lab = null;
     //echo "\n\n\nentroooo IF julioo";
     $dao_pd = new PlameDeclaracionDao();
-    $data_pd = $dao_pd->listar(/*2*/ID_EMPLEADOR_MAESTRO, $num_anio);
+    $data_pd = $dao_pd->listar(ID_EMPLEADOR_MAESTRO, $num_anio);
 
     for ($z = 0; $z < count($data_pd); $z++) {
         if ($data_pd[$z]['periodo'] == $periodo) {

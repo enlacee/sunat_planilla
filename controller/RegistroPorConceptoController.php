@@ -147,7 +147,7 @@ function listarRPC() {
         
         // 0107 = Dia feriado entero.
         // 0115 = Dia feriado 1ero mayo.
-        if($cod_detalle_concepto =='0107' || $cod_detalle_concepto =='0115'){        
+        if($cod_detalle_concepto =='0107' || $cod_detalle_concepto =='0115' || $cod_detalle_concepto =='0705'){        
             $_06 = ($rec['valor']>=0) ? intval($rec['valor']) : $rec['valor'];     
         }else{
             $_06 = $rec['valor'];

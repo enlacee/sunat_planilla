@@ -1,439 +1,89 @@
-PCAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          1
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
+@C!
+P
+CAMUENTE S.A.                                CAMUENTE S.A.
+RUC  20100338611                             RUC  20100338611
+GUILLERMO PRESCCOT 395 - SAN ISIDRO          GUILLERMO PRESCCOT 395 - SAN ISIDRO
 
-LOCALIDAD : SAN ISIDRO
+         R E C I B O                                  R E C I B O
+         ***********                                  ***********
 
-CENTRO DE COSTO : VENTAS
 
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
+ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE ENERO DEL 2013                     Al MES DE ENERO DEL 2013
 
-  1 07951545    CHIPANA FLORES ELENA                    626.00   _______________
+NOMBRES  : CANO MUENTE JOSE NESTOR           NOMBRES  : CANO MUENTE JOSE NESTOR      
 
-  2 10389776    ZAMORA MEGO MELQUIADES                  584.00   _______________
+CANTIDAD : S/  4100.00                       CANTIDAD : S/   4100.00
 
-  3 10285430    SOLANO CALDUA NICOLAS VICTOR            583.00   _______________
+N. CTA   : -  -                              N. CTA   : -  -                     
 
-  4 09886536    ZAMORA MEGO OLEGARIO                    581.00   _______________
+FECHA    : 13/02/2013                        FECHA    : 13/02/2013               
 
-  5 25780120    MIRANDA YBAÑEZ SONIA MARITZA           649.00   _______________
 
-  6 40624077    CALLE JERONIMO EDWIN ALVICE             875.00   _______________
 
-  7 10132707    MEGO SILVA RONAL                        491.00   _______________
 
-  8 22862765    ESPINOZA CESPEDES MERCEDES EVA          678.00   _______________
 
-  9 10285230    CHIPANA FLORES LIDIA JUANA              493.00   _______________
+_______________     _______________         _______________     _______________
+     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
+                    DNI. 07941099                               DNI. 07941099
 
- 10 07644248    GUERRA CHAUCA SANDRA ISABEL             678.00   _______________
 
- 11 44052923    MEZA GARCIA MANUEL ALEJANDRO            588.00   _______________
+P
+CAMUENTE S.A.                                CAMUENTE S.A.
+RUC  20100338611                             RUC  20100338611
+GUILLERMO PRESCCOT 395 - SAN ISIDRO          GUILLERMO PRESCCOT 395 - SAN ISIDRO
 
- 12 42972458    SANTILLAN MELENDEZ CHRISTIAN            503.00   _______________
+         R E C I B O                                  R E C I B O
+         ***********                                  ***********
 
- 13 40827219    NOLE  CAMUS IRIS EDITA                  512.00   _______________
 
- 14 46767275    CHAVEZ GOMEZ CRISTIAN                   595.00   _______________
+ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE ENERO DEL 2013                     Al MES DE ENERO DEL 2013
 
- 15 47707022    HUERTA CARLOS MAX JOUSTON               550.00   _______________
+NOMBRES  : CANO MUENTE CARLOS ALBERTO        NOMBRES  : CANO MUENTE CARLOS ALBERTO   
 
- 16 42616604    BUSTAMANTE MANRIQUE JOSE LUIS           575.00   _______________
+CANTIDAD : S/  6000.00                       CANTIDAD : S/   6000.00
 
- 17 45347323    GARGATE ROSALES JONATHAN                529.00   _______________
+N. CTA   : -  -                              N. CTA   : -  -                     
 
- 18 42070522    AQUINO ROJAS MARIBEL                    647.00   _______________
+FECHA    : 13/02/2013                        FECHA    : 13/02/2013               
 
- 19 76608802    QUISPE FLOREZ JUAN DANIEL               364.00   _______________
 
- 20 40926514    HINOJOSA SANCHEZ ANA KARINA             645.00   _______________
 
---------------------------------------------------------------------------------
-TOTAL VENTAS                                            11,746.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          2
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
 
-LOCALIDAD : SAN ISIDRO
 
-CENTRO DE COSTO : ADMINISTRACION - GERENCIA
+_______________     _______________         _______________     _______________
+     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
+                    DNI. 07966762                               DNI. 07966762
 
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
 
-  1 09716287    FERNANDEZ MERINO CARMEN IMELDA          1,261.00 _______________
+P
+CAMUENTE S.A.                                CAMUENTE S.A.
+RUC  20100338611                             RUC  20100338611
+GUILLERMO PRESCCOT 395 - SAN ISIDRO          GUILLERMO PRESCCOT 395 - SAN ISIDRO
 
-  2 07941099    CANO MUENTE JOSE NESTOR                 4,100.00 _______________
+         R E C I B O                                  R E C I B O
+         ***********                                  ***********
 
-  3 07966762    CANO MUENTE CARLOS ALBERTO              6,000.00 _______________
 
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - GERENCIA                         11,361.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          3
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
+ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
+Al MES DE ENERO DEL 2013                     Al MES DE ENERO DEL 2013
 
-LOCALIDAD : SAN ISIDRO
+NOMBRES  : FERNANDEZ MERINO CARMEN IMELDA    NOMBRES  : FERNANDEZ MERINO CARMEN IMELDA
 
-CENTRO DE COSTO : ADMINISTRACION - CAJA
+CANTIDAD : S/  0.00                          CANTIDAD : S/      0.00
 
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
+N. CTA   : -  -                              N. CTA   : -  -                     
 
-  1 25809433    OLAYA GONZALES LUIS HELBERT             883.00   _______________
+FECHA    : 27/02/2013                        FECHA    : 27/02/2013               
 
-  2 08634028    ROJAS PAJUELO CESAR JAVIER              1,095.00 _______________
 
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             1,978.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          4
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
 
-LOCALIDAD : SAN ISIDRO
 
-CENTRO DE COSTO : OFICINA
 
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
+_______________     _______________         _______________     _______________
+     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
+                    DNI. 09716287                               DNI. 09716287
 
-  1 07939005    ESPINOZA BAUTISTA JORGINA               639.00   _______________
 
-  2 80167058    BENITES CARBAJAL INES SILVIA            559.00   _______________
-
-  3 06723942    BECERRA SALAS CESAR AUGUSTO             404.00   _______________
-
-  4 08704625    ZAMBRANO CUENCA DANIEL ALFREDO          772.00   _______________
-
-  5 44487341    ZURITA CARRASCO ALEXIS                  305.00   _______________
-
-  6 07546364    HUAMAN OVALLE JOSE LUIS                 1,182.00 _______________
-
-  7 10196620    GRANDEZ AGUILAR PERCY RICHARD           959.00   _______________
-
-  8 41722946    PEREZ HINOSTROZA PEDRO ARMANDO          743.00   _______________
-
-  9 09671735    OBANDO TEJADA FRANCISCO                 460.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL OFICINA                                           6,023.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          5
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 25565139    HERNANDEZ ROMAN CARLOS                  491.00   _______________
-
-  2 07448164    CASANOVA RAMIREZ MARIA LUISA            552.00   _______________
-
-  3 09738210    ALIAGA COTRINA HILDEBRANDO              587.00   _______________
-
-  4 07950684    BERNAL ZURITA SONIA MAGDALENA           571.00   _______________
-
-  5 07966569    CUPE FLORES ALFONSO                     576.00   _______________
-
-  6 08305295    DIAZ HURTADO ROSARIO OSVALDO            582.00   _______________
-
-  7 07627656    HERRERA ROJAS MARIBEL ALBINA            536.00   _______________
-
-  8 21542718    HUAMAN CUSTODIO JULIO ANGEL             695.00   _______________
-
-  9 07948158    QUISPE CHIPANA ANTONIA GRACIELA         489.00   _______________
-
- 10 42774098    GONZALES HUARANGA AMPARO MILAGROS       643.00   _______________
-
- 11 10725806    PINCCILOTTI PALLAROSO ALEJANDRO         755.00   _______________
-
- 12 43152817    RODRIGUEZ ROJAS HEBER ARGENIS           451.00   _______________
-
- 13 43297418    MEGO DIAZ JOSE YOMAR                    575.00   _______________
-
- 14 40070442    ANDIA  CARRASCO JAVIER                  583.00   _______________
-
- 15 40391187    YOVERA ATARAMA ARACELY                  566.00   _______________
-
- 16 46329096    AQUINO ROJAS HUGO PERCY                 443.00   _______________
-
- 17 70509443    QUISPE BALCAZAR YORMAN ANDRE            513.00   _______________
-
- 18 47136383    MEZA VALENCIA YOEL ALFREDO              535.00   _______________
-
- 19 41967126    POMA MURGA LIVIA                        534.00   _______________
-
- 20 44943430    PAREDES VILELA CARLOS HUMBERTO          416.00   _______________
-
- 21 07182707    VILLARREAL MEDINA ANA ELENA             584.00   _______________
-
- 22 08007436    ESPINOZA HUANCAS FAUSTO ENRIQUE         187.00   _______________
-
- 23 48176445    MACHADO CALIXTO SAIN SABINO             440.00   _______________
-
- 24 47000848    PALMA AMADO JUAN RAUL                   377.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS                                            12,681.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          6
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : PUEBLO LIBRE
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07971134    CANO RODRIGUEZ LUIS ENRIQUE             2,767.00 _______________
-
-  2 08274953    LOPEZ VASQUEZ ALEJANDRO                 540.00   _______________
-
-  3 21863249    CHIA LUY JON  CARLOS ALONZO             900.00   _______________
-
-  4 10543446    REUVEN GOMEZ MICHAEL                    635.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             4,842.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          7
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 08438708    ESPINOZA FARFAN LUIS ALBERTO            557.00   _______________
-
-  2 08510319    CHAVEZ PALACIOS ANTONIO                 587.00   _______________
-
-  3 06633418    NORIEGA GALVEZ JOSE LUIS                587.00   _______________
-
-  4 09669769    MARTINEZ  CASTILLO FLOR DE MARIA        669.00   _______________
-
-  5 08674299    ARAUJO QUISPE OSCAR IVAN                820.00   _______________
-
-  6 41801598    MEGO FERNANDEZ VICTOR RAUL              583.00   _______________
-
-  7 32130570    RAMIREZ MARCELO GABRIELA AMPARO         493.00   _______________
-
-  8 41901906    RIMARACHIN  BACA DAVID ISRAEL           509.00   _______________
-
-  9 10283250    MACHUCA PAREDES JESSICA ZULEMA          633.00   _______________
-
- 10 43697662    INGA CHUQUIPA ELBIA                     513.00   _______________
-
- 11 42295617    LOAYZA ALMONACIN JOSE VICTOR            446.00   _______________
-
- 12 40199272    QUISPE MATAMOROS SONIA                  663.00   _______________
-
- 13 10562806    PELAYO ROBLES DINA ELENA                665.00   _______________
-
- 14 42343596    QUISPE QUISPE GILBERTO PEDRO            605.00   _______________
-
- 15 40167192    FERNANDEZ HURTADO JOSE DONATO           588.00   _______________
-
- 16 46967693    CORDOVA CALLE SANTOS                    533.00   _______________
-
- 17 71813971    DIAZ MEGO OSWALDO                       428.00   _______________
-
- 18 07635669    CASTILLO REYNOSO  PEDRO LUIS            451.00   _______________
-
- 19 07371736    CASTILLA SALAZAR EMMA LILIANA           556.00   _______________
-
- 20 80376047    NORES ESPINOZA SANDRO ERNESTO           428.00   _______________
-
- 21 07322252    BROCOS CASANOVA CLOTILDE                638.00   _______________
-
- 22 42063882    COLLAZOS BARDALES IRMA                  648.00   _______________
-
- 23 28116618    MEGO  SILVA HUMBERTO                    498.00   _______________
-
- 24 44867935    MEGO  ZAMORA JUANITO                    583.00   _______________
-
- 25 45619512    PEÑA MAMANI JESUS EDUARDO              546.00   _______________
-
- 26 43539383    SUAREZ MAGUIÑA ERICK JORGE             467.00   _______________
-
- 27 25807381    CHERRES CASTRO LUIS ENRIQUE             448.00   _______________
-
- 28 43696290    FERNANDEZ HURTADO RENAN                 532.00   _______________
-
- 29 72542781    CHAVEZ SANCHEZ DANIEL                   62.00    _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS                                            15,736.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          8
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 09035048    ROJAS PAJUELO JUAN VENANCIO             1,131.00 _______________
-
-  2 43662417    DOMINGUEZ LOPEZ CHADWICK HANNS          785.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             1,916.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :          9
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : SAN BORJA
-
-CENTRO DE COSTO : PRODUCCION
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 10731895    GARGATE LOPEZ BENJAMIN                  820.00   _______________
-
-  2 09700349    MORALES PEREZ JULIA                     578.00   _______________
-
-  3 06107239    SANCHEZ GARGATE NOEMI MARINA            672.00   _______________
-
-  4 08236571    SANDOVAL TORIBIO SANTA BENEDICTA        905.00   _______________
-
-  5 40826130    ABAD GUERRERO FROILAN                   657.00   _______________
-
-  6 23977386    PUMA HUILLCA AMILCAR                    468.00   _______________
-
-  7 33345635    LEON  CARRANZA EMILIANO ALEJANDRO       684.00   _______________
-
-  8 09678603    CAQUI GARGATE GILDER MOISES             765.00   _______________
-
-  9 44084183    PUMA HUILLCA HERMITAÑO                 471.00   _______________
-
- 10 08172801    CHINCHAY  VALLADARES MELQUIADES         584.00   _______________
-
- 11 41220291    QUISPE  QUIPSE ELMA VICTORIA            588.00   _______________
-
- 12 48350296    CCORIMANYA INGA EDWARD                  428.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL PRODUCCION                                        7,620.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :         10
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : MIRAFLORES
-
-CENTRO DE COSTO : VENTAS
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 09570841    TANTALEAN AREVALO CARLOS ALBERTO        493.00   _______________
-
-  2 10436222    NAVARRO CAUTI NIEVES HERLINDA           646.00   _______________
-
-  3 40066138    QUISPE MATAMOROS HILDA VILMA            523.00   _______________
-
-  4 10165095    MEGO SILVA ARTURO JAMER                 589.00   _______________
-
-  5 06202755    BLAS SANCHEZ GLADYS LUZ                 597.00   _______________
-
-  6 07859492    BACA CARBAJAL JOSE JESUS                559.00   _______________
-
-  7 44100041    HUAMANI MENDOZA RONALD PEDRO            487.00   _______________
-
-  8 44989567    ARAUJO HERRERA ITALO                    428.00   _______________
-
-  9 09433554    NAVARRO CAUTI MARY LUZ                  651.00   _______________
-
- 10 41224193    GARCIA CASANA LUIS ALEJANDRO            533.00   _______________
-
- 11 43907244    ESPINOZA ESTEBAN CICILIO                498.00   _______________
-
- 12 07392035    DE LA TORRE CASANOVA ANGELICA           669.00   _______________
-
- 13 40953862    GALLOZA PALLAROSO CARMEN MILAGROS       646.00   _______________
-
- 14 09708383    TENORIO LOAYZA LUCAS HERNANDO           424.00   _______________
-
- 15 45780533    VILLARROEL CORDOVA RODIY JEYSSON        371.00   _______________
-
- 16 47004326    MOREYRA ESPINOZA SANDRA                 248.00   _______________
-
- 17 09702338    SOLORZANO MORALES NORA CELIA            659.00   _______________
-
- 18 40988733    INGA CHUQUIPA LUZ FELINDA               498.00   _______________
-
- 19 45486798    CORNEJO GUEVARA SERGIO JORGE            512.00   _______________
-
- 20 46827908    HILARIO HUETE ALAN ANIBAL               681.00   _______________
-
- 21 45781644    ALVA LOPEZ JUNIOR DARLYN                515.00   _______________
-
- 22 44800604    RAMIREZ  URETA AMEC JOAB                486.00   _______________
-
- 23 43937550    SUAREZ MAGUIÑA JOSE ANTONIO            468.00   _______________
-
- 24 40470678    BARBOSA FERNANDEZ TRINI MARTIN          409.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL VENTAS                                            12,590.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  15/02/2013
-                                                             PAGINA :         11
-                                    MENSUAL                                     
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
-
-LOCALIDAD : MIRAFLORES
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 40484310    RIOS DIAZ JIMY ORLANDO                  856.00   _______________
-
-  2 42429178    CHOMBA ANAYA MARTIN ANTONIO             752.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             1,608.00
---------------------------------------------------------------------------------
 

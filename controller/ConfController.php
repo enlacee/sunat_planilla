@@ -54,7 +54,8 @@ function generarConfiguracion($periodo) {
 // planilla inicio
 function generarConfiguracion2($periodo) {
 
-    if ( !$_SESSION['afectaciones'] || !$_SESSION['afp']) {
+    if ( !$_SESSION['afectaciones'] || !$_SESSION['afp']||!$_SESSION['afp_tope']) {
+        echo "\nCREO POR PRIMERA VEZ : generarConfiguracion2()";
         // Dao
         $dao_pa = new PlameAfectacionDao();
         $dao_afecto = new PlameDetalleConceptoAfectacionDao();
@@ -127,13 +128,13 @@ function afpTope() {
 // planilla final
 //------------------------------------------------------------------------------
 
-
-function asignacionFamiliar() {
+// ojo funcion observada para vacacion 15 dia no funciona
+/*function asignacionFamiliar() {
     $SB = SB;
     $CAL_AF = $SB * (T_AF / 100);
     return $CAL_AF;
 }
-
+*/
 // eliminar Funcion
 function sueldoDefault($sueldo) {
     $sueldo = floatval($sueldo);

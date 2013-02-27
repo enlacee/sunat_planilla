@@ -262,12 +262,13 @@ function cargar_tabla_pdeclaracio($id_empleador_maestro) { //cargarTablaPDeclara
 
 //VIEW-EMPRESA
 function cargar_tabla_empresa($id_empleador_maestro, $anio) {
+    
     $dao = new PlameDeclaracionDao();
     $page = $_GET['page'];
     $limit = $_GET['rows'];
     $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
     $sord = $_GET['sord']; // get the direction
-    
+
     $WHERE = "";
     if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
         $operadores["eq"] = "=";
@@ -282,7 +283,7 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
         else
             $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
     }
-    
+
     if (!$sidx)
         $sidx = 1;
 
@@ -322,19 +323,24 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
     foreach ($lista as $rec) {
 
         $param = $rec["id_pdeclaracion"];
+        if($param == ID_PDECLARACION){
         $_01 = $rec['periodo']; //getFechaPatron($rec['periodo'], "m/Y");
         $_02 = getFechaPatron($rec['periodo'], "m/Y");
         $_03 = $rec['estado'];
         $js4 = "javascript:cargar_pagina('sunat_planilla/view-plame/edit_declaracion.php?id_declaracion=" . $param . "&periodo=" . $_01 . "&estado=" . $rec['estado'] . "','#CapaContenedorFormulario')";
-        $_04 = '<div><a href="' . $js4 . '" class="divEditar" ></a></div>';
-        
-        $js5 = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_pdeclaracion=" . $param . "&periodo=".$rec['periodo']."','#CapaContenedorFormulario')";
-        $_05 = '<div><a href="' . $js5 . '" class="divEditar" ></a></div>';
+        $_04 = '<a href="' . $js4 . '" class="divEditar" ></a>';
+
+        $js5 = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_pago.php?id_pdeclaracion=" . $param . "&periodo=" . $rec['periodo'] . "','#CapaContenedorFormulario')";
+        $_05 = '<a href="' . $js5 . '" class="divEditar" ></a>';
 
         $_06 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=' . $param . '&periodo=' . $rec['periodo'] . '\',\'#CapaContenedorFormulario\')"title = "Operaciones">Oper</a>';
         $_07 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_registro_por_concepto.php?id_declaracion=' . $param . "&periodo=" . $rec['periodo'] . '\',\'#CapaContenedorFormulario\')"><span class ="red">RC</span></a>';
         $_08 = '<a href="javascript:cargar_pagina(\'sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=' . $param . '&periodo=' . $rec['periodo'] . '\',\'#CapaContenedorFormulario\')"><span class ="red">RC 2</span></a>';
-        
+
+        $js9 = "javascript:cargar_pagina('sunat_planilla/view-empresa/view_vacacion_2.php?id_pdeclaracion=" . $param . "&periodo=" . $rec['periodo'] . "','#CapaContenedorFormulario')";
+        $_09 = '<a href="' . $js9 . '" class="divEditar" ></a>';
+
+
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
             $param,
@@ -345,9 +351,11 @@ function cargar_tabla_empresa($id_empleador_maestro, $anio) {
             $_05,
             $_06,
             $_07,
-            $_08
+            $_08,
+            $_09
         );
         $i++;
+        }
     }
     return $response;
 }

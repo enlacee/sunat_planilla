@@ -38,10 +38,6 @@ function estadoCheckTrabajadorEstado(){
             Mostrar Histórico de Bajas
           </div>
           <br />
-          
-          <br />
-          <br />
-
             <table id="list">
             </table>
             <div id="pager"></div>

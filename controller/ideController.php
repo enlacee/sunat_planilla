@@ -27,6 +27,9 @@ if ($_SESSION['sunat_empleador']['id_empleador']):
     define('ID_EMPLEADOR_MAESTRO', $_SESSION['sunat_empleador']['id_empleador_maestro']);
     define('DIRECCION_FISCAL', $_SESSION['sunat_empleador']['domicilio_fical']);
     
+    define('ID_PDECLARACION', $_SESSION['sunat_empleador']['config']['id_pdeclaracion']);
+    define('PERIODO', $_SESSION['sunat_empleador']['config']['periodo']);
+    
 else:
     header('Location: www.google.com');
 endif;

@@ -43,13 +43,13 @@ function echoo($obj) {
  */
 function array_unico_ordenado($id1, $id2) {
     $return = null;
-    
+
     if (is_array($id1) && is_array($id2)) {
         $array = array_merge($id1, $id2);
         $inputarray = array_unique($array);
         $return = array_values($inputarray);
     }
-    
+
     return $return;
 }
 
@@ -58,7 +58,7 @@ function array_unico_ordenado($id1, $id2) {
  * @param integer $num Numero del mes Espaniol
  * @return string Nombre del mes
  */
-function getNameMonth($num,$opcion=null) {
+function getNameMonth($num, $opcion = null) {
     $mes = array("Enero",
         "Febrero",
         "Marzo",
@@ -72,14 +72,13 @@ function getNameMonth($num,$opcion=null) {
         "Novienbre",
         "Diciembre"
     );
-    
+
     $num = intval($num);
-    if($opcion == 1):
+    if ($opcion == 1):
         return substr($mes[$num - 1], 0, 3);
     else:
         return strtoupper($mes[$num - 1]);
     endif;
-    
 }
 
 //------------------------------------------------------------------------------
@@ -404,49 +403,81 @@ function crearFecha($fecha, $day = 0, $month = 0, $year = 0) {
  * @param type $start
  * @return type
  */
-function arregloDiaMes($date,$start=1){ // inicia a contar desde el mes 1
+function arregloDiaMes($date, $start = 1) { // inicia a contar desde el mes 1
     $f = getFechasDePago($date);
     $inicio = $f['first_day'];
     $fin = $f['last_day'];
-    
-    $i=0;
+
+    $i = 0;
     $day = array();
     do {
-        $fecha_variable = crearFecha($inicio,$i,0,0);
-        $day[]= getFechaPatron($fecha_variable, 'd');
+        $fecha_variable = crearFecha($inicio, $i, 0, 0);
+        $day[] = getFechaPatron($fecha_variable, 'd');
         $i++;
     } while ($fin != $fecha_variable);
-    
+
     $r = array();
-    foreach ($day as $indice=>$value){
-        if($value>=$start){
-           $r[] = $value;
+    foreach ($day as $indice => $value) {
+        if ($value >= $start) {
+            $r[] = $value;
         }
     }
     return $r;
 }
-
-function arregloDiaMes2($finicio,$ffin){ // inicia a contar desde el mes 1
-    
+//$data = arregloDiaMes2('2012-01-05','2012-01-02');
+//$d  = rangoDeFechas('2012-01-05', '2012-01-02', 'd');
+//delete 
+function arregloDiaMes2($finicio, $ffin) { // inicia a contar desde el mes 1
     $inicio = $finicio;
     $fin = $ffin;
-    
-    $i=0;
+
+    $i = 0;
     $day = array();
     do {
-        $fecha_variable = crearFecha($inicio,$i,0,0);
-        $day[]= getFechaPatron($fecha_variable, 'd');
+        $fecha_variable = crearFecha($inicio, $i, 0, 0);
+        $day[] = getFechaPatron($fecha_variable, 'd');
         $i++;
     } while ($fin != $fecha_variable);
-    
+
     $r = array();
-    foreach ($day as $indice=>$value){
+    foreach ($day as $indice => $value) {
         //if($value>=$start){
-           $r[] = $value;
+        $r[] = $value;
         //}
     }
     return $r;
 }
+
+/**
+ * 
+ * @param type $finicio fecha menor
+ * @param type $ffin fecha mayor
+ * @param type $format formato de fechas a retornar
+ * @return type array
+ * @descripcion Util para obtener rango de fechas
+ */
+function rangoDeFechas($finicio, $ffin, $format) {
+    $inicio = $finicio;
+    $fin = $ffin;
+    if ($fin >= $inicio) {
+        $i = 0;
+        $day = array();
+        do {
+            $fecha_variable = crearFecha($inicio, $i, 0, 0);
+            $day[] = getFechaPatron($fecha_variable, $format);
+            $i++;
+        } while ($fin != $fecha_variable);
+
+        $r = array();
+        foreach ($day as $indice => $value) {
+            $r[] = $value;
+        }
+    } else {
+        $r = "Error en fechas : Buque Infinito";
+    }
+    return $r;
+}
+
 //$a = arregloDiaMes2('2013-01-16','2013-01-17');
 //echoo($a);
 /**
@@ -475,13 +506,13 @@ function roundTwoDecimal($num) { //SIN REDONDEO OK number_format =redondea a 2 :
 function number_format_var($number) {
     return number_format($number, 2, '.', ',');
 }
+
 //
-function number_format_2($number){
+function number_format_2($number) {
     return round($number, 2);
 }
 
-//echo number_format_var(2525125.384);
-// NUM = 1950.24
+
 function roundFaborContra($num) {
     $numero = array();
 
@@ -513,7 +544,6 @@ function roundFaborContra($num) {
     return $numero;
 }
 
-
 function getRendondeoEnSoles($num) {
     $numero = array();
 
@@ -523,7 +553,6 @@ function getRendondeoEnSoles($num) {
         $decimal = substr($aux, strpos($aux, "."));
         //quitar el punto decimal
         $decimal = str_replace('.', '', $decimal);
-
         //CONDICION        
         if (intval($decimal) > 0) {
             $roundFC = $decimal;
@@ -537,7 +566,7 @@ function getRendondeoEnSoles($num) {
     return $numero;
 }
 
-//$monto = 1837;
+//$monto = 98.54;
 //echoo(getRendondeoEnSoles($monto));
 
 
@@ -546,8 +575,8 @@ function textoaMedida($num_limite, $texto) {
     //return sizeof(explode(" ", $texto));  
     //$num_palabra = str_word_count($texto);
     //$num_len = strlen($texto);
-    
-    $texto = limpiar_caracteres_especiales_plame($texto);    
+
+    $texto = limpiar_caracteres_especiales_plame($texto);
 
     $txt = str_replace(" ", ",", $texto);
     $arreglo_txt = (str_getcsv($txt, ","));
@@ -570,30 +599,31 @@ function textoaMedida($num_limite, $texto) {
     return $cadena;
 }
 
-function limpiar_caracteres_especiales_plame($s){
-    $s = str_replace("Ñ",chr(165)/*"N"*/,$s);
-    $s = str_replace("ñ",chr(164)/*"N"*/,$s);
+function limpiar_caracteres_especiales_plame($s) {
+    $s = str_replace("Ñ", chr(165)/* "N" */, $s);
+    $s = str_replace("ñ", chr(164)/* "N" */, $s);
     return $s;
 }
 
 function limpiar_caracteres_especiales($s) {
-	$s = ereg_replace("[áàâãª]","a",$s);
-	$s = ereg_replace("[ÁÀÂÃ]","A",$s);
-	$s = ereg_replace("[éèê]","e",$s);
-	$s = ereg_replace("[ÉÈÊ]","E",$s);
-	$s = ereg_replace("[íìî]","i",$s);
-	$s = ereg_replace("[ÍÌÎ]","I",$s);
-	$s = ereg_replace("[óòôõº]","o",$s);
-	$s = ereg_replace("[ÓÒÔÕ]","O",$s);
-	$s = ereg_replace("[úùû]","u",$s);
-	$s = ereg_replace("[ÚÙÛ]","U",$s);
-	$s = str_replace(" ","-",$s);
-	$s = str_replace("ñ","n",$s);
-	$s = str_replace("Ñ","N",$s);
-	//para ampliar los caracteres a reemplazar agregar lineas de este tipo:
-	//$s = str_replace("caracter-que-queremos-cambiar","caracter-por-el-cual-lo-vamos-a-cambiar",$s);
-	return $s;
+    $s = ereg_replace("[áàâãª]", "a", $s);
+    $s = ereg_replace("[ÁÀÂÃ]", "A", $s);
+    $s = ereg_replace("[éèê]", "e", $s);
+    $s = ereg_replace("[ÉÈÊ]", "E", $s);
+    $s = ereg_replace("[íìî]", "i", $s);
+    $s = ereg_replace("[ÍÌÎ]", "I", $s);
+    $s = ereg_replace("[óòôõº]", "o", $s);
+    $s = ereg_replace("[ÓÒÔÕ]", "O", $s);
+    $s = ereg_replace("[úùû]", "u", $s);
+    $s = ereg_replace("[ÚÙÛ]", "U", $s);
+    $s = str_replace(" ", "-", $s);
+    $s = str_replace("ñ", "n", $s);
+    $s = str_replace("Ñ", "N", $s);
+    //para ampliar los caracteres a reemplazar agregar lineas de este tipo:
+    //$s = str_replace("caracter-que-queremos-cambiar","caracter-por-el-cual-lo-vamos-a-cambiar",$s);
+    return $s;
 }
+
 //Funcion sumar 30 o 15 dias a la fecha
 //fech inicio y fech fin
 
@@ -607,8 +637,8 @@ function tipoFechaVacacionMasDias($fecha, $tipo) {
         $data['fecha_fin'] = crearFecha($fecha, 29, 0, 0);
     } else if ($tipo == 2) {// quincena
         $data['fecha_fin'] = crearFecha($fecha, 14, 0, 0);
-    }else if ($tipo == 3){ //semanal
-        $data['fecha_fin'] = crearFecha($fecha, 6, 0, 0); 
+    } else if ($tipo == 3) { //semanal
+        $data['fecha_fin'] = crearFecha($fecha, 6, 0, 0);
     }
 
     return $data;
@@ -620,31 +650,30 @@ function tipoFechaVacacionMasDias($fecha, $tipo) {
  * @return type 
  * $var Numero mayor Podria utilizar max(array);
  */
-function getNumeroMayor($numeros = array()){    
-$contador = array();
+function getNumeroMayor($numeros = array()) {
+    $contador = array();
 
-for($i=0; $i< count($numeros);$i++){    
-    $contador[$i]=0;
-    for($j=0; $j< count($numeros);$j++){
-        if($numeros[$i]>=$numeros[$j] && $numeros[$i]!=$numeros[$j]){            
-            $contador[$i] = $contador[$i] + 1;            
+    for ($i = 0; $i < count($numeros); $i++) {
+        $contador[$i] = 0;
+        for ($j = 0; $j < count($numeros); $j++) {
+            if ($numeros[$i] >= $numeros[$j] && $numeros[$i] != $numeros[$j]) {
+                $contador[$i] = $contador[$i] + 1;
+            }
         }
     }
-}
 
-$mayor = max($contador);
-for($x=0;$x<count($contador);$x++):
-    if($contador[$x] == $mayor):
-        $indice = $x;
-        break;
-    endif;
-endfor;
+    $mayor = max($contador);
+    for ($x = 0; $x < count($contador); $x++):
+        if ($contador[$x] == $mayor):
+            $indice = $x;
+            break;
+        endif;
+    endfor;
 
 //echoo($indice);
 //echo "<br>";
 //echoo($numeros[$indice]);
-return $numeros[$indice];
-
+    return $numeros[$indice];
 }
 
 function arrayId($data, $name_array) {
@@ -656,18 +685,20 @@ function arrayId($data, $name_array) {
     }
     return $new;
 }
+
 //CASO EXEPCION!! !!! beta
 function arrayId_Id($data, $name_array) {
     if (is_array($data)) {
         $new = array();
         for ($i = 0; $i < count($data); $i++) {
-            $new[ $data[$i][$name_array] ] = $data[$i][$name_array];
+            $new[$data[$i][$name_array]] = $data[$i][$name_array];
         }
     }
     return $new;
 }
 
-function afpArrayConstruido(){
+//funcion ayuda reportes 'plame'
+function afpArrayConstruido() {
     $mi_afp = array();
     $mi_afp[0]['codigo'] = 21;
     $mi_afp[1]['codigo'] = 22;
@@ -677,8 +708,8 @@ function afpArrayConstruido(){
     $mi_afp[0]['nombre'] = 'INTEGRA AFP';
     $mi_afp[1]['nombre'] = 'HORIZONTE AFP';
     $mi_afp[2]['nombre'] = 'PROFUTURO AFP';
-    $mi_afp[3]['nombre'] = 'PRIMA AFP'; 
-    
+    $mi_afp[3]['nombre'] = 'PRIMA AFP';
+
     return $mi_afp;
 }
 
@@ -689,22 +720,23 @@ function afpArrayConstruido(){
  * @param type $fin
  * @return type
  */
+//delete
 function diasLaborados($inicio, $fin) {
 //$inicio = '2013-01-01';
 //$fin = '2013-01-15';
     /*
-    echo "<br>";
-    echo "<pre>inicio = ";
-    print_r($inicio);
-    echo "</pre>";
-    echo "<br>";
-    
-    echo "<br>";
-    echo "<pre>fin = ";
-    print_r($fin);
-    echo "</pre>";
-    echo "<br>";   
-    */
+      echo "<br>";
+      echo "<pre>inicio = ";
+      print_r($inicio);
+      echo "</pre>";
+      echo "<br>";
+
+      echo "<br>";
+      echo "<pre>fin = ";
+      print_r($fin);
+      echo "</pre>";
+      echo "<br>";
+     */
     $dias = array();
     $i = 0;
     do {
@@ -713,35 +745,32 @@ function diasLaborados($inicio, $fin) {
         $dias [] = getFechaPatron($fecha_variable, 'd');
         $i++;
     } while ($fin != $fecha_variable);
-    
+
 
     $diasv = array();
     /*
-    $data_vacacion = array(
-        array('fecha_inicio' => '2013-01-01', 'fecha_fin' => '2013-01-05'),
-        array('fecha_inicio' => '2013-01-13', 'fecha_fin' => '2013-01-17')
-    );    
-    for ($a = 0; $a < count($data_vacacion); $a++) {
-        if (getFechaPatron($data_vacacion[$a]['fecha_inicio'], 'd') > 15)
-            continue;
-        if (getFechaPatron($data_vacacion[$a]['fecha_fin'], 'd') > 15)
-            $data_vacacion[$a]['fecha_fin'] = $fin;
+      $data_vacacion = array(
+      array('fecha_inicio' => '2013-01-01', 'fecha_fin' => '2013-01-05'),
+      array('fecha_inicio' => '2013-01-13', 'fecha_fin' => '2013-01-17')
+      );
+      for ($a = 0; $a < count($data_vacacion); $a++) {
+      if (getFechaPatron($data_vacacion[$a]['fecha_inicio'], 'd') > 15)
+      continue;
+      if (getFechaPatron($data_vacacion[$a]['fecha_fin'], 'd') > 15)
+      $data_vacacion[$a]['fecha_fin'] = $fin;
 
-        $i = 0;
-        do {
-            $fecha_variable = crearFecha($data_vacacion[$a]['fecha_inicio'], $i, 0, 0);
-            //$diasv [] = $fecha_variable;    
-            $diasv [] = getFechaPatron($fecha_variable, 'd');
-            $i++;
-        } while ($data_vacacion[$a]['fecha_fin'] != $fecha_variable);        
-    }
-*/
+      $i = 0;
+      do {
+      $fecha_variable = crearFecha($data_vacacion[$a]['fecha_inicio'], $i, 0, 0);
+      //$diasv [] = $fecha_variable;
+      $diasv [] = getFechaPatron($fecha_variable, 'd');
+      $i++;
+      } while ($data_vacacion[$a]['fecha_fin'] != $fecha_variable);
+      }
+     */
     $diast = array_values(array_diff($dias, $diasv));
 
     return count($diast);
 }
-
-
-
 
 ?>

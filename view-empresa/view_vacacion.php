@@ -1,3 +1,11 @@
+<?php
+//*******************************************************************//
+require_once('../view/ide.php');
+//*******************************************************************//
+$id_pdeclaracion = ($_SESSION['sunat_empleador']['config']['id_pdeclaracion']) ? $_SESSION['sunat_empleador']['config']['id_pdeclaracion'] : 'null';
+$periodo = ($_SESSION['sunat_empleador']['config']['periodo']) ? $_SESSION['sunat_empleador']['config']['periodo'] : 'null';
+?>
+
 <script type="text/javascript">
     $(document).ready(function(){                  
         $( "#tabs").tabs();	
@@ -181,29 +189,30 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
 <div class="ocultar">
 id_pdeclaracion
 <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
-value="<?php echo $_REQUEST['id_declaracion']; ?>"/><br />
+value="<?php echo $id_pdeclaracion; ?>"/>
 periodo
 <input type="text" name="periodo" id="periodo"
-value="<?php echo $_REQUEST['periodo']; ?>" />
+value="<?php echo $periodo; ?>" />
 </div>
 
 
     <div id="tabs">
    
         <ul>
-            <li><a href="#tabs-1">Vacaciones</a></li>			
+            <li><a href="#tabs-1">Vacacion</a></li>			
 
         </ul>
         <div id="tabs-1">
 <!-- Boton cancelar-->
-<input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
+<input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php?id_pdeclaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
 <br />  
-        
-          <h2>Asignar Vacacion</h2>
-          <table id="list">
-          </table>
-        <div id="pager">
-        </div>
+<input type="checkbox" name="vacacionTodos" id="vacacionTodos" value="1" />Todos
+
+
+    <table id="list">
+    </table>
+    <div id="pager">
+    </div>
 <p></p>
 <p>&nbsp;</p> 
 

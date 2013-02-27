@@ -426,11 +426,8 @@ class PlameDeclaracionDao extends AbstractDao {
     public function Buscar_IDPeriodo($id_empleador_maestro,$periodo) {
         $query = "
         SELECT
-        id_pdeclaracion,
-        id_empleador_maestro,
-        periodo,
-        fecha_creacion,
-        fecha_modificacion
+        id_pdeclaracion,        
+        periodo        
         FROM pdeclaraciones
         WHERE (id_empleador_maestro = ? AND periodo = ? ) 
 ";

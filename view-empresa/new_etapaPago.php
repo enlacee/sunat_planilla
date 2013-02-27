@@ -85,18 +85,15 @@ function adelanteEtapa01(){
 	var id_declaracion = document.getElementById('id_declaracion').value;
 
 	if(cod_periodo_remuneracion==2 || cod_periodo_remuneracion==1){
-            var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
-            url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;            
-            cargar_pagina(url,'#CapaContenedorFormulario');
-	}/*else if(cod_periodo_remuneracion==1){ //MENSUAL
-	cargar_pagina('sunat_planilla/view-empresa/edit_declaracion.php?id_pdeclaracion='+id_declaracion,'#CapaContenedorFormulario')
-		cargar_pagina(url,'#CapaContenedorFormulario');
-	}*/else if(cod_periodo_remuneracion==3){		
-	console.log(' = 3 = '+cod_periodo_remuneracion );
-	cargar_pagina('sunat_planilla/view-empresa/view_pvacaciones.php?id_declaracion='+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')
-	//cargar_pagina('sunat_planilla/view-empresa/new_vacacion.php?id_pdeclaracion='+id_declaracion+'&periodo='+periodo,'#CapaContenedorFormulario')
+        var url = "sunat_planilla/view-empresa/new_etapaPago2.php";
+        url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;            
+        cargar_pagina(url,'#CapaContenedorFormulario');
+	}else if(cod_periodo_remuneracion==3 ){
+        var url = "sunat_planilla/view-empresa/view_pvacaciones.php";
+        url+="?periodo="+periodo+"&cod_periodo_remuneracion="+cod_periodo_remuneracion+"&id_declaracion="+id_declaracion;            
+        cargar_pagina(url,'#CapaContenedorFormulario');
 	}else{
-		alert("No se permite el adelanto "+ cod_periodo_remuneracion);
+		alert("La opcion que selecciono, no es valido.");
 	}
 }
 </script>
@@ -124,6 +121,7 @@ periodo
             Tipo de Operacion
           </label>
               <select name="cboPeriodoRemunerativo" id="cboPeriodoRemunerativo">
+              <option value="0">- Seleccione -</option>	
               <option value="2">- Primera Quincena -</option>
               <option value="1">- Mensual -</option>
               <option value="3">- Vacaciones-</option>

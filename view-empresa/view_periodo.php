@@ -2,7 +2,8 @@
 //*******************************************************************//
 require_once('../view/ide.php');
 //*******************************************************************//
-$id_pdeclaracion = ($_REQUEST['id_pdeclaracion']) ? $_REQUEST['id_pdeclaracion'] : 'null';
+$id_pdeclaracion = ($_SESSION['sunat_empleador']['config']['id_pdeclaracion']) ? $_SESSION['sunat_empleador']['config']['id_pdeclaracion'] : 'null';
+$periodo = ($_SESSION['sunat_empleador']['config']['periodo']) ? $_SESSION['sunat_empleador']['config']['periodo'] : 'null';
 ?>
 
 <script type="text/javascript">
@@ -108,6 +109,10 @@ $('#eliminar_declaracion').click(function(){
 
 </script>
 <div class="demo" align="left">
+<div class="ocultar">   
+  id_pdeclaracion<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="<?php echo $id_pdeclaracion;?>" />
+  periodo<input type="text" name="periodo" id="periodo" value="<?php echo $periodo; ?>" />
+</div>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Lista de  Periodos</a></li>
@@ -126,16 +131,15 @@ $('#eliminar_declaracion').click(function(){
               </select>
             </h3>
             <input type="hidden" name="eliminar_declaracion" id="eliminar_declaracion" value="Elimina Declaracion" class="button-del" />
-<div class="ocultar">   
-  id_pdeclaracion<input type="text" name="id_pdeclaracion" id="id_pdeclaracion" value="" />
-  periodo<input type="text" name="periodo" id="periodo" value="<?php echo $_REQUEST['periodo']; ?>" />
-</div>
+
 <div class="sectionx">
 	<table id="list">
 	</table>
 	<div id="pager"></div>
     
 
+<a href="#" 
+onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_vacacion.php','#CapaContenedorFormulario')">Planilla de Vacaciones</a>
 <!--
  GRID ANTIGUO
 	<div class="article fila1">

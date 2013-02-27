@@ -1,302 +1,36 @@
 <?php
 
 class VacacionDao extends AbstractDao {
-    
-        // Reporte para crear vacacion. For planilla de vacaciones
-    function vacacionPeriodo2($id_empleador, $periodo) {
-        
-        $query = "
-        SELECT                 
-                t.id_trabajador,                
-                v.fecha_programada,
-		v.fecha_programada_fin
 
-        FROM personas AS p 
-        INNER JOIN empleadores AS e
-        ON p.id_empleador = e.id_empleador
-
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona
-
-        LEFT JOIN vacaciones AS v
-        ON t.id_trabajador = v.id_trabajador
-
-        WHERE p.id_empleador = ?
-        AND YEAR(v.fecha_programada) = ?
-	AND MONTH(v.fecha_programada) = ?
-	OR MONTH(v.fecha_programada_fin) = ?
-";
-
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador);        
-        $stm->bindValue(2, getFechaPatron($periodo, 'Y'));
-        $stm->bindValue(3, getFechaPatron($periodo, 'm'));
-        $stm->bindValue(4, getFechaPatron($periodo, 'm'));
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        return $lista;
-    }
-    
-    function vacacionPeriodo($id_empleador, $periodo,$WHERE, $start, $limit, $sidx, $sord) {
-        $cadena = null;
-        if (is_null($WHERE)|| $WHERE=='') {
-            $cadena = $WHERE;
-        } else {
-            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
-        }
-        
-        $query = "
-        SELECT 
-                p.id_persona,	
-                p.num_documento,
-                p.apellido_paterno,
-                p.apellido_materno,
-                p.nombres,
-                t.id_trabajador,
-                t.cod_situacion,
-                v.fecha_programada
-
-        FROM personas AS p 
-        INNER JOIN empleadores AS e
-        ON p.id_empleador = e.id_empleador
-
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona
-
-        LEFT JOIN vacaciones AS v
-        ON t.id_trabajador = v.id_trabajador
-
-        WHERE p.id_empleador = ?                       
-        AND YEAR(v.fecha_programada) = ?
-	AND MONTH(v.fecha_programada) = ?
-	OR MONTH(v.fecha_programada_fin) = ?
-        $cadena;
-";
-            
-//-- lista a los trabajadores que tienen vacacion en este periodo 
-//-- en este select se duplican personas xq tienen muchas vacaciones        
-
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador);        
-        $stm->bindValue(2, getFechaPatron($periodo, 'Y'));
-        $stm->bindValue(3, getFechaPatron($periodo, 'm'));
-        $stm->bindValue(4, getFechaPatron($periodo, 'm'));
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        return $lista;
-    }
-
-    function vacacionPeriodoCount($id_empleador, $periodo,$WHERE) {
-        $query = "
-        SELECT 
-        COUNT(p.id_persona)as counteo
-        
-        FROM personas AS p 
-        INNER JOIN empleadores AS e
-        ON p.id_empleador = e.id_empleador
-
-        INNER JOIN trabajadores AS t
-        ON p.id_persona = t.id_persona
-
-        LEFT JOIN vacaciones AS v
-        ON t.id_trabajador = v.id_trabajador
-        WHERE p.id_empleador = ?
-        AND YEAR(v.fecha_programada) = ?
-	AND MONTH(v.fecha_programada) = ?
-	OR MONTH(v.fecha_programada_fin) = ?  
-        $WHERE
-";
-
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_empleador);        
-        $stm->bindValue(2, getFechaPatron($periodo, 'Y'));
-        $stm->bindValue(3, getFechaPatron($periodo, 'm'));
-        $stm->bindValue(4, getFechaPatron($periodo, 'm'));
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        return $lista[0]['counteo'];
-    }    
-
-    /**
-     *
-     * @param type $id_trabajador
-     * @return type 
-     */
-    public function listar($id_trabajador) {
-        $query = "
-        SELECT
-        id_vacacion,
-        id_trabajador,
-        fecha,
-        fecha_programada,
-        fecha_programada_fin,
-        estado,
-        fecha_creacion,
-        tipo_vacacion
-        FROM vacaciones
-        WHERE id_trabajador = ?        
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        return $lista;
-    }
-
-    // UTIL en 1era y 2da quincena!.. UTILIZADO DE PRUEBA
-    public function listaIdsTraVacacionesFProgramada($mes_inicio, $mes_fin) {
-
-        $query = "
-        SELECT        
-        id_trabajador        
-        FROM vacaciones        
-        WHERE (fecha_programada <= '$mes_fin')        
-        AND (fecha_programada >= '$mes_inicio' ); 
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        if (is_null($lista)):
-            $array = array();
-            return $array;
-        else:
-            $array = array();
-            for ($i = 0; $i < count($lista); $i++):
-                $array[] = $lista[$i]['id_trabajador'];
-            endfor;
-            return $array;
-        endif;
-    }
-
-    public function listaIdsTraVacacionesFProgramadaFin($mes_inicio, $mes_fin) {
-
-        $query = "
-        SELECT        
-        id_trabajador        
-        FROM vacaciones        
-        WHERE (fecha_programada_fin <= '$mes_fin')        
-        AND (fecha_programada_fin >= '$mes_inicio' ); 
-        ";
-        $stm = $this->pdo->prepare($query);
-        $stm->execute();
-        $lista = array();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        if (is_null($lista)):
-            $array = array();
-            return $array;
-        else:
-            $array = array();
-            for ($i = 0; $i < count($lista); $i++):
-                $array[] = $lista[$i]['id_trabajador'];
-            endfor;
-            return $array;
-        endif;
-    }
-
-    public function listarVacacionesEnRango($id_trabajador) { /* ,$mes_inicio,$mes_fin,$mes_fin_sgte_mes */
-
-      $query = "
-      SELECT
-      id_trabajador,
-      fecha,
-      fecha_programada,
-      fecha_programada_fin,
-      tipo_vacacion,
-      fecha_creacion
-      FROM vacaciones
-      WHERE id_trabajador = ?
-      ";
-
-
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_trabajador);
-
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-
-        return $lista[0];
-    }
-
-    public function add($obj) {
-
-        $model = new Vacacion();
-        $model = $obj;
+    function add($id_trabajador, $id_pdeclaracion) {
+        //$model = new Vacacion();
+        //$model = $obj;
         $query = "
         INSERT INTO vacaciones
                     (
-                    id_trabajador,
-                    fecha,
-                    fecha_programada,
-                    fecha_programada_fin,
-                    fecha_creacion,
-                    tipo_vacacion,
-                    id_pdeclaracion
-                    )
+                     id_trabajador,
+                     id_pdeclaracion)
         VALUES (
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
                 ?,
                 ?);
         ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $model->getId_trabajador());
-        $stm->bindValue(2, $model->getFecha());
-        $stm->bindValue(3, $model->getFecha_programada());
-        $stm->bindValue(4, $model->getFecha_prograda_fin());
-        $stm->bindValue(5, date("Y-m-d"));
-        $stm->bindValue(6, $model->getTipo_vacacion());
-        $stm->bindValue(7, $model->getId_pdeclaracion());
-        $stm->execute();
-//        $lista = $stm->fetchAll();
-print "<p>Registro creado correctamente.</p>\n";
-        $stm = null;
-
-        return true;
-    }
-
-    public function listarUltimaFechaVacacion($id_trabajador) {
-        $query = "
-        SELECT
-        id_vacacion,
-        id_trabajador,
-        fecha,
-        fecha_programada,
-        estado,
-        fecha_creacion
-        FROM vacaciones
-        WHERE id_trabajador = ?
-        ORDER BY fecha DESC
-        ";
+        $this->pdo->beginTransaction();
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $id_pdeclaracion);
+        $stm->execute();
+        $query2 = "select last_insert_id() as id";
+        $stm = $this->pdo->prepare($query2);
         $stm->execute();
         $lista = $stm->fetchAll();
+        $this->pdo->commit();
         $stm = null;
-
-        return $lista[0];
+        return $lista[0]['id'];
     }
 
-    public function del($id) {
-        $query = "        
-        DELETE
-        FROM vacaciones
-        WHERE id_vacacion = ?;
+    function del($id) {
+        $query = "       
+
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id);
@@ -304,14 +38,182 @@ print "<p>Registro creado correctamente.</p>\n";
         $stm = null;
         return true;
     }
-    
-    
+
+    function listar($ID_EMPLEADOR_MAESTRO, $id_pdeclaracion, $WHERE, $start, $limit, $sidx, $sord) {
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+        $query = "
+	SELECT  v.id_vacacion,
+		t.id_trabajador,
+		td.descripcion_abreviada AS nombre_tipo_documento,
+		p.num_documento,
+		p.apellido_paterno,
+		p.apellido_materno,
+		p.nombres		
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona        
+        INNER JOIN vacaciones AS v
+        ON t.id_trabajador = v.id_trabajador        
+        WHERE em.id_empleador_maestro = ?
+	AND v.id_pdeclaracion = ?
+        $cadena
+        ";
+
+        try {
+            $stm = $this->pdo->prepare($query);
+            $stm->bindValue(1, $ID_EMPLEADOR_MAESTRO);
+            $stm->bindValue(2, $id_pdeclaracion);
+            $stm->execute();
+            $lista = $stm->fetchAll();
+            return $lista;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    function listarCount($ID_EMPLEADOR_MAESTRO, $id_pdeclaracion, $WHERE) {
+        $query = "
+	SELECT
+            count(v.id_vacacion) as counteo		
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona        
+        INNER JOIN vacaciones AS v
+        ON t.id_trabajador = v.id_trabajador        
+        WHERE em.id_empleador_maestro = ?
+	AND v.id_pdeclaracion = ?
+        $WHERE
+        ";
+
+        try {
+            $stm = $this->pdo->prepare($query);
+            $stm->bindValue(1, $ID_EMPLEADOR_MAESTRO);
+            $stm->bindValue(2, $id_pdeclaracion);
+            $stm->execute();
+            $lista = $stm->fetchAll();
+            return $lista['counteo'];
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    // Este dato es unico X año.
+    function getPdeclaracionBase($id_trabajador,$anio){
+        $query = "
+        SELECT
+        v.id_vacacion,
+        v.id_pdeclaracion,       
+        pd.periodo
+        FROM vacaciones AS v
+        INNER JOIN pdeclaraciones AS pd
+        ON v.id_pdeclaracion = pd.id_pdeclaracion        
+        WHERE id_trabajador = ?
+        AND YEAR(pd.periodo) = ?   
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['id_pdeclaracion'];        
+    }
     //--------------------------------------------------------------------------
+    // funcion Consulta si existe trabajador registrado en periodo 01-01-2013
+    // este trabajador solo debe estar registrado en 1 solo periodo de este año 2013.
+    // anio = id_pdeclaracion (alternativa.)
+    function searchTrabajadorPorAnio($id_trabajdor, $anio) {
+        $query = "
+        SELECT
+        v.id_vacacion,
+        v.id_pdeclaracion,
+        pd.periodo
+        FROM vacaciones AS v
+        INNER JOIN pdeclaraciones AS pd
+        ON v.id_pdeclaracion = pd.id_pdeclaracion
+        WHERE v.id_trabajador = ? 
+        AND YEAR(pd.periodo) = ?     
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajdor);
+        $stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+
+        if (!is_null($lista)) {
+            return $lista[0];
+        } else {
+            return false;
+        }
+    }
     
-    
-    
-    
-    
+    //data para generar vacacion
+    function trabajadoresConVacacion($id_empleador_maestro,$anio){
+        $query = "
+        SELECT 
+        v.id_vacacion,
+        v.id_trabajador,
+        -- pd.periodo,
+        t.monto_remuneracion
+
+        FROM vacaciones AS v
+        LEFT JOIN pdeclaraciones AS pd
+        ON v.id_pdeclaracion = pd.id_pdeclaracion
+        -- 
+        INNER JOIN trabajadores AS t
+        ON v.id_trabajador = t.id_trabajador
+        -- 
+        INNER JOIN detalle_periodos_laborales AS dpl
+        ON v.id_trabajador = dpl.id_trabajador
+        -- 17 = No se inicio relacion laboral
+        WHERE dpl.cod_motivo_baja_registro <> '17'
+        AND pd.id_empleador_maestro = ?
+        AND YEAR(pd.periodo)= ?
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->bindValue(2, $anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;        
+        
+    }
+    //--------------------------------------------------------------------------
+    // funcion pregunta por fechas de vacaciones en vacacion_detalle
+    function fechasDevacacionesTrabajador($id_trabajador, $id_pdeclaracion) {
+        $query = "
+        SELECT 
+        vd.fecha_inicio,
+        vd.fecha_fin
+        FROM vacaciones AS v
+        INNER JOIN vacaciones_detalles AS vd
+        ON v.id_vacacion = vd.id_vacacion
+        WHERE id_trabajador = ?
+        AND v.id_pdeclaracion = ?  
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+
 }
 
 ?>

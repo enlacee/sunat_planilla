@@ -24,6 +24,24 @@ function cadenaFecha(fecha){
 	return data_mes;
 }
 
+function getNumeroEnCadena(cadena,patron){
+	var num,
+		filtro,
+		arreglo;
+
+    arreglo = cadena.split(patron);
+
+    filtro = /^\d$/;
+    var num = null;
+    for(var i=0;i<arreglo.length;i++){
+        if(filtro.test(arreglo[i])){
+            num = arreglo[i];
+            break;
+        }
+    }
+    return num;
+}
+
 
 function validaFloat(numero){
 	console.log('validanfooooo floatttt');
@@ -483,3 +501,17 @@ function return_modal_anb_paraTifamilia(id, code, name){
 	//window.close();
 } 
 
+function addTimeToDate(time,unit,objDate,dateReference){
+    var dateTemp=(dateReference)?objDate:new Date(objDate);
+    switch(unit){
+        case 'y': dateTemp.setFullYear(objDate.getFullYear()+time); break;
+        case 'M': dateTemp.setMonth(objDate.getMonth()+time); break;
+        case 'w': dateTemp.setTime(dateTemp.getTime()+(time*7*24*60*60*1000)); break;
+        case 'd': dateTemp.setTime(dateTemp.getTime()+(time*24*60*60*1000)); break;
+        case 'h': dateTemp.setTime(dateTemp.getTime()+(time*60*60*1000)); break;
+        case 'm': dateTemp.setTime(dateTemp.getTime()+(time*60*1000)); break;
+        case 's': dateTemp.setTime(dateTemp.getTime()+(time*1000)); break;
+        default : dateTemp.setTime(dateTemp.getTime()+time); break;
+    }
+    return dateTemp;
+}

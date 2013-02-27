@@ -1,28 +1,38 @@
 <?php
+
 /*
-require_once '../util/funciones.php';
-require_once '../dao/AbstractDao.php';
-*/
+  require_once '../util/funciones.php';
+  require_once '../dao/AbstractDao.php';
+ */
+
 class TrabajadorVacacionDao extends AbstractDao {
 
     function add($obj) {
         try {
             $query = "
-        INSERT INTO trabajadores_vacaciones
-                    (
-                    id_pdeclaracion,
-                    id_trabajador,
-                    fecha_inicio,
-                    fecha_fin,
-                    num_dia,
-                    fecha_creacion)
-        VALUES (
-                ?,
-                ?,
-                ?,
-                ?,
-                ?,
-                ?);
+            INSERT INTO trabajadores_vacaciones
+                        (
+                         id_pdeclaracion,
+                         id_trabajador,
+                         fecha_lineal,
+                         dia,
+                         sueldo,
+                         sueldo_base,
+                         proceso_porcentaje,
+                         cod_regimen_pensionario,
+                         cod_regimen_aseguramiento_salud,
+                         fecha_creacion)
+            VALUES (
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?,
+                    ?);
                     ";
             //Inicia transaccion
             $model = new TrabajadorVacacion();
@@ -31,10 +41,15 @@ class TrabajadorVacacionDao extends AbstractDao {
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1, $model->getId_pdeclaracion());
             $stm->bindValue(2, $model->getId_trabajador());
-            $stm->bindValue(3, $model->getFecha_inicio());
-            $stm->bindValue(4, $model->getFecha_fin());
-            $stm->bindValue(5, $model->getNum_dia());
-            $stm->bindValue(6, $model->getFecha_creacion());
+            $stm->bindValue(3, $model->getFecha_lineal());
+            $stm->bindValue(4, $model->getDia());
+            $stm->bindValue(5, $model->getSueldo());
+            $stm->bindValue(6, $model->getSueldo_base());
+            $stm->bindValue(7, $model->getProceso_porcentaje());
+            $stm->bindValue(8, $model->getCod_regimen_pensionario());
+            $stm->bindValue(9, $model->getCod_regimen_aseguramiento_salud());
+            $stm->bindValue(10, $model->getFecha_creacion());
+            
             $stm->execute();
 
             // id Comerico
@@ -81,9 +96,8 @@ class TrabajadorVacacionDao extends AbstractDao {
         }
     }
 
-    
     //buscar what...
-    function buscar_what($id_pdeclaracion,$id_trabajador, $atributo) { //num_dia
+    function buscar_what($id_pdeclaracion, $id_trabajador, $atributo) { //num_dia
         $query = "
             SELECT 
             $atributo
@@ -93,16 +107,16 @@ class TrabajadorVacacionDao extends AbstractDao {
             ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $id_trabajador);        
-        
+        $stm->bindValue(2, $id_trabajador);
+
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0][$atributo];
     }
-    
+
     // OJO SOLO ID
-    function listaIDTrabajadoresVacacion($id_pdeclaracion){
+    function listaIDTrabajadoresVacacion($id_pdeclaracion) {
         $query = "
             SELECT 
             id_trabajador
@@ -110,15 +124,14 @@ class TrabajadorVacacionDao extends AbstractDao {
             WHERE id_pdeclaracion = ?            
             ";
         $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_pdeclaracion);        
+        $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
         $lista = $stm->fetchAll();
-        $stm = null;        
+        $stm = null;
         return $lista;
-        
     }
-    
-    function getDiaVacacion($id_pdeclaracion,$id_trabajador){        
+
+    function getDiaVacacion($id_pdeclaracion, $id_trabajador) {
 
         $query = "
             SELECT 
@@ -133,23 +146,37 @@ class TrabajadorVacacionDao extends AbstractDao {
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-        
+
         $num_dia = 0;
         foreach ($lista as $key => $value) {
             $num_dia = $num_dia + $value['num_dia'];
-        }       
-        
-        return $num_dia;        
-        
+        }
+
+        return $num_dia;
     }
-    
+
+    // new para planilla vacacion 
+    function listar_HIJO($id_pdeclaracion) {
+
+        $query = "
+        SELECT 
+	id_trabajador	
+        FROM trabajadores_vacaciones
+	WHERE id_pdeclaracion = ?          
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+
 }
 
-
 /*
-$dao = new TrabajadorVacacionDao();
-$data = $dao->getDiaVacacion(24, 5);
-echoo($data);
-*/
-
+  $dao = new TrabajadorVacacionDao();
+  $data = $dao->getDiaVacacion(24, 5);
+  echoo($data);
+ */
 ?>

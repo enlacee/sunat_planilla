@@ -61,17 +61,13 @@ function estadoCheckEstado(){
 	
         </ul>
         <div id="tabs-1">
-          <div>
-            <input type="checkbox" name="chk_historial_empleadores" id="chk_historial_empleadores"  onclick="estadoCheckEstado()"/>
-            Mostrar Histórico de Prestadores
-          </div>
-          <br />
+
             <input type ="button"
             class="submit-go" 
                    onclick="javascript:cargar_pagina('sunat_planilla/view/new_personal.php','#CapaContenedorFormulario')" 
                    value="Nuevo Registro"/>
           <br />
-          <br />
+          
 
             <table id="list">
             </table>

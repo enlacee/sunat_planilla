@@ -1,21 +1,53 @@
 <?php
 
-//require_once '../util/funciones.php';
-//require_once '../dao/AbstractDao.php';
-//require_once '../dao/PlameDeclaracionDao.php';
-//require_once '../dao/DeclaracionDconceptoDao.php';
-//require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
+require_once '../util/funciones.php';
+require_once '../dao/AbstractDao.php';
+require_once '../dao/PlameDeclaracionDao.php';
+require_once '../dao/DeclaracionDconceptoDao.php';
+require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
+//configuracion
 
-function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO) {
-    //echo "\n\n ID_PDECLARACION = $ID_PDECLARACION \nid_trabajador = $id_trabajador";
-    //echo "\n\n RENTA DE 5TA ---$PERIODO--";
+//require_once '../controller/ConfController.php';
+//require_once '../dao/PlameAfectacionDao.php';
+//// AFP
+//require_once '../model/ConfAfp.php';
+//require_once '../dao/ConfAfpDao.php';
+// require_once '../dao/ConfAfpTopeDao.php';
+//require_once '../controller/ConfAfpController.php';
+//// IDE CONFIGURACION 
+//require_once '../dao/ConfAsignacionFamiliarDao.php';
+//require_once '../dao/ConfSueldoBasicoDao.php';
+//require_once '../dao/ConfEssaludDao.php';
+//require_once '../dao/ConfOnpDao.php';
+//require_once '../dao/ConfUitDao.php';
 
-    //|--- Config Posible Cambio ----------------------------------------|
-    //| UIT = 
-    //|
-    //|------------------------------------------------------------------|
-    $periodo = $PERIODO;
-    $_7_UIT = 7;
+// new $conceptos = antes de carga en base de datos.
+function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO,array $conceptos) {
+    
+    echoo($ID_PDECLARACION);
+    echoo($id_trabajador);
+    echoo($PERIODO);
+    
+ /*
+        echoo($_SESSION);
+        echo "<br>\n\n";
+        echo "ID_EMPLEADOR_MAESTRO = ".ID_EMPLEADOR_MAESTRO;     
+        echo 'SB'. SB;
+        echo '\n';
+        echo 'T_AF'. T_AF;
+        echo '\n';
+        echo 'T_ESSALUD'. T_ESSALUD;
+        echo '\n';
+        echo 'T_ONP'. T_ONP;
+        echo '\n';
+        echo 'UIT'. UIT;
+        echo '\n';
+        echo 'ESSALUD_MAS'. ESSALUD_MAS;
+        echo '\n';
+        echo 'SNP_MAS'. SNP_MAS;
+        echo '\n';
+    */ 
+    $periodo = $PERIODO;   
 
     //"2012-01-01"; //  Enero 2012
     $mes_periodo = intval(getFechaPatron($periodo, 'm'));
@@ -28,8 +60,9 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO) 
 //| ----------------------------------------------------
 
 // 01 remuneracion fija
-    $_01 = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador); //$sueldo; //2000;
+    $_01 = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador,$conceptos); //$sueldo; //2000;
     echo "\n01= " . $_01;
+    
 // 02 num_meses que falta
     $_02 = get_IR5_mesFaltan($periodo);
     echo "\n02 = " . $_02;
@@ -38,133 +71,112 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO) 
 
 // 03 remuneracion proyectada
     $_03 = $_01 * $_02;
-    echo "\n03 = " . $_03;
+    echo "\n03 = " . $_03;    
     //echo "R_PROYECTADA = " . $_03;
 // 04 Gratificaciones ordinarias(JUL-DIC)
     $var_jul_dic = get_IR5_NumGratificacionesFaltaPagar($periodo);
     // 2 = mayor a Enero Y Menos a julio devuelve.
     // 1 = antes de diciembre devuelve.
-    echo "\n04Num de Gratificacion = " . $var_jul_dic;
+    echo "\n-- = num de gratificacion " . $var_jul_dic;
     $_04 = $_01 * $var_jul_dic;
+    echo "\n04 = " . $_04;   
 
-    echo "\n04 = " . $_04;
 
 // 05 Bonificacion Extraordinaria(1) 9% Essalud  ///obtener los ingresos de junio 
-//    
-//    
-//   
     $_05 = 0.00;
     if ($mes_periodo == 7) { //JULIO
         $periodo_armado = $anio_periodo . "-07-01";
         $arreglo_conceptos = array('0312');//bonificacion extraordinaria.
         $monto = getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo_armado);
-        ////get_IR5_Ingresos_PeriodoArmado($id_trabajador, $periodo_armado);
-        ECHO "\nMONTO  JULIO = " . $monto;
         $_05 = $monto;
     } else if ($mes_periodo == 12) {
         $periodo_armado = $anio_periodo . "-12-01";
         $arreglo_conceptos = array('0312');
         $monto = getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo_armado);
         $_05 = $monto;
-        ECHO "\nMONTO  DICIEMBRE = " . $monto;
-    } else {
-        $_05 = 0;
-        ECHO "\nMONTO  X = " . $monto;
     }
-
-    echo "<br>\n05Bonificacion extraordinaria = ";
     echo $_05;
-
+    echo "\n05 = " . $_05."     ->Bonificacion extraordinaria"; 
 
     // 06 Total    
     $_06 = $_03 + $_04 + $_05;
-    echo "<br>\n06 Total = " . $_06;
+    echo "\n06 = " . $_06."      ->Total";
 
 // 07 Remuneraciones de meses anteriores
-
     $_07 = get_IR5_RMesesAnteriores($ID_PDECLARACION, $id_trabajador, $periodo); //remuneracion de enero ...getRMesesAnteriores();
-    echo "\n 07 =" . $_07;
-
-
-
+    echo "\n07 = " . $_07;    
 
 // 08 gratificaciones de meses anteriores
-    $_08 = 0.00;  //Gratificacion anterior el Unico es 28 DE JULIO.     
-    //if ($mes == "07"|| $mes ==  "7"){
+    $_08 = 0.00;  //Gratificacion anterior el Unico es 28 DE JULIO.   
     $_08 = get_IR5_NumGratificacionesdeMesesAnterioresXXX($id_trabajador, $periodo);
-
-
-    echo "\n 08 =" . $_08;
+    echo "\n08 = " . $_08;
 
 // 09 Bonificacion Extraordinaria, de meses anteriores
     $arreglo_conceptos = array('0312');
     $_09 = buscarMontodeConceptoMesesAtras($arreglo_conceptos, $id_trabajador, $periodo); //getIr5_NumBonificacionesDeMesesAnteriores($periodo);
-    //$_09 = 0.00;
-    /* if ($num_09 == 1) { //Agosto Aplica
-      $_09 = $_05;
-      } */
-    echo "\n_09 = " . $_09;
+    echo "\n09 = " . $_09;
+   
 
 // 17 Renta Mensual    
     $_17 = $_06 + $_07 + $_08 + $_09;
 
-    echo "\n_17 = " . $_17;
+    echo "\n17 = " . $_17;
 
-// 18 Menos 7 UIT
+// 18 Menos 7 UIT = CANTIDAD DE DINERO EN UIT
+    echoo(UIT);
+    $_18 = 7 * UIT; // ejem : 7*3650
+    echo "\n18 = " . $_18;    
+    
 
-    $_18 = $_7_UIT * UIT; // ejem : 7*3650
-    echo "\n_18 = " . $_18;
-// 19 Renta neta global anual
+if($_17 > $_18){  //Si mi sueldo no supera las 7 uit NO aplica RTA  
+    
     $_19 = $_17 - $_18;
-    $_19 = ($_19 <= 0) ? 0 : $_19;
-// --------------------- Tasas progresivas acumulativas-----------------------//    
-// 20 : Hasta 27UIT
-    $_20 = tasa_15($_19);
+    echo "\n19 = ".$_19;
+// --------------------- Tasas progresivas acumulativas-----------------------//
+    // 20 : Hasta 27UIT
+        $_20 = tasa_15($_19,UIT);
+        echo "\n20 = $_20";
 
-// 21 : De 27 UIT hasta 54UIT
-    $_21 = tasa_21($_19);
+    // 21 : De 27 UIT hasta 54UIT
+        $_21 = tasa_21($_19,UIT);
+        echo "\n21 = $_21";
+    // 22 : Exeso de 54UIT    
+        $_22 = tasa_30($_19,UIT);
+        echo "\n22 = $_22";
+        
+    // 23 : Impuesto anual
+        $_23 = $_20 + $_21 + $_22;
+        echo "\n23 = $_23";        
+}
 
-// 22 : Exeso de 54UIT    
-    $_22 = tasa_30($_19);
-
-
-
-// 23 : Impuesto anual
-    $_23 = $_20 + $_21 + $_22;
 
 
 // 24 : Retenciones(2)
 
-    $_24 = 0;
-    echo "\n24 = $_24";
+    $_24 = 0;    
     if ($mes_periodo == 12) { // Recalcular toma en cuenta todos los meses R5TA       
         $_24 = get_IR5_ImpuestoARetenerAnteriores( $id_trabajador, $periodo); 
         echo "\n24 solo ocurre 12=diciembre = $_24";
     }else{
-        echo "\n24 solo ocurre 1,2,3,..11  = $_24";
+        //echo "\n24 solo ocurre 1,2,3,..11  = $_24";
         $_24 = Retenciones($id_trabajador, $ID_PDECLARACION, $periodo);  
     }
     echo "\n24 = $_24";
-
+ 
 // 25 : Impuesto a pagar
     $_25 = ($mes_periodo == 12) ? ($_24-$_23) : ($_23-$_24) ;    
 //$_25 = $_23 - $_24;
-    echo "\n25 = MES = 12 ->(24 - 23)  O 23 -24 \n";
+    //echo "\n25 = MES = 12 ->(24 - 23)  O 23 -24 \n";
     echo "\n25 = $_25";
 
 // 26 : Divisor del impuesto a la renta(3)
-
     $arreglo_fecha = array();
     $arreglo_fecha = get_IR5_DivisorDelImpuestoRenta($periodo);
     $_26 = $arreglo_fecha['padre']; //get_IR5_DivicisorImpuestoRenta($periodo);
-// 27 : Impuesto a retener mensual    
-
+    echo "\n26 = $_26";
+// 27 : Impuesto a retener mensual 
     $_27 = ($_25 / $_26);
-
-
-    ECHO "\n\nIMP. a retener mensual [$id_trabajador] = " . $_27;
-    echo "\n\n<br>";
-
+    echo "\n27 = $_27";
     return $_27;
 }
 
@@ -191,63 +203,50 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO) 
 
 //..............................................................................
 
-function tasa_15($_19) {
+function tasa_15($_19, $uit) { //ya se le aplica tasa SI o SI.
 
-    $val_27UIT = 27 * 3650; //UIT;// =98550   
-    //---------
-    $dato = 0;
-
+    $val_27UIT = 27 * $uit; // 27*3700=99900    
+    $dato = 0;    
     if ($_19 >= $val_27UIT) { //corta los q exeden 27UIT
-        $dato = $val_27UIT;
-    } else if ($_19 < $val_27UIT) {
+        $dato = $_19;//$val_UIT;
+    } else if ($_19 < $val_27UIT) {//OKK
         $dato = $_19;
-    } else {
-        $dato = 0;
     }
 
     $_20 = $dato * 0.15;
     return ($_20 > 0) ? $_20 : 0;
 }
 
-function tasa_21($_19) {
-    $val_27UIT = 27 * 3650;
-    $val_54UIT = 54 * 3650; //UIT;// =197100
+function tasa_21($_19, $uit) {
+    $val_27UIT = 27 * $uit;
+    $val_54UIT = 54 * $uit; //UIT;// 54*3650 =197100
 
     $_19 = $_19 - $val_27UIT;
 
     //---------
     $dato = 0;
-
-    if ($_19 >= $val_27UIT) { //corta los q exeden 27UIT
-        $dato = $val_27UIT;
-    } else if ($_19 < $val_27UIT) {
+    if ($_19 >= $val_27UIT && $_19<=$val_54UIT) { //corta los q exeden 27UIT
         $dato = $_19;
-    } else {
-        $dato = 0;
+    } else if ($_19 < $val_27UIT) {
+        //$dato = $_19;
     }
 
     $_20 = $dato * 0.21;
     return ($_20 > 0) ? $_20 : 0;
 }
 
-function tasa_30($_19) {
-    $val_27UIT = 27 * 3650;
-    $val_54UIT = 54 * 3650; //UIT;// =197100
+function tasa_30($_19, $uit) {
+    $val_27UIT = 27 * $uit;
+    $val_54UIT = 54 * $uit; // 54*3650 =197100
 
     $_19 = $_19 - ($val_27UIT * 2); //Paso 2 tasas ok.
     //---------
     $dato = 0;
-
-    if ($_19 >= $val_54UIT) { //corta los q exeden 54UIT
-        $dato = $val_54UIT;
-    } else if ($_19 < $val_54UIT) {
+    if ($_19 > $val_54UIT) { //corta los q exeden 54UIT
         $dato = $_19;
-    } else {
-        $dato = 0;
     }
 
     $_20 = $dato * 0.30;
-
     return ($_20 > 0) ? $_20 : 0;
 }
 
@@ -605,6 +604,7 @@ function buscarMontodeConceptoMesesAtras($arreglo_conceptos, $id_trabajador, $pe
     $id_pdeclaracion_lab = array();
 
     $dao_pd = new PlameDeclaracionDao();
+    
     $data_pd = $dao_pd->listar(/*2*/ID_EMPLEADOR_MAESTRO, $p_anio);
 
     for ($z = 0; $z < count($data_pd); $z++) {
@@ -612,17 +612,11 @@ function buscarMontodeConceptoMesesAtras($arreglo_conceptos, $id_trabajador, $pe
             $id_pdeclaracion_lab[] = $data_pd[$z]['id_pdeclaracion'];
         }
     }
-    /*
-      echo "<pre>\n\nLABORATORIAO id_pdeclaracion_lab";
-      print_r($id_pdeclaracion_lab);
-      echo "</pre>";
-     */
 
 //------------------------------------------------------------------------------
     $dao_dconcepto = new DeclaracionDconceptoDao();
 
     $sum = 0.00;
-
     for ($i = 0; $i < count($id_pdeclaracion_lab); $i++) {
         $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion_lab[$i]);
 
@@ -632,33 +626,20 @@ function buscarMontodeConceptoMesesAtras($arreglo_conceptos, $id_trabajador, $pe
             }
         }
     }
-//------------------------------------------------------------------------------    
-
-
+//------------------------------------------------------------------------------  
     return $sum;
 }
 
-/**
- *
- * UTIL para Obtener Monto total de un mes especifico
- * All LOS INGRESOS RENTA DE QUINTA
- * 
- * @param type $id_trabajador
- * @param null $arreglo_conceptos
- * @param string $periodo_armado
- * @return type 
- */
-//$arreglo_conceptos = array('0312');
-//var_dump (getMontoConceptoPeriodo(10, $arreglo_conceptos, "2012-07-01"));
 
+/**
+ * Obtener datos solo el mes de gratificacion y returm.
+ * $periodo = julio o diciembres
+ */
 function getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo) { //0312
     //$periodo = "2012-07-01"; // EN JULIO...
-    $num_mes = getFechaPatron($periodo, "m");
-    $num_mes = intval($num_mes);
     $num_anio = getFechaPatron($periodo, "Y");
+    
     //**************
-
-
     $id_pdeclaracion_lab = null;
     //echo "\n\n\nentroooo IF julioo";
     $dao_pd = new PlameDeclaracionDao();
@@ -684,8 +665,7 @@ function getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo) {
             }
         }
     }
-    //**************    
-
+    //************** 
     return $sum;
 }
 
@@ -764,10 +744,7 @@ function get_IR5_NumGratificacionesdeMesesAnterioresXXX($id_trabajador, $periodo
         $rpta = $sum;
     } else if ($num_mes < 7) {
         $rpta = 0;
-    } else {
-        $rpta = "Error Critico fn";
     }
-
     return $rpta;
 }
 
@@ -816,6 +793,7 @@ function get_IR5_ImpuestoARetenerAnteriores($id_trabajador, $periodo) {
     //sum por declaraciones
     $monto = 0.00;
     //-------------------------
+    //suma todos los periodos que tengan el concepto 605 = renta de quinta
     $conceptos_afectos5ta = array('0605');
     $dao_dconcepto = new DeclaracionDconceptoDao();    
 
@@ -850,43 +828,36 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
         $fecha = $p_anio . "-" . $i . "-" . $p_dia;
         $perido_armado[] = getFechaPatron($fecha, "Y-m-d");
     }
-
-    $id_pdeclaracion_lab = array();
-
+    //dao
     $dao_pd = new PlameDeclaracionDao();
     $data_pd = $dao_pd->listar(ID_EMPLEADOR_MAESTRO, $p_anio);
-
+    $id_pdeclaracion_lab = array();
     for ($z = 0; $z < count($data_pd); $z++) {
         if (in_array($data_pd[$z]['periodo'], $perido_armado)) {
             $id_pdeclaracion_lab[] = $data_pd[$z]['id_pdeclaracion'];
         }
     }
 
-    //echo "<pre>\n\nLABORATORIAO id_pdeclaracion_lab";
-    //print_r($id_pdeclaracion_lab);
-    //echo "</pre>";
-
     //sum por declaraciones
     $var_07 = 0.00;
     for ($i = 0; $i < count($id_pdeclaracion_lab); $i++) {
-        $monto = get_IR5_Ingresos($id_pdeclaracion_lab[$i], $id_trabajador);
-        //echo "monto dentro for [$i] =" . $monto;
+        $monto = get_IR5_Ingresos($id_pdeclaracion_lab[$i], $id_trabajador);        
         $var_07 = $var_07 + $monto;
     }
-
-
-    ECHO "\n\n valor_07 = " . $var_07;
     //**************
     return $var_07;
 }
 
 // Get all ingresos 
-function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador) {
+// OJO SOLO SE UTILIZA ayuda. $data_dconcepto EN PLANILLA. 
+function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador,$data_dconcepto=null) { 
+    
     $conceptos_afectos5ta = arrayConceptosAfectos_a('10');
-
-    $dao_dconcepto = new DeclaracionDconceptoDao();
-    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
-
+    
+    if(is_null($data_dconcepto)){
+        $dao_dconcepto = new DeclaracionDconceptoDao();
+        $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+    }
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos5ta)) {
@@ -909,7 +880,22 @@ function get_SNP_Ingresos($data_dconcepto) { //ok
 }
 
 // Get all ingresos 
-function get_AFP_Ingresos($data_dconcepto) { //OK
+//UTIL REPORTE AFP
+function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
+    $conceptos_afectos = arrayConceptosAfectos_a('09');
+    $dao_dconcepto = new DeclaracionDconceptoDao();
+    $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
+
+    $sum = 0;
+    for ($z = 0; $z < count($data_dconcepto); $z++) {
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {            
+            $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
+        }
+    }
+    return $sum;
+}
+//UTIL REPORTE PLANILLA
+function get_AFP_IngresosPlanilla($data_dconcepto) {
     $conceptos_afectos = arrayConceptosAfectos_a('09');
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {            
@@ -919,7 +905,6 @@ function get_AFP_Ingresos($data_dconcepto) { //OK
     }
     return $sum;
 }
-
 // Get all ingresos 
 function get_ESSALUD_REGULAR_Ingresos($data_dconcepto) {//ok
     $conceptos_afectos = arrayConceptosAfectos_a('01');

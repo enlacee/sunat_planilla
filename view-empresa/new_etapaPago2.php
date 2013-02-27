@@ -75,8 +75,7 @@ $ID_DECLARACION = $_REQUEST['id_declaracion'];
             <hr />          
             <input type="button" name="btnAtras"  value="&lt;&lt; Atras"
                    onclick="atrasEtapa02()" />
-            <input type="button" name="btnAdelante" id="btnAdelante" value="SIGUIENTE &gt;&gt;" disabled="disabled"
-                   onclick="" /></p>
+            </p>
         </div>
     </div>
 </div>

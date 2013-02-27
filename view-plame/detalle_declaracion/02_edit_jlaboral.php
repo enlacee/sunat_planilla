@@ -864,7 +864,7 @@ calcHoraLaborada();
             <p>
                 <label for="dia_laborado">Laborados</label>
                 <input name="dia_laborado" type="text" id="dia_laborado"
-                       value="<?php echo $dia_laborado_calc; ?>" size="4" readonly="readonly" />
+                       value="<?php echo $obj_tpd->getDia_total(); //echo $dia_laborado_calc; ?>" size="4" readonly="readonly" />
             </p>
         <p>
               <label for="dia_subsidiado">Subsidiados</label>

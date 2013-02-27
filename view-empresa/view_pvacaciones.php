@@ -2,189 +2,27 @@
 	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 	var periodo = document.getElementById('periodo').value;
     $(document).ready(function(){
-        $( "#tabs").tabs();
-		cargarTablaVacacionPeriodo();
+        $( "#tabs").tabs();	
 	});
-	//----------------- jqgrid
-    function cargarTablaVacacionPeriodo(){
-		var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
-
-        //$("#list-2").jqGrid('GridUnload');
-        $("#list").jqGrid({
-url:'sunat_planilla/controller/VacacionController.php?oper=vacacion_periodo&estado=1&'+parametro,
-            datatype: 'json',
-            colNames:['id','Numero Doc','Apellido Paterno',
-                'Apellido Materno','Nombres','F programada','vacacion','Opciones'],
-            colModel :[
-                {
-                    name:'id_trabajador', 
-                    editable:false, 
-                    index:'id_trabajador',
-                    search:false,
-                    width:20,
-                    align:'center'
-                },
-                {
-                    name:'num_documento', 
-                    index:'num_documento',
-                    editable:false,
-					search:false,
-                    width:100,
-                    align:'left',
-                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
-                        return ' colspan=4';
-                    },
-                    formatter : function(value, options, rData){4
-                        return ": "+value + " - "+rData['2']+" "+rData['3']+" "+rData['4'] ;
-                    }
-                },
-                {
-                    name:'apellido_paterno', 
-                    index:'apellido_paterno',
-                    editable:false,
-                    width:90,
-                    align:'center',
-                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
-                        return " style=display:none; ";
-                    } 					
-                },
-                {
-                    name:'apellido_materno', 
-                    index:'apellido_materno',
-                    editable:false,
-                    width:90,
-                    align:'center',
-                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
-                        return " style=display:none; ";
-                    } 					
-                },
-                {
-                    name:'nombres', 
-                    index:'nombres',
-                    editable:true,
-                    width:90,
-                    align:'center',
-                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
-                        return " style=display:none; ";
-                    } 					
-                },
-				{
-                    name:'fecha_programada',
-                    index:'fecha_programada',
-					hidden :false,
-                    editable:true,
-                    search:false,
-                    width:100, 
-                    align:'center'
-                },
-				{
-                    name:'estado_vaca',
-                    index:'estado_vaca',
-                    search:false,
-                    editable:false,
-                    width:60,
-                    align:'center'
-					
-				},
-                {
-                    name:'opciones',
-                    index:'opciones',
-                    search:false,
-                    editable:false,
-                    width:60,
-                    align:'center'
-                }							
-
-
-            ],
-            pager: '#pager',
-			rownumbers: true,
-            //autowidth: true,
-			//width: '',
-			height:320,
-            rowNum:10,
-            rowList:[10,20],
-            sortname: 'id_trabajador',
-            sortorder: 'asc',
-            viewrecords: true,
-            gridview: true,
-            caption: 'List',
-            toolbar: [true,"top"],
-            //multiselect: true,
-            hiddengrid: false,
-            //onSelectRow: function(rowid, selected) {}
-			//---
-			gridComplete    : function(){  //alert("grid okD");
-		
-				var ids = $("#list").getDataIDs();
-				//console.log("-ids-");
-				//console.dir(ids);
-				//console.log("-ids-");
-				var act;
-				var name_space = '';
-				for(var i=0;i<ids.length;i++){
-					//Obteniendo Fila X Fila
-					var data = $("#list").getRowData(ids[i]);
-					if (data.nombre_ubigeo_reniec == "" && data.estado_direccion == "Primera") {
-						name_space = data.num_documento+"  "+data.apellido_paterno+" "+data.apellido_materno+" "+data.nombres;
-						//act =' <b class="red">Debe Ingresar La Primera Direccion es Obligatorio!. </b>';
-						//$("#list").setRowData(ids[i],{nombre_ubigeo_reniec: act });
-					}
-				}//ENDFOR
-			}			
-			//---
-        	});
-        //--- PIE GRID
-	//jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-	//add on
-	$("#t_list").append($("#vacacion"));
-	$("#t_list").append($("#reporte_vacacion"));	
-	
-	
-	//01 = indidual
-   //02  = total
-	$("#vacacion").click(function(){		
-		
-		generarVacacion(id_pdeclaracion,periodo,null);
-	});
-	
-		$("#reporte_vacacion").click(function(){	
-	
-			var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
-			url +="?oper=boleta_vacacion&id_pdeclaracion="+id_pdeclaracion
-			url +="periodo="+periodo;		
-			//url +="&todo=todo";			
-			window.location.href = url;	
-	});	
-    }
-	//function add
 //---------------------------------------------------------------
-function generarVacacion(id_pdeclaracion,periodo,cadena){
-
-	cadena = (cadena!=null) ? '?'+cadena : '';	
+function generarVacacion(obj){	
 	
    $.ajax({
-   type: "POST",
-   url: "sunat_planilla/controller/TrabajadorVacacionController.php"+cadena,
-   data: { 
-   		oper: 'vacacion',
-    	id_pdeclaracion : id_pdeclaracion,
-		periodo : periodo
-		 },
-   async:true,
-   success: function(data){
-	   console.log(data);
-        if(data){
-			
-            alert("Se Genero la planilla correctamente");   
-        }else{
-            alert("Ocurrio un error");
-        }
-
-        //cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
-   }
-   }); 
+		type: "POST",
+		url: "sunat_planilla/controller/TrabajadorVacacionController.php",
+		data: { oper: 'generar',id_pdeclaracion : id_pdeclaracion,periodo : periodo},
+		async:true,
+		success: function(data){
+			console.log(data);
+			if(data.rpta){				
+				alert("Se Genero la planilla correctamente");   
+			}else{
+				alert("Ocurrio un error");
+			}		
+			//cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
+	   }
+	}); 
+   
 }	
 </script>
 <div class="demo" align="left">
@@ -198,21 +36,27 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
 </div>
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-1">Vacaciones</a></li>			
+            <li><a href="#tabs-1">Procesar Vacaciones</a></li>			
         </ul>
         <div id="tabs-1">
-<!-- Boton cancelar-->
-<input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_registro_concepto_e.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
-<br />  
-          <h2>Lista de Trabajadores con Vacaciones.</h2>
-          <table id="list">
-          </table>
-        <div id="pager">
-        </div>
-<input name="vacacion"  id="vacacion" type="button"  value="G.Vacacion"/> 
-<input name="reporte_vacacion"  id="reporte_vacacion" type="button"  value="Boleta.Vacacion"/> 
-<p></p>
-<p>&nbsp;</p> 
+<p>
+  <!-- Boton cancelar-->
+  <input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/new_etapaPago.php?id_declaracion=<?php echo $_REQUEST['id_declaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">
+</p>
+<p>&nbsp;</p>
+<p>
+<h2>  <input type="button" name="vacacion" id="vacacion" value="Procesar Vacacion" onclick="generarVacacion(this)" /></h2>
+
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><br />
+    <br />
+</p>
+<p class="ocultar">
+<input name="reporte_vacacion"  id="reporte_vacacion" type="button"  value="Boleta.Vacacion"/>
+</p>
         </div>
 </div>
 </div>

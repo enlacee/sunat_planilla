@@ -189,11 +189,11 @@ $PERIODO = ($_REQUEST['periodo']) ? $_REQUEST['periodo'] : "00/0000";
 <input type="button" name="reporte30_02" id="reporte30_02" value="Boleta Mensual" />
 <input type="button" name="reporte30_mas" id="reporte30_mas" value="Boleta C.C." />
 <input type="button" name="reporte_emp_01" id="reporte_emp_01" value="Planilla de pagos" />
-<input type="button" name="reporte_afp" id="reporte_afp" value="Aportes AFP" disabled='disabled' />
+<input type="button" name="reporte_afp" id="reporte_afp" value="Aportes AFP" />
 
 <span  id="break" style="padding:0 10px; margin:0 2px; background-color:#FCF"></span>
 <input type="button" name="reporte_plame" id="reporte_plame" value="PDT PLAME"  />
-<input type="button" name="reporte_exel_afp" id="reporte_exel_afp" value="AFP.NET" disabled='disabled' />
+<input type="button" name="reporte_exel_afp" id="reporte_exel_afp" value="AFP.NET" />
 
 <table id="list">
 </table>

@@ -875,15 +875,14 @@ foreach ($cbo_periodo_remuneracion as $indice) {
               <input name="txt_monto_remuneracion_basica_inicial" type="text" size="12"
               value="<?php echo $objTRA->getMonto_remuneracion(); ?>" /></td>
             <td>
-            <div class="ayuda">
+            <div class="ayuda ocultar">
             <input type="checkbox" name="chk_monto_remuneracion" 
             id="chk_monto_remuneracion"  
             <?php if($objTRA->getMonto_remuneracion_fijo()): ?>checked="checked"<?php endif; ?>
              value="1"
              />
-              <label for="chk_monto_remuneracion"></label>
-              Establecer monto Fijo para calculos.Solo para sueldos menores al Sueldo Baisco
-              </div>
+            <label for="chk_monto_remuneracion"></label>
+            Sueldo Fijo </div>
               
               </td>
           </tr>

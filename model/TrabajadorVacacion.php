@@ -5,12 +5,14 @@ class TrabajadorVacacion {
 private $id_trabajador_vacacion; // Int UNSIGNED NOT NULL AUTO_INCREMENT,
 private $id_pdeclaracion; // Int UNSIGNED NOT NULL,
 private $id_trabajador; // Int UNSIGNED NOT NULL,
-private $fecha_inicio;
-private $fecha_fin;
-private $num_dia;
-private $fecha_creacion; // Date,    
-
-
+private $fecha_lineal;
+private $dia;
+private $sueldo;
+private $sueldo_base;
+private $proceso_porcentaje;
+private $cod_regimen_pensionario;
+private $cod_regimen_aseguramiento_salud;
+private $fecha_creacion;
 public function getId_trabajador_vacacion() {
     return $this->id_trabajador_vacacion;
 }
@@ -34,29 +36,61 @@ public function getId_trabajador() {
 public function setId_trabajador($id_trabajador) {
     $this->id_trabajador = $id_trabajador;
 }
-public function getFecha_inicio() {
-    return $this->fecha_inicio;
+
+public function getFecha_lineal() {
+    return $this->fecha_lineal;
 }
 
-public function setFecha_inicio($fecha_inicio) {
-    $this->fecha_inicio = $fecha_inicio;
+public function setFecha_lineal($fecha_lineal) {
+    $this->fecha_lineal = $fecha_lineal;
 }
 
-public function getFecha_fin() {
-    return $this->fecha_fin;
+public function getDia() {
+    return $this->dia;
 }
 
-public function setFecha_fin($fecha_fin) {
-    $this->fecha_fin = $fecha_fin;
+public function setDia($dia) {
+    $this->dia = $dia;
 }
 
-
-public function getNum_dia() {
-    return $this->num_dia;
+public function getSueldo() {
+    return $this->sueldo;
 }
 
-public function setNum_dia($num_dia) {
-    $this->num_dia = $num_dia;
+public function setSueldo($sueldo) {
+    $this->sueldo = $sueldo;
+}
+
+public function getSueldo_base() {
+    return $this->sueldo_base;
+}
+
+public function setSueldo_base($sueldo_base) {
+    $this->sueldo_base = $sueldo_base;
+}
+
+public function getProceso_porcentaje() {
+    return $this->proceso_porcentaje;
+}
+
+public function setProceso_porcentaje($proceso_porcentaje) {
+    $this->proceso_porcentaje = $proceso_porcentaje;
+}
+
+public function getCod_regimen_pensionario() {
+    return $this->cod_regimen_pensionario;
+}
+
+public function setCod_regimen_pensionario($cod_regimen_pensionario) {
+    $this->cod_regimen_pensionario = $cod_regimen_pensionario;
+}
+
+public function getCod_regimen_aseguramiento_salud() {
+    return $this->cod_regimen_aseguramiento_salud;
+}
+
+public function setCod_regimen_aseguramiento_salud($cod_regimen_aseguramiento_salud) {
+    $this->cod_regimen_aseguramiento_salud = $cod_regimen_aseguramiento_salud;
 }
 
 public function getFecha_creacion() {

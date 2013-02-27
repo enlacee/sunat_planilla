@@ -35,7 +35,13 @@ if ($op) {
     require_once '../dao/EstablecimientoDao.php';
     require_once '../dao/EmpresaCentroCostoDao.php';
     require_once '../dao/EstablecimientoDireccionDao.php';
+    // conciliar vacaciones en 15CENA
+    require_once '../dao/VacacionDao.php';
+    // busqueda detallle de mes de vacacion
+    require_once '../dao/VacacionDetalleDao.php';
     
+    //libreria de ayuda
+    require_once '../controller/funcionesAyuda.php';
     //ZIP
     require_once '../util/zip/zipfile.inc.php';    
 }
@@ -70,6 +76,7 @@ function nuevoPQ() {
     //VARIABLES    
     $ID_PDECLARACION = $_REQUEST['id_declaracion'];
     $PERIODO = $_REQUEST['periodo'];
+    $anio = getFechaPatron($PERIODO, 'Y');
     $ids = $_REQUEST['ids'];   // ids trabajador 
     generarConfiguracion($PERIODO);
 
@@ -127,9 +134,30 @@ function nuevoPQ() {
         $data_tra = null;
         $data_tra = array_values($data_tra_ref);
     }
+    
+    //--------------------------------------------------------------------
+    //         validar trabajador con vacacion
+    $daov = new VacacionDao();
+    $data_trav = $daov->trabajadoresConVacacion(ID_EMPLEADOR_MAESTRO, $anio);
+   if (count($data_trav) > 0) {        
+        for ($i = 0; $i < count($data_trav); $i++):
+            for ($j = 0; $j < count($data_tra); $j++):
+                if ($data_trav[$i]['id_trabajador'] == $data_tra[$j]['id_trabajador']):
+                    //$data_tra[$j]['id_trabajador'] = null;
+                    $data_tra[$j]['_vacacion'] = true;
+                    $data_tra[$j]['_id_vacacion'] = $data_trav[$i]['id_vacacion'];
+                    break;
+                endif;
+            endfor;
+        endfor;        
+        $data_tra = array_values($data_tra);    
+   }
+    
+    //echoo($data_tra);
 
     if (count($data_tra) >= 1) {
         $dao_rpc = new RegistroPorConceptoDao();
+        
         for ($i = 0; $i < count($data_tra); $i++) {
             if ($data_tra[$i]['id_trabajador'] != null) {
                 $model = new PagoQuincena();
@@ -155,10 +183,22 @@ function nuevoPQ() {
                 } else if ($data_tra[$i]['fecha_fin'] >= $fecha_fin) { //INSUE
                     $data_tra[$i]['fecha_fin'] = $fecha_fin;
                 }
-                //-----------------------------------------------------------            
-                $dia_laborado = diasLaborados($data_tra[$i]['fecha_inicio'], $data_tra[$i]['fecha_fin']);
-               
-                
+                //-----------------------------------------------------------
+                $dia_laborado = count(rangoDeFechas($data_tra[$i]['fecha_inicio'], $data_tra[$i]['fecha_fin'],'d'));                
+                //**************************************************************
+                $dia_vacacion = 0;
+                if($data_tra[$i]['_vacacion']==true){
+                    $daovd = new VacacionDetalleDao();
+                    $data_vdetalle = $daovd->vacacionDetalle($data_tra[$i]['_id_vacacion']);
+                    //$fecha = getFechasDePago($PERIODO);
+                    //$f_inicio = $fecha['first_day'];
+                    //$f_fin = $fecha['last_day'];
+                    $data_ask = leerVacacionDetalle($data_vdetalle, $PERIODO,$fecha_inicio,$fecha_fin);      
+                    $dia_vacacion = $data_ask['dia'];
+                    echo "\n\nENTRO  VACACION TRUE = ".$dia_vacacion;
+                }
+                //**************************************************************
+                $dia_laborado = $dia_laborado - $dia_vacacion;
                 $SUELDO_CAL = 0;
                 if ($dia_laborado == 15) { // 15 dias
                     $SUELDO_CAL = $data_tra[$i]['monto_remuneracion'] * ($percent / 100);

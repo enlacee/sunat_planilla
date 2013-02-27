@@ -51,34 +51,38 @@ if ($op) {
 $response = NULL;
 
 if ($op == "trabajador_por_etapa") {
-    $response = listar_15JQGRID();
+    $response = listar_jqgrid();
     
 }
 echo (!empty($response)) ? json_encode($response) : '';
 
 
-function listar_15JQGRID() {
-       
-    $ID_PDECLARACION = $_REQUEST['id_declaracion'];
-    $COD_PERIODO_REMUNERACION = $_REQUEST['cod_periodo_remuneracion'];
+function listar_jqgrid() {       
+    //$ID_PDECLARACION = $_REQUEST['id_declaracion'];
+    $codigo = $_REQUEST['cod_periodo_remuneracion'];
     $PERIODO = $_REQUEST['periodo'];
+    $response = null;
 //========================================================================//
-
-    $FECHAX = getFechasDePago($PERIODO);
-    
-    if ($COD_PERIODO_REMUNERACION == '2') { // Quincena cod_periodo_remuneracion
-        $fecha_inicio = $FECHAX['first_day']; 
-        $fecha_fin = $FECHAX['second_weeks'];
-        //echo "222222222222222222222222222222222222222222";
+    $fechax = getFechasDePago($PERIODO);    
+    if ($codigo == '2') { // Quincena cod_periodo_remuneracion
+        $fecha_inicio = $fechax['first_day']; 
+        $fecha_fin = $fechax['second_weeks'];
+        $response = jqgrid($fecha_inicio, $fecha_fin);        
         
-    }else if($COD_PERIODO_REMUNERACION == '1') { // Mensual //16/01/2012 a 31/01/2012
-        $fecha_inicio = $FECHAX['second_weeks_mas1'];
-        $fecha_fin = $FECHAX['last_day']; 
-        //echo "111111111111111111111111111111111";
+    }else if($codigo == '1') { // Mensual = 16/01/2012 a 31/01/2012
+        $fecha_inicio = $fechax['second_weeks_mas1'];
+        $fecha_fin = $fechax['last_day'];
+        $response = jqgrid($fecha_inicio, $fecha_fin);        
+    }else if($codigo == '3'){
+        $response;
     }
-    
-//========================================================================//
+    return $response;
+}
 
+
+
+function jqgrid($fecha_inicio,$fecha_fin){
+    
     $dao_plame = new PlameDao();
     $page = $_GET['page'];
     $limit = $_GET['rows'];

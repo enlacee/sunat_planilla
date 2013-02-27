@@ -215,7 +215,7 @@
         $("#list").jqGrid({
             url:'sunat_planilla/controller/PlameDeclaracionController.php?oper=cargar_tabla_empresa&'+parametro,
             datatype: 'json',
-            colNames:['Id','Periodo','Periodo','Estado','Mes','Quincena','Operaciones','Conceptos 1','Conceptos 2'],
+            colNames:['Id','Periodo','Periodo','Estado','Mes','Quincena','Operaciones','Conceptos 1','Conceptos 2','vacacion'],
             colModel :[
                 {
                     name:'id_pdeclaracion', 
@@ -290,7 +290,14 @@
                     editable:false,
                     width:100,
                     align:'center'
-                }                
+                },
+                {
+                    name:'vacacion', 
+                    index:'vacacion',
+                    editable:false,
+                    width:100,
+                    align:'center'
+                }               
 
 
             ],
@@ -656,7 +663,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 			limpiarArray(arreglo);
 			limpiarArray(news);
 	}else{
-		alert("Debe seleccionar un registro,\n para generar el Adelanto Individual");
+		alert("Debe seleccionar un registro,\n para realizar Operacion");
 	}
 
 		
@@ -679,7 +686,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
 	function registrarEtapa(cadena){
 
         var id_declaracion = document.getElementById('id_declaracion').value;
-        var cod_periodo_remuneracion = document.getElementById('cod_periodo_remuneracion').value;
+        var codigo = document.getElementById('cod_periodo_remuneracion').value;
         var periodo = document.getElementById('periodo').value;
         var link = '';
 
@@ -689,7 +696,7 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
             cadena = '';    
         }
 
-        if(cod_periodo_remuneracion == 2){ //QUINCENA
+        if(codigo == 2){ //QUINCENA
             //link = 'sunat_planilla/controller/EtapaPagoController.php'+cadena;  
             link = 'sunat_planilla/controller/PagoQuincenaController.php';                              
             link += '?id_declaracion='+id_declaracion;
@@ -698,27 +705,31 @@ function validarNewDeclaracionPeriodo(){ //Registrar Periodo
             link += cadena;
             
 
-        }else if(cod_periodo_remuneracion ==1){ //MENSUAL
+        }else if(codigo ==1){ //MENSUAL
             link = 'sunat_planilla/controller/TrabajadorPdeclaracionController.php';            
             link += '?id_pdeclaracion='+id_pdeclaracion;
             link += '&periodo='+periodo;
             link += '&oper=generar_declaracion';
             link += cadena;
             
-        }
-		
+        }else if(codigo ==3){
+            link = 'sunat_planilla/controller/TrabajadorVacacionController.php';            
+            link += '?id_pdeclaracion='+id_pdeclaracion;
+            link += '&periodo='+periodo;
+            link += '&oper=generar';
+            link += cadena;            
+        }		
 
-    $.ajax({
-   type: "POST",
-   url: link,
-   async:true,
-   success: function(datos){
-
-        console.log("LLEGO "+datos);
-        alert("Se Genero la Operacion"); //Adelanto Quincenal
-        //cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario');
-   }
-   });
+        $.ajax({
+           type: "POST",
+           url: link,
+           async:true,
+           success: function(datos){
+                //console.log("LLEGO "+datos);
+                alert("Se Genero la Operacion"); //Adelanto Quincenal
+                //cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario');
+           }
+       });
 
 
 		
@@ -2077,9 +2088,30 @@ $.ajax({
     //$('#dialog_view_vacacion').dialog('open');
    }
    }); 
-	
+}
+
+
+function newVacacion(id_pdeclaracion,periodo,id_trabajador,name,fecha_calc){
+    
+    $.ajax({
+    type: "POST",
+    url: "sunat_planilla/view-empresa/new_vacacion.php",
+    data: {
+    id_pdeclaracion:id_pdeclaracion,
+    periodo:periodo,    
+    id_trabajador:id_trabajador,
+    name :name,
+    fecha_calc : fecha_calc
+    },
+    async:true,
+    success: function(datos){
+    $('#CapaContenedorFormulario').html(datos);
+    //$('#dialog_view_vacacion').dialog('open');
+    }
+    });     
 
 }
+
 
 //--------------------------
 function guardarVacacionProgramada(){
@@ -2467,4 +2499,254 @@ $.ajax({
 }
 
 }
+
+//-------
+//jqgrid
+			
+    function cargarTablaVacacion(id){
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla&id_pdeclaracion='+id,			
+            datatype: 'json',
+            colNames:['id','id2','Num Doc','A.Paterno',
+                'A.Materno','Nombres','Opciones',''],
+            colModel :[
+                {
+                    name:'id_vacacion',
+                    key : true, 
+                    editable:false, 
+                    index:'id_vacacion',
+                    search:false,
+                    width:20,
+                    align:'center',
+                    hidden:false,
+                },	
+
+                {
+                    name:'id_trabajador', 
+                    index:'id_trabajador',
+                    search:false,
+					hidden:true,
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'name', 
+                    index:'name',
+                    search:false,
+                    editable:false,					
+                    width:100,
+                    align:'left',
+					cellattr: function(rowId, value, rowObject, colModel, arrData) {
+						return ' colspan=4';
+					},
+                    formatter : function(value, options, rData){
+                    	return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] +" "+rData['6'];
+                    }
+                },
+              	{
+                    name:'tipo_documento', 
+                    index:'tipo_documento',
+                    editable:false,
+                    width:120,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    editable:false,
+                    width:120,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },				
+				
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:120,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:100,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
+                },                
+                {
+                    name:'opciones', 
+                    index:'opciones',
+                    editable:true,
+                    width:80,
+                    align:'center',
+
+                },		
+				
+		
+            ],
+            pager: '#pager',
+            mtype: "GET",
+            rownumbers: true,
+            //autowidth: true,
+            rowNum:10,
+            rowList:[10,20],
+            sortname: 'id_vacacion',
+            sortorder: 'asc',
+            viewrecords: true,
+            caption: 'Lista',
+            /*multiselect: false,
+              hiddengrid: true,*/
+            onSelectRow: function(ids) {},
+            height:320,
+           // width:720
+        });
+        //--- PIE GRID
+        jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+        //$("#list").remapColumns([1,3,2],true,false);
+    }
+
+
+//--------------------------------------------------
+function enviarVacacion(){ // Pago Quincena
+	var data;
+
+	data = $('#frmVacacion').serialize();
+	
+	$.ajax({
+		type: "POST",
+		dataType: 'json',
+		url: "sunat_planilla/controller/VacacionController.php?"+data,
+		data: {},
+		async:true,
+		success: function(data){
+			if(data.rpta){
+                alert(data.mensaje);				
+				console.log("OK");
+			}else{
+				console.log("ERROR");
+                alert(data.mensaje);
+			}				
+		},
+		//beforeSend:function(){ $('#tabs-1').html("<p class='loading'></p>"); },        
+		//timeout:4000,
+		//error:function(){ alert('error en servidor');}
+	}); 
+
+}
+
+function validarPlanilla(button){
+    
+    var month,
+        year;
+    month = String($("#month").val());
+    year  = String($("#year").val());
+    console.log("ENTRO "+month + year);
+
+    if(true){
+        //button.disabled = true;
+        //console.log("ENTRO "+month +'  '+ year);
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "sunat_planilla/controller/ConfPlanilla.php",
+            data: {oper : 'config', month :month,year:year},
+            async:true,
+            success: function(data){
+                console.log(data);
+                if(data.rpta){                        
+                    cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario');
+                    
+                }else{                    
+                    alert("Error");
+                    //button.disabled = false;
+                }       
+            },
+            //beforeSend:function(){ $('#tabs-1').html("<p class='loading'></p>"); },        
+            //timeout:4000,
+            //error:function(){ alert('error en servidor');}
+        }); 
+
+
+    }else{
+        alert("No se permiten campos vacios");
+    }
+}
+
+
+    // grid vacacion
+    function cargarTablaDetalleVacacion(id_pdeclaracion,periodo,id_trabajador){
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/VacacionDetalleController.php?oper=cargar_tabla&id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo+'&id_trabajador='+id_trabajador,
+            datatype: 'json',
+            colNames:['id','Fecha inico','Fecha fin','dia'],
+            colModel :[
+                {
+                    name:'id_vacacion_detalle', 
+                    editable:false, 
+                    index:'id_vacacion_detalle',
+                    search:false,
+                    width:20,
+                    align:'center',
+                    hidden:false, 
+                },      
+                {
+                    name:'fecha_inicio',
+                    index:'fecha_inicio',
+                    search:false, 
+                    editable:false,
+                    width:100, 
+                    align:'center',
+                    hidden:false,                    
+                },
+                {
+                    name:'fecha_fin', 
+                    index:'fecha_fin',
+                    editable:false,
+                    search:false,
+                    width:100,
+                    align:'center',                    
+                }, 
+                 {
+                    name:'dia', 
+                    index:'dia',
+                    editable:false,
+                    search:false,
+                    width:90,
+                    align:'center'
+                }
+            ],
+            pager: '#pager',
+            caption: 'historial de vacacion anual',
+            rownumbers: true,
+            //height:320,
+            //rowNum:25,
+            rowList:[10],
+            //sortname: 'id_vacacion_detalle',
+            sortorder: 'asc',
+        });
+        //--- PIE GRID
+        //jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});        
+    }
+
+
+
+
+
+
+
+
 

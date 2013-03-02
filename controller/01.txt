@@ -1,26 +1,33 @@
-PCAMUENTE S.A.                                                FECHA :  27/02/2013
-                                                             PAGINA :          1
-                                  1RA QUINCENA                                  
-                       PLANILLA DEL MES DE ENERO DEL 2013                       
+@C!                                                             BOLETA DE PAGO                                                             
+                                                    D.S. 020-2008-TR DEL 17-01-2008                                                     
+CAMUENTE S.A.
+AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 07951545                            DNI: 07951545                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES ELENA                                                
+Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
+                                                 NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2013                         CARGO : COCINERO                            SECCION : ventas                            
+0 DIAS TRAB. 0 HORAS TRAB.                       DIRECCION :  JIRON TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                              
+---------------------------------------------------------------------------------------------------------------------------------------
+|        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
+|   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   ASG. FAMILIAR                    75.00   |   OTROS DESCUENTOS NO DEDUCI...    25.00   |                                           |
+|   SUELDO BASICO                   750.00   |   COMISION AFP 2.10%               17.33   |                                           |
+|   MOVILIDAD                        80.00   |   PRIMA DE SEGURO 1.41%            11.63   |                                           |
+|                                            |   JUBILACION SPP 10.00%            82.50   |                                           |
+|                                            |                                            |                                           |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   TOTAL REMUNERACIONES            905.00   |   TOTAL RETENC./DESCUENTOS        136.46   |   TOTAL APORTACIONES               0.00   |
+---------------------------------------------------------------------------------------------------------------------------------------
 
-LOCALIDAD : SAN ISIDRO
-
-CENTRO DE COSTO : ADMINISTRACION - GERENCIA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 07941099    CANO MUENTE JOSE NESTOR                 4100.00  _______________
-
-  2 07966762    CANO MUENTE CARLOS ALBERTO              6000.00  _______________
-
-  3 09716287    FERNANDEZ MERINO CARMEN IMELDA          0.00     _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - GERENCIA SAN ISIDRO              10,100.00
---------------------------------------------------------------------------------
-
-
-T O T A L   G E N E R A L  --->>>                       10,100.00      
-
+                                                                                                                                       
+                                                                                                                                       
+-----------------------------
+| REDONDEO     :       0.46 |
+-----------------------------
+| NETO A PAGAR :     769.00 |                            _________________________                  _________________________
+-----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
+@C!@C!@C!@C!
+@C!@C!
+@C!@C!@C!
+@C!@C!

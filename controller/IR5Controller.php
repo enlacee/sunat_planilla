@@ -24,9 +24,9 @@ require_once '../dao/PlameDetalleConceptoAfectacionDao.php';
 // new $conceptos = antes de carga en base de datos.
 function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO,array $conceptos) {
     
-    echoo($ID_PDECLARACION);
-    echoo($id_trabajador);
-    echoo($PERIODO);
+//    echoo($ID_PDECLARACION);
+//    echoo($id_trabajador);
+//    echoo($PERIODO);
     
  /*
         echoo($_SESSION);
@@ -61,25 +61,25 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO,a
 
 // 01 remuneracion fija
     $_01 = get_IR5_Ingresos($ID_PDECLARACION, $id_trabajador,$conceptos); //$sueldo; //2000;
-    echo "\n01= " . $_01;
+//    echo "\n01= " . $_01;
     
 // 02 num_meses que falta
     $_02 = get_IR5_mesFaltan($periodo);
-    echo "\n02 = " . $_02;
+//    echo "\n02 = " . $_02;
 
 
 
 // 03 remuneracion proyectada
     $_03 = $_01 * $_02;
-    echo "\n03 = " . $_03;    
+//    echo "\n03 = " . $_03;    
     //echo "R_PROYECTADA = " . $_03;
 // 04 Gratificaciones ordinarias(JUL-DIC)
     $var_jul_dic = get_IR5_NumGratificacionesFaltaPagar($periodo);
     // 2 = mayor a Enero Y Menos a julio devuelve.
     // 1 = antes de diciembre devuelve.
-    echo "\n-- = num de gratificacion " . $var_jul_dic;
+//     echo "\n-- = num de gratificacion " . $var_jul_dic;
     $_04 = $_01 * $var_jul_dic;
-    echo "\n04 = " . $_04;   
+//    echo "\n04 = " . $_04;   
 
 
 // 05 Bonificacion Extraordinaria(1) 9% Essalud  ///obtener los ingresos de junio 
@@ -95,58 +95,58 @@ function calcular_IR5_concepto_0605($ID_PDECLARACION, $id_trabajador, $PERIODO,a
         $monto = getMontoConceptoPeriodo($id_trabajador, $arreglo_conceptos, $periodo_armado);
         $_05 = $monto;
     }
-    echo $_05;
-    echo "\n05 = " . $_05."     ->Bonificacion extraordinaria"; 
+
+//    echo "\n05 = " . $_05."     ->Bonificacion extraordinaria"; 
 
     // 06 Total    
     $_06 = $_03 + $_04 + $_05;
-    echo "\n06 = " . $_06."      ->Total";
+//    echo "\n06 = " . $_06."      ->Total";
 
 // 07 Remuneraciones de meses anteriores
     $_07 = get_IR5_RMesesAnteriores($ID_PDECLARACION, $id_trabajador, $periodo); //remuneracion de enero ...getRMesesAnteriores();
-    echo "\n07 = " . $_07;    
+//    echo "\n07 = " . $_07;    
 
 // 08 gratificaciones de meses anteriores
     $_08 = 0.00;  //Gratificacion anterior el Unico es 28 DE JULIO.   
     $_08 = get_IR5_NumGratificacionesdeMesesAnterioresXXX($id_trabajador, $periodo);
-    echo "\n08 = " . $_08;
+//    echo "\n08 = " . $_08;
 
 // 09 Bonificacion Extraordinaria, de meses anteriores
     $arreglo_conceptos = array('0312');
     $_09 = buscarMontodeConceptoMesesAtras($arreglo_conceptos, $id_trabajador, $periodo); //getIr5_NumBonificacionesDeMesesAnteriores($periodo);
-    echo "\n09 = " . $_09;
+//    echo "\n09 = " . $_09;
    
 
 // 17 Renta Mensual    
     $_17 = $_06 + $_07 + $_08 + $_09;
 
-    echo "\n17 = " . $_17;
+//    echo "\n17 = " . $_17;
 
 // 18 Menos 7 UIT = CANTIDAD DE DINERO EN UIT
-    echoo(UIT);
+
     $_18 = 7 * UIT; // ejem : 7*3650
-    echo "\n18 = " . $_18;    
+//    echo "\n18 = " . $_18;    
     
 
 if($_17 > $_18){  //Si mi sueldo no supera las 7 uit NO aplica RTA  
     
     $_19 = $_17 - $_18;
-    echo "\n19 = ".$_19;
+//    echo "\n19 = ".$_19;
 // --------------------- Tasas progresivas acumulativas-----------------------//
     // 20 : Hasta 27UIT
         $_20 = tasa_15($_19,UIT);
-        echo "\n20 = $_20";
+//        echo "\n20 = $_20";
 
     // 21 : De 27 UIT hasta 54UIT
         $_21 = tasa_21($_19,UIT);
-        echo "\n21 = $_21";
+//        echo "\n21 = $_21";
     // 22 : Exeso de 54UIT    
         $_22 = tasa_30($_19,UIT);
-        echo "\n22 = $_22";
+//        echo "\n22 = $_22";
         
     // 23 : Impuesto anual
         $_23 = $_20 + $_21 + $_22;
-        echo "\n23 = $_23";        
+//        echo "\n23 = $_23";        
 }
 
 
@@ -156,27 +156,28 @@ if($_17 > $_18){  //Si mi sueldo no supera las 7 uit NO aplica RTA
     $_24 = 0;    
     if ($mes_periodo == 12) { // Recalcular toma en cuenta todos los meses R5TA       
         $_24 = get_IR5_ImpuestoARetenerAnteriores( $id_trabajador, $periodo); 
-        echo "\n24 solo ocurre 12=diciembre = $_24";
+//        echo "\n24 solo ocurre 12=diciembre = $_24";
     }else{
         //echo "\n24 solo ocurre 1,2,3,..11  = $_24";
         $_24 = Retenciones($id_trabajador, $ID_PDECLARACION, $periodo);  
     }
-    echo "\n24 = $_24";
+//    echo "\n24 = $_24";
  
 // 25 : Impuesto a pagar
     $_25 = ($mes_periodo == 12) ? ($_24-$_23) : ($_23-$_24) ;    
 //$_25 = $_23 - $_24;
     //echo "\n25 = MES = 12 ->(24 - 23)  O 23 -24 \n";
-    echo "\n25 = $_25";
+    
+//    echo "\n25 = $_25";
 
 // 26 : Divisor del impuesto a la renta(3)
     $arreglo_fecha = array();
     $arreglo_fecha = get_IR5_DivisorDelImpuestoRenta($periodo);
     $_26 = $arreglo_fecha['padre']; //get_IR5_DivicisorImpuestoRenta($periodo);
-    echo "\n26 = $_26";
+//    echo "\n26 = $_26";
 // 27 : Impuesto a retener mensual 
     $_27 = ($_25 / $_26);
-    echo "\n27 = $_27";
+//    echo "\n27 = $_27";
     return $_27;
 }
 

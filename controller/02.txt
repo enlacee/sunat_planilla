@@ -1,89 +1,19 @@
-@C!
-P
-CAMUENTE S.A.                                CAMUENTE S.A.
-RUC  20100338611                             RUC  20100338611
-GUILLERMO PRESCCOT 395 - SAN ISIDRO          GUILLERMO PRESCCOT 395 - SAN ISIDRO
+PCAMUENTE S.A.                                                FECHA :  02/03/2013
+                                                             PAGINA :          1
+                                    MENSUAL                                     
+                       PLANILLA DEL MES DE ENERO DEL 2013                       
 
-         R E C I B O                                  R E C I B O
-         ***********                                  ***********
+LOCALIDAD : SAN ISIDRO
 
+CENTRO DE COSTO : VENTAS
 
-ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2013                     Al MES DE ENERO DEL 2013
+--------------------------------------------------------------------------------
+  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
+--------------------------------------------------------------------------------
 
-NOMBRES  : CANO MUENTE JOSE NESTOR           NOMBRES  : CANO MUENTE JOSE NESTOR      
+  1 07951545    CHIPANA FLORES ELENA                    769.00   _______________
 
-CANTIDAD : S/  4100.00                       CANTIDAD : S/   4100.00
-
-N. CTA   : -  -                              N. CTA   : -  -                     
-
-FECHA    : 13/02/2013                        FECHA    : 13/02/2013               
-
-
-
-
-
-_______________     _______________         _______________     _______________
-     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
-                    DNI. 07941099                               DNI. 07941099
-
-
-P
-CAMUENTE S.A.                                CAMUENTE S.A.
-RUC  20100338611                             RUC  20100338611
-GUILLERMO PRESCCOT 395 - SAN ISIDRO          GUILLERMO PRESCCOT 395 - SAN ISIDRO
-
-         R E C I B O                                  R E C I B O
-         ***********                                  ***********
-
-
-ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2013                     Al MES DE ENERO DEL 2013
-
-NOMBRES  : CANO MUENTE CARLOS ALBERTO        NOMBRES  : CANO MUENTE CARLOS ALBERTO   
-
-CANTIDAD : S/  6000.00                       CANTIDAD : S/   6000.00
-
-N. CTA   : -  -                              N. CTA   : -  -                     
-
-FECHA    : 13/02/2013                        FECHA    : 13/02/2013               
-
-
-
-
-
-_______________     _______________         _______________     _______________
-     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
-                    DNI. 07966762                               DNI. 07966762
-
-
-P
-CAMUENTE S.A.                                CAMUENTE S.A.
-RUC  20100338611                             RUC  20100338611
-GUILLERMO PRESCCOT 395 - SAN ISIDRO          GUILLERMO PRESCCOT 395 - SAN ISIDRO
-
-         R E C I B O                                  R E C I B O
-         ***********                                  ***********
-
-
-ADELANTO DE QUINCENA CORRESPONDIENTE         ADELANTO DE QUINCENA CORRESPONDIENTE
-Al MES DE ENERO DEL 2013                     Al MES DE ENERO DEL 2013
-
-NOMBRES  : FERNANDEZ MERINO CARMEN IMELDA    NOMBRES  : FERNANDEZ MERINO CARMEN IMELDA
-
-CANTIDAD : S/  0.00                          CANTIDAD : S/      0.00
-
-N. CTA   : -  -                              N. CTA   : -  -                     
-
-FECHA    : 27/02/2013                        FECHA    : 27/02/2013               
-
-
-
-
-
-_______________     _______________         _______________     _______________
-     Vo.Bo.         RECIBI CONFORME             Vo.Bo.          RECIBI CONFORME
-                    DNI. 09716287                               DNI. 09716287
-
-
+--------------------------------------------------------------------------------
+TOTAL VENTAS                                            769.00
+--------------------------------------------------------------------------------
 

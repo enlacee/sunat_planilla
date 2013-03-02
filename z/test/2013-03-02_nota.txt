@@ -1,0 +1,41 @@
+:informe:
+
+- Trabajador Modulos separados a la planilla
+
+-PLANILLA
+solo trabaja con datos montos (soles) y los distribulle
+a pagos por concenptos o descuentos.
+
+-Control de Modulos
+	-para ti familia.
+	-prestamos.
+	-others.
+|=por lo tanto=|	
+Al momento de cerrar la planilla mensual.
+El confirmara a los estos modulos
+para asi cambiar de estado.
+y poder tener un control poco variables. (por ende mas estable).
+
+
+
+
+PARA DECLRAR PDT-PLAME 
+EL FORMATO actual FUNCIONA.
+
+entonses separacion : para la empresa:
+- planilla mensual
+- planilla vacacion
+
+
+=========================================
+
+NECESARIO UN CIERRE DE MES PARA HACER LAS OPERACIONES QUE NO PUEDEN
+ESTAR MODIFICANDOSE O CAMBIANDOSE
+- pago prestamo
+- dias vacacion a enviar pdt-plane.
+
+EL otro caso seria 
+hacerlo dentro de planilla pero las operaciones
+mientras que crecen se vuelven mas pesasdas mas carga de trabajo al 
+servidor al momento de procesar y eliminar planilla. OK!!!
+

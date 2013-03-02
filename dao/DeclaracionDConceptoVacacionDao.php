@@ -46,6 +46,31 @@ class DeclaracionDConceptoVacacionDao extends AbstractDao{
         
         
     }
+   
+    // listar conceptos x vacacion
+    public function listarTrabajadorPorDeclaracion($id_trabajador,$id_pdeclaracion) {//OK FUCK !! NOOO
+        $query = "
+        SELECT 
+        ddcv.cod_detalle_concepto,
+        ddcv.monto_pagado,
+        ddcv.monto_devengado
+        FROM trabajadores_vacaciones AS tv
+        INNER JOIN declaraciones_dconceptos_vacaciones AS ddcv
+        ON tv.id_trabajador_vacacion = ddcv.id_trabajador_vacacion
+        WHERE tv.id_trabajador = ?
+        AND tv.id_pdeclaracion = ?         
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->bindValue(2, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+    
+    
     
     
     

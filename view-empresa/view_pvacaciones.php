@@ -3,27 +3,33 @@
 	var periodo = document.getElementById('periodo').value;
     $(document).ready(function(){
         $( "#tabs").tabs();	
+
+
+        $("#vacacion").click(function(event){
+        	
+        	$(this).attr("disabled","disabled");
+		   $.ajax({
+				type: "POST",
+				url: "sunat_planilla/controller/TrabajadorVacacionController.php",
+				data: { oper: 'generar',id_pdeclaracion : id_pdeclaracion,periodo : periodo},
+				async:true,
+				dataType: 'json',
+				success: function(data){			
+					if(data.rpta==true){				
+						alert(data.mensaje);   
+					}else{
+						alert("Ocurrio un error");
+					}		
+					//cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
+			   }
+			});
+
+        });
+
+
 	});
 //---------------------------------------------------------------
-function generarVacacion(obj){	
 	
-   $.ajax({
-		type: "POST",
-		url: "sunat_planilla/controller/TrabajadorVacacionController.php",
-		data: { oper: 'generar',id_pdeclaracion : id_pdeclaracion,periodo : periodo},
-		async:true,
-		success: function(data){
-			console.log(data);
-			if(data.rpta){				
-				alert("Se Genero la planilla correctamente");   
-			}else{
-				alert("Ocurrio un error");
-			}		
-			//cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')
-	   }
-	}); 
-   
-}	
 </script>
 <div class="demo" align="left">
 <div class="ocultar">
@@ -45,7 +51,7 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
 </p>
 <p>&nbsp;</p>
 <p>
-<h2>  <input type="button" name="vacacion" id="vacacion" value="Procesar Vacacion" onclick="generarVacacion(this)" /></h2>
+<h2>  <input type="button" name="vacacion" id="vacacion" value="Procesar Vacacion" /></h2>
 
 </p>
 <p>&nbsp;</p>

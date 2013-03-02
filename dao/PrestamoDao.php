@@ -150,15 +150,7 @@ class PrestamoDao extends AbstractDao {
         SELECT
           pre.id_prestamo,
           pc.id_prestamo_cutoa,
-          -- pre.valor,
-          -- pre.num_cuota,
-          -- pre.fecha_inicio,
-          -- pre.estado,
-	  -- prestamo cuota
-          pc.fecha_calc,
           pc.monto,
-          pc.monto_variable,
-          pc.cubodin,
           pc.fecha_calc
           
         FROM prestamos AS pre	
@@ -167,8 +159,6 @@ class PrestamoDao extends AbstractDao {
         
         WHERE pre.id_trabajador = ?
         AND pc.fecha_calc = ?
-        -- AND pre.estado = 1 -- PRESTAMOS ACTIVOS ELIMINAR ESTE ATRIBUTO PARA FILTRO
-        -- AND fecha_inicio <='2012-10-01'
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador);

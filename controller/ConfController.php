@@ -55,7 +55,7 @@ function generarConfiguracion($periodo) {
 function generarConfiguracion2($periodo) {
 
     if ( !$_SESSION['afectaciones'] || !$_SESSION['afp']||!$_SESSION['afp_tope']) {
-        echo "\nCREO POR PRIMERA VEZ : generarConfiguracion2()";
+        //echo "\nCREO POR PRIMERA VEZ : generarConfiguracion2()";
         // Dao
         $dao_pa = new PlameAfectacionDao();
         $dao_afecto = new PlameDetalleConceptoAfectacionDao();

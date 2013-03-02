@@ -30,9 +30,7 @@ function editPrestamoCuota(){
     
     $obj = new PrestamoCuota();
     $obj->setId_prestamo($_REQUEST['id_prestamo']);
-    $obj->setId_prestamo_cutoa($_REQUEST['id_prestamo_cuota']);    
-    
-    $obj->setMonto_variable($_REQUEST['montoc_variable']);
+    $obj->setId_prestamo_cutoa($_REQUEST['id_prestamo_cuota']); 
     $obj->setFecha_calc( getFechaPatron($_REQUEST['fecha_calc'], 'Y-m-d') );
     
     $dao = new PrestamoCuotaDao();
@@ -53,8 +51,7 @@ function listaCuotas($id_prestamo){
         $obj = new PrestamoCuota();
         $obj->setId_prestamo($id_prestamo);
         $obj->setId_prestamo_cutoa($data[$i]['id_prestamo_cutoa']);
-        $obj->setMonto($data[$i]['monto']);
-        $obj->setMonto_variable($data[$i]['monto_variable']);        
+        $obj->setMonto($data[$i]['monto']);              
         $obj->setFecha_calc($data[$i]['fecha_calc']);
         $obj->setFecha_pago($data[$i]['fecha_pago']);        
         $obj->setEstado($data[$i]['estado']);

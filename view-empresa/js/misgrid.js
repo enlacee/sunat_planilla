@@ -1817,7 +1817,23 @@ function eliminarTrabajadorPdeclaracion(id,id_trabajador){
 }
 }
 
+function eliminarTrabajadorVacacion(id,id_trabajador){    
 
+    var estado = confirm("Seguro que desea eliminar?");
+    if(estado == true){
+        $.ajax({
+       type: "POST",
+       url: "sunat_planilla/controller/TrabajadorVacacionController.php",
+       data: { oper: 'del', id_trabajador : id_trabajador, id : id },
+       async:true,
+       success: function(data){        
+        //jQuery("#list").trigger("reloadGrid");
+        jQuery("#list").trigger("reloadGrid");
+        
+       }
+   }); 
+}
+}
 
 	//-------------------------------------------------------
 	//-------------------------------------------------------
@@ -2502,7 +2518,7 @@ $.ajax({
 
 //-------
 //jqgrid
-			
+// no usado pero funcionando para adaptar			
     function cargarTablaVacacion(id){
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
@@ -2604,6 +2620,121 @@ $.ajax({
             rowNum:10,
             rowList:[10,20],
             sortname: 'id_vacacion',
+            sortorder: 'asc',
+            viewrecords: true,
+            caption: 'Lista',
+            /*multiselect: false,
+              hiddengrid: true,*/
+            onSelectRow: function(ids) {},
+            height:320,
+           // width:720
+        });
+        //--- PIE GRID
+        jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
+        //$("#list").remapColumns([1,3,2],true,false);
+    }
+
+    function cargarTablaTrabajadorVacacion(id,periodo){
+        //$("#list").jqGrid('GridUnload');
+        $("#list").jqGrid({
+            url:'sunat_planilla/controller/TrabajadorVacacionController.php?oper=cargar_tabla&id_pdeclaracion='+id+'&periodo='+periodo,           
+            datatype: 'json',
+            colNames:['id','id2','Num Doc','A.Paterno',
+                'A.Materno','Nombres','Opciones',''],
+            colModel :[
+                {
+                    name:'id_trabajador_vacacion',
+                    key : true, 
+                    editable:false, 
+                    index:'id_trabajador_vacacion',
+                    search:false,
+                    width:20,
+                    align:'center',
+                    hidden:false,
+                },  
+
+                {
+                    name:'id_trabajador', 
+                    index:'id_trabajador',
+                    search:false,
+                    hidden:true,
+                    editable:false,
+                    width:80,
+                    align:'center'
+                },
+                {
+                    name:'name', 
+                    index:'name',
+                    search:false,
+                    editable:false,                 
+                    width:100,
+                    align:'left',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return ' colspan=4';
+                    },
+                    formatter : function(value, options, rData){
+                        return ": "+value + " - "+rData['3']+" "+rData['4']+" "+rData['5'] +" "+rData['6'];
+                    }
+                },
+                {
+                    name:'tipo_documento', 
+                    index:'tipo_documento',
+                    editable:false,
+                    width:120,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },
+                {
+                    name:'num_documento', 
+                    index:'num_documento',
+                    editable:false,
+                    width:120,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },              
+                
+                {
+                    name:'apellido_paterno', 
+                    index:'apellido_paterno',
+                    editable:false,
+                    width:120,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }
+                },
+                {
+                    name:'apellido_materno', 
+                    index:'apellido_materno',
+                    editable:false,
+                    width:100,
+                    align:'center',
+                    cellattr: function(rowId, value, rowObject, colModel, arrData) {
+                        return " style=display:none; ";
+                    }                    
+                },                
+                {
+                    name:'opciones', 
+                    index:'opciones',
+                    editable:true,
+                    width:80,
+                    align:'center',
+
+                },      
+                
+        
+            ],
+            pager: '#pager',
+            mtype: "GET",
+            rownumbers: true,
+            //autowidth: true,
+            rowNum:10,
+            rowList:[10,20],
+            sortname: 'id_trabajador_vacacion',
             sortorder: 'asc',
             viewrecords: true,
             caption: 'Lista',

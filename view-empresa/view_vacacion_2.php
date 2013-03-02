@@ -1,12 +1,37 @@
 <script type="text/javascript">
     $(document).ready(function(){
+        var id_pdeclaracion = $("#id_pdeclaracion").val();        
                   
         $( "#tabs").tabs();
+
+
+
+        $("#eliminarTodoVacacion").click(function(event){ 
+            var estado = confirm("Seguro que desea eliminar Toda la Planilla de Vacacion?");    
+            if(estado == true){
+                    $(this).attr("disabled","disabled");
+                    $.ajax({
+                    type: "POST",
+                    url: "sunat_planilla/controller/TrabajadorVacacionController.php",
+                    data: { oper: 'delAll',id_pdeclaracion : id_pdeclaracion },
+                    dataType: 'json',
+                    async:true,
+                    success: function(data){
+                        console.log("Se elimino correctamente");
+                        //jQuery("#list").trigger("reloadGrid");
+                        jQuery("#list").trigger("reloadGrid");
+                    }
+                    });
+            }
+
+        });//end event
 		
-	});
+	});//end LOAD.
 	
 	var id = document.getElementById('id_pdeclaracion').value;
-	cargarTablaVacacion(id);
+    var periodo = document.getElementById('periodo').value;
+    cargarTablaTrabajadorVacacion(id,periodo);
+	//cargarTablaVacacion(id,periodo);
 	
 </script>
 
@@ -28,13 +53,12 @@ value="<?php echo $_REQUEST['periodo'];?>" />
         </ul>
         <div id="tabs-1">
 
-<table id="list">
-</table>
-<div id="pager">
+            OPERACIONES <input type="button" name="eliminarTodoVacacion" id="eliminarTodoVacacion" value="Eliminar Todo">
 
-        
+            <table id="list">
+            </table>
+            <div id="pager"></div>
         </div>
-</div>
 
 </div>
 

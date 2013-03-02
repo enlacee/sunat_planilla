@@ -1,0 +1,300 @@
+// CHIPANA -- MENSUAL
+
+
+<pre>[idsS]  Que Usted Selecciono en el Grid
+Array
+(
+    [0] => 1
+)
+</pre>EN FOR<pre>2013-01-16</pre><pre>2013-01-16</pre><pre>2013-01-31</pre><pre>2013-01-31</pre>
+HOLAAA dias completos
+
+ENTRO  VACACION TRUE = 
+antes dia_vacacion=15
+despues dia_vacacion=15<BR>
+
+
+
+dia_no_trabajado = 0<pre>2013-01-16</pre><pre>dia laborado0</pre><br><BR>
+
+
+
+MONTO_REMUNERACION = 750.00
+sueldo calcl 3 =0
+dia_laborado = 0
+ID_PDECLARACION =29
+obj->getId_trabajador() = 1<pre>Array
+(
+    [id_trabajador_vacacion] => 9
+    [dia] => 30
+    [proceso_porcentaje] => 100.00
+)
+</pre>
+ pporcentaje ERROR ((100-100)/100) = 0
+PORCENTAJE = 0
+PLANILLA MENSUAL <pre>Array
+(
+    [0] => Array
+        (
+            [cod_detalle_concepto] => 0201
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [1] => Array
+        (
+            [cod_detalle_concepto] => 0701
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [2] => Array
+        (
+            [cod_detalle_concepto] => 0121
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [3] => Array
+        (
+            [cod_detalle_concepto] => 0706
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [4] => Array
+        (
+            [cod_detalle_concepto] => 0604
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [5] => Array
+        (
+            [cod_detalle_concepto] => 0612
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [6] => Array
+        (
+            [cod_detalle_concepto] => 0105
+            [monto_pagado] => 
+            [monto_devengado] => 0
+        )
+
+    [7] => Array
+        (
+            [cod_detalle_concepto] => 0106
+            [monto_pagado] => 
+            [monto_devengado] => 0
+        )
+
+    [8] => Array
+        (
+            [cod_detalle_concepto] => 0107
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [9] => Array
+        (
+            [cod_detalle_concepto] => 0304
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [10] => Array
+        (
+            [cod_detalle_concepto] => 0703
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [11] => Array
+        (
+            [cod_detalle_concepto] => 0704
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [12] => Array
+        (
+            [cod_detalle_concepto] => 0909
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [13] => Array
+        (
+            [cod_detalle_concepto] => 0115
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [14] => Array
+        (
+            [cod_detalle_concepto] => 0601
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [15] => Array
+        (
+            [cod_detalle_concepto] => 0606
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [16] => Array
+        (
+            [cod_detalle_concepto] => 0608
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [17] => Array
+        (
+            [cod_detalle_concepto] => 0804
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+)
+</pre>\ CONCEPTO SUMAA ::: planilla con renta 5ta<pre>Array
+(
+    [0] => Array
+        (
+            [cod_detalle_concepto] => 0201
+            [monto_pagado] => 75
+            [monto_devengado] => 0
+        )
+
+    [1] => Array
+        (
+            [cod_detalle_concepto] => 0701
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [2] => Array
+        (
+            [cod_detalle_concepto] => 0121
+            [monto_pagado] => 750
+            [monto_devengado] => 0
+        )
+
+    [3] => Array
+        (
+            [cod_detalle_concepto] => 0706
+            [monto_pagado] => 25
+            [monto_devengado] => 0
+        )
+
+    [4] => Array
+        (
+            [cod_detalle_concepto] => 0604
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [5] => Array
+        (
+            [cod_detalle_concepto] => 0612
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [6] => Array
+        (
+            [cod_detalle_concepto] => 0105
+            [monto_pagado] => 
+            [monto_devengado] => 0
+        )
+
+    [7] => Array
+        (
+            [cod_detalle_concepto] => 0106
+            [monto_pagado] => 
+            [monto_devengado] => 0
+        )
+
+    [8] => Array
+        (
+            [cod_detalle_concepto] => 0107
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [9] => Array
+        (
+            [cod_detalle_concepto] => 0304
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [10] => Array
+        (
+            [cod_detalle_concepto] => 0703
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [11] => Array
+        (
+            [cod_detalle_concepto] => 0704
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [12] => Array
+        (
+            [cod_detalle_concepto] => 0909
+            [monto_pagado] => 80
+            [monto_devengado] => 0
+        )
+
+    [13] => Array
+        (
+            [cod_detalle_concepto] => 0115
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [14] => Array
+        (
+            [cod_detalle_concepto] => 0605
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [15] => Array
+        (
+            [cod_detalle_concepto] => 0607
+            [monto_pagado] => 0
+            [monto_devengado] => 0
+        )
+
+    [16] => Array
+        (
+            [cod_detalle_concepto] => 0601
+            [monto_pagado] => 17.33
+            [monto_devengado] => 0
+        )
+
+    [17] => Array
+        (
+            [cod_detalle_concepto] => 0606
+            [monto_pagado] => 11.63
+            [monto_devengado] => 0
+        )
+
+    [18] => Array
+        (
+            [cod_detalle_concepto] => 0608
+            [monto_pagado] => 82.5
+            [monto_devengado] => 0
+        )
+
+)
+</pre>

@@ -196,11 +196,13 @@ function nuevoPQ() {
                     $data_ask = leerVacacionDetalle($data_vdetalle, $PERIODO,$fecha_inicio,$fecha_fin);      
                     $dia_vacacion = $data_ask['dia'];
                     echo "\n\nENTRO  VACACION TRUE = ".$dia_vacacion;
+                    
+                    $percent = ($data_tra[$i]['_vacacion']==true) ? 50 : $percent;
                 }
                 //**************************************************************
                 $dia_laborado = $dia_laborado - $dia_vacacion;
                 $SUELDO_CAL = 0;
-                if ($dia_laborado == 15) { // 15 dias
+                if ($dia_laborado == 15) { // 15 dias                    
                     $SUELDO_CAL = $data_tra[$i]['monto_remuneracion'] * ($percent / 100);
                 } else {
                     $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);

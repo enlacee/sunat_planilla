@@ -49,7 +49,7 @@ class TrabajadorVacacionDao extends AbstractDao {
             $stm->bindValue(8, $model->getCod_regimen_pensionario());
             $stm->bindValue(9, $model->getCod_regimen_aseguramiento_salud());
             $stm->bindValue(10, $model->getFecha_creacion());
-            
+
             $stm->execute();
 
             // id Comerico
@@ -70,89 +70,24 @@ class TrabajadorVacacionDao extends AbstractDao {
         }
     }
 
-    function existeTrabajadorVacacion($id_pdeclaracion, $id_trabajador, $fecha_inicio) {
-
+    // unico registro pero posible 2 a mas en el mismo mes.
+    function listarTv($id_pdeclaracion, $id_trabajador) {
         $query = "
-            SELECT *FROM trabajadores_vacaciones
-            WHERE id_pdeclaracion = ?
-            AND id_trabajador = ?
-            AND fecha_inicio = ?            
+        SELECT
+          id_trabajador_vacacion,
+          dia,
+          proceso_porcentaje
+        FROM trabajadores_vacaciones
+        WHERE id_pdeclaracion = ?
+        AND id_trabajador = ?          
         ";
-        //Inicia transaccion
-        $this->pdo->beginTransaction();
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $id_trabajador);
-        $stm->bindValue(3, $fecha_inicio);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $this->pdo->commit();
-        $stm = null;
-
-        if (count($lista) >= 1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    //buscar what...
-    function buscar_what($id_pdeclaracion, $id_trabajador, $atributo) { //num_dia
-        $query = "
-            SELECT 
-            $atributo
-            FROM trabajadores_vacaciones
-            WHERE id_pdeclaracion = ?
-            AND id_trabajador = ? 
-            ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $id_trabajador);
-
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista[0][$atributo];
-    }
-
-    // OJO SOLO ID
-    function listaIDTrabajadoresVacacion($id_pdeclaracion) {
-        $query = "
-            SELECT 
-            id_trabajador
-            FROM trabajadores_vacaciones
-            WHERE id_pdeclaracion = ?            
-            ";
-        $stm = $this->pdo->prepare($query);
-        $stm->bindValue(1, $id_pdeclaracion);
-        $stm->execute();
-        $lista = $stm->fetchAll();
-        $stm = null;
-        return $lista;
-    }
-
-    function getDiaVacacion($id_pdeclaracion, $id_trabajador) {
-
-        $query = "
-            SELECT 
-            num_dia
-            FROM trabajadores_vacaciones
-            WHERE id_pdeclaracion = ?
-            AND id_trabajador = ?
-            ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;
-
-        $num_dia = 0;
-        foreach ($lista as $key => $value) {
-            $num_dia = $num_dia + $value['num_dia'];
-        }
-
-        return $num_dia;
+        return $lista[0];
     }
 
     // new para planilla vacacion 
@@ -170,6 +105,94 @@ class TrabajadorVacacionDao extends AbstractDao {
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista;
+    }
+
+    function listar($id_pdeclaracion, $WHERE, $start, $limit, $sidx, $sord) {
+        $cadena = null;
+        if (is_null($WHERE)) {
+            $cadena = $WHERE;
+        } else {
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
+        }
+        $query = "
+	SELECT  tv.id_trabajador_vacacion,
+		t.id_trabajador,
+		td.descripcion_abreviada AS nombre_tipo_documento,
+		p.num_documento,
+		p.apellido_paterno,
+		p.apellido_materno,
+		p.nombres		
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona        
+        INNER JOIN trabajadores_vacaciones AS tv
+        ON t.id_trabajador = tv.id_trabajador
+	WHERE tv.id_pdeclaracion = ?
+        $cadena
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+
+    function listarCount($id_pdeclaracion, $WHERE) {
+
+
+        $query = "
+	SELECT  
+        count(*) as counteo		
+        FROM personas AS p        
+        INNER JOIN tipos_documentos AS td
+        ON p.cod_tipo_documento = td.cod_tipo_documento
+        INNER JOIN empleadores_maestros AS em
+        ON p.id_empleador = em.id_empleador
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona        
+        INNER JOIN trabajadores_vacaciones AS tv
+        ON t.id_trabajador = tv.id_trabajador
+	WHERE tv.id_pdeclaracion = ?
+        $WHERE
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        return $lista['counteo'];
+    }
+
+    function eliminar($id) {
+
+        $query = "
+        DELETE
+        FROM trabajadores_vacaciones
+        WHERE id_trabajador_vacacion = ?";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id);
+        $stm->execute();
+        return true;
+    }
+
+    function eliminarAll($id_pdeclaracion) {
+        $query = "
+        DELETE
+        FROM trabajadores_vacaciones
+        WHERE id_pdeclaracion = ?";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        
+        echoo($query);
+        echo "id = ".$id_pdeclaracion;        
+        return true;
     }
 
 }

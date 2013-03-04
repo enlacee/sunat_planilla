@@ -8,12 +8,16 @@ $periodo = ($_SESSION['sunat_empleador']['config']['periodo']) ? $_SESSION['suna
 
 <script type="text/javascript">
 // variables LOCALES
+var id_pdeclaracion = $('#id_pdeclaracion').val();
+var periodo 		= $('#periodo').val();	
+console.log("DATOS BASICOS DE PLANILLA");
+console.log('id_pdeclaracion',id_pdeclaracion);
+console.log('periodo',periodo);
+/*
 var id_pdeclaracion
-var periodo;
+var periodo;*/
 
-    $(document).ready(function(){	
-
-		console.log("HOLA EN  document ready");
+    $(document).ready(function(){
 		
 		var request_id_pdeclaracion = <?php echo $id_pdeclaracion;?>;                  
         $( "#tabs").tabs();

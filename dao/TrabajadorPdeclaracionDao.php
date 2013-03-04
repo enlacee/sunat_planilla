@@ -55,6 +55,56 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         
     }
     
+    public function update($obj){
+        
+        $model = new TrabajadorPdeclaracion();
+        $model = $obj;
+        $query ="
+        UPDATE trabajadores_pdeclaraciones
+        SET 
+        dia_laborado = ?,
+        dia_total = ?,
+        ordinario_hora = ?,
+        ordinario_min = ?,
+        sobretiempo_hora = ?,
+        sobretiempo_min = ?,
+        sueldo = ?,
+        sueldo_base = ?,
+        cod_tipo_trabajador = ?,
+        cod_regimen_pensionario = ?,
+        cod_regimen_aseguramiento_salud = ?,
+        cod_situacion = ?,
+        id_empresa_centro_costo = ?,
+        cod_ocupacion_p = ?,
+        fecha_actualizacion = ?
+        WHERE id_trabajador_pdeclaracion = ?;          
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $model->getDia_laborado());
+        $stm->bindValue(2, $model->getDia_total());
+        $stm->bindValue(3, $model->getOrdinario_hora());
+        $stm->bindValue(4, $model->getOrdinario_min());        
+        $stm->bindValue(5, $model->getSobretiempo_hora());
+        $stm->bindValue(6, $model->getSobretiempo_min());        
+        $stm->bindValue(7, $model->getSueldo());
+        $stm->bindValue(8, $model->getSueldo_base());        
+        $stm->bindValue(9, $model->getCod_tipo_trabajador());
+        $stm->bindValue(10, $model->getCod_regimen_pensionario());
+        $stm->bindValue(11, $model->getCod_regimen_aseguramiento_salud());
+        $stm->bindValue(12, $model->getCod_situacion());        
+        $stm->bindValue(13, $model->getId_empresa_centro_costo());
+        $stm->bindValue(14, $model->getCod_ocupacion_p());        
+        $stm->bindValue(15, $model->getFecha_actualizacion());
+        $stm->bindValue(16, $model->getId_trabajador_pdeclaracion());   
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        $stm = null;
+        return true;          
+
+        
+    }
+    
+    
     
     public function registrar($obj) {
 
@@ -139,7 +189,23 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         }
     }
    
-    //
+    public function existe($id_pdeclaracion,$id_trabajador){
+        $query = "
+        SELECT 
+        id_trabajador_pdeclaracion
+        FROM trabajadores_pdeclaraciones
+        WHERE 1=1
+        AND id_pdeclaracion = ?
+        AND id_trabajador = ?
+      ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['id_trabajador_pdeclaracion'];         
+    }
     public function actualizar($obj) {
 
         $query = "

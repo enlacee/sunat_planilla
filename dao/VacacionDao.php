@@ -160,6 +160,33 @@ class VacacionDao extends AbstractDao {
         }
     }
     
+    
+    function trabajadorVacacion($id_trabajador,$anio){
+        $query ="
+        SELECT 
+        vacaciones.id_vacacion,
+        vacaciones.id_trabajador,
+        vacaciones_detalles.fecha_inicio,
+        vacaciones_detalles.fecha_fin
+
+        FROM vacaciones
+        INNER JOIN pdeclaraciones
+        ON vacaciones.id_pdeclaracion = pdeclaraciones.id_pdeclaracion
+        INNER JOIN vacaciones_detalles
+        ON vacaciones.id_vacacion = vacaciones_detalles.id_vacacion
+        WHERE 1=1
+        AND vacaciones.id_trabajador = ?
+        AND YEAR(pdeclaraciones.periodo)=?        
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1,$id_trabajador);
+        $stm->bindValue(2,$anio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm =null;
+        return $lista;
+        
+    }
     //data para generar vacacion
     function trabajadoresConVacacion($id_empleador_maestro,$anio){
         $query = "

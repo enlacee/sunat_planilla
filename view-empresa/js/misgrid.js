@@ -2763,11 +2763,10 @@ function enviarVacacion(){ // Pago Quincena
 		data: {},
 		async:true,
 		success: function(data){
-			if(data.rpta){
-                alert(data.mensaje);				
-				console.log("OK");
-			}else{
-				console.log("ERROR");
+			if(data.rpta){                
+                alert(data.mensaje);
+                $("#list").trigger('reloadGrid');
+			}else{				
                 alert(data.mensaje);
 			}				
 		},
@@ -2823,7 +2822,7 @@ function validarPlanilla(button){
         $("#list").jqGrid({
             url:'sunat_planilla/controller/VacacionDetalleController.php?oper=cargar_tabla&id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo+'&id_trabajador='+id_trabajador,
             datatype: 'json',
-            colNames:['id','Fecha inico','Fecha fin','dia'],
+            colNames:['id','Fecha inico','Fecha fin','dia','op'],
             colModel :[
                 {
                     name:'id_vacacion_detalle', 
@@ -2856,13 +2855,21 @@ function validarPlanilla(button){
                     index:'dia',
                     editable:false,
                     search:false,
+                    width:50,
+                    align:'center'
+                },
+                 {
+                    name:'operacion', 
+                    index:'operacion',
+                    editable:false,
+                    search:false,
                     width:90,
                     align:'center'
-                }
+                }                
             ],
             pager: '#pager',
             caption: 'historial de vacacion anual',
-            rownumbers: true,
+            //rownumbers: true,
             //height:320,
             //rowNum:25,
             rowList:[10],
@@ -2874,6 +2881,26 @@ function validarPlanilla(button){
     }
 
 
+
+    function eliminarDetalleVacacion(id){
+    var estado = confirm("Seguro de eliminar periodo de vacacion?");    
+        if(estado == true){
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "sunat_planilla/controller/VacacionDetalleController.php",
+                data: {oper : 'del', id :id},
+                async:true,
+                success: function(data){                    
+                    if(data.rpta){
+                        $("#list").trigger('reloadGrid');
+                    }else{                    
+                        alert("Error");
+                    } 
+                }
+            }); 
+        }
+    }
 
 
 

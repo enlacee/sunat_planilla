@@ -22,6 +22,7 @@ class TrabajadorPdeclaracion extends AbstractDao {
     private $cod_situacion;
     private $id_empresa_centro_costo;
     private $cod_ocupacion_p;
+    private $fecha_actualizacion;
 
     public function getId_trabajador_pdeclaracion() {
         return $this->id_trabajador_pdeclaracion;
@@ -167,6 +168,15 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->cod_ocupacion_p = $cod_ocupacion_p;
     }
    
+    public function getFecha_actualizacion() {
+        return $this->fecha_actualizacion;
+    }
+
+    public function setFecha_actualizacion($fecha_actualizacion) {
+        $this->fecha_actualizacion = $fecha_actualizacion;
+    }
+
+
 }
 
 ?>

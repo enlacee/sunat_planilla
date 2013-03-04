@@ -3,12 +3,14 @@
 require_once('../view/ide.php');
 //*******************************************************************//
 $id_pdeclaracion = ($_SESSION['sunat_empleador']['config']['id_pdeclaracion']) ? $_SESSION['sunat_empleador']['config']['id_pdeclaracion'] : 'null';
+
 ?>
 <script type="text/javascript">
+
 	$(document).ready(function(){                  
 		$( "#tabs").tabs();		
 	});
-	// js
+
 	var id_pdeclaracion = <?php echo $id_pdeclaracion;?>;	
 	function cargarPagina(){
 		if(id_pdeclaracion){

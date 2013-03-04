@@ -11,6 +11,7 @@ if ($op) {
 
     //trabajador
     require_once '../dao/TrabajadorDao.php';
+    require_once '../dao/PlameDao.php';
 }
 
 $response = NULL;
@@ -23,6 +24,8 @@ if ($op == "add") {
     $response = editRPC();
 } else if ($op == "del") {
     $response = delRPC();
+}else if($op=="trabajador_por_mes"){    
+    $response = listar_15_Mes();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
@@ -186,5 +189,134 @@ function delRPC() {
     $dao = new RegistroPorConceptoDao();     
     return $dao->del($_REQUEST['id']);
 }
+
+// funcion antes eliminada ahora utilizada etapapagagocontroller
+// GRID personal por mes = similar a listar_15()
+function listar_15_Mes() {
+
+//========================================================================//
+
+    $ID_DECLARACION = $_REQUEST['id_pdeclaracion'];
+    $PERIODO = $_REQUEST['periodo'];
+    // SOLO UTILIZADO EN RPC2 'registro por concepto'
+    $tipo = $_REQUEST['tipo'];
+
+    $FECHA = getFechasDePago($PERIODO);
+
+//echoo($FECHA);
+//$FECHA['first_day'];
+//$FECHA['last_day'];
+
+    $dao_plame = new PlameDao();
+    $page = $_GET['page'];
+    $limit = $_GET['rows'];
+    $sidx = $_GET['sidx']; // get index row - i.e. user click to sort
+    $sord = $_GET['sord']; // get the direction
+    $WHERE = "";
+
+    if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
+
+        $operadores["eq"] = "=";
+        $operadores["ne"] = "<>";
+        $operadores["lt"] = "<";
+        $operadores["le"] = "<=";
+        $operadores["gt"] = ">";
+        $operadores["ge"] = ">=";
+        $operadores["cn"] = "LIKE";
+        if ($_GET['searchOper'] == "cn")
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . " '%" . $_GET['searchString'] . "%' ";
+        else
+            $WHERE = "AND " . $_GET['searchField'] . " " . $operadores[$_GET['searchOper']] . "'" . $_GET['searchString'] . "'";
+    }
+
+    if (!$sidx)
+        $sidx = 1;
+
+    $count = $dao_plame->listarTrabajadoresPorPeriodo_global_grid_Mes_Count(ID_EMPLEADOR_MAESTRO, $FECHA['first_day'], $FECHA['last_day'], $WHERE);
+
+    if ($count > 0) {
+        $total_pages = ceil($count / $limit);
+    } else {
+//$total_pages = 0;
+    }
+//valida
+    if ($page > $total_pages)
+        $page = $total_pages;
+
+// calculate the starting position of the rows
+    $start = $limit * $page - $limit;
+//valida
+    if ($start < 0)
+        $start = 0;
+//$dao_plame->actualizarStock();
+// CONTRUYENDO un JSON
+    $response->page = $page;
+    $response->total = $total_pages;
+    $response->records = $count;
+
+
+    $i = 0;
+
+//llena en al array
+    $lista = array();
+    $lista = $dao_plame->listarTrabajadoresPorPeriodo_global_grid_Mes(ID_EMPLEADOR_MAESTRO, $FECHA['first_day'], $FECHA['last_day'], $WHERE, $start, $limit, $sidx, $sord);
+
+// ----- Return FALSE no hay Productos
+    if ($lista == null || count($lista) == 0) {
+        return null;
+    }
+
+    foreach ($lista as $rec) {
+        $param = $rec["id_trabajador"];
+        $_01 = $rec["cod_tipo_documento"];
+        $_02 = $rec["num_documento"];
+        $_03 = $rec["apellido_paterno"];
+        $_04 = $rec["apellido_materno"];
+        $_05 = $rec["nombres"];
+        $_06 = $rec["fecha_inicio"];
+        $_07 = $rec["fecha_fin"];
+
+//$js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
+
+        $js = "javascript:agregarTrabajador_rpc('" . $param . "')";
+
+        switch ($tipo) {
+            case 2:
+                $js = "javascript:agregarTrabajador_rpc2_phe('" . $param . "')";
+                break;
+            default:
+                break;
+        }
+
+
+
+
+
+        $opciones = '<div class="red">
+          <span  title="Editar" >
+          <a href="' . $js . '">seleccionar</a>
+          </span>
+          </div>';
+
+        $response->rows[$i]['id'] = $param;
+        $response->rows[$i]['cell'] = array(
+            $param,
+            $_01,
+            $_02,
+            $_03,
+            $_04,
+            $_05,
+            $_06,
+            $_07,
+            $opciones
+//utf8_encode($opciones),
+//$_06
+        );
+        $i++;
+    }
+    return $response;
+}
+
+
 
 ?>

@@ -13,6 +13,8 @@ private $proceso_porcentaje;
 private $cod_regimen_pensionario;
 private $cod_regimen_aseguramiento_salud;
 private $fecha_creacion;
+private $fecha_actualizacion;
+
 public function getId_trabajador_vacacion() {
     return $this->id_trabajador_vacacion;
 }
@@ -99,6 +101,14 @@ public function getFecha_creacion() {
 
 public function setFecha_creacion($fecha_creacion) {
     $this->fecha_creacion = $fecha_creacion;
+}
+
+public function getFecha_actualizacion() {
+    return $this->fecha_actualizacion;
+}
+
+public function setFecha_actualizacion($fecha_actualizacion) {
+    $this->fecha_actualizacion = $fecha_actualizacion;
 }
 
 

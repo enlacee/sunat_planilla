@@ -24,12 +24,13 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 	
 	var cod_detalle_concepto = document.getElementById('cod_detalle_concepto').value;
 	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
+	var periodo = document.getElementById('periodo').value;
 	//---------------- inicio --------------//
 	
 		
 	cargarTablaRPC(cod_detalle_concepto,id_pdeclaracion);
 	
-	cargar_tabla_rpc_buscar(id_pdeclaracion);
+	cargar_tabla_rpc_buscar(id_pdeclaracion,periodo);
 	
 	
 	//---------------- inicio --------------//
@@ -348,7 +349,7 @@ $data_detalle_concepto = buscar_detalle_concepto_id($cod_detalle_concepto);
 	
 //--
 // Funcion para lista de trabajadores :: Mes 01/01/2012 a 31/01/2012
-function cargar_tabla_rpc_buscar(id_pdeclaracion){
+function cargar_tabla_rpc_buscar(id_pdeclaracion,periodo){
 	
 	//var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 		//console.log("mensaje grid");
@@ -357,7 +358,7 @@ function cargar_tabla_rpc_buscar(id_pdeclaracion){
 
         //$("#list-buscar").jqGrid('GridUnload');
         $("#list-buscar").jqGrid({
-            url:'sunat_planilla/controller/EtapaPagoController.php?oper=trabajador_por_mes&id_pdeclaracion='+id_pdeclaracion,
+            url:'sunat_planilla/controller/RegistroPorConceptoController.php?oper=trabajador_por_mes&id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo,
             datatype: 'json',
             colNames:['Id','tipo_doc','Numero Doc','APaterno',
                 'AMaterno', 'Nombres','F inicio','F fin', 'Opciones'],
@@ -501,9 +502,8 @@ function agregarTrabajador_rpc(id_trabajador){
 		 },
 	async:true,	
 	success: function(data){		
-		if(data.estado){
-			
-			alert("Se Guardo correctamente.");
+		if(data.estado){			
+			//alert("Se Guardo correctamente.");
 			//$("#list").jqGrid('GridUnload');
 			jQuery("#list").trigger("reloadGrid");
 			

@@ -157,7 +157,7 @@ class PlameDao extends AbstractDao {
         
         $cadena
 	";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_EM);
         $stm->bindValue(2, $mes_fin);
@@ -169,8 +169,6 @@ class PlameDao extends AbstractDao {
         return $lista;
     }
 
-    
-    
     /**
      * Segundo caso Listado de trabajadores por mes:
      *  debido ah que solo tiene que encontrarse a trabajadores dentro
@@ -275,11 +273,58 @@ class PlameDao extends AbstractDao {
         $lista = $stm->fetchAll();
         $stm = null;
         return $lista[0]['counteo'];
+    }
+
+    // funcion optimizada por empleador (vacaciones)
+    public function listarTrabajadoresPorPeriodo($id_empleador, $mes_inicio, $mes_fin) {
+        $query = "		
+        SELECT
+        p.id_persona,
+        t.id_trabajador,
+        t.monto_remuneracion
+        FROM personas AS p
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+	INNER JOIN detalle_periodos_laborales AS dpl
+	ON t.id_trabajador = dpl.id_trabajador
+	-- 17 = No se inicio relacion laboral
+	WHERE ( dpl.cod_motivo_baja_registro <> '17' AND p.id_empleador = ? )
+	-- fecha periodo
+	AND (dpl.fecha_inicio <= ?  )
+	AND (dpl.fecha_fin >= ? OR dpl.fecha_fin IS NULL )     
+	";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador);
+        $stm->bindValue(2, $mes_fin);
+        $stm->bindValue(3, $mes_inicio);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista;
+    }
+    
+    // funcion optimizada por empleador (vacaciones)
+    public function obtenerPeriodoLaboral($id_trabajador) {
+        $query = "		
+        SELECT      
+        dpl.fecha_inicio,
+        dpl.fecha_fin
+        FROM personas AS p
+        INNER JOIN trabajadores AS t
+        ON p.id_persona = t.id_persona
+	INNER JOIN detalle_periodos_laborales AS dpl
+	ON t.id_trabajador = dpl.id_trabajador
+	WHERE 1=1
+	AND t.id_trabajador = ?  
+	";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0];
     }    
-    
-    
-    
-    
+
     // ADELANTO QUINCENAL
     //before = listarTrabajadoresPorPeriodo_15 , 7
     public function listarTrabajadoresPorPeriodo_global($id_EM, $mes_inicio, $mes_fin, $WHERE = null) {
@@ -346,24 +391,23 @@ class PlameDao extends AbstractDao {
         return $lista;
     }
 
-    public function editMontoDevengadoTrabajador($id_trabajador,$monto_devengado){
-        $query="
+    public function editMontoDevengadoTrabajador($id_trabajador, $monto_devengado) {
+        $query = "
         UPDATE trabajadores
         SET 
         monto_devengado = ?
         WHERE id_trabajador = ?; 
     ";
-        
+
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $monto_devengado);
-        $stm->bindValue(2, $id_trabajador); 
+        $stm->bindValue(2, $id_trabajador);
         $stm->execute();
         //$lista = $stm->fetchAll();
         //$stm = null;
-        return true;        
-                
+        return true;
     }
-    
+
     //new 10/09/2012
     public function listarTrabajadorPeriodo($id_empleador_maestro, $id_trabajador) {
 

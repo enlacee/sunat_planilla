@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 $op = $_REQUEST["oper"];
 if ($op) {
@@ -15,21 +16,22 @@ if ($op) {
 
 $response = NULL;
 
-if ($op == "cargar_tabla") {    
+if ($op == "cargar_tabla") {
     $response = cargar_tabla();
+} else if ($op == "del") {
+    $response = deleteVD();
 }
 echo (!empty($response)) ? json_encode($response) : '';
 
+function cargar_tabla() {
 
-function cargar_tabla(){
-    
     //$ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     $PERIODO = $_REQUEST['periodo'];
     $anio = getFechaPatron($PERIODO, 'Y');
     $id_trabajador = $_REQUEST['id_trabajador'];
-    
+
     $daov = new VacacionDao();
-    $id_pdeclaracion_vacacion_base = $daov->getPdeclaracionBase($id_trabajador,$anio);      
+    $id_pdeclaracion_vacacion_base = $daov->getPdeclaracionBase($id_trabajador, $anio);
     //echoo($id_pdeclaracion_vacacion_base);
     $page = $_GET['page'];
     $limit = $_GET['rows'];
@@ -53,7 +55,7 @@ function cargar_tabla(){
         $sidx = 1;
 
     $daovd = new VacacionDetalleDao();
-    $count = $daovd->listarCount($id_pdeclaracion_vacacion_base/*$ID_PDECLARACION*/,$id_trabajador,$WHERE);
+    $count = $daovd->listarCount($id_pdeclaracion_vacacion_base/* $ID_PDECLARACION */, $id_trabajador, $WHERE);
 
     if ($count > 0) {
         $total_pages = ceil($count / $limit);
@@ -63,7 +65,7 @@ function cargar_tabla(){
 
     if ($page > $total_pages)
         $page = $total_pages;
-    
+
     $start = $limit * $page - $limit;
     //valida
     if ($start < 0)
@@ -75,26 +77,34 @@ function cargar_tabla(){
     $response->records = $count;
     $i = 0;
     $lista = array();
-    $lista = $daovd->listar($id_pdeclaracion_vacacion_base/*$ID_PDECLARACION*/, $id_trabajador, $WHERE, $start, $limit, $sidx, $sord);    
+    $lista = $daovd->listar($id_pdeclaracion_vacacion_base/* $ID_PDECLARACION */, $id_trabajador, $WHERE, $start, $limit, $sidx, $sord);
     if ($lista == null || count($lista) == 0) {
         return $response;
-    }    
+    }
     foreach ($lista as $rec) {
         $param = $rec["id_vacacion_detalle"];
         $_01 = getFechaPatron($rec["fecha_inicio"], "d/m/Y");
         $_02 = getFechaPatron($rec["fecha_fin"], "d/m/Y");
         $_03 = $rec["dia"];
-        //$js4 = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_vacacion_2.php?id_vacacion=" . $param . "&id_pdeclaracion=" . $ID_PDECLARACION . "&periodo=" . $PERIODO . "','#CapaContenedorFormulario')";
-        //$_04 = '<a href="' . $js4 . '" class="divEditar" ></a>';
+        $js4 = "javascript:eliminarDetalleVacacion($param)";
+        $_04 = '<a href="' . $js4 . '" class="divEliminar" ></a>';
         $response->rows[$i]['id'] = $param;
         $response->rows[$i]['cell'] = array(
             $param,
             $_01,
             $_02,
-            $_03
+            $_03,
+            $_04
         );
         $i++;
     }
+    return $response;
+}
+
+function deleteVD() {
+    $id = $_REQUEST['id'];
+    $dao = new VacacionDetalleDao();
+    $response->rpta = $dao->del($id);
     return $response;
 }
 

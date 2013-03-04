@@ -196,6 +196,7 @@ function buscarPeriodo($id_pdeclaracion) {
 // NEW ANB
 
 function planillaMensualXD() {
+    
     /*
       $ID_PDECLARACION = 29;
       $PERIODO = '2013-01-01';
@@ -204,7 +205,6 @@ function planillaMensualXD() {
       calcular_IR5_concepto_0605($ID_PDECLARACION,13,$PERIODO);
       return false;
      */
-
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
     $PERIODO = $_REQUEST['periodo'];
     $anio = getFechaPatron($PERIODO, 'Y');
@@ -212,7 +212,7 @@ function planillaMensualXD() {
     generarConfiguracion($PERIODO);
     generarConfiguracion2($PERIODO);
     // INCIO PROCESO
-    $model_tpd = new TrabajadorPdeclaracion();
+    
     $dao_tpd = new TrabajadorPdeclaracionDao();
     $dao_plame = new PlameDao();
 
@@ -223,17 +223,11 @@ function planillaMensualXD() {
     $fecha_inicio = $fecha['second_weeks_mas1'];
     $fecha_fin = $fecha['last_day'];
 
-    //echoo($_SESSION);
-    //|-------------------------------------------------------------------------
-    //| Aki para mejorar. la aplicacion debe de preguntar por un Trabajador en 
-    //| concreto:
-    //|
-    //| XQ esta funcion devuelve una lista de trabajadores. Si la persona tubiera
-    //| por registros de trabajador. el sistema crearia :
-    //| reportes de la persona.. duplicadooooo.
-    //|-------------------------------------------------------------------------    
-    $data_tra = $dao_plame->listarTrabajadoresPorPeriodo_global(ID_EMPLEADOR_MAESTRO, $fecha_inicio, $fecha_fin);
+    // Operacion (01)
+    // listar trabajadores.
+    $data_tra = $dao_plame->listarTrabajadoresPorPeriodo(ID_EMPLEADOR, $fecha['second_weeks_mas1'], $fecha['last_day']);
 
+    // Operacion (01.1) FILTRO
     //ID seleccionados en el Grid    
     if (isset($ids)) {
         echo "<pre>[idsS]  Que Usted Selecciono en el Grid\n";
@@ -251,195 +245,139 @@ function planillaMensualXD() {
         }
         $data_tra = null;
         $data_tra = $ids_tra;
-    }
+    }    
+    
+    
+    
 
-    // LLENA DE NULL SI YA FUERON REGISTRADOS EN LA PLANILLA MENSUAL.
-    $data_id_tra_db = $dao_tpd->listar_HIJO($ID_PDECLARACION);
-    for ($i = 0; $i < count($data_id_tra_db); $i++):
-        for ($j = 0; $j < count($data_tra); $j++):
-            if ($data_id_tra_db[$i]['id_trabajador'] == $data_tra[$j]['id_trabajador']):
-                $data_tra[$j]['id_trabajador'] = null;
-                //echo "encontro trabajador  = NULL Y  BREAK!!;";
-                break;
-            endif;
-        endfor;
-    endfor;
-    //echoo($data_tra);
-    //--------------------------------------------------------------------
-    //         validar trabajador con vacacion
-    $daov = new VacacionDao();
-    $data_trav = $daov->trabajadoresConVacacion(ID_EMPLEADOR_MAESTRO, $anio);
-    if (count($data_trav) > 0) {
-        for ($i = 0; $i < count($data_trav); $i++):
-            for ($j = 0; $j < count($data_tra); $j++):
-                if ($data_trav[$i]['id_trabajador'] == $data_tra[$j]['id_trabajador']):
-                    //$data_tra[$j]['id_trabajador'] = null;
-                    $data_tra[$j]['_vacacion'] = true;
-                    $data_tra[$j]['_id_vacacion'] = $data_trav[$i]['id_vacacion'];
-                    break;
-                endif;
-            endfor;
-        endfor;
-        $data_tra = array_values($data_tra);
-    }
+    // Operacion (02)
+    // listar trabajador con vacacion
+    $countDataTra = count($data_tra);
+    //echo "\ncontador data_tra =".$countDataTra;
+    $counterVacacion = 0;
+    if ($countDataTra > 0) {
 
-//==============================================================================
-
-    for ($i = 0; $i < count($data_tra); $i++) {
-        if ($data_tra[$i]['id_trabajador'] != null) {
-            // DATA QUINCENA
-            echo "EN FOR";
+        for ($i = 0; $i < /*1*/$countDataTra; $i++) {
+            // DATA QUINCENA 
+            //$i = 12;
+            //$i = 130;
+            //$i=  intval(10);
+            //echo "\necho   iiii = $i";
+            //$i=1;
+            //$i=20;
+            //$i=25;
             $data_quincena = $dao_pq->listarPorPdeclaracionTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador']);
             $quincena_sueldoPorcentaje = ($data_quincena['sueldo_porcentaje'] > 0) ? $data_quincena['sueldo_porcentaje'] : 0;
             $quincena_sueldo = ($data_quincena['sueldo'] > 0) ? $data_quincena['sueldo'] : 0;
             $quincena_devengado = ($data_quincena['devengado'] > 0) ? $data_quincena['devengado'] : 0;
             $quincena_diaLaborado = ($data_quincena['dia_laborado'] > 0) ? $data_quincena['dia_laborado'] : 0;
-            // PROCESO MENSUAL
-            //-----------------------------------------------------------
-            if ($data_tra[$i]['fecha_inicio'] > $fecha_inicio) {
-                
-            } else if ($data_tra[$i]['fecha_inicio'] <= $fecha_inicio) {
-                $data_tra[$i]['fecha_inicio'] = $fecha_inicio;
-            }
-            if (is_null($data_tra[$i]['fecha_fin'])) {
-                $data_tra[$i]['fecha_fin'] = $fecha_fin;
-            } else if ($data_tra[$i]['fecha_fin'] >= $fecha_fin) { //INSUE
-                $data_tra[$i]['fecha_fin'] = $fecha_fin;
-            }
-            //-----------------------------------------------------------
 
+            $plaboral = $dao_plame->obtenerPeriodoLaboral($data_tra[$i]['id_trabajador']);
 
-            /*             * */
-            //base
-            $b_fecha_inicio = $fecha_inicio;
-            $b_fecha_fin = $fecha_fin;
-            //relative
-            $r_fecha_inicio = $data_tra[$i]['fecha_inicio'];
-            $r_fecha_fin = $data_tra[$i]['fecha_fin'];
-
-            $dia_no_trabajado = 0;
-
-            echoo($b_fecha_inicio);
-            echoo($r_fecha_inicio);
-            echoo($b_fecha_fin);
-            echoo($r_fecha_fin);
-            if (($b_fecha_inicio == $r_fecha_inicio) && ($b_fecha_fin == $r_fecha_fin)) {
-                echo "\nHOLAAA dias completos";
-                //dias completos
-            } else {
-                echo "\nHOLA elseeeeeeeeeeee";
-
-                if ($r_fecha_inicio > $b_fecha_inicio) {
-                    //dia16 -dia18
-                    $dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($b_fecha_inicio, $r_fecha_inicio, 'd'));
-                    //$dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($b_fecha_inicio, $r_fecha_inicio,'d'));
-                    $dia_no_trabajado--;
-                    //echo "entro 1";
+            if (is_array($plaboral)) {
+                //-----------------------------------------------------------
+                if ($plaboral['fecha_inicio'] > $fecha['second_weeks_mas1']) {
+                    
+                } else if ($plaboral['fecha_inicio'] <= $fecha['second_weeks_mas1']) {
+                    $plaboral['fecha_inicio'] = $fecha['second_weeks_mas1'];
                 }
-                if ($r_fecha_fin < $b_fecha_fin) {
-                    $dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($r_fecha_fin, $b_fecha_fin, 'd'));
-                    //$dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($r_fecha_fin, $b_fecha_fin,'d'));
-                    $dia_no_trabajado--;
-                    //echo "entro 2";
-                }
-            }
-            //****
-            //$dia_laborado = ( (getFechaPatron($fecha['last_day'],"d"))>30 ) ? 16 : 15;
-            echo "\ndia_no_trabajado = $dia_no_trabajado";
-            $dia_laborado = ( (getFechaPatron($fecha['last_day'],"d"))>=31 ) ? 16 : 15;
-            $dia_laborado = $dia_laborado - $dia_no_trabajado;
 
-            //**************************************************************
-            $dia_vacacion = 0;
-            $dia_vacacion_total = 0;
-            $status_vacacion = false;
-            if ($data_tra[$i]['_vacacion'] == true) {
-                $daovd = new VacacionDetalleDao();
-                $data_vdetalle = $daovd->vacacionDetalle($data_tra[$i]['_id_vacacion']);
-                //$fecha = getFechasDePago($PERIODO);
-                //$f_inicio = $fecha['first_day'];
-                //$f_fin = $fecha['last_day'];
-                $data_ask = leerVacacionDetalle($data_vdetalle, $PERIODO, $fecha['second_weeks_mas1'], $fecha['last_day']);
-                $dia_vacacion = $data_ask['dia']; // dia no laborado del segundo periodo de 15 dias.
-                echo "\n\nENTRO  VACACION TRUE = ";
-                echo "\nantes dia_vacacion=".$dia_vacacion;
-                //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                /*if((getFechaPatron($fecha['last_day'],"d"))>=31){
-                    if($dia_vacacion>=16){
-                        $dia_vacacion = 15;
+                if (is_null($plaboral['fecha_fin'])) {
+                    $plaboral['fecha_fin'] = $fecha['last_day'];
+                } else if ($plaboral['fecha_fin'] >= $fecha['last_day']) { //INSUE
+                    $plaboral['fecha_fin'] = $fecha['last_day'];
+                }
+                //-----------------------------------------------------------   
+                // **Calc dias no trabajados por Fecha.
+                if (($fecha['second_weeks_mas1'] == $plaboral['fecha_inicio']) && ($fecha['last_day'] == $plaboral['fecha_fin'])) {
+                    echo "\nHOLAAA dias completos";
+                    //dias completos
+                } else {
+                    echo "\nHOLA dias imcompletos";
+                    if ($plaboral['fecha_inicio'] > $fecha['second_weeks_mas1']) {
+                        //dia16 -dia18
+                        $dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($fecha['second_weeks_mas1'], $plaboral['fecha_inicio'], 'd'));
+                        //$dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($b_fecha_inicio, $r_fecha_inicio,'d'));
+                        $dia_no_trabajado--;
                     }
-                }*/
-                //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                echo "\ndespues dia_vacacion=".$dia_vacacion;                    
-                //----*
-                // planilla acumulada mes total (quincena+vacacion+mes)
-                $data_ask_mes = leerVacacionDetalle($data_vdetalle, $PERIODO, $fecha['first_day'], $fecha['last_day']);
-                $dia_vacacion_total = $data_ask_mes['dia'];
-                echo"\nDIA VACACION TOTALL ANTES (16-30) = ".$dia_vacacion_total;
-                $status_vacacion  = $data_tra[$i]['_vacacion'];
-                //----*
-            }
-            //**************************************************************
-            $dia_vacacion_total = $dia_vacacion_total - $dia_vacacion;
-            echo"\nDIA VACACION TOTALL DESPUES (16-30) = ".$dia_vacacion_total;
-            $dia_laborado = $dia_laborado - $dia_vacacion;
+                    if ($plaboral['fecha_fin'] < $fecha['last_day']) {
+                        $dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($plaboral['fecha_fin'], $fecha['last_day'], 'd'));
+                        //$dia_no_trabajado = $dia_no_trabajado + count(rangoDeFechas($r_fecha_fin, $b_fecha_fin,'d'));
+                        $dia_no_trabajado--;
+                    }
+                }
+
+                echo "\ndia_no_trabajado = $dia_no_trabajado";
+                //****  Variables            
+                $dia_laborado = ( (getFechaPatron($fecha['last_day'], "d")) >= 31 ) ? 16 : 15;
+                $dia_vacacion_15 = 0;
+                $dia_vacacion_mes = 0;                
+                $data_trav = array();
+                $data_ask = array();
+                //--
+                $SUELDO_CAL = 0;
+                $DESC_DIA_31 = 0;                
+
+                //
+                $dia_laborado = $dia_laborado - $dia_no_trabajado;
+                echo "\ndia_laborado = $dia_laborado";
+                // **Calc dias no trabajados por Vacaciones.  
 
 
-            
-              ECHO "<BR>\n\n\n\n";
-              echo "dia_no_trabajado = ".$dia_no_trabajado;
-              echoo($data_tra[$i]['fecha_inicio']);
-              echo '<pre>dia laborado';
-              print_r($dia_laborado);
-              echo '</pre>';
-              echo "<br>";
-              ECHO "<BR>\n\n\n\n";
-              ECHO "MONTO_REMUNERACION = ".$data_tra[$i]['monto_remuneracion']."\n";
-             
-            //CALCULOS LOGIC
-            $SUELDO_CAL = 0;
-            $DESC_DIA_31 = 0;
-            if((getFechaPatron($fecha['last_day'],"d"))==31){                
+                $daov = new VacacionDao();
+                $data_trav = $daov->trabajadorVacacion($data_tra[$i]['id_trabajador'], $anio);
+
+                if (count($data_trav) > 0) {        // TOMA EN CUENTA TODO EL MES!   :D
+                    $data_ask_mes = leerVacacionDetalle($data_trav, $PERIODO, $fecha['first_day'], $fecha['last_day']);
+                    //REALMENTE TIENE VACACION EN ESTE MES! .
+                    if ($data_ask_mes['dia'] > 0) { 
+                        $dia_vacacion_mes = $data_ask_mes['dia'];                       
+                        
+                        $data_ask_15 = leerVacacionDetalle($data_trav, $PERIODO, $fecha['second_weeks_mas1'], $fecha['last_day']);                        
+                        if($data_ask_15['dia']>0){
+                           $dia_vacacion_15 = $data_ask_15['dia']; // dia no laborado del segundo periodo de 15 dias. 
+                        }                                                
+                        echo"\ndia_vacacion_mes (16-30) = " . $dia_vacacion_mes;
+                        echo"\ndia_vacacion_15 (16-30) = " . $dia_vacacion_15;
+                        echo "\n";
+                    }
+                }//EndIf_vacacion                
+                $dia_laborado = $dia_laborado - $dia_vacacion_15;
+                echo "\ndia_laborado = $dia_laborado";
+                
+                
+                
+            // **---------------------CALCULOS LOGIC----------------------------
+            //    
+            if ((getFechaPatron($fecha['last_day'], "d")) == 31) {
                 $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
-                $DESC_DIA_31 = $smpd * 1;             
+                $DESC_DIA_31 = $smpd * 1;
             }
-            echo "\n***\n";
-            echo "DESC_DIA_31 = $DESC_DIA_31";
-            /*
-             * Estos dias son variables
-             * enero = 30 = 15
-             * febrero = 28 = 14
-             * marzo = 31 = 16
-             */
-            //echo "\n\nquincena_sueldoPorcentaje = ".$quincena_sueldoPorcentaje;
-            //echo "data_tra[$i]['monto_remuneracion'] ".$data_tra[$i]['monto_remuneracion'];
-            //ECHOO($data_tra);
-            ECHO "\nSULEDO MENSUAL CALC:";
-            if ($dia_laborado == 15||$dia_laborado == 16) { // dias completos del mes trabajados. PAGA POR 15 DIAS                
+
+            if ($dia_laborado == 15 || $dia_laborado == 16) { // dias completos del mes trabajados. PAGA POR 15 DIAS                
                 if ($quincena_sueldoPorcentaje > 0) { // CON PORCENTAJE
                     $percent = (100 - $quincena_sueldoPorcentaje);
                     $SUELDO_CAL = $data_tra[$i]['monto_remuneracion'] * ($percent / 100);
-                    echo "\nPORCENTAJE = ".$percent;
-                    echo "\nSUELDO_CAL = ".$SUELDO_CAL;
                 } else { // = 0
                     $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
                     $SUELDO_CAL = $smpd * 15;
-                    echo "\nCALC POR DIAS TRABAJADOS*15";
-                    echo "\nSUELDO_CAL = ".$SUELDO_CAL;                    
                 }
             } else {
                 $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
                 $SUELDO_CAL = $smpd * $dia_laborado;
                 echo "DIA LABORADO < 15 dias";
-                echo "\nSUELDO_CAL = " . $SUELDO_CAL;
-                echo "\ndia_laborado = " . $dia_laborado;
+            }
+
+            // SUMA 1ERA QUINCENA           
+            $SUELDO_CAL = $SUELDO_CAL + ($quincena_sueldo + $quincena_devengado);// - $DESC_DIA_31;
+            if($dia_vacacion_mes==30){
+                
+            }else if($dia_vacacion_mes>0 &&$dia_vacacion_mes<=29){
+                $SUELDO_CAL = $SUELDO_CAL - $DESC_DIA_31;
             }
             
-            // SUMA 1ERA QUINCENA           
-            $SUELDO_CAL = $SUELDO_CAL + ($quincena_sueldo + $quincena_devengado)-$DESC_DIA_31;
-
-
             // -------------- obj Trabajador Pdeclaracion --------------
+            $model_tpd = new TrabajadorPdeclaracion();
             $model_tpd->setId_pdeclaracion($ID_PDECLARACION);
             $model_tpd->setId_trabajador($data_tra[$i]['id_trabajador']);
             $model_tpd->setDia_laborado(($quincena_diaLaborado + $dia_laborado));
@@ -450,23 +388,14 @@ function planillaMensualXD() {
             $model_tpd->setSobretiempo_min(0);
             $model_tpd->setFecha_creacion(date("Y-m-d H:i:s"));
             $model_tpd->setSueldo($SUELDO_CAL);
-            echo "\nSUELDO QUINCENA + DEVENGADO QUINCENA = ".($quincena_sueldo + $quincena_devengado);
-            echo  "\nDESCUENTO DESC_DIA_31 =".$DESC_DIA_31;
+            echo "\nSUELDO QUINCENA + DEVENGADO QUINCENA = " . ($quincena_sueldo + $quincena_devengado);
+            echo "\nDESCUENTO DESC_DIA_31 =" . $DESC_DIA_31;
             echo "\nSUELDO_CAL FINAL OK= $SUELDO_CAL";
-            $model_tpd->setSueldo_base($data_tra[$i]['monto_remuneracion']);
-            $model_tpd->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
-            /*
-              // BUSCAR ADICIONAL
-              NOTA:
-              -En el primer filtro select fecha inicio a fecha fin ;
-              -es posible que se dupliquen pensonas xq no se controla
-              -a un trabajador con 2 mas fechas de inicio en 1 mes.
-              NOTA2:
-              -X eso existe una funcion exlusiva para el momento de obtener
-              -dato de afp o essalud
-             */
+            $model_tpd->setSueldo_base($data_tra[$i]['monto_remuneracion']);            
+
             //Registrar datos adicionales del Trabajador  
-            $data_tra_adit = $dao_tra->buscarDataForPlanilla($data_tra[$i]['id_trabajador']);
+            $data_tra_adit = $dao_tra->buscarDataForPlanilla($data_tra[$i]['id_trabajador']);            
+            $model_tpd->setId_empresa_centro_costo($data_tra_adit['id_empresa_centro_costo']);
             $model_tpd->setCod_tipo_trabajador($data_tra_adit['cod_tipo_trabajador']);
             $model_tpd->setCod_regimen_pensionario($data_tra_adit['cod_regimen_pensionario']);
             $model_tpd->setCod_regimen_aseguramiento_salud($data_tra_adit['cod_regimen_aseguramiento_salud']);
@@ -475,48 +404,47 @@ function planillaMensualXD() {
 
             //data_ayuda
             $data_ayuda = array(
-                'quincena' => $quincena_sueldo, //$data_quincena['sueldo']
-                'status_vacacion'=>$status_vacacion,
-                'dia_vacacion' => $dia_vacacion,
-                'dia_vacacion_total' => $dia_vacacion_total,
-                
+                'quincena' => $quincena_sueldo, //$data_quincena['sueldo']                
+                'dia_vacacion_15' => $dia_vacacion_15,
+                'dia_vacacion_mes' => $dia_vacacion_mes,
             );
-            
+            echoo($model_tpd);
             echoo($data_ayuda);
-            echo "data ayudaaaaaaaaaaaaaaaaaaa";
-            conceptoPorConceptoXD($model_tpd, $data_ayuda, $ID_PDECLARACION, $PERIODO);
-        }//END IF (id_trabajador = NULL)
+            conceptoPorConceptoXD($model_tpd, $data_ayuda, $PERIODO);
+            $counterVacacion++;
+                
+            }
+        }//ENDFOR
     }
+    
+    
+    echo "\nNum procesados es : ".$counterVacacion;
+
 }
 
-function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
-    //DAO
-    $dao_rpc = new RegistroPorConceptoDao();
-    // Arreglo data_rpc = lista de conceptos del trabajador.    
+function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
+ 
+    $ID_PDECLARACION = $obj->getId_pdeclaracion();
+    $pporcentaje = 1;
+    $datarpc = array();
+    $datarpcv = array();     
+    
+    
+    $dao_rpc = new RegistroPorConceptoDao(); 
     $datarpc = $dao_rpc->buscar_RPC_PorTrabajador2($ID_PDECLARACION, $obj->getId_trabajador());
-
     //==========================================================================
-    // here en cabecera para q afecte todo _ PROCESO_PORCENTAJE.
-    // CASO !!!!!!!!!!!!!!!!!!!!!!! VACACION
-    $pporcentaje = 1; //BUG!!!!
-    if ($data_ayuda['status_vacacion']) {
+    if ($data_ayuda['dia_vacacion_mes']>0) {
         $daotv = new TrabajadorVacacionDao();
         $daotvc = new DeclaracionDConceptoVacacionDao();
         $datarpcv = $daotvc->listarTrabajadorPorDeclaracion($obj->getId_trabajador(), $ID_PDECLARACION);
 
-
-        echo "\nID_PDECLARACION =" . $ID_PDECLARACION;
-        echo "\nobj->getId_trabajador() = " . $obj->getId_trabajador();
-        $datatv = $daotv->listarTv($ID_PDECLARACION, $obj->getId_trabajador());
-        echoo($datatv);
+        $datatv = $daotv->listarTv($ID_PDECLARACION, $obj->getId_trabajador());        
         if ($datatv['proceso_porcentaje'] > 0) {
             $pporcentaje = (100 - $datatv['proceso_porcentaje']) / 100;
         }
-        echo "\n pporcentaje ERROR ((100-100)/100) = " . $pporcentaje;
-        echo "\nPORCENTAJE = ".$pporcentaje;
     }
-    echo "\nPORCENTAJE ((100-100)/100) = " . $pporcentaje;
     //==========================================================================
+    echo "\nPORCENTAJE ((100-100)/100) = " . $pporcentaje;
     //Variables locales
     $_arregloAfps = array(21, 22, 23, 24);
     $_asigFamiliar = 0;
@@ -535,14 +463,14 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
     $_essalud = 0;  // concepto_0804();
     // CONCEPTO : ASIGNACION FAMILIAR
 
-    $datarpc_val = buscarConceptoPorConceptoXD($datarpc, C201);
+    $datarpc_val = buscarConceptoPorConceptoXD($datarpc, C201);    
     if (is_array($datarpc_val)) {
         if (intval($datarpc_val['valor']) == 1) {
-            $_asigFamiliar = (concepto_0201()*$pporcentaje);
+            $_asigFamiliar = (concepto_0201() * $pporcentaje);
         }
     }
     unset($datarpc_val);
- echo "\n_asigFamiliarr = $_asigFamiliar";
+    echo "\n_asigFamiliarr = $_asigFamiliar";
     // CONCEPTO : ADELANTO
     $datarpc_val = buscarConceptoPorConceptoXD($datarpc, C701);
     if (is_array($datarpc_val)) {
@@ -571,8 +499,11 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
                 'objdianosub' => $obj_dianosub
             );
         }
-        // CONCEPTO : SUELDO BASICO             
+        // CONCEPTO : SUELDO BASICO   
+        ECHO "\nmodel_tpd->setSueldo(SUELDO_CAL)=".$obj->getSueldo();
         $_sueldoBasico = concepto_0121($obj->getSueldo(), $_inasistencias); //ok
+        echo "\n_inasistencias = ".$_inasistencias;
+        echo "\n_sueldoBasico = ".$_sueldoBasico;
         unset($datarpc_val);
     }
 
@@ -753,10 +684,10 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
     //concento renta 5 
 //  Concepto suma [1]  buscarSumarConceptoVacacion REFOR PARA DUPLICAR RAPID..! :D       OK!! delete low
     echo "\nprint ";
-    echoo($datarpcv);
+    //echoo($datarpcv);
     echo "\nprint ";
     echo "\n_asigFamiliar = $_asigFamiliar";
-    
+
     $conceptosSum = array(
         array(
             'cod_detalle_concepto' => C201,
@@ -769,7 +700,7 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
             'monto_devengado' => 0
         ),
         array(
-            'cod_detalle_concepto' => C121,
+            'cod_detalle_concepto' => C121, //sueldo basico
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C121, $_sueldoBasico),
             'monto_devengado' => 0
         ),
@@ -831,78 +762,104 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
     );
 
 
-    //|                            End Cargar Conceptos
-    //|##############################################################################
-    // CONCEPTO : RENTA DE QUINTA 
-    $ingresos5ta = get_IR5_Ingresos($ID_PDECLARACION, $obj->getId_trabajador(), $conceptos);
-    if ($ingresos5ta > 1400) { // 2012-2013  promedio para optimizar        
-        $_r5ta = calcular_IR5_concepto_0605($ID_PDECLARACION, $obj->getId_trabajador(), $PERIODO, $conceptos);
-        $_r5ta = $_r5ta * $pporcentaje;
-        $conceptos[] = array('cod_detalle_concepto' => C605, 'monto_pagado' => $_r5ta, 'monto_devengado' => 0);
-    }
-
-    // CONCEPTO : ONP , AFP  
-    if ($obj->getCod_regimen_pensionario() == '02') { //ONP
-        $_onp = concepto_0607($conceptos);
-        $conceptos[] = array('cod_detalle_concepto' => C607, 'monto_pagado' => $_onp, 'monto_devengado' => 0);
-    } else if (in_array($obj->getCod_regimen_pensionario(), $_arregloAfps)) {
-        $arreglo_afp = concepto_AFP($obj->getCod_regimen_pensionario(), $conceptos); // 3 CONCEPTOS        
-        //$conceptos = array_merge($conceptos, $arreglo_afp); 
-        $_601 = $arreglo_afp['0601'];
-        $_606 = $arreglo_afp['0606'];
-        $_608 = $arreglo_afp['0608'];        
-        $conceptos[] = array('cod_detalle_concepto' => C601, 'monto_pagado' => $_601, 'monto_devengado' => 0);
-        $conceptos[] = array('cod_detalle_concepto' => C606, 'monto_pagado' => $_606, 'monto_devengado' => 0);
-        $conceptos[] = array('cod_detalle_concepto' => C608, 'monto_pagado' => $_608, 'monto_devengado' => 0);
-    }
-
-    // CONCEPTO : ESSALUD
-    if ($obj->getCod_regimen_aseguramiento_salud() == '00') {
-        $_essalud = concepto_0804($conceptos);
-        $conceptos[] = array('cod_detalle_concepto' => C804, 'monto_pagado' => $_essalud, 'monto_devengado' => 0);
-    }
-
 //  Concepto suma [2]-----------------------------------------------------------
+    /*
     $conceptosSum2 = array(
         array(
             'cod_detalle_concepto' => C605,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C605, $_r5ta),
             'monto_devengado' => 0
         ),
-        array( //ONP
+        array(//ONP
             'cod_detalle_concepto' => C607,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C607, $_onp),
             'monto_devengado' => 0
-        ), 
-        array( //AFP
+        ),
+        array(//AFP
             'cod_detalle_concepto' => C601,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C601, $_601),
             'monto_devengado' => 0
-        ), 
-        array( //AFP
+        ),
+        array(//AFP
             'cod_detalle_concepto' => C606,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C606, $_606),
             'monto_devengado' => 0
         ),
-        array( //AFP
+        array(//AFP
             'cod_detalle_concepto' => C608,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C608, $_608),
             'monto_devengado' => 0
         ),
-        array( //AFP
+        array(//AFP
             'cod_detalle_concepto' => C804,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C804, $_608),
             'monto_devengado' => 0
-        ),         
-    );
+        ),
+    ); 
+    $conceptosSum = array_merge($conceptosSum, $conceptosSum2);
+*/
 
-    $conceptosSum = array_merge($conceptosSum, $conceptosSum2); 
+    echo "\nCONCEPTOS";
+    echoo($conceptos);
+    echo "\n****************************○2\n";
+    echo "\nCONCEPTOSSUMAA";
+    echoo($conceptosSum);
+    
+    
+
+    //|                            End Cargar Conceptos
+    //|##############################################################################
+    // CONCEPTO : RENTA DE QUINTA 
+    $ingresos5ta = get_IR5_Ingresos($ID_PDECLARACION, $obj->getId_trabajador(), $conceptosSum);
+    if ($ingresos5ta > 1400) { // 2012-2013  promedio para optimizar        
+        $_r5ta = calcular_IR5_concepto_0605($ID_PDECLARACION, $obj->getId_trabajador(), $PERIODO, $conceptosSum);
+        $_r5ta = $_r5ta;
+        //add
+        $vacacion_605 = buscarSumarConceptoVacacion($datarpcv, C605, 0);
+        $conceptosSum[] = array('cod_detalle_concepto' => C605, 'monto_pagado' => ($_r5ta+$vacacion_605), 'monto_devengado' => 0);
+    }
+
+    // CONCEPTO : ONP , AFP  
+    if ($obj->getCod_regimen_pensionario() == '02') { //ONP
+        $_onp = concepto_0607($conceptos);
+        //add
+        $vacacion_607 = buscarSumarConceptoVacacion($datarpcv, C607, 0);
+        //echo "\nONP FINAL ES:onp =".$_onp;
+        //echo "\nvacacion_607 = ".$vacacion_607;        
+        $conceptosSum[] = array('cod_detalle_concepto' => C607, 'monto_pagado' => ($_onp+$vacacion_607), 'monto_devengado' => 0);
+    } else if (in_array($obj->getCod_regimen_pensionario(), $_arregloAfps)) {
+        $arreglo_afp = concepto_AFP($obj->getCod_regimen_pensionario(), $conceptos); // 3 CONCEPTOS        
+        //$conceptos = array_merge($conceptos, $arreglo_afp); 
+        $_601 = $arreglo_afp['0601'];
+        $vacacion_601 = buscarSumarConceptoVacacion($datarpcv, C601, 0);
+        echo "\n_601 = ".$_601;
+        echo "\nvacacion_601 = ".$vacacion_601;
+        $_606 = $arreglo_afp['0606'];
+        $vacacion_606 = buscarSumarConceptoVacacion($datarpcv, C606, 0);
+        $_608 = $arreglo_afp['0608'];
+        $vacacion_608 = buscarSumarConceptoVacacion($datarpcv, C608, 0);
+        $conceptosSum[] = array('cod_detalle_concepto' => C601, 'monto_pagado' => ($_601+$vacacion_601), 'monto_devengado' => 0);
+        $conceptosSum[] = array('cod_detalle_concepto' => C606, 'monto_pagado' => ($_606+$vacacion_606), 'monto_devengado' => 0);
+        $conceptosSum[] = array('cod_detalle_concepto' => C608, 'monto_pagado' => ($_608+$vacacion_608), 'monto_devengado' => 0);
+    }
+
+    // CONCEPTO : ESSALUD
+    if ($obj->getCod_regimen_aseguramiento_salud() == '00') {
+        //echo "\nINICIOOOOOOOOOOOOOOOOOOOOOOOOOO PLANILLA";
+        $_essalud = concepto_0804($conceptos);
+        //echo "\nFINALLLLLLLLLLLLLLLLLLLLLLLLLLL PLANILLA";
+        //add
+        //ECHO "\nPORCENTAJE ES EN ESSSALUDDDD = PORCENTAJE = $pporcentaje";
+        //ECHO "\nESSALUD eS = _essalud = ".$_essalud;        
+        $vacacion_804 = buscarSumarConceptoVacacion($datarpcv, C804, 0);
+        $conceptosSum[] = array('cod_detalle_concepto' => C804, 'monto_pagado' => ($_essalud+$vacacion_804), 'monto_devengado' => 0);
+    }
 
 
 
-
-
-
+    echo "\n****************************○2\n";
+    echo "\nCONCEPTOS SUMADOS DESPUESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS";
+    echoo($conceptosSum);    
 
 
 
@@ -925,9 +882,19 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
 
     $dao_tpd = new TrabajadorPdeclaracionDao();
     $dao_ddc = new DeclaracionDconceptoDao();
-    $id = $dao_tpd->registrar($obj);
+    
+    $id = $dao_tpd->existe($ID_PDECLARACION,  $obj->getId_trabajador());
+    if(is_null($id)){
+        $id = $dao_tpd->registrar($obj);
+    }else{        
+        $obj->setId_trabajador_pdeclaracion($id);
+        $obj->setFecha_actualizacion(date("Y-m-d"));
+        $dao_tpd->update($obj);
+    }
+    
     // dia no subsidiado [01]
     if ($arreglo_0705['objdianosub']) {
+        echo "\nDATA DIA NO SUBSIADIADO";
         echoo($arreglo_0705);
         //echo "\n";
         //echo "DIA NO SUBSIDIADO";
@@ -960,6 +927,11 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
       }
      */
     //registrar declaraciones de conceptos.
+    
+    // .................. LIMPIANDO CONCEPTOS  . .............................    
+    $dao_ddc->limpiar($id);
+    
+    
     for ($i = 0; $i < count($conceptosSum); $i++) {
         if ($conceptosSum[$i]['monto_pagado'] > 0) {
             $obj_ddc = new DeclaracionDconcepto();
@@ -967,15 +939,15 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $ID_PDECLARACION, $PERIODO) {
             $obj_ddc->setCod_detalle_concepto($conceptosSum[$i]['cod_detalle_concepto']);
             $obj_ddc->setMonto_pagado(number_format_2($conceptosSum[$i]['monto_pagado']));
             $obj_ddc->setMonto_devengado($conceptosSum[$i]['monto_devengado']);
-            $dao_ddc->registrar($obj_ddc);           
+            $dao_ddc->registrar($obj_ddc);
         }
     }
     echo "\nPLANILLA MENSUAL ";
-    echoo($conceptos);
+    //echoo($conceptos);
 
     //conceptos renta
     echo "\ CONCEPTO SUMAA ::: planilla con renta 5ta";
-    echoo($conceptosSum);
+    //echoo($conceptosSum);
 }
 
 //-----------------------------------------------------------------------------//
@@ -3144,3 +3116,4 @@ function buscar_ID_TrabajadorPdeclaracion($id) {
 
     return $model;
 }
+

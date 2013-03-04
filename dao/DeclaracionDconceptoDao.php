@@ -70,6 +70,20 @@ class DeclaracionDconceptoDao extends AbstractDao {
     }
 
 
+    public function limpiar($id_trabajador_pdeclaracion){
+        
+        $query = "
+        DELETE
+        FROM declaraciones_dconceptos
+        WHERE id_trabajador_pdeclaracion = ?        
+        ";        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador_pdeclaracion);
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        $stm = null;
+        return true;
+    }
 
 
     /*

@@ -70,6 +70,62 @@ class TrabajadorVacacionDao extends AbstractDao {
         }
     }
 
+    public function update($model) {
+
+        $query = "
+            UPDATE trabajadores_vacaciones
+            SET 
+              fecha_lineal = ?,
+              dia = ?,
+              sueldo = ?,
+              sueldo_base = ?,
+              proceso_porcentaje = ?,
+              cod_regimen_pensionario = ?,
+              cod_regimen_aseguramiento_salud = ?,
+              fecha_actualizacion = ?
+            WHERE id_trabajador_vacacion = ?;
+";
+        //Inicia transaccion
+        //$model = new TrabajadorVacacion();
+        //$model = $obj;
+        
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $model->getFecha_lineal());
+        $stm->bindValue(2, $model->getDia());
+        $stm->bindValue(3, $model->getSueldo());
+        $stm->bindValue(4, $model->getSueldo_base());
+        $stm->bindValue(5, $model->getProceso_porcentaje());
+        $stm->bindValue(6, $model->getCod_regimen_pensionario());
+        $stm->bindValue(7, $model->getCod_regimen_aseguramiento_salud());
+        $stm->bindValue(8, $model->getFecha_actualizacion());
+        $stm->bindValue(9, $model->getId_trabajador_vacacion());
+        $stm->execute();
+        $stm = null;  
+        echo "\n model->getId_trabajador_vacacion() = ".$model->getId_trabajador_vacacion();
+        return true;       
+
+    }
+
+    function existe($id_pdeclaracion, $id_trabajador) {
+        $query = "
+        SELECT 
+        id_trabajador_vacacion
+        FROM trabajadores_vacaciones
+        WHERE 1=1
+        AND id_pdeclaracion = ?
+        AND id_trabajador = ?           
+        ";
+        $this->pdo->beginTransaction();
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_trabajador);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $this->pdo->commit();
+        $stm = null;
+        return $lista[0]['id_trabajador_vacacion'];
+    }
+
     // unico registro pero posible 2 a mas en el mismo mes.
     function listarTv($id_pdeclaracion, $id_trabajador) {
         $query = "
@@ -189,9 +245,9 @@ class TrabajadorVacacionDao extends AbstractDao {
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
-        
+
         echoo($query);
-        echo "id = ".$id_pdeclaracion;        
+        echo "id = " . $id_pdeclaracion;
         return true;
     }
 

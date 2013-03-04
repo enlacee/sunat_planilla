@@ -9,15 +9,24 @@ class TrabajadorDao extends AbstractDao {
                 t.cod_ocupacion_p,
                 drs.cod_regimen_aseguramiento_salud,
                 drp.cod_regimen_pensionario,
-                dtt.cod_tipo_trabajador               
+                dtt.cod_tipo_trabajador,
+                ecc.id_empresa_centro_costo
+                
             FROM trabajadores AS t
+            
             INNER JOIN personas AS p
             ON t.id_persona = p.id_persona
+            
             INNER JOIN detalle_regimenes_salud AS drs
             ON drs.id_trabajador = t.id_trabajador
+            -- Centro costo
+            INNER JOIN empresa_centro_costo AS ecc
+            ON t.id_empresa_centro_costo = ecc.id_empresa_centro_costo        
+            -- Centro Costo            
+            
             INNER JOIN detalle_regimenes_pensionarios AS drp
             ON drp.id_trabajador = t.id_trabajador
-            -- new 1
+            
             INNER JOIN detalle_tipos_trabajadores AS dtt
             ON t.id_trabajador = dtt.id_trabajador            
             WHERE t.id_trabajador = ?        

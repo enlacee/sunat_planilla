@@ -20,33 +20,35 @@ class DeclaracionDConceptoVacacionDao extends AbstractDao{
                 ?,
                 ?); 
         ";
-        try {
-           // echoo($model);
-            
-            $this->pdo->beginTransaction();
+       
             $stm = $this->pdo->prepare($query);
             $stm->bindValue(1, $model->getId_trabajador_vacacion());
             $stm->bindValue(2, $model->getCod_detalle_concepto());
             $stm->bindValue(3, $model->getMonto_devengado());
-            $stm->bindValue(4, $model->getMonto_pagado());
-            
+            $stm->bindValue(4, $model->getMonto_pagado());   
             $stm->execute();
-            $query2 = "select last_insert_id() as id";
-            $stm = $this->pdo->prepare($query2);
-            $stm->execute();
-            $lista = $stm->fetchAll();
-
-            $this->pdo->commit();
-            $stm = null;
-            return $lista[0]['id'];
-        } catch (Exception $e) {
-            $this->pdo->rollBack();
-            throw $e;
-        } 
-        
-        
+            $stm = null;    
+            return true;        
     }
    
+    function limpiar($id_trabajador_vacacion){
+        $query ="
+        DELETE
+        FROM declaraciones_dconceptos_vacaciones
+        WHERE id_trabajador_vacacion = ?";
+        try {
+            $stm = $this->pdo->prepare($query);
+            $stm->bindValue(1, $id_trabajador_vacacion); 
+            //$lista = $stm->fetchAll();
+            $stm->execute();
+            $stm = null;            
+            return true;
+        } catch (Exception $exc) {
+            //echo $exc->getTraceAsString();
+            return false;
+        }        
+    }
+    
     // listar conceptos x vacacion
     public function listarTrabajadorPorDeclaracion($id_trabajador,$id_pdeclaracion) {//OK FUCK !! NOOO
         $query = "

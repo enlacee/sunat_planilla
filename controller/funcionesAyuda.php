@@ -1,6 +1,20 @@
 <?php
-
-// modificado
+/*
+//require_once '../util/funciones.php';
+$data = array(
+    array(
+        'fecha_inicio' => '2013-01-08',
+        'fecha_fin' => '2013-01-22'
+    ),
+    array(
+        'fecha_inicio' => '2013-03-01',
+        'fecha_fin' => '2013-03-15'
+    )
+);
+$rpta = leerVacacionDetalle($data, '2013-03-01', '2013-03-01', '2013-03-31');
+echoo($rpta);
+ */
+ 
 function leerVacacionDetalle($data, $periodo, $fecha_inicio, $fecha_fin) {
     //echo "RANGO DE FECHAS $fecha_inicio A $fecha_fin";
     $dia = 0;
@@ -72,9 +86,9 @@ function buscarConceptoPorConceptoXD(array $arreglo, $concepto) {
 }
 
 // Buscar y sumar Concepto Vacacion
-function buscarSumarConceptoVacacion(array $arreglo, $concepto, $montoSoles=0) {
-    $montoSoles = ($montoSoles>0) ? $montoSoles : 0;
-    $rpta = 0;    
+function buscarSumarConceptoVacacion(array $arreglo, $concepto, $montoSoles = 0) {
+    $montoSoles = ($montoSoles > 0||  is_null($montoSoles)) ? $montoSoles : 0;
+    $rpta = 0;
     if (count($arreglo) > 0) {
         for ($i = 0; $i < count($arreglo); $i++) {
             if ($arreglo[$i]['cod_detalle_concepto'] == $concepto) {
@@ -102,8 +116,8 @@ function buscarSumarConceptoVacacion2(array $rpc, $concepto, array $rpcv) {
     }//end for
     // sumar 1
     $r_rpc_monto_pagado = ($r_rpc['monto_pagado'] > 0) ? $r_rpc['monto_pagado'] : 0;
-    $r_rpc_monto_devengado = ($r_rpc['monto_devengado'] > 0) ? $r_rpc['monto_devengado'] : 0;    
-    
+    $r_rpc_monto_devengado = ($r_rpc['monto_devengado'] > 0) ? $r_rpc['monto_devengado'] : 0;
+
     // 02
     for ($i = 0; $i < count($rpcv); $i++) {
         if ($rpcv[$i]['cod_detalle_concepto'] == $concepto) {
@@ -111,13 +125,13 @@ function buscarSumarConceptoVacacion2(array $rpc, $concepto, array $rpcv) {
             break;
         }
     }//end for 
-    
+
     $r_rpcv_monto_pagado = ($r_rpcv['monto_pagado'] > 0) ? $r_rpcv['monto_pagado'] : 0;
-    $r_rpcv_monto_devengado = ($r_rpcv['monto_devengado'] > 0) ? $r_rpcv['monto_devengado'] : 0;      
- 
+    $r_rpcv_monto_devengado = ($r_rpcv['monto_devengado'] > 0) ? $r_rpcv['monto_devengado'] : 0;
+
     // 03
     $monto_pagado = $r_rpc_monto_pagado + $r_rpcv_monto_pagado;
-    $monto_devengado = $r_rpc_monto_devengado + $r_rpcv_monto_devengado;    
+    $monto_devengado = $r_rpc_monto_devengado + $r_rpcv_monto_devengado;
 
     return ($monto_pagado + $monto_devengado);
 }
@@ -214,7 +228,7 @@ function concepto_0121($monto, $descuento = 0) {
 // ASIGNACION FAMILIAR
 function concepto_0201() {
     //$CAL_AF = asignacionFamiliar();
-    $CAL_AF = SB * (T_AF / 100);    
+    $CAL_AF = SB * (T_AF / 100);
     return $CAL_AF;
 }
 
@@ -339,30 +353,30 @@ function concepto_AFP($cod_regimen_pensionario, $conceptos) {
      *  afp segun el periodo  d/m/Y
      */
     $_608 = ($_608 > $monto_tope) ? $monto_tope : $_608;
-/*
+    /*
+      $arreglo = array(
+      array(
+      'cod_detalle_concepto' => C601,
+      'monto_pagado' => $_601,
+      'monto_devengado' => 0
+      ),
+      array(
+      'cod_detalle_concepto' => C606,
+      'monto_pagado' => $_606,
+      'monto_devengado' => 0
+      ),
+      array(
+      'cod_detalle_concepto' => C608,
+      'monto_pagado' => $_608,
+      'monto_devengado' => 0
+      )
+      ); */
     $arreglo = array(
-        array(
-            'cod_detalle_concepto' => C601,
-            'monto_pagado' => $_601,
-            'monto_devengado' => 0
-        ),
-        array(
-            'cod_detalle_concepto' => C606,
-            'monto_pagado' => $_606,
-            'monto_devengado' => 0
-        ),
-        array(
-            'cod_detalle_concepto' => C608,
-            'monto_pagado' => $_608,
-            'monto_devengado' => 0
-        )
-    );*/
-    $arreglo = array(
-        '0601'=>$_601,
-        '0606'=>$_606,
-        '0608'=>$_608,
+        '0601' => $_601,
+        '0606' => $_606,
+        '0608' => $_608,
     );
-    
+
     return $arreglo;
 }
 

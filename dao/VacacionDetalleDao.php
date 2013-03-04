@@ -37,6 +37,21 @@ class VacacionDetalleDao extends AbstractDao {
         return true;
     }
 
+    function del($id) {
+
+        $query = "
+        DELETE
+        FROM vacaciones_detalles
+        WHERE id_vacacion_detalle = ?        
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id);        
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        $stm = null;
+        return true; 
+    }
+
     // lista jqgrid HISTORIAL ANUAL
     function listar($id_pdeclaracion, $id_trabajador, $WHERE, $start, $limit, $sidx, $sord) {
         $cadena = null;
@@ -113,7 +128,7 @@ class VacacionDetalleDao extends AbstractDao {
         $stm->bindValue(1, $id_vacacion);
         $stm->execute();
         $lista = $stm->fetchAll();
-        $stm=null;
+        $stm = null;
         return $lista;
     }
 

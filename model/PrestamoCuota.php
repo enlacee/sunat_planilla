@@ -7,6 +7,7 @@ class PrestamoCuota {
     private $monto;
     private $monto_variable;
     private $fecha_calc;
+    private $fecha_pago;
     private $estado;
 
     public function getId_prestamo_cutoa() {
@@ -56,6 +57,15 @@ class PrestamoCuota {
     public function setEstado($estado) {
         $this->estado = $estado;
     }
+    public function getFecha_pago() {
+        return $this->fecha_pago;
+    }
+
+    public function setFecha_pago($fecha_pago) {
+        $this->fecha_pago = $fecha_pago;
+    }
+
+
 
 }
 

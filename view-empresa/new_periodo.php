@@ -14,35 +14,13 @@ $cbo_tipo_empleador = comboTipoEmpleador();
 
 $data = $_SESSION['sunat_empleador'];
 
-//echo "<pre>";
-//print_r($data);
-//echo "</pre>";
-
 //require_once('../controller/ideController.php');
-
-
 ?>
-
 <script type="text/javascript">
-	console.log("NEW_PERIODO.PHP");
-	console.log(id_pdeclaracion);
-	console.log(periodo);
-			
-			
-    $(document).ready(function(){
-                  
-        $( "#tabs").tabs();
-		
-	});
-	
-//-----------------------------------
-function verPeriodo(){
-	var periodo = document.getElementById('txt_periodo_tributario').value;
-	//alert(periodo);
-	if(validarPeriodo(periodo) == true){
-		cargarTablaTrabajadoresPorPeriodo(periodo);	
-	}
-}
+    $(document).ready(function(){                  
+        $( "#tabs").tabs();		
+	});	
+
 //----------------------------------
 function validarPeriodo(periodo){
 	var estado = false;
@@ -117,11 +95,10 @@ function validarPeriodo(periodo){
           <br />
           <br />
           <label>Periodo Tributario:</label>           
-          <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  />
-      (mm/aaaa)		    <br />
-		    <br />
-<input type="button" name="btnValidar"  value="Guardar" 
-class="submit-go" onclick="validarNewDeclaracionPeriodo()"/>
+          <input type="text" name="txt_periodo_tributario" id="txt_periodo_tributario"  />(mm/aaaa)
+		<br />
+		<br />
+			<input type="button" name="btnValidar"  value="Guardar" class="submit-go" onclick="validarNewDeclaracionPeriodo()"/>
 		    
             <input type="button"  value="Cancelar" class="submit-cancelar"
             onclick="cargar_pagina('sunat_planilla/view-empresa/view_periodo.php','#CapaContenedorFormulario')" />
@@ -130,22 +107,6 @@ class="submit-go" onclick="validarNewDeclaracionPeriodo()"/>
 		    <table id="list">
 	        </table>
         <div id="pager"></div>
-        <div class="ocultar">Lista de Trabajadores que se registraran en el periodo (mes/a&ntilde;o)
-          <sbr />
-          <p>estado
-            <input type="text" name="estado" id="estado" />
-            <br />
-            periodo inicio
-              
-            <input type="text" name="mes_inicio" id="mes_inicio" />
-            <br />
-            periodo fin 
-            <input type="text" name="mes_fin" id="mes_fin" />
-            <br />
-            <br />
-                </p>
-        </div>
-  </p>
           </form>
         
       </div><!-- tabs-1 -->

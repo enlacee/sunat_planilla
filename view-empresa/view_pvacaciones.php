@@ -54,16 +54,8 @@ value="<?php echo $_REQUEST['periodo']; ?>" />
 <h2>  <input type="button" name="vacacion" id="vacacion" value="Procesar Vacacion" /></h2>
 
 </p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><br />
-    <br />
-</p>
-<p class="ocultar">
-<input name="reporte_vacacion"  id="reporte_vacacion" type="button"  value="Boleta.Vacacion"/>
-</p>
-        </div>
+
+</div>
 </div>
 </div>
 

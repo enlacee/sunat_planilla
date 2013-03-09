@@ -50,20 +50,15 @@ function seleccionarLocalDinamicoX(oCombo){ console.log("usando ....");
 
 //-----------------------------------------
 function seleccionarLocalDinamicoX(oCombo){ 
-
-
 		
 	var aguja = oCombo.value;
-
 	var partes = aguja.split("|");	
-	
 	var id_establecimiento = partes[0];	
 	var codigo_establecimiento = partes[2];
 
 	
-		console.log("combo x hijo");
-		console.log ("id_establecimiento = "+id_establecimiento);	
-		
+	//console.log("combo x hijo");
+	//console.log ("id_establecimiento = "+id_establecimiento);
 	//var valor = valore;//idComboPadre.value;
 	//var fragmento = valor.split("|"); //Array()
 	
@@ -117,23 +112,7 @@ function seleccionarLocalDinamicoX(oCombo){
 
 </script>
 <h2>Planilla Quincena:</h2>
-<div class="ocultar">
-<!--
-COMERA XQ NO ES NESESARIO
-  <p>
-    <label for="id_pdeclaracion"></label>
-    id_pdeclaracion
-    <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
-	value="<?php //echo $_REQUEST['id_pdeclaracion']; ?>" />
-    <br />
-    <label for="id_etapa_pago"></label>
-    id_etapa_pago
-    <input type="text" name="id_etapa_pago" id="id_etapa_pago" 
-    value="<?php //echo $_REQUEST['id_etapa_pago']; ?>"
-     />
-  </p>
-  -->
-</div>
+
 <p>
   Establecimientos <!--id_establecimientos  seleccionarLocalDinamicoX-->
   <select name="id_establecimientos" id="id_establecimientos" style="width:180px;" 

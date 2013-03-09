@@ -318,7 +318,6 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
 //............................................................................//
 //----------------------------------------------------------------------------//
 // view-plame 27/08/2012
-
     public function view_listarConcepto($id_empleador_maestro, $cod_concepto, $seleccionado=1) {
 
         if (is_array($cod_concepto) && count($cod_concepto) >= 1) {
@@ -386,6 +385,56 @@ class PlameDetalleConceptoEmpleadorMaestroDao extends AbstractDao {
         return $lista;
     }
 
+    public function view_listarConceptoReducido($id_empleador_maestro, $cod_concepto, $seleccionado=1) {
+
+        if (is_array($cod_concepto) && count($cod_concepto) >= 1) {
+            $sql = " ";
+            for ($i = 0; $i < count($cod_concepto); $i++) {
+                $sql .= $cod_concepto[$i];
+                if ($i == (count($cod_concepto)) - 1) {
+                    //null                    
+                } else {
+                    $sql .= ",";
+                }
+            }
+        }else{
+            $sql = $cod_concepto;
+        }
+        if(is_array($seleccionado)&& count($seleccionado) >= 1 ){
+           $sql_seleccionado = " ";
+            for ($i = 0; $i < count($seleccionado); $i++) {
+                $sql_seleccionado .= $seleccionado[$i];
+                if ($i == (count($seleccionado)) - 1) {
+                    //null                    
+                } else {
+                    $sql_seleccionado .= ",";
+                }
+            } 
+        }else{
+            $sql_seleccionado = $seleccionado;
+        }        
+        
+        $query = "
+        SELECT
+        dce.cod_detalle_concepto           
+        FROM detalles_conceptos_empleadores_maestros AS dce
+        INNER JOIN detalles_conceptos AS dc
+        ON dce.cod_detalle_concepto = dc.cod_detalle_concepto
+        INNER JOIN conceptos AS c
+        ON dc.cod_concepto = c.cod_concepto
+        WHERE (dce.id_empleador_maestro = ?)
+        AND c.cod_concepto IN ($sql)        
+        AND dce.seleccionado IN ($sql_seleccionado);
+        ";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_empleador_maestro);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;
+    }    
     
     //-------
     // Funcion util para listar codigo detalle  de conceptos seleccionados 10/09/2012

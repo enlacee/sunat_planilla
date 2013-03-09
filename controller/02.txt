@@ -1,7 +1,7 @@
-PCAMUENTE S.A.                                                FECHA :  04/03/2013
+PCAMUENTE S.A.                                                FECHA :  09/03/2013
                                                              PAGINA :          1
                                     MENSUAL                                     
-                      PLANILLA DEL MES DE FEBRERO DEL 2013                      
+                     PLANILLA DE VACACION DE ENERO DEL 2013                     
 
 LOCALIDAD : SAN ISIDRO
 
@@ -11,27 +11,11 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    324.00   _______________
+  1 07951545    CHIPANA FLORES ELENA                    256.00   _______________
+
+  2 10389776    ZAMORA MEGO MELQUIADES                  714.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            324.00
---------------------------------------------------------------------------------
-CAMUENTE S.A.                                                FECHA :  04/03/2013
-                                                             PAGINA :          2
-                                    MENSUAL                                     
-                      PLANILLA DEL MES DE FEBRERO DEL 2013                      
-
-LOCALIDAD : SAN ISIDRO
-
-CENTRO DE COSTO : ADMINISTRACION - CAJA
-
---------------------------------------------------------------------------------
-  N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
---------------------------------------------------------------------------------
-
-  1 25809433    OLAYA GONZALES LUIS HELBERT             372.00   _______________
-
---------------------------------------------------------------------------------
-TOTAL ADMINISTRACION - CAJA                             372.00
+TOTAL VENTAS                                            970.00
 --------------------------------------------------------------------------------
 

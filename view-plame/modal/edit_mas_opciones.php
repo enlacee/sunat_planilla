@@ -79,7 +79,6 @@ var objComboox= document.getElementById('cboCentroCosto');
 }
 
 </script>
-<h2>Planilla Mensual:</h2>
 <div class="ocultar">
   <p>
     <label for="id_pdeclaracion"></label>

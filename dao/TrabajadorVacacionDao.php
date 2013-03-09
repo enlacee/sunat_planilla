@@ -21,8 +21,14 @@ class TrabajadorVacacionDao extends AbstractDao {
                          proceso_porcentaje,
                          cod_regimen_pensionario,
                          cod_regimen_aseguramiento_salud,
+                         id_empresa_centro_costo,
+                         id_establecimiento,
+                         cod_ocupacion_p,
                          fecha_creacion)
             VALUES (
+                    ?,
+                    ?,
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -48,7 +54,10 @@ class TrabajadorVacacionDao extends AbstractDao {
             $stm->bindValue(7, $model->getProceso_porcentaje());
             $stm->bindValue(8, $model->getCod_regimen_pensionario());
             $stm->bindValue(9, $model->getCod_regimen_aseguramiento_salud());
-            $stm->bindValue(10, $model->getFecha_creacion());
+            $stm->bindValue(10, $model->getId_empresa_centro_costo());
+            $stm->bindValue(11, $model->getId_establecimiento());
+            $stm->bindValue(12, $model->getCod_ocupacion_p());
+            $stm->bindValue(13, $model->getFecha_creacion());
 
             $stm->execute();
 
@@ -70,7 +79,7 @@ class TrabajadorVacacionDao extends AbstractDao {
         }
     }
 
-    public function update($model) {
+    public function update($obj) {
 
         $query = "
             UPDATE trabajadores_vacaciones
@@ -82,12 +91,15 @@ class TrabajadorVacacionDao extends AbstractDao {
               proceso_porcentaje = ?,
               cod_regimen_pensionario = ?,
               cod_regimen_aseguramiento_salud = ?,
+              id_empresa_centro_costo = ?,
+              id_establecimiento = ?,
+              cod_ocupacion_p = ?,
               fecha_actualizacion = ?
             WHERE id_trabajador_vacacion = ?;
 ";
         //Inicia transaccion
-        //$model = new TrabajadorVacacion();
-        //$model = $obj;
+        $model = new TrabajadorVacacion();
+        $model = $obj;
         
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $model->getFecha_lineal());
@@ -97,11 +109,14 @@ class TrabajadorVacacionDao extends AbstractDao {
         $stm->bindValue(5, $model->getProceso_porcentaje());
         $stm->bindValue(6, $model->getCod_regimen_pensionario());
         $stm->bindValue(7, $model->getCod_regimen_aseguramiento_salud());
-        $stm->bindValue(8, $model->getFecha_actualizacion());
-        $stm->bindValue(9, $model->getId_trabajador_vacacion());
+        $stm->bindValue(8, $model->getId_empresa_centro_costo());
+        $stm->bindValue(9, $model->getId_establecimiento());
+        $stm->bindValue(10, $model->getCod_ocupacion_p());
+        $stm->bindValue(11, $model->getFecha_actualizacion());
+        $stm->bindValue(12, $model->getId_trabajador_vacacion());
         $stm->execute();
         $stm = null;  
-        echo "\n model->getId_trabajador_vacacion() = ".$model->getId_trabajador_vacacion();
+        //echo "\n model->getId_trabajador_vacacion() = ".$model->getId_trabajador_vacacion();
         return true;       
 
     }
@@ -190,7 +205,8 @@ class TrabajadorVacacionDao extends AbstractDao {
 	WHERE tv.id_pdeclaracion = ?
         $cadena
         ";
-
+        //echo "\nListar";
+        //echoo($query);
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
@@ -200,7 +216,6 @@ class TrabajadorVacacionDao extends AbstractDao {
     }
 
     function listarCount($id_pdeclaracion, $WHERE) {
-
 
         $query = "
 	SELECT  
@@ -216,13 +231,12 @@ class TrabajadorVacacionDao extends AbstractDao {
         ON t.id_trabajador = tv.id_trabajador
 	WHERE tv.id_pdeclaracion = ?
         $WHERE
-        ";
-
+        ";        
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
         $lista = $stm->fetchAll();
-        return $lista['counteo'];
+        return $lista[0]['counteo'];
     }
 
     function eliminar($id) {
@@ -250,7 +264,65 @@ class TrabajadorVacacionDao extends AbstractDao {
         echo "id = " . $id_pdeclaracion;
         return true;
     }
+    
+    // reporte vacacion
+    function listarReporteVacacion($id_pdeclaracion,$id_establecimiento,$id_empresa_centro_costo){
+      
+        $query = "
+    SELECT 
+    tv.id_trabajador_vacacion,
+    tv.id_trabajador,
+    tv.fecha_lineal,
+    tv.dia,
+    tv.cod_regimen_pensionario,
+    tv.cod_regimen_aseguramiento_salud,
+    tv.fecha_creacion,
+    tv.fecha_actualizacion,
+    -- persona
+    p.id_persona,
+    p.apellido_materno,
+    p.apellido_paterno,
+    p.nombres ,
+    p.num_documento,
+    -- ocupacion
+    op.nombre AS nombre_ocupacion,
+    -- regimen pensionario
+    rp.descripcion_abreviada AS nombre_afp,
+    -- centro costo
+    ecc.descripcion AS nombre_centro_costo
 
+    FROM trabajadores_vacaciones AS  tv     
+    INNER JOIN trabajadores AS t
+    ON tv.id_trabajador = t.id_trabajador
+    INNER JOIN personas AS p
+    ON t.id_persona = p.id_persona
+    LEFT JOIN ocupaciones_p AS  op
+    ON tv.cod_ocupacion_p = op.cod_ocupacion_p
+    LEFT JOIN regimenes_pensionarios AS rp
+    ON tv.cod_regimen_pensionario = rp.cod_regimen_pensionario
+    LEFT JOIN empresa_centro_costo  AS ecc
+    ON tv.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+
+    WHERE tv.id_pdeclaracion = ?
+    AND tv.id_establecimiento = ?
+    AND tv.id_empresa_centro_costo = ?
+";
+
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->bindValue(2, $id_establecimiento);
+        $stm->bindValue(3, $id_empresa_centro_costo);
+
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+
+        return $lista;        
+        
+    }
+  
+    
+    
 }
 
 /*

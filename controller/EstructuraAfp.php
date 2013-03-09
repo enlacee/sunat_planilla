@@ -261,7 +261,7 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
             $data_tra_1id = arrayId($data_tra_1, 'id_trabajador');
 
             // CODIGO = 5 =  Inicio de período vacacional    
-            $data_tra_5 = $dao_eafp->codigoMovimiento_5($ID_PDECLARACION, $anio, $mes, $mi_afp[$i]['codigo']);
+            $data_tra_5 = $dao_eafp->codigoMovimiento_5($ID_PDECLARACION,$mi_afp[$i]['codigo']);
             $data_tra_5id = arrayId($data_tra_5, 'id_trabajador');
 
 
@@ -308,7 +308,7 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
                     for ($a = 0; $a < count($data_tra_5); $a++):
                         if ($data_tra[$j]['id_trabajador'] == $data_tra_5[$a]['id_trabajador']):
                             $data_tra[$j]['codigo_movimiento'] = 5;
-                            $data_tra[$j]['fecha_movimiento'] = $data_tra_5[$a]['fecha_inicio'];
+                            $data_tra[$j]['fecha_movimiento'] = 'fecha inicio vac.';//$data_tra_5[$a]['fecha_inicio'];
                             break;
                         endif;
                     endfor;

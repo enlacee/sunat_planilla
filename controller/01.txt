@@ -1,62 +1,62 @@
-@C!                                                             BOLETA DE PAGO                                                             
+@C!                                                          BOLETA DE PAGO VAC.                                                           
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
 CAMUENTE S.A.
 AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 07951545                            DNI: 07951545                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES ELENA                                                
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
-                                                 NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
-MES : FEBRERO DE : 01.2013                       CARGO : COCINERO                            SECCION : ventas                            
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRON TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                              
+FECHA VAC. 2013-01-01_2013-01-10,                NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2013                         CARGO : COCINERO                            SECCION : VENTAS                            
+10 DIAS DE VAC. 80 HORAS.                        DIRECCION :  JIRON TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                              
 ---------------------------------------------------------------------------------------------------------------------------------------
 |        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
 |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   SUELDO BASICO                   750.00   |   ADELANTO                        300.00   |   ESSALUD                         67.50   |
-|                                            |   OTROS DESCUENTOS NO DEDUCI...    25.00   |                                           |
-|                                            |   COMISION AFP 2.10%               15.75   |                                           |
-|                                            |   PRIMA DE SEGURO 1.41%            10.58   |                                           |
-|                                            |   JUBILACION SPP 10.00%            75.00   |                                           |
+|   ASG. FAMILIAR                    24.75   |   OTROS DESCUENTOS NO DEDUCI...     8.25   |   ESSALUD                         24.73   |
+|   REMUNERACION VACACIONAL         250.00   |   COMISION AFP 2.10%                5.77   |                                           |
+|   MOVILIDAD                        26.40   |   PRIMA DE SEGURO 1.41%             3.87   |                                           |
+|                                            |   JUBILACION SPP 10.00%            27.48   |                                           |
 |                                            |                                            |                                           |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES            750.00   |   TOTAL RETENC./DESCUENTOS        426.33   |   TOTAL APORTACIONES              67.50   |
+|   TOTAL REMUNERACIONES            301.15   |   TOTAL RETENC./DESCUENTOS         45.37   |   TOTAL APORTACIONES              24.73   |
 ---------------------------------------------------------------------------------------------------------------------------------------
 
                                                                                                                                        
+                                                                                                                                       
 -----------------------------
-| REDONDEO     :       0.33 |
+| REDONDEO     :       0.22 |
 -----------------------------
-| NETO A PAGAR :     324.00 |                            _________________________                  _________________________
+| NETO A PAGAR :     256.00 |                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-@C!@C!                                                             BOLETA DE PAGO                                                             
+                                                          BOLETA DE PAGO VAC.                                                           
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
 CAMUENTE S.A.
-AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 25809433                            DNI: 25809433                               
-R.U.C. 20100338611                               NOMBRE Y APELLIDOS: OLAYA GONZALES LUIS HELBERT                                         
+AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 10389776                            DNI: 10389776                               
+R.U.C. 20100338611                               NOMBRE Y APELLIDOS: ZAMORA MEGO MELQUIADES                                              
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/03/2003                  
-                                                 NRO.CARNET AFP : 261711LOGIZ2               A.F.P. : SPP PROFUTURO                      
-MES : FEBRERO DE : 01.2013                       CARGO : CAJERO, RESTAURANTE                 SECCION : administracion - caja             
-30 DIAS TRAB. 240 HORAS TRAB.                    DIRECCION :  JIRON QUILLABAMBA 189 LIMA-LIMA-SAN JUAN DE LURIGANCHO                     
+FECHA VAC. 2013-01-01_2013-01-30,                NRO.CARNET AFP : 186331MZMOO5               A.F.P. : SPP PROFUTURO                      
+MES : ENERO DE : 01.2013                         CARGO : MOZO                                SECCION : VENTAS                            
+30 DIAS DE VAC. 240 HORAS.                       DIRECCION :  CALLE GREGORIO APAZA 232URB. URBANIZACIÓN SANTA LUZMILA LIMA-LIMA-COMAS   
 ---------------------------------------------------------------------------------------------------------------------------------------
 |        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
 |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   SUELDO BASICO                   800.00   |   ADELANTO                        320.00   |   ESSALUD                         72.00   |
-|                                            |   COMISION AFP 2.10%               16.80   |                                           |
-|                                            |   PRIMA DE SEGURO 1.41%            11.28   |                                           |
-|                                            |   JUBILACION SPP 10.00%            80.00   |                                           |
+|   ASG. FAMILIAR                    75.00   |   COMISION AFP 2.10%               17.33   |   ESSALUD                         74.25   |
+|   REMUNERACION VACACIONAL         750.00   |   PRIMA DE SEGURO 1.41%            11.63   |                                           |
+|                                            |   JUBILACION SPP 10.00%            82.50   |                                           |
 |                                            |                                            |                                           |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES            800.00   |   TOTAL RETENC./DESCUENTOS        428.08   |   TOTAL APORTACIONES              72.00   |
+|   TOTAL REMUNERACIONES            825.00   |   TOTAL RETENC./DESCUENTOS        111.46   |   TOTAL APORTACIONES              74.25   |
 ---------------------------------------------------------------------------------------------------------------------------------------
 
                                                                                                                                        
                                                                                                                                        
+                                                                                                                                       
 -----------------------------
-| REDONDEO     :       0.08 |
+| REDONDEO     :       0.46 |
 -----------------------------
-| NETO A PAGAR :     372.00 |                            _________________________                  _________________________
+| NETO A PAGAR :     714.00 |                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-@C!@C!
+@C!@C!@C!@C!
 @C!@C!
 @C!@C!@C!
 @C!@C!

@@ -75,6 +75,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         cod_regimen_aseguramiento_salud = ?,
         cod_situacion = ?,
         id_empresa_centro_costo = ?,
+        id_establecimiento = ?,
         cod_ocupacion_p = ?,
         fecha_actualizacion = ?
         WHERE id_trabajador_pdeclaracion = ?;          
@@ -93,9 +94,10 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         $stm->bindValue(11, $model->getCod_regimen_aseguramiento_salud());
         $stm->bindValue(12, $model->getCod_situacion());        
         $stm->bindValue(13, $model->getId_empresa_centro_costo());
-        $stm->bindValue(14, $model->getCod_ocupacion_p());        
-        $stm->bindValue(15, $model->getFecha_actualizacion());
-        $stm->bindValue(16, $model->getId_trabajador_pdeclaracion());   
+        $stm->bindValue(14, $model->getId_establecimiento()); 
+        $stm->bindValue(15, $model->getCod_ocupacion_p());        
+        $stm->bindValue(16, $model->getFecha_actualizacion());
+        $stm->bindValue(17, $model->getId_trabajador_pdeclaracion());   
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;
@@ -127,10 +129,11 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
                     cod_regimen_aseguramiento_salud,
                     cod_situacion,
                     cod_ocupacion_p,
-                    id_empresa_centro_costo
-                         
-                            )
+                    id_empresa_centro_costo,
+                    id_establecimiento
+                    )
             VALUES (
+                    ?,
                     ?,
                     ?,
                     ?,
@@ -169,6 +172,7 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
 
             $stm->bindValue(14, $model->getCod_ocupacion_p());
             $stm->bindValue(15, $model->getId_empresa_centro_costo());
+            $stm->bindValue(16, $model->getId_establecimiento());
             $stm->execute();
 
             // id Comerico
@@ -492,22 +496,17 @@ class TrabajadorPdeclaracionDao extends AbstractDao {
         FROM trabajadores_pdeclaraciones AS tpd
         INNER JOIN trabajadores AS t
         ON tpd.id_trabajador = t.id_trabajador
-
         INNER JOIN personas AS p
         ON t.id_persona = p.id_persona
-
         LEFT JOIN ocupaciones_p AS  op
         ON tpd.cod_ocupacion_p = op.cod_ocupacion_p
-
         LEFT JOIN regimenes_pensionarios AS rp
         ON tpd.cod_regimen_pensionario = rp.cod_regimen_pensionario
-
         LEFT JOIN empresa_centro_costo  AS ecc
         ON tpd.id_empresa_centro_costo = ecc.id_empresa_centro_costo
-
         WHERE tpd.id_pdeclaracion = ?
-        AND t.id_establecimiento = ?
-        AND ecc.id_empresa_centro_costo = ?              
+        AND tpd.id_establecimiento = ?
+        AND tpd.id_empresa_centro_costo = ?        
 ";
 
         $stm = $this->pdo->prepare($query);

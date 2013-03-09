@@ -214,12 +214,11 @@
 */
 
 //-----------------------------------------------------------
-    function cargarTablaTrabajadorPdeclaracion(id_pdeclaracion){ 
-	//alert("Cargando... "+id_pdeclaracion);
-	console.log("Cargando..."+id_pdeclaracion);
+    function cargarTablaTrabajadorPdeclaracion(id_pdeclaracion,periodo){ 	
+	   //console.log("Cargando..."+id_pdeclaracion);
         
         $("#list").jqGrid({
-            url:'sunat_planilla/controller/TrabajadorPdeclaracionController.php?oper=cargar_tabla_2&id_pdeclaracion='+id_pdeclaracion,
+            url:'sunat_planilla/controller/TrabajadorPdeclaracionController.php?oper=cargar_tabla_2&id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo,
             datatype: 'json',
             colNames:['Id','Tipo_doc','Numero Doc','APaterno',
                 'AMaterno', 'Nombres','dias L.','Sueldo','Op'],

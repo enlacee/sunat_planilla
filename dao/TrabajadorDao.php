@@ -7,6 +7,7 @@ class TrabajadorDao extends AbstractDao {
             SELECT              
                 t.cod_situacion,
                 t.cod_ocupacion_p,
+                t.id_establecimiento,
                 drs.cod_regimen_aseguramiento_salud,
                 drp.cod_regimen_pensionario,
                 dtt.cod_tipo_trabajador,

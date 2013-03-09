@@ -12,6 +12,9 @@ private $sueldo_base;
 private $proceso_porcentaje;
 private $cod_regimen_pensionario;
 private $cod_regimen_aseguramiento_salud;
+private $id_empresa_centro_costo;
+private $id_establecimiento;
+private $cod_ocupacion_p;
 private $fecha_creacion;
 private $fecha_actualizacion;
 
@@ -95,8 +98,31 @@ public function setCod_regimen_aseguramiento_salud($cod_regimen_aseguramiento_sa
     $this->cod_regimen_aseguramiento_salud = $cod_regimen_aseguramiento_salud;
 }
 
+public function getId_empresa_centro_costo() {
+    return $this->id_empresa_centro_costo;
+}
+
+public function setId_empresa_centro_costo($id_empresa_centro_costo) {
+    $this->id_empresa_centro_costo = $id_empresa_centro_costo;
+}
+
+public function getId_establecimiento() {
+    return $this->id_establecimiento;
+}
+
+public function setId_establecimiento($id_establecimiento) {
+    $this->id_establecimiento = $id_establecimiento;
+}
+
 public function getFecha_creacion() {
     return $this->fecha_creacion;
+}
+public function getCod_ocupacion_p() {
+    return $this->cod_ocupacion_p;
+}
+
+public function setCod_ocupacion_p($cod_ocupacion_p) {
+    $this->cod_ocupacion_p = $cod_ocupacion_p;
 }
 
 public function setFecha_creacion($fecha_creacion) {

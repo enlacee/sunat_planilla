@@ -21,6 +21,7 @@ class TrabajadorPdeclaracion extends AbstractDao {
     private $cod_regimen_aseguramiento_salud;
     private $cod_situacion;
     private $id_empresa_centro_costo;
+    private $id_establecimiento;
     private $cod_ocupacion_p;
     private $fecha_actualizacion;
 
@@ -160,6 +161,14 @@ class TrabajadorPdeclaracion extends AbstractDao {
         $this->id_empresa_centro_costo = $id_empresa_centro_costo;
     }
 
+    public function getId_establecimiento() {
+        return $this->id_establecimiento;
+    }
+
+    public function setId_establecimiento($id_establecimiento) {
+        $this->id_establecimiento = $id_establecimiento;
+    }
+    
     public function getCod_ocupacion_p() {
         return $this->cod_ocupacion_p;
     }

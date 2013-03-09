@@ -54,9 +54,10 @@ $(document).ready(function(){
 			dateFormat: 'dd/mm/yy',
 			//dateFormat: 'DD MM yy',			
 			numberOfMonths: 1,
-			minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDay()),
-			maxDate: new Date(data_mes.getFullYear(),data_mes.getMonth()+1,0),
-			//showOn: 'both',
+			//minDate: new Date(data_mes.getFullYear(),data_mes.getMonth(),data_mes.getDay()),
+			//maxDate: new Date(data_mes.getFullYear(),data_mes.getMonth()+1,0),
+			
+            //showOn: 'both',
 			//buttonText: 'Selecciona una fecha',
 			//buttonImageOnly:true,
 			//buttonImage: 'images/calendar.gif',

@@ -138,7 +138,7 @@ function cargarTablaVacacion() {
 
 //DUPLICADO trabajador
 function cargar_tabla_trabajador($ESTADO) {
-
+    
     $dao_trabajador = new TrabajadorDao();
     $PERIODO = $_REQUEST['periodo'];
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
@@ -149,7 +149,6 @@ function cargar_tabla_trabajador($ESTADO) {
     $sord = $_GET['sord']; // get the direction
 
     $WHERE = "";
-
     if (isset($_GET['searchField']) && ($_GET['searchString'] != null)) {
 
         $operadores["eq"] = "=";
@@ -302,7 +301,7 @@ function addVacacion() {
             $contador++;
         }
         $response->rpta = true;
-        $response->mensaje = "Se ristraron correctamente.\nNum de reg. [$contador].";        
+        $response->mensaje = "Se registraron correctamente.\nNum de reg. [$contador].";        
     }
 
     return $response;

@@ -2738,15 +2738,19 @@ $.ajax({
             sortorder: 'asc',
             viewrecords: true,
             caption: 'Lista',
-            /*multiselect: false,
-              hiddengrid: true,*/
+            toolbar: [true,"top"],
+            //multiselect: true,
+            hiddengrid: false,
             onSelectRow: function(ids) {},
-            height:320,
-           // width:720
+            height:320,           
+
         });
         //--- PIE GRID
         jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-        //$("#list").remapColumns([1,3,2],true,false);
+        
+        $("#t_list").append($("#reporteVacacion"))           
+                    .append($("#reporteVacacionIndividual"));
+
     }
 
 
@@ -2901,9 +2905,6 @@ function validarPlanilla(button){
             }); 
         }
     }
-
-
-
 
 
 

@@ -116,8 +116,6 @@ class DeclaracionDconceptoDao extends AbstractDao {
     
     //uSADO en reporte tabla txt.
  public function buscar_ID_TrabajadorPdeclaracion_2($id_trabajador_pdeclaracion) {
-        // id_trabajador_pdeclaracion
-
         $query = "
         SELECT
             ddc.id_declaracion_dconcepto,            
@@ -127,13 +125,10 @@ class DeclaracionDconceptoDao extends AbstractDao {
             dc.descripcion,
             dc.descripcion_abreviada
         FROM declaraciones_dconceptos AS ddc
-
         INNER JOIN detalles_conceptos AS dc
         ON   ddc.cod_detalle_concepto = dc.cod_detalle_concepto   
-        WHERE id_trabajador_pdeclaracion = ?
-        
+        WHERE id_trabajador_pdeclaracion = ?;        
         ";
-
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_trabajador_pdeclaracion);
         $stm->execute();

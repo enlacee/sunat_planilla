@@ -163,7 +163,7 @@ class EstructuraAfpDao extends AbstractDao{
         return $lista;   
     }
     
-     public function codigoMovimiento_5($id_pdeclaracion,$anio,$mes, $codcubodin=null){
+     public function codigoMovimiento_5($id_pdeclaracion, $codcubodin=null){
         $afp = 0;
         $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;         
          
@@ -172,12 +172,7 @@ class EstructuraAfpDao extends AbstractDao{
         tpd.id_trabajador_pdeclaracion,
         tpd.id_pdeclaracion,
         tpd.id_trabajador,
-        dns.cantidad_dia,
-        -- dns.fecha_inicio,
-        -- dns.fecha_fin,
-        v.fecha_programada AS fecha_inicio,
-        v.fecha_programada_fin AS fecha_fin
-
+        dns.cantidad_dia
 
         FROM trabajadores_pdeclaraciones AS tpd
         INNER JOIN dias_nosubsidiados AS dns
@@ -189,14 +184,11 @@ class EstructuraAfpDao extends AbstractDao{
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.cod_regimen_pensionario IN($afp)
         AND dns.cod_tipo_suspen_relacion_laboral =23
-
-        AND YEAR(v.fecha_programada) = ?
-        AND MONTH(v.fecha_programada) = ? 
 ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);
-        $stm->bindValue(2, $anio);
-        $stm->bindValue(3, $mes);
+        //$stm->bindValue(2, $anio);
+        //$stm->bindValue(3, $mes);
         $stm->execute();
         $lista = $stm->fetchAll();
         $stm = null;

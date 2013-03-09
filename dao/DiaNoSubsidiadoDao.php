@@ -22,6 +22,20 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         self::$instancia->registrar($obj);
     }
 
+    static public function anb_existe($id_trabajador_pdeclaracion,$codigo){
+        if (self::$instancia == null) {
+            self::$instancia = new DiaNoSubsidiadoDao(); 
+        }
+        return self::$instancia->existe($id_trabajador_pdeclaracion,$codigo);
+    }
+    
+    static public function anb_update($obj){
+        if (self::$instancia == null) {
+            self::$instancia = new DiaNoSubsidiadoDao(); 
+        }
+        return self::$instancia->actualizar($obj);        
+    }
+    
     static public function anb_diasNoSubsidiado($id_trabajador_pdeclaracion, $cod_tipo_suspen_relacion_laboral) {
 
         if (self::$instancia == null) {
@@ -74,7 +88,7 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         return true;
     }
 
-    public function actualizar($obj) {
+    public function actualizar($obj) { // ojo funcion usada ? sino PRIVATE = static
 
         $model = new DiaNoSubsidiado();
         $model = $obj;
@@ -157,6 +171,27 @@ class DiaNoSubsidiadoDao extends AbstractDao {
         }
     }
 
+        
+    
+    //new 
+    private function existe($id_trabajador_pdeclaracion,$codigo){
+        
+        $query ="
+        SELECT 
+        id_dia_nosubsidiado
+        FROM dias_nosubsidiados
+        WHERE id_trabajador_pdeclaracion = ?
+        AND cod_tipo_suspen_relacion_laboral = ?            
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador_pdeclaracion);
+        $stm->bindValue(2, $codigo);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0]['id_dia_nosubsidiado'];        
+    }
+    
     //personalizado para boleta:
     private function diasNoSubsidiado($id_trabajador_pdeclaracion, $cod_tipo_suspen_relacion_laboral) {
 
@@ -178,6 +213,7 @@ class DiaNoSubsidiadoDao extends AbstractDao {
 
         return $lista[0]['cantidad_dia'];
     }
+
 
 }
 

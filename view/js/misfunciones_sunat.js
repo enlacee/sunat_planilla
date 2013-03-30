@@ -490,6 +490,37 @@ function return_modal_anb_prestamo(id, code, name){
 	self.close();
 	//window.close();
 } 
+function return_modal_anb_ocupacion(id){
+	
+	window.opener.document.form_trabajador.txt_ocupacion_codigo.value = id;
+
+//
+    var obj =window.opener.document.form_trabajador.txt_ocupacion_codigo;   
+    
+    var aguja = obj.value;  
+    var eCombo = window.opener.document.form_trabajador.cboOcupacion;
+    var counteo = eCombo.options.length;
+    
+    var encontro = false
+    
+    for(i=0;i<counteo;i++){
+        if(aguja == eCombo.options[i].value){           
+            eCombo.options[i].selected = true;
+            encontro = true;
+            break;
+        }           
+    }//end for  
+    if(encontro==false){
+        eCombo.options[0].selected = true;
+        obj.value="";
+    }
+
+//
+
+
+	self.close();
+	//window.close();
+} 
 
 function return_modal_anb_paraTifamilia(id, code, name){
 	console.log('return_modal 2');

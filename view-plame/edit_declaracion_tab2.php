@@ -4,7 +4,7 @@ require_once('../view/ide.php');
 //*******************************************************************//
 require_once '../controller/ideController.php';
 $data = $_SESSION['sunat_empleador'];
-//$id_declaracion = $_REQUEST['id_declaracion'];
+//$id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
 //$PERIODO = $_REQUEST['periodo'];
 ?>
 <script type="text/javascript">
@@ -21,7 +21,7 @@ $data = $_SESSION['sunat_empleador'];
 				modal: true,                        
 				buttons: {
 					'Generar': function() {	
-					var id_pdeclaracion = document.getElementById('id_declaracion').value;				
+					var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;				
 					
 					var id_establecimientos = document.getElementById('id_establecimientos').value;				
 					var cboCentroCosto = document.getElementById('cboCentroCosto').value;
@@ -31,7 +31,8 @@ $data = $_SESSION['sunat_empleador'];
 					var id = id_establecimientos.split('|');
 					var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
 					url += "?oper=recibo30";
-					url += "&id_pdeclaracion="+id_pdeclaracion;								
+					url += "&id_pdeclaracion="+id_pdeclaracion;	
+					url += "&periodo="+periodo;													
 					url += "&id_establecimientos="+id[0];
 					url += "&cboCentroCosto="+cboCentroCosto;
 					//alert(url);			
@@ -49,7 +50,7 @@ $data = $_SESSION['sunat_empleador'];
 
 		cargarTablaTrabajadorPdeclaracion(id_pdeclaracion,periodo);
 	});
-	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_trabajador.php?id_declaracion='+ID_DECLARACION ,'#tabs-2-1');
+	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_trabajador.php?id_pdeclaracion='+id_pdeclaracion ,'#tabs-2-1');
 	//cargar_pagina('sunat_planilla/view-plame/declaraciones_detalle/view_trabajador.php','#tabs-2-2');
 	//cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/view_p4ta_catecoria.php?periodo='+$PERIODO ,'#tabs-2-3');
 
@@ -73,7 +74,7 @@ $data = $_SESSION['sunat_empleador'];
 		$.ajax({
 			type: "POST",
 			url: "sunat_planilla/view-plame/modal/edit_mas_opciones.php",
-			data: {id_pdeclaracion : id_pdeclaracion},
+			data: {id_pdeclaracion : id_pdeclaracion,periodo : periodo},
 			async:true,
 			success: function(datos){
 				$('#editarTDMasOP').html(datos);
@@ -87,7 +88,7 @@ $data = $_SESSION['sunat_empleador'];
 	$("#reporte_plame").click(function(){		
 		
 		var url = "sunat_planilla/controller/Estructura_PlanillaMensualController.php";
-		url +="?oper=estructura-plame&id_pdeclaracion="+ID_DECLARACION		
+		url +="?oper=estructura-plame&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo		
 		
 		window.location.href = url;
 				
@@ -96,10 +97,10 @@ $data = $_SESSION['sunat_empleador'];
 
 	
 	//04 =
-	$("#reporte_emp_01").click(function(){	console.log("ENTRO EN  reporte_emp_01");
+	$("#reporte_emp_01").click(function(){	//console.log("ENTRO EN  reporte_emp_01");
 		
 		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
-		url +="?oper=reporte_emp_01&id_pdeclaracion="+ID_DECLARACION
+		url +="?oper=reporte_emp_01&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo
 		url +="&todo=todo";	
 		
 		window.location.href = url;
@@ -111,7 +112,7 @@ $data = $_SESSION['sunat_empleador'];
 	$('#reporte_exel_afp').click(function(){
 		console.log("reporte exel true");
 		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
-		url +="?oper=reporte_exel_afp&id_pdeclaracion="+ID_DECLARACION
+		url +="?oper=reporte_exel_afp&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo
 
 		window.location.href = url;
 	});
@@ -120,7 +121,7 @@ $data = $_SESSION['sunat_empleador'];
 	$('#reporte_afp').click(function(){
 		console.log("reporte afp txt");
 		var url = "sunat_planilla/controller/TrabajadorPdeclaracionController.php";
-		url +="?oper=reporte_afp&id_pdeclaracion="+ID_DECLARACION
+		url +="?oper=reporte_afp&id_pdeclaracion="+id_pdeclaracion+"&periodo="+periodo
 		console.log(url);
 		window.location.href = url;
 	});	

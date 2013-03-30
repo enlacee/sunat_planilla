@@ -1,10 +1,32 @@
 sunat_planilla
 ==============
+planilla de pagos
 
-proyecto Sunat T-Registro
+*Declaracion T-REGISTRO
+	- Alta y Baja de trabajadores 'Anexo 02,03'
+	- 
 
-Genera ALTA Y BAJA de trabajadores
-con los formatos establecidos del 
-utilizando Anexo 02 y Anexo 03 de sunat.
+*Declaracion PDT-PLAME segun planilla.
++Procesos de planilla.
+	- planilla quincenal
+	- planilla mensual
+	- planilla vacaciones
+
++Conceptos exclusivos de la empresa.
+	- Prestamo.
+	- Para ti familia.
+
+*Reportes
+	- Repotes quincena
+	- Reporte Mensual
+	- Reporte Vacacion
+	- Reporte AFP,ONP,ESSALUD
+	- otros.
+
+
 
 git@github.com:enlacee/sunat_planilla.git
+
+________________________________________
+site-personal:		www.acopitan.com
+elaborado: 			Anibal Copitan

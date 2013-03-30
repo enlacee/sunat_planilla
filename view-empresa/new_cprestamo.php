@@ -81,9 +81,8 @@ if(bacio){
 			data: {},
 		    success: function(data){
 							
-				if(data){
-					alert("Se registro correctamente");
-						//variables cabecera
+				if(data.rpta){
+					alert(data.mensaje);
 					var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 					var periodo = document.getElementById('periodo').value;
 					var parametro = 'id_declaracion='+id_pdeclaracion+'&periodo='+periodo;

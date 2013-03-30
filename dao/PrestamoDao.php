@@ -151,6 +151,7 @@ class PrestamoDao extends AbstractDao {
           pre.id_prestamo,
           pc.id_prestamo_cutoa,
           pc.monto,
+          pc.monto_variable,
           pc.fecha_calc
           
         FROM prestamos AS pre	

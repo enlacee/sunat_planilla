@@ -5,6 +5,7 @@ require_once('../ide2.php');
 //*******************************************************************//
 //require_once('../../dao/AbstractDao.php');
 //--------------combo CATEGORIAS
+
 require_once('../../util/funciones.php');
 require_once('../../dao/ComboCategoriaDao.php');
 require_once('../../controller/ComboCategoriaController.php');
@@ -46,17 +47,20 @@ require_once('../../controller/DetalleRegimenSaludController.php');
 require_once('../../model/DetalleRegimenPensionario.php');
 require_once('../../dao/DetalleRegimenPensionarioDao.php');
 require_once('../../controller/DetalleRegimenPensionarioController.php');
+
+
 //############################################################################
 require_once('../../controller/EmpresaCentroCostoController.php');
 require_once('../../dao/EmpresaCentroCostoDao.php');
 /**
-********* BUSQUEDA 01
+********* BUSQUEDA 01 EDIT = TRA-bajador por ID importante
 */
 $ID_PERSONA = $_REQUEST['id_persona'];
 $ID_TRABAJADOR = $_REQUEST['id_trabajador'];
 // ---- Busqueda Trabajador
 $objTRA = new Trabajador();
 //-- funcion Controlador Trabajador
+//$objTRA = buscarTrabajadorPorIdPersona($ID_PERSONA,$ID_TRABAJADOR);
 $objTRA = buscar_IDTrabajador($ID_TRABAJADOR);
 
 
@@ -86,7 +90,18 @@ $a_jornada_laboral = preg_split( "/,/",$objTRA->getJornada_laboral() );
 $situacion_especial = $objTRA->getSituacion_especial();
 $discapacitado = $objTRA->getDiscapacitado();
 $sindicalizado = $objTRA->getSindicalizado();
+
+/**
+********* BUSQUEDA 01 EDIT = TRAD1 here
+*/
+
 ////############################################################################
+
+/*
+* Listado De Empleador Destaques () y empleador maestro
+* IMPORTANTE ALERT = usa Recurso SESSION
+*/
+// RUTA :: EmpleadorDestaqueController.php
 
 // ## (01)-> Listar Empleadores
 $lista_empleador_destaque = listarEmpleadorDestaque();
@@ -95,25 +110,46 @@ $lista_empleador_destaque = listarEmpleadorDestaque();
 $id_empleador_select = buscarID_EMP_EmpleadorDestaquePorTrabajador( $objTRADetalle_3->getId_trabajador(), $objTRADetalle_3->getId_detalle_establecimiento() );
 
 
+//echo "<pre>id_empleador_select";
+//print_r($id_empleador_select);
+/*
+echo "<pre>";
+echo "objTRADetalle_3<br>";
+print_r($objTRADetalle_3);
+echo "<pre>";
+*/
 // ## (03)->
 $lista_establecimientos = listarEstablecimientoDestaque($id_empleador_select);
 
 
 $COD_LOCAL = 0;
-$arreglo3 = array();          
-foreach ($lista_establecimientos as $indice) {  
-    $arreglo3 = preg_split("/[|]/",$indice['id']);  
-    //  $arreglo[0 - 2] =  // id_establecimiento
-    if( $arreglo3[0] == $objTRADetalle_3->getId_establecimiento()){
-        $COD_LOCAL = $arreglo3[2];
-        break;      
-    }
+$arreglo3 = array();		  
+foreach ($lista_establecimientos as $indice) {	
+	$arreglo3 = preg_split("/[|]/",$indice['id']);	
+	//	$arreglo[0 - 2] =  // id_establecimiento
+	if( $arreglo3[0] == $objTRADetalle_3->getId_establecimiento()){
+		$COD_LOCAL = $arreglo3[2];
+		break; 		
+	}
 }
+
 //############################################################################
+
+//echo "<pre>trabajador"; //$objTRADetalle_5
+//print_r($objTRA);
+//echo "</pre>";
+
+//$objTRA->getId_empresa_centro_costo();
 
 //$comboCCosto = comboCentroCosto();
 $comboCCosto = listarCentroCosto($objTRA->getId_establecimiento(),"all");
 
+
+
+//$comboEmpleadores_EstableTrabajo = ListaEmpleadores_EstablecimientosLaborales($_SESSION['sunat_empleador']['id_empleador']);
+ ?>
+
+<?php  
   
 //---------------------------- EDITAR PERSONA CATEGORIA --------------------------------- //
 // *-*-* ! IMPORTANT  id_tipo_empleador = 01->privado 02->publico 03->otros
@@ -139,6 +175,13 @@ $cbo_tipo_pago = comboTipoPago();
 //COMBO 09
 $cbo_periodo_remuneracion = comboPeriodoRemuneracion();
 
+
+
+
+//echo "<pre>ocupacion";
+//echo "cod_ ocupacion =". $objTRA->getCod_ocupacion();
+//var_dump($cbo_ocupaciones);
+//echo "</pre>";
  
  //COMBO 06x
 $combo_nivel_educativo = comboNivelEducativo();
@@ -161,80 +204,191 @@ $combo_situacion = comboSituacion($estado);
 $COD_ESTADO = $_REQUEST['cod_situacion'];
 
 
-?>
-<script type="text/javascript">
+  ?>
 
+	<script>
+	(function( $ ) {
+		$.widget( "ui.combobox", {
+			_create: function() {
+				var input,
+					self = this,
+					select = this.element.hide(),
+					selected = select.children( ":selected" ),
+					value = selected.val() ? selected.text() : "",
+					wrapper = $( "<span>" )
+						.addClass( "ui-combobox" )
+						.insertAfter( select );
+
+				input = $( "<input>" )
+					.appendTo( wrapper )
+					.val( value )
+					.addClass( "ui-state-default" )
+					.autocomplete({
+						delay: 0,
+						minLength: 0,
+						source: function( request, response ) {
+							var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+							response( select.children( "option" ).map(function() {
+								var text = $( this ).text();
+								if ( this.value && ( !request.term || matcher.test(text) ) )
+									return {
+										label: text.replace(
+											new RegExp(
+												"(?![^&;]+;)(?!<[^<>]*)(" +
+												$.ui.autocomplete.escapeRegex(request.term) +
+												")(?![^<>]*>)(?![^&;]+;)", "gi"
+											), "<strong>$1</strong>" ),
+										value: text,
+										option: this
+									};
+							}) );
+						},
+						select: function( event, ui ) {
+							ui.item.option.selected = true;
+							self._trigger( "selected", event, {
+								item: ui.item.option
+							});
+						},
+						change: function( event, ui ) {
+							if ( !ui.item ) {
+								var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
+									valid = false;
+								select.children( "option" ).each(function() {
+									if ( $( this ).text().match( matcher ) ) {
+										this.selected = valid = true;
+										return false;
+									}
+								});
+								if ( !valid ) {
+									// remove invalid value, as it didn't match anything
+									$( this ).val( "" );
+									select.val( "" );
+									input.data( "autocomplete" ).term = "";
+									return false;
+								}
+							}
+						}
+					})
+					.addClass( "ui-widget ui-widget-content ui-corner-left" );
+
+				input.data( "autocomplete" )._renderItem = function( ul, item ) {
+					return $( "<li></li>" )
+						.data( "item.autocomplete", item )
+						.append( "<a>" + item.label + "</a>" )
+						.appendTo( ul );
+				};
+
+				$( "<a>" )
+					.attr( "tabIndex", -1 )
+					.attr( "title", "Show All Items" )
+					.appendTo( wrapper )
+					.button({
+						icons: {
+							primary: "ui-icon-triangle-1-s"
+						},
+						text: false
+					})
+					.removeClass( "ui-corner-all" )
+					.addClass( "ui-corner-right ui-button-icon" )
+					.click(function() {
+						// close if already visible
+						if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
+							input.autocomplete( "close" );
+							return;
+						}
+
+						// work around a bug (likely same cause as #5265)
+						$( this ).blur();
+
+						// pass empty string as value to search for, displaying all results
+						input.autocomplete( "search", "" );
+						input.focus();
+					});
+			},
+
+			destroy: function() {
+				this.wrapper.remove();
+				this.element.show();
+				$.Widget.prototype.destroy.call( this );
+			}
+		});
+	})( jQuery );
+
+	</script>
+
+
+
+
+ <script type="text/javascript">
+ 
+ //VARIABLES GLOBALES
+ 
+ var cod_situacion = "<?php echo $COD_ESTADO; ?>"; 
+ 
+ 
  $(document).ready(function(){
 
-    //$( "#cboOcupacion" ).combobox();
-    //$( "#cboOcupacion" ).show();
-    //$( "#toggle" ).click(function() {
-    //    $( "#cboOcupacion" ).toggle();
-    //});
+	$( "#cboOcupacion" ).combobox();
+	$( "#cboOcupacion" ).show();
+	$( "#toggle" ).click(function() {
+		$( "#cboOcupacion" ).toggle();
+	});
 
 
-    $( "#accordionTrabajador" ).accordion({
-        autoHeight: false,
-        navigation: true
-        }
-    );
-    
-    havilitarConvenio();
-    havilitarEps(document.getElementById('cbo_regimen_salud_base'));
-    havilitarCUSPP(document.getElementById('cbo_regimen_pensionario_base'));
-    
-    //-------------------------------------
-    //Desabilita Formulario si cod_situacion = 0
-    if(cod_situacion == '0'){
-        disableForm('form_trabajador');
-    }
+	$( "#accordionTrabajador" ).accordion({
+		autoHeight: false,
+		navigation: true
+		}
+	);
+	
+	havilitarConvenio();
+	havilitarEps(document.getElementById('cbo_regimen_salud_base'));
+	havilitarCUSPP(document.getElementById('cbo_regimen_pensionario_base'));
+	
+	//-------------------------------------
+	//Desabilita Formulario si cod_situacion = 0
+	if(cod_situacion == '0'){
+		disableForm('form_trabajador');
+	}
 //----------------------------
         $("#form_trabajador").validate({
             rules: {
                 txt_plaboral_fecha_inicio_base: {
                     required: true                    
-                }               
-                
+                }				
+				
             },
-            submitHandler: function(data) { 
-                //alert("submitHandler");               
-            //-----------------------------------------------------------------------               
-                var from_data =  $("#form_trabajador").serialize();
-                $.getJSON('sunat_planilla/controller/CategoriaTrabajadorController.php?'+from_data,
-                    function(data){
-                    //funcion.js index.php
-                    
-                        if(data){
-                        //document.getElementById('id_persona').value = data.id_persona;                        
-                        //disableForm('form_new_personal');
-                        alert ('Se Guardo Correctamente.\nAhora registre su Direccion');
-                
+			submitHandler: function(data) { 
+				//alert("submitHandler");				
+			//-----------------------------------------------------------------------				
+				var from_data =  $("#form_trabajador").serialize();
+				$.getJSON('sunat_planilla/controller/CategoriaTrabajadorController.php?'+from_data,
+					function(data){
+					//funcion.js index.php
+					
+						if(data){
+						//document.getElementById('id_persona').value = data.id_persona;						
+						//disableForm('form_new_personal');
+						alert ('Se Guardo Correctamente.\nAhora registre su Direccion');
+				
 
-                        }else{
-                            //alert("El Num de Documento:"+$("#txt_num_documento").val()+"Ya se encuentra registrado!\n no se puede registrar nuevamente");
-                            alert("Ocurrio un error, intente nuevamente no hay datos JSON");
-                        }
-                    }); 
-            //-----------------------------------------------------------------------
+						}else{
+							//alert("El Num de Documento:"+$("#txt_num_documento").val()+"Ya se encuentra registrado!\n no se puede registrar nuevamente");
+							alert("Ocurrio un error, intente nuevamente no hay datos JSON");
+						}
+					}); 
+			//-----------------------------------------------------------------------
 
-                    
-            }           
-            
+			   		
+			}			
+			
         });
 //-----------------------------
-    
-    
-    
-    
+	
+	
+	
+	
  });
-
-
-
-// $(document).ready(function(){
-          
-// $( "#tabs").tabs();
-
-// });
 
  /*
  * Carga Principal de Empleadores
@@ -243,52 +397,52 @@ $COD_ESTADO = $_REQUEST['cod_situacion'];
  //cargarEstablecimientosBase();
  
 function havilitarEps(cbo){ //cbo_regimen_salud_base
-    var valor = cbo.value;
-    var div = document.getElementById('EPS');
-    var combohijo = document.getElementById('cbo_eps_servicios_propios');
-        
-    if(valor == '01' || valor == '04'){     
-        div.style.display = 'block';
-    }else{
-        div.style.display = 'none';     
-        combohijo.options[0].selected = true;
-    }
+	var valor = cbo.value;
+	var div = document.getElementById('EPS');
+	var combohijo = document.getElementById('cbo_eps_servicios_propios');
+		
+	if(valor == '01' || valor == '04'){		
+		div.style.display = 'block';
+	}else{
+		div.style.display = 'none';		
+		combohijo.options[0].selected = true;
+	}
 }
 
 
 //----
 function havilitarCUSPP(cbo){ //cbo_regimen_salud_base
-    var valor = cbo.value;
-    var div = document.getElementById('cuspp');
-    var combohijo = document.getElementById('txt_CUSPP');
-        
-    if(valor == '02' || valor == '0' || valor == null ){        
-        div.style.display = 'none';
-        combohijo.value="";
-    }else{
-        div.style.display = 'block';        
-        //combohijo.value="";
-    }
+	var valor = cbo.value;
+	var div = document.getElementById('cuspp');
+	var combohijo = document.getElementById('txt_CUSPP');
+		
+	if(valor == '02' || valor == '0' || valor == null ){		
+		div.style.display = 'none';
+		combohijo.value="";
+	}else{
+		div.style.display = 'block';		
+		//combohijo.value="";
+	}
 } 
  
 function havilitarConvenio(){
  var obj = document.form_trabajador.rbtn_aplica_convenio_doble_inposicion;
  
-    var counteo = obj.length
-    var bandera = false;
-    for(var i =0; i<counteo; i++){
-        if(obj[i].checked){
-            bandera = obj[i].value;
-        }
-    }
-    
+ 	var counteo = obj.length
+	var bandera = false;
+	for(var i =0; i<counteo; i++){
+		if(obj[i].checked){
+			bandera = obj[i].value;
+		}
+	}
+	
 var cbo = document.getElementById('cbo_convenio');
-    if( bandera == 1){
-        
-        cbo.disabled = false;
-    }else{
-        cbo.disabled = true;
-    }
+	if( bandera == 1){
+		
+		cbo.disabled = false;
+	}else{
+		cbo.disabled = true;
+	}
 
 }
 
@@ -296,118 +450,109 @@ var cbo = document.getElementById('cbo_convenio');
 //--------------------------------------------------------------------------------
 
 function seleccionarLocalDinamicoLocal(oCombo){ //alert("oCombo = "+oCombo.value);
-    //var oInput = document.getElementById('txt_codigo_local')||0;
-    var oInput2 = document.getElementById('txt_id_establecimiento')||0;
-    
-    var aguja = oCombo.value;
+	//var oInput = document.getElementById('txt_codigo_local')||0;
+	var oInput2 = document.getElementById('txt_id_establecimiento')||0;
+	
+	var aguja = oCombo.value;
 
-    var partes = aguja.split("|");  
-    
-    var id_establecimiento = partes[0]; 
-    var codigo_establecimiento = partes[2];
-    
-    //oInput.value = codigo_establecimiento;
-    oInput2.value = id_establecimiento;
+	var partes = aguja.split("|");	
+	
+	var id_establecimiento = partes[0];	
+	var codigo_establecimiento = partes[2];
+	
+	//oInput.value = codigo_establecimiento;
+	oInput2.value = id_establecimiento;
 
-    //console.log("okkkk =??")
-
-
-    var objCombo = document.getElementById('cboCentroCosto');
-    
-
-    if(id_establecimiento=='0'){        
-        alert("Debe Selecionar Un Local Correcto");
-        limpiarComboGlobal(objCombo);
-    }else{
-        //limpiarComboGlobal(objCombo);
-        //objCombo.disabled = false;
-    //-----
-
-    $.ajax({
-        type: 'get',
-        dataType: 'json',
-        url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
-        data: {id_establecimiento: id_establecimiento, oper: 'lista_centrocosto'},
-        success: function(json){
-            console.log("rpta json");
-            
-            if(json == null || json.length<1 ){
-                var mensaje = "No Existen Establecimientos Registrados\n";
-                mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
-                mensaje += "O el problema es aun Mayor";                
-                objCombo.disabled =true;
-                alert(mensaje); 
-            }else{
-                console.log("entro ah llenar combo objCombo ");
-                
-                objCombo.disabled =false;
-                llenarComboDinamico(json,objCombo);
-            }
-        }
-    });
-            
-    }
+	//console.log("okkkk =??")
 
 
-    
-}
+	var objCombo = document.getElementById('cboCentroCosto');
+	
 
-function seleccionarOcupacionModal(){
+	if(id_establecimiento=='0'){		
+		alert("Debe Selecionar Un Local Correcto");
+		limpiarComboGlobal(objCombo);
+	}else{
+		//limpiarComboGlobal(objCombo);
+		//objCombo.disabled = false;
+	//-----
 
-    var cbo_categoria_ocupacional = $("#cbo_categoria_ocupacional").val();
-    var url = 'sunat_planilla/view/modal/ocupacion.php?cbo_categoria_ocupacional='+cbo_categoria_ocupacional;
-    modalshow_anb(url);
+	$.ajax({
+		type: 'get',
+		dataType: 'json',
+		url: 'sunat_planilla/controller/EmpresaCentroCostoController.php',
+		data: {id_establecimiento: id_establecimiento, oper: 'lista_centrocosto'},
+		success: function(json){
+			console.log("rpta json");
+			
+			if(json == null || json.length<1 ){
+				var mensaje = "No Existen Establecimientos Registrados\n";
+				mensaje += "Registe los establecimientos correspondientes para el Empleador\n";
+				mensaje += "O el problema es aun Mayor"; 				
+				objCombo.disabled =true;
+				alert(mensaje);	
+			}else{
+				console.log("entro ah llenar combo objCombo ");
+				
+				objCombo.disabled =false;
+				llenarComboDinamico(json,objCombo);
+			}
+		}
+	});
+			
+	}
 
 
+	
 }
 
 
-</script>
+ </script>
  <style type="text/css">
 
 .cesta-productos{
-    text-align:center;
-    width:700px;
-/*  display:inline-block;*/
-    display:block;
-    
+	text-align:center;
+	width:700px;
+/*	display:inline-block;*/
+	display:block;
+	
 }
 .celda{
-    float:left;
-    min-height:22px;
-    padding:5px 0 5px 0;
-    margin-right:1px;
+	float:left;
+	min-height:22px;
+	padding:5px 0 5px 0;
+	margin-right:1px;
 }
 .negrita .celda{
-    min-height:45px;
-    background-color:#6FF;
-    font: 14px/12px inherit;
+	min-height:45px;
+	background-color:#6FF;
+	font: 14px/12px inherit;
 }
 
 
 .eliminar{
-    width:50px;
-    background-color:#fcac36;
+	width:50px;
+	background-color:#fcac36;
 }
 
 .producto{
-    width:130px;
-    background-color:#fcac36;
+	width:130px;
+	background-color:#fcac36;
 }
 
 
 .cantidad{
-    width:270px;
-    background-color:#fcac36;
+	width:270px;
+	background-color:#fcac36;
 }
 .precio,.sub-total{
-    width:100px;
-    background-color:#fcac36;
+	width:100px;
+	background-color:#fcac36;
 
 }
 .dialog_detalle_1{
-    display:inline;
-    
+	display:inline;
+	
 }
 
 
@@ -418,12 +563,12 @@ function seleccionarOcupacionModal(){
 <div class="demoo">
 
 <div id="accordionTrabajador">
-    <h3><a href="#">Section 1  Datos Laborales Form Trabajador
-      <label for="tab"></label>
-    </a></h3>
+	<h3><a href="#">Section 1  Datos Laborales Form Trabajador
+	  <label for="tab"></label>
+	</a></h3>
     
-    <div>
-      <div style="float:left; width:455px;" >
+	<div>
+	  <div style="float:left; width:455px;" >
 <div class="ocultar">id_trabajador
   <label for="id_trabajador"></label>
   <input type="text" name="id_trabajador_categoria" id="id_trabajador_categoria" 
@@ -467,18 +612,18 @@ oper
       <?php 
 
 foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
-    if($indice['cod_motivo_baja_registro'] =="0" ){
-        
-        $html = '<option value="0"  >-</option>';
-    
-    }else if( $indice['cod_motivo_baja_registro'] ==  $objTRADetalle_1->getCod_motivo_baja_registro()){
+	if($indice['cod_motivo_baja_registro'] =="0" ){
+		
+		$html = '<option value="0"  >-</option>';
+	
+	}else if( $indice['cod_motivo_baja_registro'] ==  $objTRADetalle_1->getCod_motivo_baja_registro()){
 
-        $html = '<option value="'. $indice['cod_motivo_baja_registro'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
+		$html = '<option value="'. $indice['cod_motivo_baja_registro'] .'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';
 
-    }else {
-        $html = '<option value="'. $indice['cod_motivo_baja_registro'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
-    }
-    echo $html;
+	}else {
+		$html = '<option value="'. $indice['cod_motivo_baja_registro'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
+	}
+	echo $html;
 } 
 ?>
     </select></td>
@@ -495,49 +640,49 @@ foreach ($cbo_motivo_baja_registro_cat_trabajador as $indice) {
             <td width="37">&nbsp;</td>
           </tr>
           <tr>
-          
+		  
             <td>Tipo de Trabajador<input name="id_detalle_tipo_trabajador" type="hidden" id="id_detalle_tipo_trabajador" size="3"
               value="<?php  echo $objTRADetalle_2->getId_detalle_tipo_trabajador(); ?>"
                /></td>
             <td>
                 <select name="cbo_ttrabajador_base" id="cbo_ttrabajador_base" 
                  onchange="comboVinculadosTipoTrabajadorConCategoriaOcupacional(this)" >
-                
-                <!--<option value="0" >-</option>-->
+				
+				<!--<option value="0" >-</option>-->
 <?php 
 
 foreach ($cbo_tipo_trabajador as $indice) {
-    /*
-    if ($indice['cod_tipo_trabajador'] == 0 ) {     
-        $html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';    
-    
-    }else if($indice['cod_tipo_trabajador'] == $objTRADetalle_2->getCod_tipo_trabajador() ){
-        $html = '<option value="'. $indice['cod_tipo_trabajador'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
+	/*
+	if ($indice['cod_tipo_trabajador'] == 0 ) {		
+		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';	
+	
+	}else if($indice['cod_tipo_trabajador'] == $objTRADetalle_2->getCod_tipo_trabajador() ){
+		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
 
-    }else{
-        $html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';        
-    }
-    */
-    //----
-    if($indice['cod_tipo_trabajador'] =="0" ){
-        
-        $html = '<option value="0"  >-</option>';
-    
-    }else if( $indice['cod_tipo_trabajador'] ==  $objTRADetalle_2->getCod_tipo_trabajador()){
+	}else{
+		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';		
+	}
+	*/
+	//----
+	if($indice['cod_tipo_trabajador'] =="0" ){
+		
+		$html = '<option value="0"  >-</option>';
+	
+	}else if( $indice['cod_tipo_trabajador'] ==  $objTRADetalle_2->getCod_tipo_trabajador()){
 
-        $html = '<option value="'. $indice['cod_tipo_trabajador'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
+		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
 
-    }else {
-        $html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
-    
+	}else {
+		$html = '<option value="'. $indice['cod_tipo_trabajador'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
+	
 
 } 
 ?>
-                
-                
-                
+				
+				
+				
                 </select>
             </td>
             <td>
@@ -557,23 +702,23 @@ foreach ($cbo_tipo_trabajador as $indice) {
             <td width="128" height="26">Regimen Laboral </td>
             <td colspan="2">
                 <select name="cbo_regimen_laboral" id="cbo_regimen_laboral" >
-                <option value="0">-</option>
+				<option value="0">-</option>
 <?php 
 foreach ($cbo_regimen_laboral as $indice) {
-    
-    if ($indice['cod_regimen_laboral']== 0 ) {
-        
-        $html = '<option value="0" >' . $indice['descripcion'] . '</option>';
-        
-    }else if($indice['cod_regimen_laboral']==$objTRA->getCod_regimen_laboral() ){
-        
-        $html = '<option value="'. $indice['cod_regimen_laboral'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';        
-    
-    }else {
-        
-        $html = '<option value="'. $indice['cod_regimen_laboral'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_regimen_laboral']== 0 ) {
+		
+		$html = '<option value="0" >' . $indice['descripcion'] . '</option>';
+		
+	}else if($indice['cod_regimen_laboral']==$objTRA->getCod_regimen_laboral() ){
+		
+		$html = '<option value="'. $indice['cod_regimen_laboral'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
+	
+	}else {
+		
+		$html = '<option value="'. $indice['cod_regimen_laboral'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 } 
 ?>
               </select>            </td>
@@ -586,14 +731,14 @@ foreach ($cbo_regimen_laboral as $indice) {
   <option value="0">-</option>
   <?php 
 foreach ($cbo_categoria_ocupacional as $indice) {
-    
-    if ($indice['cod_categorias_ocupacionales'] == $objTRA->getCod_categorias_ocupacionales() ){
-        
-        $html = '<option value="'. $indice['cod_categorias_ocupacionales'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';       
-    }else {
-        $html = '<option value="'. $indice['cod_categorias_ocupacionales'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_categorias_ocupacionales'] == $objTRA->getCod_categorias_ocupacionales() ){
+		
+		$html = '<option value="'. $indice['cod_categorias_ocupacionales'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
+	}else {
+		$html = '<option value="'. $indice['cod_categorias_ocupacionales'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 } 
 ?>
 </select></td>
@@ -601,21 +746,21 @@ foreach ($cbo_categoria_ocupacional as $indice) {
           <tr>
             <td>Nivel Educativo </td>
             <td colspan="2">
-            <select name="cbo_nivel_educativo" id="cbo_nivel_educativo">
+			<select name="cbo_nivel_educativo" id="cbo_nivel_educativo">
 <!--             <option value="0">-</option>-->
 <?php 
 foreach ($combo_nivel_educativo as $indice) {
-    
-    if($indice['cod_nivel_educativo'] == $objTRA->getCod_nivel_educativo() ){
-        
-        $html = '<option value="'. $indice['cod_nivel_educativo'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';        
-    }else {
-        $html = '<option value="'. $indice['cod_nivel_educativo'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if($indice['cod_nivel_educativo'] == $objTRA->getCod_nivel_educativo() ){
+		
+		$html = '<option value="'. $indice['cod_nivel_educativo'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
+	}else {
+		$html = '<option value="'. $indice['cod_nivel_educativo'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 ?>
-            </select></td>
+			</select></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
@@ -629,30 +774,30 @@ foreach ($combo_nivel_educativo as $indice) {
             onblur="seleccionarOcupacionComboPorInputTab(this)" 
             value="<?php echo $objTRA->getCod_ocupacion(); ?>"          
              >
-              
+              <input type="button" name="toggle" id="toggle" value="Button" />
             </td>
             <td><select name="cboOcupacion" id="cboOcupacion"  onchange="seleccionarOcupacionInputPorCombo(this)">
-            <option value="0"></option>
-        <option value="<?php echo $objTRA->getCod_ocupacion(); ?>" selected="selected">-</option>
+			<option value="0"></option>
+		<option value="<?php echo $objTRA->getCod_ocupacion(); ?>" selected="selected">-</option>
 <!--  Combo dependiente JOJOJOJO foreach temporal --->
 <?php 
 foreach ($cbo_ocupaciones as $indice) {
-    
-    if ($indice['cod_ocupacion_p']==0 ) {
-        $html = '<option value="0" >-</option>';
-    
-    }else if($indice['cod_ocupacion_p'] == $objTRA->getCod_ocupacion()){
-        
-        $html = '<option value="'. $indice['cod_ocupacion_p'] .'" selected="selected" >' . $indice['nombre'] . '</option>';
-    } else {
-        $html = '<option value="'. $indice['cod_ocupacion_p'] .'" >' . $indice['nombre'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_ocupacion_p']==0 ) {
+		$html = '<option value="0" >-</option>';
+	
+	}else if($indice['cod_ocupacion_p'] == $objTRA->getCod_ocupacion()){
+		
+		$html = '<option value="'. $indice['cod_ocupacion_p'] .'" selected="selected" >' . $indice['nombre'] . '</option>';
+	} else {
+		$html = '<option value="'. $indice['cod_ocupacion_p'] .'" >' . $indice['nombre'] . '</option>';
+	}
+	echo $html;
 }
-?>          
+?>			
             </select>
               
-<a href="#" onclick="javascript:seleccionarOcupacionModal()">
+<a href="#" onclick="javascript:modalshow_anb('sunat_planilla/view-empresa/modal/new_cprestamo_grid.php')">
 <img src="images/search.png" alt="Buscar">
 </a>              
               
@@ -664,17 +809,17 @@ foreach ($cbo_ocupaciones as $indice) {
               <option value="0">-</option>
   <?php 
 foreach ($cbo_tipo_contrato as $indice) {
-    
-    if ($indice['cod_tipo_contrato']==0 ) {
-        
-        //$html = '<option value="0" selected="selected" >' . $indice['descripcion'] . '</option>';
-    }else if($indice['cod_tipo_contrato'] == $objTRA->getCod_tipo_contrato() ){
-        
-        $html = '<option value="'. $indice['cod_tipo_contrato'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';      
-    }else {
-        $html = '<option value="'. $indice['cod_tipo_contrato'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_tipo_contrato']==0 ) {
+		
+		//$html = '<option value="0" selected="selected" >' . $indice['descripcion'] . '</option>';
+	}else if($indice['cod_tipo_contrato'] == $objTRA->getCod_tipo_contrato() ){
+		
+		$html = '<option value="'. $indice['cod_tipo_contrato'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
+	}else {
+		$html = '<option value="'. $indice['cod_tipo_contrato'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 ?>
               
@@ -683,42 +828,42 @@ foreach ($cbo_tipo_contrato as $indice) {
           <tr>
             <td> Tipo de pago y periodicidad de ingreso: </td>
             <td>
-            <select name="cbo_tipo_pago" >
-            <!-- <option value="">-</option>-->
+			<select name="cbo_tipo_pago" >
+			<!-- <option value="">-</option>-->
 <?php 
 foreach ($cbo_tipo_pago as $indice) {
-    
-    if ($indice['cod_tipo_pago']==0 ) {
-        
-        $html = '<option value="0" >-</option>';
-    }else if($indice['cod_tipo_pago'] == $objTRA->getCod_tipo_pago() ){
-        
-        $html = '<option value="'. $indice['cod_tipo_pago'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';      
-    }else {
-        $html = '<option value="'. $indice['cod_tipo_pago'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_tipo_pago']==0 ) {
+		
+		$html = '<option value="0" >-</option>';
+	}else if($indice['cod_tipo_pago'] == $objTRA->getCod_tipo_pago() ){
+		
+		$html = '<option value="'. $indice['cod_tipo_pago'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
+	}else {
+		$html = '<option value="'. $indice['cod_tipo_pago'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
-?>          
-            </select></td>
+?>			
+			</select></td>
             <td><select name="cbo_periodo_pago" >
              <!--<option value="">-</option>-->
 <?php 
 foreach ($cbo_periodo_remuneracion as $indice) {
-    
-    if ($indice['cod_periodo_remuneracion']==0 ) {
-        
-        //$html = '<option value="" selected="selected" >' . $indice['descripcion'] . '</option>';
-    }else if($indice['cod_periodo_remuneracion'] == $objTRA->getCod_periodo_remuneracion() ){
-        
-        $html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';       
-    }else {
-        $html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_periodo_remuneracion']==0 ) {
+		
+		//$html = '<option value="" selected="selected" >' . $indice['descripcion'] . '</option>';
+	}else if($indice['cod_periodo_remuneracion'] == $objTRA->getCod_periodo_remuneracion() ){
+		
+		$html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';		
+	}else {
+		$html = '<option value="'. $indice['cod_periodo_remuneracion'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
-?>              
-            </select>&nbsp;</td>
+?>				
+			</select>&nbsp;</td>
           </tr>
           <tr>
             <td> Monto de remuneración básica inicial: </td>
@@ -726,7 +871,7 @@ foreach ($cbo_periodo_remuneracion as $indice) {
               <input name="txt_monto_remuneracion_basica_inicial" type="text" size="12"
               value="<?php echo $objTRA->getMonto_remuneracion(); ?>" /></td>
             <td>
-            <div class="ocultar">
+            <div class="ayuda ocultar">
             <input type="checkbox" name="chk_monto_remuneracion" 
             id="chk_monto_remuneracion"  
             <?php if($objTRA->getMonto_remuneracion_fijo()): ?>checked="checked"<?php endif; ?>
@@ -738,7 +883,7 @@ foreach ($cbo_periodo_remuneracion as $indice) {
               </td>
           </tr>
         </table>
-      </div>
+	  </div>
       
 
 
@@ -756,15 +901,15 @@ foreach ($cbo_periodo_remuneracion as $indice) {
                <option value="0">-</option>
                
 <?php
-              
+			  
 foreach ($lista_empleador_destaque as $indice) {
 
- if($indice['id'] == $id_empleador_select/*$objTRADetalle_3->getid*/ ){     
-        $html = '<option value="'. $indice['id'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-    } else {
-        $html = '<option value="'. $indice['id'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+ if($indice['id'] == $id_empleador_select/*$objTRADetalle_3->getid*/ ){		
+		$html = '<option value="'. $indice['id'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
+	} else {
+		$html = '<option value="'. $indice['id'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 
 ?>
@@ -789,20 +934,20 @@ foreach ($lista_empleador_destaque as $indice) {
                    
                     <?php
 //$COD_LOCAL = 0;                    
-                              
+							  
 foreach ($lista_establecimientos as $indice) {
-    $arreglo3 = preg_split("/[|]/",$indice['id']);  
-    //  $arreglo[0 - 2] =  // id_establecimiento
+	$arreglo3 = preg_split("/[|]/",$indice['id']);	
+	//	$arreglo[0 - 2] =  // id_establecimiento
  if(/*$indice['id']*/  $arreglo3[0] == $objTRADetalle_3->getId_establecimiento() ){
-        //$COD_LOCAL = $arreglo3[2];    
-        $html = '<option value="'. $indice['id'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-        
-    } else {
-        
-        $html = '<option value="'. $indice['id'] .'" >' . $indice['descripcion'] . '</option>';
-        
-    }
-    echo $html;
+	 	//$COD_LOCAL = $arreglo3[2];	
+		$html = '<option value="'. $indice['id'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
+		
+	} else {
+		
+		$html = '<option value="'. $indice['id'] .'" >' . $indice['descripcion'] . '</option>';
+		
+	}
+	echo $html;
 }
 ?>
                   </select>
@@ -817,13 +962,13 @@ foreach ($lista_establecimientos as $indice) {
                 <option value="0">-</option>                
 <?php
 foreach ($comboCCosto as $indice) {
-    
-    if ($indice['id_empresa_centro_costo'] == $objTRA->getId_empresa_centro_costo() ) {
-        $html = '<option value="'. $indice['id_empresa_centro_costo'] .'"  selected="selected"  >' . $indice['descripcion'] . '</option>';
-    } else {
-        $html = '<option value="'. $indice['id_empresa_centro_costo'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['id_empresa_centro_costo'] == $objTRA->getId_empresa_centro_costo() ) {
+		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'"  selected="selected"  >' . $indice['descripcion'] . '</option>';
+	} else {
+		$html = '<option value="'. $indice['id_empresa_centro_costo'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 ?>
 
@@ -833,20 +978,20 @@ foreach ($comboCCosto as $indice) {
               <td>&nbsp;</td>
             </tr>
       </table>
-          <br>
-          <table width="199" border="1" cellpadding="0" cellspacing="0">
+		  <br>
+		  <table width="199" border="1" cellpadding="0" cellspacing="0">
             <tr>
               <td width="52">Jornada Laboral </td>
               <td width="20"><input type="checkbox" name="jlaboral[]"
                value="j-trabajo-maximo" 
                <?php
                $counteo = count($a_jornada_laboral);
-               for($i=0; $i<$counteo;$i++){
-                if($a_jornada_laboral[$i]=='j-trabajo-maximo'){
-                    echo 'checked="checked"';
-                }
-               }               
-               ?>
+			   for($i=0; $i<$counteo;$i++){
+				if($a_jornada_laboral[$i]=='j-trabajo-maximo'){
+					echo 'checked="checked"';
+				}
+			   }			   
+			   ?>
                 ></td>
               <td width="119">Jornada de Trabajao máxima </td>
             </tr>
@@ -855,12 +1000,12 @@ foreach ($comboCCosto as $indice) {
               <td><input type="checkbox" name="jlaboral[]" value="j-atipica-acumulativa"
                <?php
                $counteo = count($a_jornada_laboral);
-               for($i=0; $i<$counteo;$i++){
-                if($a_jornada_laboral[$i]=='j-atipica-acumulativa'){
-                    echo 'checked="checked"';
-                }
-               }               
-               ?>
+			   for($i=0; $i<$counteo;$i++){
+				if($a_jornada_laboral[$i]=='j-atipica-acumulativa'){
+					echo 'checked="checked"';
+				}
+			   }			   
+			   ?>
               
               ></td>
               <td>Jornada Atipica Acumulativa </td>
@@ -870,18 +1015,18 @@ foreach ($comboCCosto as $indice) {
               <td><input type="checkbox" name="jlaboral[]" value="trabajo-horario-nocturno"
                <?php
                $counteo = count($a_jornada_laboral);
-               for($i=0; $i<$counteo;$i++){
-                if($a_jornada_laboral[$i]=='trabajo-horario-nocturno'){
-                    echo 'checked="checked"';
-                }
-               }               
-               ?>
+			   for($i=0; $i<$counteo;$i++){
+				if($a_jornada_laboral[$i]=='trabajo-horario-nocturno'){
+					echo 'checked="checked"';
+				}
+			   }			   
+			   ?>
               ></td>
               <td>Trabajo en Horario Nocturno </td>
             </tr>
           </table>
-          <br>
-          <table width="197" border="1" cellpadding="0" cellspacing="0">
+		  <br>
+		  <table width="197" border="1" cellpadding="0" cellspacing="0">
             <tr>
               <td width="59"> Situación especial: </td>
               <td width="20"><input name="rbtn_situacion_especial" type="radio" value="1" 
@@ -909,7 +1054,7 @@ foreach ($comboCCosto as $indice) {
               <td> Ninguna </td>
             </tr>
           </table>
-          <table width="217" border="1" cellpadding="0" cellspacing="0">
+		  <table width="217" border="1" cellpadding="0" cellspacing="0">
             <tr>
               <td width="104"> ¿Discapacitado? </td>
               <td width="45">
@@ -918,18 +1063,18 @@ foreach ($comboCCosto as $indice) {
                 >Si </td>
               <td width="46">
               <input name="rbtn_discapacitado" type="radio" value="0"  
-                <?php if ($objTRA->getDiscapacitado()=="0"){ echo ' checked="checked"'; }?>
+				<?php if ($objTRA->getDiscapacitado()=="0"){ echo ' checked="checked"'; }?>
               >No</td>
             </tr>
             <tr>
               <td> ¿Sindicalizado? </td>
               <td><input name="rbtn_sindicalizado" type="radio" value="1"
                 <?php
-                if ($objTRA->getSindicalizado()=="1"){echo ' checked="checked"'; } ?>  
+              	if ($objTRA->getSindicalizado()=="1"){echo ' checked="checked"'; } ?>  
               >
               Si</td>
               <td><input name="rbtn_sindicalizado" type="radio" value="0"
-                <?php if ($objTRA->getSindicalizado()=="0"){echo ' checked="checked"';} ?>
+				<?php if ($objTRA->getSindicalizado()=="0"){echo ' checked="checked"';} ?>
               >
               No</td>
             </tr>
@@ -945,13 +1090,13 @@ foreach ($comboCCosto as $indice) {
             
             if($indice['cod_situacion']=== $objTRA->getCod_situacion()){
             
-            $html = '<option value="'.$indice['cod_situacion'].'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';  
+            $html = '<option value="'.$indice['cod_situacion'].'" selected="selected" >' . $indice['descripcion_abreviada'] . '</option>';	
             
             } else {
-                
+				
             $html = '<option value="'. $indice['cod_situacion'] .'" >' . $indice['descripcion_abreviada'] . '</option>';
             
-            }
+			}
             echo $html;
             }
             ?>
@@ -971,36 +1116,36 @@ foreach ($comboCCosto as $indice) {
 
         
         
-    </div>
+	</div>
     
-    <h3><a href="#">Section 2  Datos de Seguridad Social</a></h3>
-    <div>
+	<h3><a href="#">Section 2  Datos de Seguridad Social</a></h3>
+	<div>
 
         <table width="343" border="1" cellpadding="0" cellspacing="0">
           <tr>
             <td width="56" height="67"> <label>Régimen de salud:</label></td>
             <td colspan="2"><?php
-                /* echo "ddd ".$objTRADetalle_4->getCod_regimen_aseguramiento_salud();
-                echo "<pre>";
-                print_r($objTRADetalle_4);
-                echo "</pre>";
-                */
-             ?>
+				/* echo "ddd ".$objTRADetalle_4->getCod_regimen_aseguramiento_salud();
+				echo "<pre>";
+				print_r($objTRADetalle_4);
+				echo "</pre>";
+				*/
+			 ?>
               <div class="ocultar"><span class="style2">&nbsp;detalle_regimenes_salud</span></div>
               <select name="cbo_regimen_salud_base" id="cbo_regimen_salud_base" 
             onchange="havilitarEps(this)" >
                 <!--<option value="" >-</option>-->
                 <?php              
 foreach ($combo_regimen_salud as $indice) {
-    
-    if($indice['cod_regimen_aseguramiento_salud']=== $objTRADetalle_4->getCod_regimen_aseguramiento_salud()){
-        
-        $html = '<option value="'.$indice['cod_regimen_aseguramiento_salud'].'" selected="selected" >' . $indice['descripcion'] . '</option>';  
-        
-    } else {
-        $html = '<option value="'. $indice['cod_regimen_aseguramiento_salud'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if($indice['cod_regimen_aseguramiento_salud']=== $objTRADetalle_4->getCod_regimen_aseguramiento_salud()){
+		
+		$html = '<option value="'.$indice['cod_regimen_aseguramiento_salud'].'" selected="selected" >' . $indice['descripcion'] . '</option>';	
+		
+	} else {
+		$html = '<option value="'. $indice['cod_regimen_aseguramiento_salud'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 ?>
                 
@@ -1018,15 +1163,15 @@ foreach ($combo_regimen_salud as $indice) {
             <!--<option value="0" >-</option>-->
               <?php              
 foreach ($combo_eps as $indice) {
-    
-    if($indice['cod_eps']== $objTRADetalle_4->getCod_eps() ){
-        
-        $html = '<option value="'.$indice['cod_eps'].'" selected="selected" >' . $indice['descripcion'] . '</option>';  
-        
-    } else {
-        $html = '<option value="'. $indice['cod_eps'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if($indice['cod_eps']== $objTRADetalle_4->getCod_eps() ){
+		
+		$html = '<option value="'.$indice['cod_eps'].'" selected="selected" >' . $indice['descripcion'] . '</option>';	
+		
+	} else {
+		$html = '<option value="'. $indice['cod_eps'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 ?>
 
@@ -1066,20 +1211,20 @@ foreach ($combo_eps as $indice) {
                 <!--<option value="">-</option>-->
                 <?php 
 foreach ($combo_regimen_pensionario  as $indice) {
-    
-    if ($indice['cod_regimen_pensionario']==0 ) {       
-        $html = '<option value="0" >-</option>';
-        
-    }else if($indice['cod_regimen_pensionario'] == $objTRADetalle_5->getCod_regimen_pensionario() ){
-        
-        $html = '<option value="'. $indice['cod_regimen_pensionario'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
+	
+	if ($indice['cod_regimen_pensionario']==0 ) {		
+		$html = '<option value="0" >-</option>';
+		
+	}else if($indice['cod_regimen_pensionario'] == $objTRADetalle_5->getCod_regimen_pensionario() ){
+		
+		$html = '<option value="'. $indice['cod_regimen_pensionario'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
 
-    } else {
-        
-        $html = '<option value="'. $indice['cod_regimen_pensionario'] .'" >' . $indice['descripcion'] . '</option>';
+	} else {
+		
+		$html = '<option value="'. $indice['cod_regimen_pensionario'] .'" >' . $indice['descripcion'] . '</option>';
 
-    }
-    echo $html;
+	}
+	echo $html;
 }
 ?>
 </select>
@@ -1117,11 +1262,11 @@ foreach ($combo_regimen_pensionario  as $indice) {
             <td><div class="ocultar"><a href="#">detalle</a></div></td>
           </tr>
         </table>
-    </div>
-    <h3><a href="#">Section 3  Datos Tributarios</a></h3>
-    <div>
-      <table width="258" border="1" cellpadding="0" cellspacing="0">
-        <tr>
+	</div>
+	<h3><a href="#">Section 3  Datos Tributarios</a></h3>
+	<div>
+	  <table width="258" border="1" cellpadding="0" cellspacing="0">
+	    <tr>
             <td width="169"><p>¿Percibe rentas de 5ta exoneradas (Inc. e) Art. 19 de la LIR?</p></td>
             <td width="41"><input name="rbtn_percibe_renta_5ta_exoneradas" type="radio" value="1"
             <?php if($objTRA->getPercibe_renta_5ta_exonerada()=="1"){ echo ' checked="checked"'; } ?>
@@ -1150,14 +1295,14 @@ foreach ($combo_regimen_pensionario  as $indice) {
              <!--<option value="">-</option>-->
               <?php 
 foreach ($combo_convenio  as $indice) {
-    
-    if ($indice['cod_convenio']== $objTRA->getCod_convenio() ) {
-        
-        $html = '<option value="'. $indice['cod_convenio'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
-    } else {
-        $html = '<option value="'. $indice['cod_convenio'] .'" >' . $indice['descripcion'] . '</option>';
-    }
-    echo $html;
+	
+	if ($indice['cod_convenio']== $objTRA->getCod_convenio() ) {
+		
+		$html = '<option value="'. $indice['cod_convenio'] .'" selected="selected" >' . $indice['descripcion'] . '</option>';
+	} else {
+		$html = '<option value="'. $indice['cod_convenio'] .'" >' . $indice['descripcion'] . '</option>';
+	}
+	echo $html;
 }
 ?>
              
@@ -1170,11 +1315,11 @@ foreach ($combo_convenio  as $indice) {
     </table>
      
         
-        
+		
         
         <div class="clear"></div>
         
-    </div>
+	</div>
 </div>
 
 </div><!-- End demoo -->  
@@ -1193,8 +1338,8 @@ foreach ($combo_convenio  as $indice) {
            />
       </p>   
         
-                
-      </form>
+        		
+	  </form>
 
 
 
@@ -1202,6 +1347,11 @@ foreach ($combo_convenio  as $indice) {
 
 
 <?php //require_once('../categoria-detalle/detalle_periodo_laboral.php'); ?>
+
+
 <?php //require_once('../categoria-detalle/detalle_tipo_trabajador.php'); ?>
 </div>
 
+
+
+    

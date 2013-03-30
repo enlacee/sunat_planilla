@@ -94,10 +94,12 @@ if ($op) {
     require_once '../dao/DiaSubsidiadoDao.php';
     require_once '../model/DiaSubsidiado.php';
 
-    //Exel AFP.
+    //Exel AFP. + EstructuraAfp
     require_once '../controller/EstructuraAfp.php';
     require_once '../dao/EstructuraAfpDao.php';
-
+    //TrabajadorPdeclaracionDao
+    require_once '../controller/DeclaracionDconceptoController.php';
+    //DeclaracionDconceptoDao
     // Escribir Exel 2003
     require_once '../util/Spreadsheet/Excel/Writer.php';
     /* Establecer configuraci�n regional al holand�s */
@@ -129,7 +131,7 @@ $response = NULL;
 
 if ($op == "generar_declaracion") {
     planillaMensualXD();
-} else if ($op == "cargar_tabla_2") {
+} else if ($op == "cargar_tabla_2"){
 
     $response = listar_trabajadorPdeclaracion();
 } else if ($op == "grid_lineal") {
@@ -142,29 +144,27 @@ if ($op == "generar_declaracion") {
     // Primera Alternativa
     $response = elimarEnCascada_trabajador_en_mes();
 } else if ($op == "recibo30") {
-    generarBoletaTxt();    
+    generarBoletaTxt();
 } else if ($op == 'eliminar_data_mes') {
     $response = eliminarDatosMes();
-} else if ($op == 'reporte_emp_01') {
+} else if ($op == 'reporte_emp_01') { // reporte planilla
 
-    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
-    generar_reporte_empresa_01($ID_PDECLARACION);
+    generar_reporte_empresa_01();
 } else if ($op == 'reporte_exel_afp') {
-    //echoo($_REQUEST);
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
-    $PERIODO = buscarPeriodo($ID_PDECLARACION);
+    $PERIODO = $_REQUEST['periodo'];
     $ESTADO = generarConfiguracion($PERIODO);
+    generarConfiguracion2($PERIODO);
     //Generar Reporte EXEL AFP
     if ($ESTADO) {
-        //echo "entroo";
         generarExelAfp($ID_PDECLARACION, $PERIODO);
     }
 } else if ($op == 'reporte_afp') {
 
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
-    $PERIODO = buscarPeriodo($ID_PDECLARACION);
-    $ESTADO = generarConfiguracion($PERIODO);
-    generarConfiguracion2($PERIODO);
+    $PERIODO = $_REQUEST['periodo'];
+    $ESTADO = generarConfiguracion($PERIODO); //OK
+    generarConfiguracion2($PERIODO); //OK
     //Generar Reporte EXEL AFP
     if ($ESTADO) {
         generarReporteAfp($ID_PDECLARACION, $PERIODO);
@@ -305,7 +305,8 @@ function planillaMensualXD() {
                 $data_ask = array();
                 //--
                 $SUELDO_CAL = 0;
-                             
+                $SUELDO_CAL_15_POR_VACACION = 0;
+
 
                 $numDiasPeriodo = count((rangoDeFechas($fecha['first_day'], $fecha['last_day'], "Y-m-d")));
                 if ($numDiasPeriodo == 28) {
@@ -331,7 +332,8 @@ function planillaMensualXD() {
                 $dia_laborado = $diaQuincena - $dia_no_trabajado;
                 echo "\ndia_laborado = $dia_laborado";
                 // **Calc dias no trabajados por Vacaciones.  
-
+                
+                
 
                 $daov = new VacacionDao();
                 $data_trav = $daov->trabajadorVacacion($data_tra[$i]['id_trabajador'], $anio);
@@ -349,16 +351,43 @@ function planillaMensualXD() {
                         echo"\ndia_vacacion_mes (16-30) = " . $dia_vacacion_mes;
                         echo"\ndia_vacacion_15 (16-30) = " . $dia_vacacion_15;
                         echo "\n";
+
+                        // Condicion Exclusiva || En vacacion y # de mes = 28
+                        //- Sumamos dias para completar los 30 dias normales del mes.
+                        //- Configuracion a 15 dias.
+                        if ($numDiasPeriodo == 28) {
+                            $dia_vacacion_15 = $dia_vacacion_15 + 2;
+                        } else if ($numDiasPeriodo == 29) {
+                            $dia_vacacion_15 = $dia_vacacion_15 + 1;
+                        }
                     }
                 }//EndIf_vacacion                
                 $dia_laborado = $dia_laborado - $dia_vacacion_15;
                 echo "\ndia_laborado = $dia_laborado";
 
+                
+                //=============================================================0
+                // ojo dia laborado en quincena cuando tiene vacacion.
+                // no se le dio adelanto en Primera quincena.
+                // Aki se le calculara los dias de trabajo de primera 15.
+                if($dia_vacacion_mes>0){
+                    if($quincena_sueldoPorcentaje == 0 && $quincena_sueldo ==0){
+                        if($quincena_diaLaborado>0){
+                            $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
+                            $SUELDO_CAL_15_POR_VACACION = $smpd * $quincena_diaLaborado;
+                        }
+                        //dia laborado = 
+                    }
+                }
+                //=============================================================0
+                             
+                
+                
 
                 // **---------------------CALCULOS LOGIC----------------------------
                 //    
                 $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
-                
+
                 if ($dia_laborado == 15) { // dias completos del mes trabajados. PAGA POR 15 DIAS 
                     echo "\nquincena_sueldoPorcentaje = $quincena_sueldoPorcentaje";
                     if ($quincena_sueldoPorcentaje > 0) { // CON PORCENTAJE
@@ -368,39 +397,36 @@ function planillaMensualXD() {
                     } else { // = 0                        
                         $SUELDO_CAL = $smpd * 15;
                     }
-                } else {                    
+                } else {
                     $SUELDO_CAL = $smpd * $dia_laborado;
                     echo "DIA LABORADO < 15 dias";
                 }
                 echo "\n SUELDO_CAL = $SUELDO_CAL";
+                echo "<br>\nSUELDO_CAL_15_POR_VACACION = $SUELDO_CAL_15_POR_VACACION";
                 // SUMA 1ERA QUINCENA
                 // ----------- Resumen datos Normales --------------
-                $SUELDO_CAL = $SUELDO_CAL + ($quincena_sueldo + $quincena_devengado);
+                $SUELDO_CAL = $SUELDO_CAL + ($quincena_sueldo + $quincena_devengado)+$SUELDO_CAL_15_POR_VACACION;
                 $dia_laborado = ($quincena_diaLaborado + $dia_laborado);
-                
+
                 echo "\n SUELDO_CAL = $SUELDO_CAL";
-                
+
                 // REACONDICIONDO SI EXISTEN EXEPCIONES X DIAS 28,29,(31)
-                if($numDiasPeriodo == 31 && $dia_vacacion_mes==30 ){ // ++
-                    $SUELDO_ADICIONAL_31  = $smpd * 1;                    
-                    //echo "\nCASO IRREGULAR DE 30 DIAS VACACION Y 31 DIAS DEL MES";
-                    //echo "\nVENTAJA PARA EL TRABAJADOR";
-                    //echo "\nSueldo Addicional_31! : ".$SUELDO_ADICIONAL_31;
-                    //echo "\n SUELDO REAL : ".($SUELDO_CAL+$SUELDO_ADICIONAL_31);
-                    $SUELDO_CAL = ($SUELDO_CAL+$SUELDO_ADICIONAL_31);                    
-                }else if($numDiasPeriodo == 28 && $dia_vacacion_mes==28){ // --
-                    $sueldo_restar_por_28 = $smpd*2;
-                    $dia_laborado = 0;
-                    //echo "\nSUELDO_CAL = $SUELDO_CAL";
-                    //echo "\nsueldo_restar_por_28 = $sueldo_restar_por_28";                    
-                    //echo "\n SUELDO REAL : ".($SUELDO_CAL-$sueldo_restar_por_28);
-                    $SUELDO_CAL = ($SUELDO_CAL-$sueldo_restar_por_28);                    
-                }else{
+                if ($numDiasPeriodo == 31 && $dia_vacacion_mes == 30) { // ++
+                    $SUELDO_ADICIONAL_31 = $smpd * 1;
+                    $SUELDO_CAL = ($SUELDO_CAL + $SUELDO_ADICIONAL_31);
+                    
+                } else if ($numDiasPeriodo == 28 && $dia_vacacion_mes == 28) { // --
+                    if($SUELDO_CAL>0){ // sino SUELDO = NEGATIVO.
+                        $sueldo_restar_por_28 = $smpd * 2;
+                        $dia_laborado = 0;
+                        $SUELDO_CAL = ($SUELDO_CAL - $sueldo_restar_por_28);
+                    }
+                } else {
                     echo "\nNINGUN CASO IRREGULAR :O";
-                }               
-                
-                
-                
+                }
+
+
+
 
 
 
@@ -474,6 +500,8 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
     //Variables locales
     $_arregloAfps = array(21, 22, 23, 24);
     $_asigFamiliar = 0;
+    $_prestamo = 0;
+    $_ptf = 0;
     $_adelanto = 0;
     $_sueldoBasico = 0;
     $_r5ta = 0;
@@ -495,6 +523,7 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
             $_asigFamiliar = (concepto_0201() * $pporcentaje);
         }
     }
+
     unset($datarpc_val);
     echo "\n_asigFamiliarr = $_asigFamiliar";
     // CONCEPTO : ADELANTO
@@ -535,9 +564,18 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
 
 
     //ECHO " <<<< 0706 == CONCEPTO EXCLUSIVO DE EMPRESA  PRESTAMO >>> ";
-    // CONCEPTO : OTROS DESCUENTOS NO DEDUCIBLES A LA BASE IMPONIBLE PRESTAMO
-    $arreglo_0706 = concepto_0706($obj->getId_trabajador(), $ID_PDECLARACION, $PERIODO);
-    $arreglo_0706['concepto'] = $arreglo_0706['concepto'] * $pporcentaje;
+    //$arreglo_0706 = concepto_0706($obj->getId_trabajador(), $ID_PDECLARACION, $PERIODO);
+    //$arreglo_0706['concepto'] = $arreglo_0706['concepto'] * $pporcentaje;
+    
+    // Sub-funcion 01
+    $_ptf = concepto_1001($obj->getId_trabajador(), $PERIODO);
+    $_ptf = $_ptf*$pporcentaje;
+    
+    // Sub-funcion 02
+    $_prestamo = concepto_1002($obj->getId_trabajador(), $PERIODO);
+    $_prestamo = $_prestamo*$pporcentaje;    
+    
+    
 
     //----------------- fijo no mover varia el calculo-------------------
     // CONCEPTO : ESSALUD_MAS VIDA    
@@ -650,11 +688,21 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
             'monto_pagado' => $_sueldoBasico,
             'monto_devengado' => 0
         ),
+        //array(
+        //    'cod_detalle_concepto' => C706, //OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE
+        //    'monto_pagado' => ($arreglo_0706['concepto']),
+        //    'monto_devengado' => 0
+        //),
         array(
-            'cod_detalle_concepto' => C706, //OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE
-            'monto_pagado' => ($arreglo_0706['concepto']),
-            'monto_devengado' => 0
+            'cod_detalle_concepto' => C1001,
+            'monto_pagado' => $_ptf,
+            'monto_devengado' => 0            
         ),
+        array(
+            'cod_detalle_concepto' => C1002,
+            'monto_pagado' => $_prestamo,
+            'monto_devengado' => 0            
+        ),        
         array(
             'cod_detalle_concepto' => C604,
             'monto_pagado' => $_essaludMasVida,
@@ -735,11 +783,21 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C118, 0), //vacacion
             'monto_devengado' => 0
         ),
+        //array(
+        //   'cod_detalle_concepto' => C706, //OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE
+        //    'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C706, ($arreglo_0706['concepto'])),
+        //    'monto_devengado' => 0
+        //),
         array(
-            'cod_detalle_concepto' => C706, //OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONIBLE
-            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C706, ($arreglo_0706['concepto'])),
+            'cod_detalle_concepto' => C1001,
+            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C1001, $_ptf),
             'monto_devengado' => 0
-        ),
+        ), 
+        array(
+            'cod_detalle_concepto' => C1002,
+            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C1002, $_prestamo),
+            'monto_devengado' => 0
+        ),         
         array(
             'cod_detalle_concepto' => C604,
             'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C604, $_essaludMasVida),
@@ -747,7 +805,7 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
         ),
         array(
             'cod_detalle_concepto' => C612,
-            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, c6012, $_aseguraPensionMas),
+            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C612, $_aseguraPensionMas),
             'monto_devengado' => 0
         ),
         array(
@@ -787,7 +845,7 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
         ),
         array(
             'cod_detalle_concepto' => C115,
-            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C703, $_trabajoDiaFeriadoMayo), //$_trabajoDiaFeriadoMayo, // 1° DE MAYO)
+            'monto_pagado' => buscarSumarConceptoVacacion($datarpcv, C115, $_trabajoDiaFeriadoMayo), //$_trabajoDiaFeriadoMayo, // 1° DE MAYO)
             'monto_devengado' => 0
         )
     );
@@ -830,11 +888,11 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
       $conceptosSum = array_merge($conceptosSum, $conceptosSum2);
      */
 
-    echo "\nCONCEPTOS";
-    echoo($conceptos);
-    echo "\n****************************○2\n";
-    echo "\nCONCEPTOSSUMAA";
-    echoo($conceptosSum);
+    // echo "\nCONCEPTOS";
+    // echoo($conceptos);
+    // echo "\n****************************○2\n";
+    // echo "\nCONCEPTOSSUMAA";
+    // echoo($conceptosSum);
 
 
 
@@ -861,10 +919,9 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
     } else if (in_array($obj->getCod_regimen_pensionario(), $_arregloAfps)) {
         $arreglo_afp = concepto_AFP($obj->getCod_regimen_pensionario(), $conceptos); // 3 CONCEPTOS        
         //$conceptos = array_merge($conceptos, $arreglo_afp); 
+        echoo($arreglo_afp);
         $_601 = $arreglo_afp['0601'];
         $vacacion_601 = buscarSumarConceptoVacacion($datarpcv, C601, 0);
-        echo "\n_601 = " . $_601;
-        echo "\nvacacion_601 = " . $vacacion_601;
         $_606 = $arreglo_afp['0606'];
         $vacacion_606 = buscarSumarConceptoVacacion($datarpcv, C606, 0);
         $_608 = $arreglo_afp['0608'];
@@ -927,48 +984,46 @@ function conceptoPorConceptoXD($obj, $data_ayuda, $PERIODO) {
     // DIA NO SUBSIDIADO : FALTA
     if ($arreglo_0705['objdianosub']) {
         //echoo($arreglo_0705);
-        $obj_dianosub = $arreglo_0705['objdianosub'];        
+        $obj_dianosub = $arreglo_0705['objdianosub'];
         $obj_dianosub->setId_trabajador_pdeclaracion($id);
-        
+
         $id_diaNoSubsidiado = DiaNoSubsidiadoDao::anb_existe($id, '07');
-        if(is_null($id_diaNoSubsidiado)){
-           DiaNoSubsidiadoDao::anb_add($obj_dianosub); 
-           echo "\n INSERT NO SIBSIDIADO ";
-           //echoo($obj_dianosub);        
-           
-        }else{
-          $obj_dianosub->setId_dia_nosubsidiado($id_diaNoSubsidiado);
-          DiaNoSubsidiadoDao::anb_update($obj_dianosub);
-          echo "\nUPDATE NO SIBSIDIADO";
-          //echoo($obj_dianosub);
+        if (is_null($id_diaNoSubsidiado)) {
+            DiaNoSubsidiadoDao::anb_add($obj_dianosub);
+            echo "\n INSERT NO SIBSIDIADO ";
+            //echoo($obj_dianosub);        
+        } else {
+            $obj_dianosub->setId_dia_nosubsidiado($id_diaNoSubsidiado);
+            DiaNoSubsidiadoDao::anb_update($obj_dianosub);
+            echo "\nUPDATE NO SIBSIDIADO";
+            //echoo($obj_dianosub);
         }
     }
-    
+
     // DIA NO SUBSIDIADO : VACACION    
-    if($data_ayuda['dia_vacacion_mes']>0){
+    if ($data_ayuda['dia_vacacion_mes'] > 0) {
         $obj_dianosub = new DiaNoSubsidiado();
         $obj_dianosub->setId_trabajador_pdeclaracion($id);
         $obj_dianosub->setCantidad_dia($data_ayuda['dia_vacacion_mes']);
         $obj_dianosub->setCod_tipo_suspen_relacion_laboral(23);
         //$obj_dianosub->setFecha_inicio($fecha_inicio);
         //$obj_dianosub->setFecha_fin($fecha_fin);
-        
+
         $id_diaNoSubsidiado = DiaNoSubsidiadoDao::anb_existe($id, 23);
-       // echo "\nid_diaNoSubsidiado = ".$id_diaNoSubsidiado;
-        
-        if(is_null($id_diaNoSubsidiado)){
-           DiaNoSubsidiadoDao::anb_add($obj_dianosub); 
-           echo "\n INSERT NO SIBSIDIADO VACACION";
-           //echoo($obj_dianosub);        
-           
-        }else{
-          $obj_dianosub->setId_dia_nosubsidiado($id_diaNoSubsidiado);
-          DiaNoSubsidiadoDao::anb_update($obj_dianosub);
-          echo "\nUPDATE NO SIBSIDIADO VACACION";
-          //echoo($obj_dianosub);
+        // echo "\nid_diaNoSubsidiado = ".$id_diaNoSubsidiado;
+
+        if (is_null($id_diaNoSubsidiado)) {
+            DiaNoSubsidiadoDao::anb_add($obj_dianosub);
+            echo "\n INSERT NO SIBSIDIADO VACACION";
+            //echoo($obj_dianosub);        
+        } else {
+            $obj_dianosub->setId_dia_nosubsidiado($id_diaNoSubsidiado);
+            DiaNoSubsidiadoDao::anb_update($obj_dianosub);
+            echo "\nUPDATE NO SIBSIDIADO VACACION";
+            //echoo($obj_dianosub);
         }
     }
-    
+
     // dia no subsidiado [02]
     // vacacion
     //registrar Conceptos Empresa
@@ -1785,17 +1840,17 @@ function eliminar_trabajadorPdeclaracion() {//?
 //|---------------------------------------------------------------------------//
 
 function generarBoletaTxt() {
-    
+
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $data_pd['periodo'] = $_REQUEST['periodo'];
-
+    
     generarConfiguracion($data_pd['periodo']);
 //---------------------------------------------------
 // Variables secundarios para generar Reporte en txt
     $nombre_mes = getNameMonth(getFechaPatron($data_pd['periodo'], "m"));
     $anio = getFechaPatron($data_pd['periodo'], "Y");
-    $master_est = ($_REQUEST['id_establecimientos'])? $_REQUEST['id_establecimientos'] : null;
-    $master_cc = ($_REQUEST['cboCentroCosto'])? $_REQUEST['cboCentroCosto'] : null;
+    $master_est = ($_REQUEST['id_establecimientos']) ? $_REQUEST['id_establecimientos'] : null;
+    $master_cc = ($_REQUEST['cboCentroCosto']) ? $_REQUEST['cboCentroCosto'] : null;
 
     if ($_REQUEST['todo'] == "todo") {
         $cubo_est = "todo";
@@ -2056,8 +2111,13 @@ function generarBoletaTxt() {
 
                                 fwrite($fp, $BREAK);
 
-
-                                $array_mixto = generarBotletaTabla($fp, $data_tra[$k]['id_trabajador_pdeclaracion'], $data_tra[$k]['cod_regimen_pensionario'], $data_pd['periodo'], $id_pdeclaracion, $data_tra[$k]['id_trabajador'], $BREAK, $BREAK2);
+                                $data_ayuda = array(
+                                    'id_trabajador_pdeclaracion' => $data_tra[$k]['id_trabajador_pdeclaracion'],
+                                    'id_trabajador' => $data_tra[$k]['id_trabajador'],
+                                    'cod_regimen_pensionario' => $data_tra[$k]['cod_regimen_pensionario'],
+                                    'dia_laborado' => $data_tra[$k]['dia_laborado'],
+                                );
+                                $array_mixto = generarBotletaTabla($fp, $data_tra[$k]['id_trabajador_pdeclaracion'], $data_tra[$k]['cod_regimen_pensionario'], $data_pd['periodo'], $id_pdeclaracion, $data_tra[$k]['id_trabajador'], $BREAK, $BREAK2, $data_ayuda);
 
                                 $neto_pagar = $array_mixto['numero'];
 
@@ -2074,8 +2134,7 @@ function generarBoletaTxt() {
                                 $data = array();
                                 $data = $data_tra[$k];
 
-                                //...................................................
-                                /* $fpx = */  //generarBoletaLineal($fpx, $data,$neto_pagar,$k,$BREAK);
+                                //...................................................                                
 
                                 $texto_3 = $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres'];
                                 fwrite($fpx, $BREAK);
@@ -2146,12 +2205,12 @@ function generarBoletaTxt() {
     echo $zipfile->file();
 }
 
-function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pensionario, $periodo, $id_pdeclaracion, $id_trabajador, $BREAK, $BREAK2) {
+function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pensionario, $periodo, $id_pdeclaracion, $id_trabajador, $BREAK, $BREAK2, $data_ayuda) {
     $array_mixto = array();
     //..............................................................................
     $cod_conceptos_ingresos = array('100', '200', '300', '400', '500', '900');
 
-    $cod_conceptos_descuentos = array('600', '700');
+    $cod_conceptos_descuentos = array('600', '700','1000');
 
     $cod_conceptos_aportes = array(/* '600', */ '800');
     //..............................................................................
@@ -2208,37 +2267,50 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
     fwrite($fp, $LINEA);
     fwrite($fp, $BREAK);
 
-    // ----- INICIO CUERPO 
-    //conceptos calculados base
+    // ----- INICIO CUERPO     
     $calc = array();
+    $calcv = array();
+    $c_pingreso = array();
+    $array_ingreso = array();
+    $ingresos = array();
+
+    // 01 Conceptos planilla Vacacion
+    $dao_trav = new TrabajadorVacacionDao();
+    $id_trabajador_vacacion = $dao_trav->existe($id_pdeclaracion, $data_ayuda['id_trabajador']);
+    if (!is_null($id_trabajador_vacacion)) {
+        $dao_ddcv = new DeclaracionDConceptoVacacionDao();
+        $calcv = $dao_ddcv->buscar_ID_TrabajadorVacacionPorConceptos($id_trabajador_vacacion);
+    }
+
+    // 02 Conceptos planilla mensual
     $calc = $dao_ddc->buscar_ID_TrabajadorPdeclaracion_2($id_trabajador_pdeclaracion);
 
 
-    // INGRESOS
-    // 01 lista de todos conceptos Ingresos
-    $c_pingreso = array();
-    $c_pingreso = $dao_pdcem->view_listarConcepto(ID_EMPLEADOR_MAESTRO, $cod_conceptos_ingresos, 1);
 
-    // armado de array
-    $array_ingreso = array();
-    for ($i = 0; $i < count($c_pingreso); $i++) {
-        $array_ingreso[] = $c_pingreso[$i]['cod_detalle_concepto'];
-    }
+    // INGRESOS      
+    $c_pingreso = $dao_pdcem->view_listarConcepto(ID_EMPLEADOR_MAESTRO, $cod_conceptos_ingresos, 1);
+    $array_ingreso = arrayId($c_pingreso, "cod_detalle_concepto");
     //$new_array_ingreso = array('0121','0201','0105','0106','0107','0114','0115','0118','0304','0406','0407','0909');
 
-    $ingresos = array();
+
     $x = 0;
     $sum_i = 0.00;
+    // $data_ayuda['dia_laborado'] == 0)  // 30 DIAS DE VACACION OK!! NO MOSTRAR CONCEPTO.
+    //----------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------
+    // OBSERVACION: Restar todos los conceptos ::: de vacacion en este reporte.
+    $calc = restarConceptoTraConceptoVa($calc, $calcv);
+    //echoo($calc);
     for ($o = 0; $o < count($calc); $o++):
         if (in_array($calc[$o]['cod_detalle_concepto'], $array_ingreso)):
             if ($calc[$o]['cod_detalle_concepto'] != '0118') {
-            $ingresos[$x]['descripcion'] = $calc[$o]['descripcion'];
-            $ingresos[$x]['descripcion_abreviada'] = $calc[$o]['descripcion_abreviada'];
-            //$ingresos[$x]['cod_detalle_concepto'] = $calc[$o]['cod_detalle_concepto'];            
-            $ingresos[$x]['monto_pagado'] = $calc[$o]['monto_pagado'];
-            $sum_i = $sum_i + $calc[$o]['monto_pagado'];
-            $x++;
-        }
+                    $ingresos[$x]['descripcion'] = $calc[$o]['descripcion'];
+                    $ingresos[$x]['descripcion_abreviada'] = $calc[$o]['descripcion_abreviada'];
+                    //$ingresos[$x]['cod_detalle_concepto'] = $calc[$o]['cod_detalle_concepto'];            
+                    $ingresos[$x]['monto_pagado'] = $calc[$o]['monto_pagado'];
+                    $sum_i = $sum_i + $calc[$o]['monto_pagado'];
+                    $x++;
+            }
         endif;
     endfor;
 
@@ -2250,10 +2322,7 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
     $c_pdescuento = $dao_pdcem->view_listarConcepto(ID_EMPLEADOR_MAESTRO, $cod_conceptos_descuentos, $seleccionado = array(0, 1));
 
 // armado de array
-    $array_descuento = array();
-    for ($i = 0; $i < count($c_pdescuento); $i++) {
-        $array_descuento[] = $c_pdescuento[$i]['cod_detalle_concepto'];
-    }
+    $array_descuento = arrayId($c_pdescuento, "cod_detalle_concepto");
 
 
     $descuentos = array();
@@ -2366,7 +2435,7 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
             $descripcion_2 = substr($descripcion_2, 0, 26);
             $descripcion_2.= "...";
         endif;
-        
+
         fwrite($fp, str_pad($descripcion_2, 29, " ", STR_PAD_RIGHT));
         $descuento_boo = ($descuentos[$i]['monto_pagado']) ? number_format_var($descuentos[$i]['monto_pagado']) : '';
         fwrite($fp, str_pad($descuento_boo, 9, " ", STR_PAD_LEFT));
@@ -2467,18 +2536,28 @@ function generarBotletaTabla($fp, $id_trabajador_pdeclaracion, $cod_regimen_pens
     return $array_mixto; //$arreglo_numero['numero'];
 }
 
-function generarBoletaLineal($fp, $data_tra, $neto_pagar, $k, $BREAK) {
+function restarConceptoTraConceptoVa($calc, $calcv) {
 
-    $texto_3 = $data_tra['apellido_paterno'] . " " . $data_tra['apellido_materno'] . " " . $data_tra['nombres'];
-    fwrite($fp, $BREAK);
-    fwrite($fp, str_pad(($k + 1) . " ", 4, " ", STR_PAD_LEFT));
-    fwrite($fp, str_pad($data_tra['num_documento'], 12, " ", STR_PAD_RIGHT));
-    fwrite($fp, str_pad(strtoupper($texto_3), 40, " ", STR_PAD_RIGHT));
-    fwrite($fp, str_pad(number_format($neto_pagar, 2), 9, " ", STR_PAD_RIGHT));
-    fwrite($fp, str_pad("_______________", 15, " ", STR_PAD_RIGHT));
-    fwrite($fp, $BREAK);
+    $countCalc = count($calc);
+    $countCalcv = count($calcv);
+    if ($countCalc > 0) {
+        if ($countCalcv > 0) {
 
-    return $fp;
+            for ($i = 0; $i < $countCalc; $i++) {// $calc
+                for ($j = 0; $j < $countCalcv; $j++) {
+                    if ($calc[$i]['cod_detalle_concepto'] == $calcv[$j]['cod_detalle_concepto']) {
+                        $vacacionDevengado = ($calcv[$j]['monto_devengado'] > 0) ? $calcv[$j]['monto_devengado'] : 0;
+                        $vacacionPagado = ($calcv[$j]['monto_pagado'] > 0) ? $calcv[$j]['monto_pagado'] : 0;
+                        $montoPagado = $calc[$i]['monto_pagado'];
+                        //rpta
+                        $calc[$i]['monto_pagado'] = $montoPagado - ($vacacionPagado+$vacacionDevengado);
+                        break;
+                    }
+                }//endFor2
+            }//endFor_1
+        }
+    }
+    return $calc;
 }
 
 //FUNCTION ELIMINAR O LIMPIAR MES DE DATA
@@ -2539,16 +2618,15 @@ function elimarEnCascada_trabajador_en_mes() {
 }
 
 // new PLANILLA UNICA DE PAGOS - TRABAJADORES
-function generar_reporte_empresa_01($id_pdeclaracion) {
-
+function generar_reporte_empresa_01() {
+    
+    $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
+    $PERIODO = $_REQUEST['periodo'];
 //---------------------------------------------------
 
-    $dao = new PlameDeclaracionDao();
-    $data_pd = $dao->buscar_ID($id_pdeclaracion);
-
-    $num_mes = getFechaPatron($data_pd['periodo'], "m");
+    $num_mes = getFechaPatron($PERIODO, "m");
     $nombre_mes = getNameMonth($num_mes);
-    $anio = getFechaPatron($data_pd['periodo'], "Y");
+    $anio = getFechaPatron($PERIODO, "Y");
 
     $file_name = /* NAME_COMERCIAL . */'planilla.txt'; //-PLANILLA UNICA
 
@@ -2577,7 +2655,7 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
     if (true) {
         // LISTA DE TRABAJADORES
         $data_tra = array();
-        $data_tra = $dao_pago->listar_3($id_pdeclaracion);
+        $data_tra = $dao_pago->listar_3($ID_PDECLARACION);
 
 
         $dao_ddc = new DeclaracionDconceptoDao();
@@ -2622,7 +2700,7 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
             }
             //++
             // LISTA DE TRABAJADORES VACACION
-            $data_vaca = PagoDao::anb_dosQuincenasEnBoleta($id_pdeclaracion, $data_tra[$k]['id_trabajador']);
+            $data_vaca = PagoDao::anb_dosQuincenasEnBoleta($ID_PDECLARACION, $data_tra[$k]['id_trabajador']);
 
             //..............................................................................
             $cod_conceptos_ingresos = array('100', '200', '300', '400', '500', '900');
@@ -2631,8 +2709,8 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
             //..............................................................................            
             //conceptos calculados base
             $calc = array();
-            $calc = $dao_ddc->buscar_ID_TrabajadorPdeclaracion_3($data_tra[$k]['id_trabajador_pdeclaracion']);
-
+            $calc = $dao_ddc->buscar_ID_TrabajadorPdeclaracion($data_tra[$k]['id_trabajador_pdeclaracion']);
+            //echoo($calc);
 
             //-------------------------------- I PINTANDO LINEA --------------------------------//        
             //--
@@ -2712,14 +2790,14 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
 
             //======Prestamo         =Funcion Gemela=============================
             $dao_pres = new PrestamoDao();
-            $_11 = $dao_pres->getPagoCuotaPorPeriodo_Reporte(/* $data_pd['id_pdeclaracion'] */$data_pd['periodo'], $data_tra[$k]['id_trabajador']);
+            $_11 = $dao_pres->getPagoCuotaPorPeriodo_Reporte($ID_PDECLARACION, $data_tra[$k]['id_trabajador']);
             $_11 = (isset($_11)) ? $_11 : 0;
             fwrite($fp, str_pad($_11/* desc PRESTAMO-EMP */, 8, " ", STR_PAD_LEFT));
             $total['descuentos_d_p'] = $total['descuentos_d_p'] + $_11;
 
             //======Para ti Familia  =Funcion Gemela=============================
             $dao_ptf = new ParatiFamiliaDao();
-            $_12 = $dao_ptf->getPagoCuotaPorPeriodo_Reporte($data_pd['id_pdeclaracion'], $data_tra[$k]['id_trabajador']);
+            $_12 = $dao_ptf->getPagoCuotaPorPeriodo_Reporte($ID_PDECLARACION, $data_tra[$k]['id_trabajador']);
             $_12 = (isset($_12)) ? $_12 : 0; // P.T.FAML-EMP
             fwrite($fp, str_pad($_12, 8, " ", STR_PAD_LEFT));
             $total['descuentos_d_ptf'] = $total['descuentos_d_ptf'] + $_12;
@@ -2785,7 +2863,7 @@ function generar_reporte_empresa_01($id_pdeclaracion) {
     $file = array();
     $file[] = $file_name;
     //$file[] = ($file_name2);
-    //generarRecibo15_txt2($id_pdeclaracion, $id_etapa_pago);
+    //generarRecibo15_txt2($ID_PDECLARACION, $id_etapa_pago);
 
 
     $zipfile = new zipfile();
@@ -3130,23 +3208,6 @@ function helper_cabecera($fp, $nombre_mes, $anio, $BREAK, $BREAK2, $PUNTO) {
   $cod_concepto = '0605';
  */
 
-function buscar_buscar_concepto($calc, $cod_concepto) {
-
-
-    if (is_array($calc)) {
-        $monto = 0;
-        for ($j = 0; $j < count($calc); $j++) {
-
-            if ($calc[$j]['cod_detalle_concepto'] == $cod_concepto) {
-                $monto = $calc[$j]['monto_pagado'];
-                break;
-            }
-        }
-    } else {
-        $monto = null;
-    }
-    return $monto;
-}
 
 //echo "encontro codigo = ".buscar_buscar_concepto($calc, $cod_concepto);
 // FUNCIONANDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO

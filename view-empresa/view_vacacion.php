@@ -5,10 +5,10 @@ require_once('../view/ide.php');
 $id_pdeclaracion = ($_SESSION['sunat_empleador']['config']['id_pdeclaracion']) ? $_SESSION['sunat_empleador']['config']['id_pdeclaracion'] : 'null';
 $periodo = ($_SESSION['sunat_empleador']['config']['periodo']) ? $_SESSION['sunat_empleador']['config']['periodo'] : 'null';
 ?>
-
 <script type="text/javascript">
     $(document).ready(function(){                  
-        $( "#tabs").tabs();	
+        $( "#tabs").tabs();
+        cargarTablaPVacaciones();
 		
 	});
 
@@ -16,10 +16,6 @@ $periodo = ($_SESSION['sunat_empleador']['config']['periodo']) ? $_SESSION['suna
 	var id_pdeclaracion = document.getElementById('id_pdeclaracion').value;
 	var periodo = document.getElementById('periodo').value;
 
-	
-	//----------------- jqgrid
-	cargarTablaPVacaciones();
-	
     // GRID 2
     function cargarTablaPVacaciones(){
 		var parametro = 'id_pdeclaracion='+id_pdeclaracion+'&periodo='+periodo;
@@ -119,9 +115,7 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
                     editable:false,
                     width:60,
                     align:'center'
-                }							
-
-
+                }
             ],
             pager: '#pager',
 			rownumbers: true,
@@ -140,12 +134,9 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
             hiddengrid: false,
             //onSelectRow: function(rowid, selected) {}
 			//---
-			gridComplete    : function(){  //alert("grid okD");
+			gridComplete    : function(){
 		
 				var ids = $("#list").getDataIDs();
-				//console.log("-ids-");
-				//console.dir(ids);
-				//console.log("-ids-");
 				var act;
 				var name_space = '';
 				for(var i=0;i<ids.length;i++){
@@ -153,39 +144,19 @@ url:'sunat_planilla/controller/VacacionController.php?oper=cargar_tabla_trabajad
 					var data = $("#list").getRowData(ids[i]);
 					if (data.nombre_ubigeo_reniec == "" && data.estado_direccion == "Primera") {
 						name_space = data.num_documento+"  "+data.apellido_paterno+" "+data.apellido_materno+" "+data.nombres;
-						//act =' <b class="red">Debe Ingresar La Primera Direccion es Obligatorio!. </b>';
-						//$("#list").setRowData(ids[i],{nombre_ubigeo_reniec: act });
 					}
 				}//ENDFOR
-			}			
-			
+			}
 			//---
-			
-			
-			
-			
         	});
 		
 		
         //--- PIE GRID
 	//jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
-
-	
+	jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});	
     }
-	
-	
-	
-	
-	//----
-	
-	
-	
 </script>
-
-
 <div class="demo" align="left">
-
 <div class="ocultar">
 id_pdeclaracion
 <input type="text" name="id_pdeclaracion" id="id_pdeclaracion" 
@@ -194,54 +165,22 @@ periodo
 <input type="text" name="periodo" id="periodo"
 value="<?php echo $periodo; ?>" />
 </div>
-
-
-    <div id="tabs">
-   
+    <div id="tabs">   
         <ul>
-            <li><a href="#tabs-1">Vacacion</a></li>			
-
+        <li><a href="#tabs-1">Vacacion</a></li>
         </ul>
         <div id="tabs-1">
-<!-- Boton cancelar-->
-<input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php?id_pdeclaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
-<br />  
-<input type="checkbox" name="vacacionTodos" id="vacacionTodos" value="1" />Todos
-
-
-    <table id="list">
-    </table>
-    <div id="pager">
-    </div>
-<p></p>
-<p>&nbsp;</p> 
-
-
-
-
-
-          
-          
+            <!-- Boton cancelar-->
+            <input type="button" onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_periodo.php?id_pdeclaracion=<?php echo $_REQUEST['id_pdeclaracion']; ?>&periodo=<?php echo $_REQUEST['periodo']; ?>','#CapaContenedorFormulario')" class="submit-cancelar" value="Cancelar" name="Retornar ">           
+            <table id="list">
+            </table>
+            <div id="pager">
+            </div>
+            <p></p>              
         </div>
+    </div>
 </div>
-
-</div>
-
-
-
-
-
-
 <!-- DIALOG -->
-
 <div id="dialog_view_vacacion" title="Vacaciones">
     <div id="view_vacacion" align="left"></div>
 </div>
-
-
-
-
-
-
-
-

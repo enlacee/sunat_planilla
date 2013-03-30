@@ -19,26 +19,13 @@ if ($op == 'edit') {
 echo (!empty($response)) ? json_encode($response) : '';
 
 
-function editPrestamoCuota(){
-    //$_REQUEST['id_prestamo'];
-    //$_REQUEST['id_prestamo_cuota'];
-    //$_REQUEST['montoc'];
-    //$_REQUEST['montoc_variable'];
-    //$monto_prestamo = $_REQUEST['monto_prestamo'];
-    //$num_cuota = $_REQUEST['num_cuota'];        
-    //$periodo = $_REQUEST['periodo'];
-    
+function editPrestamoCuota(){   
     $obj = new PrestamoCuota();
-    $obj->setId_prestamo($_REQUEST['id_prestamo']);
+    //$obj->setId_prestamo($_REQUEST['id_prestamo']);
     $obj->setId_prestamo_cutoa($_REQUEST['id_prestamo_cuota']); 
-    $obj->setFecha_calc( getFechaPatron($_REQUEST['fecha_calc'], 'Y-m-d') );
-    
-    $dao = new PrestamoCuotaDao();
-    echoo($obj);
-    $dao->edit($obj);
-
-        
-    return true;
+    $obj->setMonto_variable($_REQUEST['montoc_variable']);    
+    $dao = new PrestamoCuotaDao();    
+    return $dao->update($obj);
 }
 //view
 function listaCuotas($id_prestamo){    
@@ -51,15 +38,12 @@ function listaCuotas($id_prestamo){
         $obj = new PrestamoCuota();
         $obj->setId_prestamo($id_prestamo);
         $obj->setId_prestamo_cutoa($data[$i]['id_prestamo_cutoa']);
-        $obj->setMonto($data[$i]['monto']);              
+        $obj->setMonto($data[$i]['monto']);
+        $obj->setMonto_variable($data[$i]['monto_variable']);                
         $obj->setFecha_calc($data[$i]['fecha_calc']);
-        $obj->setFecha_pago($data[$i]['fecha_pago']);        
-        $obj->setEstado($data[$i]['estado']);
         $dataobj[] = $obj;
-    endfor;
-    
+    endfor;    
     return $dataobj;
-    
 }
 
 

@@ -1,20 +1,35 @@
 <?php
+
 /*
-//require_once '../util/funciones.php';
-$data = array(
-    array(
-        'fecha_inicio' => '2013-01-08',
-        'fecha_fin' => '2013-01-22'
-    ),
-    array(
-        'fecha_inicio' => '2013-03-01',
-        'fecha_fin' => '2013-03-15'
-    )
-);
-$rpta = leerVacacionDetalle($data, '2013-03-01', '2013-03-01', '2013-03-31');
-echoo($rpta);
+  //require_once '../util/funciones.php';
+  $data = array(
+  array(
+  'fecha_inicio' => '2013-01-08',
+  'fecha_fin' => '2013-01-22'
+  ),
+  array(
+  'fecha_inicio' => '2013-03-01',
+  'fecha_fin' => '2013-03-15'
+  )
+  );
+  $rpta = leerVacacionDetalle($data, '2013-03-01', '2013-03-01', '2013-03-31');
+  echoo($rpta);
  */
- 
+
+// Ayuda en planilla, planilla vacacion 
+function buscar_buscar_concepto($calc, $cod_concepto) {
+    $monto = 0;
+    if (count($calc) > 0 && !empty($cod_concepto)) {
+        for ($j = 0; $j < count($calc); $j++) {
+            if ($calc[$j]['cod_detalle_concepto'] == $cod_concepto) {
+                $monto = $calc[$j]['monto_pagado'];
+                break;
+            }
+        }
+    }
+    return $monto;
+}
+
 function leerVacacionDetalle($data, $periodo, $fecha_inicio, $fecha_fin) {
     //echo "RANGO DE FECHAS $fecha_inicio A $fecha_fin";
     $dia = 0;
@@ -54,14 +69,23 @@ function sumaCuotasPrestamo($data_prestamo) {
     $id_prestamo_cuota_pago = array();
     $prestamo_cuota_pago = array();
 
-    for ($i = 0; $i < count($data_prestamo); $i++):
-        //sumar las cuotas de varios Prestamos
-        if (floatval($data_prestamo[$i]['monto']) > 0):
-            $sumaCuota = $sumaCuota + floatval($data_prestamo[$i]['monto']);
-            $id_prestamo_cuota_pago[] = $data_prestamo[$i]['id_prestamo_cutoa'];
-            $prestamo_cuota_pago[] = $data_prestamo[$i]['monto'];
-        endif;
-    endfor;
+    $countDataPrestamo = count($data_prestamo);
+    if ($countDataPrestamo > 0) {
+        for ($i = 0; $i < $countDataPrestamo; $i++):
+            //sumar las cuotas de varios Prestamos
+            if (floatval($data_prestamo[$i]['monto']) > 0 && floatval($data_prestamo[$i]['monto_variable']) >= 0):
+                if ($data_prestamo[$i]['monto'] == $data_prestamo[$i]['monto_variable']) {
+                    $sumaCuota = $sumaCuota + floatval($data_prestamo[$i]['monto']);
+                    $id_prestamo_cuota_pago[] = $data_prestamo[$i]['id_prestamo_cutoa'];
+                    $prestamo_cuota_pago[] = $data_prestamo[$i]['monto'];
+                } else {
+                    $sumaCuota = $sumaCuota + floatval($data_prestamo[$i]['monto_variable']);
+                    $id_prestamo_cuota_pago[] = $data_prestamo[$i]['id_prestamo_cutoa'];
+                    $prestamo_cuota_pago[] = $data_prestamo[$i]['monto'];
+                }
+            endif;
+        endfor;
+    }
 
     $data = array();
     $data['monto'] = $sumaCuota;
@@ -87,7 +111,7 @@ function buscarConceptoPorConceptoXD(array $arreglo, $concepto) {
 
 // Buscar y sumar Concepto Vacacion
 function buscarSumarConceptoVacacion(array $arreglo, $concepto, $montoSoles = 0) {
-    $montoSoles = ($montoSoles > 0||  is_null($montoSoles)) ? $montoSoles : 0;
+    $montoSoles = ($montoSoles > 0 || is_null($montoSoles)) ? $montoSoles : 0;
     $rpta = 0;
     if (count($arreglo) > 0) {
         for ($i = 0; $i < count($arreglo); $i++) {
@@ -317,6 +341,41 @@ function concepto_0706($id_trabajador, $id_pdeclaracion, $PERIODO) {
     return $arreglo;
 }
 
+// concepto Empresa ParaTiFamilia
+/*require_once '../util/funciones.php';
+require_once '../dao/AbstractDao.php';
+require_once '../dao/PrestamoDao.php';
+require_once '../dao/ParatiFamiliaDao.php';
+$s = concepto_1001(1,"2013-01-01");
+echoo($s);*/
+function concepto_1001($id_trabajador, $PERIODO) {
+
+    $monto = 0;
+    //Dao
+    $dao_ptf = new ParatiFamiliaDao();
+    $ptfamilia = $dao_ptf->buscar_idTrabajador($id_trabajador, $PERIODO);
+    if (is_array($ptfamilia)) {
+        if (isset($ptfamilia['id_para_ti_familia']) && $ptfamilia['valor'] >= 0) {
+            $monto = $ptfamilia['valor'];
+        }
+    }
+    return $monto;
+}
+
+// concepto Empresa Prestamo
+function concepto_1002($id_trabajador, $PERIODO) {
+
+    $monto = 0;
+    //Dao
+    $dao_prestamo = new PrestamoDao();
+    $data_prestamo = $dao_prestamo->buscar_idTrabajador($id_trabajador, $PERIODO);
+    if (count($data_prestamo) > 0) {
+        $pcuota = sumaCuotasPrestamo($data_prestamo);
+        $monto = $pcuota['monto'];
+    }
+    return $monto;
+}
+
 // SNP [ONP = 02]
 function concepto_0607($conceptos) {
     //====================================================   
@@ -372,6 +431,7 @@ function concepto_AFP($cod_regimen_pensionario, $conceptos) {
       )
       ); */
     $arreglo = array(
+        'all_ingreso' => $all_ingreso, //reporte :O
         '0601' => $_601,
         '0606' => $_606,
         '0608' => $_608,

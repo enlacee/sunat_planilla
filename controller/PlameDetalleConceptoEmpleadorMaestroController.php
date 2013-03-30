@@ -170,9 +170,12 @@ function actualizarDetalleConceptoEM1000() {
     $daoem = new PlameDetalleConceptoEmpleadorMaestroDao();
     $dataEM = $daoem->listar($cod_concepto, ID_EMPLEADOR_MAESTRO);
 
+    $dao_pdc = new PlameDetalleConceptoDao();
     for ($i = 0; $i < count($id); $i++) {
         //if($estado[$i] == 0){
-        $daoem->actualizarConceptoDescripcion1000($id[$i], $descripcion_1000[$i]);
+        //echo "<br>\n".$id[$i];        
+        $dao_pdc->update($id[$i],$descripcion_1000[$i]);
+        //$daoem->actualizarConceptoDescripcion1000($id[$i], $descripcion_1000[$i]);
         //}
     }
 

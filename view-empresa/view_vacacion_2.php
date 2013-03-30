@@ -88,7 +88,14 @@ $PERIODO = $_REQUEST['periodo'];
 			//window.open(url);
 	
 		});
-		// 02		
+		// 02
+		// planilla
+		$("#planilla").click(function(){			
+			var url = "sunat_planilla/controller/TrabajadorVacacionController.php";
+			url +="?oper=planilla&id_pdeclaracion="+id_pdeclaracion+'&periodo='+periodo				
+			//console.log("Planilla ",url);	
+			window.location.href = url;			
+		});
 		
 		cargarTablaTrabajadorVacacion(id_pdeclaracion,periodo);
 		
@@ -121,31 +128,13 @@ $PERIODO = $_REQUEST['periodo'];
   
 <input type="button" name="reporteVacacion" id="reporteVacacion" value="Boleta de Vacacion" />
 <input type="button" name="reporteVacacionIndividual" id="reporteVacacionIndividual" value="Boleta C.C." />
+<input type="button" name="planilla" id="planilla" value="planilla">
 <table id="list">
 </table>
 <div id="pager">
-</div>
-
-
-
-
-  
+</div> 
   
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        
         </div>
         <!--<div id="tabs-2-2">
@@ -163,7 +152,5 @@ $PERIODO = $_REQUEST['periodo'];
 <!--  -->
 
 <div id="dialogVacacionOpciones" title="Mas Opciones">
-
-    <div id="dialogVacacionOpcionesContent" align="left"></div>
-    
+    <div id="dialogVacacionOpcionesContent" align="left"></div>    
 </div>

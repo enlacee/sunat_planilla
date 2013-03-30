@@ -1,4 +1,4 @@
-PCAMUENTE S.A.                                                FECHA :  09/03/2013
+PCAMUENTE S.A.                                                FECHA :  30/03/2013
                                                              PAGINA :          1
                                     MENSUAL                                     
                      PLANILLA DE VACACION DE ENERO DEL 2013                     
@@ -11,11 +11,11 @@ CENTRO DE COSTO : VENTAS
   N DNI         APELLIDOS Y NOMBRES                     IMPORTE  FIRMA          
 --------------------------------------------------------------------------------
 
-  1 07951545    CHIPANA FLORES ELENA                    256.00   _______________
+  1 07951545    CHIPANA FLORES ELENA                    769.00   _______________
 
   2 10389776    ZAMORA MEGO MELQUIADES                  714.00   _______________
 
 --------------------------------------------------------------------------------
-TOTAL VENTAS                                            970.00
+TOTAL VENTAS                                            1,483.00
 --------------------------------------------------------------------------------
 

@@ -41,8 +41,9 @@ $data_detalle_concepto = listarDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MA
 
 $DATA_DESCRIPCION_1000 = array();
 for($i=0; $i<count($data_detalle_concepto); $i++){
-	if(!is_null($data_detalle_concepto[$i]['descripcion_1000'])){
-		$DATA_DESCRIPCION_1000[] = $data_detalle_concepto[$i]['descripcion_1000'];
+	$nombreConceptoIgualEstado = (strpos($data_detalle_concepto[$i]['descripcion'], "OTROS CONCEPTOS") === 0) ? true : false;
+	if($nombreConceptoIgualEstado == false){
+		$DATA_DESCRIPCION_1000[] = $i;//$data_detalle_concepto[$i]['descripcion_1000'];
 	}
 }
 
@@ -70,8 +71,6 @@ function validarDescripcionLupa(id){
 function validarPlameDetalleConcepto1000(){
 	
 var from_data =  $("#formDetalleConcepto1000").serialize();
-console.log(".... __ ---");
-
 //-------
 	$.ajax({
 		type: 'get',
@@ -120,7 +119,7 @@ function nuevoFilaConcepto1000(){
 
 //-------------------------------------------------------------
 //---- CODIGO
-var id = '<input type="text" size="4" id="id_'+ COD_DETALLE_CONCEPTO +'" name="id[]" value ="" >';
+var id = '<input type="text" size="4" id="id_'+ COD_DETALLE_CONCEPTO +'" name="id[]" value ="'+COD_DETALLE_CONCEPTO+'" >';
 
 var codigo = '<input type="text" size="4" id="cod_detalle_concepto_" name="cod_detalle_concepto[]" value = '+ COD_DETALLE_CONCEPTO +'>';
 
@@ -186,35 +185,28 @@ idCheckConcepto1000EM( COD_DETALLE_CONCEPTO );
 
 
 function idCheckConcepto1000EM(cod_detalle_concepto){
-
+/*
 //var ID;
 	$.ajax({
 		type: 'get',
 		dataType: 'json',
 		url: 'sunat_planilla/controller/PlameDetalleConceptoEmpleadorMaestroController.php',
 		data: {oper: 'id_check', cod_detalle_concepto : cod_detalle_concepto },
-		beforeSend: function(objeto){ /*alert("Adiós, me voy a ejecutar");*/ },
-        complete: function(objeto, exito){ /*alert("Me acabo de completar");
-			if(exito=="success"){alert("Y con éxito");}*/
-        },
-		success: function(data){
-			//console.log(data);
+		beforeSend: function(objeto){},
+        complete: function(objeto, exito){ },
+		success: function(data){			
 			if(data){					
-					//console.log("dentro "+ID);
-					$('#chk_detalle_concepto_'+cod_detalle_concepto).val(data);
-					$('#id_'+cod_detalle_concepto).val(data);					
-
-						
+				//console.log("dentro "+ID);
+				$('#chk_detalle_concepto_'+cod_detalle_concepto).val(data);
+				$('#id_'+cod_detalle_concepto).val(data);						
 			}else{
-			 alert ("no existe id");
+			 	alert ("no existe id");
 			}
 
 		}
 	});
 //--------
-//console.log("fuera:: "+ID);
-//return ID;
-
+*/
 }
 
 </script>
@@ -248,10 +240,10 @@ value="<?php echo $cod_concepto; ?>"/>
 -->
 
 
-<form action="HOLA.PHP" method="get" name="formDetalleConcepto1000" id="formDetalleConcepto1000">
-<input name="oper" type="text" value="actualizar-concepto-1000" />
+<form action="" method="get" name="formDetalleConcepto1000" id="formDetalleConcepto1000">
+<input name="oper" type="hidden" value="actualizar-concepto-1000" />
 
-<input type="text" name="cod_concepto" value="<?php echo $cod_concepto; ?>" />
+<input type="hidden" name="cod_concepto" value="<?php echo $cod_concepto; ?>" />
 <div id="view_detalle_concepto">
   <table width="670" border="1" id="table_1000" class="tabla_gris">
 <tr>
@@ -269,26 +261,20 @@ value="<?php echo $cod_concepto; ?>"/>
 
 
 
-
-
-
-
-
-
     <?php for($i=0; $i< count($DATA_DESCRIPCION_1000); $i++): ?>  
     <tr>  
       <td>
         
-	<input name="id[]" type="text"  
-    value="<?php echo $data_detalle_concepto[$i]['id_detalle_concepto_empleador_maestro']; ?>"
+	<input name="id[]" type="hidden"  
+    value="<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; ?>"
      size="5"/>
    
         
         <?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?></td>
       <td>
-	  <input type="text" name="concepto_descripcion_1000[]" 
+	  <input type="text" name="concepto_descripcion_1000[]" size="40"
       id="concepto_descripcion_<?php echo $data_detalle_concepto[$i]['cod_detalle_concepto']; //-?>"
-	  value ="<?php echo $data_detalle_concepto[$i]['descripcion_1000']; //-?>" 
+	  value ="<?php echo $data_detalle_concepto[$i]['descripcion']; //-?>" 
       />
       </td>
       <td>

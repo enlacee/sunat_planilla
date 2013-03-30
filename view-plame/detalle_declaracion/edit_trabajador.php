@@ -45,6 +45,7 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
 	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/03_edit_ingresos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-3');
 	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/04_edit_descuentos.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-4');
 	cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/05_edit_taportes.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-5');
+    cargar_pagina('sunat_planilla/view-plame/detalle_declaracion/06_edit_descuentosEmpresa.php?id_ptrabajador='+id1+'&id_trabajador='+id2 ,'#tabs-3-6');    
 	
 	cargarTablaTrabajadorPdeclaracionGrid_Lineal(id1);
 	
@@ -76,7 +77,8 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
             <li><a href="#tabs-3-2">Jornada Laboral</a></li>	
             <li><a href="#tabs-3-3">Ingresos</a></li>	
             <li><a href="#tabs-3-4">Descuentos</a></li>
-            <li><a href="#tabs-3-5">Tributos Y Aportes</a></li>	            	
+            <li><a href="#tabs-3-5">Tributos Y Aportes</a></li>
+            <li><a href="#tabs-3-6">Empresa</a></li>            	
 
         </ul>
         <!-- <div id="tabs-3-1">
@@ -93,7 +95,10 @@ var id2 = '<?php echo $ID_TRABAJADOR;?>';
         </div>
         <div id="tabs-3-5">
         5555        
-        </div>        
+        </div>
+        <div id="tabs-3-6">
+        5555        
+        </div> 
         
 </div>
 

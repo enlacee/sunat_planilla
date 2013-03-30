@@ -2749,7 +2749,8 @@ $.ajax({
         jQuery("#list").jqGrid('navGrid','#pager',{add:false,edit:false,del:false});
         
         $("#t_list").append($("#reporteVacacion"))           
-                    .append($("#reporteVacacionIndividual"));
+                    .append($("#reporteVacacionIndividual"))
+                    .append($("#planilla"));
 
     }
 

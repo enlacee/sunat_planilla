@@ -20,25 +20,12 @@ require_once("../../dao/DeclaracionDconceptoDao.php");
 $calc_conceptos = array();
 $calc_conceptos = listar_concepto_calc_ID_TrabajadorPdeclaracion($ID_TRABAJADOR_PDECLARACION);
 
-//$datas = new Dcem_Pingreso();
-//$data_cantidad = cantidadDetalleConceptoEM( $cod_concepto, ID_EMPLEADOR_MAESTRO );
 
-//$pingreso = listarDcem_Pingreso($ID_PTRABAJADOR);
-
-$pdescuento = array();
-$pdescuento = view_listarConcepto(ID_EMPLEADOR_MAESTRO,700);
+$pdescuentoEmp = array();
+$pdescuentoEmp = view_listarConcepto(ID_EMPLEADOR_MAESTRO,1000,1);
 
 //echo "ID_EMPLEADOR_MAESTRO essss = ".ID_EMPLEADOR_MAESTRO;
 
-/*echo "<pre>";
-print_r($pdescuento);
-echo "</pre";
-echo "<hr>";
-
-echo "<pre>";
-print_r($calc_conceptos);
-echo "</pre>";
-*/
 
 ?>
 <script>
@@ -81,9 +68,9 @@ calcularDescuento();
 </script>
 <div class="ptrabajador">
 
-<h3>Descuentos:  </h3>
+<h3>Empresa:</h3>
     <hr />
-  <table width="670" border="1" id="Pdescuento" class="Pdescuento tabla_gris">
+  <table width="670" border="1" id="PdescuentoEmp" class="PdescuentoEmp tabla_gris">
     <tr>
       <td width="17">&nbsp;</td>
       <td width="118">C&oacute;digo</td>
@@ -93,11 +80,11 @@ calcularDescuento();
     
     
         <?php
-        if (count($pdescuento) >= 1):
+        if (count($pdescuentoEmp) >= 1):
 			//ID
 			$ID = 0;
 
-            for ($i = 0; $i < count($pdescuento); $i++):
+            for ($i = 0; $i < count($pdescuentoEmp); $i++):
 			$ID++
                 ?>  
     
@@ -107,16 +94,16 @@ calcularDescuento();
     <tr>
       <td>
 <input type="hidden" class="idd" name="id_2[]" size="1"
-value="<?php echo $pdescuento[$i]['id_detalle_concepto_empleador_maestro']; ?>"/>	  
+value="<?php echo $pdescuentoEmp[$i]['id_detalle_concepto_empleador_maestro']; ?>"/>	  
 	  </td>
-      <td><?php echo $pdescuento[$i]['cod_detalle_concepto'];?>
+      <td><?php echo $pdescuentoEmp[$i]['cod_detalle_concepto'];?>
       </td>
-      <td><?php echo $pdescuento[$i]['descripcion'];?></td>
+      <td><?php echo $pdescuentoEmp[$i]['descripcion'];?></td>
       <td><label for="pt_monto"></label>
       <input name="pt_monto" type="text" id="pt_monto-<?php echo $ID;?>" 
        value="<?php 
 	   for($x=0; $x<count($calc_conceptos); $x++):
-		   if($pdescuento[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
+		   if($pdescuentoEmp[$i]['cod_detalle_concepto'] == $calc_conceptos[$x]['cod_detalle_concepto'] ):
 			   echo $calc_conceptos[$x]['monto_pagado'];
 			   break;
 			endif;

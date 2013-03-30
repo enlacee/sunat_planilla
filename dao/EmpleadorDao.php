@@ -247,9 +247,14 @@ class EmpleadorDao extends AbstractDao {
         return true;
     }
 
-    public function listarEmpleadores($WHERE, $start, $limit, $sidx, $sord) {
+    // update anbCopitan 2013.03.15
+    public function listarEmpleadores($WHERE=null, $start=null, $limit=null, $sidx=null, $sord=null) {
 
-        // $query = "SELECT *FROM empleadores $WHERE  ORDER BY $sidx $sord LIMIT $start $limit";
+        $cadena = null;
+        if (is_null($WHERE))
+            $cadena = $WHERE;
+        else
+            $cadena = "$WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit";
 
         $query = "
         SELECT 
@@ -258,12 +263,10 @@ class EmpleadorDao extends AbstractDao {
         e.razon_social,
         e.nombre_comercial,
         e.telefono,
-        t_e.descripcion AS nombre_tipo_empleador,
-		-- em.id_empleador,
+        t_e.descripcion AS nombre_tipo_empleador,		
         IF(e.id_empleador = em.id_empleador,'MAESTRO','OTRO') AS tipo
 	
         FROM empleadores AS e
-
         INNER JOIN tipos_empleadores AS t_e
         ON e.id_tipo_empleador = t_e.id_tipo_empleador 
         
@@ -271,9 +274,9 @@ class EmpleadorDao extends AbstractDao {
         ON e.id_empleador = em.id_empleador
         WHERE e.estado_empleador = ?
 		
-        $WHERE  ORDER BY $sidx $sord LIMIT $start,  $limit
+        $cadena;
         ";
-        // echo $query;
+         //echo $query;
         try {
 
             $stm = $this->pdo->prepare($query);

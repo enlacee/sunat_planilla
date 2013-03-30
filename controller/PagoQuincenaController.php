@@ -30,7 +30,7 @@ if ($op) {
     require_once '../dao/ConfUitDao.php';
 
     require_once '../controller/ConfController.php';
-    
+
     //-- lib para reportes
     require_once '../dao/EstablecimientoDao.php';
     require_once '../dao/EmpresaCentroCostoDao.php';
@@ -39,11 +39,14 @@ if ($op) {
     require_once '../dao/VacacionDao.php';
     // busqueda detallle de mes de vacacion
     require_once '../dao/VacacionDetalleDao.php';
-    
+
     //libreria de ayuda
     require_once '../controller/funcionesAyuda.php';
     //ZIP
-    require_once '../util/zip/zipfile.inc.php';    
+    require_once '../util/zip/zipfile.inc.php';
+
+    //ayuda quincena
+    require_once '../dao/TrabajadorDao.php';
 }
 
 $responce = NULL;
@@ -52,25 +55,25 @@ if ($op == "cargar_tabla") {
     $responce = cargar_tabla();
 } elseif ($op == "add") {
     $responce = nuevoPQ();
-}else if($op =='recibo15'){
+} else if ($op == 'recibo15') {
     reciboQuincena();
-}else if($op =='del'){
- $responce = eliminarPQ();
+} else if ($op == 'del') {
+    $responce = eliminarPQ();
 }
 
 echo (!empty($responce)) ? json_encode($responce) : '';
 
 function eliminarPQ() {
     $dao = new PagoQuincenaDao();
-    if($_REQUEST['id'] == 'all'){
-        if($_REQUEST['id_pdeclaracion']){
-        return $dao->delAll($_REQUEST['id_pdeclaracion']);; 
+    if ($_REQUEST['id'] == 'all') {
+        if ($_REQUEST['id_pdeclaracion']) {
+            return $dao->delAll($_REQUEST['id_pdeclaracion']);
+            ;
         }
-    }else{
+    } else {
         return $dao->del($_REQUEST['id']);
-    }     
+    }
 }
-
 
 function nuevoPQ() {
     //VARIABLES    
@@ -134,12 +137,12 @@ function nuevoPQ() {
         $data_tra = null;
         $data_tra = array_values($data_tra_ref);
     }
-    
+
     //--------------------------------------------------------------------
     //         validar trabajador con vacacion
     $daov = new VacacionDao();
     $data_trav = $daov->trabajadoresConVacacion(ID_EMPLEADOR_MAESTRO, $anio);
-   if (count($data_trav) > 0) {        
+    if (count($data_trav) > 0) {
         for ($i = 0; $i < count($data_trav); $i++):
             for ($j = 0; $j < count($data_tra); $j++):
                 if ($data_trav[$i]['id_trabajador'] == $data_tra[$j]['id_trabajador']):
@@ -149,15 +152,15 @@ function nuevoPQ() {
                     break;
                 endif;
             endfor;
-        endfor;        
-        $data_tra = array_values($data_tra);    
-   }
-    
+        endfor;
+        $data_tra = array_values($data_tra);
+    }
+
     //echoo($data_tra);
 
     if (count($data_tra) >= 1) {
         $dao_rpc = new RegistroPorConceptoDao();
-        
+        $dao_tra = new TrabajadorDao();
         for ($i = 0; $i < count($data_tra); $i++) {
             if ($data_tra[$i]['id_trabajador'] != null) {
                 $model = new PagoQuincena();
@@ -168,45 +171,57 @@ function nuevoPQ() {
                 endif;
                 // Variables
                 $datax = $dao_rpc->buscar_RPC_PorTrabajador($ID_PDECLARACION, $data_tra[$i]['id_trabajador'], C701);
-                $percent = (($datax['valor'] == null || '')) ? 0 : $datax['valor'];
-                
-                
+                $percent = (($datax['valor'] == null || $datax['valor'] == '')) ? 0 : $datax['valor'];
+
+
                 //-----------------------------------------------------------
                 if ($data_tra[$i]['fecha_inicio'] > $fecha_inicio) {
                     
                 } else if ($data_tra[$i]['fecha_inicio'] <= $fecha_inicio) {
                     $data_tra[$i]['fecha_inicio'] = $fecha_inicio;
-                }           
-                
+                }
+
                 if (is_null($data_tra[$i]['fecha_fin'])) {
                     $data_tra[$i]['fecha_fin'] = $fecha_fin;
                 } else if ($data_tra[$i]['fecha_fin'] >= $fecha_fin) { //INSUE
                     $data_tra[$i]['fecha_fin'] = $fecha_fin;
                 }
                 //-----------------------------------------------------------
-                $dia_laborado = count(rangoDeFechas($data_tra[$i]['fecha_inicio'], $data_tra[$i]['fecha_fin'],'d'));                
+                $dia_laborado = count(rangoDeFechas($data_tra[$i]['fecha_inicio'], $data_tra[$i]['fecha_fin'], 'd'));
                 //**************************************************************
                 $dia_vacacion = 0;
-                if($data_tra[$i]['_vacacion']==true){
+                $dia_vacacion_mes = 0;
+                if ($data_tra[$i]['_vacacion'] == true) {
                     $daovd = new VacacionDetalleDao();
                     $data_vdetalle = $daovd->vacacionDetalle($data_tra[$i]['_id_vacacion']);
                     //$fecha = getFechasDePago($PERIODO);
                     //$f_inicio = $fecha['first_day'];
                     //$f_fin = $fecha['last_day'];
-                    $data_ask = leerVacacionDetalle($data_vdetalle, $PERIODO,$fecha_inicio,$fecha_fin);      
+                    $data_ask = leerVacacionDetalle($data_vdetalle, $PERIODO, $fecha_inicio, $fecha_fin);
                     $dia_vacacion = $data_ask['dia'];
-                    echo "\n\nENTRO  VACACION TRUE = ".$dia_vacacion;
-                    
-                    $percent = ($data_tra[$i]['_vacacion']==true) ? 50 : $percent;
+                    echo "\n\nENTRO  VACACION TRUE = " . $dia_vacacion;
+                    //$percent = ($data_tra[$i]['_vacacion']==true) ? 50 : $percent;
+                    //---------------------------------------------------------
+                    $data_ask_mes = leerVacacionDetalle($data_vdetalle, $PERIODO, $fecha['first_day'], $fecha['last_day']);
+                    //REALMENTE TIENE VACACION EN ESTE MES! .
+                    if ($data_ask_mes['dia'] > 0) {
+                        $dia_vacacion_mes = $data_ask_mes['dia'];
+                        //$percent = 0;
+                    }
                 }
                 //**************************************************************
                 $dia_laborado = $dia_laborado - $dia_vacacion;
                 $SUELDO_CAL = 0;
-                if ($dia_laborado == 15) { // 15 dias                    
-                    $SUELDO_CAL = $data_tra[$i]['monto_remuneracion'] * ($percent / 100);
+
+                if ($dia_vacacion_mes > 0) { // si tiene vacacion no se le paga adelanto.
+                    $percent = 0;
                 } else {
-                    $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
-                    $SUELDO_CAL = $smpd * $dia_laborado;
+                    if ($dia_laborado == 15) { // 15 dias                    
+                        $SUELDO_CAL = $data_tra[$i]['monto_remuneracion'] * ($percent / 100);
+                    } else {
+                        $smpd = sueldoMensualXDia($data_tra[$i]['monto_remuneracion']);
+                        $SUELDO_CAL = $smpd * $dia_laborado;
+                    }
                 }
 
                 $round_sueldo = array();
@@ -219,13 +234,19 @@ function nuevoPQ() {
                 }
                 $model->setId_pdeclaracion($ID_PDECLARACION);
                 $model->setId_trabajador($data_tra[$i]['id_trabajador']);
-                $model->setId_empresa_centro_costo($data_tra[$i]['id_empresa_centro_costo']);
+
+                // consultar
+                $data_tra_adit = $dao_tra->buscarDataForPlanilla($data_tra[$i]['id_trabajador']);
+
+                $model->setId_empresa_centro_costo($data_tra_adit['id_empresa_centro_costo']);
+                $model->setId_establecimiento($data_tra_adit['id_establecimiento']);
+                //---
                 $model->setDia_laborado($dia_laborado);
                 $model->setSueldo_base($data_tra[$i]['monto_remuneracion']);
                 $model->setSueldo_porcentaje($percent);
                 $model->setSueldo($SUELDO_CAL);
                 $model->setFecha_creacion(date('Y-m-d'));
-                
+
                 //echo "<pre>";
                 //print_r($model);
                 //echo "</pre>";
@@ -282,10 +303,10 @@ function cargar_tabla() {
     $response->page = $page;
     $response->total = $total_pages;
     $response->records = $count;
-    
-    $i = 0;    
+
+    $i = 0;
     $lista = array();
-    $lista = $dao->listar($ID_PDECLARACION,$WHERE, $start, $limit, $sidx, $sord);
+    $lista = $dao->listar($ID_PDECLARACION, $WHERE, $start, $limit, $sidx, $sord);
     // ----- Return FALSE no hay Productos
     if ($lista == null || count($lista) == 0) {
         return $response;
@@ -307,20 +328,19 @@ function cargar_tabla() {
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/detalle_etapa_pago/editar_trabajador.php?id_pago=" . $param . "&id_trabajador=" . $_00 . "','#detalle_declaracion_trabajador')";
         $js2 = "javascript:eliminarPago('" . $param . "')";
 
-        
-          // $js2 = "javascript:eliminarPersona('" . $param . "')";
-        
+
+        // $js2 = "javascript:eliminarPersona('" . $param . "')";
 //<span  title="Editar" >
 //<a href="' . $js . '" class="divEditar" ></a>
 //</span> 
-        
-          $opciones = '<div id="divEliminar_Editar"> 
+
+        $opciones = '<div id="divEliminar_Editar"> 
           <span  title="Eliminar" >
           <a href="' . $js2 . '" class="divEliminar" ></a>
           </span>
 
           </div>';
-         
+
         //hereee
         $response->rows[$i]['id'] = $_00; //$param;
         $response->rows[$i]['cell'] = array(
@@ -344,8 +364,7 @@ function cargar_tabla() {
     return $response;
 }
 
-
-function reciboQuincena(){  
+function reciboQuincena() {
     $ids = $_REQUEST['ids'];
     $PERIODO = $_REQUEST['periodo'];
     $ID_PDECLARACION = $_REQUEST['id_pdeclaracion'];
@@ -364,13 +383,13 @@ function reciboQuincena(){
 
     if ($id_est) {
         $master_est = $id_est;
-    } else if($id_est=='0') {
+    } else if ($id_est == '0') {
         $cubo_est = "todo";
     }
 
     if ($id_cc) {
         $master_cc = $id_cc;
-    } else if($id_cc == '0'){
+    } else if ($id_cc == '0') {
         $cubo_cc = "todo";
     }
 
@@ -381,16 +400,16 @@ function reciboQuincena(){
     $file_name2 = '02.txt';
     $fpx = fopen($file_name2, 'w');
     $fp = fopen($file_name, 'w');
-    
+
     //..........................................................................
-    $FORMATO_0 = chr(27).'@'.chr(27).'C!';
-    $FORMATO = chr(18).chr(27)."P";
+    $FORMATO_0 = chr(27) . '@' . chr(27) . 'C!';
+    $FORMATO = chr(18) . chr(27) . "P";
     $BREAK = chr(13) . chr(10);
     //$BREAK = chr(14) . chr(10);
     //chr(27). chr(100). chr(0)
     $LINEA = str_repeat('-', 80);
     //..............................................................................  
-    fwrite($fp,$FORMATO); 
+    fwrite($fp, $FORMATO);
 
     // paso 01 Listar ESTABLECIMIENTOS del Emplearo 'Empresa'
     $dao_est = new EstablecimientoDao();
@@ -416,7 +435,7 @@ function reciboQuincena(){
                 $bandera_1 = true;
             }
 
-            if ($bandera_1) { 
+            if ($bandera_1) {
                 $SUM_TOTAL_EST[$i]['monto'] = 0;
                 //Establecimiento direccion Reniec
                 $data_est_direc = $dao_estd->buscarEstablecimientoDireccionReniec($est[$i]['id_establecimiento']);
@@ -434,27 +453,27 @@ function reciboQuincena(){
                     } else if ($cubo_est == 'todo' || $cubo_cc == "todo") { // $cubo_est
                         $bandera_2 = true;
                     }
-                    
+
                     if ($bandera_2) {
                         //$contador_break = $contador_break + 1;
                         // LISTA DE TRABAJADORES
-                        $data_tra = array();                        
+                        $data_tra = array();
                         $data_tra = $dao_pagoquincena->listarReporte($ID_PDECLARACION, $est[$i]['id_establecimiento'], $ecc[$j]['id_empresa_centro_costo']);
 
-                        if (count($data_tra)>0) {
-                            
+                        if (count($data_tra) > 0) {
+
                             $SUM_TOTAL_CC[$i][$j]['establecimiento'] = $data_est_direc['ubigeo_distrito'];
                             $SUM_TOTAL_CC[$i][$j]['centro_costo'] = strtoupper($ecc[$j]['descripcion']);
                             $SUM_TOTAL_CC[$i][$j]['monto'] = 0;
 
                             //fwrite($fp, $LINEA);                            
                             fwrite($fp, NAME_EMPRESA);
-                            
+
                             fwrite($fp, str_pad("FECHA : ", 56, " ", STR_PAD_LEFT));
                             fwrite($fp, str_pad(date("d/m/Y"), 11, " ", STR_PAD_LEFT));
                             fwrite($fp, $BREAK);
 
-                            fwrite($fp, str_pad("PAGINA :", 69, " ", STR_PAD_LEFT));                            
+                            fwrite($fp, str_pad("PAGINA :", 69, " ", STR_PAD_LEFT));
                             fwrite($fp, str_pad($pagina, 11, " ", STR_PAD_LEFT));
                             fwrite($fp, $BREAK);
 
@@ -473,7 +492,7 @@ function reciboQuincena(){
                             fwrite($fp, $BREAK);
                             fwrite($fp, $BREAK);
                             //$worksheet->write($row, $col, "##################################################");
-                            
+
                             fwrite($fp, $LINEA);
                             fwrite($fp, $BREAK);
                             fwrite($fp, str_pad("N ", 4, " ", STR_PAD_LEFT));
@@ -484,24 +503,24 @@ function reciboQuincena(){
                             fwrite($fp, $BREAK);
                             fwrite($fp, $LINEA);
                             fwrite($fp, $BREAK);
-                            
+
                             $pag = 0;
                             $num_trabajador = 0;
                             for ($k = 0; $k < count($data_tra); $k++) {
-                                $num_trabajador = $num_trabajador +1;                                
-                                if($num_trabajador>24):
-                                    fwrite($fp,chr(12));
-                                    $num_trabajador=0;
+                                $num_trabajador = $num_trabajador + 1;
+                                if ($num_trabajador > 24):
+                                    fwrite($fp, chr(12));
+                                    $num_trabajador = 0;
                                 endif;
-                                
+
                                 $data = array();
                                 $data = $data_tra[$k];
                                 // Inicio de Boleta             
-                                generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag);
-                                $pag = $pag +1;
-                                
+                                generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio, $pag);
+                                $pag = $pag + 1;
+
                                 // Final de Boleta
-                                $texto_3 = $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres'];                                
+                                $texto_3 = $data_tra[$k]['apellido_paterno'] . " " . $data_tra[$k]['apellido_materno'] . " " . $data_tra[$k]['nombres'];
                                 fwrite($fp, $BREAK);
                                 fwrite($fp, str_pad(($k + 1) . " ", 4, " ", STR_PAD_LEFT));
                                 fwrite($fp, str_pad($data_tra[$k]['num_documento'], 12, " ", STR_PAD_RIGHT));
@@ -509,14 +528,14 @@ function reciboQuincena(){
                                 fwrite($fp, str_pad($data_tra[$k]['sueldo'], 9, " ", STR_PAD_RIGHT));
                                 fwrite($fp, str_pad("_______________", 15, " ", STR_PAD_RIGHT));
                                 fwrite($fp, $BREAK);
-                                
+
                                 // por persona
                                 $SUM_TOTAL_CC[$i][$j]['monto'] = $SUM_TOTAL_CC[$i][$j]['monto'] + $data_tra[$k]['sueldo'];
                             }
 
 
                             $SUM_TOTAL_EST[$i]['monto'] = $SUM_TOTAL_EST[$i]['monto'] + $SUM_TOTAL_CC[$i][$j]['monto'];
-                            
+
                             //--- LINE
                             fwrite($fp, $BREAK);
                             //fwrite($fp, $LINEA);
@@ -528,7 +547,7 @@ function reciboQuincena(){
                             fwrite($fp, $LINEA);
                             fwrite($fp, $BREAK);
 
-                            fwrite($fp,chr(12));
+                            fwrite($fp, chr(12));
                             $pagina = $pagina + 1;
                             //fwrite($fp, $BREAK . $BREAK . $BREAK . $BREAK);
                             $TOTAL = $TOTAL + $SUM_TOTAL_CC[$i][$j]['monto'];
@@ -536,9 +555,8 @@ function reciboQuincena(){
                         }//End Trabajadores
                     }//End Bandera.
                 }//END FOR CCosto
-
                 // CALCULO POR ESTABLECIMIENTOS
-                 /* $SUM = 0.00;
+                /* $SUM = 0.00;
                   for ($z = 0; $z < count($SUM_TOTAL_CC[$i]); $z++) {
                   fwrite($fp, str_pad($SUM_TOTAL_CC[$i][$z]['centro_costo'], 59, " ", STR_PAD_RIGHT));
                   fwrite($fp, number_format($SUM_TOTAL_CC[$i][$z]['monto'], 2));
@@ -547,7 +565,7 @@ function reciboQuincena(){
                   }
                   fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 59, " ", STR_PAD_RIGHT));
                   fwrite($fp, number_format($SUM, 2));
-                 */         
+                 */
             }
         }//END FOR Est
 
@@ -564,17 +582,15 @@ function reciboQuincena(){
           fwrite($fp, $BREAK);
           $SUM = $SUM + $SUM_TOTAL_EST[$z]['monto'];
           }
-         */        
-            fwrite($fp, $BREAK);
-            fwrite($fp, $BREAK);
-            fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 56, " ", STR_PAD_RIGHT));
-            fwrite($fp, str_pad(number_format_var($TOTAL), 15, ' ',STR_PAD_RIGHT));
-            fwrite($fp, $BREAK);
-            fwrite($fp, $BREAK);
-        
-        
+         */
+        fwrite($fp, $BREAK);
+        fwrite($fp, $BREAK);
+        fwrite($fp, str_pad("T O T A L   G E N E R A L  --->>>", 56, " ", STR_PAD_RIGHT));
+        fwrite($fp, str_pad(number_format_var($TOTAL), 15, ' ', STR_PAD_RIGHT));
+        fwrite($fp, $BREAK);
+        fwrite($fp, $BREAK);
     }//END IF
-    
+
     fclose($fp);
     fclose($fpx);
 
@@ -593,29 +609,28 @@ function reciboQuincena(){
 
     header("Content-type: application/octet-stream");
     header("Content-disposition: attachment; filename=zipfile.zip");
-    echo $zipfile->file(); 
+    echo $zipfile->file();
 }
 
+function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio, $pag) {
+    $BREAK = chr(13) . chr(10);
+    $CORTE = chr(18) . chr(27) . "P";
 
-function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
-   $BREAK = chr(13) . chr(10); 
-   $CORTE = chr(18).chr(27)."P";
-   
-    if($pag==0):
-        $CERO = chr(27).'@'.chr(27).'C!';        
-        fwrite($fpx,$CERO.$BREAK);        
-    endif;    
-    fwrite($fpx,$CORTE); 
-    
-    fwrite($fpx, $BREAK);    
-    fwrite($fpx, str_pad(NAME_EMPRESA, 0, " ", STR_PAD_LEFT));    
+    if ($pag == 0):
+        $CERO = chr(27) . '@' . chr(27) . 'C!';
+        fwrite($fpx, $CERO . $BREAK);
+    endif;
+    fwrite($fpx, $CORTE);
+
+    fwrite($fpx, $BREAK);
+    fwrite($fpx, str_pad(NAME_EMPRESA, 0, " ", STR_PAD_LEFT));
     fwrite($fpx, str_pad(NAME_EMPRESA, 45, " ", STR_PAD_LEFT));
     fwrite($fpx, $BREAK);
     //--    
-    fwrite($fpx, str_pad('RUC  '.RUC, 0, " ", STR_PAD_LEFT));
-    fwrite($fpx, str_pad('RUC  '.RUC, 45, " ", STR_PAD_LEFT));
+    fwrite($fpx, str_pad('RUC  ' . RUC, 0, " ", STR_PAD_LEFT));
+    fwrite($fpx, str_pad('RUC  ' . RUC, 45, " ", STR_PAD_LEFT));
     fwrite($fpx, $BREAK);
-    fwrite($fpx, str_pad(DIRECCION_FISCAL, 0, " ", STR_PAD_LEFT));    
+    fwrite($fpx, str_pad(DIRECCION_FISCAL, 0, " ", STR_PAD_LEFT));
     fwrite($fpx, str_pad(DIRECCION_FISCAL, 45, " ", STR_PAD_LEFT));
     fwrite($fpx, $BREAK);
     //--AVENIDA Guillermo Presccot 395 - SAN ISIDRO
@@ -628,8 +643,8 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
     fwrite($fpx, str_pad('***********', 20, " ", STR_PAD_LEFT));
     fwrite($fpx, str_pad('***********', 45, " ", STR_PAD_LEFT));
 
-    fwrite($fpx, $BREAK.$BREAK); 
-    fwrite($fpx, $BREAK); 
+    fwrite($fpx, $BREAK . $BREAK);
+    fwrite($fpx, $BREAK);
 
     fwrite($fpx, str_pad('ADELANTO DE QUINCENA CORRESPONDIENTE', 20, " ", STR_PAD_LEFT));
     fwrite($fpx, str_pad('ADELANTO DE QUINCENA CORRESPONDIENTE', 45, " ", STR_PAD_LEFT));
@@ -641,20 +656,20 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
     fwrite($fpx, $BREAK);
     $_NOMBRE_ = $data['apellido_paterno'] . " " . $data['apellido_materno'] . " " . $data['nombres'];
     fwrite($fpx, str_pad('NOMBRES', 9, " ", STR_PAD_RIGHT));
-    fwrite($fpx, str_pad(textoaMedida(31, ": ".$_NOMBRE_), 36, " ", STR_PAD_RIGHT));
+    fwrite($fpx, str_pad(textoaMedida(31, ": " . $_NOMBRE_), 36, " ", STR_PAD_RIGHT));
     fwrite($fpx, str_pad('NOMBRES', 9, " ", STR_PAD_RIGHT));
-    fwrite($fpx, str_pad(textoaMedida(31, ": ".$_NOMBRE_), 31, " ", STR_PAD_RIGHT));
+    fwrite($fpx, str_pad(textoaMedida(31, ": " . $_NOMBRE_), 31, " ", STR_PAD_RIGHT));
 
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
     fwrite($fpx, str_pad('CANTIDAD', 9, " ", STR_PAD_RIGHT));
     fwrite($fpx, str_pad(': S/', 6, " ", STR_PAD_RIGHT));
-    
+
     fwrite($fpx, str_pad($data['sueldo'], 30, " ", STR_PAD_RIGHT));
-    
+
     fwrite($fpx, str_pad('CANTIDAD', 9, " ", STR_PAD_RIGHT));
     fwrite($fpx, str_pad(': S/', 6, " ", STR_PAD_RIGHT));
-    
+
     fwrite($fpx, str_pad($data['sueldo'], 8, " ", STR_PAD_LEFT));
     fwrite($fpx, $BREAK);
 
@@ -668,9 +683,9 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
     fwrite($fpx, $BREAK);
     $_FECHA_CREACION_ = getFechaPatron($data['fecha_creacion'], "d/m/Y");
     fwrite($fpx, str_pad('FECHA', 9, " ", STR_PAD_RIGHT));
-    fwrite($fpx, str_pad(": ".$_FECHA_CREACION_, 36, " ", STR_PAD_RIGHT));
+    fwrite($fpx, str_pad(": " . $_FECHA_CREACION_, 36, " ", STR_PAD_RIGHT));
     fwrite($fpx, str_pad('FECHA', 9, " ", STR_PAD_RIGHT));
-    fwrite($fpx, str_pad(": ".$_FECHA_CREACION_, 27, " ", STR_PAD_RIGHT));
+    fwrite($fpx, str_pad(": " . $_FECHA_CREACION_, 27, " ", STR_PAD_RIGHT));
 
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
@@ -693,16 +708,14 @@ function generarRecibo15_txt2($fpx, $data, $nombre_mes, $anio,$pag) {
 
 //fwrite($fpx, str_pad('RECIBI CONFORME', 0, " ", STR_PAD_LEFT));   
     fwrite($fpx, $BREAK);
-    fwrite($fpx, str_pad('DNI. '.$data['num_documento'], 33, " ", STR_PAD_LEFT));
-    fwrite($fpx, str_pad('DNI. '.$data['num_documento'], 44, " ", STR_PAD_LEFT));
+    fwrite($fpx, str_pad('DNI. ' . $data['num_documento'], 33, " ", STR_PAD_LEFT));
+    fwrite($fpx, str_pad('DNI. ' . $data['num_documento'], 44, " ", STR_PAD_LEFT));
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
     fwrite($fpx, $BREAK);
 
-    fwrite($fpx,chr(12));      
-
+    fwrite($fpx, chr(12));
 }
-
 
 //------------------------------------------------------------------------------
 ?>

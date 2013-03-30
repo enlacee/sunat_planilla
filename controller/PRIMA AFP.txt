@@ -1,9 +1,9 @@
 MPRESENTACION PAGO                                 
-PLANILLA DEL MES ENERO - 2013                                                        DETALLE ADICIONAL DE LA PLANILLA DE APORTES PREVICIONALES                                           
+PLANILLA DEL MES FEBRERO - 2013                                                      DETALLE ADICIONAL DE LA PLANILLA DE APORTES PREVICIONALES                                           
 
 PRIMA AFP                                                
 
-MES : ENERO/2013                                                                                                                                                           
+MES : FEBRERO/2013                                                                                                                                                         
 I.-DATOS BASICOS DEL EMPLEADOR
 NOMBRE O RAZON SOCIAL : CAMUENTE S.A.
 RUC : 20100338611
@@ -15,6 +15,33 @@ RUC : 20100338611
 | N |      CUSPP       |                                                  |      | dd/mm/aaaa  |            | Obligatorio |  Con fin   |   Sin fin   | Empleador | Fondo de |            |   Sobre    | Retenciones y |              |
 |   |                  |PATERNO        MATERNO        NOMBRES             |      |             |            |             |Previsional | Previsional |           |Pensiones |            |    R.A.    | Retribuciones |              |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  1|   254421LCROR2   | CANO          RODRIGUEZ      LUIS ENRIQUE        |  5   |  01/02/2013 |    3649.33 |      364.93 |     --     |     --      |    --     |   364.93 |      47.44 |      58.39 |        105.83 |       470.76 
+|  2|   529071FEHIN0   | ESPINOZA      HUANCAS        FAUSTO ENRIQUE      |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+|  3|   191930SBZNI2   | BERNAL        ZURITA         SONIA MAGDALENA     |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+|  4|   224661ACPVA0   | CHAVEZ        PALACIOS       ANTONIO             |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+|  5|   236521RDHZT4   | DIAZ          HURTADO        ROSARIO OSVALDO     |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+|  6|   565880MHRRA0   | HERRERA       ROJAS          MARIBEL ALBINA      |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+|  7|   559410NNCAT7   | NAVARRO       CAUTI          NIEVES HERLINDA     |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+|  8|   209980SSTDI0   | SANDOVAL      TORIBIO        SANTA BENEDICTA     |      |             |        661 |       66.10 |     --     |     --      |    --     |    66.10 |       8.59 |      10.58 |         19.17 |        85.27 
+|  9|   536110JEBIZ3   | ESPINOZA      BAUTISTA       JORGINA             |      |             |        600 |       60.00 |     --     |     --      |    --     |    60.00 |       7.80 |       9.60 |          17.4 |         77.4 
+| 10|   572790SMYAN3   | MIRANDA       YBA¥EZ         SONIA MARITZA       |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 11|   590780AGHZR7   | GONZALES      HUARANGA       AMPARO MILAGROS     |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 12|   583900HQMSA8   | QUISPE        MATAMOROS      HILDA VILMA         |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 13|   255601AMSOV2   | MEGO          SILVA          ARTURO JAMER        |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 14|   548621OAQUS2   | ARAUJO        QUISPE         OSCAR IVAN          |      |             |        400 |       40.00 |     --     |     --      |    --     |    40.00 |       5.20 |       6.40 |          11.6 |         51.6 
+| 15|   592631ECJLO8   | CALLE         JERONIMO       EDWIN ALVICE        |      |             |        553 |       55.30 |     --     |     --      |    --     |    55.30 |       7.19 |       8.85 |         16.04 |        71.34 
+| 16|   605181HRRRA4   | RODRIGUEZ     ROJAS          HEBER ARGENIS       |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 17|   618271RHMMD5   | HUAMANI       MENDOZA        RONALD PEDRO        |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 18|   543931CBSEA2   | BECERRA       SALAS          CESAR AUGUSTO       |      |             |        400 |       40.00 |     --     |     --      |    --     |    40.00 |       5.20 |       6.40 |          11.6 |         51.6 
+| 19|   527561DZCBN0   | ZAMBRANO      CUENCA         DANIEL ALFREDO      |      |             |        785 |       78.50 |     --     |     --      |    --     |    78.50 |      10.21 |      12.56 |         22.77 |       101.27 
+| 20|   607911GQQSS5   | QUISPE        QUISPE         GILBERTO PEDRO      |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 21|   501700ATCRA2   | DE LA TORRE   CASANOVA       ANGELICA            |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 22|   546181JHOML9   | HUAMAN        OVALLE         JOSE LUIS           |      |             |        850 |       85.00 |     --     |     --      |    --     |    85.00 |      11.05 |      13.60 |         24.65 |       109.65 
+| 23|   613651CDLIE0   | DOMINGUEZ     LOPEZ          CHADWICK HANNS      |      |             |        400 |       40.00 |     --     |     --      |    --     |    40.00 |       5.20 |       6.40 |          11.6 |         51.6 
+| 24|   595920INCEU2   | NOLE          CAMUS          IRIS EDITA          |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
+| 25|   572431PGANI9   | GRANDEZ       AGUILAR        PERCY RICHARD       |      |             |        757 |       75.70 |     --     |     --      |    --     |    75.70 |       9.84 |      12.11 |         21.95 |        97.65 
+| 26|   565601FOTNA5   | OBANDO        TEJADA         FRANCISCO           |      |             |     516.25 |       51.63 |     --     |     --      |    --     |    51.63 |       6.71 |       8.26 |         14.97 |         66.6 
+| 27|   609031JBMTR3   | BUSTAMANTE    MANRIQUE       JOSE LUIS           |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.88 |       6.00 |         10.88 |        48.38 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-|   |                  |                                                  |      |             |       0.00 |        0.00 |     --     |     --      |    --     |     0.00 |       0.00 |       0.00 |          0.00 |         0.00 
+|   |                  |                                                  |      |             |  15,571.58 |    1,557.16 |     --     |     --      |    --     | 1,557.16 |     202.51 |     249.15 |        451.66 |     2,008.82 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

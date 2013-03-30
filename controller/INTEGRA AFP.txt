@@ -1,9 +1,9 @@
 MPRESENTACION PAGO                                 
-PLANILLA DEL MES ENERO - 2013                                                        DETALLE ADICIONAL DE LA PLANILLA DE APORTES PREVICIONALES                                           
+PLANILLA DEL MES FEBRERO - 2013                                                      DETALLE ADICIONAL DE LA PLANILLA DE APORTES PREVICIONALES                                           
 
 INTEGRA AFP                                              
 
-MES : ENERO/2013                                                                                                                                                           
+MES : FEBRERO/2013                                                                                                                                                         
 I.-DATOS BASICOS DEL EMPLEADOR
 NOMBRE O RAZON SOCIAL : CAMUENTE S.A.
 RUC : 20100338611
@@ -15,6 +15,27 @@ RUC : 20100338611
 | N |      CUSPP       |                                                  |      | dd/mm/aaaa  |            | Obligatorio |  Con fin   |   Sin fin   | Empleador | Fondo de |            |   Sobre    | Retenciones y |              |
 |   |                  |PATERNO        MATERNO        NOMBRES             |      |             |            |             |Previsional | Previsional |           |Pensiones |            |    R.A.    | Retribuciones |              |
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  1|   247871NSCAD1   | SOLANO        CALDUA         NICOLAS VICTOR      |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+|  2|   258251CTATV2   | TANTALEAN     AREVALO        CARLOS ALBERTO      |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+|  3|   191281JRPAU9   | ROJAS         PAJUELO        JUAN VENANCIO       |      |             |        450 |       45.00 |     --     |     --      |    --     |    45.00 |       5.49 |       7.83 |         13.32 |        58.32 
+|  4|   550151HACAR4   | ALIAGA        COTRINA        HILDEBRANDO         |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+|  5|   567001CCLAJ9   | CHIA          LUY JON        CARLOS ALONZO       |      |             |        400 |       40.00 |     --     |     --      |    --     |    40.00 |       4.88 |       6.96 |         11.84 |        51.84 
+|  6|   580641APPCL6   | PINCCILOTTI   PALLAROSO      ALEJANDRO           |      |             |        553 |       55.30 |     --     |     --      |    --     |    55.30 |       6.75 |       9.62 |         16.37 |        71.67 
+|  7|   603831DRBAA7   | RIMARACHIN    BACA           DAVID ISRAEL        |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+|  8|   249220LCFPR1   | CHIPANA       FLORES         LIDIA JUANA         |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+|  9|   577031JACIR7   | ANDIA         CARRASCO       JAVIER              |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 10|   581981LGCCA8   | GARCIA        CASANA         LUIS ALEJANDRO      |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 11|   583041MRGVE0   | REUVEN        GOMEZ          MICHAEL             |      |             |        400 |       40.00 |     --     |     --      |    --     |    40.00 |       4.88 |       6.96 |         11.84 |        51.84 
+| 12|   261201PCRTN9   | CASTILLO      REYNOSO        PEDRO LUIS          |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 13|   617901HPHAL4   | PUMA          HUILLCA        HERMITA¥O           |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 14|   583511JRDSZ1   | RIOS          DIAZ           JIMY ORLANDO        |      |             |        400 |       40.00 |     --     |     --      |    --     |    40.00 |       4.88 |       6.96 |         11.84 |        51.84 
+| 15|   625121SCGNV8   | CORNEJO       GUEVARA        SERGIO JORGE        |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 16|   572701HMSOV0   | MEGO          SILVA          HUMBERTO            |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 17|   617141JSMRU7   | SUAREZ        MAGUI¥A        JOSE ANTONIO        |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 18|   623351JGRCA3   | GARGATE       ROSALES        JONATHAN            |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 19|   580081TBFBN9   | BARBOSA       FERNANDEZ      TRINI MARTIN        |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 20|   596860AHSOC7   | HINOJOSA      SANCHEZ        ANA KARINA          |      |             |        375 |       37.50 |     --     |     --      |    --     |    37.50 |       4.58 |       6.53 |         11.11 |        48.61 
+| 21|   608281MCAMY0   | CHOMBA        ANAYA          MARTIN ANTONIO      |      |             |        625 |       62.50 |     --     |     --      |    --     |    62.50 |       7.63 |      10.88 |         18.51 |        81.01 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-|   |                  |                                                  |      |             |       0.00 |        0.00 |     --     |     --      |    --     |     0.00 |       0.00 |       0.00 |          0.00 |         0.00 
+|   |                  |                                                  |      |             |   8,453.00 |      845.30 |     --     |     --      |    --     |   845.30 |     103.21 |     147.16 |        250.37 |     1,095.67 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

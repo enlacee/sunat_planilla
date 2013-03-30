@@ -2,27 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
+<!-- new -->
 <link rel="stylesheet" type="text/css" href="../../../css/main.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/smoothness/jquery-ui-1.8.9.custom.css">
+<link rel="stylesheet" type="text/css" href="../../../css/ui.jqgrid.css" media="screen"/>
 
-<link rel="stylesheet" type="text/css" href="../../../anb_themes/base/jquery.ui.all.css">
-<link rel="stylesheet" type="text/css" href="../../../anb_css/ui.jqgrid.css" media="screen" />
 
-<script language="javascript" type="text/javascript" src="../../../js/jquery.js"></script>
-<script src="../../../anb_ui/i18n/jquery.ui.datepicker-es.js"></script>
-<script src="../../../anb_ui/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
+<!-- JS-->
+<script language="javascript" type="text/javascript" src="../../../js/jquery-1.7_min.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/jquery-ui-1.8.9.custom.min.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/function.js"></script>
 
-<script src="../../../anb_js/grid.locale-es.js" type="text/javascript"></script>
-<script src="../../../anb_js/jquery.jqGrid.min.js" type="text/javascript"></script>
-<script src="../../../anb_js/jquery.jqGrid.src.js" type="text/javascript"></script>
-<script src="../../../anb_js/src/grid.subgrid.js" type="text/javascript"></script>
 
-<!-- <script src="anb_js/src/grid.common.js" type="text/javascript"></script>
-<script src="anb_js/src/grid.postext.js" type="text/javascript"></script>
--->
+<script language="javascript" type="text/javascript" src="../../../js/grid.locale-es.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/jquery.jqGrid.min.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/jquery.jqGrid.src.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/src/grid.subgrid.js"></script>
+
+
 
 <!-- -->
 <script src="../../view/js/misfunciones_sunat.js" type="text/javascript"></script>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 

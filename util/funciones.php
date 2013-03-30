@@ -677,8 +677,8 @@ function getNumeroMayor($numeros = array()) {
 }
 
 function arrayId($data, $name_array) {
-    if (is_array($data)) {
-        $new = array();
+    $new = array();
+    if (is_array($data)&& count($data)>0) {        
         for ($i = 0; $i < count($data); $i++) {
             $new[] = $data[$i][$name_array];
         }

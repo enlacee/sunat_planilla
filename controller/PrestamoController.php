@@ -19,24 +19,22 @@ if ($op == 'cargar_tabla_trabajador') {
     $response = listarTrabajadores();
 } else if ($op == 'cargar_tabla') {
     //$response = listarPrestamos();
-   $response = listarPrestamoPeriodo(); 
-    
+    $response = listarPrestamoPeriodo();
 } else if ($op == "add") {
     $response = addPrestamos();
 } else if ($op == "edit") {
     $response = editPrestamos();
-}else if ($op == "del"){
+} else if ($op == "del") {
     $response = delPrestamo();
 }
 
 echo (!empty($response)) ? json_encode($response) : '';
 
-
 //lisat de trabajadores con prestamos. PRIMERO
 function listarPrestamos() {
-        
+
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
-    $periodo = $_REQUEST['periodo'];    
+    $periodo = $_REQUEST['periodo'];
 
     $dao = new PrestamoDao();
     $page = $_GET['page'];
@@ -64,8 +62,8 @@ function listarPrestamos() {
         $sidx = 1;
 
     $count = $dao->listarCount(ID_EMPLEADOR, $WHERE);
-    
-   
+
+
     if ($count > 0) {
         $total_pages = ceil($count / $limit);
     } else {
@@ -93,9 +91,9 @@ function listarPrestamos() {
     if ($lista == null || count($lista) == 0) {
         return $responce;
     }
-    
+
     $parametro = "id_declaracion=$id_pdeclaracion&periodo=$periodo";
-    
+
     foreach ($lista as $rec) {
         $param = $rec["id_prestamo"];
         $_00 = $rec["id_trabajador"];
@@ -106,7 +104,7 @@ function listarPrestamos() {
         $_05 = $rec["nombres"];
         $_06 = $rec["fecha_inicio"];
         $_07 = ($rec["estado"] == 1) ? 'ACTIVO' : 'INACTIVO';
-        
+
 
         //$js = "javascript:return_modal_anb_prestamo('".$param ."','".$_02."','".$_03." ".$_04." ".$_05."')";
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cprestamo.php?id_prestamo=" . $param . "&$parametro','#CapaContenedorFormulario')";
@@ -127,7 +125,6 @@ function listarPrestamos() {
             $_05,
             $_06,
             $_07,
-            
             $opciones
         );
         $i++;
@@ -137,11 +134,11 @@ function listarPrestamos() {
 }
 
 // lista a los trabajadores x periodo
-function listarPrestamoPeriodo(){
-    
+function listarPrestamoPeriodo() {
+
     $id_pdeclaracion = $_REQUEST['id_pdeclaracion'];
     $periodo = $_REQUEST['periodo'];
-    
+
     $dao = new PrestamoDao();
     $page = $_GET['page'];
     $limit = $_GET['rows'];
@@ -167,9 +164,9 @@ function listarPrestamoPeriodo(){
     if (!$sidx)
         $sidx = 1;
 
-    $count = $dao->listarPrestamoPeriodoCount(ID_EMPLEADOR,$periodo, $WHERE);
-    
-   
+    $count = $dao->listarPrestamoPeriodoCount(ID_EMPLEADOR, $periodo, $WHERE);
+
+
     if ($count > 0) {
         $total_pages = ceil($count / $limit);
     } else {
@@ -186,7 +183,7 @@ function listarPrestamoPeriodo(){
         $start = 0;
 
     //$lista = array();
-    $lista = $dao->listarPrestamoPeriodo(ID_EMPLEADOR,$periodo, $WHERE, $start, $limit, $sidx, $sord);
+    $lista = $dao->listarPrestamoPeriodo(ID_EMPLEADOR, $periodo, $WHERE, $start, $limit, $sidx, $sord);
 
     $responce->page = $page;
     $responce->total = $total_pages;
@@ -197,9 +194,9 @@ function listarPrestamoPeriodo(){
     if ($lista == null || count($lista) == 0) {
         return $responce;
     }
-    
+
     $parametro = "id_declaracion=$id_pdeclaracion&periodo=$periodo";
-    
+
     foreach ($lista as $rec) {
         $param = $rec["id_prestamo"];
         $_00 = $rec["id_trabajador"];
@@ -209,12 +206,10 @@ function listarPrestamoPeriodo(){
         $_04 = $rec["apellido_materno"];
         $_05 = $rec["nombres"];
         $_06 = $rec["fecha_inicio"];
-        $_07 = $rec["valor"];//($rec["estado"] == 1) ? 'ACTIVO' : 'INACTIVO';
-        
-
+        $_07 = $rec["valor"]; //($rec["estado"] == 1) ? 'ACTIVO' : 'INACTIVO';
         //$js = "javascript:return_modal_anb_prestamo('".$param ."','".$_02."','".$_03." ".$_04." ".$_05."')";
         $js = "javascript:cargar_pagina('sunat_planilla/view-empresa/edit_cprestamo.php?id_prestamo=" . $param . "&$parametro','#CapaContenedorFormulario')";
-        $del = "javascript:eliminarPrestamo('".$param."')";
+        $del = "javascript:eliminarPrestamo('" . $param . "')";
         $opciones = '<div id="">
           <span  title="Editar" >
           <a class = "divEditar" href="' . $js . '"></a>
@@ -236,18 +231,13 @@ function listarPrestamoPeriodo(){
             $_05,
             $_06,
             $_07,
-            
             $opciones
         );
         $i++;
     }
 
     return $responce;
-    
 }
-
-
-
 
 function listarTrabajadores() {
 
@@ -323,31 +313,31 @@ function listarTrabajadores() {
         $_05 = $rec["nombres"];
 
 
-         $num_prestamos = 0;
+        $num_prestamos = 0;
         //$cadena_prestamo = '';
         for ($j = 0; $j < count($press); $j++) {
-            if ($param == $press[$j]['id_trabajador']) {                
+            if ($param == $press[$j]['id_trabajador']) {
                 $num_prestamos++;
                 //break;
             }
-        }        
-        
-       /* if ($num_prestamos > 0){            
+        }
+
+        /* if ($num_prestamos > 0){            
           $opciones = '<div class="red">
           <span  title="Editar" >
           <a href="#">P. Pendiente</a>
           </span>
           &nbsp;
-          </div>';  */          
-       // }else{            
-          $js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
-          $opciones = '<div class="red">
+          </div>'; */
+        // }else{            
+        $js = "javascript:return_modal_anb_prestamo('" . $param . "','" . $_02 . "','" . $_03 . " " . $_04 . " " . $_05 . "')";
+        $opciones = '<div class="red">
           <span  title="Editar" >
           <a href="' . $js . '">seleccionar</a>
           </span>
           &nbsp;
-          </div>';             
-       // }
+          </div>';
+        // }
 
 
 
@@ -369,10 +359,8 @@ function listarTrabajadores() {
     return $responce;
 }
 
-
-
-
 function addPrestamos() {
+    $response;
     //echoo($_REQUEST);
     /*
       $_REQUEST['id_trabajador'];
@@ -380,9 +368,7 @@ function addPrestamos() {
       $_REQUEST['fecha_inicio'];
       $_REQUEST['num_cuota'];
      */
-    $fecha_inicio = $_REQUEST['fecha_inicio']; //"01/" . $_REQUEST['fecha_inicio'];
-
-    //echoo($fecha_inicio);
+    $fecha_inicio = $_REQUEST['fecha_inicio']; //"01/" . $_REQUEST['fecha_inicio'];    
     $obj = new Prestamo();
     $obj->setId_empleador(ID_EMPLEADOR);
     $obj->setId_trabajador($_REQUEST['id_trabajador']);
@@ -391,72 +377,80 @@ function addPrestamos() {
     $obj->setFecha_inicio(getFechaPatron($fecha_inicio, "Y-m-d"));
     $obj->setEstado(1); //ACTIVO
     $obj->setFecha_creacion(date("Y-m-d"));
-    
-   //REGISTRAR PRESTAMO
-    $dao = new PrestamoDao();    
-    $id_prestamo = $dao->add($obj);    
-    
-    // variables 01
-    $tope_sgte_mes = 20;    
-    $cuota_arreglo = calcPrestamo($obj->getValor(), $obj->getNum_cuota(), $tope_sgte_mes);
-       
-    // REGISTRAR PRESTAMO CUOTA
-    $dao_cprestamo = new PrestamoCuotaDao();
-    for($i = 0; $i<count($cuota_arreglo); $i++):
-        $fecha_contruida = crearFecha($obj->getFecha_inicio(), $day = 0, $month = (0+$i), $year = 0);
-        
-        $obj_cp = new PrestamoCuota();
-        $obj_cp->setId_prestamo($id_prestamo);
-        $obj_cp->setMonto($cuota_arreglo[$i]['monto']);        
-        $obj_cp->setFecha_calc($fecha_contruida);
-        $obj_cp->setFecha_pago(null);
-        $obj_cp->setEstado(0);        
-        //DAO
-        $dao_cprestamo->add($obj_cp);
-    endfor;    
-            
-    return true;
+
+    //REGISTRAR PRESTAMO
+    $dao = new PrestamoDao();
+    $id_prestamo = $dao->add($obj);
+
+    if (!is_null($id_prestamo)) {
+        $tope_sgte_mes = 20;
+        $cuota_arreglo = calcPrestamo($obj->getValor(), $obj->getNum_cuota(), $tope_sgte_mes);
+
+        // REGISTRAR PRESTAMO CUOTA
+        $dao_cprestamo = new PrestamoCuotaDao();
+        $countCuotaArreglo = count($cuota_arreglo);
+        $counter = 0;
+        if ($countCuotaArreglo > 0) {
+            for ($i = 0; $i < $countCuotaArreglo; $i++):
+                $fecha_contruida = crearFecha($obj->getFecha_inicio(), $day = 0, $month = (0 + $i), $year = 0);
+                $obj_cp = new PrestamoCuota();
+                $obj_cp->setId_prestamo($id_prestamo);
+                $obj_cp->setMonto($cuota_arreglo[$i]['monto']);
+                $obj_cp->setMonto_variable($cuota_arreglo[$i]['monto']);
+                $obj_cp->setFecha_calc($fecha_contruida);
+                //DAO
+                $dao_cprestamo->add($obj_cp);
+                $counter++;
+            endfor;
+        }
+        $response->rpta = true;
+        $response->mensaje = "Prestamo: OK\nNumero de Cuotas: [$counter]";
+    }else {
+        $response->rpta = false;
+        $response->mensaje = "Error en servidor";
+    }
+    return $response;
 }
 
 /**
  *  Funcion de Super Ayuda para generar prestamo.
  */
-function calcPrestamo($monto, $num_cuota, $tope_sgte_mes=20){
-    
+function calcPrestamo($monto, $num_cuota, $tope_sgte_mes = 20) {
+
     // variables 02
-    $multiplo = floor($monto/$num_cuota); //ok
+    $multiplo = floor($monto / $num_cuota); //ok
     $valor_multiplo = $multiplo * $num_cuota;
     $residuo = 0;
-    
+
     //codicion de residuo
-    if($monto > $valor_multiplo):
+    if ($monto > $valor_multiplo):
         $residuo = $monto - $valor_multiplo;
     endif;
-    
+
     $bandera_sgte_mes = false;
-    if($residuo > $tope_sgte_mes): //$residuo es mayor a 20
+    if ($residuo > $tope_sgte_mes): //$residuo es mayor a 20
         $bandera_sgte_mes = true;
     else:
         $bandera_sgte_mes = false;
     endif;
-    
-    
+
+
     //DATOS A GUARDAR BD
     $cuota_arreglo = array();
-    for($i=0; $i < $num_cuota;$i++ ):
-        $cuota_arreglo[$i]['monto'] = ($valor_multiplo/$num_cuota);        
-        if( ($num_cuota-1) == $i ): // ultima cuaota de pago
-            $cuota_arreglo[$i]['monto'] = ($valor_multiplo/$num_cuota) + $residuo;
+    for ($i = 0; $i < $num_cuota; $i++):
+        $cuota_arreglo[$i]['monto'] = ($valor_multiplo / $num_cuota);
+        if (($num_cuota - 1) == $i): // ultima cuaota de pago
+            $cuota_arreglo[$i]['monto'] = ($valor_multiplo / $num_cuota) + $residuo;
         endif;
     endfor;
-    
-    
-    if($bandera_sgte_mes == true ): //SIGUIENTE MES CASO EXEPCION
+
+
+    if ($bandera_sgte_mes == true): //SIGUIENTE MES CASO EXEPCION
         $i_count = count($cuota_arreglo);
-        $cuota_arreglo[$i_count]['monto'] = $residuo;        
+        $cuota_arreglo[$i_count]['monto'] = $residuo;
     endif;
-     
-    return $cuota_arreglo;    
+
+    return $cuota_arreglo;
 }
 
 //$a = calcPrestamo(285, 4);
@@ -468,46 +462,43 @@ function calcPrestamo($monto, $num_cuota, $tope_sgte_mes=20){
 //-----------------------------------------------
 // view
 
-function buscar_IdPrestamo($id_prestamo){
-    
+function buscar_IdPrestamo($id_prestamo) {
+
     $dao = new PrestamoDao();
-    $data = $dao->buscar_data_id($id_prestamo);    
-    
+    $data = $dao->buscar_data_id($id_prestamo);
+
     return $data;
-    
-     
-    
 }
 
-function delPrestamo(){
+function delPrestamo() {
     $r->rpta = null;
     $flag = false; // No tiene prestamo pagado
-    
+
     $id_prestamo = $_REQUEST['id_prestamo'];
     //paso 1 = pregunta si tiene pagos realizados
     $dao_pc = new PrestamoCuotaDao();
     $data = $dao_pc->buscar_idPadre($id_prestamo);
-    
-    
-    for($i=0;$i<count($data);$i++):
-        if($data[$i]['estado'] == 1):
+
+
+    for ($i = 0; $i < count($data); $i++):
+        if ($data[$i]['estado'] == 1):
             $flag = true;
             break;
-        endif;        
-    endfor;    
-    
-    if($flag):
+        endif;
+    endfor;
+
+    if ($flag):
         $r->rpta = false;
-        $r->mensaje  = 'No se puede eliminar el Prestamo: porque existe cuotas pagadas.';
-    else:       
-       // paso 2 = Eliminar prestamo
+        $r->mensaje = 'No se puede eliminar el Prestamo: porque existe cuotas pagadas.';
+    else:
+        // paso 2 = Eliminar prestamo
         $r->rpta = true;
         $dao_p = new PrestamoDao();
         $dao_p->del($id_prestamo);
-        
+
     endif;
-        
-    return $r;    
+
+    return $r;
 }
 
 ?>

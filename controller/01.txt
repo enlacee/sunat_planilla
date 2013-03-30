@@ -4,28 +4,28 @@ CAMUENTE S.A.
 AVENIDA GUILLERMO PRESCCOT 395 - SAN ISIDRO      CODIGO: 07951545                            DNI: 07951545                               
 R.U.C. 20100338611                               NOMBRE Y APELLIDOS: CHIPANA FLORES ELENA                                                
 Reo.Pat. 2010033861100000                        CARNET DE ESSALUD : -                       FECHA INGRESO : 16/08/2003                  
-FECHA VAC. 2013-01-01_2013-01-10,                NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
+FECHA VAC. 2013-01-01_2013-01-30,                NRO.CARNET AFP : 229190ECFPR9               A.F.P. : SPP PROFUTURO                      
 MES : ENERO DE : 01.2013                         CARGO : COCINERO                            SECCION : VENTAS                            
-10 DIAS DE VAC. 80 HORAS.                        DIRECCION :  JIRON TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                              
+30 DIAS DE VAC. 240 HORAS.                       DIRECCION :  JIRON TORRE TAGLE 2251 LIMA-LIMA-PUEBLO LIBRE                              
 ---------------------------------------------------------------------------------------------------------------------------------------
 |        R E M U N E R A C I O N E S         |R E T E N C I O N E S / D E S C U E N T O S |          A P O R T A C I O N E S          |
 |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                    IMPORTE   |   DESCRIPCION                   IMPORTE   |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   ASG. FAMILIAR                    24.75   |   OTROS DESCUENTOS NO DEDUCI...     8.25   |   ESSALUD                         24.73   |
-|   REMUNERACION VACACIONAL         250.00   |   COMISION AFP 2.10%                5.77   |                                           |
-|   MOVILIDAD                        26.40   |   PRIMA DE SEGURO 1.41%             3.87   |                                           |
-|                                            |   JUBILACION SPP 10.00%            27.48   |                                           |
+|   ASG. FAMILIAR                    75.00   |   EMP-PARA TI FAMILIA              25.00   |   ESSALUD                         74.25   |
+|   REMUNERACION VACACIONAL         750.00   |   COMISION AFP 2.10%               17.33   |                                           |
+|   MOVILIDAD                        80.00   |   PRIMA DE SEGURO 1.41%            11.63   |                                           |
+|                                            |   JUBILACION SPP 10.00%            82.50   |                                           |
 |                                            |                                            |                                           |
 ---------------------------------------------------------------------------------------------------------------------------------------
-|   TOTAL REMUNERACIONES            301.15   |   TOTAL RETENC./DESCUENTOS         45.37   |   TOTAL APORTACIONES              24.73   |
+|   TOTAL REMUNERACIONES            905.00   |   TOTAL RETENC./DESCUENTOS        136.46   |   TOTAL APORTACIONES              74.25   |
 ---------------------------------------------------------------------------------------------------------------------------------------
 
                                                                                                                                        
                                                                                                                                        
 -----------------------------
-| REDONDEO     :       0.22 |
+| REDONDEO     :       0.46 |
 -----------------------------
-| NETO A PAGAR :     256.00 |                            _________________________                  _________________________
+| NETO A PAGAR :     769.00 |                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
                                                           BOLETA DE PAGO VAC.                                                           
                                                     D.S. 020-2008-TR DEL 17-01-2008                                                     
@@ -56,7 +56,4 @@ MES : ENERO DE : 01.2013                         CARGO : MOZO                   
 -----------------------------
 | NETO A PAGAR :     714.00 |                            _________________________                  _________________________
 -----------------------------                                  P.CAMUENTE S.A.                            RECIBI CONFORME
-@C!@C!@C!@C!
-@C!@C!
-@C!@C!@C!
-@C!@C!
+

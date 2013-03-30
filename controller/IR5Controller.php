@@ -854,7 +854,7 @@ function get_IR5_RMesesAnteriores($id_pdeclaracion, $id_trabajador, $periodo) {
 function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador,$data_dconcepto=null) { 
     
     $conceptos_afectos5ta = arrayConceptosAfectos_a('10');
-    echoo($conceptos_afectos5ta);
+    //echoo($conceptos_afectos5ta);
     if(is_null($data_dconcepto)){
         $dao_dconcepto = new DeclaracionDconceptoDao();
         $data_dconcepto = $dao_dconcepto->listarTrabajadorPorDeclaracion($id_trabajador, $id_pdeclaracion);
@@ -862,23 +862,22 @@ function get_IR5_Ingresos($id_pdeclaracion, $id_trabajador,$data_dconcepto=null)
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos5ta)) {
-            echo "\ndata_dconcepto[$z]['monto_pagado'] = ".$data_dconcepto[$z]['monto_pagado'];
+            // echo "\ndata_dconcepto[$z]['monto_pagado'] = ".$data_dconcepto[$z]['monto_pagado'];
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
     }
-    echo "\nsuma total = ".$sum;
+    // echo "\nsuma total = ".$sum;
     return $sum;
 }
 
 // Get all ingresos 
 function get_SNP_Ingresos($data_dconcepto) { //ok
     $conceptos_afectos = arrayConceptosAfectos_a('08');
-    echo "\nONPPPPPPPPPPPPPPPPPP AFECTOSSSS";
-    echoo($conceptos_afectos);
+        
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
         if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
-            echo "\ndata_dconcepto[$z]['monto_pagado'] = ".$data_dconcepto[$z]['monto_pagado'];
+            // echo "\ndata_dconcepto[$z]['monto_pagado'] = ".$data_dconcepto[$z]['monto_pagado'];
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
     }
@@ -894,7 +893,7 @@ function get_AFP_Ingresos($id_pdeclaracion, $id_trabajador) {
 
     $sum = 0;
     for ($z = 0; $z < count($data_dconcepto); $z++) {
-        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {            
+        if (in_array($data_dconcepto[$z]['cod_detalle_concepto'], $conceptos_afectos)) {
             $sum = $sum + $data_dconcepto[$z]['monto_pagado'];
         }
     }

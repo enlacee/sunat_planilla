@@ -134,8 +134,8 @@ $obj_persona = buscarPersonaPorId($ID_PERSONA);
 	
 	
 	
-var cod_situacion =<?php echo $COD_ESTADO;?>;	
-var id = <?php echo $ID_TRABAJADOR;?>;
+var cod_situacion ="<?php echo $COD_ESTADO;?>";	
+var id = "<?php echo $ID_TRABAJADOR;?>";
 	
 cargar_pagina('sunat_planilla/view/categoria/trabajador.php?id_trabajador='+id+'&cod_situacion='+cod_situacion,'#tabs-2');
 	

@@ -32,6 +32,9 @@ define('C706', '0706'); // 0706=OTROS DESCUENTOS NO DEDUCIBLES DE LA BASE IMPONI
 define('C804', '0804'); // 0804=ESSALUD (SEGURO REGULAR, CBBSP, AGRARIO/ACUICULTOR) - TRABAJADOR
 define('C909', '0909'); // 0909=MOVILIDAD SUPEDITADA A ASISTENCIA Y QUE CUBRE SÓLO EL TRASLADO
 
+define('C1001', '1001'); // 0909=EMP-ParaTiFamilia
+define('C1002', '1002'); // 0909=EMP-Prestamo
+
 /* tabla = afectaciones
 cod_afectacion	id_tabla_22	descripcion
 

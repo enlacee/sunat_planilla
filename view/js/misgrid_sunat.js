@@ -686,7 +686,7 @@ function bajaEstablecimiento(id){
 
 // new  grid trabajador 09/11/2012
     function cargarTablaTrabajadorServicio(cod_estado){
-    	console.log("cargarTablaTrabajadorServicio")
+    	//console.log("cargarTablaTrabajadorServicio");
 		var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
 	
         $("#list").jqGrid('GridUnload');

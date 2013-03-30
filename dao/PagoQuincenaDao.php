@@ -16,8 +16,10 @@ class PagoQuincenaDao extends AbstractDao {
                      sueldo,
                      devengado,
                      id_empresa_centro_costo,
+                     id_establecimiento,
                      fecha_creacion)
         VALUES (
+                ?,
                 ?,
                 ?,
                 ?,
@@ -38,7 +40,8 @@ class PagoQuincenaDao extends AbstractDao {
         $stm->bindValue(6, $model->getSueldo());
         $stm->bindValue(7, $model->getDevengado());
         $stm->bindValue(8, $model->getId_empresa_centro_costo());
-        $stm->bindValue(9, $model->getFecha_creacion());
+        $stm->bindValue(9, $model->getId_establecimiento());
+        $stm->bindValue(10, $model->getFecha_creacion());
         $stm->execute();
         //$lista = $stm->fetchAll();
         $stm = null;
@@ -121,29 +124,29 @@ class PagoQuincenaDao extends AbstractDao {
     
     public function listarReporte($ID_PDECLARACION,$id_establecimiento,$id_empresa_centro_costo) {
         $query = "
-        SELECT
-          pq.id_pago_quincena,
-          pq.id_trabajador,
-          pq.sueldo,
-          pq.dia_laborado,
-          pq.id_empresa_centro_costo,
-          pq.fecha_creacion,
-          per.num_documento,
-          per.apellido_paterno,
-          per.apellido_materno,
-          per.nombres,
-          ecc.descripcion            AS ccosto
-        FROM pagos_quincenas AS pq
-          INNER JOIN trabajadores AS t
-            ON pq.id_trabajador = t.id_trabajador
-          INNER JOIN personas AS per
-            ON t.id_persona = per.id_persona
-          INNER JOIN empresa_centro_costo AS ecc
-            ON pq.id_empresa_centro_costo = ecc.id_empresa_centro_costo
-        WHERE pq.id_pdeclaracion = ?
-            AND t.id_establecimiento = ?
-            AND ecc.id_empresa_centro_costo = ?
-        $cadena
+SELECT
+pq.id_pago_quincena,
+pq.id_trabajador,
+pq.sueldo,
+pq.dia_laborado,
+pq.id_empresa_centro_costo,
+pq.fecha_creacion,
+per.num_documento,
+per.apellido_paterno,
+per.apellido_materno,
+per.nombres,
+ecc.descripcion AS ccosto
+FROM pagos_quincenas AS pq
+INNER JOIN trabajadores AS t
+ON pq.id_trabajador = t.id_trabajador
+INNER JOIN personas AS per
+ON t.id_persona = per.id_persona
+INNER JOIN empresa_centro_costo AS ecc
+ON pq.id_empresa_centro_costo = ecc.id_empresa_centro_costo
+WHERE pq.id_pdeclaracion = ?
+AND pq.id_establecimiento = ?
+AND pq.id_empresa_centro_costo = ?
+AND pq.sueldo > 0        
         ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $ID_PDECLARACION);

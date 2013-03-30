@@ -1,6 +1,26 @@
 <?php
-//Nombre descriptivo de del archivo  no vincula la funcion
 
+function desglozarFechaVac($fecha_lineal) {
+
+    $arregloFechaVacacion = array();
+    if (!is_null($fecha_lineal)) {
+        //$cadena3 = "2013-01-01_2013-01-30,2012-05-01_2012-12-30"; 
+        $fechaPadre = preg_split("/[,]/", $fecha_lineal);
+        $countFechaPadre = count($fechaPadre);
+        if ($countFechaPadre > 0) {
+            for ($i = 0; $i < $countFechaPadre; $i++) {
+                if (!is_null($fechaPadre[$i]) && !empty($fechaPadre[$i])) {
+                    $fechaHijo = preg_split("/[_]/", $fechaPadre[$i]);
+                    $arregloFechaVacacion[$i]['fecha_inicio'] = $fechaHijo[0];
+                    $arregloFechaVacacion[$i]['fecha_fin'] = $fechaHijo[1];
+                }
+            }
+        }
+    }
+    return $arregloFechaVacacion;
+}
+
+//Nombre descriptivo de del archivo  no vincula la funcion
 //---12/11/2012
 function generarExelAfp($ID_PDECLARACION, $PERIODO) {
 
@@ -15,7 +35,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
     //02 CODIGOS de Movimientos
     // CODIGO = 1 = Inicio Relacion laboral    
     $data_tra_1 = $dao_eafp->codigoMovimiento_1($ID_PDECLARACION, $anio, $mes);
-    
+
     $data_tra_1id = arrayId($data_tra_1, 'id_trabajador');
 
 
@@ -35,8 +55,29 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
     $data_tra_4 = $dao_eafp->codigoMovimiento_4($ID_PDECLARACION);
     $data_tra_4id = arrayId($data_tra_4, 'id_trabajador');
     // CODIGO = 5 =  Inicio de período vacacional    
-    $data_tra_5 = $dao_eafp->codigoMovimiento_5($ID_PDECLARACION, $anio, $mes);
+    $data_tra_5 = $dao_eafp->codigoMovimiento_5($ID_PDECLARACION);
     $data_tra_5id = arrayId($data_tra_5, 'id_trabajador');
+
+    // Inicio  = Redistribucion de Fechas Por Vacaciones
+    $countDataTra5 = count($data_tra_5);
+    if ($countDataTra5 > 0) {
+        for ($a = 0; $a < $countDataTra5; $a++) {
+            $daov = new TrabajadorVacacionDao();
+            $id_trabajador_vacacion = $daov->existe($ID_PDECLARACION, $data_tra_5[$a]['id_trabajador']);
+            if (!is_null($id_trabajador_vacacion)) {
+                $fecha_lineal_vacacion = $daov->buscarAttr($id_trabajador_vacacion, 'fecha_lineal');
+                if (is_string($fecha_lineal_vacacion)) {
+                    $arregloFechaVacacion = desglozarFechaVac($fecha_lineal_vacacion);
+                    if (count($arregloFechaVacacion) >= 1) {
+                        $data_tra_5[$a]['fecha_inicio'] = $arregloFechaVacacion[0]['fecha_inicio'];
+                        $data_tra_5[$a]['fecha_fin'] = $arregloFechaVacacion[0]['fecha_fin'];
+                    }
+                }
+            }
+        }
+    }
+    // Final = Redistribucion de Fechas Por Vacaciones  
+    
     // CODIGO = 6  = todos tienen este codigo xq es fecha final.....
 //..............................................................................
 // Inicio Exel
@@ -162,6 +203,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
             $worksheet->write($id, 5, $data_tra[$i]['nombres'], $format_normal);
 
             $worksheet->write($id, 6, $data_tra[$i]['codigo_movimiento'], $format_normal);
+            $fecha_mov = (is_string($data_tra[$i]['fecha_movimiento'])) ? $data_tra[$i]['fecha_movimiento'] : getFechaPatron($data_tra[$i]['fecha_movimiento'], "d/m/Y");
             $worksheet->write($id, 7, getFechaPatron($data_tra[$i]['fecha_movimiento'], "d/m/Y"), $format_normal);
             //==================================================== 
             $all_ingreso = get_AFP_Ingresos($ID_PDECLARACION, $data_tra[$i]['id_trabajador']);
@@ -183,6 +225,7 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
                 $worksheet->write($id, 5, $data_tra[$i]['nombres'], $format_normal);
 
                 $worksheet->write($id, 6, $duplicado['codigo_movimiento'], $format_normal);
+                $fecha_duplicado = (is_string($duplicado['fecha_movimiento'])) ? $duplicado['fecha_movimiento'] : getFechaPatron($duplicado['fecha_movimiento'], "d/m/Y");
                 $worksheet->write($id, 7, getFechaPatron($duplicado['fecha_movimiento'], "d/m/Y"), $format_normal);
                 $worksheet->write($id, 8, 0, $format_normal);
                 $worksheet->write($id, 9, 0, $format_normal);
@@ -198,7 +241,6 @@ function generarExelAfp($ID_PDECLARACION, $PERIODO) {
 //..............................................................................
     $workbook->close();
 }
-
 
 //Generar Rporte
 function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
@@ -225,13 +267,13 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
         $dao_eafp = new EstructuraAfpDao();
         $dao_afp = new ConfAfpDao();
         $dao_tafp = new ConfAfpTopeDao();
-        
 
-        for ($i = 0; $i < count($mi_afp); $i++) {            
-            
+
+        for ($i = 0; $i < count($mi_afp); $i++) {
+
             $numero = 0;
             $contador_break = 0;
-            
+
             $total = array();
             $total['ingresos'] = 0;
             $total['aporte_obligatorio'] = 0;
@@ -239,8 +281,8 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
             $total['seguro'] = 0;
             $total['comision'] = 0;
             $total['retencion_redistribucion'] = 0;
-            $total['total'] = 0;            
-            
+            $total['total'] = 0;
+
 
             // file head
             $filee[$i]['nombre'] = $mi_afp[$i]['nombre'] . '.txt';
@@ -261,21 +303,36 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
             $data_tra_1id = arrayId($data_tra_1, 'id_trabajador');
 
             // CODIGO = 5 =  Inicio de período vacacional    
-            $data_tra_5 = $dao_eafp->codigoMovimiento_5($ID_PDECLARACION,$mi_afp[$i]['codigo']);
+            $data_tra_5 = $dao_eafp->codigoMovimiento_5($ID_PDECLARACION, $mi_afp[$i]['codigo']);
             $data_tra_5id = arrayId($data_tra_5, 'id_trabajador');
+//            echo "<br>\nID_PDECLARACION = " . $ID_PDECLARACION;
+//            echo "<br>\nmi_afp[$i]['codigo'] = " . $mi_afp[$i]['codigo'];
+//            echo "<br>\nmi_afp[$i]['nombre'] = " . $mi_afp[$i]['nombre'];
+//              echoo($data_tra_5);
+            // Inicio  = Redistribucion de Fechas Por Vacaciones
+            $countDataTra5 = count($data_tra_5);
+            if ($countDataTra5 > 0) {
+                for ($a = 0; $a < $countDataTra5; $a++) {
+                    $daov = new TrabajadorVacacionDao();
+                    $id_trabajador_vacacion = $daov->existe($ID_PDECLARACION, $data_tra_5[$a]['id_trabajador']);
+                    
+//                    echo "<br>\ndata_tra_5[$a]['id_trabajador'] = ".$data_tra_5[$a]['id_trabajador'];
+//                    echo "<br>\nid_trabajador_vacacion = $id_trabajador_vacacion";
+                    if (!is_null($id_trabajador_vacacion)) {
+                        $fecha_lineal_vacacion = $daov->buscarAttr($id_trabajador_vacacion, 'fecha_lineal');
+                        if (is_string($fecha_lineal_vacacion)) {
+                            $arregloFechaVacacion = desglozarFechaVac($fecha_lineal_vacacion);
+                            if (count($arregloFechaVacacion) >= 1) {
+                                $data_tra_5[$a]['fecha_inicio'] = $arregloFechaVacacion[0]['fecha_inicio'];
+                                $data_tra_5[$a]['fecha_fin'] = $arregloFechaVacacion[0]['fecha_fin'];
+                            }
+                        }
+                    }
+                }
+            }
+            // Final = Redistribucion de Fechas Por Vacaciones            
 
 
-            //DAO vigente AFP
-            $afp = $dao_afp->vigenteAfp($mi_afp[$i]['codigo'], $PERIODO);
-
-            // Configuracion de Tope Afp 02/10/2012            
-            $monto_tope = $dao_tafp->vigenteAux($PERIODO);
-
-            //echo "***********************************************************\n";
-
-            $A_OBLIGATORIO = floatval($afp['aporte_obligatorio']);
-            $COMISION = floatval($afp['comision']);
-            $PRIMA_SEGURO = floatval($afp['prima_seguro']);
 
 
             for ($j = 0; $j < count($data_tra); $j++):
@@ -289,7 +346,6 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
                     $contador_break = 0;
                 }
                 //++  
-                                  
                 //-- LOGIC CODIGO = 1
                 if (in_array($data_tra[$j]['id_trabajador'], $data_tra_1id)) {
                     //Encontro hace busqueda
@@ -303,38 +359,59 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
                 }
 
                 //-- LOGIC CODIGO = 5
-                if (in_array($data_tra[$i]['id_trabajador'], $data_tra_5id)) {
-                    //Encontro hace busqueda
+                //echoo($data_tra_5id);
+                if (in_array($data_tra[$j]['id_trabajador'], $data_tra_5id)) {
                     for ($a = 0; $a < count($data_tra_5); $a++):
                         if ($data_tra[$j]['id_trabajador'] == $data_tra_5[$a]['id_trabajador']):
                             $data_tra[$j]['codigo_movimiento'] = 5;
-                            $data_tra[$j]['fecha_movimiento'] = 'fecha inicio vac.';//$data_tra_5[$a]['fecha_inicio'];
+                            $data_tra[$j]['fecha_movimiento'] = $data_tra_5[$a]['fecha_inicio'];
                             break;
                         endif;
                     endfor;
                 }
-                
-                
-                
+
+
+
                 //get_AFP_Ingresos2(DATA_CONCEPTOS);  ANB
-                //================================================================================== 
-                $all_ingreso = number_format_2( get_AFP_Ingresos($ID_PDECLARACION, $data_tra[$j]['id_trabajador']) );
-                //==================================================================================    
-                // UNO = comision porcentual
-                $_601 = number_format_2( (floatval($all_ingreso)) * ($COMISION / 100) );
+                //-------- variables -----------
+                $dataConceptos = array();
+                $arrayAfpConceptos = array('0601', '0606', '0608');
+                $_601 = 0;
+                $_606 = 0;
+                $_608 = 0;
+                $all_ingreso = 0;
 
-                // DOS prima de seguro
-                $_606 = number_format_2( (floatval($all_ingreso)) * ($PRIMA_SEGURO / 100) );
+                $dao_tpd = new TrabajadorPdeclaracionDao();
+                $id_trabajador_pdeclaracion = $dao_tpd->existe($ID_PDECLARACION, $data_tra[$j]['id_trabajador']);
 
-                // TRES = aporte obligatorio
-                $_608 = number_format_2( (floatval($all_ingreso)) * ($A_OBLIGATORIO / 100) );
+                if (!is_null($id_trabajador_pdeclaracion)) {
+                    $dataConceptos = listar_concepto_calc_ID_TrabajadorPdeclaracion($id_trabajador_pdeclaracion);
+                    $countDataConcepto = count($dataConceptos);
+                    if ($countDataConcepto > 0) {
+                        for ($ab = 0; $ab < $countDataConcepto; $ab++) {
+                            if (in_array($dataConceptos[$ab]['cod_detalle_concepto'], $arrayAfpConceptos)) {
 
-                /*
-                 *  Conficion Parametro Tope. Monto maximo a pagar por all las
-                 *  afp segun el periodo  d/m/Y
-                 */
-                $_608 = ($_608 > $monto_tope) ? $monto_tope : $_608;
+                                if ($dataConceptos[$ab]['cod_detalle_concepto'] == '0601') {
+                                    $_601 = $dataConceptos[$ab]['monto_pagado'];
+                                } else if ($dataConceptos[$ab]['cod_detalle_concepto'] == '0606') {
+                                    $_606 = $dataConceptos[$ab]['monto_pagado'];
+                                } else if ($dataConceptos[$ab]['cod_detalle_concepto'] == '0608') {
+                                    $_608 = $dataConceptos[$ab]['monto_pagado'];
+                                }
+                            }
+                        }//endFor                    
+                    }//endIF                    
+//                echo "<br>\nmi_afp[$i]['nombre'] = ".$mi_afp[$i]['nombre'];
+//                echo "<br>\ndata_tra[$j]['id_trabajador'] = ".$data_tra[$j]['id_trabajador'];
+//                echo "<br>\nID_PDECLARACION = ".$ID_PDECLARACION;                         
 
+                    $all_ingreso = get_AFP_IngresosPlanilla($dataConceptos);
+                }
+
+
+                //==================================================================================                 
+                //$all_ingreso = get_AFP_Ingresos($ID_PDECLARACION, $data_tra[$j]['id_trabajador']);
+                //==================================================================================  
                 // file body                    
                 fwrite($fp, $PUNTO);
                 fwrite($fp, str_pad($numero, 3, " ", STR_PAD_LEFT));
@@ -351,11 +428,11 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
                 fwrite($fp, $PUNTO);
                 fwrite($fp, str_pad(getFechaPatron($data_tra[$j]['fecha_movimiento'], 'd/m/Y') . $BR, 13, " ", STR_PAD_LEFT));  //fecha   
                 fwrite($fp, $PUNTO);
-                fwrite($fp, str_pad( number_format_var($all_ingreso) . $BR, 12, " ", STR_PAD_LEFT));
+                fwrite($fp, str_pad($all_ingreso . $BR, 12, " ", STR_PAD_LEFT));
                 $total['ingresos'] = $total['ingresos'] + $all_ingreso;
 
                 fwrite($fp, $PUNTO);
-                fwrite($fp, str_pad(number_format_var($_608) . $BR, 13, " ", STR_PAD_LEFT));
+                fwrite($fp, str_pad($_608 . $BR, 13, " ", STR_PAD_LEFT));
                 $total['aporte_obligatorio'] = $total['aporte_obligatorio'] + $_608;
 
                 fwrite($fp, $PUNTO);
@@ -365,39 +442,36 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
                 fwrite($fp, $PUNTO);
                 fwrite($fp, str_pad('--', 11, " ", STR_PAD_BOTH));
                 fwrite($fp, $PUNTO);
-                fwrite($fp, str_pad(number_format_var($_608) . $BR, 10, " ", STR_PAD_LEFT));
+                fwrite($fp, str_pad($_608 . $BR, 10, " ", STR_PAD_LEFT));
                 $total['fondo_pension'] = $total['fondo_pension'] + $_608;
 
 
                 fwrite($fp, $PUNTO);
-                fwrite($fp, str_pad(number_format_var($_606) . $BR, 12, " ", STR_PAD_LEFT));   //seguros 
+                fwrite($fp, str_pad($_606 . $BR, 12, " ", STR_PAD_LEFT));   //seguros 
                 $total['seguro'] = $total['seguro'] + $_606;
 
                 fwrite($fp, $PUNTO);
-                fwrite($fp, str_pad(number_format_var($_601) . $BR, 12, " ", STR_PAD_LEFT)); //comision 
+                fwrite($fp, str_pad($_601 . $BR, 12, " ", STR_PAD_LEFT)); //comision 
                 $total['comision'] = $total['comision'] + $_601;
 
                 fwrite($fp, $PUNTO);
                 $total_redistri = ($_606 + $_601);
-                fwrite($fp, str_pad(number_format_var($total_redistri) . $BR, 15, " ", STR_PAD_LEFT)); //total retribuciones 
+                fwrite($fp, str_pad($total_redistri . $BR, 15, " ", STR_PAD_LEFT)); //total retribuciones 
                 $total['retencion_redistribucion'] = $total['retencion_redistribucion'] + $total_redistri;
 
                 fwrite($fp, $PUNTO);
                 $total_total = ($_608 + $_606 + $_601);
-                fwrite($fp, str_pad(number_format_var($total_total) . $BR, 14, " ", STR_PAD_LEFT));
+                fwrite($fp, str_pad($total_total . $BR, 14, " ", STR_PAD_LEFT));
                 $total['total'] = $total['total'] + $total_total;
                 //fwrite($fp, $PUNTO); 
                 fwrite($fp, $BREAK);
 
             endfor;
-            
-        $fp = pie_afp($fp, $total, $BREAK, $PUNTO);        
-        fclose($fp);            
-        }//ENDFOR    
 
+            $fp = pie_afp($fp, $total, $BREAK, $PUNTO);
+            fclose($fp);
+        }//ENDFOR    
     }//ENDIF
-    
-    
     // ..............
     $file = array();
     $file = $filee;
@@ -414,9 +488,6 @@ function generarReporteAfp($ID_PDECLARACION, $PERIODO) {
     header("Content-disposition: attachment; filename=zipfile.zip");
     echo $zipfile->file();
 }
-
-
-
 
 function cabecera_afp($fp, $nombre_afp, $nombre_mes, $anio, $BREAK, $PUNTO) {
 
@@ -446,12 +517,12 @@ function cabecera_afp($fp, $nombre_afp, $nombre_mes, $anio, $BREAK, $PUNTO) {
 
     fwrite($fp, 'I.-DATOS BASICOS DEL EMPLEADOR');
     fwrite($fp, $BREAK);
-    fwrite($fp, 'NOMBRE O RAZON SOCIAL : '.NAME_EMPRESA);
+    fwrite($fp, 'NOMBRE O RAZON SOCIAL : ' . NAME_EMPRESA);
     fwrite($fp, $BREAK);
-    fwrite($fp, 'RUC : '.RUC);
-    fwrite($fp, $BREAK);    
-    
-    
+    fwrite($fp, 'RUC : ' . RUC);
+    fwrite($fp, $BREAK);
+
+
     fwrite($fp, $linea_caja);
     fwrite($fp, $BREAK);
     fwrite($fp, $PUNTO);
@@ -629,45 +700,45 @@ function cabecera_afp($fp, $nombre_afp, $nombre_mes, $anio, $BREAK, $PUNTO) {
     fwrite($fp, $BREAK);
 
 
-/*
-    //data
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(88, 3, " ", STR_PAD_LEFT));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad('xdc25xc51x41x1s', 18, " ", STR_PAD_BOTH));
-    fwrite($fp, $PUNTO);
-    //fwrite($fp, str_pad(' ',50," ",STR_PAD_BOTH));    
-    fwrite($fp, str_pad($BR . 'COPITAN', 15, " ", STR_PAD_RIGHT));
-    fwrite($fp, str_pad('NORABUENA', 15, " ", STR_PAD_RIGHT));
-    fwrite($fp, str_pad('VICTOR ANIBAL' . $BR, 20, " ", STR_PAD_RIGHT));
-    fwrite($fp, $PUNTO);
+    /*
+      //data
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(88, 3, " ", STR_PAD_LEFT));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad('xdc25xc51x41x1s', 18, " ", STR_PAD_BOTH));
+      fwrite($fp, $PUNTO);
+      //fwrite($fp, str_pad(' ',50," ",STR_PAD_BOTH));
+      fwrite($fp, str_pad($BR . 'COPITAN', 15, " ", STR_PAD_RIGHT));
+      fwrite($fp, str_pad('NORABUENA', 15, " ", STR_PAD_RIGHT));
+      fwrite($fp, str_pad('VICTOR ANIBAL' . $BR, 20, " ", STR_PAD_RIGHT));
+      fwrite($fp, $PUNTO);
 
-    fwrite($fp, str_pad(5, 6, " ", STR_PAD_BOTH));    //codigo movimiento
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(' 01/06/2012' . $BR, 13, " ", STR_PAD_LEFT));  //fecha   
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(3985.00 . $BR, 12, " ", STR_PAD_LEFT));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(398.00 . $BR, 13, " ", STR_PAD_LEFT));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad('--', 12, " ", STR_PAD_BOTH));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad('--', 13, " ", STR_PAD_BOTH));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad('--', 11, " ", STR_PAD_BOTH));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(398.50 . $BR, 10, " ", STR_PAD_LEFT));
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(51.41 . $BR, 12, " ", STR_PAD_LEFT));   //seguros    
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(69.74 . $BR, 12, " ", STR_PAD_LEFT)); //comision     
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(121.15 . $BR, 15, " ", STR_PAD_LEFT)); //total retribuciones 
-    fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(519.65 . $BR, 14, " ", STR_PAD_LEFT));
-    //fwrite($fp, $PUNTO);     
-    fwrite($fp, $BREAK);
-*/
+      fwrite($fp, str_pad(5, 6, " ", STR_PAD_BOTH));    //codigo movimiento
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(' 01/06/2012' . $BR, 13, " ", STR_PAD_LEFT));  //fecha
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(3985.00 . $BR, 12, " ", STR_PAD_LEFT));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(398.00 . $BR, 13, " ", STR_PAD_LEFT));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad('--', 12, " ", STR_PAD_BOTH));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad('--', 13, " ", STR_PAD_BOTH));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad('--', 11, " ", STR_PAD_BOTH));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(398.50 . $BR, 10, " ", STR_PAD_LEFT));
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(51.41 . $BR, 12, " ", STR_PAD_LEFT));   //seguros
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(69.74 . $BR, 12, " ", STR_PAD_LEFT)); //comision
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(121.15 . $BR, 15, " ", STR_PAD_LEFT)); //total retribuciones
+      fwrite($fp, $PUNTO);
+      fwrite($fp, str_pad(519.65 . $BR, 14, " ", STR_PAD_LEFT));
+      //fwrite($fp, $PUNTO);
+      fwrite($fp, $BREAK);
+     */
     return $fp;
 }
 
@@ -685,7 +756,7 @@ function pie_afp($fp, $total, $BREAK, $PUNTO) {
     $linea_caja = str_repeat('-', 230);
     fwrite($fp, $linea_caja);
     fwrite($fp, $BREAK);
-    
+
     fwrite($fp, $PUNTO);
     fwrite($fp, str_pad(' ', 3, " ", STR_PAD_LEFT));
     fwrite($fp, $PUNTO);
@@ -701,9 +772,9 @@ function pie_afp($fp, $total, $BREAK, $PUNTO) {
     fwrite($fp, $PUNTO);
     fwrite($fp, str_pad(' ', 13, " ", STR_PAD_LEFT));  //fecha   
     fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(number_format_var($total['ingresos']).$BR, 12, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['ingresos']) . $BR, 12, " ", STR_PAD_LEFT));
     fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(number_format_var($total['aporte_obligatorio']). $BR, 13, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['aporte_obligatorio']) . $BR, 13, " ", STR_PAD_LEFT));
     fwrite($fp, $PUNTO);
     fwrite($fp, str_pad('--', 12, " ", STR_PAD_BOTH));
     fwrite($fp, $PUNTO);
@@ -711,7 +782,7 @@ function pie_afp($fp, $total, $BREAK, $PUNTO) {
     fwrite($fp, $PUNTO);
     fwrite($fp, str_pad('--', 11, " ", STR_PAD_BOTH));
     fwrite($fp, $PUNTO);
-    fwrite($fp, str_pad(number_format_var($total['fondo_pension']). $BR, 10, " ", STR_PAD_LEFT));
+    fwrite($fp, str_pad(number_format_var($total['fondo_pension']) . $BR, 10, " ", STR_PAD_LEFT));
     fwrite($fp, $PUNTO);
     fwrite($fp, str_pad(number_format_var($total['seguro']) . $BR, 12, " ", STR_PAD_LEFT));   //seguros    
     fwrite($fp, $PUNTO);

@@ -184,11 +184,7 @@ console.log('inicioCalc FIN');
 
 </script>
 <div class="ptrabajador">
-  <div class="ocultar">
-  id_dcem_pingreso<input name="id_dcem_pingreso" type="text" readonly="readonly" />
-  <label for="text_form"></label>
-  <input type="text" name="text_form" id="text_form" />
-  </div>
+
     <h3>Ingresos:  </h3>
     <hr />
     <table width="670" border="1" id="tb_Pingreso" class="tabla_gris">

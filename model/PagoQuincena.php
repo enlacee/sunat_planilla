@@ -10,6 +10,7 @@ class PagoQuincena {
   private $sueldo;
   private $devengado;
   private $id_empresa_centro_costo;
+  private $id_establecimiento;
   private $fecha_creacion;
   
   public function getId_pago_quincena() {
@@ -84,7 +85,15 @@ class PagoQuincena {
       $this->id_empresa_centro_costo = $id_empresa_centro_costo;
   }
 
-  public function getFecha_creacion() {
+  public function getId_establecimiento() {
+      return $this->id_establecimiento;
+  }
+
+  public function setId_establecimiento($id_establecimiento) {
+      $this->id_establecimiento = $id_establecimiento;
+  }
+
+    public function getFecha_creacion() {
       return $this->fecha_creacion;
   }
 

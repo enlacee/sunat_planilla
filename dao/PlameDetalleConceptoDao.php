@@ -15,6 +15,24 @@ class PlameDetalleConceptoDao extends AbstractDao {
         return $lista;
     }
 
+    // usado para los conceptos 1000
+    public function update($cod_detalle_concepto, $descripcion) {
+
+        $query = "
+        UPDATE detalles_conceptos
+        SET
+          descripcion = ?
+        WHERE cod_detalle_concepto = ?;        
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $descripcion);
+        $stm->bindValue(2, $cod_detalle_concepto);
+        $stm->execute();
+        //$lista = $stm->fetchAll();
+        $stm = null;
+        return true;
+    }
+
     public function cantidad($cod_concepto) {
         $query = "
             SELECT COUNT(*) AS numfilas

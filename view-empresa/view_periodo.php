@@ -13,16 +13,14 @@ var periodo 		= $('#periodo').val();
 console.log("DATOS BASICOS DE PLANILLA");
 console.log('id_pdeclaracion',id_pdeclaracion);
 console.log('periodo',periodo);
-/*
-var id_pdeclaracion
-var periodo;*/
+
 
     $(document).ready(function(){
 		
 		var request_id_pdeclaracion = <?php echo $id_pdeclaracion;?>;                  
         $( "#tabs").tabs();
 		//cargarTablaLiquidaciones();
-		console.log("request_id_pdeclaracion = "+request_id_pdeclaracion);
+		// console.log("request_id_pdeclaracion = "+request_id_pdeclaracion);
 		cargarTablaPdeclaracionEmpresa(request_id_pdeclaracion);
 		
 

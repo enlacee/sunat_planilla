@@ -89,18 +89,10 @@ echoo($dat);
 
 <div class="ptrabajador">
 
-<div class="ocultar">
-id_dcem_ptributo_aporte<input name="id_dcem_ptributo_aporte" type="text" readonly="readonly" />
-</div>
 <h3>Aportaciones del Trabajadores: </h3>
   <hr />
   
  <!--FIN  0600 -->
- 
- 
-
-    
-    
 <table width="670" border="1" class="tabla_gris">
     <tr>
       <td width="14">&nbsp;</td>

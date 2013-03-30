@@ -265,8 +265,8 @@ value="<?php echo $periodo;?>" />
 
         </ul>
         <div id="tabs-1">
-<div style="float:right; width:350px; min-height:250px; border:1px solid blue;">
-    <h2>Historial de vacaciones</h2>
+<div style="float:right; width:350px; min-height:250px; border:0px solid blue;">
+    
     <table id="list">
     </table>
     <div id="pager">
@@ -292,6 +292,7 @@ onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_vacacion.php
         <div id="vacacion" >
 <!--        <h2>GESTIONAR VACACION</h2>-->
 	TRABAJADOR : <span class="red"><?php echo $_REQUEST['name'];?></span>
+    <div class="ocultar">
         <hr>
         <p>
             <span>Agregar otra fechas?</span>
@@ -299,12 +300,13 @@ onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_vacacion.php
             Si
             <input type ="radio" name="addVacacion" value="0" checked/>No
 
-            <input type="button" class="button" value="NEXT" style="cursor: pointer;"
+            <input type="button" class="button" value="NEXT" style="cursor: pointer;" disabled="disabled"
             onclick="createVacacion(this)"/>
         </p><!-- new vehicle -->
         <hr>
+    </div>
 
-        <ul row = 'vacacion-1' class='lista'>
+        <ul row = 'vacacion-1' class='listaCLASS'>
             <h2>1</h2>
             <!--<div class='close'>X</div>-->
             <li>
@@ -325,7 +327,7 @@ onclick="javascript:cargar_pagina('sunat_planilla/view-empresa/view_vacacion.php
         <input type='button' value='Enviar Datos'  onclick="validarFechaVacacion(event,this)" /><!-- onclick='formValid()' -->
 
     </form>
-    <div id='info'>info</div><!-- info -->
+    <div id='info'></div><!-- info -->
 </div><!--- quote -->
 
         

@@ -166,24 +166,21 @@ class EstructuraAfpDao extends AbstractDao{
      public function codigoMovimiento_5($id_pdeclaracion, $codcubodin=null){
         $afp = 0;
         $afp = ($codcubodin == null) ? '21,22,23,24' : $codcubodin;         
-         
+         // 23 = vacacion
         $query = "  
         SELECT 
         tpd.id_trabajador_pdeclaracion,
         tpd.id_pdeclaracion,
-        tpd.id_trabajador,
-        dns.cantidad_dia
-
+        tpd.id_trabajador,	
+        dns.cantidad_dia       
+        
         FROM trabajadores_pdeclaraciones AS tpd
-        INNER JOIN dias_nosubsidiados AS dns
+        LEFT JOIN dias_nosubsidiados AS dns        
         ON tpd.id_trabajador_pdeclaracion = dns.id_trabajador_pdeclaracion
-
-        INNER JOIN vacaciones AS v
-        ON tpd.id_trabajador = v.id_trabajador
-
+	
         WHERE tpd.id_pdeclaracion = ?
         AND tpd.cod_regimen_pensionario IN($afp)
-        AND dns.cod_tipo_suspen_relacion_laboral =23
+        AND dns.cod_tipo_suspen_relacion_laboral =23;
 ";
         $stm = $this->pdo->prepare($query);
         $stm->bindValue(1, $id_pdeclaracion);

@@ -2,23 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
+<!-- new -->
 <link rel="stylesheet" type="text/css" href="../../../css/main.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/smoothness/jquery-ui-1.8.9.custom.css">
+<link rel="stylesheet" type="text/css" href="../../../css/ui.jqgrid.css" media="screen"/>
 
-<link rel="stylesheet" type="text/css" href="../../../anb_themes/base/jquery.ui.all.css">
-<link rel="stylesheet" type="text/css" href="../../../anb_css/ui.jqgrid.css" media="screen" />
 
-<script language="javascript" type="text/javascript" src="../../../js/jquery.js"></script>
-<script src="../../../anb_ui/i18n/jquery.ui.datepicker-es.js"></script>
-<script src="../../../anb_ui/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
+<!-- JS-->
+<script language="javascript" type="text/javascript" src="../../../js/jquery-1.7_min.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/jquery-ui-1.8.9.custom.min.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/function.js"></script>
 
-<script src="../../../anb_js/grid.locale-es.js" type="text/javascript"></script>
-<script src="../../../anb_js/jquery.jqGrid.min.js" type="text/javascript"></script>
-<script src="../../../anb_js/jquery.jqGrid.src.js" type="text/javascript"></script>
-<script src="../../../anb_js/src/grid.subgrid.js" type="text/javascript"></script>
 
-<!-- <script src="anb_js/src/grid.common.js" type="text/javascript"></script>
-<script src="anb_js/src/grid.postext.js" type="text/javascript"></script>
--->
+<script language="javascript" type="text/javascript" src="../../../js/grid.locale-es.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/jquery.jqGrid.min.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/jquery.jqGrid.src.js"></script>
+<script language="javascript" type="text/javascript" src="../../../js/src/grid.subgrid.js"></script>
+
 
 <!-- -->
 <script src="../../view/js/misfunciones_sunat.js" type="text/javascript"></script>
@@ -34,78 +34,77 @@
     $(document).ready(function(){
                   
         //$( "#tabs").tabs();
-		cargarTablaGridTrabajador();
+		//cargarTablaGridTrabajador();
+        cargarTablaOcupacionTrabajador();
 		
 	});
+
+
+//-------------------------------------------------
+function buscarCodigoDeInputaComboModal(){ // view/modal/usado ocupacion.php
+    
+    var obj =document.form_trabajador.txt_ocupacion_codigo;    
+    
+    var aguja = obj.value;  
+    var eCombo = document.form_trabajador.cboOcupacion;
+    var counteo = eCombo.options.length;
+    
+    var encontro = false
+    
+    for(i=0;i<counteo;i++){
+        if(aguja == eCombo.options[i].value){           
+            eCombo.options[i].selected = true;
+            encontro = true;
+            break;
+        }           
+    }//end for  
+    if(encontro==false){
+        eCombo.options[0].selected = true;
+        obj.value="";
+    }
+}//ENDFN
+//--------------------------------------------------
 		
 
 function cargarTablaOcupacionTrabajador(cod_estado){
 		
 		var arg = (typeof cod_estado == 'undefined') ? 0 : cod_estado;
+        var codigo = "<?php echo $_REQUEST['cbo_categoria_ocupacional'];?>";
+        console.log(codigo);
 	
         //$("#list").jqGrid('GridUnload');
         $("#list").jqGrid({
-            url:'../../controller/PrestamoController.php?oper=cargar_tabla_trabajador&estado='+arg,
+            url:'../../controller/OcupacionController.php?oper=cargar_tabla&estado='+arg+'&cbo_categoria_ocupacional='+codigo,
             datatype: 'json',
-            colNames:['id','tipo','Numero Doc','Paterno',
-                'Materno','Nombres','Opciones'],
+            colNames:['Codigo','descripcion','Opciones'],
             colModel :[
                 {
-                    name:'id_trabajador',
+                    name:'cod_ocupacion_p',
                     key : true, 
                     editable:false, 
-                    index:'id_trabajador',
-                    search:false,
-                    width:20,
-                    align:'center',
-					hidden:true
+                    index:'cod_ocupacion_p',
+                    search:true,
+                    width:70,
+                    align:'left',
+					hidden:false
                 },		
                 {
-                    name:'nombre_tipo_documento',
-                    index:'nombre_tipo_documento',
-                    search:false, 
+                    name:'descripcion',
+                    index:'descripcion',
+                    search:true, 
                     editable:false,
-                    width:50, 
-                    align:'center'
+                    width:300, 
+                    align:'left'
                 },
-                {
-                    name:'num_documento', 
-                    index:'num_documento',
-                    editable:false,
-                    width:70,
-                    align:'center'
-                },            
-                
-                {
-                    name:'apellido_paterno', 
-                    index:'apellido_paterno',
-                    editable:false,
-                    width:80,
-                    align:'center'
-                 
-                },
-                {
-                    name:'apellido_materno', 
-                    index:'apellido_materno',
-                    editable:false,
-                    width:80,
-                    align:'center',
-                },
-                
-                {
-                    name:'nombres', 
-                    index:'nombres',
-                    editable:true,
-                    width:80,
-                    align:'center'
-                },
+
                 {
                     name:'opciones',
                     index:'opciones',
                     search:false,
                     editable:false,
-                    width:100, 
-                    align:'center'
+                    sortable:false,
+                    width:110, 
+                    align:'left'
                 }							
 
 		
@@ -114,8 +113,8 @@ function cargarTablaOcupacionTrabajador(cod_estado){
             //rownumbers: true,
             //autowidth: true,
             rowNum:10,
-            rowList:[10,20,30],
-            sortname: 'id_trabajador',
+            rowList:[10,20],
+            sortname: 'cod_ocupacion_p',
             sortorder: 'asc',
             viewrecords: true,
             /*gridview: true,*/

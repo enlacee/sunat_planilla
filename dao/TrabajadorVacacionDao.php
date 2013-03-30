@@ -141,6 +141,22 @@ class TrabajadorVacacionDao extends AbstractDao {
         return $lista[0]['id_trabajador_vacacion'];
     }
 
+    // new function usado en reporte afp
+    function buscarAttr($id_trabajador_vacacion,$attributo){
+        $query ="
+        SELECT 
+        $attributo
+        FROM trabajadores_vacaciones
+        WHERE id_trabajador_vacacion = ?;         
+        ";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_trabajador_vacacion);        
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        $stm = null;
+        return $lista[0][$attributo];        
+        
+    }
     // unico registro pero posible 2 a mas en el mismo mes.
     function listarTv($id_pdeclaracion, $id_trabajador) {
         $query = "
@@ -260,8 +276,8 @@ class TrabajadorVacacionDao extends AbstractDao {
         $stm->bindValue(1, $id_pdeclaracion);
         $stm->execute();
 
-        echoo($query);
-        echo "id = " . $id_pdeclaracion;
+        //echoo($query);
+       // echo "id = " . $id_pdeclaracion;
         return true;
     }
     
@@ -321,7 +337,33 @@ class TrabajadorVacacionDao extends AbstractDao {
         
     }
   
-    
+    // reporte planilla 'vacacion'
+    function listarPlanilla($id_pdeclaracion){
+        $query ="
+        SELECT
+          tpdv.id_trabajador_vacacion,          
+          tpdv.id_trabajador,
+          tpdv.dia,
+          p.id_persona,
+          p.apellido_materno,
+          p.apellido_paterno,
+          p.nombres ,
+          p.num_documento
+        FROM trabajadores_vacaciones AS tpdv
+        LEFT JOIN trabajadores AS t
+        ON tpdv.id_trabajador = t.id_trabajador
+        LEFT JOIN personas AS p
+        ON t.id_persona = p.id_persona
+        WHERE tpdv.id_pdeclaracion = ?            
+";
+        $stm = $this->pdo->prepare($query);
+        $stm->bindValue(1, $id_pdeclaracion);
+        $stm->execute();
+        $lista = $stm->fetchAll();
+        return $lista;        
+        
+        
+    }
     
 }
 
